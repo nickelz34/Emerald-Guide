@@ -1,3 +1,7 @@
+LIVE SITE IS IN BETA BUT ITS UP :)
+
+https://nickelz34.github.io/Emerald-Guide/
+
 # Emerald Guide
 
 A local web app that helps you play through Pokémon Emerald. Open it in your browser while you play the game on a GBA, emulator, or cartridge — it tells you what to do next, shows you annotated maps of each area, and lets you look up any Pokémon's wild locations, stats, and evolutions.
