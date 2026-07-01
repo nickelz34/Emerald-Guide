@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { NavKey } from "../App";
 import type { LayoutViewMode } from "../hooks/useViewMode";
 import { CATEGORY_DESCRIPTIONS, CATEGORY_LABELS } from "../types";
@@ -19,6 +20,15 @@ const NAV_META: Record<NavKey, { label: string; hint: string }> = {
   map: { label: "Hoenn Map", hint: "Jump to any region" },
 };
 
+const SHORT_LABELS: Record<NavKey, string> = {
+  walkthrough: "Story",
+  encounters: "Pokédex",
+  secrets: "Secrets",
+  legendaries: "Legends",
+  tips: "Tips",
+  map: "Map",
+};
+
 const GROUPS: { title: string; keys: NavKey[] }[] = [
   { title: "Playthrough", keys: ["walkthrough", "encounters"] },
   { title: "Reference", keys: ["secrets", "legendaries", "tips", "map"] },
@@ -36,20 +46,27 @@ export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: Sideba
 
       <nav className="sidebar__nav" aria-label="Main navigation">
         {GROUPS.map((group, groupIndex) => (
-          <div key={group.title} className="sidebar__group">
+          <Fragment key={group.title}>
             {groupIndex > 0 && <span className="sidebar__divider" aria-hidden="true" />}
-            {group.keys.map((key) => (
-              <button
-                key={key}
-                type="button"
-                className={`sidebar__link ${active === key ? "sidebar__link--active" : ""}`}
-                onClick={() => onSelect(key)}
-                title={NAV_META[key].hint}
-              >
-                <span className="sidebar__link-label">{NAV_META[key].label}</span>
-              </button>
-            ))}
-          </div>
+            <div className="sidebar__group">
+              <p className="sidebar__group-title">{group.title}</p>
+              <div className="sidebar__group-links">
+                {group.keys.map((key) => (
+                  <button
+                    key={key}
+                    type="button"
+                    className={`sidebar__link ${active === key ? "sidebar__link--active" : ""}`}
+                    onClick={() => onSelect(key)}
+                    title={NAV_META[key].hint}
+                  >
+                    <span className="sidebar__link-label">
+                      {viewMode === "mobile" ? SHORT_LABELS[key] : NAV_META[key].label}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </Fragment>
         ))}
       </nav>
 
