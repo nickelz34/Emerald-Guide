@@ -10,6 +10,7 @@ import { useViewMode } from "./hooks/useViewMode";
 import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
 import "./App.css";
+import "./navbar-fix.css";
 
 export type NavKey = GuideCategory | "map";
 
