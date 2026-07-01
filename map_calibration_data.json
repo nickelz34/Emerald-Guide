@@ -1,0 +1,3766 @@
+[
+  {
+    "map": "LittlerootTown",
+    "layout_id": "LAYOUT_LITTLEROOT_TOWN",
+    "layout_name": "LittlerootTown_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 17,
+    "inferred_tiles_h": 18,
+    "warps": [
+      {
+        "x": 14,
+        "y": 8,
+        "dest_map": "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 5,
+        "y": 8,
+        "dest_map": "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 7,
+        "y": 16,
+        "dest_map": "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 15,
+        "y": 13,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 17,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 8,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 8,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 3,
+    "sign_count": 4,
+    "trainer_count": 0
+  },
+  {
+    "map": "OldaleTown",
+    "layout_id": "LAYOUT_OLDALE_TOWN",
+    "layout_name": "OldaleTown_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 17,
+    "inferred_tiles_h": 20,
+    "warps": [
+      {
+        "x": 5,
+        "y": 7,
+        "dest_map": "MAP_OLDALE_TOWN_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 15,
+        "y": 16,
+        "dest_map": "MAP_OLDALE_TOWN_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 6,
+        "y": 16,
+        "dest_map": "MAP_OLDALE_TOWN_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 14,
+        "y": 6,
+        "dest_map": "MAP_OLDALE_TOWN_MART",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 11,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 15,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 8,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 6,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 4,
+    "sign_count": 5,
+    "trainer_count": 0
+  },
+  {
+    "map": "Route101",
+    "layout_id": "LAYOUT_ROUTE101",
+    "layout_name": "Route101_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 17,
+    "inferred_tiles_h": 20,
+    "warps": [],
+    "signs": [
+      {
+        "x": 5,
+        "y": 9,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 0,
+    "sign_count": 1,
+    "trainer_count": 0
+  },
+  {
+    "map": "Route102",
+    "layout_id": "LAYOUT_ROUTE102",
+    "layout_name": "Route102_Layout",
+    "tiles_w": 50,
+    "tiles_h": 20,
+    "img_w": 800,
+    "img_h": 320,
+    "inferred_tiles_w": 41,
+    "inferred_tiles_h": 16,
+    "warps": [],
+    "signs": [
+      {
+        "x": 17,
+        "y": 2,
+        "bg_id": ""
+      },
+      {
+        "x": 40,
+        "y": 9,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 33,
+        "y": 14,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 25,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 8,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 19,
+        "y": 4,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      }
+    ],
+    "warp_count": 0,
+    "sign_count": 2,
+    "trainer_count": 4
+  },
+  {
+    "map": "Route103",
+    "layout_id": "LAYOUT_ROUTE103",
+    "layout_name": "Route103_Layout",
+    "tiles_w": 80,
+    "tiles_h": 22,
+    "img_w": 1280,
+    "img_h": 352,
+    "inferred_tiles_w": 73,
+    "inferred_tiles_h": 14,
+    "warps": [
+      {
+        "x": 45,
+        "y": 6,
+        "dest_map": "MAP_ALTERING_CAVE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 11,
+        "y": 9,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 71,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 65,
+        "y": 12,
+        "graphics_id": "OBJ_EVENT_GFX_TWIN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 64,
+        "y": 12,
+        "graphics_id": "OBJ_EVENT_GFX_TWIN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 50,
+        "y": 8,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 56,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_POKEFAN_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 67,
+        "y": 5,
+        "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 67,
+        "y": 9,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 36,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 36,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      }
+    ],
+    "warp_count": 1,
+    "sign_count": 1,
+    "trainer_count": 9
+  },
+  {
+    "map": "Route104",
+    "layout_id": "LAYOUT_ROUTE104",
+    "layout_name": "Route104_Layout",
+    "tiles_w": 40,
+    "tiles_h": 80,
+    "img_w": 640,
+    "img_h": 1280,
+    "inferred_tiles_w": 40,
+    "inferred_tiles_h": 75,
+    "warps": [
+      {
+        "x": 17,
+        "y": 50,
+        "dest_map": "MAP_ROUTE104_MR_BRINEYS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 5,
+        "y": 18,
+        "dest_map": "MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 10,
+        "y": 30,
+        "dest_map": "MAP_PETALBURG_WOODS",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 11,
+        "y": 30,
+        "dest_map": "MAP_PETALBURG_WOODS",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 10,
+        "y": 38,
+        "dest_map": "MAP_PETALBURG_WOODS",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 11,
+        "y": 38,
+        "dest_map": "MAP_PETALBURG_WOODS",
+        "dest_warp_id": "3"
+      },
+      {
+        "x": 32,
+        "y": 42,
+        "dest_map": "MAP_PETALBURG_WOODS",
+        "dest_warp_id": "4"
+      },
+      {
+        "x": 33,
+        "y": 42,
+        "dest_map": "MAP_PETALBURG_WOODS",
+        "dest_warp_id": "5"
+      }
+    ],
+    "signs": [
+      {
+        "x": 20,
+        "y": 50,
+        "bg_id": ""
+      },
+      {
+        "x": 27,
+        "y": 66,
+        "bg_id": ""
+      },
+      {
+        "x": 23,
+        "y": 5,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 20,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 23,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 31,
+        "y": 24,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "7"
+      },
+      {
+        "x": 29,
+        "y": 8,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "0"
+      },
+      {
+        "x": 27,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_TWIN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 28,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_TWIN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 21,
+        "y": 25,
+        "graphics_id": "OBJ_EVENT_GFX_RICH_BOY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 11,
+        "y": 44,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 18,
+        "y": 67,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 15,
+        "y": 59,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "0"
+      }
+    ],
+    "warp_count": 8,
+    "sign_count": 5,
+    "trainer_count": 8
+  },
+  {
+    "map": "Route105",
+    "layout_id": "LAYOUT_ROUTE105",
+    "layout_name": "Route105_Layout",
+    "tiles_w": 40,
+    "tiles_h": 80,
+    "img_w": 640,
+    "img_h": 1280,
+    "inferred_tiles_w": 28,
+    "inferred_tiles_h": 74,
+    "warps": [
+      {
+        "x": 9,
+        "y": 20,
+        "dest_map": "MAP_ISLAND_CAVE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [],
+    "trainers": [
+      {
+        "x": 19,
+        "y": 60,
+        "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      },
+      {
+        "x": 27,
+        "y": 36,
+        "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 8,
+        "y": 45,
+        "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 19,
+        "y": 9,
+        "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 17,
+        "y": 48,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 4,
+        "y": 54,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 4,
+        "y": 58,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      }
+    ],
+    "warp_count": 1,
+    "sign_count": 0,
+    "trainer_count": 7
+  },
+  {
+    "map": "Route110",
+    "layout_id": "LAYOUT_ROUTE110",
+    "layout_name": "Route110_Layout",
+    "tiles_w": 40,
+    "tiles_h": 100,
+    "img_w": 640,
+    "img_h": 1600,
+    "inferred_tiles_w": 38,
+    "inferred_tiles_h": 95,
+    "warps": [
+      {
+        "x": 35,
+        "y": 24,
+        "dest_map": "MAP_NEW_MAUVILLE_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 11,
+        "y": 66,
+        "dest_map": "MAP_ROUTE110_TRICK_HOUSE_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 15,
+        "y": 16,
+        "dest_map": "MAP_ROUTE110_SEASIDE_CYCLING_ROAD_NORTH_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 18,
+        "y": 16,
+        "dest_map": "MAP_ROUTE110_SEASIDE_CYCLING_ROAD_NORTH_ENTRANCE",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 16,
+        "y": 88,
+        "dest_map": "MAP_ROUTE110_SEASIDE_CYCLING_ROAD_SOUTH_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 19,
+        "y": 88,
+        "dest_map": "MAP_ROUTE110_SEASIDE_CYCLING_ROAD_SOUTH_ENTRANCE",
+        "dest_warp_id": "2"
+      }
+    ],
+    "signs": [
+      {
+        "x": 15,
+        "y": 25,
+        "bg_id": ""
+      },
+      {
+        "x": 9,
+        "y": 51,
+        "bg_id": ""
+      },
+      {
+        "x": 14,
+        "y": 88,
+        "bg_id": ""
+      },
+      {
+        "x": 20,
+        "y": 94,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 79,
+        "bg_id": ""
+      },
+      {
+        "x": 3,
+        "y": 17,
+        "bg_id": ""
+      },
+      {
+        "x": 33,
+        "y": 39,
+        "bg_id": ""
+      },
+      {
+        "x": 37,
+        "y": 70,
+        "bg_id": ""
+      },
+      {
+        "x": 8,
+        "y": 67,
+        "bg_id": ""
+      },
+      {
+        "x": 32,
+        "y": 93,
+        "bg_id": ""
+      },
+      {
+        "x": 13,
+        "y": 16,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 16,
+        "y": 73,
+        "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 19,
+        "y": 31,
+        "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 30,
+        "y": 31,
+        "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 16,
+        "y": 55,
+        "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 3,
+        "y": 39,
+        "graphics_id": "OBJ_EVENT_GFX_PSYCHIC_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      },
+      {
+        "x": 33,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 34,
+        "y": 40,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 10,
+        "y": 19,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 21,
+        "y": 78,
+        "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 33,
+        "y": 69,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 10,
+        "y": 76,
+        "graphics_id": "OBJ_EVENT_GFX_POKEFAN_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 7,
+        "y": 76,
+        "graphics_id": "OBJ_EVENT_GFX_POKEFAN_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 10,
+        "y": 39,
+        "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      },
+      {
+        "x": 36,
+        "y": 40,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      }
+    ],
+    "warp_count": 6,
+    "sign_count": 11,
+    "trainer_count": 14
+  },
+  {
+    "map": "Route111",
+    "layout_id": "LAYOUT_ROUTE111",
+    "layout_name": "Route111_Layout",
+    "tiles_w": 40,
+    "tiles_h": 140,
+    "img_w": 640,
+    "img_h": 2240,
+    "inferred_tiles_w": 38,
+    "inferred_tiles_h": 133,
+    "warps": [
+      {
+        "x": 13,
+        "y": 113,
+        "dest_map": "MAP_ROUTE111_WINSTRATE_FAMILYS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 29,
+        "y": 87,
+        "dest_map": "MAP_DESERT_RUINS",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 26,
+        "y": 18,
+        "dest_map": "MAP_ROUTE111_OLD_LADYS_REST_STOP",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 19,
+        "y": 58,
+        "dest_map": "MAP_MIRAGE_TOWER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 31,
+        "y": 113,
+        "dest_map": "MAP_TRAINER_HILL_ENTRANCE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 16,
+        "y": 114,
+        "bg_id": ""
+      },
+      {
+        "x": 24,
+        "y": 126,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 66,
+        "bg_id": ""
+      },
+      {
+        "x": 13,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 25,
+        "y": 19,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 84,
+        "bg_id": ""
+      },
+      {
+        "x": 24,
+        "y": 116,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 28,
+        "y": 51,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 29,
+        "y": 37,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 27,
+        "y": 69,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 21,
+        "y": 47,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 32,
+        "y": 66,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 10,
+        "y": 82,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 11,
+        "y": 71,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 32,
+        "y": 29,
+        "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 11,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 9,
+        "y": 27,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 26,
+        "y": 132,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 20,
+        "y": 132,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 19,
+        "y": 121,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 16,
+        "y": 119,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 29,
+        "y": 77,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "7"
+      },
+      {
+        "x": 22,
+        "y": 77,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      },
+      {
+        "x": 37,
+        "y": 77,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "7"
+      }
+    ],
+    "warp_count": 5,
+    "sign_count": 7,
+    "trainer_count": 17
+  },
+  {
+    "map": "Route113",
+    "layout_id": "LAYOUT_ROUTE113",
+    "layout_name": "Route113_Layout",
+    "tiles_w": 100,
+    "tiles_h": 20,
+    "img_w": 1600,
+    "img_h": 320,
+    "inferred_tiles_w": 95,
+    "inferred_tiles_h": 16,
+    "warps": [
+      {
+        "x": 33,
+        "y": 5,
+        "dest_map": "MAP_ROUTE113_GLASS_WORKSHOP",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 41,
+        "y": 12,
+        "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 88,
+        "y": 5,
+        "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 85,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 58,
+        "y": 4,
+        "bg_id": ""
+      },
+      {
+        "x": 31,
+        "y": 5,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 62,
+        "y": 8,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 21,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 51,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 29,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_BURIED",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 71,
+        "y": 2,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_BURIED",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 45,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_TWIN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 46,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_TWIN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 75,
+        "y": 3,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 71,
+        "y": 4,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 7,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      },
+      {
+        "x": 7,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      }
+    ],
+    "warp_count": 3,
+    "sign_count": 4,
+    "trainer_count": 11
+  },
+  {
+    "map": "Route116",
+    "layout_id": "LAYOUT_ROUTE116",
+    "layout_name": "Route116_Layout",
+    "tiles_w": 100,
+    "tiles_h": 20,
+    "img_w": 1600,
+    "img_h": 320,
+    "inferred_tiles_w": 81,
+    "inferred_tiles_h": 18,
+    "warps": [
+      {
+        "x": 47,
+        "y": 8,
+        "dest_map": "MAP_RUSTURF_TUNNEL",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 38,
+        "y": 8,
+        "dest_map": "MAP_ROUTE116_TUNNELERS_REST_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 65,
+        "y": 10,
+        "dest_map": "MAP_RUSTURF_TUNNEL",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 59,
+        "y": 13,
+        "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 79,
+        "y": 6,
+        "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 5,
+        "y": 10,
+        "bg_id": ""
+      },
+      {
+        "x": 48,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 40,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 29,
+        "y": 10,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 12,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 13,
+        "y": 17,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 36,
+        "y": 17,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 26,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 22,
+        "y": 16,
+        "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 28,
+        "y": 8,
+        "graphics_id": "OBJ_EVENT_GFX_SCHOOL_KID_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 33,
+        "y": 8,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 33,
+        "y": 5,
+        "graphics_id": "OBJ_EVENT_GFX_BOY_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 36,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 42,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      }
+    ],
+    "warp_count": 5,
+    "sign_count": 5,
+    "trainer_count": 10
+  },
+  {
+    "map": "Route117",
+    "layout_id": "LAYOUT_ROUTE117",
+    "layout_name": "Route117_Layout",
+    "tiles_w": 60,
+    "tiles_h": 20,
+    "img_w": 960,
+    "img_h": 320,
+    "inferred_tiles_w": 52,
+    "inferred_tiles_h": 19,
+    "warps": [
+      {
+        "x": 51,
+        "y": 5,
+        "dest_map": "MAP_ROUTE117_POKEMON_DAY_CARE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 16,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 49,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 49,
+        "y": 5,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 38,
+        "y": 16,
+        "graphics_id": "OBJ_EVENT_GFX_RUNNING_TRIATHLETE_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 8,
+        "y": 10,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 33,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 26,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_RUNNING_TRIATHLETE_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 17,
+        "y": 12,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 43,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 42,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 15,
+        "y": 4,
+        "graphics_id": "OBJ_EVENT_GFX_LASS",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 21,
+        "y": 4,
+        "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 16,
+        "y": 4,
+        "graphics_id": "OBJ_EVENT_GFX_RUNNING_TRIATHLETE_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      }
+    ],
+    "warp_count": 1,
+    "sign_count": 3,
+    "trainer_count": 10
+  },
+  {
+    "map": "Route118",
+    "layout_id": "LAYOUT_ROUTE118",
+    "layout_name": "Route118_Layout",
+    "tiles_w": 80,
+    "tiles_h": 20,
+    "img_w": 1280,
+    "img_h": 320,
+    "inferred_tiles_w": 70,
+    "inferred_tiles_h": 16,
+    "warps": [
+      {
+        "x": 42,
+        "y": 6,
+        "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 6,
+        "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 13,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 56,
+        "y": 8,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 64,
+        "y": 10,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 7,
+        "y": 12,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 14,
+        "y": 14,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "0"
+      },
+      {
+        "x": 56,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 39,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 17,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 7,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      }
+    ],
+    "warp_count": 2,
+    "sign_count": 2,
+    "trainer_count": 7
+  },
+  {
+    "map": "Route119",
+    "layout_id": "LAYOUT_ROUTE119",
+    "layout_name": "Route119_Layout",
+    "tiles_w": 40,
+    "tiles_h": 140,
+    "img_w": 640,
+    "img_h": 2240,
+    "inferred_tiles_w": 37,
+    "inferred_tiles_h": 138,
+    "warps": [
+      {
+        "x": 6,
+        "y": 32,
+        "dest_map": "MAP_ROUTE119_WEATHER_INSTITUTE_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 33,
+        "y": 109,
+        "dest_map": "MAP_ROUTE119_HOUSE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 9,
+        "y": 33,
+        "bg_id": ""
+      },
+      {
+        "x": 27,
+        "y": 19,
+        "bg_id": ""
+      },
+      {
+        "x": 28,
+        "y": 9,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 12,
+        "y": 123,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 26,
+        "y": 123,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 5,
+        "y": 125,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 7,
+        "y": 74,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 28,
+        "y": 116,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 35,
+        "y": 83,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 34,
+        "y": 122,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 17,
+        "y": 128,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 28,
+        "y": 14,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "1"
+      },
+      {
+        "x": 19,
+        "y": 49,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 10,
+        "y": 50,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 8,
+        "y": 63,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 29,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 13,
+        "y": 104,
+        "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "0"
+      },
+      {
+        "x": 8,
+        "y": 68,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "5"
+      },
+      {
+        "x": 16,
+        "y": 52,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 32,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      }
+    ],
+    "warp_count": 2,
+    "sign_count": 3,
+    "trainer_count": 17
+  },
+  {
+    "map": "Route120",
+    "layout_id": "LAYOUT_ROUTE120",
+    "layout_name": "Route120_Layout",
+    "tiles_w": 40,
+    "tiles_h": 100,
+    "img_w": 640,
+    "img_h": 1600,
+    "inferred_tiles_w": 39,
+    "inferred_tiles_h": 93,
+    "warps": [
+      {
+        "x": 7,
+        "y": 55,
+        "dest_map": "MAP_ANCIENT_TOMB",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 19,
+        "y": 23,
+        "dest_map": "MAP_SCORCHED_SLAB",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 27,
+        "y": 3,
+        "bg_id": ""
+      },
+      {
+        "x": 38,
+        "y": 88,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 5,
+        "y": 22,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 32,
+        "y": 14,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 27,
+        "y": 51,
+        "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "7"
+      },
+      {
+        "x": 36,
+        "y": 45,
+        "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 19,
+        "y": 80,
+        "graphics_id": "OBJ_EVENT_GFX_MANIAC",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 31,
+        "y": 37,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 9,
+        "y": 60,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 16,
+        "y": 6,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 18,
+        "y": 34,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 10,
+        "y": 72,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 19,
+        "y": 28,
+        "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 19,
+        "y": 32,
+        "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 14,
+        "y": 34,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      }
+    ],
+    "warp_count": 2,
+    "sign_count": 2,
+    "trainer_count": 13
+  },
+  {
+    "map": "PetalburgCity",
+    "layout_id": "LAYOUT_PETALBURG_CITY",
+    "layout_name": "PetalburgCity_Layout",
+    "tiles_w": 30,
+    "tiles_h": 30,
+    "img_w": 480,
+    "img_h": 480,
+    "inferred_tiles_w": 28,
+    "inferred_tiles_h": 29,
+    "warps": [
+      {
+        "x": 10,
+        "y": 19,
+        "dest_map": "MAP_PETALBURG_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 7,
+        "y": 5,
+        "dest_map": "MAP_PETALBURG_CITY_WALLYS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 15,
+        "y": 8,
+        "dest_map": "MAP_PETALBURG_CITY_GYM",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 20,
+        "y": 16,
+        "dest_map": "MAP_PETALBURG_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 20,
+        "y": 24,
+        "dest_map": "MAP_PETALBURG_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 25,
+        "y": 12,
+        "dest_map": "MAP_PETALBURG_CITY_MART",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 17,
+        "y": 10,
+        "bg_id": ""
+      },
+      {
+        "x": 26,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 21,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 22,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 27,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 8,
+        "y": 9,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 6,
+    "sign_count": 7,
+    "trainer_count": 0
+  },
+  {
+    "map": "PetalburgWoods",
+    "layout_id": "LAYOUT_PETALBURG_WOODS",
+    "layout_name": "PetalburgWoods_Layout",
+    "tiles_w": 48,
+    "tiles_h": 44,
+    "img_w": 768,
+    "img_h": 704,
+    "inferred_tiles_w": 46,
+    "inferred_tiles_h": 39,
+    "warps": [
+      {
+        "x": 14,
+        "y": 5,
+        "dest_map": "MAP_ROUTE104",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 15,
+        "y": 5,
+        "dest_map": "MAP_ROUTE104",
+        "dest_warp_id": "3"
+      },
+      {
+        "x": 16,
+        "y": 38,
+        "dest_map": "MAP_ROUTE104",
+        "dest_warp_id": "4"
+      },
+      {
+        "x": 17,
+        "y": 38,
+        "dest_map": "MAP_ROUTE104",
+        "dest_warp_id": "5"
+      },
+      {
+        "x": 36,
+        "y": 38,
+        "dest_map": "MAP_ROUTE104",
+        "dest_warp_id": "6"
+      },
+      {
+        "x": 37,
+        "y": 38,
+        "dest_map": "MAP_ROUTE104",
+        "dest_warp_id": "7"
+      }
+    ],
+    "signs": [
+      {
+        "x": 14,
+        "y": 32,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 8,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 7,
+        "y": 32,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 4,
+        "y": 14,
+        "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      }
+    ],
+    "warp_count": 6,
+    "sign_count": 2,
+    "trainer_count": 2
+  },
+  {
+    "map": "RustboroCity",
+    "layout_id": "LAYOUT_RUSTBORO_CITY",
+    "layout_name": "RustboroCity_Layout",
+    "tiles_w": 40,
+    "tiles_h": 60,
+    "img_w": 640,
+    "img_h": 960,
+    "inferred_tiles_w": 37,
+    "inferred_tiles_h": 54,
+    "warps": [
+      {
+        "x": 27,
+        "y": 19,
+        "dest_map": "MAP_RUSTBORO_CITY_GYM",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 13,
+        "y": 30,
+        "dest_map": "MAP_RUSTBORO_CITY_FLAT1_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 16,
+        "y": 45,
+        "dest_map": "MAP_RUSTBORO_CITY_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 16,
+        "y": 38,
+        "dest_map": "MAP_RUSTBORO_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 27,
+        "y": 34,
+        "dest_map": "MAP_RUSTBORO_CITY_POKEMON_SCHOOL",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 11,
+        "y": 15,
+        "dest_map": "MAP_RUSTBORO_CITY_DEVON_CORP_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 12,
+        "y": 15,
+        "dest_map": "MAP_RUSTBORO_CITY_DEVON_CORP_1F",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 33,
+        "y": 19,
+        "dest_map": "MAP_RUSTBORO_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 38,
+        "dest_map": "MAP_RUSTBORO_CITY_CUTTERS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 30,
+        "y": 28,
+        "dest_map": "MAP_RUSTBORO_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 5,
+        "y": 51,
+        "dest_map": "MAP_RUSTBORO_CITY_FLAT2_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 26,
+        "y": 46,
+        "dest_map": "MAP_RUSTBORO_CITY_HOUSE3",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 23,
+        "y": 19,
+        "bg_id": ""
+      },
+      {
+        "x": 25,
+        "y": 35,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 45,
+        "bg_id": ""
+      },
+      {
+        "x": 18,
+        "y": 38,
+        "bg_id": ""
+      },
+      {
+        "x": 19,
+        "y": 49,
+        "bg_id": ""
+      },
+      {
+        "x": 18,
+        "y": 45,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 38,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 20,
+        "bg_id": ""
+      },
+      {
+        "x": 30,
+        "y": 8,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 38,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 12,
+    "sign_count": 10,
+    "trainer_count": 0
+  },
+  {
+    "map": "RusturfTunnel",
+    "layout_id": "LAYOUT_RUSTURF_TUNNEL",
+    "layout_name": "RusturfTunnel_Layout",
+    "tiles_w": 36,
+    "tiles_h": 24,
+    "img_w": 576,
+    "img_h": 384,
+    "inferred_tiles_w": 33,
+    "inferred_tiles_h": 21,
+    "warps": [
+      {
+        "x": 4,
+        "y": 10,
+        "dest_map": "MAP_ROUTE116",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 29,
+        "y": 16,
+        "dest_map": "MAP_VERDANTURF_TOWN",
+        "dest_warp_id": "4"
+      },
+      {
+        "x": 18,
+        "y": 20,
+        "dest_map": "MAP_ROUTE116",
+        "dest_warp_id": "2"
+      }
+    ],
+    "signs": [],
+    "trainers": [
+      {
+        "x": 32,
+        "y": 13,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      }
+    ],
+    "warp_count": 3,
+    "sign_count": 0,
+    "trainer_count": 1
+  },
+  {
+    "map": "DewfordTown",
+    "layout_id": "LAYOUT_DEWFORD_TOWN",
+    "layout_name": "DewfordTown_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 18,
+    "inferred_tiles_h": 18,
+    "warps": [
+      {
+        "x": 3,
+        "y": 3,
+        "dest_map": "MAP_DEWFORD_TOWN_HALL",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 2,
+        "y": 10,
+        "dest_map": "MAP_DEWFORD_TOWN_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 8,
+        "y": 17,
+        "dest_map": "MAP_DEWFORD_TOWN_GYM",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 17,
+        "y": 14,
+        "dest_map": "MAP_DEWFORD_TOWN_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 8,
+        "y": 8,
+        "dest_map": "MAP_DEWFORD_TOWN_HOUSE2",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 10,
+        "y": 10,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 4,
+        "y": 10,
+        "bg_id": ""
+      },
+      {
+        "x": 3,
+        "y": 10,
+        "bg_id": ""
+      },
+      {
+        "x": 2,
+        "y": 4,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 5,
+    "sign_count": 5,
+    "trainer_count": 0
+  },
+  {
+    "map": "SlateportCity",
+    "layout_id": "LAYOUT_SLATEPORT_CITY",
+    "layout_name": "SlateportCity_Layout",
+    "tiles_w": 40,
+    "tiles_h": 60,
+    "img_w": 640,
+    "img_h": 960,
+    "inferred_tiles_w": 41,
+    "inferred_tiles_h": 52,
+    "warps": [
+      {
+        "x": 19,
+        "y": 19,
+        "dest_map": "MAP_SLATEPORT_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 13,
+        "y": 26,
+        "dest_map": "MAP_SLATEPORT_CITY_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 26,
+        "y": 38,
+        "dest_map": "MAP_SLATEPORT_CITY_STERNS_SHIPYARD_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 10,
+        "y": 12,
+        "dest_map": "MAP_SLATEPORT_CITY_BATTLE_TENT_LOBBY",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 4,
+        "y": 26,
+        "dest_map": "MAP_SLATEPORT_CITY_POKEMON_FAN_CLUB",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 30,
+        "y": 26,
+        "dest_map": "MAP_SLATEPORT_CITY_OCEANIC_MUSEUM_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 5,
+        "y": 19,
+        "dest_map": "MAP_SLATEPORT_CITY_NAME_RATERS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 31,
+        "y": 26,
+        "dest_map": "MAP_SLATEPORT_CITY_OCEANIC_MUSEUM_1F",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 28,
+        "y": 12,
+        "dest_map": "MAP_SLATEPORT_CITY_HARBOR",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 40,
+        "y": 7,
+        "dest_map": "MAP_SLATEPORT_CITY_HARBOR",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 21,
+        "y": 44,
+        "dest_map": "MAP_SLATEPORT_CITY_HOUSE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 8,
+        "y": 19,
+        "bg_id": ""
+      },
+      {
+        "x": 20,
+        "y": 19,
+        "bg_id": ""
+      },
+      {
+        "x": 21,
+        "y": 19,
+        "bg_id": ""
+      },
+      {
+        "x": 14,
+        "y": 26,
+        "bg_id": ""
+      },
+      {
+        "x": 24,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 15,
+        "y": 26,
+        "bg_id": ""
+      },
+      {
+        "x": 14,
+        "y": 51,
+        "bg_id": ""
+      },
+      {
+        "x": 26,
+        "y": 26,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 22,
+        "bg_id": ""
+      },
+      {
+        "x": 8,
+        "y": 26,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 13,
+        "bg_id": ""
+      },
+      {
+        "x": 23,
+        "y": 38,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 36,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 11,
+    "sign_count": 13,
+    "trainer_count": 0
+  },
+  {
+    "map": "MauvilleCity",
+    "layout_id": "LAYOUT_MAUVILLE_CITY",
+    "layout_name": "MauvilleCity_Layout",
+    "tiles_w": 40,
+    "tiles_h": 20,
+    "img_w": 640,
+    "img_h": 320,
+    "inferred_tiles_w": 36,
+    "inferred_tiles_h": 20,
+    "warps": [
+      {
+        "x": 8,
+        "y": 5,
+        "dest_map": "MAP_MAUVILLE_CITY_GYM",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 22,
+        "y": 5,
+        "dest_map": "MAP_MAUVILLE_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 35,
+        "y": 5,
+        "dest_map": "MAP_MAUVILLE_CITY_BIKE_SHOP",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 23,
+        "y": 14,
+        "dest_map": "MAP_MAUVILLE_CITY_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 32,
+        "y": 14,
+        "dest_map": "MAP_MAUVILLE_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 8,
+        "y": 13,
+        "dest_map": "MAP_MAUVILLE_CITY_GAME_CORNER",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 19,
+        "y": 14,
+        "dest_map": "MAP_MAUVILLE_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 23,
+        "y": 5,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 24,
+        "y": 14,
+        "bg_id": ""
+      },
+      {
+        "x": 25,
+        "y": 14,
+        "bg_id": ""
+      },
+      {
+        "x": 24,
+        "y": 5,
+        "bg_id": ""
+      },
+      {
+        "x": 19,
+        "y": 7,
+        "bg_id": ""
+      },
+      {
+        "x": 33,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 15,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 7,
+    "sign_count": 8,
+    "trainer_count": 0
+  },
+  {
+    "map": "LavaridgeTown",
+    "layout_id": "LAYOUT_LAVARIDGE_TOWN",
+    "layout_name": "LavaridgeTown_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 18,
+    "inferred_tiles_h": 17,
+    "warps": [
+      {
+        "x": 12,
+        "y": 15,
+        "dest_map": "MAP_LAVARIDGE_TOWN_HERB_SHOP",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 5,
+        "y": 15,
+        "dest_map": "MAP_LAVARIDGE_TOWN_GYM_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 15,
+        "y": 5,
+        "dest_map": "MAP_LAVARIDGE_TOWN_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 6,
+        "dest_map": "MAP_LAVARIDGE_TOWN_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 16,
+        "y": 15,
+        "dest_map": "MAP_LAVARIDGE_TOWN_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 2,
+        "dest_map": "MAP_LAVARIDGE_TOWN_POKEMON_CENTER_1F",
+        "dest_warp_id": "3"
+      }
+    ],
+    "signs": [
+      {
+        "x": 14,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 5,
+        "bg_id": ""
+      },
+      {
+        "x": 13,
+        "y": 8,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 5,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 6,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 6,
+    "sign_count": 7,
+    "trainer_count": 0
+  },
+  {
+    "map": "FallarborTown",
+    "layout_id": "LAYOUT_FALLARBOR_TOWN",
+    "layout_name": "FallarborTown_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 18,
+    "inferred_tiles_h": 18,
+    "warps": [
+      {
+        "x": 15,
+        "y": 15,
+        "dest_map": "MAP_FALLARBOR_TOWN_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 8,
+        "y": 7,
+        "dest_map": "MAP_FALLARBOR_TOWN_BATTLE_TENT_LOBBY",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 14,
+        "y": 7,
+        "dest_map": "MAP_FALLARBOR_TOWN_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 6,
+        "y": 17,
+        "dest_map": "MAP_FALLARBOR_TOWN_COZMOS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 1,
+        "y": 6,
+        "dest_map": "MAP_FALLARBOR_TOWN_MOVE_RELEARNERS_HOUSE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 16,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 15,
+        "y": 7,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 8,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 7,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 11,
+        "bg_id": ""
+      },
+      {
+        "x": 17,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 3,
+        "y": 7,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 5,
+    "sign_count": 7,
+    "trainer_count": 0
+  },
+  {
+    "map": "FortreeCity",
+    "layout_id": "LAYOUT_FORTREE_CITY",
+    "layout_name": "FortreeCity_Layout",
+    "tiles_w": 40,
+    "tiles_h": 20,
+    "img_w": 640,
+    "img_h": 320,
+    "inferred_tiles_w": 38,
+    "inferred_tiles_h": 17,
+    "warps": [
+      {
+        "x": 5,
+        "y": 6,
+        "dest_map": "MAP_FORTREE_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 10,
+        "y": 3,
+        "dest_map": "MAP_FORTREE_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 22,
+        "y": 11,
+        "dest_map": "MAP_FORTREE_CITY_GYM",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 4,
+        "y": 14,
+        "dest_map": "MAP_FORTREE_CITY_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 17,
+        "y": 3,
+        "dest_map": "MAP_FORTREE_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 25,
+        "y": 3,
+        "dest_map": "MAP_FORTREE_CITY_HOUSE3",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 32,
+        "y": 2,
+        "dest_map": "MAP_FORTREE_CITY_HOUSE4",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 12,
+        "y": 13,
+        "dest_map": "MAP_FORTREE_CITY_HOUSE5",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 37,
+        "y": 13,
+        "dest_map": "MAP_FORTREE_CITY_DECORATION_SHOP",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 6,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 5,
+        "y": 14,
+        "bg_id": ""
+      },
+      {
+        "x": 26,
+        "y": 10,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 14,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 9,
+    "sign_count": 6,
+    "trainer_count": 0
+  },
+  {
+    "map": "MossdeepCity",
+    "layout_id": "LAYOUT_MOSSDEEP_CITY",
+    "layout_name": "MossdeepCity_Layout",
+    "tiles_w": 80,
+    "tiles_h": 40,
+    "img_w": 1280,
+    "img_h": 640,
+    "inferred_tiles_w": 68,
+    "inferred_tiles_h": 36,
+    "warps": [
+      {
+        "x": 28,
+        "y": 9,
+        "dest_map": "MAP_MOSSDEEP_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 38,
+        "y": 9,
+        "dest_map": "MAP_MOSSDEEP_CITY_GYM",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 28,
+        "y": 16,
+        "dest_map": "MAP_MOSSDEEP_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 67,
+        "y": 25,
+        "dest_map": "MAP_MOSSDEEP_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 37,
+        "y": 18,
+        "dest_map": "MAP_MOSSDEEP_CITY_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 49,
+        "y": 6,
+        "dest_map": "MAP_MOSSDEEP_CITY_HOUSE3",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 19,
+        "y": 10,
+        "dest_map": "MAP_MOSSDEEP_CITY_STEVENS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 18,
+        "y": 16,
+        "dest_map": "MAP_MOSSDEEP_CITY_HOUSE4",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 64,
+        "y": 15,
+        "dest_map": "MAP_MOSSDEEP_CITY_SPACE_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 36,
+        "y": 24,
+        "dest_map": "MAP_MOSSDEEP_CITY_GAME_CORNER_1F",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 25,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 34,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 29,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 38,
+        "y": 18,
+        "bg_id": ""
+      },
+      {
+        "x": 66,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 30,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 39,
+        "y": 18,
+        "bg_id": ""
+      },
+      {
+        "x": 57,
+        "y": 21,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 10,
+    "sign_count": 8,
+    "trainer_count": 0
+  },
+  {
+    "map": "SootopolisCity",
+    "layout_id": "LAYOUT_SOOTOPOLIS_CITY",
+    "layout_name": "SootopolisCity_Layout",
+    "tiles_w": 60,
+    "tiles_h": 60,
+    "img_w": 960,
+    "img_h": 960,
+    "inferred_tiles_w": 54,
+    "inferred_tiles_h": 45,
+    "warps": [
+      {
+        "x": 43,
+        "y": 31,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 17,
+        "y": 29,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_MART",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 31,
+        "y": 32,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_GYM_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 31,
+        "y": 16,
+        "dest_map": "MAP_CAVE_OF_ORIGIN_ENTRANCE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 6,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 45,
+        "y": 6,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 17,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE3",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 44,
+        "y": 17,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE4",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 9,
+        "y": 26,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE5",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 53,
+        "y": 28,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE6",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 8,
+        "y": 35,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_HOUSE7",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 48,
+        "y": 25,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_LOTAD_AND_SEEDOT_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 51,
+        "y": 36,
+        "dest_map": "MAP_SOOTOPOLIS_CITY_MYSTERY_EVENTS_HOUSE_1F",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 33,
+        "y": 34,
+        "bg_id": ""
+      },
+      {
+        "x": 19,
+        "y": 29,
+        "bg_id": ""
+      },
+      {
+        "x": 44,
+        "y": 31,
+        "bg_id": ""
+      },
+      {
+        "x": 45,
+        "y": 31,
+        "bg_id": ""
+      },
+      {
+        "x": 18,
+        "y": 29,
+        "bg_id": ""
+      },
+      {
+        "x": 41,
+        "y": 37,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 13,
+    "sign_count": 6,
+    "trainer_count": 0
+  },
+  {
+    "map": "LilycoveCity",
+    "layout_id": "LAYOUT_LILYCOVE_CITY",
+    "layout_name": "LilycoveCity_Layout",
+    "tiles_w": 80,
+    "tiles_h": 40,
+    "img_w": 1280,
+    "img_h": 640,
+    "inferred_tiles_w": 74,
+    "inferred_tiles_h": 38,
+    "warps": [
+      {
+        "x": 27,
+        "y": 6,
+        "dest_map": "MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 37,
+        "y": 24,
+        "dest_map": "MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 24,
+        "y": 14,
+        "dest_map": "MAP_LILYCOVE_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 11,
+        "y": 5,
+        "dest_map": "MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 23,
+        "y": 24,
+        "dest_map": "MAP_LILYCOVE_CITY_CONTEST_LOBBY",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 39,
+        "y": 14,
+        "dest_map": "MAP_LILYCOVE_CITY_POKEMON_TRAINER_FAN_CLUB",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 70,
+        "y": 5,
+        "dest_map": "MAP_AQUA_HIDEOUT_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 36,
+        "y": 6,
+        "dest_map": "MAP_LILYCOVE_CITY_MOVE_DELETERS_HOUSE",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 42,
+        "y": 6,
+        "dest_map": "MAP_LILYCOVE_CITY_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 55,
+        "y": 15,
+        "dest_map": "MAP_LILYCOVE_CITY_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 11,
+        "y": 22,
+        "dest_map": "MAP_LILYCOVE_CITY_HOUSE3",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 12,
+        "y": 14,
+        "dest_map": "MAP_LILYCOVE_CITY_HOUSE4",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 12,
+        "y": 32,
+        "dest_map": "MAP_LILYCOVE_CITY_HARBOR",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 12,
+        "y": 5,
+        "dest_map": "MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F",
+        "dest_warp_id": "1"
+      }
+    ],
+    "signs": [
+      {
+        "x": 19,
+        "y": 7,
+        "bg_id": ""
+      },
+      {
+        "x": 25,
+        "y": 14,
+        "bg_id": ""
+      },
+      {
+        "x": 29,
+        "y": 7,
+        "bg_id": ""
+      },
+      {
+        "x": 26,
+        "y": 14,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 29,
+        "y": 24,
+        "bg_id": ""
+      },
+      {
+        "x": 35,
+        "y": 24,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 30,
+        "bg_id": ""
+      },
+      {
+        "x": 36,
+        "y": 14,
+        "bg_id": ""
+      },
+      {
+        "x": 34,
+        "y": 6,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 14,
+    "sign_count": 10,
+    "trainer_count": 0
+  },
+  {
+    "map": "PacifidlogTown",
+    "layout_id": "LAYOUT_PACIFIDLOG_TOWN",
+    "layout_name": "PacifidlogTown_Layout",
+    "tiles_w": 20,
+    "tiles_h": 40,
+    "img_w": 320,
+    "img_h": 640,
+    "inferred_tiles_w": 18,
+    "inferred_tiles_h": 25,
+    "warps": [
+      {
+        "x": 8,
+        "y": 15,
+        "dest_map": "MAP_PACIFIDLOG_TOWN_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 16,
+        "y": 13,
+        "dest_map": "MAP_PACIFIDLOG_TOWN_HOUSE1",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 3,
+        "y": 22,
+        "dest_map": "MAP_PACIFIDLOG_TOWN_HOUSE2",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 12,
+        "y": 24,
+        "dest_map": "MAP_PACIFIDLOG_TOWN_HOUSE3",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 2,
+        "y": 12,
+        "dest_map": "MAP_PACIFIDLOG_TOWN_HOUSE4",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 17,
+        "y": 21,
+        "dest_map": "MAP_PACIFIDLOG_TOWN_HOUSE5",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 9,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 7,
+        "y": 16,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 15,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 6,
+    "sign_count": 3,
+    "trainer_count": 0
+  },
+  {
+    "map": "MtChimney",
+    "layout_id": "LAYOUT_MT_CHIMNEY",
+    "layout_name": "MtChimney_Layout",
+    "tiles_w": 40,
+    "tiles_h": 47,
+    "img_w": 640,
+    "img_h": 752,
+    "inferred_tiles_w": 33,
+    "inferred_tiles_h": 42,
+    "warps": [
+      {
+        "x": 17,
+        "y": 36,
+        "dest_map": "MAP_MT_CHIMNEY_CABLE_CAR_STATION",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 18,
+        "y": 36,
+        "dest_map": "MAP_MT_CHIMNEY_CABLE_CAR_STATION",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 20,
+        "y": 41,
+        "dest_map": "MAP_JAGGED_PASS",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 21,
+        "y": 41,
+        "dest_map": "MAP_JAGGED_PASS",
+        "dest_warp_id": "3"
+      }
+    ],
+    "signs": [
+      {
+        "x": 14,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 24,
+        "y": 37,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [
+      {
+        "x": 12,
+        "y": 11,
+        "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 9,
+        "y": 16,
+        "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 16,
+        "y": 18,
+        "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 14,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      },
+      {
+        "x": 29,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 27,
+        "y": 17,
+        "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 13,
+        "y": 16,
+        "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_F",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 7,
+        "y": 7,
+        "graphics_id": "OBJ_EVENT_GFX_HIKER",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "6"
+      }
+    ],
+    "warp_count": 4,
+    "sign_count": 2,
+    "trainer_count": 8
+  },
+  {
+    "map": "EverGrandeCity",
+    "layout_id": "LAYOUT_EVER_GRANDE_CITY",
+    "layout_name": "EverGrandeCity_Layout",
+    "tiles_w": 40,
+    "tiles_h": 80,
+    "img_w": 640,
+    "img_h": 1280,
+    "inferred_tiles_w": 30,
+    "inferred_tiles_h": 59,
+    "warps": [
+      {
+        "x": 18,
+        "y": 5,
+        "dest_map": "MAP_EVER_GRANDE_CITY_POKEMON_LEAGUE_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 27,
+        "y": 48,
+        "dest_map": "MAP_EVER_GRANDE_CITY_POKEMON_CENTER_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 18,
+        "y": 41,
+        "dest_map": "MAP_VICTORY_ROAD_1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 18,
+        "y": 27,
+        "dest_map": "MAP_VICTORY_ROAD_1F",
+        "dest_warp_id": "1"
+      }
+    ],
+    "signs": [
+      {
+        "x": 19,
+        "y": 43,
+        "bg_id": ""
+      },
+      {
+        "x": 29,
+        "y": 48,
+        "bg_id": ""
+      },
+      {
+        "x": 18,
+        "y": 52,
+        "bg_id": ""
+      },
+      {
+        "x": 23,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 28,
+        "y": 48,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 4,
+    "sign_count": 5,
+    "trainer_count": 0
+  },
+  {
+    "map": "SkyPillar_Outside",
+    "layout_id": "LAYOUT_SKY_PILLAR_OUTSIDE",
+    "layout_name": "SkyPillar_Outside_Layout",
+    "tiles_w": 28,
+    "tiles_h": 23,
+    "img_w": 448,
+    "img_h": 368,
+    "inferred_tiles_w": 18,
+    "inferred_tiles_h": 14,
+    "warps": [
+      {
+        "x": 17,
+        "y": 13,
+        "dest_map": "MAP_SKY_PILLAR_ENTRANCE",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 14,
+        "y": 5,
+        "dest_map": "MAP_SKY_PILLAR_1F",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [],
+    "trainers": [],
+    "warp_count": 2,
+    "sign_count": 0,
+    "trainer_count": 0
+  },
+  {
+    "map": "VictoryRoad_1F",
+    "layout_id": "LAYOUT_VICTORY_ROAD_1F",
+    "layout_name": "VictoryRoad_1F_Layout",
+    "tiles_w": 46,
+    "tiles_h": 45,
+    "img_w": 736,
+    "img_h": 720,
+    "inferred_tiles_w": 43,
+    "inferred_tiles_h": 41,
+    "warps": [
+      {
+        "x": 15,
+        "y": 40,
+        "dest_map": "MAP_EVER_GRANDE_CITY",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 39,
+        "y": 5,
+        "dest_map": "MAP_EVER_GRANDE_CITY",
+        "dest_warp_id": "3"
+      },
+      {
+        "x": 21,
+        "y": 32,
+        "dest_map": "MAP_VICTORY_ROAD_B1F",
+        "dest_warp_id": "5"
+      },
+      {
+        "x": 42,
+        "y": 38,
+        "dest_map": "MAP_VICTORY_ROAD_B1F",
+        "dest_warp_id": "2"
+      },
+      {
+        "x": 9,
+        "y": 14,
+        "dest_map": "MAP_VICTORY_ROAD_B1F",
+        "dest_warp_id": "4"
+      }
+    ],
+    "signs": [],
+    "trainers": [
+      {
+        "x": 33,
+        "y": 22,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 6,
+        "y": 15,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "4"
+      },
+      {
+        "x": 27,
+        "y": 34,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "3"
+      },
+      {
+        "x": 29,
+        "y": 17,
+        "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      },
+      {
+        "x": 32,
+        "y": 17,
+        "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+        "trainer_type": "TRAINER_TYPE_NORMAL",
+        "trainer_sight_or_berry_tree_id": "2"
+      }
+    ],
+    "warp_count": 5,
+    "sign_count": 0,
+    "trainer_count": 5
+  },
+  {
+    "map": "SealedChamber_OuterRoom",
+    "layout_id": "LAYOUT_SEALED_CHAMBER_OUTER_ROOM",
+    "layout_name": "SealedChamber_OuterRoom_Layout",
+    "tiles_w": 21,
+    "tiles_h": 23,
+    "img_w": 336,
+    "img_h": 368,
+    "inferred_tiles_w": 17,
+    "inferred_tiles_h": 16,
+    "warps": [
+      {
+        "x": 10,
+        "y": 2,
+        "dest_map": "MAP_SEALED_CHAMBER_INNER_ROOM",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 5,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 5,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 5,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 5,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 2,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 4,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 4,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 4,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 4,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 6,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 9,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 12,
+        "bg_id": ""
+      },
+      {
+        "x": 10,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 12,
+        "y": 15,
+        "bg_id": ""
+      },
+      {
+        "x": 9,
+        "y": 2,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 2,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 1,
+    "sign_count": 29,
+    "trainer_count": 0
+  },
+  {
+    "map": "SealedChamber_InnerRoom",
+    "layout_id": "LAYOUT_SEALED_CHAMBER_INNER_ROOM",
+    "layout_name": "SealedChamber_InnerRoom_Layout",
+    "tiles_w": 21,
+    "tiles_h": 23,
+    "img_w": 336,
+    "img_h": 368,
+    "inferred_tiles_w": 17,
+    "inferred_tiles_h": 20,
+    "warps": [
+      {
+        "x": 10,
+        "y": 19,
+        "dest_map": "MAP_SEALED_CHAMBER_OUTER_ROOM",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [
+      {
+        "x": 10,
+        "y": 4,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 8,
+        "bg_id": ""
+      },
+      {
+        "x": 14,
+        "y": 8,
+        "bg_id": ""
+      },
+      {
+        "x": 4,
+        "y": 13,
+        "bg_id": ""
+      },
+      {
+        "x": 16,
+        "y": 13,
+        "bg_id": ""
+      },
+      {
+        "x": 6,
+        "y": 18,
+        "bg_id": ""
+      },
+      {
+        "x": 14,
+        "y": 18,
+        "bg_id": ""
+      },
+      {
+        "x": 9,
+        "y": 4,
+        "bg_id": ""
+      },
+      {
+        "x": 11,
+        "y": 4,
+        "bg_id": ""
+      }
+    ],
+    "trainers": [],
+    "warp_count": 1,
+    "sign_count": 9,
+    "trainer_count": 0
+  },
+  {
+    "map": "MarineCave_Entrance",
+    "layout_id": "LAYOUT_MARINE_CAVE_ENTRANCE",
+    "layout_name": "MarineCave_Entrance_Layout",
+    "tiles_w": 20,
+    "tiles_h": 20,
+    "img_w": 320,
+    "img_h": 320,
+    "inferred_tiles_w": 15,
+    "inferred_tiles_h": 2,
+    "warps": [
+      {
+        "x": 14,
+        "y": 1,
+        "dest_map": "MAP_MARINE_CAVE_END",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [],
+    "trainers": [],
+    "warp_count": 1,
+    "sign_count": 0,
+    "trainer_count": 0
+  },
+  {
+    "map": "MarineCave_End",
+    "layout_id": "LAYOUT_MARINE_CAVE_END",
+    "layout_name": "MarineCave_End_Layout",
+    "tiles_w": 27,
+    "tiles_h": 30,
+    "img_w": 432,
+    "img_h": 480,
+    "inferred_tiles_w": 21,
+    "inferred_tiles_h": 27,
+    "warps": [
+      {
+        "x": 20,
+        "y": 4,
+        "dest_map": "MAP_MARINE_CAVE_ENTRANCE",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [],
+    "trainers": [],
+    "warp_count": 1,
+    "sign_count": 0,
+    "trainer_count": 0
+  },
+  {
+    "map": "GraniteCave_1F",
+    "layout_id": "LAYOUT_GRANITE_CAVE_1F",
+    "layout_name": "GraniteCave_1F_Layout",
+    "tiles_w": 42,
+    "tiles_h": 15,
+    "img_w": 672,
+    "img_h": 240,
+    "inferred_tiles_w": 38,
+    "inferred_tiles_h": 13,
+    "warps": [
+      {
+        "x": 37,
+        "y": 12,
+        "dest_map": "MAP_ROUTE106",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 35,
+        "y": 3,
+        "dest_map": "MAP_GRANITE_CAVE_B1F",
+        "dest_warp_id": "0"
+      },
+      {
+        "x": 17,
+        "y": 11,
+        "dest_map": "MAP_GRANITE_CAVE_B1F",
+        "dest_warp_id": "1"
+      },
+      {
+        "x": 5,
+        "y": 10,
+        "dest_map": "MAP_GRANITE_CAVE_STEVENS_ROOM",
+        "dest_warp_id": "0"
+      }
+    ],
+    "signs": [],
+    "trainers": [],
+    "warp_count": 4,
+    "sign_count": 0,
+    "trainer_count": 0
+  }
+]

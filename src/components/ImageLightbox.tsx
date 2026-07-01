@@ -1,0 +1,99 @@
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import type { StepScreenshot } from "../data/stepImages";
+import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
+
+interface LightboxState {
+  images: StepScreenshot[];
+  index: number;
+  areaId?: string;
+}
+
+interface LightboxContextValue {
+  open: (images: StepScreenshot[], index?: number, areaId?: string) => void;
+  close: () => void;
+}
+
+const LightboxContext = createContext<LightboxContextValue | null>(null);
+
+export function LightboxProvider({ children }: { children: ReactNode }) {
+  const [state, setState] = useState<LightboxState | null>(null);
+
+  const open = useCallback((images: StepScreenshot[], index = 0, areaId?: string) => {
+    setState({ images, index, areaId });
+  }, []);
+
+  const close = useCallback(() => setState(null), []);
+
+  useEffect(() => {
+    if (!state) return;
+    (document.activeElement as HTMLElement | null)?.blur();
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [state, close]);
+
+  const prev = () => {
+    if (!state) return;
+    setState({ ...state, index: (state.index - 1 + state.images.length) % state.images.length });
+  };
+
+  const next = () => {
+    if (!state) return;
+    setState({ ...state, index: (state.index + 1) % state.images.length });
+  };
+
+  const current = state?.images[state.index];
+
+  return (
+    <LightboxContext.Provider value={{ open, close }}>
+      {children}
+      {state && current && (
+        <div className="lightbox" role="dialog" aria-modal="true" onClick={close}>
+          <div className="lightbox__panel lightbox__panel--annotated" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="lightbox__close" onClick={close} aria-label="Close">
+              ×
+            </button>
+            <AnnotatedScreenshot
+              key={current.src}
+              imageSrc={current.src}
+              caption={current.caption}
+              areaId={current.areaId ?? state.areaId}
+              showLegend
+              variant="lightbox"
+            />
+            {state.images.length > 1 && (
+              <div className="lightbox__footer">
+                <button type="button" className="lightbox__nav lightbox__nav--prev" onClick={prev} aria-label="Previous">
+                  <svg className="lightbox__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <p className="lightbox__counter">
+                  {state.index + 1} / {state.images.length}
+                </p>
+                <button type="button" className="lightbox__nav lightbox__nav--next" onClick={next} aria-label="Next">
+                  <svg className="lightbox__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </LightboxContext.Provider>
+  );
+}
+
+export function useLightbox() {
+  const ctx = useContext(LightboxContext);
+  if (!ctx) throw new Error("useLightbox must be used within LightboxProvider");
+  return ctx;
+}
