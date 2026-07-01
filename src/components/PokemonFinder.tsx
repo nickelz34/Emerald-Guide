@@ -3,6 +3,7 @@ import { METHOD_LABELS } from "../types";
 import { loadWildPokedex, type Rarity, type WildPokemon } from "../data/wildSource";
 import { loadDex, DEX_META, type DexEntry, type DexScope } from "../data/dex";
 import { loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
+import { assetUrl } from "../lib/assetUrl";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { useLightbox } from "./ImageLightbox";
 
@@ -209,7 +210,7 @@ function WhereToFind({ wild }: { wild?: WildPokemon }) {
       <div className="poke-locations">
         {wild.locations.map((loc) => {
           const images = loc.screenshot
-            ? [{ src: `/screenshots/${loc.screenshot}`, caption: loc.name, areaId: loc.areaId }]
+            ? [{ src: assetUrl(`screenshots/${loc.screenshot}`), caption: loc.name, areaId: loc.areaId }]
             : [];
           return (
             <div key={loc.id} className={`poke-location ${images.length === 0 ? "poke-location--nomap" : ""}`}>

@@ -1,3 +1,4 @@
+import { assetUrl } from "../lib/assetUrl";
 import { getAreaIdForEncounterStep } from "./encounters";
 import { getAreaData } from "./areaData";
 
@@ -8,7 +9,7 @@ export interface StepScreenshot {
 }
 
 const img = (file: string, caption: string, areaId?: string): StepScreenshot => ({
-  src: `/screenshots/${file}`,
+  src: assetUrl(`screenshots/${file}`),
   caption,
   areaId,
 });

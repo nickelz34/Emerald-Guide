@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { assetUrl } from "../lib/assetUrl";
 import { MAP_REGIONS, type MapRegion } from "../data/mapRegions";
 
-const HOENN_MAP_SRC = "/maps/hoenn-map.png";
+const HOENN_MAP_SRC = assetUrl("maps/hoenn-map.png");
 
 interface HoennMapProps {
   activeStepId?: string;

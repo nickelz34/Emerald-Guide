@@ -3,6 +3,7 @@ import type { PokemonEncounter, TimeSlot, EncounterMethod } from "../types";
 import { TIME_LABELS, METHOD_LABELS } from "../types";
 import { getAreaData, getAreasForStep } from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
+import { assetUrl } from "../lib/assetUrl";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 
 interface EncounterTableProps {
@@ -69,7 +70,7 @@ export function EncounterTable({ areaIds, compact, showScreenshots = true }: Enc
             {areas.length > 1 && <h4 className="area-block__title">{id.replace(/-/g, " ")}</h4>}
             {showScreenshots && shot && (
               <AnnotatedScreenshot
-                imageSrc={`/screenshots/${shot}`}
+                imageSrc={assetUrl(`screenshots/${shot}`)}
                 areaId={id}
                 showLegend
               />
