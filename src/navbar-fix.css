@@ -1,0 +1,11 @@
+/* Ensures top menu links remain on a single row on desktop view while preserving mobile behavior */
+
+.app-shell[data-view="desktop"] .sidebar__nav,
+.app-shell[data-view="desktop"] .sidebar__group-links {
+  white-space: nowrap;
+}
+
+.app-shell[data-view="desktop"] .sidebar__link {
+  /* Prevent flex items from wrapping to the next line; allow horizontal scrolling on the container */
+  flex: 0 0 auto;
+}
