@@ -1,9 +1,13 @@
 import type { NavKey } from "../App";
+import type { LayoutViewMode } from "../hooks/useViewMode";
 import { CATEGORY_DESCRIPTIONS, CATEGORY_LABELS } from "../types";
+import { ViewModeToggle } from "./ViewModeToggle";
 
 interface SidebarProps {
   active: NavKey;
   onSelect: (key: NavKey) => void;
+  viewMode: LayoutViewMode;
+  onViewModeChange: (mode: LayoutViewMode) => void;
 }
 
 const NAV_META: Record<NavKey, { label: string; hint: string }> = {
@@ -20,7 +24,7 @@ const GROUPS: { title: string; keys: NavKey[] }[] = [
   { title: "Reference", keys: ["secrets", "legendaries", "tips", "map"] },
 ];
 
-export function Sidebar({ active, onSelect }: SidebarProps) {
+export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: SidebarProps) {
   return (
     <header className="sidebar">
       <div className="sidebar__brand">
@@ -48,6 +52,8 @@ export function Sidebar({ active, onSelect }: SidebarProps) {
           </div>
         ))}
       </nav>
+
+      <ViewModeToggle mode={viewMode} onChange={onViewModeChange} />
     </header>
   );
 }

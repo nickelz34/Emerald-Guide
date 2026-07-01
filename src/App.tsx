@@ -6,6 +6,7 @@ import { StepBrowser } from "./components/StepBrowser";
 import { PokemonFinder } from "./components/PokemonFinder";
 import { MapModal } from "./components/MapModal";
 import { LightboxProvider } from "./components/ImageLightbox";
+import { useViewMode } from "./hooks/useViewMode";
 import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
 import "./App.css";
@@ -13,6 +14,7 @@ import "./App.css";
 export type NavKey = GuideCategory | "map";
 
 export default function App() {
+  const [viewMode, setViewMode] = useViewMode();
   const [nav, setNav] = useState<NavKey>("walkthrough");
   const [activeStepId, setActiveStepId] = useState<string | undefined>();
   const [mapOpen, setMapOpen] = useState(false);
@@ -41,28 +43,35 @@ export default function App() {
 
   return (
     <LightboxProvider>
-      <div className="app">
-        <Sidebar active={nav} onSelect={handleSelect} />
-        <main className="main">
-          <div className="toolbar">
-            <CategoryHeader nav={nav} />
-          </div>
+      <div className="app-shell" data-view={viewMode}>
+        <div className="app">
+          <Sidebar
+            active={nav}
+            onSelect={handleSelect}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+          />
+          <main className="main">
+            <div className="toolbar">
+              <CategoryHeader nav={nav} />
+            </div>
 
-          {nav === "map" ? (
-            <HoennMap activeStepId={activeStepId} onSelectRegion={handleMapRegion} />
-          ) : nav === "encounters" ? (
-            <PokemonFinder />
-          ) : (
-            <StepBrowser
-              key={category}
-              category={category}
-              sections={guideData[category]}
-              activeStepId={activeStepId}
-              onActiveStepChange={setActiveStepId}
-              onShowOnMap={handleShowOnMap}
-            />
-          )}
-        </main>
+            {nav === "map" ? (
+              <HoennMap activeStepId={activeStepId} onSelectRegion={handleMapRegion} />
+            ) : nav === "encounters" ? (
+              <PokemonFinder />
+            ) : (
+              <StepBrowser
+                key={category}
+                category={category}
+                sections={guideData[category]}
+                activeStepId={activeStepId}
+                onActiveStepChange={setActiveStepId}
+                onShowOnMap={handleShowOnMap}
+              />
+            )}
+          </main>
+        </div>
       </div>
 
       <MapModal
