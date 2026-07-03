@@ -2739,6 +2739,55 @@
   object-position: left center;
 }
 
+/* Per-event location renders (from pokeemerald tile data) */
+.annotated-map--location .annotated-map__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 0.75rem;
+  background: #0d1117;
+}
+
+.annotated-map--location .annotated-map__surface {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.annotated-map--location .annotated-map__img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(52vh, 420px);
+  margin: 0 auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* Interiors and small maps — scale up for readability while staying crisp */
+.annotated-map--location-small .annotated-map__img {
+  width: auto;
+  min-width: min(100%, 288px);
+  max-height: 320px;
+  image-rendering: pixelated;
+}
+
+.step-card .annotated-map--location .annotated-map__frame {
+  min-height: 120px;
+  max-height: none;
+}
+
+.step-card .annotated-map--location-small .annotated-map__img {
+  min-width: min(100%, 240px);
+  max-height: 280px;
+}
+
+.step-card .screenshots--compact .annotated-map--location {
+  width: min(100%, 480px);
+}
+
 .step-card__tips {
   margin: 1.25rem 0 0;
   padding: 0.85rem 1rem;

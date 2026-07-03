@@ -20,6 +20,37 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.3.0",
+    date: "2026-07-03",
+    summary: "Every walkthrough event now has its own pixel-perfect location image from game data.",
+    sections: [
+      {
+        heading: "Per-event location images",
+        items: [
+          "All 103 story events now show a dedicated top-down map render of the exact location where that event happens — interiors included (your bedroom, Birch's Lab, each Gym room, Weather Institute, etc.).",
+          "Images are composited straight from pokeemerald tile/palette/metatile data (same pipeline as the Hoenn map), not emulator screenshots, so layouts match the real game.",
+          "Each event is mapped to its best-fit map in .calib/event-map.json (83 unique layouts across 103 events).",
+          "Captions describe what you're looking at (e.g. “Dewford Gym — Brawly (dark maze)”).",
+          "Small interiors scale up crisply with pixelated rendering; click any image to open the lightbox for a closer look.",
+        ],
+      },
+      {
+        heading: "Build pipeline",
+        items: [
+          "New scripts: npm run render:events (render + optimize PNGs into public/screenshots/events/) and npm run render:events:list (print all renderable map IDs).",
+          "Renderer: .calib/render-locations.mjs; source mapping: .calib/event-map.json.",
+        ],
+      },
+      {
+        heading: "UI",
+        items: [
+          "Event location renders skip POI marker overlays (chapter markers would be misaligned on these standalone maps).",
+          "New annotated-map--location styles center the map and keep pixel art sharp in the step card.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.2.0",
     date: "2026-07-03",
     summary: "Clickable version badge opens a full changelog of every release.",

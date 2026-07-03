@@ -95,6 +95,9 @@ interface AnnotatedScreenshotProps {
 
   showLegend?: boolean;
 
+  /** Pixel-perfect location render — no zoom/pan inline; image scales up cleanly. */
+  staticMap?: boolean;
+
   /** Expanded lightbox layout — larger map, sidebar info, no floating tooltips. */
 
   variant?: "default" | "lightbox";
@@ -209,6 +212,8 @@ export function AnnotatedScreenshot({
 
   showLegend = true,
 
+  staticMap = false,
+
   variant = "default",
 
   onImageClick,
@@ -228,6 +233,8 @@ export function AnnotatedScreenshot({
   const [pan, setPan] = useState<Pan>({ x: 0, y: 0 });
 
   const [panoramic, setPanoramic] = useState(false);
+  const [smallMap, setSmallMap] = useState(false);
+  const [displayWidth, setDisplayWidth] = useState<number | undefined>(undefined);
   const [recenterPos, setRecenterPos] = useState<{ left: number; top: number } | null>(null);
 
   const frameRef = useRef<HTMLDivElement | null>(null);
@@ -311,7 +318,7 @@ export function AnnotatedScreenshot({
   const activeStyle = activeMarker ? legendEntry(activeMarker.type) : null;
 
   const inLightbox = variant === "lightbox";
-  const zoomEnabled = !compact;
+  const zoomEnabled = !compact && !staticMap;
 
   const syncRecenterPosition = useCallback(() => {
     const frame = frameRef.current;
@@ -683,6 +690,8 @@ export function AnnotatedScreenshot({
     setActiveId(null);
 
     setPanoramic(false);
+    setSmallMap(false);
+    setDisplayWidth(undefined);
 
     pinchRef.current = null;
 
@@ -735,6 +744,14 @@ export function AnnotatedScreenshot({
 
       const isPanoramic = naturalWidth / naturalHeight >= PANORAMIC_ASPECT;
       setPanoramic(isPanoramic);
+      if (staticMap && naturalWidth < 520) {
+        setSmallMap(true);
+        const target = Math.min(480, Math.max(240, naturalWidth * 2.5));
+        setDisplayWidth(Math.round(Math.min(target, naturalWidth * 3)));
+      } else {
+        setSmallMap(false);
+        setDisplayWidth(undefined);
+      }
 
       if (!zoomEnabled) {
         requestAnimationFrame(syncRecenterPosition);
@@ -755,7 +772,7 @@ export function AnnotatedScreenshot({
         requestAnimationFrame(syncRecenterPosition);
       });
     },
-    [zoomEnabled, syncRecenterPosition],
+    [zoomEnabled, staticMap, syncRecenterPosition],
   );
 
   const mapMarkers =
@@ -797,6 +814,7 @@ export function AnnotatedScreenshot({
         draggable={false}
         onDragStart={(e) => e.preventDefault()}
         onLoad={handleImageLoad}
+        style={displayWidth ? { width: `${displayWidth}px`, maxWidth: "100%", height: "auto" } : undefined}
       />
       {mapMarkers}
     </>
@@ -822,33 +840,26 @@ export function AnnotatedScreenshot({
 
       ref={attachFrameRef}
 
-      className={`annotated-map__frame ${zoomEnabled && onImageClick ? "annotated-map__frame--clickable" : ""} ${zoomEnabled ? "annotated-map__frame--zoomable" : ""} ${panoramic ? "annotated-map__frame--panoramic" : ""}`}
+      className={`annotated-map__frame ${zoomEnabled && onImageClick ? "annotated-map__frame--clickable" : ""} ${staticMap && onImageClick ? "annotated-map__frame--clickable" : ""} ${zoomEnabled ? "annotated-map__frame--zoomable" : ""} ${panoramic ? "annotated-map__frame--panoramic" : ""}`}
+
+      onClick={staticMap && onImageClick && !zoomEnabled ? onImageClick : undefined}
 
       onKeyDown={
-
-        zoomEnabled && onImageClick
-
+        onImageClick && (zoomEnabled || staticMap)
           ? (e) => {
-
               if (e.key === "Enter" || e.key === " ") {
-
                 e.preventDefault();
-
                 onImageClick();
-
               }
-
             }
-
           : undefined
-
       }
 
-      role={zoomEnabled && onImageClick ? "button" : undefined}
+      role={onImageClick && (zoomEnabled || staticMap) ? "button" : undefined}
 
-      tabIndex={zoomEnabled && onImageClick ? 0 : undefined}
+      tabIndex={onImageClick && (zoomEnabled || staticMap) ? 0 : undefined}
 
-      aria-label={zoomEnabled && onImageClick ? `Enlarge ${caption ?? annotation?.title ?? "map"}` : undefined}
+      aria-label={onImageClick && (zoomEnabled || staticMap) ? `Enlarge ${caption ?? annotation?.title ?? "map"}` : undefined}
 
     >
 
@@ -1024,7 +1035,7 @@ export function AnnotatedScreenshot({
 
   return (
 
-    <div className={`annotated-map ${compact ? "annotated-map--compact" : ""} ${panoramic ? "annotated-map--panoramic" : ""} ${className}`}>
+    <div className={`annotated-map ${compact ? "annotated-map--compact" : ""} ${staticMap ? "annotated-map--location" : ""} ${smallMap ? "annotated-map--location-small" : ""} ${panoramic ? "annotated-map--panoramic" : ""} ${className}`}>
 
       {mapFrame}
 

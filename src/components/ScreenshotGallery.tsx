@@ -23,17 +23,21 @@ export function ScreenshotGallery({ stepId, compact }: ScreenshotGalleryProps) {
 
   return (
     <div className={`screenshots ${compact ? "screenshots--compact" : ""}`}>
-      {images.map((shot, i) => (
-        <AnnotatedScreenshot
-          key={shot.src}
-          imageSrc={shot.src}
-          caption={shot.caption}
-          areaId={shot.areaId ?? defaultAreaId}
-          showLegend={false}
-          onImageClick={() => open(images, i, shot.areaId ?? defaultAreaId)}
-          className="screenshots__annotated"
-        />
-      ))}
+      {images.map((shot, i) => {
+        const areaId = shot.annotate === false ? undefined : shot.areaId ?? defaultAreaId;
+        return (
+          <AnnotatedScreenshot
+            key={shot.src}
+            imageSrc={shot.src}
+            caption={shot.caption}
+            areaId={areaId}
+            staticMap={shot.annotate === false}
+            showLegend={false}
+            onImageClick={() => open(images, i, areaId)}
+            className="screenshots__annotated"
+          />
+        );
+      })}
     </div>
   );
 }
