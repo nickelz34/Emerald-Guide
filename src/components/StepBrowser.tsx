@@ -74,6 +74,14 @@ export function StepBrowser({
   const q = filter.trim().toLowerCase();
   const region = getRegionForStep(current.step.id);
 
+  const currentSection = sections.find((sec) =>
+    sec.steps.some((s) => s.id === current.step.id),
+  );
+  const eventIndex = currentSection
+    ? currentSection.steps.findIndex((s) => s.id === current.step.id)
+    : 0;
+  const eventTotal = currentSection ? currentSection.steps.length : 0;
+
   return (
     <div className="step-browser">
       <aside className="step-rail">
@@ -98,7 +106,7 @@ export function StepBrowser({
               <div key={section.id} className="step-rail__group">
                 <p className="step-rail__group-title">{section.title}</p>
                 {steps.map((s) => {
-                  const idx = flat.findIndex((f) => f.step.id === s.id);
+                  const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
                   const active = s.id === currentId;
                   return (
                     <button
@@ -107,7 +115,7 @@ export function StepBrowser({
                       className={`step-rail__item ${active ? "step-rail__item--active" : ""}`}
                       onClick={() => select(s.id)}
                     >
-                      <span className="step-rail__num">{idx + 1}</span>
+                      <span className="step-rail__num">{eventNum}</span>
                       <span className="step-rail__label">{s.title}</span>
                     </button>
                   );
@@ -128,7 +136,8 @@ export function StepBrowser({
 
         <article className="step-card">
           <span className="step-card__crumb">
-            {current.sectionTitle} · Step {currentIndex + 1} of {flat.length}
+            {current.sectionTitle}
+            {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
           </span>
           <h2 className="step-card__title">{current.step.title}</h2>
           {current.step.location && <p className="step-card__location">{current.step.location}</p>}

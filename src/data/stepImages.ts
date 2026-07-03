@@ -1,4 +1,5 @@
 import { assetUrl } from "../lib/assetUrl";
+import { walkthrough } from "./walkthrough";
 import { getAreaIdForEncounterStep } from "./encounters";
 import { getAreaData } from "./areaData";
 
@@ -14,33 +15,63 @@ const img = (file: string, caption: string, areaId?: string): StepScreenshot => 
   areaId,
 });
 
-/** Primary + optional extra screenshots per guide step. */
-export const STEP_IMAGES: Record<string, StepScreenshot[]> = {
-  start: [img("littleroot_town_e.png", "Littleroot Town", "littleroot"), img("route-101.png", "Route 101", "route-101"), img("oldale.png", "Oldale Town", "oldale")],
-  petalburg: [img("petalburg_city_e.png", "Petalburg City", "petalburg"), img("petalburg-woods.png", "Petalburg Woods", "petalburg-woods")],
-  "stone-badge": [img("rustboro_city_e.png", "Rustboro City", "rustboro"), img("route-116.png", "Route 116", "route-116")],
-  "knuckle-badge": [img("dewford_town_e.png", "Dewford Town", "dewford"), img("granite-cave.png", "Granite Cave", "granite-cave")],
-  "slateport-museum": [img("slateport_city_e.png", "Slateport City", "slateport")],
-  "dynamo-badge": [img("mauville_city_e.png", "Mauville City", "mauville"), img("route110.png", "Route 110", "route-110")],
-  chimney: [img("mt_chimney_e.png", "Mt. Chimney", "mt-chimney")],
-  "heat-badge": [img("lavaridge_town_e.png", "Lavaridge Town", "lavaridge"), img("fallarbor.png", "Fallarbor Town", "fallarbor")],
-  norman: [img("petalburg_city_e.png", "Petalburg Gym", "petalburg")],
-  "feather-badge": [img("fortree_city_e.png", "Fortree City", "fortree"), img("route-120.png", "Route 120", "route-120")],
-  "weather-institute": [img("route-119.png", "Route 119 — Weather Institute", "route-119")],
-  "mt-pyre": [],
-  "mind-badge": [img("mossdeep_city_e.png", "Mossdeep City", "mossdeep")],
-  "seafloor-cavern": [img("marine-cave.png", "Marine Cave", "marine-cave")],
-  "sootopolis-rayquaza": [
-    img("sootopolis_city_e.png", "Sootopolis City", "sootopolis"),
-    img("sky-pillar.png", "Sky Pillar", "sky-pillar"),
-    img("pacifidlog.png", "Pacifidlog Town", "pacifidlog"),
-  ],
-  "rain-badge": [img("sootopolis_city_e.png", "Sootopolis Gym", "sootopolis")],
-  "victory-road": [
-    img("victory_road_e.png", "Victory Road", "victory-road"),
-    img("ever-grande.png", "Ever Grande City", "ever-grande"),
-  ],
+/**
+ * Screenshot + optional areaId for each walkthrough chapter. Every event in a
+ * chapter falls back to its chapter image so maps show consistently.
+ */
+const CHAPTER_IMAGE: Record<string, StepScreenshot> = {
+  littleroot: img("littleroot_town_e.png", "Littleroot Town", "littleroot"),
+  "route-101": img("route-101.png", "Route 101", "route-101"),
+  oldale: img("oldale.png", "Oldale Town", "oldale"),
+  "route-103": img("route-103.png", "Route 103", "route-103"),
+  "route-102": img("route-102.png", "Route 102", "route-102"),
+  petalburg: img("petalburg_city_e.png", "Petalburg City", "petalburg"),
+  "route-104": img("route-104.png", "Route 104", "route-104"),
+  "petalburg-woods": img("petalburg-woods.png", "Petalburg Woods", "petalburg-woods"),
+  rustboro: img("rustboro_city_e.png", "Rustboro City", "rustboro"),
+  "route-116": img("route-116.png", "Route 116", "route-116"),
+  "rusturf-tunnel": img("rusturf-tunnel.png", "Rusturf Tunnel", "rusturf-tunnel"),
+  dewford: img("dewford_town_e.png", "Dewford Town", "dewford"),
+  "granite-cave": img("granite-cave.png", "Granite Cave", "granite-cave"),
+  slateport: img("slateport_city_e.png", "Slateport City", "slateport"),
+  "route-110": img("route110.png", "Route 110", "route-110"),
+  mauville: img("mauville_city_e.png", "Mauville City", "mauville"),
+  "route-117": img("route-117.png", "Route 117", "route-117"),
+  "route-111": img("route-111.png", "Route 111", "route-111"),
+  "route-112": img("mt_chimney_e.png", "Route 112 / Fiery Path", "mt-chimney"),
+  "route-113": img("route-113.png", "Route 113", "route-113"),
+  fallarbor: img("fallarbor.png", "Fallarbor Town", "fallarbor"),
+  "route-114": img("fallarbor.png", "Route 114 / Meteor Falls", "fallarbor"),
+  "mt-chimney": img("mt_chimney_e.png", "Mt. Chimney", "mt-chimney"),
+  lavaridge: img("lavaridge_town_e.png", "Lavaridge Town", "lavaridge"),
+  "petalburg-gym": img("petalburg_city_e.png", "Petalburg Gym", "petalburg"),
+  "route-118": img("route-118.png", "Route 118", "route-118"),
+  "route-119": img("route-119.png", "Route 119 — Weather Institute", "route-119"),
+  fortree: img("fortree_city_e.png", "Fortree City", "fortree"),
+  "route-120": img("route-120.png", "Route 120", "route-120"),
+  lilycove: img("lilycove.png", "Lilycove City", "lilycove"),
+  "mt-pyre": img("emeraldtitle.png", "Mt. Pyre"),
+  "magma-hideout": img("mt_chimney_e.png", "Team Magma Hideout", "mt-chimney"),
+  mossdeep: img("mossdeep_city_e.png", "Mossdeep City", "mossdeep"),
+  "seafloor-cavern": img("marine-cave.png", "Seafloor Cavern"),
+  sootopolis: img("sootopolis_city_e.png", "Sootopolis City", "sootopolis"),
+  "sky-pillar": img("sky-pillar.png", "Sky Pillar", "sky-pillar"),
+  "sootopolis-gym": img("sootopolis_city_e.png", "Sootopolis Gym", "sootopolis"),
+  "sealed-chamber": img("sealed-chamber.png", "Sealed Chamber", "sealed-chamber"),
+  "victory-road": img("victory_road_e.png", "Victory Road", "victory-road"),
+  league: img("elite-four.png", "Pokémon League"),
+  "battle-frontier": img("battle_frontier_e.png", "Battle Frontier"),
+};
 
+const STEP_TO_CHAPTER: Record<string, string> = {};
+for (const section of walkthrough) {
+  for (const step of section.steps) {
+    STEP_TO_CHAPTER[step.id] = section.id;
+  }
+}
+
+/** Primary + optional extra screenshots per guide step (non-walkthrough categories). */
+export const STEP_IMAGES: Record<string, StepScreenshot[]> = {
   "trick-1": [img("trick-house.png", "Trick House", "trick-house"), img("route110.png", "Route 110", "route-110")],
   "trick-2": [img("trick-house.png", "Trick House puzzle 2")],
   "trick-3": [img("trick-house.png", "Trick House puzzle 3")],
@@ -105,6 +136,9 @@ export const STEP_IMAGES: Record<string, StepScreenshot[]> = {
 
 export function getStepImages(stepId: string): StepScreenshot[] {
   if (STEP_IMAGES[stepId]) return STEP_IMAGES[stepId];
+
+  const chapter = STEP_TO_CHAPTER[stepId];
+  if (chapter && CHAPTER_IMAGE[chapter]) return [CHAPTER_IMAGE[chapter]];
 
   const areaId = getAreaIdForEncounterStep(stepId);
   if (areaId) {
