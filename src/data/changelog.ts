@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.3.2",
+    date: "2026-07-03",
+    summary: "“Show on Hoenn map” now actually focuses the step's location.",
+    sections: [
+      {
+        heading: "Fixes",
+        items: [
+          "Clicking “Show on Hoenn map” on a walkthrough step now opens the map and pans/zooms straight to that location instead of just showing the default whole-region view.",
+          "The step's map layer is auto-enabled and its marker is selected/highlighted so you immediately see where the step takes place.",
+          "The Hoenn map was ignoring the active step entirely (the activeStepId prop was passed in but never used); it now resolves each step to its matching point, including regions whose id differs from the point (Route 110 → Trick House, Sealed Chamber → Pacifidlog area, Battle Frontier).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.3.1",
     date: "2026-07-03",
     summary: "Restore point-of-interest markers on town and route event maps.",

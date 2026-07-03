@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
-import type { MapRegion } from "../data/mapRegions";
+import { getRegionForStep, type MapRegion } from "../data/mapRegions";
 import {
   MAP_POINTS,
   POI_CATEGORIES,
@@ -11,6 +11,25 @@ import {
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
+
+/** Region ids whose id doesn't match a map point id 1:1. */
+const REGION_POINT_ALIAS: Record<string, string> = {
+  route110: "trick-house",
+  sealed: "pacifidlog",
+  frontier: "battle-frontier",
+};
+
+/** Best map point to focus for a given walkthrough step. */
+function resolveFocusPoint(stepId: string): MapPoint | undefined {
+  const direct = ALL_POINTS.find((pt) => pt.stepId === stepId);
+  if (direct) return direct;
+  const region = getRegionForStep(stepId);
+  if (!region) return undefined;
+  const aliasId = REGION_POINT_ALIAS[region.id] ?? region.id;
+  const byId = ALL_POINTS.find((pt) => pt.id === aliasId);
+  if (byId) return byId;
+  return ALL_POINTS.find((pt) => pt.stepId && region.stepIds.includes(pt.stepId));
+}
 
 function initialVisible(): Record<PoiCategory, boolean> {
   const v = {} as Record<PoiCategory, boolean>;
@@ -44,7 +63,7 @@ interface View {
   y: number;
 }
 
-export function HoennMap({ onSelectRegion }: HoennMapProps) {
+export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
@@ -123,6 +142,16 @@ export function HoennMap({ onSelectRegion }: HoennMapProps) {
     },
     [clamp, fitW, vp.w, vp.h],
   );
+
+  // When a step asks to be shown (e.g. "Show on Hoenn map"), reveal its layer,
+  // select the matching point, and pan/zoom the map so it sits centered.
+  useEffect(() => {
+    if (!activeStepId || !vp.w || !vp.h) return;
+    const target = resolveFocusPoint(activeStepId);
+    if (!target) return;
+    setVisible((v) => (v[target.category] ? v : { ...v, [target.category]: true }));
+    focusPoint(target);
+  }, [activeStepId, vp.w, vp.h, focusPoint]);
 
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {
