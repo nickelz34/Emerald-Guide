@@ -45,6 +45,10 @@ export const MAP_REGIONS: MapRegion[] = [
   { id: "sealed", label: "Sealed Chamber", x: 4.5, y: 54, stepIds: ["sealed-chamber-1", "regi-puzzle", "regirock", "regice", "registeel"] },
   { id: "ever-grande", label: "Ever Grande", x: 87, y: 57, stepIds: ["victory-road-1", "league-1"] },
   { id: "frontier", label: "Battle Frontier", x: 77, y: 69, stepIds: ["battle-frontier-1", "battle-frontier"] },
+  { id: "safari-zone", label: "Safari Zone", x: 54.69, y: 22.32, stepIds: ["safari-zone-1", "safari-zone-2", "safari-zone-3"] },
+  { id: "pacifidlog", label: "Pacifidlog Town", x: 61.25, y: 73.11, stepIds: ["pacifidlog-1", "pacifidlog-2", "pacifidlog-3"] },
+  { id: "abandoned-ship", label: "Abandoned Ship", x: 21.19, y: 95.69, stepIds: ["abandoned-ship-1", "abandoned-ship-2"] },
+  { id: "shoal-cave", label: "Shoal Cave", x: 82.81, y: 20.76, stepIds: ["shoal-cave-1", "shoal-cave-2"] },
 ];
 
 export function getRegionForStep(stepId: string): MapRegion | undefined {

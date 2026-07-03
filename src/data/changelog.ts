@@ -20,6 +20,29 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.4.0",
+    date: "2026-07-03",
+    summary: "Filled in the missing regions — four new walkthrough chapters covering optional areas.",
+    sections: [
+      {
+        heading: "New chapters",
+        items: [
+          "Ch. 30 — Route 121 & the Safari Zone: crossing Route 121, how the Safari Zone's Poké Block/Safari Ball catching works, its exclusive Pokémon (Pikachu, Pinsir, Heracross, Girafarig, Phanpy…), and the Emerald-only Acro/Mach Bike expansion areas.",
+          "Ch. 37 — Pacifidlog Town & the Open Sea: navigating the fixed ocean currents on Routes 129–134, the daily Return/Frustration TM gift, Mirage Island, and the sea route east to the Sky Pillar.",
+          "Ch. 40 — The Abandoned Ship (optional): the Route 108 wreck, the Room/Storage Key puzzle, using Dive for the Storage Key, and trading the Scanner to Captain Stern for a Deep Sea Tooth or Deep Sea Scale.",
+          "Ch. 41 — Shoal Cave (optional): the real-time tide mechanic, collecting 4 Shoal Salt + 4 Shoal Shells for the Shell Bell, and the deep-room Focus Band.",
+        ],
+      },
+      {
+        heading: "Structure",
+        items: [
+          "The walkthrough now runs 45 chapters (up from 41); every chapter from Lilycove onward was renumbered to keep the sequence chronological.",
+          "The four new areas are linked on the Hoenn map — their pins now have a “View guide steps” button, and the new steps show a “Show on Hoenn map” button that focuses the location.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.3.2",
     date: "2026-07-03",
     summary: "“Show on Hoenn map” now actually focuses the step's location.",

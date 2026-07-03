@@ -1528,8 +1528,71 @@ export const walkthrough: GuideSection[] = [
     ],
   },
   {
+    id: "safari-zone",
+    title: "Ch. 30 — Route 121 & the Safari Zone",
+    description: "The catching preserve on Route 121 and its exclusive Pokémon.",
+    steps: [
+      {
+        id: "safari-zone-1",
+        title: "Cross Route 121 to the Safari Zone",
+        location: "Route 121",
+        summary: "The tree-lined route east of Fortree leads to the Safari Zone gate.",
+        story: [
+          "Route 121 runs east from the Route 120 forests toward Lilycove, a long grassy stretch patrolled by Team Aqua Grunts and dotted with trainers. Shuppet, Gloom, Wingull, and more Kecleon (reveal them with the Devon Scope) lurk in the grass, and hidden items reward a careful sweep.",
+          "Partway along, a large gatehouse marks the entrance to the Safari Zone — Hoenn's famous catching preserve, where the rules of battle don't apply and rare Pokémon you can't find anywhere else are waiting.",
+        ],
+        details: [
+          "Head east along Route 121, battling trainers and Aqua Grunts.",
+          "Reveal Kecleon with the Devon Scope and sweep for hidden items.",
+          "Enter the Safari Zone gatehouse on the route's north side.",
+        ],
+        tips: ["Route 121 continues east to Lilycove City — you can return to the Safari Zone any time."],
+        tags: ["route", "safari-zone"],
+      },
+      {
+        id: "safari-zone-2",
+        title: "Inside the preserve",
+        location: "Safari Zone",
+        summary: "Pay the entry fee for 30 Safari Balls and 500 steps to catch exclusive Pokémon.",
+        story: [
+          "The Safari Zone works differently from anywhere else in Hoenn. Pay the 500 entry fee and you're handed 30 Safari Balls and a 500-step allowance — no fainting wild Pokémon, no whittling down HP. Instead you throw Poké Blocks or Bait to change a Pokémon's mood, then lob a Safari Ball and hope it sticks. Your run ends when the balls or the steps run out.",
+          "The reward is a roster you can't catch in the wild elsewhere: Pikachu, Pinsir, Heracross, Rhyhorn, Doduo, Natu, Girafarig, Phanpy, Oddish, Gloom, Wobbuffet, and more roam the fields. It's the single best spot to round out your Pokédex mid-game.",
+        ],
+        details: [
+          "Entry costs 500; you receive 30 Safari Balls and 500 steps.",
+          "Throw Poké Blocks/Bait to affect the Pokémon, then a Safari Ball to catch it.",
+          "Exclusive catches include Pikachu, Pinsir, Heracross, Rhyhorn, Girafarig, Natu, and Phanpy.",
+        ],
+        tips: ["Heracross and Pinsir are Safari-only physical powerhouses — worth a dedicated run."],
+        secrets: [
+          "A Nugget and other valuables are hidden in the grass — walk carefully to trigger the hidden-item beeps before your steps run out.",
+        ],
+        tags: ["safari-zone", "catching"],
+      },
+      {
+        id: "safari-zone-3",
+        title: "The bike-only expansion areas",
+        location: "Safari Zone (northern extension)",
+        summary: "Emerald adds Acro/Mach Bike areas with Johto Pokémon.",
+        story: [
+          "Emerald expands the Safari Zone with two northern areas reached only by bike. The Acro Bike section — full of bike rails and bumps — hides Aipom, Gligar, Girafarig, and Pinsir, while the Mach Bike section over sandy mud holds Phanpy, Rhyhorn, and the elusive Miltank.",
+          "These extensions are also home to Johto natives you won't see anywhere else in the game: Ledyba, Spinarak, Sunkern, Marill, and more. Bring the right bike (swap at Rydel's shop in Mauville) and plenty of Safari Balls.",
+        ],
+        details: [
+          "The north-east area needs the Acro Bike; the north-west needs the Mach Bike.",
+          "Acro area: Aipom, Gligar, Girafarig, Pinsir. Mach area: Phanpy, Rhyhorn, Miltank.",
+          "Johto-only species (Ledyba, Spinarak, Sunkern, Marill) appear only in these extensions.",
+        ],
+        secrets: [
+          "Swap bikes at Rydel's Cycling Shop in Mauville before a run — you can't switch inside the Safari Zone.",
+        ],
+        tags: ["safari-zone", "bike", "optional"],
+      },
+    ],
+  },
+  {
     id: "lilycove",
-    title: "Ch. 30 — Lilycove City",
+    title: "Ch. 31 — Lilycove City",
     description: "The Department Store, a rival battle, and Team Aqua's hideout.",
     steps: [
       {
@@ -1585,7 +1648,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "mt-pyre",
-    title: "Ch. 31 — Mt. Pyre",
+    title: "Ch. 32 — Mt. Pyre",
     description: "The memorial mountain where the legendary orbs are stolen.",
     steps: [
       {
@@ -1626,7 +1689,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "magma-hideout",
-    title: "Ch. 32 — Team Magma Hideout",
+    title: "Ch. 33 — Team Magma Hideout",
     description: "Storm Maxie's base and witness Groudon's awakening.",
     steps: [
       {
@@ -1669,7 +1732,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "mossdeep",
-    title: "Ch. 33 — Mossdeep City",
+    title: "Ch. 34 — Mossdeep City",
     description: "The twin Psychic gym and the Space Center showdown.",
     steps: [
       {
@@ -1729,7 +1792,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "seafloor-cavern",
-    title: "Ch. 34 — Seafloor Cavern",
+    title: "Ch. 35 — Seafloor Cavern",
     description: "Dive to Archie's lair where Kyogre awakens.",
     steps: [
       {
@@ -1769,7 +1832,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "sootopolis",
-    title: "Ch. 35 — Sootopolis City",
+    title: "Ch. 36 — Sootopolis City",
     description: "The crater city at the heart of the weather crisis.",
     steps: [
       {
@@ -1805,8 +1868,67 @@ export const walkthrough: GuideSection[] = [
     ],
   },
   {
+    id: "pacifidlog",
+    title: "Ch. 37 — Pacifidlog Town & the Open Sea",
+    description: "The floating town, the ocean currents, and the way to the Sky Pillar.",
+    steps: [
+      {
+        id: "pacifidlog-1",
+        title: "Ride the currents to Pacifidlog",
+        location: "Routes 132–134 / 129–131",
+        summary: "Strong ocean currents on the open sea sweep you toward Pacifidlog Town.",
+        story: [
+          "The open water between Slateport and the eastern isles is ruled by powerful currents. On Routes 129 through 134 the sea itself pushes you along set directions — fighting the flow is slow going, so read the arrows in the waves and let them carry you where you need to go. Wailmer breach around you, and the depths below (via Dive) hide the underwater passages to the Sealed Chamber.",
+          "Follow the currents east and you'll wash up at Pacifidlog Town, a settlement built entirely on a raft of Corsola atop the waves.",
+        ],
+        details: [
+          "The sea on Routes 129–131 flows in fixed directions — follow the current arrows.",
+          "Surf toward Pacifidlog; Wailmer, Tentacool, and Wingull appear on the water.",
+          "Dive spots here lead to the underwater Braille routes (Sealed Chamber later).",
+        ],
+        tips: ["Going against a current is possible but slow — line up with the flow whenever you can."],
+        tags: ["sea", "currents", "pacifidlog"],
+      },
+      {
+        id: "pacifidlog-2",
+        title: "Pacifidlog Town",
+        location: "Pacifidlog Town",
+        summary: "A friendship-TM gift, the Corsola raft, and the fabled Mirage Island.",
+        story: [
+          "Pacifidlog is a quiet town of wooden walkways floating on living Corsola. A man in one of the houses gives you a free TM every day based on your lead Pokémon's mood: TM27 Return if it's happy with you, or TM21 Frustration if it isn't — a handy source of a strong Normal-type move.",
+          "Look east from town toward Mirage Island — a rare islet that only appears when a hidden daily value matches your party, home to a lone Wynaut. Most days the sea is empty there, so don't be discouraged if you see nothing.",
+        ],
+        details: [
+          "A resident gives TM27 Return (high friendship) or TM21 Frustration (low friendship) once per day.",
+          "Fish the surrounding water for Corsola, Horsea, Chinchou, and Luvdisc.",
+          "Mirage Island appears east of town only on rare days — it holds a Wynaut and a Liechi Berry.",
+        ],
+        secrets: [
+          "Mirage Island's appearance is tied to a random daily value versus your party's personality values — checking daily is the only way to catch it visible.",
+        ],
+        tags: ["pacifidlog", "tm", "mirage-island"],
+      },
+      {
+        id: "pacifidlog-3",
+        title: "East to the Sky Pillar",
+        location: "Route 131",
+        summary: "Route 131 east of Pacifidlog leads to the island of the Sky Pillar.",
+        story: [
+          "From Pacifidlog, Surf east along Route 131. The current here runs your way, carrying you toward a lonely island crowned by an ancient, crumbling tower — the Sky Pillar, where the sky dragon Rayquaza sleeps. This is exactly where Steven sent you from Sootopolis to end the weather crisis.",
+          "Land on the island and steel yourself: the climb ahead demands the Mach Bike and steady nerves.",
+        ],
+        details: [
+          "Surf east on Route 131 (the current helps you here).",
+          "Reach the Sky Pillar island — the entrance to Rayquaza's tower.",
+          "Make sure the Mach Bike is registered before you go inside.",
+        ],
+        tags: ["sea", "sky-pillar", "pacifidlog"],
+      },
+    ],
+  },
+  {
     id: "sky-pillar",
-    title: "Ch. 36 — Sky Pillar",
+    title: "Ch. 38 — Sky Pillar",
     description: "Climb the ancient tower to awaken Rayquaza.",
     steps: [
       {
@@ -1849,7 +1971,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "sootopolis-gym",
-    title: "Ch. 37 — Sootopolis Gym (Wallace)",
+    title: "Ch. 39 — Sootopolis Gym (Wallace)",
     description: "The eighth badge and HM07 Waterfall.",
     steps: [
       {
@@ -1888,8 +2010,94 @@ export const walkthrough: GuideSection[] = [
     ],
   },
   {
+    id: "abandoned-ship",
+    title: "Ch. 40 — The Abandoned Ship (Optional)",
+    description: "A flooded wreck on Route 108 hiding the Scanner and rare items.",
+    steps: [
+      {
+        id: "abandoned-ship-1",
+        title: "Board the wreck on Route 108",
+        location: "Route 108 — Abandoned Ship",
+        summary: "Surf to the half-sunk ship between Dewford and Slateport.",
+        story: [
+          "Out on Route 108, between Dewford and Slateport, a half-sunk ship lists in the shallows. Surf out and climb aboard to explore its flooded cabins — a warren of locked rooms, seawater, and scattered loot. Many doors need keys you'll find on site, so expect to backtrack as you piece the puzzle together.",
+          "The upper cabins give up Harbor Mail, a Revive, and TM49 (Snatch) among other odds and ends. To reach the best prize, though, you'll need to head below the surface.",
+        ],
+        details: [
+          "Surf to the Abandoned Ship on Route 108 (east of Dewford's waters).",
+          "Explore the cabins for Harbor Mail, a Revive, TM49 Snatch, and more.",
+          "Some rooms are locked until you find the Room Key and Storage Key.",
+        ],
+        tips: ["Bring Surf; you can visit as soon as you can cross the water, but Dive unlocks the full ship."],
+        tags: ["optional", "route", "abandoned-ship"],
+      },
+      {
+        id: "abandoned-ship-2",
+        title: "The Storage Key & the Scanner",
+        location: "Abandoned Ship (underwater)",
+        summary: "Dive to find the Storage Key, claim the Scanner, and trade it in Slateport.",
+        story: [
+          "In the flooded lower deck, use Dive to reach a sunken room and grab the Storage Key. That key opens the storage cabin above, where the Scanner — the ship's real treasure — is waiting. It's a device with no use of its own, but Captain Stern back at Slateport's Oceanic Museum will gladly take it off your hands.",
+          "In exchange, Stern lets you choose one of two rare held items: the Deep Sea Tooth (which powers up Clamperl's Special Attack and evolves it into Huntail via trade) or the Deep Sea Scale (which boosts Special Defense and evolves Clamperl into Gorebyss). Pick the one that matches the sea-Pokémon you want.",
+        ],
+        details: [
+          "Use Dive in the lower deck to find the Storage Key.",
+          "Open the storage room and take the Scanner.",
+          "Give the Scanner to Captain Stern in Slateport for a Deep Sea Tooth or Deep Sea Scale.",
+        ],
+        secrets: [
+          "Deep Sea Tooth → Huntail (via trade) and boosts Sp. Atk; Deep Sea Scale → Gorebyss and boosts Sp. Def. You only get one, so choose deliberately.",
+        ],
+        tags: ["optional", "dive", "scanner", "abandoned-ship"],
+      },
+    ],
+  },
+  {
+    id: "shoal-cave",
+    title: "Ch. 41 — Shoal Cave (Optional)",
+    description: "A tide-driven cave near Mossdeep and the Shell Bell reward.",
+    steps: [
+      {
+        id: "shoal-cave-1",
+        title: "Mind the tides",
+        location: "Route 125 — Shoal Cave",
+        summary: "Shoal Cave's layout changes with the real-time tide.",
+        story: [
+          "Northeast of Mossdeep, Surf to Route 125 and duck into Shoal Cave. This cave lives and breathes with the tide, which follows your game's real-time clock: at low tide the water recedes to reveal paths and ledges you can't reach when the sea is high, and at high tide those same passages flood over. You'll need to visit at both tides to see everything.",
+          "Zubat, Golbat, Spheal, and Snorunt roam the chambers — Spheal and Snorunt are the draw here, both solid Ice-types you won't stumble across easily elsewhere.",
+        ],
+        details: [
+          "Surf to Shoal Cave on Route 125, northeast of Mossdeep.",
+          "The tide (tied to the real-time clock) opens or floods different paths.",
+          "Catch Spheal and Snorunt inside, plus Zubat/Golbat.",
+        ],
+        tips: ["Come back at the opposite tide to reach areas that were blocked the first time."],
+        tags: ["optional", "cave", "tides", "shoal-cave"],
+      },
+      {
+        id: "shoal-cave-2",
+        title: "Shoal Salt, Shells & the Focus Band",
+        location: "Shoal Cave",
+        summary: "Collect four Shoal Salt and four Shoal Shells for a Shell Bell.",
+        story: [
+          "Scattered through the cave are four Shoal Salt and four Shoal Shells, which glitter and respawn over time. Gather all eight and bring them to the old man near the entrance — he'll craft you a Shell Bell, a held item that heals the holder for an eighth of the damage it deals. It's one of the best early sustain items in the game.",
+          "Deep in the cave, reachable only at low tide, an ice-walled inner room hides the Focus Band (a held item that sometimes lets a Pokémon survive a KO with 1 HP), along with a Rare Candy and a Big Pearl for the taking.",
+        ],
+        details: [
+          "Collect 4 Shoal Salt + 4 Shoal Shells and give them to the man near the entrance for a Shell Bell.",
+          "At low tide, reach the deep ice room for the Focus Band.",
+          "Also grab the Rare Candy and Big Pearl hidden inside.",
+        ],
+        secrets: [
+          "The Shoal Salt/Shell pickups regenerate, so you can return for more Shell Bells to spread across your team.",
+        ],
+        tags: ["optional", "shell-bell", "focus-band", "shoal-cave"],
+      },
+    ],
+  },
+  {
     id: "sealed-chamber",
-    title: "Ch. 38 — Sealed Chamber & Regis",
+    title: "Ch. 42 — Sealed Chamber & Regis",
     description: "Optional legendary golems puzzle (needs Dive, Dig, Braille).",
     steps: [
       {
@@ -1932,7 +2140,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "victory-road",
-    title: "Ch. 39 — Victory Road",
+    title: "Ch. 43 — Victory Road",
     description: "The final gauntlet cave before the Pokémon League.",
     steps: [
       {
@@ -1973,7 +2181,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "league",
-    title: "Ch. 40 — Pokémon League",
+    title: "Ch. 44 — Pokémon League",
     description: "The Elite Four and Champion Steven.",
     steps: [
       {
@@ -2033,7 +2241,7 @@ export const walkthrough: GuideSection[] = [
   },
   {
     id: "battle-frontier",
-    title: "Ch. 41 — Battle Frontier (Post-Game)",
+    title: "Ch. 45 — Battle Frontier (Post-Game)",
     description: "The ultimate post-game challenge unlocked after the League.",
     steps: [
       {

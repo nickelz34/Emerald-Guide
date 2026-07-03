@@ -67,7 +67,7 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "lilycove", name: "Lilycove City", category: "town", x: 65, y: 23.5, note: "Department store & Contest Hall.", stepId: "lilycove-1" },
   { id: "mossdeep", name: "Mossdeep City", category: "town", x: 85, y: 31.33, note: "Island city with the Space Center.", stepId: "mossdeep-1" },
   { id: "sootopolis", name: "Sootopolis City", category: "town", x: 75, y: 47, note: "Hidden crater city, eighth gym.", stepId: "sootopolis-1" },
-  { id: "pacifidlog", name: "Pacifidlog Town", category: "town", x: 61.25, y: 73.11, note: "Floating town on the open sea." },
+  { id: "pacifidlog", name: "Pacifidlog Town", category: "town", x: 61.25, y: 73.11, note: "Floating town on the open sea.", stepId: "pacifidlog-1" },
   { id: "ever-grande", name: "Ever Grande City", category: "town", x: 97.5, y: 57.44, note: "The Pokémon League plateau.", stepId: "victory-road-1" },
 
   // ── Gyms (offset slightly from their city so both layers stay visible) ──
@@ -90,17 +90,17 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "cave-of-origin", name: "Cave of Origin", category: "cave", x: 75, y: 45.2, note: "Where the awakened legendary is confronted." },
   { id: "new-mauville", name: "New Mauville", category: "cave", x: 29.44, y: 48.17, note: "Underground generator beneath Route 110." },
   { id: "seafloor-cavern", name: "Seafloor Cavern", category: "cave", x: 87.5, y: 62.66, note: "Team hideout deep under Route 128." },
-  { id: "shoal-cave", name: "Shoal Cave", category: "cave", x: 82.81, y: 20.76, note: "Tide-changing cave; Shell Bell ingredients." },
+  { id: "shoal-cave", name: "Shoal Cave", category: "cave", x: 82.81, y: 20.76, note: "Tide-changing cave; Shell Bell ingredients.", stepId: "shoal-cave-1" },
   { id: "victory-road", name: "Victory Road", category: "cave", x: 97.31, y: 57.83, note: "Final gauntlet before the League." },
 
   // ── Landmarks ──
   { id: "mt-chimney", name: "Mt. Chimney", category: "landmark", x: 21, y: 12.5, note: "Volcano summit; cable car & meteorite showdown." },
   { id: "petalburg-woods", name: "Petalburg Woods", category: "landmark", x: 1.31, y: 55.48, note: "Forest on Route 104; first Team encounter." },
   { id: "weather-institute", name: "Weather Institute", category: "landmark", x: 35.81, y: 8.49, note: "Route 119 lab; receive Castform here." },
-  { id: "safari-zone", name: "Safari Zone", category: "landmark", x: 54.69, y: 22.32, note: "Route 121 preserve of rare Pokémon." },
+  { id: "safari-zone", name: "Safari Zone", category: "landmark", x: 54.69, y: 22.32, note: "Route 121 preserve of rare Pokémon.", stepId: "safari-zone-1" },
   { id: "mt-pyre", name: "Mt. Pyre", category: "landmark", x: 55.31, y: 33.81, note: "Memorial mountain; the orbs are stolen here." },
   { id: "trick-house", name: "Trick House", category: "landmark", x: 26.44, y: 59.14, note: "Puzzle house on Route 110." },
-  { id: "abandoned-ship", name: "Abandoned Ship", category: "landmark", x: 21.19, y: 95.69, note: "Wreck on Route 108; Dive & Scanner." },
+  { id: "abandoned-ship", name: "Abandoned Ship", category: "landmark", x: 21.19, y: 95.69, note: "Wreck on Route 108; Dive & Scanner.", stepId: "abandoned-ship-1" },
   { id: "sky-pillar", name: "Sky Pillar", category: "landmark", x: 67.06, y: 69.58, note: "Ancient tower where Rayquaza rests." },
   { id: "pokemon-league", name: "Pokémon League", category: "landmark", x: 97.31, y: 48.43, note: "Elite Four & Champion await at the top." },
   { id: "battle-frontier", name: "Battle Frontier", category: "landmark", x: 92, y: 90, note: "Post-game battle facilities island." },
