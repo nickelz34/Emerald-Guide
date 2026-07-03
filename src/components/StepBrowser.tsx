@@ -36,6 +36,7 @@ export function StepBrowser({
 
   const [internalId, setInternalId] = useState<string | undefined>(flat[0]?.step.id);
   const [filter, setFilter] = useState("");
+  const [railOpen, setRailOpen] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
 
   const currentId = activeStepId ?? internalId;
@@ -45,6 +46,7 @@ export function StepBrowser({
   const select = (id: string) => {
     setInternalId(id);
     onActiveStepChange?.(id);
+    setRailOpen(false);
   };
 
   useEffect(() => {
@@ -65,7 +67,12 @@ export function StepBrowser({
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  const didMountScroll = useRef(false);
   useEffect(() => {
+    if (!didMountScroll.current) {
+      didMountScroll.current = true;
+      return;
+    }
     stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentId]);
 
@@ -84,7 +91,24 @@ export function StepBrowser({
 
   return (
     <div className="step-browser">
-      <aside className="step-rail">
+      <aside className={`step-rail ${railOpen ? "step-rail--open" : ""}`}>
+        <button
+          type="button"
+          className="step-rail__toggle"
+          aria-expanded={railOpen}
+          onClick={() => setRailOpen((o) => !o)}
+        >
+          <span className="step-rail__toggle-icon" aria-hidden="true">☰</span>
+          <span className="step-rail__toggle-text">
+            <span className="step-rail__toggle-label">Steps</span>
+            <span className="step-rail__toggle-current">
+              {current.sectionTitle}
+              {eventTotal > 0 ? ` · ${eventIndex + 1}/${eventTotal}` : ""}
+            </span>
+          </span>
+          <span className="step-rail__toggle-caret" aria-hidden="true">▾</span>
+        </button>
+        <div className="step-rail__panel">
         <input
           type="search"
           className="step-rail__filter"
@@ -124,6 +148,7 @@ export function StepBrowser({
             );
           })}
         </nav>
+        </div>
       </aside>
 
       <div className="step-stage" ref={stageRef}>
@@ -143,6 +168,14 @@ export function StepBrowser({
           {current.step.location && <p className="step-card__location">{current.step.location}</p>}
           <p className="step-card__summary">{current.step.summary}</p>
 
+          {current.step.story && current.step.story.length > 0 && (
+            <div className="step-card__story">
+              {current.step.story.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          )}
+
           <ScreenshotGallery stepId={current.step.id} compact />
 
           <StepDetails details={current.step.details} />
@@ -153,6 +186,17 @@ export function StepBrowser({
               <ul>
                 {current.step.tips.map((tip) => (
                   <li key={tip}>{tip}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {current.step.secrets && current.step.secrets.length > 0 && (
+            <div className="step-card__secrets">
+              <strong>Secrets &amp; extras</strong>
+              <ul>
+                {current.step.secrets.map((secret) => (
+                  <li key={secret}>{secret}</li>
                 ))}
               </ul>
             </div>

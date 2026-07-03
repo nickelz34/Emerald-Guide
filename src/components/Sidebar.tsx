@@ -1,8 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import type { NavKey } from "../App";
 import type { LayoutViewMode } from "../hooks/useViewMode";
 import { CATEGORY_DESCRIPTIONS, CATEGORY_LABELS } from "../types";
+import { ChangelogModal } from "./ChangelogModal";
 import { ViewModeToggle } from "./ViewModeToggle";
+
+const APP_VERSION = __APP_VERSION__;
 
 interface SidebarProps {
   active: NavKey;
@@ -39,16 +42,46 @@ const GROUPS: { title: string; keys: NavKey[] }[] = [
 ];
 
 export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: SidebarProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [changelogOpen, setChangelogOpen] = useState(false);
+
+  const handleSelect = (key: NavKey) => {
+    onSelect(key);
+    setMenuOpen(false);
+  };
+
   return (
-    <header className="sidebar">
+    <header className={`sidebar ${menuOpen ? "sidebar--menu-open" : ""}`}>
       <div className="sidebar__brand">
         <span className="sidebar__icon">◆</span>
-        <div>
+        <div className="sidebar__brand-text">
           <h1>Emerald Guide</h1>
+          <button
+            type="button"
+            className="sidebar__version"
+            onClick={() => setChangelogOpen(true)}
+            aria-label={`Version ${APP_VERSION}. Open changelog.`}
+            title="View changelog"
+          >
+            v{APP_VERSION}
+          </button>
         </div>
       </div>
 
-      <nav className="sidebar__nav" aria-label="Main navigation">
+      <button
+        type="button"
+        className="sidebar__menu-btn"
+        aria-expanded={menuOpen}
+        aria-controls="main-nav"
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <span className="sidebar__menu-icon" aria-hidden="true">
+          {menuOpen ? "✕" : "☰"}
+        </span>
+        <span className="sidebar__menu-text">Menu</span>
+      </button>
+
+      <nav id="main-nav" className="sidebar__nav" aria-label="Main navigation">
         {GROUPS.map((group, groupIndex) => (
           <Fragment key={group.title}>
             {groupIndex > 0 && <span className="sidebar__divider" aria-hidden="true" />}
@@ -60,7 +93,7 @@ export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: Sideba
                     key={key}
                     type="button"
                     className={`sidebar__link ${active === key ? "sidebar__link--active" : ""}`}
-                    onClick={() => onSelect(key)}
+                    onClick={() => handleSelect(key)}
                     title={NAV_META[key].hint}
                   >
                     <span className="sidebar__link-label">
@@ -75,6 +108,8 @@ export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: Sideba
       </nav>
 
       <ViewModeToggle mode={viewMode} onChange={onViewModeChange} />
+
+      <ChangelogModal open={changelogOpen} onClose={() => setChangelogOpen(false)} />
     </header>
   );
 }

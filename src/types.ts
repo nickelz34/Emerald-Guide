@@ -42,8 +42,16 @@ export interface GuideStep {
   title: string;
   location?: string;
   summary: string;
+  /**
+   * Narrative walkthrough prose (one entry per paragraph). When present it is
+   * rendered as the main body of the event, Prima-guide style, with the
+   * `details` list kept as a quick objectives checklist beneath it.
+   */
+  story?: string[];
   details: string[];
   tips?: string[];
+  /** Optional hidden items, easter eggs, and missable secrets for this event. */
+  secrets?: string[];
   tags?: string[];
   mapRegion?: string;
 }
