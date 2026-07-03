@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.3.1",
+    date: "2026-07-03",
+    summary: "Restore point-of-interest markers on town and route event maps.",
+    sections: [
+      {
+        heading: "Fixes",
+        items: [
+          "Town and route event images now show their POI markers again (items, grass, gyms, exits, story points) — v1.3.0 had disabled overlays on all event maps.",
+          "Markers are only enabled where the per-event render exactly matches the calibrated map scale (verified for all 42 outdoor town/route events), so pins stay pixel-accurate.",
+          "Interior renders (houses, gym rooms, caves, labs) intentionally stay marker-free since they have no calibrated overlay data.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.3.0",
     date: "2026-07-03",
     summary: "Every walkthrough event now has its own pixel-perfect location image from game data.",
