@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { METHOD_LABELS } from "../types";
 import { loadWildPokedex, type Rarity, type WildPokemon } from "../data/wildSource";
 import { loadDex, DEX_META, type DexEntry, type DexScope } from "../data/dex";
-import { loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
+import { emeraldSpriteUrl, loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
 import { assetUrl } from "../lib/assetUrl";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { useLightbox } from "./ImageLightbox";
@@ -54,9 +54,25 @@ function MethodTags({ methods }: { methods: WildPokemon["methods"] }) {
 function DexCard({ card, scope, onSelect }: { card: FinderCard; scope: DexScope; onSelect: () => void }) {
   const { entry, wild } = card;
   const num = dexNumber(entry, scope);
+  const sprite = emeraldSpriteUrl(entry.nationalNumber);
   return (
     <button type="button" className="poke-card" onClick={onSelect}>
       <div className="poke-card__top">
+        <span className="poke-card__sprite" aria-hidden="true">
+          {sprite ? (
+            <img
+              src={sprite}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
+              }}
+            />
+          ) : (
+            <span className="poke-card__sprite-fallback">?</span>
+          )}
+        </span>
         <span className="poke-card__name">{entry.name}</span>
         {num != null && <span className="poke-card__num">#{String(num).padStart(3, "0")}</span>}
       </div>
@@ -101,9 +117,10 @@ function StatBars({ stats, total }: { stats: SpeciesInfo["stats"]; total: number
   );
 }
 
-function SpeciesPanel({ slug, name }: { slug: string; name: string }) {
+function SpeciesPanel({ slug, name, nationalNumber }: { slug: string; name: string; nationalNumber: number }) {
   const [info, setInfo] = useState<SpeciesInfo | null>(null);
   const [error, setError] = useState(false);
+  const sprite = emeraldSpriteUrl(nationalNumber);
 
   useEffect(() => {
     let alive = true;
@@ -117,51 +134,60 @@ function SpeciesPanel({ slug, name }: { slug: string; name: string }) {
     };
   }, [slug]);
 
-  if (error) {
-    return <p className="poke-detail__note">Couldn’t load extended stats for {name} (offline?).</p>;
-  }
-  if (!info) {
-    return <p className="poke-detail__note">Loading stats &amp; type info…</p>;
-  }
-
   return (
     <div className="species-panel">
       <div className="species-panel__head">
-        {info.sprite && <img className="species-panel__sprite" src={info.sprite} alt={name} />}
-        <div className="species-panel__id">
-          <TypeChips types={info.types} />
-          {info.genus && <span className="species-panel__genus">{info.genus}</span>}
-        </div>
-      </div>
-
-      {info.flavor && <p className="poke-detail__blurb">{info.flavor}</p>}
-
-      <div className="species-panel__meta">
-        <div className="poke-stat">
-          <span className="poke-stat__label">Abilities</span>
-          <span className="poke-stat__value">
-            {info.abilities.join(", ")}
-            {info.hiddenAbility ? ` · ${info.hiddenAbility} (hidden)` : ""}
+        {sprite ? (
+          <img className="species-panel__sprite" src={sprite} alt={name} />
+        ) : (
+          <span className="species-panel__sprite species-panel__sprite--fallback" aria-hidden="true">
+            ?
           </span>
-        </div>
-        {info.heightM != null && (
-          <div className="poke-stat">
-            <span className="poke-stat__label">Height / Weight</span>
-            <span className="poke-stat__value">
-              {info.heightM} m · {info.weightKg} kg
-            </span>
-          </div>
         )}
-        {info.evolution.length > 1 && (
-          <div className="poke-stat">
-            <span className="poke-stat__label">Evolution line</span>
-            <span className="poke-stat__value">{info.evolution.join(" → ")}</span>
+        {info ? (
+          <div className="species-panel__id">
+            <TypeChips types={info.types} />
+            {info.genus && <span className="species-panel__genus">{info.genus}</span>}
           </div>
+        ) : error ? (
+          <p className="poke-detail__note">Couldn’t load extended stats for {name} (offline?).</p>
+        ) : (
+          <p className="poke-detail__note">Loading stats &amp; type info…</p>
         )}
       </div>
 
-      <h3 className="poke-detail__section">Base stats</h3>
-      <StatBars stats={info.stats} total={info.total} />
+      {info && (
+        <>
+          {info.flavor && <p className="poke-detail__blurb">{info.flavor}</p>}
+
+          <div className="species-panel__meta">
+            <div className="poke-stat">
+              <span className="poke-stat__label">Abilities</span>
+              <span className="poke-stat__value">
+                {info.abilities.join(", ")}
+                {info.hiddenAbility ? ` · ${info.hiddenAbility} (hidden)` : ""}
+              </span>
+            </div>
+            {info.heightM != null && (
+              <div className="poke-stat">
+                <span className="poke-stat__label">Height / Weight</span>
+                <span className="poke-stat__value">
+                  {info.heightM} m · {info.weightKg} kg
+                </span>
+              </div>
+            )}
+            {info.evolution.length > 1 && (
+              <div className="poke-stat">
+                <span className="poke-stat__label">Evolution line</span>
+                <span className="poke-stat__value">{info.evolution.join(" → ")}</span>
+              </div>
+            )}
+          </div>
+
+          <h3 className="poke-detail__section">Base stats</h3>
+          <StatBars stats={info.stats} total={info.total} />
+        </>
+      )}
     </div>
   );
 }
@@ -281,7 +307,7 @@ function PokemonDetail({ card, onBack }: { card: FinderCard; onBack: () => void 
         ) : null}
       </header>
 
-      {entry.isGlitch ? <GlitchPanel /> : <SpeciesPanel slug={entry.slug} name={entry.name} />}
+      {entry.isGlitch ? <GlitchPanel /> : <SpeciesPanel slug={entry.slug} name={entry.name} nationalNumber={entry.nationalNumber} />}
 
       {!entry.isGlitch && (
         <>

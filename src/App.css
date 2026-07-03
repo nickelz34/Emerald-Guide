@@ -1027,112 +1027,495 @@
 /* ── Hoenn map ── */
 .hoenn-map {
   margin-bottom: 2rem;
-  max-width: 1100px;
+  max-width: 1200px;
 }
 
-.hoenn-map__stage {
+.hoenn-map__body {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* ── Interactive viewport (pan + zoom) ── */
+.hoenn-map__viewport {
   position: relative;
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 12800 / 6128;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow:
     0 24px 48px rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-  background: #0a1628;
+  background: #4a6bc4;
+  cursor: grab;
+  touch-action: none;
+}
+
+.hoenn-map__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.hoenn-map__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
 }
 
 .hoenn-map__image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   vertical-align: middle;
+  /* Source is 13024×6864, always displayed downscaled, so smooth sampling
+     stays sharp and detailed (pixelated would alias on downscale). */
+  image-rendering: auto;
+  user-select: none;
+  pointer-events: none;
 }
 
-.hoenn-map__pins {
-  position: absolute;
-  inset: 0;
-}
-
+/* ── Markers ── */
 .hoenn-map__pin {
   position: absolute;
   transform: translate(-50%, -50%);
+  transform-origin: center;
   border: none;
   background: transparent;
   padding: 0;
   cursor: pointer;
   z-index: 1;
+  line-height: 0;
+}
+
+.hoenn-map__pin.is-active {
+  z-index: 20;
 }
 
 .hoenn-map__pin-dot {
   display: block;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: var(--orange);
+  background: var(--pin-color, var(--orange));
   border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-  transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.12s ease;
+}
+
+/* Distinct shapes per category */
+.hoenn-map__pin--gym .hoenn-map__pin-dot {
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+.hoenn-map__pin--cave .hoenn-map__pin-dot {
+  border-radius: 3px;
+}
+
+.hoenn-map__pin--landmark .hoenn-map__pin-dot {
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+}
+
+/* ── Dense data layers: smaller, lighter markers ── */
+.hoenn-map__pin--item .hoenn-map__pin-dot,
+.hoenn-map__pin--hidden .hoenn-map__pin-dot,
+.hoenn-map__pin--berry .hoenn-map__pin-dot,
+.hoenn-map__pin--entrance .hoenn-map__pin-dot {
+  width: 10px;
+  height: 10px;
+  border-width: 1.5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.hoenn-map__pin--entrance .hoenn-map__pin-dot {
+  border-radius: 2px;
+}
+
+.hoenn-map__pin--hidden .hoenn-map__pin-dot {
+  border-style: dashed;
 }
 
 .hoenn-map__pin:hover .hoenn-map__pin-dot,
-.hoenn-map__pin--hover .hoenn-map__pin-dot,
-.hoenn-map__pin--active .hoenn-map__pin-dot {
-  transform: scale(1.35);
-  background: var(--emerald);
-  box-shadow: 0 0 0 4px var(--emerald-glow), 0 4px 12px rgba(0, 0, 0, 0.5);
+.hoenn-map__pin.is-active .hoenn-map__pin-dot {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 3px 10px rgba(0, 0, 0, 0.6);
 }
 
-.hoenn-map__pin-label {
+.hoenn-map__pin--gym:hover .hoenn-map__pin-dot,
+.hoenn-map__pin--gym.is-active .hoenn-map__pin-dot,
+.hoenn-map__pin--landmark:hover .hoenn-map__pin-dot,
+.hoenn-map__pin--landmark.is-active .hoenn-map__pin-dot {
+  transform: rotate(45deg) scale(1.15);
+}
+
+/* ── Hover hint: brief label shown while pointing at a marker ── */
+.hoenn-map__pin:hover {
+  z-index: 15;
+}
+
+.hoenn-map__pin-hint {
   position: absolute;
   left: 50%;
   bottom: calc(100% + 8px);
-  transform: translateX(-50%);
-  padding: 0.3rem 0.55rem;
-  border-radius: 6px;
-  background: rgba(10, 22, 40, 0.92);
+  transform: translateX(-50%) translateY(3px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  width: max-content;
+  max-width: 200px;
+  padding: 0.35rem 0.55rem;
+  border-radius: 7px;
+  background: rgba(8, 18, 34, 0.97);
   border: 1px solid var(--border);
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 600;
-  white-space: nowrap;
+  text-align: left;
+  line-height: 1.25;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  opacity: 0;
   pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.12s ease, transform 0.12s ease;
 }
 
-.hoenn-map__footer {
+.hoenn-map__pin:hover .hoenn-map__pin-hint,
+.hoenn-map__pin:focus-visible .hoenn-map__pin-hint {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.hoenn-map__pin-hint-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.hoenn-map__pin-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: max-content;
+  max-width: 220px;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  background: rgba(8, 18, 34, 0.97);
+  border: 1px solid var(--border);
+  color: #fff;
+  line-height: 1.35;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.hoenn-map__pin-tip strong {
+  font-size: 0.8rem;
+}
+
+.hoenn-map__pin-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.hoenn-map__pin-cat {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hoenn-map__pin-desc {
+  font-size: 0.74rem;
+  color: #dfe6f2;
+}
+
+/* ── Zoom controls ── */
+.hoenn-map__controls {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 30;
+}
+
+.hoenn-map__controls button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(8, 18, 34, 0.9);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.hoenn-map__controls button:hover {
+  background: rgba(20, 40, 70, 0.95);
+}
+
+/* ── Legend ── */
+/* ── Horizontal legend below the (full-width) map ── */
+.hoenn-map__legend {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.hoenn-map__legend h4 {
+  margin: 0;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.hoenn-map__legend-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+}
+
+.hoenn-map__legend-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.hoenn-map__legend-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.hoenn-map__legend-action {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.hoenn-map__legend-action:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  border-color: var(--emerald);
+}
+
+.hoenn-map__legend-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.hoenn-map__legend ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.35rem 0.5rem;
+  flex: 1 1 auto;
+}
+
+.hoenn-map__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.hoenn-map__legend-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--emerald);
+}
+
+.hoenn-map__legend-item input {
+  accent-color: var(--emerald);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.hoenn-map__legend-swatch {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  flex: 0 0 auto;
+}
+
+.hoenn-map__legend-label {
+  flex: 0 0 auto;
+}
+
+.hoenn-map__legend-count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.hoenn-map__legend-detail {
+  margin-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 1rem;
+}
+
+.hoenn-map__legend-detail h5 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.hoenn-map__legend-detail p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.hoenn-map__legend > .hoenn-map__hint {
+  margin: 0.75rem 0 0;
+  border: 0;
+  padding: 0;
+}
+
+.hoenn-map__detail-desc {
+  color: #dfe6f2 !important;
+}
+
+.hoenn-map__detail-note {
+  font-style: italic;
 }
 
 .hoenn-map__hint {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  flex: 1;
-  min-width: 200px;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
 }
 
-.hoenn-map__card {
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius);
+/* ── "On the map" index list below the viewport ── */
+.hoenn-map__index {
+  margin-top: 1.25rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 14px;
   border: 1px solid var(--border);
   background: var(--bg-card);
-  min-width: 200px;
 }
 
-.hoenn-map__card h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1rem;
+.hoenn-map__index-head h4 {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
 }
 
-.hoenn-map__card p {
-  margin: 0 0 0.65rem;
-  font-size: 0.82rem;
+.hoenn-map__index-head p {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
+}
+
+.hoenn-map__index-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.1rem;
+}
+
+.hoenn-map__index-group h5 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+}
+
+.hoenn-map__index-count {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.hoenn-map__index-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.hoenn-map__index-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.hoenn-map__index-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hoenn-map__index-item.is-active {
+  border-color: var(--emerald);
+  background: rgba(46, 204, 113, 0.12);
+}
+
+.hoenn-map__index-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.hoenn-map__index-loc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.hoenn-map__index-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+@media (max-width: 820px) {
+  .hoenn-map__legend-head {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
 }
 
 /* ── Guided tour ── */
@@ -2262,7 +2645,31 @@
   gap: 0.5rem;
 }
 
+.poke-card__sprite {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.poke-card__sprite img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.poke-card__sprite-fallback {
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
 .poke-card__name {
+  flex: 1;
+  min-width: 0;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -2615,7 +3022,15 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  image-rendering: auto;
+  image-rendering: pixelated;
+}
+
+.species-panel__sprite--fallback {
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-muted);
 }
 
 .species-panel__id {
@@ -2719,28 +3134,17 @@
   flex-direction: column;
   overflow: hidden;
   margin-bottom: 0;
+  max-width: none;
 }
 
-.map-modal__panel .hoenn-map__stage {
-  flex: 0 0 auto;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-  max-height: min(58vh, 520px);
+.map-modal__panel .hoenn-map__body {
+  flex: 1;
+  min-height: 0;
 }
 
-.map-modal__panel .hoenn-map__image {
-  display: block;
-  width: auto;
-  max-width: min(90vw, 820px);
-  max-height: min(58vh, 520px);
-  height: auto;
-  margin: 0 auto;
-}
-
-.map-modal__panel .hoenn-map__footer {
-  flex-shrink: 0;
-  margin-top: 0.75rem;
+.map-modal__panel .hoenn-map__viewport {
+  aspect-ratio: auto;
+  max-height: min(66vh, 560px);
 }
 
 .map-modal__head {

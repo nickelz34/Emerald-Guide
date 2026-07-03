@@ -58,6 +58,16 @@ const STAT_LABELS: Record<string, string> = {
 
 const API = "https://pokeapi.co/api/v2";
 
+/**
+ * Actual in-game Pokémon Emerald front sprite for a National-dex number,
+ * served from the PokéAPI sprite set via the jsDelivr CDN. Valid for #1–386;
+ * returns undefined for anything outside Gen 3 (e.g. the glitch slot).
+ */
+export function emeraldSpriteUrl(nationalNumber?: number): string | undefined {
+  if (!nationalNumber || nationalNumber < 1 || nationalNumber > 386) return undefined;
+  return `https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/pokemon/versions/generation-iii/emerald/${nationalNumber}.png`;
+}
+
 /** Species whose default /pokemon slug differs from the species name. */
 const POKEMON_SLUG_ALIASES: Record<string, string> = {
   deoxys: "deoxys-normal",

@@ -1,24 +1,18 @@
 import { walkthrough } from "./walkthrough";
-import { secrets } from "./secrets";
 import { legendaries } from "./legendaries";
-import { tips } from "./tips";
 import { encounters } from "./encounters";
 import type { GuideData, GuideCategory, GuideSection, GuideStep } from "../types";
 
 export const guideData: GuideData = {
   walkthrough,
-  secrets,
   legendaries,
-  tips,
   encounters,
 };
 
 export const CATEGORY_ORDER: GuideCategory[] = [
   "walkthrough",
   "encounters",
-  "secrets",
   "legendaries",
-  "tips",
 ];
 
 export function getAllStepIds(): string[] {

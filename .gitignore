@@ -8,3 +8,4 @@ dist/
 .cursor/
 .marker-debug/
 agent-tools/
+.calib/

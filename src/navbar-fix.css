@@ -1,11 +1,18 @@
-/* Ensures top menu links remain on a single row on desktop view while preserving mobile behavior */
+/* Keep the desktop top menu on a single row without overlapping the view
+   toggle. The nav keeps its natural content width (never shrinks below it),
+   so links can't spill over neighbours; the sticky bar scrolls horizontally
+   as a safety net on very narrow frames. */
 
 .app-shell[data-view="desktop"] .sidebar__nav,
 .app-shell[data-view="desktop"] .sidebar__group-links {
   white-space: nowrap;
 }
 
+.app-shell[data-view="desktop"] .sidebar__nav {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
 .app-shell[data-view="desktop"] .sidebar__link {
-  /* Prevent flex items from wrapping to the next line; allow horizontal scrolling on the container */
   flex: 0 0 auto;
 }
