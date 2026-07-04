@@ -20,6 +20,142 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.6.4",
+    date: "2026-07-04",
+    summary: "Verdanturf Town building roofs no longer clipped on the Hoenn map.",
+    sections: [
+      {
+        heading: "Composite map alignment",
+        items: [
+          "Fixed north-edge buildings in Verdanturf Town (Poké Mart and Pokémon Center) showing with roofs cut off: Route 116 and Verdanturf share a 2-tile connection strip in the game data, and the composite renderer was drawing the route over the town.",
+          "The Hoenn map renderer now paints towns and cities after routes so local map graphics win at connection overlaps. Re-run `npm run render:hoenn` after manifest changes.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.6.3",
+    date: "2026-07-04",
+    summary: "Cycling triathlete sprites on the map now render at full 32×32 size.",
+    sections: [
+      {
+        heading: "Trainer sprite sizing",
+        items: [
+          "Bike-riding trainers (Cycling Triathletes on Route 110, etc.) use 32×32 overworld frames in the game — the map now reads each sprite's width and height from pokeemerald's object-event graphics data instead of assuming every trainer is 16×32, so cyclists are no longer clipped.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.6.2",
+    date: "2026-07-04",
+    summary: "Trainer sprites on the map no longer show a green box — they blend in like in-game.",
+    sections: [
+      {
+        heading: "Trainer sprite rendering",
+        items: [
+          "Trainer overworld sprites now have the pret palette-0 mint green keyed out to true transparency, so characters sit on the map tiles without a visible bounding box.",
+          "Replaced the rectangular drop-shadow with a small ground oval under each trainer (matching the in-game OAM shadow) for a cleaner, less \"sticker\" look.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.6.1",
+    date: "2026-07-04",
+    summary: "Trainer markers on the Hoenn Map use authentic in-game overworld sprites.",
+    sections: [
+      {
+        heading: "Trainer map layer",
+        items: [
+          "New Trainers layer on the Hoenn Map and every area map in the switcher — toggle it in Map layers to show all 295 overworld trainers plus 92 more in caves, Victory Road, the Trick House, hideouts, and other standalone areas.",
+          "Each trainer is rendered with their real GBA overworld sprite (Youngster, Lass, Hiker, Aqua Grunt, etc.) at the correct facing direction, anchored on the tile where they stand — the same look as walking past them in-game.",
+          "Click a trainer for their class and name (resolved from the game's trainer data, e.g. \"Youngster Calvin\") plus sight range where applicable.",
+          "Run `npm run gen:trainers` to regenerate from pokeemerald after map data changes; sprite sheets live in `public/sprites/trainers/`.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.6.0",
+    date: "2026-07-04",
+    summary: "New area-map switcher on the Hoenn Map — explore 62 caves, dungeons, and underwater routes with their items.",
+    sections: [
+      {
+        heading: "Area maps",
+        items: [
+          "Added a map switcher above the Map layers panel: pick any of 62 standalone areas that aren't part of the stitched overworld — caves (Granite Cave, Victory Road, Meteor Falls, Shoal Cave, Seafloor Cavern, New Mauville), the four Underwater routes, Safari Zone sections, Mt. Pyre, Petalburg Woods, Jagged Pass, Fiery Path, Rusturf Tunnel, the Aqua/Magma hideouts, the Abandoned Ship, Artisan Cave, the Trick House puzzles, and more.",
+          "Multi-floor dungeons list one entry per floor (e.g. Granite Cave 1F / B1F / B2F), grouped under the dungeon name.",
+          "Each area map is a pixel-exact render straight from the game's tile data, shown crisply upscaled, with its own item and hidden-item markers (authentic in-game names and descriptions). Together these cover all 51 hidden items that live off the main overworld map.",
+          "Selecting an area auto-enables its Item/Hidden layers and zooms to fit; a \"← Hoenn\" button (or picking \"Hoenn Region (overworld)\") returns to the full region map.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.5.2",
+    date: "2026-07-03",
+    summary: "More map-crop markers and tighter pin alignment on the Hoenn composite.",
+    sections: [
+      {
+        heading: "Missing area markers",
+        items: [
+          "Added areaId to five outdoor events that were missing it: Route 109 (granite-cave-3), Verdanturf Town (route-117-2), Route 112 (route-111-3, route-112-1), and Route 122 (lilycove-3) — so generated POI pins (items, entrances, berries) now appear on those map crops.",
+        ],
+      },
+      {
+        heading: "Marker alignment",
+        items: [
+          "Walkthrough annotation pins on map crops now use pret tile coordinates projected onto the true-scale Hoenn composite (same source as game-extracted map points), instead of screenshot percentages — so trainers, grass, and story markers line up with map tiles in the crop window.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.5.1",
+    date: "2026-07-03",
+    summary: "POI markers on walkthrough map crops — items, grass, trainers, and story points.",
+    sections: [
+      {
+        heading: "Map crop markers",
+        items: [
+          "Outdoor town/route map windows now show the same POI pins as the annotated area maps: trainers, items, grass patches, buildings, and story points.",
+          "Markers are projected from the true-scale Hoenn map coordinates into each crop frame, combining hand-tuned walkthrough annotations with game-extracted item/entrance data.",
+          "Click a pin for details; the lightbox adds a filterable legend and a full marker list.",
+          "Inline views show a marker count badge when pins are present.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.5.0",
+    date: "2026-07-03",
+    summary: "Walkthrough town/route events now show a live window into the full Hoenn map.",
+    sections: [
+      {
+        heading: "Map-driven event imagery",
+        items: [
+          "Outdoor town and route events (40 of them) now display a framed \u201Cwindow\u201D into the shared true-scale Hoenn map instead of separate per-event images \u2014 so what you see in the walkthrough is the exact same map (and exact same spot) as the interactive Hoenn map.",
+          "Crops are computed pixel-perfectly from the composite\u2019s tile data (.calib/manifest.json), at 16px per game tile, so each route/town is framed accurately with a little surrounding context.",
+          "Only one map image loads and it\u2019s reused across the whole app (walkthrough + map modal), so there are no extra per-event downloads for these areas.",
+          "Click any framed map to open it larger in the lightbox.",
+        ],
+      },
+      {
+        heading: "Unchanged",
+        items: [
+          "Interiors, caves, and gyms (houses, Gym rooms, Granite Cave, Sootopolis, Mt. Chimney, hideouts, Sky Pillar, Elite Four rooms, etc.) keep their dedicated pixel-perfect renders, since they aren\u2019t part of the outdoor map.",
+        ],
+      },
+      {
+        heading: "Under the hood",
+        items: [
+          "Added scripts/gen-map-crops.mjs to generate src/data/mapCrops.ts (event \u2192 crop rectangle) and a new HoennCrop component that renders the map window via CSS.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.4.0",
     date: "2026-07-03",
     summary: "Filled in the missing regions — four new walkthrough chapters covering optional areas.",

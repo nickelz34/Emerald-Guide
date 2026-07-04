@@ -14,7 +14,8 @@ export type PoiCategory =
   | "item"
   | "hidden"
   | "berry"
-  | "entrance";
+  | "entrance"
+  | "trainer";
 
 export interface PoiCategoryMeta {
   id: PoiCategory;
@@ -32,6 +33,7 @@ export const POI_CATEGORIES: PoiCategoryMeta[] = [
   { id: "hidden", label: "Hidden Items", color: "#c9d2df" },
   { id: "berry", label: "Berries", color: "#ff5fa8" },
   { id: "entrance", label: "Entrances", color: "#7d8aa0" },
+  { id: "trainer", label: "Trainers", color: "#f56565" },
 ];
 
 /** Categories shown by default; only towns & cities start visible. */

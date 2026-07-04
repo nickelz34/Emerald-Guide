@@ -3,6 +3,7 @@ import { getAreasForStep } from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
 import { useLightbox } from "./ImageLightbox";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
+import { HoennCrop } from "./HoennCrop";
 
 interface ScreenshotGalleryProps {
   stepId: string;
@@ -24,6 +25,18 @@ export function ScreenshotGallery({ stepId, compact }: ScreenshotGalleryProps) {
   return (
     <div className={`screenshots ${compact ? "screenshots--compact" : ""}`}>
       {images.map((shot, i) => {
+        if (shot.crop) {
+          return (
+            <HoennCrop
+              key={shot.src + i}
+              crop={shot.crop}
+              caption={shot.caption}
+              areaId={shot.areaId ?? defaultAreaId}
+              onClick={() => open(images, i, shot.areaId ?? defaultAreaId)}
+              className="screenshots__annotated"
+            />
+          );
+        }
         const areaId = shot.annotate === false ? undefined : shot.areaId ?? defaultAreaId;
         return (
           <AnnotatedScreenshot

@@ -2,6 +2,7 @@ import { assetUrl } from "../lib/assetUrl";
 import { walkthrough } from "./walkthrough";
 import { getAreaIdForEncounterStep } from "./encounters";
 import { getAreaData } from "./areaData";
+import { EVENT_MAP_CROP, type MapCrop } from "./mapCrops";
 
 export interface StepScreenshot {
   src: string;
@@ -13,7 +14,15 @@ export interface StepScreenshot {
    * chapter maps so chapter markers would be misaligned).
    */
   annotate?: boolean;
+  /**
+   * When set, this "image" is a window into the shared true-scale Hoenn map
+   * (public/maps/hoenn-map.png) framed to a single town or route. Rendered by
+   * HoennCrop rather than as a standalone image.
+   */
+  crop?: MapCrop;
 }
+
+const HOENN_MAP_SRC = assetUrl("maps/hoenn-map.png");
 
 const img = (file: string, caption: string, areaId?: string): StepScreenshot => ({
   src: assetUrl(`screenshots/${file}`),
@@ -260,7 +269,20 @@ export const STEP_IMAGES: Record<string, StepScreenshot[]> = {
 };
 
 export function getStepImages(stepId: string): StepScreenshot[] {
-  // Per-event location render takes priority for walkthrough steps.
+  // Outdoor towns/routes show a window into the shared true-scale Hoenn map.
+  const cropEntry = EVENT_MAP_CROP[stepId];
+  if (cropEntry) {
+    return [
+      {
+        src: HOENN_MAP_SRC,
+        caption: cropEntry.caption,
+        areaId: cropEntry.areaId,
+        crop: cropEntry.crop,
+      },
+    ];
+  }
+
+  // Interiors/caves/gyms keep their per-event pixel-perfect render.
   if (EVENT_IMAGE[stepId]) return [EVENT_IMAGE[stepId]];
 
   if (STEP_IMAGES[stepId]) return STEP_IMAGES[stepId];

@@ -9,8 +9,39 @@ import {
   type PoiCategory,
 } from "../data/mapPoints";
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
+import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
+import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
+
+function isTrainerPoint(p: MapPoint): p is TrainerPoint {
+  return p.category === "trainer" && "spriteSheet" in p;
+}
+
+/** Area maps grouped for the switcher's <optgroup> list. */
+const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
+  const byGroup = new Map<string, AreaMap[]>();
+  for (const a of AREA_MAPS) {
+    if (!byGroup.has(a.group)) byGroup.set(a.group, []);
+    byGroup.get(a.group)!.push(a);
+  }
+  return [...byGroup.entries()]
+    .map(([group, maps]) => ({ group, maps }))
+    .sort((a, b) => a.group.localeCompare(b.group));
+})();
+
+/** Convert an area map's markers into the MapPoint shape used by the pins/list. */
+function areaPoints(area: AreaMap): MapPoint[] {
+  return area.markers.map((m) => ({
+    id: m.id,
+    name: m.name,
+    category: m.category,
+    x: m.x,
+    y: m.y,
+    desc: m.desc,
+    note: area.name,
+  }));
+}
 
 /** Region ids whose id doesn't match a map point id 1:1. */
 const REGION_POINT_ALIAS: Record<string, string> = {
@@ -42,7 +73,6 @@ const HOENN_MAP_SRC = assetUrl("maps/hoenn-map.png");
 /** Native pixel size of the source map (true-scale render, 16px per game tile). */
 const MAP_W = 12800;
 const MAP_H = 6128;
-const MAP_AR = MAP_W / MAP_H;
 
 const MIN_SCALE = 1;
 const MAX_SCALE = 14;
@@ -69,6 +99,33 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
+  const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
+
+  const currentArea = useMemo(
+    () => (currentAreaId ? AREA_MAPS.find((a) => a.id === currentAreaId) ?? null : null),
+    [currentAreaId],
+  );
+
+  /** Points + image + native size for the map currently shown. */
+  const trainerPoints = useMemo(
+    (): MapPoint[] =>
+      currentArea ? (AREA_TRAINERS[currentArea.id] ?? []) : MAP_TRAINERS,
+    [currentArea],
+  );
+  const basePoints = useMemo(
+    () => [...(currentArea ? areaPoints(currentArea) : ALL_POINTS), ...trainerPoints],
+    [currentArea, trainerPoints],
+  );
+  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_SRC;
+  const mapW = currentArea ? currentArea.width : MAP_W;
+  const mapH = currentArea ? currentArea.height : MAP_H;
+  const mapAr = mapW / mapH;
+
+  /** Categories that actually have points on the current map. */
+  const activeCategories = useMemo(
+    () => POI_CATEGORIES.filter((c) => basePoints.some((p) => p.category === c.id)),
+    [basePoints],
+  );
 
   const dragState = useRef<{
     pointerId: number;
@@ -80,8 +137,8 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
   } | null>(null);
 
   const visiblePoints = useMemo(
-    () => ALL_POINTS.filter((p) => visible[p.category]),
-    [visible],
+    () => basePoints.filter((p) => visible[p.category]),
+    [visible, basePoints],
   );
 
   const selectedPoint = useMemo(
@@ -94,35 +151,35 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     return POI_CATEGORIES.filter((c) => visible[c.id])
       .map((cat) => ({
         cat,
-        points: ALL_POINTS.filter((p) => p.category === cat.id).sort(
+        points: basePoints.filter((p) => p.category === cat.id).sort(
           (a, b) =>
             (a.note ?? "").localeCompare(b.note ?? "") || a.name.localeCompare(b.name),
         ),
       }))
       .filter((g) => g.points.length > 0);
-  }, [visible]);
+  }, [visible, basePoints]);
 
   /** Width the map occupies at scale 1 (whole map contained in the viewport). */
-  const fitW = vp.w && vp.h ? Math.min(vp.w, vp.h * MAP_AR) : vp.w;
+  const fitW = vp.w && vp.h ? Math.min(vp.w, vp.h * mapAr) : vp.w;
 
   const canvasW = fitW * view.scale;
-  const canvasH = canvasW / MAP_AR;
+  const canvasH = canvasW / mapAr;
 
   /** Clamp the pan offset so the map stays sensibly framed; center when smaller. */
   const clamp = useCallback(
     (v: View): View => {
       const w = vp.w;
       const h = vp.h;
-      const fw = (w && h ? Math.min(w, h * MAP_AR) : w) || 0;
+      const fw = (w && h ? Math.min(w, h * mapAr) : w) || 0;
       const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.scale));
       const cw = fw * scale;
-      const ch = cw / MAP_AR;
+      const ch = cw / mapAr;
       let { x, y } = v;
       x = cw <= w ? (w - cw) / 2 : Math.min(0, Math.max(w - cw, x));
       y = ch <= h ? (h - ch) / 2 : Math.min(0, Math.max(h - ch, y));
       return { scale, x, y };
     },
-    [vp.w, vp.h],
+    [vp.w, vp.h, mapAr],
   );
 
   const fit = useCallback(() => setView(clamp({ scale: 1, x: 0, y: 0 })), [clamp]);
@@ -132,15 +189,15 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     (p: MapPoint) => {
       setSelectedId(p.id);
       setView((prev) => {
-        const targetScale = Math.max(prev.scale, 6);
+        const targetScale = Math.max(prev.scale, currentArea ? 3 : 6);
         const cw = fitW * targetScale;
-        const ch = cw / MAP_AR;
+        const ch = cw / mapAr;
         const px = (p.x / 100) * cw;
         const py = (p.y / 100) * ch;
         return clamp({ scale: targetScale, x: vp.w / 2 - px, y: vp.h / 2 - py });
       });
     },
-    [clamp, fitW, vp.w, vp.h],
+    [clamp, fitW, vp.w, vp.h, mapAr, currentArea],
   );
 
   // When a step asks to be shown (e.g. "Show on Hoenn map"), reveal its layer,
@@ -149,9 +206,31 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     if (!activeStepId || !vp.w || !vp.h) return;
     const target = resolveFocusPoint(activeStepId);
     if (!target) return;
+    setCurrentAreaId(null); // "Show on Hoenn map" always targets the overworld
     setVisible((v) => (v[target.category] ? v : { ...v, [target.category]: true }));
     focusPoint(target);
   }, [activeStepId, vp.w, vp.h, focusPoint]);
+
+  /** Switch the displayed map (null = overworld composite). */
+  const switchMap = useCallback(
+    (areaId: string | null) => {
+      setCurrentAreaId(areaId);
+      setSelectedId(null);
+      if (areaId) {
+        // Area maps exist to show their items — turn those layers on by default.
+        const area = AREA_MAPS.find((a) => a.id === areaId);
+        const next = {} as Record<PoiCategory, boolean>;
+        for (const c of POI_CATEGORIES) next[c.id] = false;
+        for (const m of area?.markers ?? []) next[m.category] = true;
+        if ((AREA_TRAINERS[areaId] ?? []).length) next.trainer = true;
+        setVisible(next);
+      } else {
+        setVisible(initialVisible());
+      }
+      setView(clamp({ scale: 1, x: 0, y: 0 }));
+    },
+    [clamp],
+  );
 
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {
@@ -252,13 +331,15 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     setVisible((v) => ({ ...v, [id]: !v[id] }));
 
   const setAllCategories = (on: boolean) => {
-    const next = {} as Record<PoiCategory, boolean>;
-    for (const c of POI_CATEGORIES) next[c.id] = on;
-    setVisible(next);
+    setVisible((prev) => {
+      const next = { ...prev };
+      for (const c of activeCategories) next[c.id] = on;
+      return next;
+    });
     setSelectedId(null);
   };
 
-  const anyVisible = POI_CATEGORIES.some((c) => visible[c.id]);
+  const anyVisible = activeCategories.some((c) => visible[c.id]);
   const isDragging = dragState.current !== null;
 
   return (
@@ -281,14 +362,15 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
             }}
           >
             <img
-              src={HOENN_MAP_SRC}
-              alt="Map of the Hoenn region"
-              className="hoenn-map__image"
+              src={imgSrc}
+              alt={currentArea ? currentArea.name : "Map of the Hoenn region"}
+              className={`hoenn-map__image ${currentArea ? "hoenn-map__image--pixel" : ""}`}
               draggable={false}
             />
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
+              const trainer = isTrainerPoint(point);
               return (
                 <button
                   key={point.id}
@@ -302,7 +384,26 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
                   onClick={() => handleMarkerClick(point)}
                   aria-label={point.name}
                 >
-                  <span className="hoenn-map__pin-dot" />
+                  {trainer ? (
+                    <span
+                      className="hoenn-map__trainer-frame"
+                      style={{
+                        ["--trainer-frame" as string]: point.spriteFrame,
+                        ["--trainer-fw" as string]: point.spriteWidth,
+                        ["--trainer-fh" as string]: point.spriteHeight,
+                      }}
+                      aria-hidden="true"
+                    >
+                      <img
+                        src={assetUrl(point.spriteSheet)}
+                        alt=""
+                        className="hoenn-map__trainer-sprite"
+                        draggable={false}
+                      />
+                    </span>
+                  ) : (
+                    <span className="hoenn-map__pin-dot" />
+                  )}
                   {!active && (
                     <span className="hoenn-map__pin-hint" aria-hidden="true">
                       <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
@@ -350,6 +451,41 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
       </div>
 
       <aside className="hoenn-map__legend" aria-label="Map layers">
+        <div className="hoenn-map__switcher">
+          <label htmlFor="hoenn-map-select">Map</label>
+          <select
+            id="hoenn-map-select"
+            className="hoenn-map__switcher-select"
+            value={currentAreaId ?? ""}
+            onChange={(e) => switchMap(e.target.value || null)}
+          >
+            <option value="">Hoenn Region (overworld)</option>
+            {AREA_GROUPS.map(({ group, maps }) =>
+              maps.length === 1 && !maps[0].floor ? (
+                <option key={maps[0].id} value={maps[0].id}>
+                  {group}
+                </option>
+              ) : (
+                <optgroup key={group} label={group}>
+                  {maps.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.floor || a.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ),
+            )}
+          </select>
+          {currentArea && (
+            <button
+              type="button"
+              className="hoenn-map__switcher-back"
+              onClick={() => switchMap(null)}
+            >
+              ← Hoenn
+            </button>
+          )}
+        </div>
         <div className="hoenn-map__legend-bar">
           <div className="hoenn-map__legend-head">
             <h4>Map layers</h4>
@@ -372,8 +508,8 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
             </div>
           </div>
           <ul>
-            {POI_CATEGORIES.map((cat) => {
-              const count = ALL_POINTS.filter((p) => p.category === cat.id).length;
+            {activeCategories.map((cat) => {
+              const count = basePoints.filter((p) => p.category === cat.id).length;
               return (
                 <li key={cat.id}>
                   <label className="hoenn-map__legend-item">

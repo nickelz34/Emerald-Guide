@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { StepScreenshot } from "../data/stepImages";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
+import { HoennCrop } from "./HoennCrop";
 
 interface LightboxState {
   images: StepScreenshot[];
@@ -60,14 +61,25 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
             <button type="button" className="lightbox__close" onClick={close} aria-label="Close">
               ×
             </button>
-            <AnnotatedScreenshot
-              key={current.src}
-              imageSrc={current.src}
-              caption={current.caption}
-              areaId={current.areaId ?? state.areaId}
-              showLegend
-              variant="lightbox"
-            />
+            {current.crop ? (
+              <HoennCrop
+                key={current.src + state.index}
+                crop={current.crop}
+                caption={current.caption}
+                areaId={current.areaId ?? state.areaId}
+                showLegend
+                variant="lightbox"
+              />
+            ) : (
+              <AnnotatedScreenshot
+                key={current.src}
+                imageSrc={current.src}
+                caption={current.caption}
+                areaId={current.areaId ?? state.areaId}
+                showLegend
+                variant="lightbox"
+              />
+            )}
             {state.images.length > 1 && (
               <div className="lightbox__footer">
                 <button type="button" className="lightbox__nav lightbox__nav--prev" onClick={prev} aria-label="Previous">
