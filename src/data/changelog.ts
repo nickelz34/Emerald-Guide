@@ -20,6 +20,34 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.9.1",
+    date: "2026-07-06",
+    summary: "One unified Secrets, Extras, & Hidden Items section per walkthrough step.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Removed duplicate **Secrets & extras** and **Secrets & hidden items** blocks — each step now has a single **Secrets, Extras, & Hidden Items** checklist that merges event secrets with area hidden-item notes.",
+          "The wild Pokémon panel no longer repeats those bullets; they only appear in the merged section above it.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.9.0",
+    date: "2026-07-06",
+    summary: "Trainer map pins show full parties, moves, and battle prep tips.",
+    sections: [
+      {
+        heading: "Map",
+        items: [
+          "Clicking a trainer sprite on the Hoenn map or any walkthrough area map opens a **Trainer detail** panel: class, party species with levels and types, held items, custom moves, and auto-generated battle tips (type weaknesses, sight range, double battles, trainer items).",
+          "Data is extracted from pret/pokeemerald (`trainers.h`, `trainer_parties.h`) — run `npm run gen:trainers` to refresh after map updates.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.8.0",
     date: "2026-07-06",
     summary: "Full Pokémon Contest walkthrough — prep, Lilycove ranks, and post-game ribbons.",

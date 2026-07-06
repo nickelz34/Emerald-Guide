@@ -3,6 +3,7 @@ import { assetUrl } from "../lib/assetUrl";
 import { AREA_MAPS } from "../data/areaMaps";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
+import { TrainerDetailPanel } from "./TrainerDetailPanel";
 
 function isTrainerPoint(p: MapPoint): p is TrainerPoint {
   return p.category === "trainer" && "spriteSheet" in p;
@@ -129,11 +130,17 @@ export function AreaMapView({
               )}
               {active && (
                 <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
-                  <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
-                    {cat?.label}
-                  </span>
-                  <strong>{point.name}</strong>
-                  {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
+                  {trainer ? (
+                    <TrainerDetailPanel trainer={point} compact />
+                  ) : (
+                    <>
+                      <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
+                        {cat?.label}
+                      </span>
+                      <strong>{point.name}</strong>
+                      {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
+                    </>
+                  )}
                 </span>
               )}
             </button>
@@ -155,7 +162,13 @@ export function AreaMapView({
         </ul>
       )}
 
-      {activePoint && !showLegend && (
+      {activePoint && isTrainerPoint(activePoint) && (
+        <div className="area-map-view__trainer-detail">
+          <TrainerDetailPanel trainer={activePoint} compact />
+        </div>
+      )}
+
+      {activePoint && !isTrainerPoint(activePoint) && !showLegend && (
         <figcaption className="area-map-view__active">
           <span style={{ color: POI_CATEGORIES.find((c) => c.id === activePoint.category)?.color }}>
             {POI_CATEGORIES.find((c) => c.id === activePoint.category)?.label}

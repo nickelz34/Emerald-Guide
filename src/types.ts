@@ -50,7 +50,7 @@ export interface GuideStep {
   story?: string[];
   details: string[];
   tips?: string[];
-  /** Optional hidden items, easter eggs, and missable secrets for this event. */
+  /** Optional secrets, extras, and hidden-item notes (merged with area data in the walkthrough UI). */
   secrets?: string[];
   tags?: string[];
   mapRegion?: string;

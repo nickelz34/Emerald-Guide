@@ -12,6 +12,17 @@ import fs from "node:fs";
 import path from "node:path";
 import https from "node:https";
 import { PNG } from "pngjs";
+import {
+  parseEnumNames,
+  parseSpeciesNames,
+  parseMoveNames,
+  parseItemNames,
+  parseTypeNames,
+  parseSpeciesTypes,
+  parseTrainerParties,
+  parseTrainerRecords,
+  buildTrainerBattleLookup,
+} from "./trainer-data-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
@@ -263,19 +274,34 @@ function areaName(mapName) {
 
 function resolveTrainerName(script, gfxId) {
   if (script === "BattlePyramid_TrainerBattle") {
-    return { label: "Pyramid Trainer", class: classLabelFromGfx(gfxId), name: "Pyramid Trainer" };
+    return {
+      label: "Pyramid Trainer",
+      class: classLabelFromGfx(gfxId),
+      name: "Pyramid Trainer",
+      trainerId: null,
+    };
   }
   const tid = scriptToTrainer.get(script);
   if (tid && trainerById.has(tid)) {
     const t = trainerById.get(tid);
-    return { label: `${t.class} ${t.name}`, class: t.class, name: t.name };
+    return { label: `${t.class} ${t.name}`, class: t.class, name: t.name, trainerId: tid };
   }
   const m = /_EventScript_(.+)$/.exec(script || "");
   if (m) {
     const raw = m[1].replace(/([a-z])([A-Z])/g, "$1 $2");
-    return { label: titleCase(raw), class: classLabelFromGfx(gfxId), name: titleCase(raw) };
+    return {
+      label: titleCase(raw),
+      class: classLabelFromGfx(gfxId),
+      name: titleCase(raw),
+      trainerId: tid ?? null,
+    };
   }
-  return { label: classLabelFromGfx(gfxId), class: classLabelFromGfx(gfxId), name: "Trainer" };
+  return {
+    label: classLabelFromGfx(gfxId),
+    class: classLabelFromGfx(gfxId),
+    name: "Trainer",
+    trainerId: tid ?? null,
+  };
 }
 
 function classLabelFromGfx(gfxId) {
@@ -315,8 +341,9 @@ for (const [id] of origin) {
   const area = areaName(m.name);
   for (const oe of m.object_events || []) {
     if (!oe.trainer_type || oe.trainer_type === "TRAINER_TYPE_NONE") continue;
-    const { label, class: cls, name } = resolveTrainerName(oe.script, oe.graphics_id);
+    const { label, class: cls, name, trainerId } = resolveTrainerName(oe.script, oe.graphics_id);
     const sight = sightNote(oe.trainer_type, oe.trainer_sight_or_berry_tree_id);
+    const sightN = Number(oe.trainer_sight_or_berry_tree_id) || 0;
     const dim = dimsForGfx(oe.graphics_id);
     overworld.push(
       addTrainer({
@@ -324,6 +351,10 @@ for (const [id] of origin) {
         name: label,
         trainerClass: cls,
         trainerName: name,
+        trainerId: trainerId ?? undefined,
+        script: oe.script,
+        trainerType: oe.trainer_type,
+        sightRange: oe.trainer_type === "TRAINER_TYPE_NORMAL" && sightN > 0 ? sightN : undefined,
         category: "trainer",
         x: toGlobalX(id, oe.x),
         y: toGlobalY(id, oe.y),
@@ -348,8 +379,9 @@ for (const mapId of areaMapIds) {
   const list = [];
   for (const oe of m.object_events || []) {
     if (!oe.trainer_type || oe.trainer_type === "TRAINER_TYPE_NONE") continue;
-    const { label, class: cls, name } = resolveTrainerName(oe.script, oe.graphics_id);
+    const { label, class: cls, name, trainerId } = resolveTrainerName(oe.script, oe.graphics_id);
     const sight = sightNote(oe.trainer_type, oe.trainer_sight_or_berry_tree_id);
+    const sightN = Number(oe.trainer_sight_or_berry_tree_id) || 0;
     const dim = dimsForGfx(oe.graphics_id);
     list.push(
       addTrainer({
@@ -357,6 +389,10 @@ for (const mapId of areaMapIds) {
         name: label,
         trainerClass: cls,
         trainerName: name,
+        trainerId: trainerId ?? undefined,
+        script: oe.script,
+        trainerType: oe.trainer_type,
+        sightRange: oe.trainer_type === "TRAINER_TYPE_NORMAL" && sightN > 0 ? sightN : undefined,
         category: "trainer",
         x: toLocalX(oe.x, m.w),
         y: toLocalY(oe.y, m.h),
@@ -461,6 +497,46 @@ for (const [aid, list] of byArea) {
   if (filtered.length) areaOut[aid] = filtered;
 }
 
+// ---- trainer parties from pokeemerald battle data ----
+console.log("Fetching trainer party data…");
+const [
+  trainersFullH,
+  partiesH,
+  speciesNamesH,
+  moveNamesH,
+  itemNamesH,
+  speciesInfoH,
+  pokemonConstH,
+  speciesConstH,
+] = await Promise.all([
+  fetchText(`${RAW}/src/data/trainers.h`),
+  fetchText(`${RAW}/src/data/trainer_parties.h`),
+  fetchText(`${RAW}/src/data/text/species_names.h`),
+  fetchText(`${RAW}/src/data/text/move_names.h`),
+  fetchText(`${RAW}/src/data/items.h`),
+  fetchText(`${RAW}/src/data/pokemon/species_info.h`),
+  fetchText(`${RAW}/include/constants/pokemon.h`),
+  fetchText(`${RAW}/include/constants/species.h`),
+]);
+
+const typeNames = parseTypeNames(pokemonConstH);
+const speciesNames = parseSpeciesNames(speciesNamesH);
+const moveNames = parseMoveNames(moveNamesH);
+const itemNames = parseItemNames(itemNamesH);
+const speciesNums = parseEnumNames(speciesConstH, "SPECIES_");
+const speciesTypes = parseSpeciesTypes(speciesInfoH, typeNames);
+const parties = parseTrainerParties(
+  partiesH,
+  speciesNames,
+  moveNames,
+  itemNames,
+  speciesTypes,
+  speciesNums,
+);
+const trainerRecords = parseTrainerRecords(trainersFullH);
+const battleLookup = buildTrainerBattleLookup(trainerRecords, parties, itemNames);
+console.log(`Trainer parties: ${battleLookup.size} entries`);
+
 // ---- emit TypeScript ----
 const lines = [];
 lines.push("// AUTO-GENERATED by scripts/gen-map-trainers.mjs — do not edit by hand.");
@@ -478,12 +554,21 @@ lines.push("  spriteHeight: number;");
 lines.push("  /** Standing frame index (0=down, 1=up, 2=left, 3=right). */");
 lines.push("  spriteFrame: number;");
 lines.push("  mapId?: string;");
+lines.push("  trainerId?: string;");
+lines.push("  script?: string;");
+lines.push("  trainerType?: string;");
+lines.push("  /** Line-of-sight tiles for TRAINER_TYPE_NORMAL. */");
+lines.push("  sightRange?: number;");
 lines.push("}");
 lines.push("");
 function emitTrainer(t, indent = 2) {
   const pad = " ".repeat(indent);
   const desc = t.desc ? `, desc: ${JSON.stringify(t.desc)}` : "";
-  return `${pad}{ id: ${JSON.stringify(t.id)}, name: ${JSON.stringify(t.name)}, category: "trainer", trainerClass: ${JSON.stringify(t.trainerClass)}, trainerName: ${JSON.stringify(t.trainerName)}, x: ${t.x}, y: ${t.y}, graphicsId: ${JSON.stringify(t.graphicsId)}, spriteSheet: ${JSON.stringify(t.spriteSheet)}, spriteWidth: ${t.spriteWidth}, spriteHeight: ${t.spriteHeight}, spriteFrame: ${t.spriteFrame}, note: ${JSON.stringify(t.note)}${desc}, mapId: ${JSON.stringify(t.mapId)} },`;
+  const tid = t.trainerId ? `, trainerId: ${JSON.stringify(t.trainerId)}` : "";
+  const script = t.script ? `, script: ${JSON.stringify(t.script)}` : "";
+  const tt = t.trainerType ? `, trainerType: ${JSON.stringify(t.trainerType)}` : "";
+  const sight = t.sightRange ? `, sightRange: ${t.sightRange}` : "";
+  return `${pad}{ id: ${JSON.stringify(t.id)}, name: ${JSON.stringify(t.name)}, category: "trainer", trainerClass: ${JSON.stringify(t.trainerClass)}, trainerName: ${JSON.stringify(t.trainerName)}, x: ${t.x}, y: ${t.y}, graphicsId: ${JSON.stringify(t.graphicsId)}, spriteSheet: ${JSON.stringify(t.spriteSheet)}, spriteWidth: ${t.spriteWidth}, spriteHeight: ${t.spriteHeight}, spriteFrame: ${t.spriteFrame}, note: ${JSON.stringify(t.note)}${desc}${tid}${script}${tt}${sight}, mapId: ${JSON.stringify(t.mapId)} },`;
 }
 lines.push("export const MAP_TRAINERS: TrainerPoint[] = [");
 for (const t of owOut) {
@@ -504,3 +589,32 @@ lines.push("");
 
 fs.writeFileSync(path.join(ROOT, "src/data/mapTrainersGenerated.ts"), lines.join("\n"));
 console.log(`\nWrote src/data/mapTrainersGenerated.ts (${owOut.length} overworld, ${Object.keys(areaOut).length} area groups)`);
+
+// Emit trainer battle parties (keyed by TRAINER_* id)
+const partyLines = [];
+partyLines.push("// AUTO-GENERATED by scripts/gen-map-trainers.mjs — do not edit by hand.");
+partyLines.push("");
+partyLines.push("export interface TrainerPartyMon {");
+partyLines.push("  species: string;");
+partyLines.push("  speciesId: number;");
+partyLines.push("  level: number;");
+partyLines.push("  types: string[];");
+partyLines.push("  iv?: number;");
+partyLines.push("  heldItem?: string;");
+partyLines.push("  moves?: string[];");
+partyLines.push("}");
+partyLines.push("");
+partyLines.push("export interface TrainerBattleData {");
+partyLines.push("  doubleBattle: boolean;");
+partyLines.push("  items: string[];");
+partyLines.push("  party: TrainerPartyMon[];");
+partyLines.push("}");
+partyLines.push("");
+partyLines.push("export const TRAINER_BATTLES: Record<string, TrainerBattleData> = {");
+for (const [tid, data] of [...battleLookup.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  partyLines.push(`  ${JSON.stringify(tid)}: ${JSON.stringify(data)},`);
+}
+partyLines.push("};");
+partyLines.push("");
+fs.writeFileSync(path.join(ROOT, "src/data/trainerPartiesGenerated.ts"), partyLines.join("\n"));
+console.log(`Wrote src/data/trainerPartiesGenerated.ts (${battleLookup.size} trainers)`);

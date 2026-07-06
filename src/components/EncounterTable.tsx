@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { PokemonEncounter, TimeSlot, EncounterMethod } from "../types";
 import { TIME_LABELS, METHOD_LABELS } from "../types";
-import { getAreaData, getAreasForStep } from "../data/areaData";
+import { getAreaData, getAreasForStep, SECRETS_EXTRAS_SECTION_TITLE } from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
 import { assetUrl } from "../lib/assetUrl";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
@@ -10,6 +10,8 @@ interface EncounterTableProps {
   areaIds: string[];
   compact?: boolean;
   showScreenshots?: boolean;
+  /** When false, area secrets are omitted (shown on the parent walkthrough step instead). */
+  showAreaSecrets?: boolean;
 }
 
 const TIME_ORDER: TimeSlot[] = ["any", "morning", "day", "night"];
@@ -18,7 +20,12 @@ function timeBadgeClass(time: TimeSlot): string {
   return `encounter-time encounter-time--${time}`;
 }
 
-export function EncounterTable({ areaIds, compact, showScreenshots = true }: EncounterTableProps) {
+export function EncounterTable({
+  areaIds,
+  compact,
+  showScreenshots = true,
+  showAreaSecrets = true,
+}: EncounterTableProps) {
   const [timeFilter, setTimeFilter] = useState<TimeSlot | "all">("all");
   const [methodFilter, setMethodFilter] = useState<EncounterMethod | "all">("all");
   const [search, setSearch] = useState("");
@@ -75,9 +82,9 @@ export function EncounterTable({ areaIds, compact, showScreenshots = true }: Enc
                 showLegend
               />
             )}
-            {data.secrets && data.secrets.length > 0 && (
+            {showAreaSecrets && data.secrets && data.secrets.length > 0 && (
               <div className="area-block__secrets">
-                <strong>Secrets & hidden items</strong>
+                <strong>{SECRETS_EXTRAS_SECTION_TITLE}</strong>
                 <ul>
                   {data.secrets.map((s) => (
                     <li key={s}>{s}</li>
@@ -197,7 +204,7 @@ export function StepEncounters({ stepId }: StepEncountersProps) {
   return (
     <div className="step-encounters">
       <h4 className="step-encounters__title">Wild Pokémon & area guide</h4>
-      <EncounterTable areaIds={areaIds} showScreenshots={false} />
+      <EncounterTable areaIds={areaIds} showScreenshots={false} showAreaSecrets={false} />
     </div>
   );
 }

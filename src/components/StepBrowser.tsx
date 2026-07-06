@@ -5,6 +5,7 @@ import type { LayoutViewMode } from "../hooks/useViewMode";
 import { ScreenshotGallery } from "./ScreenshotGallery";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
+import { StepSecretsExtras } from "./StepSecretsExtras";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -335,16 +336,7 @@ export function StepBrowser({
             </div>
           )}
 
-          {current.step.secrets && current.step.secrets.length > 0 && (
-            <div className="step-card__secrets">
-              <strong>Secrets &amp; extras</strong>
-              <ul>
-                {current.step.secrets.map((secret) => (
-                  <li key={secret}>{secret}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <StepSecretsExtras stepId={current.step.id} secrets={current.step.secrets} />
 
           <StepEncounters stepId={current.step.id} />
 

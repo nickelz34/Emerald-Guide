@@ -11,6 +11,7 @@ import {
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
+import { TrainerDetailPanel } from "./TrainerDetailPanel";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
@@ -435,24 +436,30 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   )}
                   {active && (
                     <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
-                      <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
-                        {cat?.label}
-                      </span>
-                      <strong>{point.name}</strong>
-                      {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
-                      {point.note && <span className="hoenn-map__pin-note">{point.note}</span>}
-                      {point.stepId && (
-                        <button
-                          type="button"
-                          className="btn btn--primary btn--sm"
-                          onPointerDown={(e) => e.stopPropagation()}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            jumpToGuide(point);
-                          }}
-                        >
-                          Return to guide
-                        </button>
+                      {trainer ? (
+                        <TrainerDetailPanel trainer={point} compact />
+                      ) : (
+                        <>
+                          <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
+                            {cat?.label}
+                          </span>
+                          <strong>{point.name}</strong>
+                          {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
+                          {point.note && <span className="hoenn-map__pin-note">{point.note}</span>}
+                          {point.stepId && (
+                            <button
+                              type="button"
+                              className="btn btn--primary btn--sm"
+                              onPointerDown={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                jumpToGuide(point);
+                              }}
+                            >
+                              Return to guide
+                            </button>
+                          )}
+                        </>
                       )}
                     </span>
                   )}
@@ -554,23 +561,29 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         </div>
         {selectedPoint ? (
           <div className="hoenn-map__legend-detail">
-            <span
-              className="hoenn-map__pin-cat"
-              style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
-            >
-              {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
-            </span>
-            <h5>{selectedPoint.name}</h5>
-            {selectedPoint.desc && <p className="hoenn-map__detail-desc">{selectedPoint.desc}</p>}
-            {selectedPoint.note && <p className="hoenn-map__detail-note">{selectedPoint.note}</p>}
-            {selectedPoint.stepId && (
-              <button
-                type="button"
-                className="btn btn--primary btn--sm"
-                onClick={() => jumpToGuide(selectedPoint)}
-              >
-                Return to guide
-              </button>
+            {isTrainerPoint(selectedPoint) ? (
+              <TrainerDetailPanel trainer={selectedPoint} />
+            ) : (
+              <>
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
+                >
+                  {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
+                </span>
+                <h5>{selectedPoint.name}</h5>
+                {selectedPoint.desc && <p className="hoenn-map__detail-desc">{selectedPoint.desc}</p>}
+                {selectedPoint.note && <p className="hoenn-map__detail-note">{selectedPoint.note}</p>}
+                {selectedPoint.stepId && (
+                  <button
+                    type="button"
+                    className="btn btn--primary btn--sm"
+                    onClick={() => jumpToGuide(selectedPoint)}
+                  >
+                    Return to guide
+                  </button>
+                )}
+              </>
             )}
           </div>
         ) : (

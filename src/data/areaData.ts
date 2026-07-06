@@ -393,3 +393,22 @@ export function getAreaData(areaId: string): AreaExtras | undefined {
 export function getAllAreaIds(): string[] {
   return Object.keys(AREA_DATA);
 }
+
+/** Unified walkthrough section title for secrets, area extras, and hidden items. */
+export const SECRETS_EXTRAS_SECTION_TITLE = "Secrets, Extras, & Hidden Items";
+
+/** Merge step-level secrets with area-data secrets for one checklist (deduped, order preserved). */
+export function getSecretsExtrasForStep(stepId: string, stepSecrets?: string[]): string[] {
+  const fromAreas: string[] = [];
+  for (const areaId of getAreasForStep(stepId)) {
+    const secrets = getAreaData(areaId)?.secrets;
+    if (secrets) fromAreas.push(...secrets);
+  }
+  const combined = [...(stepSecrets ?? []), ...fromAreas];
+  const seen = new Set<string>();
+  return combined.filter((line) => {
+    if (seen.has(line)) return false;
+    seen.add(line);
+    return true;
+  });
+}
