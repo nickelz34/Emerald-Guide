@@ -1,4 +1,4 @@
-export type GuideCategory = "walkthrough" | "legendaries" | "encounters";
+export type GuideCategory = "walkthrough" | "encounters";
 
 export type TimeSlot = "morning" | "day" | "night" | "any";
 
@@ -67,18 +67,15 @@ export interface GuideSection {
 
 export interface GuideData {
   walkthrough: GuideSection[];
-  legendaries: GuideSection[];
   encounters: GuideSection[];
 }
 
 export const CATEGORY_LABELS: Record<GuideCategory, string> = {
   walkthrough: "Story Walkthrough",
-  legendaries: "Legendaries",
   encounters: "Pokédex",
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<GuideCategory, string> = {
-  walkthrough: "Beat the game from Littleroot to the Hall of Fame.",
-  legendaries: "Catch every legendary available in a normal Emerald cartridge.",
+  walkthrough: "Beat the game from Littleroot to the Hall of Fame — including legendary catches woven into the story.",
   encounters: "What to catch on each route — rates, methods, and time of day.",
 };

@@ -88,11 +88,9 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
   // Sealed Chamber (underwater approach)
   "sealed-chamber-2": "underwater-route126",
-  "regi-puzzle": "underwater-route126",
 
   // Optional / post-game guide steps
   "master-ball": "magmahideout-4f",
-  "deoxys-note": "navelrock-top",
 
   // Encounter guide steps
   "enc-petalburg-woods": "petalburgwoods",
@@ -102,6 +100,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "enc-mt-pyre": "mtpyre-exterior",
   "enc-victory-road": "victoryroad-1f",
   "enc-sealed-chamber": "underwater-route126",
+  "league-4": "littleroottown-brendanshouse-2f",
 };
 
 /** Multiple area maps for steps that span floors or zones. */
@@ -170,6 +169,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "battlefrontier-battlepyramidtop",
     "artisancave-1f",
     "artisancave-b1f",
+    "navelrock-top",
   ],
   "seafloor-cavern-1": ["underwater-route127", "underwater-route128"],
 };

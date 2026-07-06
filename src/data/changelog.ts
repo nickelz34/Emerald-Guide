@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.7.0",
+    date: "2026-07-05",
+    summary: "Legendary catch guides are now part of the story walkthrough — no separate tab.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Removed the standalone Legendaries section; Rayquaza, Kyogre, Groudon, the Regi trio, and Latios/Latias are covered at the story beats where you naturally encounter them.",
+          "New steps: catch Rayquaza (Sky Pillar), Kyogre & Groudon (post–Rain Badge), each Regi tomb after the Sealed Chamber puzzle, and Latios/Latias (post–Hall of Fame TV event).",
+          "Event-only Deoxys and Jirachi notes moved to secrets on the Latios/Latias step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.6.8",
     date: "2026-07-05",
     summary: "Interior area maps now appear in walkthrough steps with item and trainer pins.",

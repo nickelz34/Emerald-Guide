@@ -364,6 +364,12 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "sky-pillar-1": ["sky-pillar"],
   "victory-road-2": ["victory-road"],
   "sealed-chamber-2": ["sealed-chamber"],
+  "sealed-chamber-3": ["route-111"],
+  "sealed-chamber-4": ["route-105"],
+  "sealed-chamber-5": ["route-120"],
+  "sky-pillar-3": ["sky-pillar"],
+  "sootopolis-gym-3": ["marine-cave"],
+  "league-4": ["littleroot"],
   "trick-1": ["route-110"],
   "trick-2": ["route-110"],
   "trick-3": ["route-110"],
@@ -372,12 +378,8 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "trick-6": ["route-110"],
   "trick-7": ["route-110"],
   "trick-8": ["route-110"],
-  "regi-puzzle": ["sealed-chamber"],
   "battle-frontier": ["battle-frontier"],
   "mirage-island": ["pacifidlog"],
-  "rayquaza-catch": ["sky-pillar"],
-  kyogre: ["marine-cave"],
-  groudon: ["mt-chimney"],
 };
 
 export function getAreasForStep(stepId: string): string[] {

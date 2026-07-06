@@ -17,14 +17,12 @@ interface SidebarProps {
 const NAV_META: Record<NavKey, { label: string; hint: string }> = {
   walkthrough: { label: CATEGORY_LABELS.walkthrough, hint: "Step-by-step story guide" },
   encounters: { label: CATEGORY_LABELS.encounters, hint: "Hoenn, National & all 387" },
-  legendaries: { label: CATEGORY_LABELS.legendaries, hint: "Catch every legendary" },
   map: { label: "Hoenn Map", hint: "Jump to any region" },
 };
 
 const SHORT_LABELS: Record<NavKey, string> = {
   walkthrough: "Story",
   encounters: "Pokédex",
-  legendaries: "Legends",
   map: "Map",
 };
 
@@ -32,13 +30,12 @@ const SHORT_LABELS: Record<NavKey, string> = {
 const NAV_LABELS: Record<NavKey, string> = {
   walkthrough: "Walkthrough",
   encounters: "Pokédex",
-  legendaries: "Legendaries",
   map: "Hoenn Map",
 };
 
 const GROUPS: { title: string; keys: NavKey[] }[] = [
   { title: "Playthrough", keys: ["walkthrough", "encounters"] },
-  { title: "Reference", keys: ["legendaries", "map"] },
+  { title: "Reference", keys: ["map"] },
 ];
 
 export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: SidebarProps) {
@@ -117,7 +114,6 @@ export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: Sideba
 const HEADER_COPY: Record<NavKey, { title: string; desc: string }> = {
   walkthrough: { title: CATEGORY_LABELS.walkthrough, desc: CATEGORY_DESCRIPTIONS.walkthrough },
   encounters: { title: CATEGORY_LABELS.encounters, desc: "Browse the Hoenn dex (202), the National dex (185), or all 387 — with stats, types, evolutions, and where to catch each one." },
-  legendaries: { title: CATEGORY_LABELS.legendaries, desc: CATEGORY_DESCRIPTIONS.legendaries },
   map: { title: "Hoenn Map", desc: "Click any region marker to jump straight to its walkthrough steps." },
 };
 
