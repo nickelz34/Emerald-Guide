@@ -11,6 +11,7 @@ import {
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
+import { getAreaMapForStep } from "../data/stepAreaMaps";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
@@ -200,17 +201,6 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     [clamp, fitW, vp.w, vp.h, mapAr, currentArea],
   );
 
-  // When a step asks to be shown (e.g. "Show on Hoenn map"), reveal its layer,
-  // select the matching point, and pan/zoom the map so it sits centered.
-  useEffect(() => {
-    if (!activeStepId || !vp.w || !vp.h) return;
-    const target = resolveFocusPoint(activeStepId);
-    if (!target) return;
-    setCurrentAreaId(null); // "Show on Hoenn map" always targets the overworld
-    setVisible((v) => (v[target.category] ? v : { ...v, [target.category]: true }));
-    focusPoint(target);
-  }, [activeStepId, vp.w, vp.h, focusPoint]);
-
   /** Switch the displayed map (null = overworld composite). */
   const switchMap = useCallback(
     (areaId: string | null) => {
@@ -231,6 +221,22 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     },
     [clamp],
   );
+
+  // When a step asks to be shown (e.g. "Show on Hoenn map"), open its interior area
+  // map when one exists; otherwise focus the matching overworld point.
+  useEffect(() => {
+    if (!activeStepId || !vp.w || !vp.h) return;
+    const areaMapId = getAreaMapForStep(activeStepId);
+    if (areaMapId) {
+      switchMap(areaMapId);
+      return;
+    }
+    const target = resolveFocusPoint(activeStepId);
+    if (!target) return;
+    setCurrentAreaId(null);
+    setVisible((v) => (v[target.category] ? v : { ...v, [target.category]: true }));
+    focusPoint(target);
+  }, [activeStepId, vp.w, vp.h, focusPoint, switchMap]);
 
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {

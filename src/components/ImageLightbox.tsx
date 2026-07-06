@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import type { StepScreenshot } from "../data/stepImages";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { HoennCrop } from "./HoennCrop";
+import { AreaMapView } from "./AreaMapView";
 
 interface LightboxState {
   images: StepScreenshot[];
@@ -61,7 +62,15 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
             <button type="button" className="lightbox__close" onClick={close} aria-label="Close">
               ×
             </button>
-            {current.crop ? (
+            {current.areaMapId ? (
+              <AreaMapView
+                key={current.areaMapId + state.index}
+                areaMapId={current.areaMapId}
+                caption={current.caption}
+                showLegend
+                variant="lightbox"
+              />
+            ) : current.crop ? (
               <HoennCrop
                 key={current.src + state.index}
                 crop={current.crop}

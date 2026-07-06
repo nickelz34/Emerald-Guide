@@ -4,6 +4,7 @@ import { getAreaIdForEncounterStep } from "../data/encounters";
 import { useLightbox } from "./ImageLightbox";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { HoennCrop } from "./HoennCrop";
+import { AreaMapView } from "./AreaMapView";
 
 interface ScreenshotGalleryProps {
   stepId: string;
@@ -25,6 +26,17 @@ export function ScreenshotGallery({ stepId, compact }: ScreenshotGalleryProps) {
   return (
     <div className={`screenshots ${compact ? "screenshots--compact" : ""}`}>
       {images.map((shot, i) => {
+        if (shot.areaMapId) {
+          return (
+            <AreaMapView
+              key={shot.areaMapId + i}
+              areaMapId={shot.areaMapId}
+              caption={shot.caption}
+              onClick={() => open(images, i)}
+              className="screenshots__annotated"
+            />
+          );
+        }
         if (shot.crop) {
           return (
             <HoennCrop

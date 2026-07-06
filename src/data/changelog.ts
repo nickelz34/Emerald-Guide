@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.6.8",
+    date: "2026-07-05",
+    summary: "Interior area maps now appear in walkthrough steps with item and trainer pins.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Dungeon and interior steps (Petalburg Woods, Granite Cave, Magma Hideout, Safari Zone, Battle Pyramid, and more) now show the interactive area maps from the map switcher instead of static renders — with field items and trainer pins you can click.",
+          "Multi-floor chapters show every relevant floor (e.g. Victory Road 1F–B2F, Mt. Pyre exterior through summit, all Battle Pyramid squares).",
+          "\"Show on Hoenn map\" from a step opens the matching interior area map when one exists, not just the overworld.",
+          "New `npm run verify:step-area-maps` ensures every generated area map is linked to at least one walkthrough step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.6.7",
     date: "2026-07-05",
     summary: "Full Battle Pyramid coverage — all 19 room layouts in the map switcher.",

@@ -1,0 +1,28 @@
+/**
+ * Verify every AREA_MAPS id is referenced by at least one walkthrough step mapping.
+ */
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const areaMapsSrc = readFileSync(join(root, "src/data/areaMaps.ts"), "utf8");
+const stepAreaMapsSrc = readFileSync(join(root, "src/data/stepAreaMaps.ts"), "utf8");
+
+const mapBlockIds = [...areaMapsSrc.matchAll(/id: "([^"]+)",\r?\n\s+mapId:/g)].map((m) => m[1]);
+
+const referenced = new Set();
+for (const m of stepAreaMapsSrc.matchAll(/"([a-z0-9-]+)"/g)) {
+  const id = m[1];
+  if (mapBlockIds.includes(id)) referenced.add(id);
+}
+
+const unmapped = mapBlockIds.filter((id) => !referenced.has(id));
+
+if (unmapped.length) {
+  console.error(`Area maps not linked to any walkthrough step (${unmapped.length}):`);
+  for (const id of unmapped.sort()) console.error(`  - ${id}`);
+  process.exit(1);
+}
+
+console.log(`OK: all ${mapBlockIds.length} area maps are linked to walkthrough steps.`);

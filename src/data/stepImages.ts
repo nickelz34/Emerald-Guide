@@ -3,11 +3,14 @@ import { walkthrough } from "./walkthrough";
 import { getAreaIdForEncounterStep } from "./encounters";
 import { getAreaData } from "./areaData";
 import { EVENT_MAP_CROP, type MapCrop } from "./mapCrops";
+import { areaMapShots } from "./stepAreaMaps";
 
 export interface StepScreenshot {
   src: string;
   caption: string;
   areaId?: string;
+  /** Interactive interior/dungeon map from AREA_MAPS (items + trainers). */
+  areaMapId?: string;
   /**
    * When false, this image should never have POI markers overlaid (used for the
    * per-event location renders, whose crop/scale differs from the annotated
@@ -282,7 +285,17 @@ export function getStepImages(stepId: string): StepScreenshot[] {
     ];
   }
 
-  // Interiors/caves/gyms keep their per-event pixel-perfect render.
+  // Interior dungeons and facilities — interactive area maps with item/trainer pins.
+  const areaMaps = areaMapShots(stepId);
+  if (areaMaps.length > 0) {
+    return areaMaps.map(({ areaMapId, caption }) => ({
+      src: "",
+      caption,
+      areaMapId,
+    }));
+  }
+
+  // Interiors/caves/gyms without an area map keep their per-event pixel-perfect render.
   if (EVENT_IMAGE[stepId]) return [EVENT_IMAGE[stepId]];
 
   if (STEP_IMAGES[stepId]) return STEP_IMAGES[stepId];
