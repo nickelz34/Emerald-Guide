@@ -12,7 +12,17 @@ import fs from "node:fs";
 import path from "node:path";
 import https from "node:https";
 import { PNG } from "pngjs";
-import {
+
+/** Fix UTF-16 LE files that Cursor/Windows sometimes write (null byte every other char). */
+function repairUtf16File(filePath) {
+  const buf = fs.readFileSync(filePath);
+  if (buf.length < 4 || buf[1] !== 0 || buf[0] < 0x20 || buf[0] > 0x7e) return;
+  fs.writeFileSync(filePath, buf.toString("utf16le"), "utf8");
+}
+
+repairUtf16File(path.join(import.meta.dirname, "trainer-data-lib.mjs"));
+
+const {
   parseEnumNames,
   parseSpeciesNames,
   parseMoveNames,
@@ -22,7 +32,7 @@ import {
   parseTrainerParties,
   parseTrainerRecords,
   buildTrainerBattleLookup,
-} from "./trainer-data-lib.mjs";
+} = await import("./trainer-data-lib.mjs");
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
@@ -414,6 +424,42 @@ console.log(`Overworld trainers: ${overworld.length}`);
 console.log(`Area-map trainers: ${[...byArea.values()].reduce((s, a) => s + a.length, 0)} (${byArea.size} areas)`);
 console.log(`Unique sprite gfx ids: ${gfxNeeded.size}`);
 
+/** PokeNav Match Call rematch table from pokeemerald battle_setup.c */
+function parseMatchCallRematchIds(battleSetupText) {
+  const firstIds = new Set();
+  const tableMatch = battleSetupText.match(
+    /const struct RematchTrainer gRematchTable\[REMATCH_TABLE_ENTRIES\]\s*=\s*\{([\s\S]*?)\n\};/,
+  );
+  if (!tableMatch) throw new Error("gRematchTable not found in battle_setup.c");
+  for (const m of tableMatch[1].matchAll(/REMATCH\(([^)]+)\)/g)) {
+    const trainers = m[1]
+      .split(",")
+      .map((s) => s.trim())
+      .filter((p) => p.startsWith("TRAINER_"));
+    if (trainers[0]) firstIds.add(trainers[0]);
+  }
+  return firstIds;
+}
+
+function trainerIdBase(id) {
+  return id.replace(/_\d+$/, "");
+}
+
+function isMatchCallRematchable(trainerId, firstIds) {
+  if (!trainerId) return false;
+  if (firstIds.has(trainerId)) return true;
+  const base = trainerIdBase(trainerId);
+  for (const id of firstIds) {
+    if (trainerIdBase(id) === base) return true;
+  }
+  return false;
+}
+
+console.log("Fetching Match Call rematch table…");
+const battleSetupC = await fetchText(`${RAW}/src/battle_setup.c`);
+const matchCallFirstIds = parseMatchCallRematchIds(battleSetupC);
+console.log(`Match Call rematch trainers: ${matchCallFirstIds.size}`);
+
 /** pret exports palette index 0 as opaque mint green — key it out for web use. */
 function keyOutTransparency(filePath) {
   const png = PNG.sync.read(fs.readFileSync(filePath));
@@ -487,7 +533,8 @@ console.log(`Transparency keyed on ${keyed}/${allSheets.length} sprite sheets`);
 function withSprite(t) {
   const sheet = spritePathForGfx(t.graphicsId);
   if (!sheet || !fs.existsSync(path.join(ROOT, "public", sheet))) return null;
-  return { ...t, spriteSheet: sheet };
+  const rematchable = isMatchCallRematchable(t.trainerId, matchCallFirstIds);
+  return { ...t, spriteSheet: sheet, rematchable };
 }
 
 const owOut = overworld.map(withSprite).filter(Boolean);
@@ -559,6 +606,23 @@ lines.push("  script?: string;");
 lines.push("  trainerType?: string;");
 lines.push("  /** Line-of-sight tiles for TRAINER_TYPE_NORMAL. */");
 lines.push("  sightRange?: number;");
+lines.push("  /** Registered for PokeNav Match Call rematches (gRematchTable in Emerald). */");
+lines.push("  rematchable?: boolean;");
+lines.push("}");
+lines.push("");
+lines.push("/** First-battle TRAINER_* ids from Emerald's Match Call rematch table. */");
+lines.push(
+  `export const MATCH_CALL_REMATCH_TRAINER_IDS: ReadonlySet<string> = new Set(${JSON.stringify([...matchCallFirstIds].sort())});`,
+);
+lines.push("");
+lines.push("export function isMatchCallRematchable(trainerId?: string): boolean {");
+lines.push("  if (!trainerId) return false;");
+lines.push("  if (MATCH_CALL_REMATCH_TRAINER_IDS.has(trainerId)) return true;");
+lines.push("  const base = trainerId.replace(/_\\d+$/, \"\");");
+lines.push("  for (const id of MATCH_CALL_REMATCH_TRAINER_IDS) {");
+lines.push("    if (id.replace(/_\\d+$/, \"\") === base) return true;");
+lines.push("  }");
+lines.push("  return false;");
 lines.push("}");
 lines.push("");
 function emitTrainer(t, indent = 2) {
@@ -568,7 +632,8 @@ function emitTrainer(t, indent = 2) {
   const script = t.script ? `, script: ${JSON.stringify(t.script)}` : "";
   const tt = t.trainerType ? `, trainerType: ${JSON.stringify(t.trainerType)}` : "";
   const sight = t.sightRange ? `, sightRange: ${t.sightRange}` : "";
-  return `${pad}{ id: ${JSON.stringify(t.id)}, name: ${JSON.stringify(t.name)}, category: "trainer", trainerClass: ${JSON.stringify(t.trainerClass)}, trainerName: ${JSON.stringify(t.trainerName)}, x: ${t.x}, y: ${t.y}, graphicsId: ${JSON.stringify(t.graphicsId)}, spriteSheet: ${JSON.stringify(t.spriteSheet)}, spriteWidth: ${t.spriteWidth}, spriteHeight: ${t.spriteHeight}, spriteFrame: ${t.spriteFrame}, note: ${JSON.stringify(t.note)}${desc}${tid}${script}${tt}${sight}, mapId: ${JSON.stringify(t.mapId)} },`;
+  const rematch = t.rematchable ? ", rematchable: true" : "";
+  return `${pad}{ id: ${JSON.stringify(t.id)}, name: ${JSON.stringify(t.name)}, category: "trainer", trainerClass: ${JSON.stringify(t.trainerClass)}, trainerName: ${JSON.stringify(t.trainerName)}, x: ${t.x}, y: ${t.y}, graphicsId: ${JSON.stringify(t.graphicsId)}, spriteSheet: ${JSON.stringify(t.spriteSheet)}, spriteWidth: ${t.spriteWidth}, spriteHeight: ${t.spriteHeight}, spriteFrame: ${t.spriteFrame}, note: ${JSON.stringify(t.note)}${desc}${tid}${script}${tt}${sight}${rematch}, mapId: ${JSON.stringify(t.mapId)} },`;
 }
 lines.push("export const MAP_TRAINERS: TrainerPoint[] = [");
 for (const t of owOut) {
@@ -606,6 +671,7 @@ partyLines.push("}");
 partyLines.push("");
 partyLines.push("export interface TrainerBattleData {");
 partyLines.push("  doubleBattle: boolean;");
+partyLines.push("  partyFlags?: string;");
 partyLines.push("  items: string[];");
 partyLines.push("  party: TrainerPartyMon[];");
 partyLines.push("}");

@@ -17,6 +17,7 @@ export interface SpeciesInfo {
   types: string[];
   abilities: string[];
   hiddenAbility?: string;
+  baseExp?: number;
   stats: StatLine[];
   total: number;
   heightM?: number;
@@ -114,6 +115,7 @@ export function loadSpeciesInfo(slug: string): Promise<SpeciesInfo> {
 
     const info: SpeciesInfo = {
       slug,
+      baseExp: pokemon.base_experience ?? undefined,
       sprite:
         pokemon.sprites?.other?.["official-artwork"]?.front_default ??
         pokemon.sprites?.front_default ??

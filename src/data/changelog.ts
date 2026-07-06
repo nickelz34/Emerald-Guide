@@ -20,6 +20,104 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.6",
+    date: "2026-07-06",
+    summary: "Hoenn overworld map can filter trainers to PokeNav Match Call rematches only.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Trainers layer on the Hoenn region map has a Rematchable only sub-filter — shows the ~78 trainers registered in Emerald's Match Call rematch table.",
+          "Rematchable trainers are tagged from pokeemerald's gRematchTable when map data is generated; twin/double-object trainers are included when their battle ID matches.",
+          "Filter resets when switching to an interior area map; trainer count shows filtered/total while the filter is on.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.5",
+    date: "2026-07-06",
+    summary: "Trainer detail window adds prize money, full movesets, abilities, base stats, and rematch data.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Trainer generator now extracts fixed move sets and party flags from pokeemerald (854 battle definitions, up from 703).",
+          "Modal shows Emerald-accurate prize money (class base × last party Pokémon's level) and Amulet Coin note.",
+          "Each party Pokémon loads abilities, genus, base stat bars, BST, and per-mon EXP yield from PokéAPI.",
+          "Gym leaders and rivals show exact four-move sets when defined in game data; rematch version list when multiple TRAINER_* entries exist.",
+          "Larger sprites (4× trainer, 112px Pokémon) and party slot order, script, and graphics ID in encounter details.",
+        ],
+      },
+      {
+        heading: "Data",
+        items: [
+          "Trainer party parser fixed for nested move braces — custom-move trainers now populate correctly.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.4",
+    date: "2026-07-06",
+    summary: "Trainer click modal shows larger sprites and a full battle breakdown.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Trainer detail window is wider with a 3× overworld sprite and 96px party Pokémon sprites.",
+          "New battle summary: party size, level range, party types, type weaknesses and resistances, trainer items, and facing direction.",
+          "Each party Pokémon is shown on its own card with types, held items, IV notes, and move list (or level-up moveset note).",
+          "Encounter details section lists behavior, map ID, and trainer ID for reference.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.3",
+    date: "2026-07-06",
+    summary: "Fix trainer map pins not opening the battle-details window on click.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Trainer sprite clicks no longer get swallowed by map pan/zoom — the details modal opens reliably on click.",
+          "Trainer detail modal now renders above the map and lightbox layers so it is always visible.",
+          "Slightly larger click target on trainer overworld sprites.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.2",
+    date: "2026-07-06",
+    summary: "Trainer map pins show a quick summary on hover; click opens a full battle-details window.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Hovering a trainer sprite now shows only basic info — name, class, location note, sight range, and a one-line party preview.",
+          "Clicking a trainer (on the Hoenn map, area maps, or the map index) opens a modal with the full party, moves, held items, and battle tips.",
+          "The map sidebar lists a short trainer summary with a button to reopen the details window after closing it.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.1",
+    date: "2026-07-06",
+    summary: "Trainer map pins show full party and battle tips on hover, not just the trainer name.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Hovering a trainer sprite on the Hoenn map or area maps now opens the full trainer panel — class, party (levels, types, moves, held items), sight range, and battle tips.",
+          "Click still pins the trainer and shows the same detail in the map sidebar (Hoenn map) or below the map (area lightbox).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.0",
     date: "2026-07-06",
     summary: "Post-game walkthrough split into three chapters with Bulbapedia-accurate steps from Hall of Fame through Battle Frontier and optional Hoenn.",

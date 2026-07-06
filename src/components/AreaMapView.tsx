@@ -3,7 +3,7 @@ import { assetUrl } from "../lib/assetUrl";
 import { AREA_MAPS } from "../data/areaMaps";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
-import { TrainerDetailPanel } from "./TrainerDetailPanel";
+import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 
 function isTrainerPoint(p: MapPoint): p is TrainerPoint {
   return p.category === "trainer" && "spriteSheet" in p;
@@ -28,6 +28,7 @@ export function AreaMapView({
   className = "",
 }: AreaMapViewProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
 
   const area = useMemo(() => AREA_MAPS.find((a) => a.id === areaMapId) ?? null, [areaMapId]);
 
@@ -95,8 +96,15 @@ export function AreaMapView({
                 top: `${point.y}%`,
                 ["--pin-color" as string]: cat?.color,
               }}
+              onPointerDown={(e) => e.stopPropagation()}
               onClick={(e) => {
                 e.stopPropagation();
+                if (trainer) {
+                  setActiveId(point.id);
+                  setModalTrainer(point);
+                  return;
+                }
+                setModalTrainer(null);
                 setActiveId(active ? null : point.id);
               }}
               aria-label={point.name}
@@ -121,27 +129,25 @@ export function AreaMapView({
               ) : (
                 <span className="hoenn-map__pin-dot" />
               )}
-              {!active && (
-                <span className="hoenn-map__pin-hint" aria-hidden="true">
+              <span className="hoenn-map__pin-hint" aria-hidden="true">
+                {trainer ? (
+                  <TrainerPinHint trainer={point} />
+                ) : (
+                  <>
+                    <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
+                      {cat?.label}
+                    </span>
+                    <span className="hoenn-map__pin-hint-name">{point.name}</span>
+                  </>
+                )}
+              </span>
+              {!trainer && active && (
+                <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
                   <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
                     {cat?.label}
                   </span>
-                  <span className="hoenn-map__pin-hint-name">{point.name}</span>
-                </span>
-              )}
-              {active && (
-                <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
-                  {trainer ? (
-                    <TrainerDetailPanel trainer={point} compact />
-                  ) : (
-                    <>
-                      <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
-                        {cat?.label}
-                      </span>
-                      <strong>{point.name}</strong>
-                      {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
-                    </>
-                  )}
+                  <strong>{point.name}</strong>
+                  {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
                 </span>
               )}
             </button>
@@ -174,6 +180,12 @@ export function AreaMapView({
                       className={`marker-index__btn ${active ? "marker-index__btn--active" : ""}`}
                       onClick={(e) => {
                         e.stopPropagation();
+                        if (isTrainerPoint(point)) {
+                          setActiveId(point.id);
+                          setModalTrainer(point);
+                          return;
+                        }
+                        setModalTrainer(null);
                         setActiveId(active ? null : point.id);
                       }}
                     >
@@ -193,12 +205,6 @@ export function AreaMapView({
         </>
       )}
 
-      {activePoint && isTrainerPoint(activePoint) && (
-        <div className="area-map-view__trainer-detail">
-          <TrainerDetailPanel trainer={activePoint} compact />
-        </div>
-      )}
-
       {activePoint && !isTrainerPoint(activePoint) && !showLegend && (
         <figcaption className="area-map-view__active">
           <span style={{ color: POI_CATEGORIES.find((c) => c.id === activePoint.category)?.color }}>
@@ -210,6 +216,7 @@ export function AreaMapView({
       )}
 
       <figcaption className="area-map-view__caption">{label}</figcaption>
+      <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
     </figure>
   );
 }

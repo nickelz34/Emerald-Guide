@@ -11,7 +11,7 @@ import {
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
-import { TrainerDetailPanel } from "./TrainerDetailPanel";
+import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
@@ -101,7 +101,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
   const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
+  const [rematchableOnly, setRematchableOnly] = useState(false);
   const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
 
   const currentArea = useMemo(
@@ -138,10 +140,20 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     originY: number;
     moved: boolean;
   } | null>(null);
+  const suppressClickRef = useRef(false);
+
+  const passesTrainerFilter = useCallback(
+    (p: MapPoint) => {
+      if (!rematchableOnly || currentArea) return true;
+      if (!isTrainerPoint(p)) return true;
+      return p.rematchable === true;
+    },
+    [rematchableOnly, currentArea],
+  );
 
   const visiblePoints = useMemo(
-    () => basePoints.filter((p) => visible[p.category]),
-    [visible, basePoints],
+    () => basePoints.filter((p) => visible[p.category] && passesTrainerFilter(p)),
+    [visible, basePoints, passesTrainerFilter],
   );
 
   const selectedPoint = useMemo(
@@ -154,13 +166,20 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     return POI_CATEGORIES.filter((c) => visible[c.id])
       .map((cat) => ({
         cat,
-        points: basePoints.filter((p) => p.category === cat.id).sort(
-          (a, b) =>
-            (a.note ?? "").localeCompare(b.note ?? "") || a.name.localeCompare(b.name),
-        ),
+        points: basePoints
+          .filter((p) => p.category === cat.id && passesTrainerFilter(p))
+          .sort(
+            (a, b) =>
+              (a.note ?? "").localeCompare(b.note ?? "") || a.name.localeCompare(b.name),
+          ),
       }))
       .filter((g) => g.points.length > 0);
-  }, [visible, basePoints]);
+  }, [visible, basePoints, passesTrainerFilter]);
+
+  const overworldRematchTrainerCount = useMemo(
+    () => MAP_TRAINERS.filter((t) => t.rematchable).length,
+    [],
+  );
 
   /** Width the map occupies at scale 1 (whole map contained in the viewport). */
   const fitW = vp.w && vp.h ? Math.min(vp.w, vp.h * mapAr) : vp.w;
@@ -194,6 +213,11 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       const ar = onOverworld ? MAP_W / MAP_H : mapAr;
       const fw = vp.w && vp.h ? Math.min(vp.w, vp.h * ar) : vp.w;
       setSelectedId(p.id);
+      if (isTrainerPoint(p)) {
+        setModalTrainer(p);
+      } else {
+        setModalTrainer(null);
+      }
       setView((prev) => {
         const targetScale = Math.max(prev.scale, onOverworld ? 6 : 3);
         const cw = fw * targetScale;
@@ -220,6 +244,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     (areaId: string | null) => {
       setCurrentAreaId(areaId);
       setSelectedId(null);
+      setRematchableOnly(false);
       if (areaId) {
         // Area maps exist to show their items — turn those layers on by default.
         const area = AREA_MAPS.find((a) => a.id === areaId);
@@ -323,11 +348,21 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const drag = dragState.current;
     if (!drag || drag.pointerId !== e.pointerId) return;
+    if (drag.moved) suppressClickRef.current = true;
     dragState.current = null;
   };
 
   const handleMarkerClick = (point: MapPoint) => {
-    if (dragState.current?.moved) return;
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false;
+      return;
+    }
+    if (isTrainerPoint(point)) {
+      setSelectedId(point.id);
+      setModalTrainer(point);
+      return;
+    }
+    setModalTrainer(null);
     setSelectedId((id) => (id === point.id ? null : point.id));
   };
 
@@ -397,7 +432,11 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     top: `${point.y}%`,
                     ["--pin-color" as string]: cat?.color,
                   }}
-                  onClick={() => handleMarkerClick(point)}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleMarkerClick(point);
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
@@ -426,40 +465,38 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   ) : (
                     <span className="hoenn-map__pin-dot" />
                   )}
-                  {!active && (
-                    <span className="hoenn-map__pin-hint" aria-hidden="true">
+                  <span className="hoenn-map__pin-hint" aria-hidden="true">
+                    {trainer ? (
+                      <TrainerPinHint trainer={point} />
+                    ) : (
+                      <>
+                        <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
+                          {cat?.label}
+                        </span>
+                        <span className="hoenn-map__pin-hint-name">{point.name}</span>
+                      </>
+                    )}
+                  </span>
+                  {!trainer && active && (
+                    <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
                       <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
                         {cat?.label}
                       </span>
-                      <span className="hoenn-map__pin-hint-name">{point.name}</span>
-                    </span>
-                  )}
-                  {active && (
-                    <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
-                      {trainer ? (
-                        <TrainerDetailPanel trainer={point} compact />
-                      ) : (
-                        <>
-                          <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
-                            {cat?.label}
-                          </span>
-                          <strong>{point.name}</strong>
-                          {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
-                          {point.note && <span className="hoenn-map__pin-note">{point.note}</span>}
-                          {point.stepId && (
-                            <button
-                              type="button"
-                              className="btn btn--primary btn--sm"
-                              onPointerDown={(e) => e.stopPropagation()}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                jumpToGuide(point);
-                              }}
-                            >
-                              Return to guide
-                            </button>
-                          )}
-                        </>
+                      <strong>{point.name}</strong>
+                      {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
+                      {point.note && <span className="hoenn-map__pin-note">{point.note}</span>}
+                      {point.stepId && (
+                        <button
+                          type="button"
+                          className="btn btn--primary btn--sm"
+                          onPointerDown={(e) => e.stopPropagation()}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            jumpToGuide(point);
+                          }}
+                        >
+                          Return to guide
+                        </button>
                       )}
                     </span>
                   )}
@@ -541,7 +578,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
           </div>
           <ul>
             {activeCategories.map((cat) => {
-              const count = basePoints.filter((p) => p.category === cat.id).length;
+              const points = basePoints.filter((p) => p.category === cat.id);
+              const count =
+                rematchableOnly && !currentArea && cat.id === "trainer"
+                  ? points.filter((p) => isTrainerPoint(p) && p.rematchable).length
+                  : points.length;
+              const showRematchFilter =
+                !currentArea && cat.id === "trainer" && points.length > 0;
               return (
                 <li key={cat.id}>
                   <label className="hoenn-map__legend-item">
@@ -552,8 +595,27 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     />
                     <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
                     <span className="hoenn-map__legend-label">{cat.label}</span>
-                    <span className="hoenn-map__legend-count">{count}</span>
+                    <span className="hoenn-map__legend-count">
+                      {rematchableOnly && !currentArea && cat.id === "trainer"
+                        ? `${count}/${points.length}`
+                        : count}
+                    </span>
                   </label>
+                  {showRematchFilter && (
+                    <label className="hoenn-map__legend-subfilter">
+                      <input
+                        type="checkbox"
+                        checked={rematchableOnly}
+                        onChange={(e) => {
+                          const on = e.target.checked;
+                          setRematchableOnly(on);
+                          if (on) setVisible((v) => (v.trainer ? v : { ...v, trainer: true }));
+                        }}
+                      />
+                      <span>Rematchable only</span>
+                      <span className="hoenn-map__legend-count">{overworldRematchTrainerCount}</span>
+                    </label>
+                  )}
                 </li>
               );
             })}
@@ -562,7 +624,16 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         {selectedPoint ? (
           <div className="hoenn-map__legend-detail">
             {isTrainerPoint(selectedPoint) ? (
-              <TrainerDetailPanel trainer={selectedPoint} />
+              <div className="hoenn-map__trainer-summary">
+                <TrainerPinHint trainer={selectedPoint} />
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalTrainer(selectedPoint)}
+                >
+                  View battle details
+                </button>
+              </div>
             ) : (
               <>
                 <span
@@ -588,7 +659,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
           </div>
         ) : (
           <p className="hoenn-map__hint">
-            Drag to pan, scroll or use + / − to zoom, and click a marker for details.
+            Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details.
           </p>
         )}
       </aside>
@@ -633,6 +704,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         )}
       </div>
       )}
+      <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
     </div>
   );
 }
