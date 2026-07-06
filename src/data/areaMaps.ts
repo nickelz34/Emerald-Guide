@@ -185,6 +185,295 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    id: "battlefrontier-battlepyramidfloor",
+    mapId: "MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR",
+    name: "Battle Frontier Battle Pyramid Floor",
+    group: "Battle Pyramid",
+    floor: "Floor",
+    image: "maps/areas/battlefrontier-battlepyramidfloor.png",
+    width: 128,
+    height: 128,
+    markers: [
+    ],
+  },
+  {
+    id: "battlefrontier-battlepyramidlobby",
+    mapId: "MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY",
+    name: "Battle Frontier Battle Pyramid Lobby",
+    group: "Battle Pyramid",
+    floor: "Lobby",
+    image: "maps/areas/battlefrontier-battlepyramidlobby.png",
+    width: 240,
+    height: 288,
+    markers: [
+    ],
+  },
+  {
+    id: "battlefrontier-battlepyramidtop",
+    mapId: "MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_TOP",
+    name: "Battle Frontier Battle Pyramid Top",
+    group: "Battle Pyramid",
+    floor: "Top (Brandon)",
+    image: "maps/areas/battlefrontier-battlepyramidtop.png",
+    width: 544,
+    height: 368,
+    markers: [
+    ],
+  },
+  {
+    id: "battlepyramidsquare01",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE01",
+    name: "Battle Pyramid Square 01",
+    group: "Battle Pyramid",
+    floor: "Square 1",
+    image: "maps/areas/battlepyramidsquare01.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait26", name: "Random Item", category: "item", x: 56.25, y: 18.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait27", name: "Random Item", category: "item", x: 93.75, y: 56.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait28", name: "Random Item", category: "item", x: 6.25, y: 56.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare02",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE02",
+    name: "Battle Pyramid Square 02",
+    group: "Battle Pyramid",
+    floor: "Square 2",
+    image: "maps/areas/battlepyramidsquare02.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait29", name: "Random Item", category: "item", x: 81.25, y: 68.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait30", name: "Random Item", category: "item", x: 93.75, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait31", name: "Random Item", category: "item", x: 6.25, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare03",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE03",
+    name: "Battle Pyramid Square 03",
+    group: "Battle Pyramid",
+    floor: "Square 3",
+    image: "maps/areas/battlepyramidsquare03.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait32", name: "Random Item", category: "item", x: 56.25, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait33", name: "Random Item", category: "item", x: 6.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait34", name: "Random Item", category: "item", x: 31.25, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare04",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE04",
+    name: "Battle Pyramid Square 04",
+    group: "Battle Pyramid",
+    floor: "Square 4",
+    image: "maps/areas/battlepyramidsquare04.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait35", name: "Random Item", category: "item", x: 31.25, y: 81.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait36", name: "Random Item", category: "item", x: 68.75, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait37", name: "Random Item", category: "item", x: 43.75, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare05",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE05",
+    name: "Battle Pyramid Square 05",
+    group: "Battle Pyramid",
+    floor: "Square 5",
+    image: "maps/areas/battlepyramidsquare05.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait38", name: "Random Item", category: "item", x: 6.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait39", name: "Random Item", category: "item", x: 93.75, y: 81.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait40", name: "Random Item", category: "item", x: 56.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare06",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE06",
+    name: "Battle Pyramid Square 06",
+    group: "Battle Pyramid",
+    floor: "Square 6",
+    image: "maps/areas/battlepyramidsquare06.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait41", name: "Random Item", category: "item", x: 93.75, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait42", name: "Random Item", category: "item", x: 56.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait43", name: "Random Item", category: "item", x: 6.25, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare07",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE07",
+    name: "Battle Pyramid Square 07",
+    group: "Battle Pyramid",
+    floor: "Square 7",
+    image: "maps/areas/battlepyramidsquare07.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait44", name: "Random Item", category: "item", x: 93.75, y: 56.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait45", name: "Random Item", category: "item", x: 18.75, y: 18.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait46", name: "Random Item", category: "item", x: 43.75, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare08",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE08",
+    name: "Battle Pyramid Square 08",
+    group: "Battle Pyramid",
+    floor: "Square 8",
+    image: "maps/areas/battlepyramidsquare08.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait47", name: "Random Item", category: "item", x: 56.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait48", name: "Random Item", category: "item", x: 43.75, y: 81.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait49", name: "Random Item", category: "item", x: 18.75, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare09",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE09",
+    name: "Battle Pyramid Square 09",
+    group: "Battle Pyramid",
+    floor: "Square 9",
+    image: "maps/areas/battlepyramidsquare09.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait50", name: "Random Item", category: "item", x: 93.75, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait51", name: "Random Item", category: "item", x: 18.75, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait52", name: "Random Item", category: "item", x: 18.75, y: 81.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare10",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE10",
+    name: "Battle Pyramid Square 10",
+    group: "Battle Pyramid",
+    floor: "Square 10",
+    image: "maps/areas/battlepyramidsquare10.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait53", name: "Random Item", category: "item", x: 43.75, y: 81.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait54", name: "Random Item", category: "item", x: 68.75, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait55", name: "Random Item", category: "item", x: 18.75, y: 18.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare11",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE11",
+    name: "Battle Pyramid Square 11",
+    group: "Battle Pyramid",
+    floor: "Square 11",
+    image: "maps/areas/battlepyramidsquare11.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait56", name: "Random Item", category: "item", x: 81.25, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait57", name: "Random Item", category: "item", x: 18.75, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait58", name: "Random Item", category: "item", x: 18.75, y: 68.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare12",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE12",
+    name: "Battle Pyramid Square 12",
+    group: "Battle Pyramid",
+    floor: "Square 12",
+    image: "maps/areas/battlepyramidsquare12.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait59", name: "Random Item", category: "item", x: 93.75, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait60", name: "Random Item", category: "item", x: 6.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait61", name: "Random Item", category: "item", x: 93.75, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare13",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE13",
+    name: "Battle Pyramid Square 13",
+    group: "Battle Pyramid",
+    floor: "Square 13",
+    image: "maps/areas/battlepyramidsquare13.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait62", name: "Random Item", category: "item", x: 43.75, y: 18.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait63", name: "Random Item", category: "item", x: 93.75, y: 6.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait64", name: "Random Item", category: "item", x: 6.25, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare14",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE14",
+    name: "Battle Pyramid Square 14",
+    group: "Battle Pyramid",
+    floor: "Square 14",
+    image: "maps/areas/battlepyramidsquare14.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait65", name: "Random Item", category: "item", x: 68.75, y: 43.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait66", name: "Random Item", category: "item", x: 6.25, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait67", name: "Random Item", category: "item", x: 93.75, y: 68.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare15",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE15",
+    name: "Battle Pyramid Square 15",
+    group: "Battle Pyramid",
+    floor: "Square 15",
+    image: "maps/areas/battlepyramidsquare15.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait68", name: "Random Item", category: "item", x: 6.25, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait69", name: "Random Item", category: "item", x: 93.75, y: 68.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait70", name: "Random Item", category: "item", x: 18.75, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "battlepyramidsquare16",
+    mapId: "MAP_BATTLE_PYRAMID_SQUARE16",
+    name: "Battle Pyramid Square 16",
+    group: "Battle Pyramid",
+    floor: "Square 16",
+    image: "maps/areas/battlepyramidsquare16.png",
+    width: 128,
+    height: 128,
+    markers: [
+      { id: "ait71", name: "Random Item", category: "item", x: 6.25, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait72", name: "Random Item", category: "item", x: 93.75, y: 93.75, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+      { id: "ait73", name: "Random Item", category: "item", x: 68.75, y: 31.25, desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run." },
+    ],
+  },
+  {
+    id: "contesthall",
+    mapId: "MAP_CONTEST_HALL",
+    name: "Contest Hall",
+    group: "Contest Hall",
+    floor: "",
+    image: "maps/areas/contesthall.png",
+    width: 240,
+    height: 176,
+    markers: [
+      { id: "ait74", name: "Contest Poké Ball", category: "item", x: 50, y: 50, desc: "Decorative ball on stage during Pokémon Contests." },
+    ],
+  },
+  {
     id: "fierypath",
     mapId: "MAP_FIERY_PATH",
     name: "Fiery Path",
@@ -194,8 +483,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 560,
     height: 608,
     markers: [
-      { id: "ait26", name: "TM06", category: "item", x: 24.29, y: 9.21, desc: "Poisons the foe with a toxin that gradually worsens." },
-      { id: "ait27", name: "Fire Stone", category: "item", x: 21.43, y: 85.53, desc: "Makes certain species of POKéMON evolve." },
+      { id: "ait75", name: "TM06", category: "item", x: 24.29, y: 9.21, desc: "Poisons the foe with a toxin that gradually worsens." },
+      { id: "ait76", name: "Fire Stone", category: "item", x: 21.43, y: 85.53, desc: "Makes certain species of POKéMON evolve." },
     ],
   },
   {
@@ -208,7 +497,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 672,
     height: 240,
     markers: [
-      { id: "ait28", name: "Escape Rope", category: "item", x: 41.67, y: 50, desc: "Use to escape instantly from a cave or a dungeon." },
+      { id: "ait77", name: "Escape Rope", category: "item", x: 41.67, y: 50, desc: "Use to escape instantly from a cave or a dungeon." },
     ],
   },
   {
@@ -221,7 +510,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 512,
     height: 416,
     markers: [
-      { id: "ait29", name: "Poké Ball", category: "item", x: 48.44, y: 82.69, desc: "A tool used for catching wild POKéMON." },
+      { id: "ait78", name: "Poké Ball", category: "item", x: 48.44, y: 82.69, desc: "A tool used for catching wild POKéMON." },
     ],
   },
   {
@@ -234,10 +523,10 @@ export const AREA_MAPS: AreaMap[] = [
     width: 512,
     height: 416,
     markers: [
-      { id: "ait30", name: "Repel", category: "item", x: 14.06, y: 17.31, desc: "Repels weak wild POKéMON for 100 steps." },
-      { id: "ait31", name: "Rare Candy", category: "item", x: 92.19, y: 17.31, desc: "Raises the level of a POKéMON by one." },
-      { id: "ahi32", name: "Everstone", category: "hidden", x: 89.06, y: 25, desc: "A wondrous hold item that prevents evolution." },
-      { id: "ahi33", name: "Everstone", category: "hidden", x: 48.44, y: 44.23, desc: "A wondrous hold item that prevents evolution." },
+      { id: "ait79", name: "Repel", category: "item", x: 14.06, y: 17.31, desc: "Repels weak wild POKéMON for 100 steps." },
+      { id: "ait80", name: "Rare Candy", category: "item", x: 92.19, y: 17.31, desc: "Raises the level of a POKéMON by one." },
+      { id: "ahi81", name: "Everstone", category: "hidden", x: 89.06, y: 25, desc: "A wondrous hold item that prevents evolution." },
+      { id: "ahi82", name: "Everstone", category: "hidden", x: 48.44, y: 44.23, desc: "A wondrous hold item that prevents evolution." },
     ],
   },
   {
@@ -250,9 +539,50 @@ export const AREA_MAPS: AreaMap[] = [
     width: 480,
     height: 736,
     markers: [
-      { id: "ait34", name: "Burn Heal", category: "item", x: 78.33, y: 53.26, desc: "Heals POKéMON of a burn." },
-      { id: "ahi35", name: "Full Heal", category: "hidden", x: 28.33, y: 22.83, desc: "Heals all the status problems of one POKéMON." },
-      { id: "ahi36", name: "Great Ball", category: "hidden", x: 25, y: 64.13, desc: "A good BALL with a higher catch rate than a POKé BALL." },
+      { id: "ait83", name: "Burn Heal", category: "item", x: 78.33, y: 53.26, desc: "Heals POKéMON of a burn." },
+      { id: "ahi84", name: "Full Heal", category: "hidden", x: 28.33, y: 22.83, desc: "Heals all the status problems of one POKéMON." },
+      { id: "ahi85", name: "Great Ball", category: "hidden", x: 25, y: 64.13, desc: "A good BALL with a higher catch rate than a POKé BALL." },
+    ],
+  },
+  {
+    id: "littleroottown-brendanshouse-2f",
+    mapId: "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
+    name: "Littleroot Town Brendans House 2F",
+    group: "Littleroot Town",
+    floor: "Brendan's House 2F",
+    image: "maps/areas/littleroottown-brendanshouse-2f.png",
+    width: 144,
+    height: 128,
+    markers: [
+      { id: "ait86", name: "Rival's Poké Ball", category: "item", x: 38.89, y: 56.25, desc: "Brendan's starter ball in his room. You can't take it." },
+    ],
+  },
+  {
+    id: "littleroottown-mayshouse-2f",
+    mapId: "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
+    name: "Littleroot Town Mays House 2F",
+    group: "Littleroot Town",
+    floor: "May's House 2F",
+    image: "maps/areas/littleroottown-mayshouse-2f.png",
+    width: 144,
+    height: 128,
+    markers: [
+      { id: "ait87", name: "Rival's Poké Ball", category: "item", x: 61.11, y: 56.25, desc: "May's starter ball in her room. You can't take it." },
+    ],
+  },
+  {
+    id: "littleroottown-professorbirchslab",
+    mapId: "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
+    name: "Littleroot Town Professor Birchs Lab",
+    group: "Littleroot Town",
+    floor: "Professor Birch's Lab",
+    image: "maps/areas/littleroottown-professorbirchslab.png",
+    width: 208,
+    height: 208,
+    markers: [
+      { id: "ait88", name: "Cyndaquil", category: "item", x: 47, y: 65.38, desc: "Post-game Johto starter gift (National Dex). Pick one of the three balls on this table." },
+      { id: "ait89", name: "Totodile", category: "item", x: 50, y: 65.38, desc: "Post-game Johto starter gift (National Dex). Pick one of the three balls on this table." },
+      { id: "ait90", name: "Chikorita", category: "item", x: 53, y: 65.38, desc: "Post-game Johto starter gift (National Dex). Pick one of the three balls on this table." },
     ],
   },
   {
@@ -265,7 +595,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 592,
     height: 608,
     markers: [
-      { id: "ait37", name: "Rare Candy", category: "item", x: 9.46, y: 53.95, desc: "Raises the level of a POKéMON by one." },
+      { id: "ait91", name: "Rare Candy", category: "item", x: 9.46, y: 53.95, desc: "Raises the level of a POKéMON by one." },
     ],
   },
   {
@@ -278,8 +608,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 784,
     height: 448,
     markers: [
-      { id: "ait38", name: "Max Elixir", category: "item", x: 43.88, y: 26.79, desc: "Fully restores the PP of a POKéMON's moves." },
-      { id: "ait39", name: "Full Restore", category: "item", x: 29.59, y: 23.21, desc: "Fully restores the HP and status of a POKéMON." },
+      { id: "ait92", name: "Max Elixir", category: "item", x: 43.88, y: 26.79, desc: "Fully restores the PP of a POKéMON's moves." },
+      { id: "ait93", name: "Full Restore", category: "item", x: 29.59, y: 23.21, desc: "Fully restores the HP and status of a POKéMON." },
     ],
   },
   {
@@ -292,7 +622,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 448,
     height: 384,
     markers: [
-      { id: "ait40", name: "Nugget", category: "item", x: 33.93, y: 68.75, desc: "A nugget of pure gold. Can be sold at a high price." },
+      { id: "ait94", name: "Nugget", category: "item", x: 33.93, y: 68.75, desc: "A nugget of pure gold. Can be sold at a high price." },
     ],
   },
   {
@@ -305,7 +635,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 384,
     height: 272,
     markers: [
-      { id: "ait41", name: "PP Max", category: "item", x: 22.92, y: 55.88, desc: "Raises the PP of a move to its maximum points." },
+      { id: "ait95", name: "PP Max", category: "item", x: 22.92, y: 55.88, desc: "Raises the PP of a move to its maximum points." },
     ],
   },
   {
@@ -318,7 +648,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 528,
     height: 384,
     markers: [
-      { id: "ait42", name: "Escape Rope", category: "item", x: 28.79, y: 81.25 },
+      { id: "ait96", name: "Escape Rope", category: "item", x: 28.79, y: 81.25 },
     ],
   },
   {
@@ -331,7 +661,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 944,
     height: 448,
     markers: [
-      { id: "ait43", name: "Max Revive", category: "item", x: 5.93, y: 26.79, desc: "Revives a fainted POKéMON with all its HP." },
+      { id: "ait97", name: "Max Revive", category: "item", x: 5.93, y: 26.79, desc: "Revives a fainted POKéMON with all its HP." },
     ],
   },
   {
@@ -344,10 +674,10 @@ export const AREA_MAPS: AreaMap[] = [
     width: 480,
     height: 672,
     markers: [
-      { id: "ait44", name: "TM23", category: "item", x: 8.33, y: 10.71, desc: "Slams the foe with a hard tail. It may lower DEFENSE." },
-      { id: "ait45", name: "Moon Stone", category: "item", x: 8.33, y: 34.52, desc: "Makes certain species of POKéMON evolve." },
-      { id: "ait46", name: "Full Heal", category: "item", x: 91.67, y: 13.1, desc: "Heals all the status problems of one POKéMON." },
-      { id: "ait47", name: "PP Up", category: "item", x: 88.33, y: 77.38, desc: "Raises the maximum PP of a selected move." },
+      { id: "ait98", name: "TM23", category: "item", x: 8.33, y: 10.71, desc: "Slams the foe with a hard tail. It may lower DEFENSE." },
+      { id: "ait99", name: "Moon Stone", category: "item", x: 8.33, y: 34.52, desc: "Makes certain species of POKéMON evolve." },
+      { id: "ait100", name: "Full Heal", category: "item", x: 91.67, y: 13.1, desc: "Heals all the status problems of one POKéMON." },
+      { id: "ait101", name: "PP Up", category: "item", x: 88.33, y: 77.38, desc: "Raises the maximum PP of a selected move." },
     ],
   },
   {
@@ -360,7 +690,20 @@ export const AREA_MAPS: AreaMap[] = [
     width: 176,
     height: 288,
     markers: [
-      { id: "ait48", name: "TM02", category: "item", x: 50, y: 19.44, desc: "Hooks and slashes the foe with long, sharp claws." },
+      { id: "ait102", name: "TM02", category: "item", x: 50, y: 19.44, desc: "Hooks and slashes the foe with long, sharp claws." },
+    ],
+  },
+  {
+    id: "mossdeepcity-stevenshouse",
+    mapId: "MAP_MOSSDEEP_CITY_STEVENS_HOUSE",
+    name: "Mossdeep City Stevens House",
+    group: "Mossdeep City",
+    floor: "Steven's House",
+    image: "maps/areas/mossdeepcity-stevenshouse.png",
+    width: 176,
+    height: 128,
+    markers: [
+      { id: "ait103", name: "Beldum", category: "item", x: 40.91, y: 43.75, desc: "Gift Pokémon (Lv. 5) after becoming Champion — appears in the Poké Ball on Steven's desk." },
     ],
   },
   {
@@ -373,7 +716,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 208,
     height: 208,
     markers: [
-      { id: "ait49", name: "Ultra Ball", category: "item", x: 3.85, y: 80.77, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
+      { id: "ait104", name: "Ultra Ball", category: "item", x: 3.85, y: 80.77, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
     ],
   },
   {
@@ -386,7 +729,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 208,
     height: 208,
     markers: [
-      { id: "ait50", name: "Super Repel", category: "item", x: 3.85, y: 57.69, desc: "Repels weak wild POKéMON for 200 steps." },
+      { id: "ait105", name: "Super Repel", category: "item", x: 3.85, y: 57.69, desc: "Repels weak wild POKéMON for 200 steps." },
     ],
   },
   {
@@ -399,7 +742,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 208,
     height: 208,
     markers: [
-      { id: "ait51", name: "Sea Incense", category: "item", x: 26.92, y: 88.46, desc: "A hold item that slightly boosts WATER-type moves." },
+      { id: "ait106", name: "Sea Incense", category: "item", x: 26.92, y: 88.46, desc: "A hold item that slightly boosts WATER-type moves." },
     ],
   },
   {
@@ -412,7 +755,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 208,
     height: 208,
     markers: [
-      { id: "ait52", name: "Lax Incense", category: "item", x: 50, y: 88.46, desc: "A hold item that slightly lowers the foe's accuracy." },
+      { id: "ait107", name: "Lax Incense", category: "item", x: 50, y: 88.46, desc: "A hold item that slightly lowers the foe's accuracy." },
     ],
   },
   {
@@ -425,7 +768,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 208,
     height: 208,
     markers: [
-      { id: "ait53", name: "TM30", category: "item", x: 50, y: 73.08, desc: "Hurls a dark lump at the foe. It may lower SP. DEF." },
+      { id: "ait108", name: "TM30", category: "item", x: 50, y: 73.08, desc: "Hurls a dark lump at the foe. It may lower SP. DEF." },
     ],
   },
   {
@@ -438,10 +781,10 @@ export const AREA_MAPS: AreaMap[] = [
     width: 608,
     height: 816,
     markers: [
-      { id: "ait54", name: "Max Potion", category: "item", x: 72.37, y: 30.39, desc: "Fully restores the HP of a POKéMON." },
-      { id: "ait55", name: "TM48", category: "item", x: 51.32, y: 79.41, desc: "Switches abilities with the foe on the turn this is used." },
-      { id: "ahi56", name: "Ultra Ball", category: "hidden", x: 25, y: 16.67, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
-      { id: "ahi57", name: "Max Ether", category: "hidden", x: 43.42, y: 44.12, desc: "Fully restores the PP of a selected move." },
+      { id: "ait109", name: "Max Potion", category: "item", x: 72.37, y: 30.39, desc: "Fully restores the HP of a POKéMON." },
+      { id: "ait110", name: "TM48", category: "item", x: 51.32, y: 79.41, desc: "Switches abilities with the foe on the turn this is used." },
+      { id: "ahi111", name: "Ultra Ball", category: "hidden", x: 25, y: 16.67, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
+      { id: "ahi112", name: "Max Ether", category: "hidden", x: 43.42, y: 44.12, desc: "Fully restores the PP of a selected move." },
     ],
   },
   {
@@ -454,8 +797,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 800,
     height: 592,
     markers: [
-      { id: "ahi58", name: "Zinc", category: "hidden", x: 19, y: 68.92, desc: "Raises the base SP. DEF stat of one POKéMON." },
-      { id: "ahi59", name: "Rare Candy", category: "hidden", x: 75, y: 20.27, desc: "Raises the level of a POKéMON by one." },
+      { id: "ahi113", name: "Zinc", category: "hidden", x: 19, y: 68.92, desc: "Raises the base SP. DEF stat of one POKéMON." },
+      { id: "ahi114", name: "Rare Candy", category: "hidden", x: 75, y: 20.27, desc: "Raises the level of a POKéMON by one." },
     ],
   },
   {
@@ -468,7 +811,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 400,
     height: 448,
     markers: [
-      { id: "ahi60", name: "Sacred Ash", category: "hidden", x: 50, y: 33.93, desc: "Fully revives and restores all fainted POKéMON." },
+      { id: "ahi115", name: "Sacred Ash", category: "hidden", x: 50, y: 33.93, desc: "Fully revives and restores all fainted POKéMON." },
     ],
   },
   {
@@ -481,14 +824,14 @@ export const AREA_MAPS: AreaMap[] = [
     width: 656,
     height: 656,
     markers: [
-      { id: "ait61", name: "Ultra Ball", category: "item", x: 79.27, y: 62.2, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
-      { id: "ait62", name: "Escape Rope", category: "item", x: 40.24, y: 54.88, desc: "Use to escape instantly from a cave or a dungeon." },
-      { id: "ait63", name: "Thunderstone", category: "item", x: 96.34, y: 10.98, desc: "Makes certain species of POKéMON evolve." },
-      { id: "ait64", name: "Full Heal", category: "item", x: 42.68, y: 25.61, desc: "Heals all the status problems of one POKéMON." },
-      { id: "ait65", name: "Parlyz Heal", category: "item", x: 6.1, y: 28.05, desc: "Heals a paralyzed POKéMON." },
-      { id: "ait66", name: "Item", category: "item", x: 62.2, y: 45.12 },
-      { id: "ait67", name: "Item", category: "item", x: 15.85, y: 28.05 },
-      { id: "ait68", name: "Item", category: "item", x: 32.93, y: 25.61 },
+      { id: "ait116", name: "Ultra Ball", category: "item", x: 79.27, y: 62.2, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
+      { id: "ait117", name: "Escape Rope", category: "item", x: 40.24, y: 54.88, desc: "Use to escape instantly from a cave or a dungeon." },
+      { id: "ait118", name: "Thunderstone", category: "item", x: 96.34, y: 10.98, desc: "Makes certain species of POKéMON evolve." },
+      { id: "ait119", name: "Full Heal", category: "item", x: 42.68, y: 25.61, desc: "Heals all the status problems of one POKéMON." },
+      { id: "ait120", name: "Parlyz Heal", category: "item", x: 6.1, y: 28.05, desc: "Heals a paralyzed POKéMON." },
+      { id: "ait121", name: "Item", category: "item", x: 62.2, y: 45.12 },
+      { id: "ait122", name: "Item", category: "item", x: 15.85, y: 28.05 },
+      { id: "ait123", name: "Item", category: "item", x: 32.93, y: 25.61 },
     ],
   },
   {
@@ -501,14 +844,14 @@ export const AREA_MAPS: AreaMap[] = [
     width: 768,
     height: 704,
     markers: [
-      { id: "ait69", name: "Great Ball", category: "item", x: 94.79, y: 17.05, desc: "A good BALL with a higher catch rate than a POKé BALL." },
-      { id: "ait70", name: "X Attack", category: "item", x: 73.96, y: 46.59, desc: "Raises the stat ATTACK during one battle." },
-      { id: "ait71", name: "Ether", category: "item", x: 9.38, y: 19.32, desc: "Restores the PP of a selected move by 10." },
-      { id: "ait72", name: "Parlyz Heal", category: "item", x: 9.38, y: 60.23, desc: "Heals a paralyzed POKéMON." },
-      { id: "ahi73", name: "Potion", category: "hidden", x: 82.29, y: 80.68, desc: "Restores the HP of a POKéMON by 20 points." },
-      { id: "ahi74", name: "Tinymushroom", category: "hidden", x: 55.21, y: 14.77, desc: "A plain mushroom that would sell at a cheap price." },
-      { id: "ahi75", name: "Tinymushroom", category: "hidden", x: 84.38, y: 67.05, desc: "A plain mushroom that would sell at a cheap price." },
-      { id: "ahi76", name: "Poké Ball", category: "hidden", x: 9.38, y: 44.32, desc: "A tool used for catching wild POKéMON." },
+      { id: "ait124", name: "Great Ball", category: "item", x: 94.79, y: 17.05, desc: "A good BALL with a higher catch rate than a POKé BALL." },
+      { id: "ait125", name: "X Attack", category: "item", x: 73.96, y: 46.59, desc: "Raises the stat ATTACK during one battle." },
+      { id: "ait126", name: "Ether", category: "item", x: 9.38, y: 19.32, desc: "Restores the PP of a selected move by 10." },
+      { id: "ait127", name: "Parlyz Heal", category: "item", x: 9.38, y: 60.23, desc: "Heals a paralyzed POKéMON." },
+      { id: "ahi128", name: "Potion", category: "hidden", x: 82.29, y: 80.68, desc: "Restores the HP of a POKéMON by 20 points." },
+      { id: "ahi129", name: "Tinymushroom", category: "hidden", x: 55.21, y: 14.77, desc: "A plain mushroom that would sell at a cheap price." },
+      { id: "ahi130", name: "Tinymushroom", category: "hidden", x: 84.38, y: 67.05, desc: "A plain mushroom that would sell at a cheap price." },
+      { id: "ahi131", name: "Poké Ball", category: "hidden", x: 9.38, y: 44.32, desc: "A tool used for catching wild POKéMON." },
     ],
   },
   {
@@ -521,7 +864,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 192,
     height: 128,
     markers: [
-      { id: "ahi77", name: "Nugget", category: "hidden", x: 37.5, y: 68.75, desc: "A nugget of pure gold. Can be sold at a high price." },
+      { id: "ahi132", name: "Nugget", category: "hidden", x: 37.5, y: 68.75, desc: "A nugget of pure gold. Can be sold at a high price." },
     ],
   },
   {
@@ -534,7 +877,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait78", name: "Orange Mail", category: "item", x: 63.33, y: 20.45, desc: "A ZIGZAGOON-print MAIL to be held by a POKéMON." },
+      { id: "ait133", name: "Orange Mail", category: "item", x: 63.33, y: 20.45, desc: "A ZIGZAGOON-print MAIL to be held by a POKéMON." },
     ],
   },
   {
@@ -547,8 +890,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait79", name: "Wave Mail", category: "item", x: 56.67, y: 79.55, desc: "A WAILMER-print MAIL to be held by a POKéMON." },
-      { id: "ait80", name: "Harbor Mail", category: "item", x: 23.33, y: 61.36, desc: "A WINGULL-print MAIL to be held by a POKéMON." },
+      { id: "ait134", name: "Wave Mail", category: "item", x: 56.67, y: 79.55, desc: "A WAILMER-print MAIL to be held by a POKéMON." },
+      { id: "ait135", name: "Harbor Mail", category: "item", x: 23.33, y: 61.36, desc: "A WINGULL-print MAIL to be held by a POKéMON." },
     ],
   },
   {
@@ -561,8 +904,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait81", name: "Wood Mail", category: "item", x: 10, y: 11.36, desc: "A SLAKOTH-print MAIL to be held by a POKéMON." },
-      { id: "ait82", name: "Shadow Mail", category: "item", x: 30, y: 11.36, desc: "A DUSKULL-print MAIL to be held by a POKéMON." },
+      { id: "ait136", name: "Wood Mail", category: "item", x: 10, y: 11.36, desc: "A SLAKOTH-print MAIL to be held by a POKéMON." },
+      { id: "ait137", name: "Shadow Mail", category: "item", x: 30, y: 11.36, desc: "A DUSKULL-print MAIL to be held by a POKéMON." },
     ],
   },
   {
@@ -575,7 +918,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait83", name: "Mech Mail", category: "item", x: 16.67, y: 25, desc: "A MAGNEMITE-print MAIL to be held by a POKéMON." },
+      { id: "ait138", name: "Mech Mail", category: "item", x: 16.67, y: 25, desc: "A MAGNEMITE-print MAIL to be held by a POKéMON." },
     ],
   },
   {
@@ -588,7 +931,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait84", name: "Glitter Mail", category: "item", x: 76.67, y: 97.73, desc: "A PIKACHU-print MAIL to be held by a POKéMON." },
+      { id: "ait139", name: "Glitter Mail", category: "item", x: 76.67, y: 97.73, desc: "A PIKACHU-print MAIL to be held by a POKéMON." },
     ],
   },
   {
@@ -601,7 +944,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait85", name: "Tropic Mail", category: "item", x: 36.67, y: 56.82, desc: "A BELLOSSOM-print MAIL to be held by a POKéMON." },
+      { id: "ait140", name: "Tropic Mail", category: "item", x: 36.67, y: 56.82, desc: "A BELLOSSOM-print MAIL to be held by a POKéMON." },
     ],
   },
   {
@@ -614,7 +957,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 352,
     markers: [
-      { id: "ait86", name: "Bead Mail", category: "item", x: 16.67, y: 11.36, desc: "MAIL featuring a sketch of the holding POKéMON." },
+      { id: "ait141", name: "Bead Mail", category: "item", x: 16.67, y: 11.36, desc: "MAIL featuring a sketch of the holding POKéMON." },
     ],
   },
   {
@@ -627,8 +970,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 576,
     height: 384,
     markers: [
-      { id: "ait87", name: "Poké Ball", category: "item", x: 9.72, y: 6.25, desc: "A tool used for catching wild POKéMON." },
-      { id: "ait88", name: "Max Ether", category: "item", x: 84.72, y: 10.42, desc: "Fully restores the PP of a selected move." },
+      { id: "ait142", name: "Poké Ball", category: "item", x: 9.72, y: 6.25, desc: "A tool used for catching wild POKéMON." },
+      { id: "ait143", name: "Max Ether", category: "item", x: 84.72, y: 10.42, desc: "Fully restores the PP of a selected move." },
     ],
   },
   {
@@ -641,7 +984,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 640,
     height: 640,
     markers: [
-      { id: "ait89", name: "Calcium", category: "item", x: 18.75, y: 16.25, desc: "Raises the base SP. ATK stat of one POKéMON." },
+      { id: "ait144", name: "Calcium", category: "item", x: 18.75, y: 16.25, desc: "Raises the base SP. ATK stat of one POKéMON." },
     ],
   },
   {
@@ -654,9 +997,9 @@ export const AREA_MAPS: AreaMap[] = [
     width: 640,
     height: 640,
     markers: [
-      { id: "ait90", name: "Nugget", category: "item", x: 21.25, y: 43.75, desc: "A nugget of pure gold. Can be sold at a high price." },
-      { id: "ahi91", name: "Rare Candy", category: "hidden", x: 78.75, y: 88.75, desc: "Raises the level of a POKéMON by one." },
-      { id: "ahi92", name: "Zinc", category: "hidden", x: 53.75, y: 13.75, desc: "Raises the base SP. DEF stat of one POKéMON." },
+      { id: "ait145", name: "Nugget", category: "item", x: 21.25, y: 43.75, desc: "A nugget of pure gold. Can be sold at a high price." },
+      { id: "ahi146", name: "Rare Candy", category: "hidden", x: 78.75, y: 88.75, desc: "Raises the level of a POKéMON by one." },
+      { id: "ahi147", name: "Zinc", category: "hidden", x: 53.75, y: 13.75, desc: "Raises the base SP. DEF stat of one POKéMON." },
     ],
   },
   {
@@ -669,7 +1012,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 640,
     height: 640,
     markers: [
-      { id: "ait93", name: "TM22", category: "item", x: 83.75, y: 18.75, desc: "Absorbs sunlight in the 1st turn, then attacks next turn." },
+      { id: "ait148", name: "TM22", category: "item", x: 83.75, y: 18.75, desc: "Absorbs sunlight in the 1st turn, then attacks next turn." },
     ],
   },
   {
@@ -682,9 +1025,9 @@ export const AREA_MAPS: AreaMap[] = [
     width: 640,
     height: 640,
     markers: [
-      { id: "ait94", name: "Big Pearl", category: "item", x: 78.75, y: 38.75, desc: "A lovely large pearl that would sell at a high price." },
-      { id: "ahi95", name: "PP Up", category: "hidden", x: 48.75, y: 91.25, desc: "Raises the maximum PP of a selected move." },
-      { id: "ahi96", name: "Full Restore", category: "hidden", x: 81.25, y: 83.75, desc: "Fully restores the HP and status of a POKéMON." },
+      { id: "ait149", name: "Big Pearl", category: "item", x: 78.75, y: 38.75, desc: "A lovely large pearl that would sell at a high price." },
+      { id: "ahi150", name: "PP Up", category: "hidden", x: 48.75, y: 91.25, desc: "Raises the maximum PP of a selected move." },
+      { id: "ahi151", name: "Full Restore", category: "hidden", x: 81.25, y: 83.75, desc: "Fully restores the HP and status of a POKéMON." },
     ],
   },
   {
@@ -697,7 +1040,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 640,
     height: 640,
     markers: [
-      { id: "ait97", name: "Max Revive", category: "item", x: 1.25, y: 93.75, desc: "Revives a fainted POKéMON with all its HP." },
+      { id: "ait152", name: "Max Revive", category: "item", x: 1.25, y: 93.75, desc: "Revives a fainted POKéMON with all its HP." },
     ],
   },
   {
@@ -710,7 +1053,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 240,
     height: 320,
     markers: [
-      { id: "ait98", name: "TM11", category: "item", x: 50, y: 27.5, desc: "Raises the power of FIRE-type moves for 5 turns." },
+      { id: "ait153", name: "TM11", category: "item", x: 50, y: 27.5, desc: "Raises the power of FIRE-type moves for 5 turns." },
     ],
   },
   {
@@ -723,7 +1066,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 432,
     height: 736,
     markers: [
-      { id: "ait99", name: "TM26", category: "item", x: 53.7, y: 11.96, desc: "Causes a quake that has no effect on flying foes." },
+      { id: "ait154", name: "TM26", category: "item", x: 53.7, y: 11.96, desc: "Causes a quake that has no effect on flying foes." },
     ],
   },
   {
@@ -736,7 +1079,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 560,
     height: 560,
     markers: [
-      { id: "ait100", name: "Big Pearl", category: "item", x: 87.14, y: 10, desc: "A lovely large pearl that would sell at a high price." },
+      { id: "ait155", name: "Big Pearl", category: "item", x: 87.14, y: 10, desc: "A lovely large pearl that would sell at a high price." },
     ],
   },
   {
@@ -749,8 +1092,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 320,
     height: 480,
     markers: [
-      { id: "ait101", name: "TM07", category: "item", x: 62.5, y: 28.33, desc: "Creates a hailstorm that damages all types except ICE." },
-      { id: "ait102", name: "Nevermeltice", category: "item", x: 62.5, y: 71.67, desc: "A hold item that raises the power of ICE-type moves." },
+      { id: "ait156", name: "TM07", category: "item", x: 62.5, y: 28.33, desc: "Creates a hailstorm that damages all types except ICE." },
+      { id: "ait157", name: "Nevermeltice", category: "item", x: 62.5, y: 71.67, desc: "A hold item that raises the power of ICE-type moves." },
     ],
   },
   {
@@ -763,7 +1106,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 736,
     height: 608,
     markers: [
-      { id: "ait103", name: "Rare Candy", category: "item", x: 57.61, y: 38.16, desc: "Raises the level of a POKéMON by one." },
+      { id: "ait158", name: "Rare Candy", category: "item", x: 57.61, y: 38.16, desc: "Raises the level of a POKéMON by one." },
     ],
   },
   {
@@ -776,7 +1119,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 336,
     height: 240,
     markers: [
-      { id: "ait104", name: "Ice Heal", category: "item", x: 64.29, y: 83.33, desc: "Defrosts a frozen POKéMON." },
+      { id: "ait159", name: "Ice Heal", category: "item", x: 64.29, y: 83.33, desc: "Defrosts a frozen POKéMON." },
     ],
   },
   {
@@ -789,7 +1132,7 @@ export const AREA_MAPS: AreaMap[] = [
     width: 272,
     height: 208,
     markers: [
-      { id: "ahi105", name: "Leftovers", category: "hidden", x: 2.94, y: 19.23, desc: "A hold item that gradually restores HP in battle." },
+      { id: "ahi160", name: "Leftovers", category: "hidden", x: 2.94, y: 19.23, desc: "A hold item that gradually restores HP in battle." },
     ],
   },
   {
@@ -802,13 +1145,13 @@ export const AREA_MAPS: AreaMap[] = [
     width: 1280,
     height: 1280,
     markers: [
-      { id: "ahi106", name: "Carbos", category: "hidden", x: 53.13, y: 64.38, desc: "Raises the base SPEED stat of one POKéMON." },
-      { id: "ahi107", name: "Green Shard", category: "hidden", x: 18.13, y: 50.63, desc: "A shard from an ancient item. Can be sold cheaply." },
-      { id: "ahi108", name: "Pearl", category: "hidden", x: 83.13, y: 43.13, desc: "A pretty pearl that would sell at a cheap price." },
-      { id: "ahi109", name: "Big Pearl", category: "hidden", x: 80.63, y: 68.13, desc: "A lovely large pearl that would sell at a high price." },
-      { id: "ahi110", name: "Heart Scale", category: "hidden", x: 88.13, y: 80.63, desc: "A lovely scale. It is coveted by collectors." },
-      { id: "ahi111", name: "Calcium", category: "hidden", x: 53.13, y: 6.88, desc: "Raises the base SP. ATK stat of one POKéMON." },
-      { id: "ahi112", name: "Heart Scale", category: "hidden", x: 56.88, y: 45.63, desc: "A lovely scale. It is coveted by collectors." },
+      { id: "ahi161", name: "Carbos", category: "hidden", x: 53.13, y: 64.38, desc: "Raises the base SPEED stat of one POKéMON." },
+      { id: "ahi162", name: "Green Shard", category: "hidden", x: 18.13, y: 50.63, desc: "A shard from an ancient item. Can be sold cheaply." },
+      { id: "ahi163", name: "Pearl", category: "hidden", x: 83.13, y: 43.13, desc: "A pretty pearl that would sell at a cheap price." },
+      { id: "ahi164", name: "Big Pearl", category: "hidden", x: 80.63, y: 68.13, desc: "A lovely large pearl that would sell at a high price." },
+      { id: "ahi165", name: "Heart Scale", category: "hidden", x: 88.13, y: 80.63, desc: "A lovely scale. It is coveted by collectors." },
+      { id: "ahi166", name: "Calcium", category: "hidden", x: 53.13, y: 6.88, desc: "Raises the base SP. ATK stat of one POKéMON." },
+      { id: "ahi167", name: "Heart Scale", category: "hidden", x: 56.88, y: 45.63, desc: "A lovely scale. It is coveted by collectors." },
     ],
   },
   {
@@ -821,14 +1164,14 @@ export const AREA_MAPS: AreaMap[] = [
     width: 1280,
     height: 1280,
     markers: [
-      { id: "ahi113", name: "Heart Scale", category: "hidden", x: 38.13, y: 21.88, desc: "A lovely scale. It is coveted by collectors." },
-      { id: "ahi114", name: "Ultra Ball", category: "hidden", x: 51.88, y: 24.38, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
-      { id: "ahi115", name: "Stardust", category: "hidden", x: 79.38, y: 24.38, desc: "Beautiful red sand. Can be sold at a high price." },
-      { id: "ahi116", name: "Pearl", category: "hidden", x: 13.13, y: 45.63, desc: "A pretty pearl that would sell at a cheap price." },
-      { id: "ahi117", name: "Iron", category: "hidden", x: 14.37, y: 49.38, desc: "Raises the base DEFENSE stat of one POKéMON." },
-      { id: "ahi118", name: "Yellow Shard", category: "hidden", x: 15.63, y: 44.38, desc: "A shard from an ancient item. Can be sold cheaply." },
-      { id: "ahi119", name: "Big Pearl", category: "hidden", x: 81.88, y: 75.63, desc: "A lovely large pearl that would sell at a high price." },
-      { id: "ahi120", name: "Blue Shard", category: "hidden", x: 11.88, y: 96.88, desc: "A shard from an ancient item. Can be sold cheaply." },
+      { id: "ahi168", name: "Heart Scale", category: "hidden", x: 38.13, y: 21.88, desc: "A lovely scale. It is coveted by collectors." },
+      { id: "ahi169", name: "Ultra Ball", category: "hidden", x: 51.88, y: 24.38, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
+      { id: "ahi170", name: "Stardust", category: "hidden", x: 79.38, y: 24.38, desc: "Beautiful red sand. Can be sold at a high price." },
+      { id: "ahi171", name: "Pearl", category: "hidden", x: 13.13, y: 45.63, desc: "A pretty pearl that would sell at a cheap price." },
+      { id: "ahi172", name: "Iron", category: "hidden", x: 14.37, y: 49.38, desc: "Raises the base DEFENSE stat of one POKéMON." },
+      { id: "ahi173", name: "Yellow Shard", category: "hidden", x: 15.63, y: 44.38, desc: "A shard from an ancient item. Can be sold cheaply." },
+      { id: "ahi174", name: "Big Pearl", category: "hidden", x: 81.88, y: 75.63, desc: "A lovely large pearl that would sell at a high price." },
+      { id: "ahi175", name: "Blue Shard", category: "hidden", x: 11.88, y: 96.88, desc: "A shard from an ancient item. Can be sold cheaply." },
     ],
   },
   {
@@ -841,10 +1184,10 @@ export const AREA_MAPS: AreaMap[] = [
     width: 1280,
     height: 1280,
     markers: [
-      { id: "ahi121", name: "Star Piece", category: "hidden", x: 15.63, y: 53.13, desc: "A red gem shard. It would sell for a very high price." },
-      { id: "ahi122", name: "HP Up", category: "hidden", x: 63.13, y: 45.63, desc: "Raises the base HP of one POKéMON." },
-      { id: "ahi123", name: "Heart Scale", category: "hidden", x: 43.13, y: 90.63, desc: "A lovely scale. It is coveted by collectors." },
-      { id: "ahi124", name: "Red Shard", category: "hidden", x: 90.63, y: 25.62, desc: "A shard from an ancient item. Can be sold cheaply." },
+      { id: "ahi176", name: "Star Piece", category: "hidden", x: 15.63, y: 53.13, desc: "A red gem shard. It would sell for a very high price." },
+      { id: "ahi177", name: "HP Up", category: "hidden", x: 63.13, y: 45.63, desc: "Raises the base HP of one POKéMON." },
+      { id: "ahi178", name: "Heart Scale", category: "hidden", x: 43.13, y: 90.63, desc: "A lovely scale. It is coveted by collectors." },
+      { id: "ahi179", name: "Red Shard", category: "hidden", x: 90.63, y: 25.62, desc: "A shard from an ancient item. Can be sold cheaply." },
     ],
   },
   {
@@ -857,8 +1200,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 1920,
     height: 640,
     markers: [
-      { id: "ahi125", name: "Protein", category: "hidden", x: 32.08, y: 48.75, desc: "Raises the base ATTACK stat of one POKéMON." },
-      { id: "ahi126", name: "Pearl", category: "hidden", x: 57.92, y: 46.25, desc: "A pretty pearl that would sell at a cheap price." },
+      { id: "ahi180", name: "Protein", category: "hidden", x: 32.08, y: 48.75, desc: "Raises the base ATTACK stat of one POKéMON." },
+      { id: "ahi181", name: "Pearl", category: "hidden", x: 57.92, y: 46.25, desc: "A pretty pearl that would sell at a cheap price." },
     ],
   },
   {
@@ -871,9 +1214,9 @@ export const AREA_MAPS: AreaMap[] = [
     width: 736,
     height: 720,
     markers: [
-      { id: "ait127", name: "Max Elixir", category: "item", x: 88.04, y: 58.89, desc: "Fully restores the PP of a POKéMON's moves." },
-      { id: "ait128", name: "PP Up", category: "item", x: 81.52, y: 87.78, desc: "Raises the maximum PP of a selected move." },
-      { id: "ahi129", name: "Ultra Ball", category: "hidden", x: 66.3, y: 87.78, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
+      { id: "ait182", name: "Max Elixir", category: "item", x: 88.04, y: 58.89, desc: "Fully restores the PP of a POKéMON's moves." },
+      { id: "ait183", name: "PP Up", category: "item", x: 81.52, y: 87.78, desc: "Raises the maximum PP of a selected move." },
+      { id: "ahi184", name: "Ultra Ball", category: "hidden", x: 66.3, y: 87.78, desc: "A better BALL with a higher catch rate than a GREAT BALL." },
     ],
   },
   {
@@ -886,8 +1229,8 @@ export const AREA_MAPS: AreaMap[] = [
     width: 736,
     height: 496,
     markers: [
-      { id: "ait130", name: "TM29", category: "item", x: 92.39, y: 27.42, desc: "A powerful psychic attack that may lower SP. DEF." },
-      { id: "ait131", name: "Full Restore", category: "item", x: 70.65, y: 11.29, desc: "Fully restores the HP and status of a POKéMON." },
+      { id: "ait185", name: "TM29", category: "item", x: 92.39, y: 27.42, desc: "A powerful psychic attack that may lower SP. DEF." },
+      { id: "ait186", name: "Full Restore", category: "item", x: 70.65, y: 11.29, desc: "Fully restores the HP and status of a POKéMON." },
     ],
   },
   {
@@ -900,9 +1243,9 @@ export const AREA_MAPS: AreaMap[] = [
     width: 736,
     height: 496,
     markers: [
-      { id: "ait132", name: "Full Heal", category: "item", x: 29.35, y: 27.42, desc: "Heals all the status problems of one POKéMON." },
-      { id: "ahi133", name: "Elixir", category: "hidden", x: 61.96, y: 17.74, desc: "Restores the PP of all moves by 10." },
-      { id: "ahi134", name: "Max Repel", category: "hidden", x: 81.52, y: 4.84, desc: "Repels weak wild POKéMON for 250 steps." },
+      { id: "ait187", name: "Full Heal", category: "item", x: 29.35, y: 27.42, desc: "Heals all the status problems of one POKéMON." },
+      { id: "ahi188", name: "Elixir", category: "hidden", x: 61.96, y: 17.74, desc: "Restores the PP of all moves by 10." },
+      { id: "ahi189", name: "Max Repel", category: "hidden", x: 81.52, y: 4.84, desc: "Repels weak wild POKéMON for 250 steps." },
     ],
   },
 ];

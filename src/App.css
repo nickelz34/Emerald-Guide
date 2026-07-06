@@ -1542,15 +1542,34 @@
   padding: 0.4rem 0.55rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--surface, rgba(255, 255, 255, 0.04));
+  background-color: var(--bg-elevated);
   color: var(--text);
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
+  color-scheme: dark;
 }
 
-.hoenn-map__switcher-select:hover {
+.hoenn-map__switcher-select:hover,
+.hoenn-map__switcher-select:focus {
   border-color: var(--emerald);
+}
+
+.hoenn-map__switcher-select:focus {
+  outline: 2px solid var(--emerald-glow);
+  outline-offset: 1px;
+}
+
+.hoenn-map__switcher-select option {
+  background-color: var(--bg-elevated);
+  color: var(--text);
+}
+
+.hoenn-map__switcher-select optgroup {
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+  font-weight: 700;
+  font-style: normal;
 }
 
 .hoenn-map__switcher-back {

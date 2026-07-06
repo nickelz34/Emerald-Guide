@@ -20,6 +20,49 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.6.7",
+    date: "2026-07-05",
+    summary: "Full Battle Pyramid coverage — all 19 room layouts in the map switcher.",
+    sections: [
+      {
+        heading: "Hoenn map — Battle Pyramid",
+        items: [
+          "Added Battle Pyramid Lobby, Floor, and Top (Brandon) as selectable area maps alongside the existing 16 battle room squares.",
+          "Pyramid room trainers now appear on area maps as Pyramid Trainer sprites with sight-range notes.",
+          "New `npm run verify:area-assets` script checks every area map has matching pokeemerald source data, `areaMaps.ts` entry, and PNG file — use it after regenerating maps to catch gaps like missing Battle Pyramid layouts.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.6.6",
+    date: "2026-07-05",
+    summary: "All 422 field pickups are now on the map — including Battle Pyramid and story interiors.",
+    sections: [
+      {
+        heading: "Hoenn map — complete item coverage",
+        items: [
+          "Added 21 previously skipped area maps: 16 Battle Pyramid room layouts (3 random-item balls each) plus Professor Birch's Lab (Johto starters), Steven's house (Beldum), both player bedroom rival balls, and the Contest Hall stage ball.",
+          "Every fixed field pickup in Pokémon Emerald is now mapped: 222 item balls, 112 hidden items, and 88 berry trees (422 total). Battle Pyramid balls are labeled Random Item with a note that the reward varies each run.",
+          "Stacked Poké Balls on the same tile (e.g. Birch's Lab starters) are spread slightly so each remains clickable on the area map.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.6.5",
+    date: "2026-07-05",
+    summary: "Map switcher dropdown text is readable on desktop.",
+    sections: [
+      {
+        heading: "Hoenn map",
+        items: [
+          "Fixed the area map switcher menu on desktop: the dropdown now uses a dark color scheme and solid backgrounds so map names and floor labels stay legible when the list is open.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.6.4",
     date: "2026-07-04",
     summary: "Verdanturf Town building roofs no longer clipped on the Hoenn map.",

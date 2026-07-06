@@ -85,6 +85,67 @@ function itemFromScript(script) {
   const m = /_Item(.+)$/.exec(script || "");
   return m ? camel(m[1]) : null;
 }
+
+/** Story / special item balls that don't use FLAG_HIDDEN_ITEM_* naming. */
+const SPECIAL_ITEM_SCRIPTS = {
+  BattlePyramid_FindItemBall: {
+    name: "Random Item",
+    desc: "Battle Pyramid pickup — the item is chosen at random from a pool of healing items, TMs, and hold items each run.",
+  },
+  LittlerootTown_ProfessorBirchsLab_EventScript_Cyndaquil: {
+    name: "Cyndaquil",
+    desc: "Post-game Johto starter gift (National Dex). Pick one of the three balls on this table.",
+  },
+  LittlerootTown_ProfessorBirchsLab_EventScript_Totodile: {
+    name: "Totodile",
+    desc: "Post-game Johto starter gift (National Dex). Pick one of the three balls on this table.",
+  },
+  LittlerootTown_ProfessorBirchsLab_EventScript_Chikorita: {
+    name: "Chikorita",
+    desc: "Post-game Johto starter gift (National Dex). Pick one of the three balls on this table.",
+  },
+  MossdeepCity_StevensHouse_EventScript_BeldumPokeball: {
+    name: "Beldum",
+    desc: "Gift Pokémon (Lv. 5) after becoming Champion — appears in the Poké Ball on Steven's desk.",
+  },
+  LittlerootTown_BrendansHouse_2F_EventScript_RivalsPokeBall: {
+    name: "Rival's Poké Ball",
+    desc: "Brendan's starter ball in his room. You can't take it.",
+  },
+  LittlerootTown_MaysHouse_2F_EventScript_RivalsPokeBall: {
+    name: "Rival's Poké Ball",
+    desc: "May's starter ball in her room. You can't take it.",
+  },
+};
+
+function resolveItemBall(oe, mapName) {
+  const script = oe.script || "";
+  if (SPECIAL_ITEM_SCRIPTS[script]) return SPECIAL_ITEM_SCRIPTS[script];
+  if (mapName === "ContestHall" && script === "0x0") {
+    return {
+      name: "Contest Poké Ball",
+      desc: "Decorative ball on stage during Pokémon Contests.",
+    };
+  }
+  const fromFlag = itemFromFlag(oe.flag);
+  if (fromFlag?.name) return { name: fromFlag.name, desc: fromFlag.desc || "" };
+  const fromScript = itemFromScript(script);
+  if (fromScript) return { name: fromScript, desc: "" };
+  const tail = (script.split("_").pop() || "").replace(/Pokeball/i, " Poké Ball");
+  if (/Pokeball/i.test(script)) return { name: titleCase(camel(tail)), desc: "" };
+  return { name: "Item", desc: "" };
+}
+
+/** Spread markers that share a tile so stacked balls (e.g. Birch's Lab starters) stay clickable. */
+function itemBallXY(oe, allBalls, W, H) {
+  const atTile = allBalls.filter((b) => b.x === oe.x && b.y === oe.y);
+  const i = atTile.indexOf(oe);
+  const baseX = toLocalX(oe.x, W);
+  const baseY = toLocalY(oe.y, H);
+  if (atTile.length <= 1) return { x: baseX, y: baseY };
+  const spread = 3;
+  return { x: +(baseX + (i - (atTile.length - 1) / 2) * spread).toFixed(2), y: baseY };
+}
 const berryConst = (word) => byConst.get(word.toUpperCase() + "_BERRY");
 
 // ---- tileset rendering (from .calib/render-locations.mjs) ----
@@ -220,6 +281,30 @@ const displayName = (mapName) =>
 
 const FLOOR_RE = /_(B?\d+F|1R|Top|Entrance|Inside|Outside|Lower|Upper|Bottom)?$/;
 function groupAndFloor(mapName) {
+  const py = mapName.match(/^BattlePyramidSquare(\d+)$/);
+  if (py) return { group: "Battle Pyramid", floor: `Square ${+py[1]}` };
+  if (mapName === "BattleFrontier_BattlePyramidLobby") {
+    return { group: "Battle Pyramid", floor: "Lobby" };
+  }
+  if (mapName === "BattleFrontier_BattlePyramidFloor") {
+    return { group: "Battle Pyramid", floor: "Floor" };
+  }
+  if (mapName === "BattleFrontier_BattlePyramidTop") {
+    return { group: "Battle Pyramid", floor: "Top (Brandon)" };
+  }
+  if (mapName === "ContestHall") return { group: "Contest Hall", floor: "" };
+  if (mapName === "LittlerootTown_ProfessorBirchsLab") {
+    return { group: "Littleroot Town", floor: "Professor Birch's Lab" };
+  }
+  if (mapName === "LittlerootTown_BrendansHouse_2F") {
+    return { group: "Littleroot Town", floor: "Brendan's House 2F" };
+  }
+  if (mapName === "LittlerootTown_MaysHouse_2F") {
+    return { group: "Littleroot Town", floor: "May's House 2F" };
+  }
+  if (mapName === "MossdeepCity_StevensHouse") {
+    return { group: "Mossdeep City", floor: "Steven's House" };
+  }
   // e.g. GraniteCave_B1F -> {group:"Granite Cave", floor:"B1F"}
   const parts = mapName.split("_");
   const floorTokens = [];
@@ -236,30 +321,24 @@ function groupAndFloor(mapName) {
 const toLocalX = (x, W) => +(((x + 0.5) / W) * 100).toFixed(2);
 const toLocalY = (y, H) => +(((y + 0.5) / H) * 100).toFixed(2);
 
-// Maps to exclude even though they contain item-ball graphics:
-//  - Battle Pyramid squares: randomized post-game rooms, items aren't fixed.
-//  - Town building interiors where "item ball" graphics are decorative or are the
-//    starter Poké Balls (Birch's Lab), not real collectibles. None hold hidden items.
-const EXCLUDE_RE = /^BattlePyramidSquare\d+$/;
-const EXCLUDE_NAME = new Set([
-  "LittlerootTown_BrendansHouse_2F",
-  "LittlerootTown_MaysHouse_2F",
-  "LittlerootTown_ProfessorBirchsLab",
-  "MossdeepCity_StevensHouse",
-  "ContestHall",
+/** Non-composite maps rendered even without field pickups (walkthrough navigation). */
+const ALWAYS_INCLUDE = new Set([
+  "BattleFrontier_BattlePyramidLobby",
+  "BattleFrontier_BattlePyramidFloor",
+  "BattleFrontier_BattlePyramidTop",
 ]);
 
 // ---- collect candidate maps ----
 const candidates = [];
 for (const [id, m] of maps) {
   if (compositeIds.has(id)) continue; // already on the main overworld composite
-  if (EXCLUDE_RE.test(m.name) || EXCLUDE_NAME.has(m.name)) continue;
   const objs = m.object_events || [];
   const bgs = m.bg_events || [];
   const itemBalls = objs.filter((o) => o.graphics_id === "OBJ_EVENT_GFX_ITEM_BALL");
   const berryTrees = objs.filter((o) => o.graphics_id === "OBJ_EVENT_GFX_BERRY_TREE");
   const hidden = bgs.filter((b) => b.type === "hidden_item");
-  if (!itemBalls.length && !berryTrees.length && !hidden.length) continue;
+  const hasCollectibles = itemBalls.length || berryTrees.length || hidden.length;
+  if (!hasCollectibles && !ALWAYS_INCLUDE.has(m.name)) continue;
   candidates.push({ id, m, itemBalls, berryTrees, hidden });
 }
 
@@ -307,8 +386,9 @@ for (const c of candidates) {
 
   const markers = [];
   for (const oe of c.itemBalls) {
-    const it = itemFromFlag(oe.flag) || (itemFromScript(oe.script) ? { name: itemFromScript(oe.script), desc: "" } : null);
-    markers.push({ id: nid("it"), name: it?.name || "Item", category: "item", x: toLocalX(oe.x, W), y: toLocalY(oe.y, H), desc: it?.desc || "" });
+    const it = resolveItemBall(oe, m.name);
+    const { x, y } = itemBallXY(oe, c.itemBalls, W, H);
+    markers.push({ id: nid("it"), name: it.name, category: "item", x, y, desc: it.desc || "" });
   }
   for (const oe of c.berryTrees) {
     const bid = oe.trainer_sight_or_berry_tree_id || "";

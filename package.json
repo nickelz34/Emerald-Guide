@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.6.4",
+  "version": "1.6.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,8 @@
     "gen:map-crops": "node scripts/gen-map-crops.mjs",
     "gen:area-maps": "node scripts/gen-area-maps.mjs",
     "gen:trainers": "node scripts/gen-map-trainers.mjs",
+    "verify:area-items": "node scripts/verify-area-items.mjs",
+    "verify:area-assets": "node scripts/verify-area-assets.mjs",
     "render:hoenn": "node scripts/publish-hoenn-map.mjs"
   },
   "dependencies": {

@@ -262,6 +262,9 @@ function areaName(mapName) {
 }
 
 function resolveTrainerName(script, gfxId) {
+  if (script === "BattlePyramid_TrainerBattle") {
+    return { label: "Pyramid Trainer", class: classLabelFromGfx(gfxId), name: "Pyramid Trainer" };
+  }
   const tid = scriptToTrainer.get(script);
   if (tid && trainerById.has(tid)) {
     const t = trainerById.get(tid);
