@@ -208,7 +208,10 @@ const EVENT_IMAGE: Record<string, StepScreenshot> = {
   "league-1": evImg("events/league-1.png", "Elite Four — Sidney's room"),
   "league-2": evImg("events/league-2.png", "Elite Four — Drake's room"),
   "league-3": evImg("events/league-3.png", "Champion Steven's room"),
-  "league-4": img("littleroot_town_e.png", "Littleroot Town — post-game TV event", "littleroot"),
+  "postgame-1": img("littleroot_town_e.png", "Littleroot Town — Norman gives the S.S. Ticket", "littleroot"),
+  "postgame-2": evImg("events/littleroot-1.png", "Your house — Latias or Latios TV report"),
+  "postgame-3": evImg("events/littleroot-3.png", "Professor Birch’s Lab — National Dex upgrade"),
+  "postgame-hoenn-1": img("events/mossdeep-3.png", "Mossdeep City — Steven's house", "mossdeep"),
   "battle-frontier-1": evImg("events/battle-frontier-1.png", "Battle Frontier — west grounds"),
   "battle-frontier-2": evImg("events/battle-frontier-2.png", "Battle Frontier — east facilities"),
 };

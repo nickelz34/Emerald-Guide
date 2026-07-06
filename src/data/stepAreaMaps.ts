@@ -100,7 +100,18 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "enc-mt-pyre": "mtpyre-exterior",
   "enc-victory-road": "victoryroad-1f",
   "enc-sealed-chamber": "underwater-route126",
-  "league-4": "littleroottown-brendanshouse-2f",
+  // Post-game opening
+  "postgame-1": "littleroottown-brendanshouse-2f",
+  "postgame-2": "littleroottown-brendanshouse-2f",
+  "postgame-3": "littleroottown-professorbirchslab",
+
+  // Post-game Hoenn
+  "postgame-hoenn-1": "mossdeepcity-stevenshouse",
+  "postgame-hoenn-4": "littleroottown-professorbirchslab",
+  "postgame-hoenn-7": "meteorfalls-1f-1r",
+
+  // Battle Frontier gate
+  "battle-frontier-2": "battlefrontier-battlepyramidlobby",
 };
 
 /** Multiple area maps for steps that span floors or zones. */
@@ -145,31 +156,13 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   ],
   "shoal-cave-2": ["shoalcave-lowtideiceroom"],
   "trick-8": ["route110-trickhousepuzzle8", "route110-trickhouseend"],
-  "battle-frontier-1": [
-    "battlefrontier-battlepyramidlobby",
-    "battlefrontier-battlepyramidfloor",
-    "battlepyramidsquare01",
-    "battlepyramidsquare02",
-    "battlepyramidsquare03",
-    "battlepyramidsquare04",
-    "battlepyramidsquare05",
-    "battlepyramidsquare06",
-    "battlepyramidsquare07",
-    "battlepyramidsquare08",
-  ],
-  "battle-frontier-2": [
-    "battlepyramidsquare09",
-    "battlepyramidsquare10",
-    "battlepyramidsquare11",
-    "battlepyramidsquare12",
-    "battlepyramidsquare13",
-    "battlepyramidsquare14",
-    "battlepyramidsquare15",
-    "battlepyramidsquare16",
-    "battlefrontier-battlepyramidtop",
-    "artisancave-1f",
-    "artisancave-b1f",
-    "navelrock-top",
+  "battle-frontier-1": ["sstidallowerdeck"],
+  "postgame-hoenn-5": [
+    "safarizone-northeast",
+    "safarizone-northwest",
+    "safarizone-north",
+    "safarizone-southeast",
+    "safarizone-southwest",
   ],
   "seafloor-cavern-1": ["underwater-route127", "underwater-route128"],
 };

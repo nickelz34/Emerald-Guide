@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import type { LayoutViewMode } from "../hooks/useViewMode";
 import type { StepScreenshot } from "../data/stepImages";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { HoennCrop } from "./HoennCrop";
@@ -17,7 +18,13 @@ interface LightboxContextValue {
 
 const LightboxContext = createContext<LightboxContextValue | null>(null);
 
-export function LightboxProvider({ children }: { children: ReactNode }) {
+export function LightboxProvider({
+  children,
+  viewMode = "desktop",
+}: {
+  children: ReactNode;
+  viewMode?: LayoutViewMode;
+}) {
   const [state, setState] = useState<LightboxState | null>(null);
 
   const open = useCallback((images: StepScreenshot[], index = 0, areaId?: string) => {
@@ -57,7 +64,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
     <LightboxContext.Provider value={{ open, close }}>
       {children}
       {state && current && (
-        <div className="lightbox" role="dialog" aria-modal="true" onClick={close}>
+        <div className="lightbox" data-view={viewMode} role="dialog" aria-modal="true" onClick={close}>
           <div className="lightbox__panel lightbox__panel--annotated" onClick={(e) => e.stopPropagation()}>
             <button type="button" className="lightbox__close" onClick={close} aria-label="Close">
               ×

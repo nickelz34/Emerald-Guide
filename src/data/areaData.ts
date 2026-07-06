@@ -335,7 +335,10 @@ export const AREA_DATA: Record<string, AreaExtras> = {
   },
   "battle-frontier": {
     screenshot: "battle_frontier_e.png",
-    secrets: ["Unlocked post-game — Scott meets you outside Petalburg after Hall of Fame."],
+    secrets: [
+      "Scott calls on the PokéNav after the National Dex upgrade, then meets you aboard the S.S. Tidal and at the Battle Frontier entrance gate.",
+      "First visit to Scott's house between the Dome and Tower awards up to 64 bonus BP (one per prior Scott sighting).",
+    ],
     encounters: [],
   },
 };
@@ -369,7 +372,19 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "sealed-chamber-5": ["route-120"],
   "sky-pillar-3": ["sky-pillar"],
   "sootopolis-gym-3": ["marine-cave"],
-  "league-4": ["littleroot"],
+  "postgame-1": ["littleroot"],
+  "postgame-2": ["littleroot"],
+  "postgame-3": ["littleroot"],
+  "postgame-hoenn-1": ["mossdeep"],
+  "postgame-hoenn-2": ["route-114"],
+  "postgame-hoenn-3": ["route-111"],
+  "postgame-hoenn-4": ["littleroot"],
+  "postgame-hoenn-5": ["safari-zone"],
+  "postgame-hoenn-7": ["route-114"],
+  "battle-frontier-1": ["battle-frontier"],
+  "battle-frontier-2": ["battle-frontier"],
+  "battle-frontier-3": ["battle-frontier"],
+  "battle-frontier-4": ["battle-frontier"],
   "trick-1": ["route-110"],
   "trick-2": ["route-110"],
   "trick-3": ["route-110"],
@@ -397,18 +412,30 @@ export function getAllAreaIds(): string[] {
 /** Unified walkthrough section title for secrets, area extras, and hidden items. */
 export const SECRETS_EXTRAS_SECTION_TITLE = "Secrets, Extras, & Hidden Items";
 
-/** Merge step-level secrets with area-data secrets for one checklist (deduped, order preserved). */
-export function getSecretsExtrasForStep(stepId: string, stepSecrets?: string[]): string[] {
-  const fromAreas: string[] = [];
-  for (const areaId of getAreasForStep(stepId)) {
-    const secrets = getAreaData(areaId)?.secrets;
-    if (secrets) fromAreas.push(...secrets);
+function mergeUniqueLines(...lists: (string[] | undefined)[]): string[] {
+  const combined: string[] = [];
+  for (const list of lists) {
+    if (list) combined.push(...list);
   }
-  const combined = [...(stepSecrets ?? []), ...fromAreas];
   const seen = new Set<string>();
   return combined.filter((line) => {
     if (seen.has(line)) return false;
     seen.add(line);
     return true;
   });
+}
+
+/** Merge area secrets and area tips for one checklist (deduped, order preserved). */
+export function getSecretsExtrasForArea(areaId: string): string[] {
+  const data = getAreaData(areaId);
+  return mergeUniqueLines(data?.secrets, data?.tips);
+}
+
+/** Merge step secrets with area secrets and tips for one checklist (deduped, order preserved). */
+export function getSecretsExtrasForStep(stepId: string, stepSecrets?: string[]): string[] {
+  const fromAreas: string[] = [];
+  for (const areaId of getAreasForStep(stepId)) {
+    fromAreas.push(...getSecretsExtrasForArea(areaId));
+  }
+  return mergeUniqueLines(stepSecrets, fromAreas);
 }

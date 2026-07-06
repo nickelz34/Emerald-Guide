@@ -46,8 +46,9 @@ export function AreaMapView({
   }, [area]);
 
   const activePoint = points.find((p) => p.id === activeId) ?? null;
-  const maxH = variant === "lightbox" ? 560 : 360;
+  const maxH = variant === "lightbox" ? 720 : 360;
   const aspect = area ? area.width / area.height : 1;
+  const inLightbox = variant === "lightbox";
 
   if (!area) return null;
 
@@ -75,7 +76,7 @@ export function AreaMapView({
         className="area-map-view__frame"
         style={{
           aspectRatio: `${area.width} / ${area.height}`,
-          width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+          width: inLightbox ? "100%" : `min(100%, ${Math.round(aspect * maxH)}px)`,
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -149,17 +150,47 @@ export function AreaMapView({
       </div>
 
       {showLegend && categories.length > 0 && (
-        <ul className="area-map-view__legend" aria-label="Map markers">
-          {categories.map((cat) => (
-            <li key={cat.id}>
-              <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
-              {cat.label}
-              <span className="area-map-view__legend-count">
-                {points.filter((p) => p.category === cat.id).length}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="area-map-view__legend" aria-label="Map markers">
+            {categories.map((cat) => (
+              <li key={cat.id}>
+                <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
+                {cat.label}
+                <span className="area-map-view__legend-count">
+                  {points.filter((p) => p.category === cat.id).length}
+                </span>
+              </li>
+            ))}
+          </ul>
+          {inLightbox && points.length > 0 && (
+            <ul className="area-map-view__point-index" aria-label="All points of interest">
+              {points.map((point) => {
+                const cat = POI_CATEGORIES.find((c) => c.id === point.category);
+                const active = activeId === point.id;
+                return (
+                  <li key={point.id}>
+                    <button
+                      type="button"
+                      className={`marker-index__btn ${active ? "marker-index__btn--active" : ""}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveId(active ? null : point.id);
+                      }}
+                    >
+                      <span className="marker-index__swatch" style={{ background: cat?.color }}>
+                        {cat?.label.charAt(0)}
+                      </span>
+                      <span>
+                        <strong>{point.name}</strong>
+                        {point.desc && <small>{point.desc}</small>}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </>
       )}
 
       {activePoint && isTrainerPoint(activePoint) && (

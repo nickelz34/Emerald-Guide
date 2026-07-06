@@ -1,4 +1,9 @@
 import type { GuideSection } from "../types";
+import {
+  postgameOpeningChapter,
+  postgameFrontierChapter,
+  postgameHoennChapter,
+} from "./postgameWalkthrough";
 
 /**
  * Story walkthrough, organized so each map / route / town is its own chapter.
@@ -2377,70 +2382,6 @@ const storyChapters: GuideSection[] = [
         ],
         tags: ["champion", "steven", "hall-of-fame", "league"],
       },
-      {
-        id: "league-4",
-        title: "Latios or Latias",
-        location: "Littleroot Town (your house)",
-        summary: "Lv 40 roamer — watch TV after becoming Champion.",
-        story: [
-          "The credits have rolled, the National Dex is yours, and life in Littleroot feels different. Go home and watch the living-room TV — a news report flashes about a mysterious flying Pokémon seen across Hoenn.",
-          "Mom asks which colour you saw on screen: red means Latias, blue means Latios. Your choice is permanent. The bird begins roaming the region at level 40, appearing on random routes until you corner it.",
-        ],
-        details: [
-          "After the Hall of Fame, watch TV in your Littleroot home.",
-          "Choose red (Latias) or blue (Latios) on the news report.",
-          "It roams Hoenn at level 40 — check the Pokédex location tab after each encounter.",
-          "Mean Look, Arena Trap, or a Master Ball secures the catch.",
-        ],
-        tips: ["Repel + lead under lv 40 + Dex tracking helps re-trigger encounters on the same route."],
-        secrets: [
-          "Deoxys isn't available on a normal cartridge — it requires the AuroraTicket event item to reach Birth Island / Navel Rock.",
-          "Jirachi requires the Pokémon Colosseum Bonus Disc or an official event distribution — not catchable through normal gameplay.",
-        ],
-        tags: ["latios", "latias", "roamer", "post-game", "littleroot"],
-      },
-    ],
-  },
-  {
-    id: "battle-frontier",
-    title: "Ch. 45 — Battle Frontier (Post-Game)",
-    description: "The ultimate post-game challenge unlocked after the League.",
-    steps: [
-      {
-        id: "battle-frontier-1",
-        title: "Reach the Battle Frontier",
-        location: "Slateport → Battle Frontier",
-        summary: "After the Hall of Fame, Scott invites you to the Battle Frontier.",
-        story: [
-          "The credits roll, you return to Littleroot, and the world is bigger than before — roaming Latios or Latias, the full National Dex, and a visitor named Scott who has watched your journey from the shadows. Impressed, he offers passage to the Battle Frontier, an island facility built for trainers who've conquered the League and want a harder test.",
-          "Catch the ferry from Slateport Harbor and sail east to the Frontier's shore.",
-        ],
-        details: [
-          "Scott meets you (near Littleroot/Slateport) and offers passage to the Frontier.",
-          "Take the ferry from Slateport Harbor to the Battle Frontier island.",
-        ],
-        tags: ["post-game", "battle-frontier"],
-      },
-      {
-        id: "battle-frontier-2",
-        title: "The seven facilities",
-        location: "Battle Frontier",
-        summary: "Battle seven Frontier Brains for Symbols and Battle Points.",
-        story: [
-          "The Battle Frontier is Emerald's crown jewel — seven distinct facilities, each with its own rules and a Frontier Brain guarding the top prize. The Battle Tower tests straight singles and doubles; the Dome is a tournament bracket; the Palace lets Pokémon fight by nature; the Arena judges combo potential; the Factory rents you random Pokémon; the Pike is a luck-driven gauntlet; and the Pyramid shuffles the map every run.",
-          "Win streaks earn Battle Points to spend on rare TMs, held items, and move tutors. Beat each Brain twice for Silver and Gold Symbols — the ultimate proof that your teambuilding skill goes beyond the story. Here, levels are capped and over-levelled favourites won't carry you; synergy and movesets are everything.",
-        ],
-        details: [
-          "Facilities: Battle Tower, Dome, Palace, Arena, Factory, Pike, and Pyramid.",
-          "Earn Battle Points (BP) to buy rare items, TMs, and move tutors.",
-          "Beat each Frontier Brain twice for the Silver and Gold Symbols.",
-        ],
-        tips: ["The Frontier disables over-leveling — team synergy and movesets matter most here."],
-        secrets: [
-          "BP shop highlights: Choice Band, Choice Specs, Leftovers, and the move tutors for elemental punches and Signal Beam — all Frontier exclusives.",
-        ],
-        tags: ["post-game", "frontier-brains", "battle-frontier"],
-      },
     ],
   },
 ];
@@ -2714,7 +2655,10 @@ function renumberChapters(chapters: GuideSection[]) {
 const built: GuideSection[] = [...storyChapters];
 insertAfter(built, "route-117", contestPrepChapter);
 insertAfter(built, "lilycove", contestsLilycoveChapter);
-insertAfter(built, "battle-frontier", contestPostGameChapter);
+insertAfter(built, "league", postgameOpeningChapter);
+insertAfter(built, "postgame-opening", postgameFrontierChapter);
+insertAfter(built, "battle-frontier", postgameHoennChapter);
+insertAfter(built, "postgame-hoenn", contestPostGameChapter);
 renumberChapters(built);
 
 export const walkthrough = built;

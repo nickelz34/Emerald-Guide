@@ -1,7 +1,12 @@
 import { useMemo, useState } from "react";
 import type { PokemonEncounter, TimeSlot, EncounterMethod } from "../types";
 import { TIME_LABELS, METHOD_LABELS } from "../types";
-import { getAreaData, getAreasForStep, SECRETS_EXTRAS_SECTION_TITLE } from "../data/areaData";
+import {
+  getAreaData,
+  getAreasForStep,
+  getSecretsExtrasForArea,
+  SECRETS_EXTRAS_SECTION_TITLE,
+} from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
 import { assetUrl } from "../lib/assetUrl";
 import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
@@ -72,6 +77,7 @@ export function EncounterTable({
       {areas.map(({ id, data }) => {
         if (!data) return null;
         const shot = data.screenshot;
+        const extras = showAreaSecrets ? getSecretsExtrasForArea(id) : [];
         return (
           <div key={id} className="area-block">
             {areas.length > 1 && <h4 className="area-block__title">{id.replace(/-/g, " ")}</h4>}
@@ -82,22 +88,12 @@ export function EncounterTable({
                 showLegend
               />
             )}
-            {showAreaSecrets && data.secrets && data.secrets.length > 0 && (
+            {extras.length > 0 && (
               <div className="area-block__secrets">
                 <strong>{SECRETS_EXTRAS_SECTION_TITLE}</strong>
                 <ul>
-                  {data.secrets.map((s) => (
+                  {extras.map((s) => (
                     <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {data.tips && data.tips.length > 0 && (
-              <div className="area-block__tips">
-                <strong>Area tips</strong>
-                <ul>
-                  {data.tips.map((t) => (
-                    <li key={t}>{t}</li>
                   ))}
                 </ul>
               </div>
@@ -202,8 +198,8 @@ export function StepEncounters({ stepId }: StepEncountersProps) {
   const areaIds = getAreasForStep(stepId);
   if (areaIds.length === 0) return null;
   return (
-    <div className="step-encounters">
-      <h4 className="step-encounters__title">Wild Pokémon & area guide</h4>
+    <div className="step-card__encounters">
+      <strong>Wild Pokémon</strong>
       <EncounterTable areaIds={areaIds} showScreenshots={false} showAreaSecrets={false} />
     </div>
   );

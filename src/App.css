@@ -795,36 +795,164 @@
   grid-template-columns: 1fr;
 }
 
-.app-shell[data-view="mobile"] .lightbox__panel--annotated {
+/* Map lightbox — mobile layout (lightbox is outside app-shell; use data-view on .lightbox) */
+.lightbox[data-view="mobile"] .lightbox__panel--annotated {
   width: min(96vw, 920px);
   padding: 2.75rem 0.75rem 0.75rem;
 }
 
-.app-shell[data-view="mobile"] .lightbox__panel--annotated .annotated-map__lightbox-body {
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__lightbox-body {
   flex-direction: column;
   overflow: hidden;
 }
 
-.app-shell[data-view="mobile"] .lightbox__panel--annotated .annotated-map__sidebar {
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__sidebar {
   flex: 0 0 auto;
   width: 100%;
   max-height: min(32vh, 240px);
 }
 
-.app-shell[data-view="mobile"] .lightbox__panel--annotated .annotated-map__frame {
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__frame {
   flex: 1 1 auto;
   min-height: min(46vh, 360px);
   max-height: none;
 }
 
-.app-shell[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
   flex: 1 1 auto;
   min-height: min(42vh, 300px);
   max-height: none;
 }
 
-.app-shell[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
   height: clamp(160px, 36vh, 260px);
+}
+
+/* Map lightbox — desktop: larger map on top, scrollable legend band below */
+.lightbox[data-view="desktop"] .lightbox__panel--annotated {
+  max-width: min(98vw, 1400px);
+  width: min(98vw, 1400px);
+  max-height: calc(100vh - 1rem);
+  padding: 2.75rem 1.25rem 1rem;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__lightbox-body,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body {
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__frame,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__frame--zoomable {
+  flex: 1 1 68%;
+  min-height: min(360px, 48vh);
+  max-height: none;
+  width: 100%;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
+  flex: 1 1 68%;
+  min-height: min(340px, 46vh);
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
+  height: clamp(360px, 58vh, 720px);
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
+  flex: 1 1 68%;
+  width: 100%;
+  min-height: min(360px, 48vh);
+  max-height: none;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__sidebar,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__sidebar {
+  flex: 0 0 min(32vh, 340px);
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .map-legend {
+  flex-shrink: 0;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .marker-index,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view__point-index {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.4rem;
+  align-content: start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view--lightbox {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  overflow: hidden;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
+  flex: 1 1 68%;
+  width: 100%;
+  min-height: min(360px, 48vh);
+  max-height: none;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view__legend {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.45rem 0.85rem;
+  justify-content: stretch;
+  font-size: 0.78rem;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
+  flex: 1 1 auto;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__sidebar,
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .marker-index,
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__point-index {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .app-shell[data-view="mobile"] .view-toggle__btn {
@@ -1003,8 +1131,8 @@
 
 .lightbox__panel--annotated {
   position: relative;
-  max-width: min(94vw, 920px);
-  width: min(94vw, 920px);
+  max-width: min(94vw, 1080px);
+  width: min(94vw, 1080px);
   max-height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
@@ -1013,6 +1141,14 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 3rem 1rem 1rem;
+  overflow: hidden;
+}
+
+.lightbox__panel--annotated > .area-map-view--lightbox,
+.lightbox__panel--annotated > .annotated-map--lightbox,
+.lightbox__panel--annotated > .hoenn-crop--lightbox {
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -1069,7 +1205,7 @@
   cursor: grab;
   user-select: none;
   touch-action: none;
-  min-height: min(52vh, 420px);
+  min-height: min(52vh, 480px);
   overflow: clip;
 }
 
@@ -1191,7 +1327,11 @@
   min-height: 0;
   max-height: none;
   margin-top: 0.5rem;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lightbox__panel--annotated .lightbox__close {
@@ -2356,16 +2496,6 @@
 }
 
 /* ── Encounters ── */
-.step-encounters {
-  margin-bottom: 1rem;
-}
-
-.step-encounters__title {
-  margin: 0 0 0.75rem;
-  font-size: 0.95rem;
-  color: var(--emerald);
-}
-
 .encounter-panel {
   margin-bottom: 1rem;
 }
@@ -2828,9 +2958,12 @@
 
 .hoenn-crop__lightbox-body {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 1rem;
-  align-items: flex-start;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .hoenn-crop__lightbox-body .hoenn-crop__frame {
@@ -2870,6 +3003,10 @@
 
 .hoenn-crop--lightbox {
   width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .hoenn-crop--lightbox .hoenn-crop__caption {
@@ -3093,6 +3230,21 @@
 
 .area-map-view__legend-count {
   opacity: 0.7;
+}
+
+.area-map-view__point-index {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.4rem;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .area-map-view--lightbox .area-map-view__frame {
@@ -3530,6 +3682,31 @@
 
 .step-card__secrets li {
   line-height: 1.5;
+}
+
+.step-card__encounters {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius);
+}
+
+.step-card__encounters strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #7dd3fc;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.step-card__encounters .encounter-panel {
+  margin: 0.75rem 0 0;
+}
+
+.step-card__encounters .encounter-legend {
+  margin: 0.65rem 0 0;
 }
 
 .step-card__footerrow {

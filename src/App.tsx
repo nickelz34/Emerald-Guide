@@ -44,7 +44,7 @@ export default function App() {
   };
 
   return (
-    <LightboxProvider>
+    <LightboxProvider viewMode={viewMode}>
       <div className="app-shell" data-view={viewMode}>
         <div className="app">
           <Sidebar

@@ -20,6 +20,86 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.0",
+    date: "2026-07-06",
+    summary: "Post-game walkthrough split into three chapters with Bulbapedia-accurate steps from Hall of Fame through Battle Frontier and optional Hoenn.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "New post-game chapters after the League: Post-Game Opening (S.S. Ticket, National Dex, Scott's call, Latias/Latios), Battle Frontier (S.S. Tidal, Frontier Pass, seven facilities/Brains, BP shop), and Post-Game Hoenn (Beldum, Desert Underpass, Trainer Hill, Johto starters, Safari expansion, rematches, Steven).",
+          "Removed league-4 (Latias/Latios) from the League chapter — it now lives in postgame-2 (TV choice); National Dex and Scott’s call are postgame-3.",
+          "Replaced the old two-step Battle Frontier chapter with four detailed Frontier steps.",
+          "Contest Mastery chapter now follows Post-Game Hoenn instead of Battle Frontier.",
+        ],
+      },
+      {
+        heading: "Maps & images",
+        items: [
+          "Area map links for post-game steps (Littleroot house/lab, Steven's house, Safari expansion, Meteor Falls, Frontier gate).",
+          "Event images for postgame-1 through postgame-3 and postgame-hoenn-1 (Mossdeep).",
+          "Hoenn map pins updated for littleroot, mossdeep, Battle Frontier, route-111, and route-114 post-game steps.",
+          "Battle Frontier secrets text corrected: Scott calls after National Dex and meets at the Frontier entrance.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.9.5",
+    date: "2026-07-06",
+    summary: "Map popups scroll their legend again and show slightly larger maps.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Fixed map lightbox legend scrolling — marker lists below the map scroll independently again instead of being clipped.",
+          "Desktop map popups are a bit larger (up to 1400px wide, ~68% of the panel height for the map image).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.9.4",
+    date: "2026-07-06",
+    summary: "Desktop map popups use more screen space with a wider legend band below the map.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Clicking a step map in **desktop** mode opens a wider lightbox — the map is taller and the marker legend sits in a full-width band below instead of a narrow side column.",
+          "Legend marker lists use a multi-column grid so more points are visible before scrolling; interior area maps scale to full panel width.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.9.3",
+    date: "2026-07-06",
+    summary: "Wild Pokémon encounter tables use the same highlighted section style as other walkthrough blocks.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "**Wild Pokémon** now sits in its own bordered callout (matching **What to do**, **Tips**, and **Secrets, Extras, & Hidden Items**) instead of a plain heading above the table.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.9.2",
+    date: "2026-07-06",
+    summary: "Wild Pokémon panel title simplified; area tips folded into Secrets, Extras, & Hidden Items.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "The encounter block heading is now **Wild Pokémon** (no longer “Wild Pokémon & area guide”).",
+          "**Area tips** below the table are removed — those bullets are merged into **Secrets, Extras, & Hidden Items** above the wild Pokémon section on each step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.9.1",
     date: "2026-07-06",
     summary: "One unified Secrets, Extras, & Hidden Items section per walkthrough step.",

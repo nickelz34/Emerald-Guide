@@ -66,11 +66,11 @@ export function HoennCrop({
 
   const inLightbox = variant === "lightbox";
   const aspect = cropWpx / cropHpx;
-  const maxH = inLightbox ? 640 : 460;
+  const maxH = inLightbox ? 720 : 460;
 
   const frameStyle: CSSProperties = {
     aspectRatio: `${cropWpx} / ${cropHpx}`,
-    width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+    width: inLightbox ? "100%" : `min(100%, ${Math.round(aspect * maxH)}px)`,
     backgroundImage: `url(${HOENN_MAP_SRC})`,
     backgroundSize: `${sizeX}% ${sizeY}%`,
     backgroundPosition: `${posX}% ${posY}%`,
