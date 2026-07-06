@@ -37,6 +37,7 @@ export function MapModal({ open, activeStepId, categoryStepIds, onSelectRegion, 
           </button>
         </div>
         <HoennMap
+          compact
           activeStepId={activeStepId}
           categoryStepIds={categoryStepIds}
           onSelectRegion={(region) => {

@@ -129,12 +129,13 @@ export const walkthrough: GuideSection[] = [
         ],
         details: [
           "Follow Birch back to his lab. He gives you your own Pokédex and 5 Poké Balls.",
-          "Your rival gives you a Pokénav-related nudge later; for now leave the lab.",
+          "Your rival leaves for Route 103; head outside when you're ready.",
           "Mom stops you outside to hand over the Running Shoes — hold B to run.",
           "Head north through Route 101 to Oldale Town.",
         ],
         tips: [
           "Now that you have Poké Balls, catch a second Pokémon on Route 101 (Poochyena, Zigzagoon, or Wurmple) so you aren't relying on a single partner.",
+          "Once you learn Secret Power in Slateport City, you can carve out a secret base in certain trees, bushes, and cave walls.",
         ],
         secrets: [
           "Zigzagoon learns Pickup and can find held items after battles — and it's the key to Rock Smash and Cut later. A great second team member to grab now.",
@@ -637,11 +638,13 @@ export const walkthrough: GuideSection[] = [
         ],
         details: [
           "Talk to Mr. Briney at his cottage and ask to sail to Dewford.",
+          "The voyage passes Routes 105 and 106 — fish or surf for items if you return later.",
           "Dewford is a small island known for its gym and Granite Cave.",
           "Chat with the townsfolk to start the 'hip and happening' trend spread with Steven.",
         ],
         secrets: [
           "Spreading the \"hip and happening\" trend between Dewford and Slateport's fan club eventually earns you a Silk Scarf — a held item that boosts Normal-type moves.",
+          "Route 106's rocky shallows hide a Heart Scale underwater (Dive) and trainers with good EXP — worth a sweep once you have Surf.",
         ],
         tags: ["briney", "dewford"],
       },
@@ -749,12 +752,14 @@ export const walkthrough: GuideSection[] = [
           "Wander the boardwalk and you'll also find the Name Rater, who'll happily rechristen one of your team, plus the Contest Hall and the busy Harbor to the south. It's a city that rewards nosiness, so poke into every shop before you get down to business.",
         ],
         details: [
-          "The market sells vitamins (Energy Guru), Dome/Helix restoration is elsewhere.",
+          "Browse the open-air market for vitamins, berries, and contest supplies.",
+          "Visit the man in the southwest house — he teaches TM43 Secret Power for secret bases.",
           "The Name Rater can rename one of your Pokémon.",
           "Contest Hall and the Harbor sit on the south side.",
         ],
         secrets: [
-          "A boy in the Slateport market gives out a free TM (Frustration/Return-tier flavour) — and the fan club president rewards trend-spreaders with the Silk Scarf.",
+          "Use Secret Power on a tree, bush, or cracked wall to open your own secret base — decorate it with goods from the Pretty Petal shop and Slateport market.",
+          "The Pokémon Fan Club president rewards trend-spreaders with a Silk Scarf if you keep the \"hip and happening\" gossip going between here and Dewford.",
         ],
         tags: ["market", "slateport"],
       },
@@ -1156,9 +1161,10 @@ export const walkthrough: GuideSection[] = [
           "The grass and water hide Swablu, the snake-and-mongoose pair Seviper and Zangoose, and Lombre splashing in the shallows. It's a scenic detour with good catches before the drama at Meteor Falls.",
         ],
         details: [
-          "Visit Lanette (she manages the PC storage system).",
+          "Visit Lanette's house — she manages the PC storage system.",
           "Battle trainers and grab TM05 Roar from a gentleman near the bridge.",
           "Catch Swablu, Seviper/Zangoose, and Lombre near the water.",
+          "After you have Surf (post–Norman), return west to Route 115 for TM01 Focus Punch.",
         ],
         tags: ["route", "route-114"],
       },
@@ -1336,6 +1342,9 @@ export const walkthrough: GuideSection[] = [
           "Teach it to a Water-type or capable HM carrier.",
         ],
         tips: ["Surf is one of the best HMs — Marill/Wailmer or your Water starter make great users."],
+        secrets: [
+          "With Surf, you can paddle west from Rustboro to Route 115 and claim TM01 Focus Punch from the Black Belt near the grass.",
+        ],
         tags: ["hm", "surf", "petalburg-gym"],
       },
       {
@@ -1484,6 +1493,25 @@ export const walkthrough: GuideSection[] = [
         ],
         tags: ["gym", "badge-6", "winona", "fortree"],
       },
+      {
+        id: "fortree-3",
+        title: "Hidden Power & the treehouse",
+        location: "Fortree City",
+        summary: "A treehouse puzzle north of the gym rewards TM10 Hidden Power.",
+        story: [
+          "Northwest of the Gym, a wooden treehouse holds a simple riddle: a girl asks which way her spinning top falls. Answer Right, Right, Left and she hands over TM10 Hidden Power — a move whose type and power are tied to your Pokémon's individual values, making every user unique.",
+          "Hidden Power is a staple for competitive teams once you know your IV spread; for the story, it's a solid coverage move on the right Pokémon.",
+        ],
+        details: [
+          "Enter the treehouse northwest of the Fortree Gym.",
+          "Answer the girl's riddle: Right, Right, Left.",
+          "Receive TM10 Hidden Power.",
+        ],
+        secrets: [
+          "You can also buy Hidden Power for ₽3,000 in Slateport's market later — but this treehouse copy is free.",
+        ],
+        tags: ["tm", "fortree", "optional"],
+      },
     ],
   },
   {
@@ -1525,6 +1553,23 @@ export const walkthrough: GuideSection[] = [
           "Absol learns Swords Dance and Sucker Punch — a strong physical sweeper if you catch one with a good Attack stat.",
         ],
         tags: ["route", "absol", "route-120"],
+      },
+      {
+        id: "route-120-3",
+        title: "Scorched Slab (optional)",
+        location: "Route 120 — Scorched Slab",
+        summary: "Surf across the lake on Route 120 for TM11 Sunny Day.",
+        story: [
+          "On the north side of Route 120, Surf across the small lake and enter the Scorched Slab — a warm, shallow cave that few trainers bother with. At the far end sits TM11 Sunny Day, a weather move that boosts Fire attacks and weakens Water for five turns.",
+          "Grab it now while you're sweeping the route; Sunny Day pairs well with Torkoal, Camerupt, or any Fire-type you plan to use in the late game.",
+        ],
+        details: [
+          "From Route 120, Surf north across the lake to the cave entrance.",
+          "Walk through the Scorched Slab to the back chamber.",
+          "Pick up TM11 Sunny Day.",
+        ],
+        tips: ["You need Surf (from Norman's Gym) to reach this cave — backtrack anytime after badge 5."],
+        tags: ["cave", "tm", "route-120", "optional"],
       },
     ],
   },

@@ -20,6 +20,89 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.7.6",
+    date: "2026-07-06",
+    summary: "Swipe between walkthrough steps on mobile.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "On mobile, swipe left for the next step and swipe right for the previous step — maps and screenshot galleries are excluded so panning still works there.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.7.5",
+    date: "2026-07-06",
+    summary: "Walkthrough audit — clearer objectives, new events, and missing locations.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "\"What to do\" is now a numbered checklist in its own highlighted section (matching Tips and Secrets & extras).",
+          "Verified story flow against Bulbapedia/IGN/Serebii; added events for Scorched Slab (TM11 Sunny Day), Fortree Hidden Power treehouse (TM10), Secret Power & secret bases in Slateport, Route 115 (TM01 Focus Punch), and Route 106 Heart Scale notes.",
+          "Fixed Scorched Slab area map linking to the correct Route 120 step (was wrongly tied to Route 112).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.7.4",
+    date: "2026-07-06",
+    summary: "Taller chapter list on desktop walkthrough.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "On desktop, the chapter and event list now runs the full height of the window beside the guide (not tucked under the page title), so you can see many more steps before scrolling.",
+          "The step filter stays pinned at the top of the list while you scroll through chapters.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.7.3",
+    date: "2026-07-06",
+    summary: "Map pin button renamed to “Return to guide”.",
+    sections: [
+      {
+        heading: "Hoenn map",
+        items: [
+          "Renamed “View guide steps” to “Return to guide” on map pins — it closes the map and takes you back to the walkthrough, not to a new set of steps.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.7.2",
+    date: "2026-07-06",
+    summary: "“View guide steps” on the map modal works again.",
+    sections: [
+      {
+        heading: "Hoenn map",
+        items: [
+          "Fixed “View guide steps” on map pins — the button was nested inside the pin control, which browsers block from receiving clicks.",
+          "Choosing a location from the map modal now always closes the modal and returns you to the walkthrough.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.7.1",
+    date: "2026-07-06",
+    summary: "“Show on Hoenn map” works again on desktop and mobile.",
+    sections: [
+      {
+        heading: "Walkthrough map",
+        items: [
+          "“Show on Hoenn map” again pans and zooms the Hoenn overworld to the step’s location instead of jumping to an interior area map (area maps remain in the step gallery).",
+          "The map modal uses a compact layout with a guaranteed minimum viewport height so the map is visible on phones and small windows.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.7.0",
     date: "2026-07-05",
     summary: "Legendary catch guides are now part of the story walkthrough — no separate tab.",

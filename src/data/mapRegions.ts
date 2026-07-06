@@ -37,7 +37,7 @@ export const MAP_REGIONS: MapRegion[] = [
   { id: "mt-chimney", label: "Mt. Chimney", x: 51, y: 31, stepIds: ["mt-chimney-1", "route-111-1", "route-112-1", "magma-hideout-1"] },
   { id: "fallarbor", label: "Fallarbor", x: 38, y: 20, stepIds: ["fallarbor-1", "route-113-1", "route-114-1"] },
   { id: "lavaridge", label: "Lavaridge", x: 56.5, y: 37, stepIds: ["lavaridge-1"] },
-  { id: "fortree", label: "Fortree", x: 64.5, y: 44, stepIds: ["fortree-1", "route-118-1", "route-119-1", "route-120-1"] },
+  { id: "fortree", label: "Fortree", x: 64.5, y: 44, stepIds: ["fortree-1", "fortree-3", "route-118-1", "route-119-1", "route-120-1", "route-120-3"] },
   { id: "lilycove", label: "Lilycove", x: 72, y: 44, stepIds: ["lilycove-1", "mt-pyre-1"] },
   { id: "mossdeep", label: "Mossdeep", x: 81, y: 41, stepIds: ["mossdeep-1", "seafloor-cavern-1", "master-ball"] },
   { id: "sootopolis", label: "Sootopolis", x: 71, y: 29, stepIds: ["sootopolis-1", "sootopolis-gym-1", "sootopolis-gym-3"] },

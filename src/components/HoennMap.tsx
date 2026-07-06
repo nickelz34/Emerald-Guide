@@ -11,7 +11,6 @@ import {
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
-import { getAreaMapForStep } from "../data/stepAreaMaps";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
@@ -84,6 +83,8 @@ interface HoennMapProps {
   onSelectRegion: (region: MapRegion) => void;
   /** Unused now, kept for compatibility with existing callers. */
   categoryStepIds?: Set<string>;
+  /** Tighter layout for the walkthrough map modal (hides the index list). */
+  compact?: boolean;
 }
 
 interface View {
@@ -94,7 +95,7 @@ interface View {
   y: number;
 }
 
-export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
+export function HoennMap({ activeStepId, onSelectRegion, compact = false }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
@@ -187,18 +188,30 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
 
   /** Select a point and pan/zoom the map so it sits in the middle of the view. */
   const focusPoint = useCallback(
-    (p: MapPoint) => {
+    (p: MapPoint, opts?: { overworld?: boolean }) => {
+      const onOverworld = opts?.overworld ?? !currentArea;
+      const ar = onOverworld ? MAP_W / MAP_H : mapAr;
+      const fw = vp.w && vp.h ? Math.min(vp.w, vp.h * ar) : vp.w;
       setSelectedId(p.id);
       setView((prev) => {
-        const targetScale = Math.max(prev.scale, currentArea ? 3 : 6);
-        const cw = fitW * targetScale;
-        const ch = cw / mapAr;
+        const targetScale = Math.max(prev.scale, onOverworld ? 6 : 3);
+        const cw = fw * targetScale;
+        const ch = cw / ar;
         const px = (p.x / 100) * cw;
         const py = (p.y / 100) * ch;
-        return clamp({ scale: targetScale, x: vp.w / 2 - px, y: vp.h / 2 - py });
+        const w = vp.w;
+        const h = vp.h;
+        const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        const cw2 = fw * scale;
+        const ch2 = cw2 / ar;
+        let x = w / 2 - px;
+        let y = h / 2 - py;
+        x = cw2 <= w ? (w - cw2) / 2 : Math.min(0, Math.max(w - cw2, x));
+        y = ch2 <= h ? (h - ch2) / 2 : Math.min(0, Math.max(h - ch2, y));
+        return { scale, x, y };
       });
     },
-    [clamp, fitW, vp.w, vp.h, mapAr, currentArea],
+    [vp.w, vp.h, mapAr, currentArea],
   );
 
   /** Switch the displayed map (null = overworld composite). */
@@ -222,21 +235,16 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
     [clamp],
   );
 
-  // When a step asks to be shown (e.g. "Show on Hoenn map"), open its interior area
-  // map when one exists; otherwise focus the matching overworld point.
+  // When a step asks to be shown (e.g. "Show on Hoenn map"), pan the overworld map to
+  // the matching location. Interior area maps stay in the step gallery — not here.
   useEffect(() => {
     if (!activeStepId || !vp.w || !vp.h) return;
-    const areaMapId = getAreaMapForStep(activeStepId);
-    if (areaMapId) {
-      switchMap(areaMapId);
-      return;
-    }
     const target = resolveFocusPoint(activeStepId);
     if (!target) return;
     setCurrentAreaId(null);
     setVisible((v) => (v[target.category] ? v : { ...v, [target.category]: true }));
-    focusPoint(target);
-  }, [activeStepId, vp.w, vp.h, focusPoint, switchMap]);
+    focusPoint(target, { overworld: true });
+  }, [activeStepId, vp.w, vp.h, focusPoint]);
 
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {
@@ -349,7 +357,7 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
   const isDragging = dragState.current !== null;
 
   return (
-    <div className="hoenn-map">
+    <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
       <div className="hoenn-map__body">
         <div
           className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}`}
@@ -378,9 +386,10 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
               return (
-                <button
+                <div
                   key={point.id}
-                  type="button"
+                  role="button"
+                  tabIndex={0}
                   className={`hoenn-map__pin hoenn-map__pin--${point.category} ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
@@ -388,6 +397,12 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
                     ["--pin-color" as string]: cat?.color,
                   }}
                   onClick={() => handleMarkerClick(point)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleMarkerClick(point);
+                    }
+                  }}
                   aria-label={point.name}
                 >
                   {trainer ? (
@@ -430,14 +445,18 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
                         <button
                           type="button"
                           className="btn btn--primary btn--sm"
-                          onClick={() => jumpToGuide(point)}
+                          onPointerDown={(e) => e.stopPropagation()}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            jumpToGuide(point);
+                          }}
                         >
-                          View guide steps
+                          Return to guide
                         </button>
                       )}
                     </span>
                   )}
-                </button>
+                </div>
               );
             })}
           </div>
@@ -550,7 +569,7 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
                 className="btn btn--primary btn--sm"
                 onClick={() => jumpToGuide(selectedPoint)}
               >
-                View guide steps
+                Return to guide
               </button>
             )}
           </div>
@@ -561,6 +580,7 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
         )}
       </aside>
 
+      {!compact && (
       <div className="hoenn-map__index" aria-label="Items on the map">
         <div className="hoenn-map__index-head">
           <h4>On the map</h4>
@@ -599,6 +619,7 @@ export function HoennMap({ activeStepId, onSelectRegion }: HoennMapProps) {
           </div>
         )}
       </div>
+      )}
     </div>
   );
 }

@@ -40,6 +40,7 @@ export default function App() {
     const stepId = region.stepIds.find((id) => categoryStepIds.has(id)) ?? region.stepIds[0];
     setActiveStepId(stepId);
     setNav("walkthrough");
+    setMapOpen(false);
   };
 
   return (
@@ -69,6 +70,7 @@ export default function App() {
                 activeStepId={activeStepId}
                 onActiveStepChange={setActiveStepId}
                 onShowOnMap={handleShowOnMap}
+                viewMode={viewMode}
               />
             )}
           </main>

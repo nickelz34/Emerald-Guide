@@ -61,8 +61,8 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "mauville-3": "newmauville-inside",
 
   // Fiery Path & Scorched Slab
-  "route-112-1": "scorchedslab",
   "route-112-2": "fierypath",
+  "route-120-3": "scorchedslab",
 
   // Meteor Falls
   "route-114-2": "meteorfalls-1f-1r",

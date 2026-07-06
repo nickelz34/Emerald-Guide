@@ -659,6 +659,17 @@
   flex-wrap: wrap;
 }
 
+.app-shell[data-view="mobile"] .step-stage {
+  touch-action: pan-y;
+}
+
+.app-shell[data-view="mobile"] .step-nav__swipe-hint {
+  margin: 0.65rem 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
 .app-shell[data-view="mobile"] .step-nav__keys {
   display: none;
 }
@@ -717,13 +728,58 @@
 }
 
 .app-shell[data-view="desktop"] .step-browser {
-  grid-template-columns: 264px minmax(0, 1fr);
+  grid-template-columns: 300px minmax(0, 1fr);
+}
+
+/* Walkthrough: chapter rail runs full height beside header + steps. */
+.app-shell[data-view="desktop"] .main:has(.step-browser) {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  column-gap: 1.75rem;
+  align-items: start;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .toolbar {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 1rem;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .step-browser {
+  display: contents;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .step-rail {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  top: calc(var(--nav-height) + 0.5rem);
+  height: calc(100dvh - var(--nav-height) - 0.75rem);
+  max-height: calc(100dvh - var(--nav-height) - 0.75rem);
+  overflow: hidden;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .step-rail__panel {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .step-rail__nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .step-stage {
+  grid-column: 2;
+  grid-row: 2;
 }
 
 .app-shell[data-view="desktop"] .step-rail {
   position: sticky;
-  top: calc(var(--nav-height) + 1rem);
-  max-height: calc(100dvh - var(--nav-height) - 2rem);
+  top: calc(var(--nav-height) + 0.5rem);
+  max-height: calc(100dvh - var(--nav-height) - 0.75rem);
 }
 
 .app-shell[data-view="desktop"] .step-rail__nav {
@@ -1132,26 +1188,41 @@
   right: auto;
 }
 
-/* ── Step details ── */
-.step-details {
-  margin-top: 0.75rem;
+/* ── Step objectives ("What to do") ── */
+.step-card__objectives {
+  margin: 1.25rem 0 0;
+  padding: 0.85rem 1rem;
+  background: rgba(52, 211, 153, 0.07);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: var(--radius);
 }
 
-.step-details__title {
+.step-card__objectives strong {
   display: block;
-  margin-bottom: 0.45rem;
-  font-size: 0.85rem;
-}
-
-.step-details__list {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
-.step-details__list li {
   margin-bottom: 0.35rem;
+  color: var(--emerald);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.step-card__objectives ol {
+  margin: 0;
+  padding-left: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.step-card__objectives li {
+  line-height: 1.5;
   font-size: 0.88rem;
-  line-height: 1.45;
+  padding-left: 0.15rem;
+}
+
+.step-card__objectives li::marker {
+  color: var(--emerald);
+  font-weight: 700;
 }
 
 /* ── Guide item layout ── */
@@ -2811,18 +2882,18 @@
 /* ── Step browser (walkthrough click-through) ── */
 .step-browser {
   display: grid;
-  grid-template-columns: 264px minmax(0, 1fr);
+  grid-template-columns: 300px minmax(0, 1fr);
   gap: 1.75rem;
   align-items: start;
 }
 
 .step-rail {
   position: sticky;
-  top: calc(var(--nav-height) + 1rem);
+  top: calc(var(--nav-height) + 0.5rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  max-height: calc(100vh - var(--nav-height) - 2rem);
+  max-height: calc(100dvh - var(--nav-height) - 0.75rem);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -2831,6 +2902,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  min-height: 0;
 }
 
 /* The collapsible header is mobile-only; desktop always shows the panel. */
@@ -3738,7 +3810,20 @@
 
 .map-modal__panel .hoenn-map__viewport {
   aspect-ratio: auto;
+  flex: 1 1 auto;
+  min-height: min(42vh, 360px);
   max-height: min(66vh, 560px);
+}
+
+.hoenn-map--compact .hoenn-map__legend-bar,
+.hoenn-map--compact .hoenn-map__legend > .hoenn-map__hint,
+.hoenn-map--compact .hoenn-map__legend-detail {
+  display: none;
+}
+
+.hoenn-map--compact .hoenn-map__legend {
+  margin-top: 0.75rem;
+  flex-shrink: 0;
 }
 
 .map-modal__head {
@@ -3953,6 +4038,26 @@
 }
 
 @media (max-width: 900px) {
+  .app-shell[data-view="desktop"] .main:has(.step-browser) {
+    display: block;
+  }
+
+  .app-shell[data-view="desktop"] .main:has(.step-browser) .step-browser {
+    display: grid;
+  }
+
+  .app-shell[data-view="desktop"] .main:has(.step-browser) .step-rail,
+  .app-shell[data-view="desktop"] .main:has(.step-browser) .step-stage {
+    grid-column: auto;
+    grid-row: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .app-shell[data-view="desktop"] .main:has(.step-browser) .step-rail__nav {
+    overflow: visible;
+  }
+
   .step-browser {
     grid-template-columns: 1fr;
   }

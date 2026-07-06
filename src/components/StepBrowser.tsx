@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GuideCategory, GuideSection, GuideStep } from "../types";
 import { getRegionForStep } from "../data/mapRegions";
+import type { LayoutViewMode } from "../hooks/useViewMode";
 import { ScreenshotGallery } from "./ScreenshotGallery";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
@@ -11,6 +12,7 @@ interface StepBrowserProps {
   onShowOnMap?: (stepId: string) => void;
   activeStepId?: string;
   onActiveStepChange?: (stepId: string) => void;
+  viewMode?: LayoutViewMode;
 }
 
 interface FlatStep {
@@ -19,12 +21,24 @@ interface FlatStep {
   sectionId: string;
 }
 
+const SWIPE_MIN_PX = 56;
+const SWIPE_MAX_VERTICAL_RATIO = 0.85;
+
+/** Ignore swipes that start on maps, galleries, or form controls. */
+function swipeShouldIgnore(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return false;
+  return !!target.closest(
+    "input, textarea, select, button, a, .screenshots, .annotated-map, .area-map-view, .hoenn-map__viewport, .step-rail__panel",
+  );
+}
+
 export function StepBrowser({
   category,
   sections,
   onShowOnMap,
   activeStepId,
   onActiveStepChange,
+  viewMode = "desktop",
 }: StepBrowserProps) {
   const flat = useMemo<FlatStep[]>(
     () =>
@@ -38,6 +52,7 @@ export function StepBrowser({
   const [filter, setFilter] = useState("");
   const [railOpen, setRailOpen] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
+  const swipeRef = useRef<{ x: number; y: number } | null>(null);
 
   const currentId = activeStepId ?? internalId;
   const currentIndex = Math.max(0, flat.findIndex((f) => f.step.id === currentId));
@@ -48,6 +63,14 @@ export function StepBrowser({
     onActiveStepChange?.(id);
     setRailOpen(false);
   };
+
+  const goNext = useCallback(() => {
+    if (currentIndex < flat.length - 1) select(flat[currentIndex + 1].step.id);
+  }, [currentIndex, flat]);
+
+  const goPrev = useCallback(() => {
+    if (currentIndex > 0) select(flat[currentIndex - 1].step.id);
+  }, [currentIndex, flat]);
 
   useEffect(() => {
     // Reset to first step when the category (sections) changes.
@@ -60,12 +83,33 @@ export function StepBrowser({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
-      if (e.key === "ArrowRight" && currentIndex < flat.length - 1) select(flat[currentIndex + 1].step.id);
-      if (e.key === "ArrowLeft" && currentIndex > 0) select(flat[currentIndex - 1].step.id);
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  });
+  }, [goNext, goPrev]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (viewMode !== "mobile" || e.touches.length !== 1 || swipeShouldIgnore(e.target)) {
+      swipeRef.current = null;
+      return;
+    }
+    swipeRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (viewMode !== "mobile" || !swipeRef.current) return;
+    const touch = e.changedTouches[0];
+    if (!touch) return;
+    const dx = touch.clientX - swipeRef.current.x;
+    const dy = touch.clientY - swipeRef.current.y;
+    swipeRef.current = null;
+    if (Math.abs(dx) < SWIPE_MIN_PX) return;
+    if (Math.abs(dy) > Math.abs(dx) * SWIPE_MAX_VERTICAL_RATIO) return;
+    if (dx < 0) goNext();
+    else goPrev();
+  };
 
   const didMountScroll = useRef(false);
   useEffect(() => {
@@ -151,7 +195,12 @@ export function StepBrowser({
         </div>
       </aside>
 
-      <div className="step-stage" ref={stageRef}>
+      <div
+        className="step-stage"
+        ref={stageRef}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <div className="step-stage__progress">
           <div
             className="step-stage__progress-bar"
@@ -231,7 +280,7 @@ export function StepBrowser({
             type="button"
             className="btn"
             disabled={currentIndex === 0}
-            onClick={() => select(flat[currentIndex - 1].step.id)}
+            onClick={() => goPrev()}
           >
             ← Previous
           </button>
@@ -242,12 +291,16 @@ export function StepBrowser({
             type="button"
             className="btn btn--primary"
             disabled={currentIndex >= flat.length - 1}
-            onClick={() => select(flat[currentIndex + 1].step.id)}
+            onClick={() => goNext()}
           >
             {category === "walkthrough" ? "Next step" : "Next"} →
           </button>
         </div>
-        <p className="step-nav__keys">Tip: use ← → arrow keys to move between steps.</p>
+        {viewMode === "mobile" ? (
+          <p className="step-nav__swipe-hint">Tip: swipe left or right to move between steps.</p>
+        ) : (
+          <p className="step-nav__keys">Tip: use ← → arrow keys to move between steps.</p>
+        )}
       </div>
     </div>
   );
