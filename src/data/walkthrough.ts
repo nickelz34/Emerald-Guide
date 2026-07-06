@@ -5,7 +5,7 @@ import type { GuideSection } from "../types";
  * Events within a chapter are ordered and numbered (1, 2, 3…) in the UI so the
  * guide reads as an in-depth, accurate retelling of the Pokémon Emerald story.
  */
-export const walkthrough: GuideSection[] = [
+const storyChapters: GuideSection[] = [
   {
     id: "littleroot",
     title: "Ch. 1 — Littleroot Town",
@@ -749,17 +749,18 @@ export const walkthrough: GuideSection[] = [
         summary: "Slateport hosts a busy open-air market, the Name Rater, and Energy Guru.",
         story: [
           "Slateport is the loudest, liveliest place you've seen yet — a seaside city built around a sprawling open-air market where stalls hawk everything from berry drinks to stat-boosting vitamins. The Energy Guru's stand is the big draw: expensive, but those Proteins and Carbos permanently pump up a favourite Pokémon's stats.",
-          "Wander the boardwalk and you'll also find the Name Rater, who'll happily rechristen one of your team, plus the Contest Hall and the busy Harbor to the south. It's a city that rewards nosiness, so poke into every shop before you get down to business.",
+          "Wander the boardwalk and you'll also find the Name Rater, who'll happily rechristen one of your team, plus the Battle Tent (Frontier-style practice battles — not contests) and the busy Harbor to the south. It's a city that rewards nosiness, so poke into every shop before you get down to business.",
         ],
         details: [
-          "Browse the open-air market for vitamins, berries, and contest supplies.",
+          "Browse the open-air market for vitamins, berries, and items for later contest prep.",
           "Visit the man in the southwest house — he teaches TM43 Secret Power for secret bases.",
           "The Name Rater can rename one of your Pokémon.",
-          "Contest Hall and the Harbor sit on the south side.",
+          "Battle Tent and the Harbor sit on the south side — all Pokémon Contests are in Lilycove only.",
         ],
         secrets: [
           "Use Secret Power on a tree, bush, or cracked wall to open your own secret base — decorate it with goods from the Pretty Petal shop and Slateport market.",
           "The Pokémon Fan Club president rewards trend-spreaders with a Silk Scarf if you keep the \"hip and happening\" gossip going between here and Dewford.",
+          "Later, the Fan Club chairman gives colored contest scarves (Red/Blue/Pink/Green/Yellow) when a Pokémon's matching condition stat is maxed — see the Contest Preparation and Lilycove contest chapters.",
         ],
         tags: ["market", "slateport"],
       },
@@ -947,13 +948,13 @@ export const walkthrough: GuideSection[] = [
         summary: "Wally's family lives here; the west side of Rusturf Tunnel yields HM04 Strength.",
         story: [
           "Verdanturf is a clean-aired mountain town, and it's where Wally now lives with relatives. Drop in on him and his uncle, who thanks you warmly for the kindness you showed the boy back in Petalburg — a quiet reminder that your journey touches other lives.",
-          "The town also sits at the west end of Rusturf Tunnel. Now that you have Rock Smash, you can shatter the rubble from this side to reunite a woman named Wanda with her sweetheart; in gratitude he gives you HM04 Strength, the move that shoves heavy boulders and unlocks the puzzles waiting in caves like Victory Road. The local Contest Hall, meanwhile, is a fine place to try your first Pokémon Contest.",
+          "The town also sits at the west end of Rusturf Tunnel. Now that you have Rock Smash, you can shatter the rubble from this side to reunite a woman named Wanda with her sweetheart; in gratitude he gives you HM04 Strength, the move that shoves heavy boulders and unlocks the puzzles waiting in caves like Victory Road. Verdanturf's Battle Tent offers optional Frontier-style battles — Pokémon Contests are only in Lilycove, but start berry farming here and follow the Contest Preparation chapter soon after.",
         ],
         details: [
           "Visit Wally and his family — his uncle thanks you for helping him.",
           "Use Rock Smash on the tunnel rocks to reunite Wanda and her boyfriend.",
           "He gives you HM04 Strength, which moves heavy boulders.",
-          "The Contest Hall here hosts your first Pokémon Contests.",
+          "Battle Tent on the north side — practice battles, not contests (Emerald-only).",
         ],
         tips: ["Strength opens boulder puzzles in caves like Victory Road — keep it on an HM carrier."],
         tags: ["hm", "strength", "verdanturf", "route-117"],
@@ -1117,12 +1118,12 @@ export const walkthrough: GuideSection[] = [
         summary: "Team Magma has kidnapped Professor Cozmo to find a meteorite.",
         story: [
           "Fallarbor is a quiet farming town, but the peace is a thin veneer. Locals tell you that Team Magma has kidnapped Professor Cozmo, a meteorite researcher, and hauled him off toward Meteor Falls. It's the first time Magma's land-loving ambitions feel personal — and a clear sign that the fight over Mt. Chimney is about to boil over.",
-          "The town's Contest Hall hosts higher-rank contests if you want a breather, but the story is pulling you west and north toward the falls.",
+          "The town's Battle Tent hosts optional practice battles if you want a breather, but the story is pulling you west and north toward the falls.",
         ],
         details: [
           "Learn that Team Magma abducted Professor Cozmo for the Meteorite.",
           "This foreshadows the Mt. Chimney showdown to come.",
-          "The Contest Hall here hosts higher-rank contests.",
+          "Battle Tent here — not contests (all ranks are in Lilycove). Move Maniac is great for recovering contest moves later.",
         ],
         tags: ["team-magma", "story", "fallarbor"],
       },
@@ -1653,7 +1654,7 @@ export const walkthrough: GuideSection[] = [
         details: [
           "Rival Battle #5 happens in front of the Department Store — their toughest team yet.",
           "Buy TMs, evolution stones, and vitamins across the store's floors.",
-          "The Lilycove Contest Hall hosts the top-rank Master contests.",
+          "All contest ranks (Normal through Master) are in the Lilycove Contest Hall — see the dedicated contest chapter before Mt. Pyre if you want ribbons now.",
         ],
         tags: ["rival", "department-store", "lilycove"],
       },
@@ -2443,3 +2444,277 @@ export const walkthrough: GuideSection[] = [
     ],
   },
 ];
+
+const contestPrepChapter: GuideSection = {
+  id: "contest-prep",
+  title: "Ch. 18 — Contest Preparation",
+  description:
+    "Learn how Pokémon Contests work in Emerald and start growing berries for Pokéblocks.",
+  steps: [
+    {
+      id: "contest-prep-1",
+      title: "How contests work in Emerald",
+      location: "Hoenn region",
+      summary:
+        "In Emerald, every contest rank is held at the Lilycove Contest Hall — other towns have Battle Tents instead.",
+      story: [
+        "Pokémon Contests are Hoenn's other path to glory: instead of knocking opponents out, you show off a Pokémon's condition and appeal with its moves. There are five categories — Cool, Beauty, Cute, Smart, and Tough — and four ranks: Normal, Super, Hyper, and Master.",
+        "In Ruby and Sapphire, each rank had its own town. In Pokémon Emerald, Verdanturf, Fallarbor, and Slateport replaced their Contest Halls with Battle Tents — practice battles, not contests. Every rank, every category, happens in one building: the Contest Hall in Lilycove City. You cannot enter until you reach Lilycove, but you should start preparing now.",
+        "Winning a ribbon in one category at one rank unlocks the next rank for that same category only. You need twenty ribbons total for a full contest sweep (five categories × four ranks).",
+      ],
+      details: [
+        "Emerald: all contests are at the Lilycove Contest Hall — not Verdanturf, Fallarbor, or Slateport.",
+        "Verdanturf, Fallarbor, and Slateport have Battle Tents (optional battle practice) instead.",
+        "Five categories: Cool, Beauty, Cute, Smart, Tough. Four ranks each: Normal → Super → Hyper → Master.",
+        "You must win Normal in a category before entering Super in that category, and so on.",
+        "Start berry farming now so you have ingredients ready when you reach Lilycove.",
+      ],
+      tips: [
+        "Contests have two phases: Primary Judging (condition and sheen) and Secondary Judging (five turns of move appeals). Higher ranks weight appeals more heavily.",
+      ],
+      tags: ["contests", "optional", "intro"],
+    },
+    {
+      id: "contest-prep-2",
+      title: "Berries, flavors & natures",
+      location: "Route 104 / Route 117",
+      summary: "Plant berries and match flavors to the contest type you want to win.",
+      story: [
+        "Pokéblocks are the heart of contest prep. Blend berries at a Berry Blender to create them, then feed blocks to your Pokémon to raise the condition stat that matches your target contest. Each berry has a flavor tied to a contest type: Spicy raises Cool, Dry raises Beauty, Sweet raises Cute, Bitter raises Smart, and Sour raises Tough.",
+        "You already picked up the Wailmer Pail on Route 104 — use it on any soft soil patch, plant a berry, and water it every stage for a larger harvest. Route 117 outside Mauville has several plots; the Pretty Petal Flower Shop on Route 104 sells berries and explains planting. Check a berry's tag in the Bag to see its flavor and color before you blend.",
+        "Nature matters as much as berries. A Pokémon's nature speeds or slows how fast each condition grows — for example, Adamant boosts Cool but lowers Beauty, while Modest boosts Beauty but lowers Cool. Breed or catch a Pokémon whose nature favours your target category, or hold an Everstone at the Day Care on Route 117 to pass a nature down.",
+      ],
+      details: [
+        "Spicy berries → Cool · Dry → Beauty · Sweet → Cute · Bitter → Smart · Sour → Tough.",
+        "Plant berries in soft soil; water with the Wailmer Pail for bigger yields.",
+        "Route 117 and Route 104 are your earliest reliable berry farms.",
+        "Check Pokénav → Condition (after you have the Pokénav) to see a radar chart of your Pokémon's contest stats.",
+        "Match nature to your contest type — neutral natures grow all stats evenly but slower for specialists.",
+      ],
+      secrets: [
+        "Secondary conditions also add points: Beauty contests also score Cool and Cute, Cool contests score Beauty and Tough, and so on — feeding a few blocks of those flavors can help at the margins.",
+        "Sheen (shown as stars on the Pokénav sprite) caps at 255 from Pokéblock feel. Once sheen is maxed, that Pokémon cannot eat more blocks — plan feeds carefully.",
+      ],
+      tags: ["berries", "pokeblocks", "contests"],
+    },
+    {
+      id: "contest-prep-3",
+      title: "Choose & train a contest Pokémon",
+      location: "Your party",
+      summary: "Pick a species with strong contest moves and start planning combinations.",
+      story: [
+        "The best contest Pokémon learn high-appeal moves in one category plus a setup move for combinations. Castform from the Weather Institute (Route 119) arrives knowing Hail and Powder Snow — an immediate Beauty combo. Blaziken gets Sunny Day and Fire Blast; Milotic and Swampert have Rain Dance chains; Gardevoir and Medicham can learn Calm Mind + Psychic for Smart.",
+        "Teach combination pairs: use a setup move on turn one of appeals, then a matching high-appeal move on turn two for double hearts. Examples: Sunny Day → Fire Blast (Beauty), Leer → Tackle (Cool), Mud Sport → Mud-Slap (Cute), Calm Mind → Psychic (Smart), Harden → Tackle (Tough). Never repeat the same appeal move twice in one contest unless the move says it can — the audience tires and you lose hearts.",
+        "You do not need a separate Pokémon per category if you plan around sheen — but most players raise one specialist per contest type. Keep your contest team in the PC until Lilycove; story battles can stay on your main roster.",
+      ],
+      details: [
+        "Catch or breed one strong candidate per contest category you care about.",
+        "Prioritise Pokémon whose level-up or TM movepool includes combo setup + high-appeal finishers.",
+        "Castform (gift on Route 119) is the fastest Beauty contest starter in Emerald.",
+        "Use the Move Maniac in Fallarbor (Heart Scales) to recover forgotten contest moves.",
+        "Register Pokémon at the Lilycove Contest Hall later — registration is required before entering.",
+      ],
+      tips: [
+        "Cool: Absol or Manectric with Leer + Tackle. Cute: Swampert with Mud Sport + Mud-Slap. Tough: Aggron with Harden + Tackle.",
+      ],
+      tags: ["contests", "team-building"],
+    },
+  ],
+};
+
+const contestsLilycoveChapter: GuideSection = {
+  id: "contests-lilycove",
+  title: "Ch. 33 — Pokémon Contests at Lilycove",
+  description:
+    "Register, blend Pokéblocks, and climb every contest rank in Hoenn's only Contest Hall.",
+  steps: [
+    {
+      id: "contests-lilycove-1",
+      title: "Contest Pass & registration",
+      location: "Lilycove City — Contest Hall",
+      summary:
+        "Get the Contest Pass and Pokéblock Case from the reception desk; register your Pokémon.",
+      story: [
+        "The Contest Hall sits on the west side of Lilycove. Inside the foyer, talk to the woman at the left counter — she gives you the Contest Pass and the Pokéblock Case in one visit. The Pass lets you enter any rank; the Case holds up to forty Pokéblocks.",
+        "Before your first entry, register the Pokémon you plan to use. Speak to the receptionist at the left counter and register each contest candidate from your party. Only registered Pokémon can compete. You can register your whole party at once; there is no fee.",
+        "Story events in Lilycove (rival battle, Team Aqua) can wait — contests are optional, but this is the only place in Emerald to compete, so stock up on berries and carve out time before diving into the Aqua Hideout if you want ribbons on this visit.",
+      ],
+      details: [
+        "Enter the Contest Hall (west side of Lilycove).",
+        "Talk to the left receptionist for the Contest Pass and Pokéblock Case.",
+        "Register every Pokémon you intend to enter via the same receptionist.",
+        "The Berry Blender is in the foyer on the right — use it before each rank attempt.",
+      ],
+      secrets: [
+        "The Lilycove blender always has three NPC partners available — the best NPC blender count in Hoenn, giving stronger Pokéblocks than Verdanturf or Fallarbor had in Ruby/Sapphire.",
+      ],
+      tags: ["contests", "lilycove", "contest-pass"],
+    },
+    {
+      id: "contests-lilycove-2",
+      title: "Berry Blender mastery",
+      location: "Lilycove Contest Hall — Berry Blender",
+      summary:
+        "Blend high-Level, low-Feel Pokéblocks by hitting A when the pointer crosses your marker.",
+      story: [
+        "Walk to the Berry Blender in the foyer (right side). You and up to three partners each drop in one berry. A dial spins; press A exactly when the white pointer lines up with your name's marker to speed the blender. Perfect hits raise RPM and produce Pokéblocks with higher Level (stronger) and lower Feel (less sheen per block — critical for long-term feeding).",
+        "Lilycove supplies three NPC blenders, the maximum in single-player Emerald. More partners means better blocks. Save before blending rare berries, practice timing with cheap Oran or Pecha berries first, then use high-value berries from the Route 123 Berry Master's wife (special phrases), or Spelon from the phrase GREAT BATTLE.",
+        "Target blocks that match your contest color. For Cool, blend Spicy (red) berries; Beauty uses Dry (blue); Cute uses Sweet (pink); Smart uses Bitter (green); Tough uses Sour (yellow). Feed blocks until the Pokénav condition stat for that branch nears 255.",
+      ],
+      details: [
+        "Use the Berry Blender in the Contest Hall foyer (right side).",
+        "Each player selects one berry; press A when the pointer hits your marker.",
+        "Aim for high Level and low Feel on the result screen.",
+        "Lilycove has three NPC partners — always use the full four-person blend.",
+        "Feed Pokéblocks until condition nears 255 for your target contest type.",
+      ],
+      tips: [
+        "Watch the result screen: Level = strength, Feel = sheen cost. Lower Feel lets you feed more blocks before hitting the sheen cap.",
+      ],
+      secrets: [
+        "Visit the Berry Master on Route 123 daily for two free berries. His wife gives rare berries when you tell her phrases like GREAT BATTLE (Spelon) — more phrases unlock after the Hall of Fame.",
+      ],
+      tags: ["contests", "berry-blender", "pokeblocks"],
+    },
+    {
+      id: "contests-lilycove-3",
+      title: "Condition, sheen & scarves",
+      location: "Lilycove / Slateport City",
+      summary: "Max condition on the Pokénav and collect scarves from the Pokémon Fan Club.",
+      story: [
+        "Open the Pokénav, select a Pokémon, and check Condition. The pentagon radar shows Cool, Beauty, Cute, Smart, and Tough — the farther a point extends, the higher that stat. Stars around the sprite show sheen (one to ten stars as sheen climbs toward 255). Stop feeding when the target stat maxes or sheen fills.",
+        "For a huge Primary Judging boost, visit the Pokémon Fan Club in Slateport (north of the market). Show the chairman a Pokémon with that condition stat maxed (255) and he gives the matching scarf: Red Scarf (Cool), Blue Scarf (Beauty), Pink Scarf (Cute), Green Scarf (Smart), Yellow Scarf (Tough). Hold the scarf during the contest — it is not consumed.",
+        "Primary Judging happens before appeals. High condition plus scarf often secures a lead before you move a muscle. At Hyper and Master rank, opponents have strong condition too, so do not skip blending.",
+      ],
+      details: [
+        "Check condition and sheen on the Pokénav before every entry.",
+        "Raise the primary stat for your category to 255 with Pokéblocks.",
+        "Get scarves from the Fan Club chairman in Slateport (max that condition stat — 255).",
+        "Equip the matching scarf on your entrant before registering for the contest.",
+        "Stop feeding blocks if sheen maxes — you cannot raise condition further.",
+      ],
+      tips: [
+        "If sheen caps before condition maxes, you may need a fresh Pokémon or better low-Feel blocks from perfect blends.",
+      ],
+      tags: ["contests", "condition", "scarves", "slateport"],
+    },
+    {
+      id: "contests-lilycove-4",
+      title: "Normal through Hyper rank",
+      location: "Lilycove Contest Hall",
+      summary: "Win each rank in one category before moving up; appeals matter more each tier.",
+      story: [
+        "Talk to the right receptionist to enter. Choose category (Cool / Beauty / Cute / Smart / Tough) and rank. Normal rank is open immediately; Super requires the Normal ribbon in that category; Hyper requires Super; Master requires Hyper.",
+        "Round one is Primary Judging — the audience scores condition, sheen, and scarves. Round two is Secondary Judging: five appeal turns. Moves of the same category as the contest fill the audience excitement meter; when it maxes, your next appeal earns bonus hearts. Use combinations (setup turn one, payoff turn two) and avoid repeating moves.",
+        "Work one category at a time: win Normal Cool, then Super Cool, then Hyper Cool, then Master Cool, before starting Beauty unless you are raising multiple Pokémon. NPC rivals get tougher each rank and their condition improves — re-blend berries between attempts if you lose Primary Judging.",
+      ],
+      details: [
+        "Enter at the right receptionist; pick category and rank.",
+        "Win Normal in a category to unlock Super in that category (same for Hyper and Master).",
+        "Primary Judging: condition + scarf win early ranks; do not skip Pokéblocks.",
+        "Secondary Judging: five appeal turns — use combos, fill the excitement meter, avoid duplicate moves.",
+        "Repeat for each category you want ribbons in.",
+      ],
+      tips: [
+        "If appeals are weak, teach a combo from the contest prep chapter and lead with the setup move when the crowd is neutral.",
+      ],
+      secrets: [
+        "The Weather Institute Castform can sweep Beauty ranks early with Hail → Powder Snow without any TM investment.",
+      ],
+      tags: ["contests", "ribbons", "lilycove"],
+    },
+    {
+      id: "contests-lilycove-5",
+      title: "Master rank & Wallace",
+      location: "Lilycove Contest Hall",
+      summary: "Take Master rank for the toughest AI and meet Hoenn's Contest Master — Wallace.",
+      story: [
+        "Master rank is the final test. Opponents run optimized combos and maxed condition. Bring your best-blended blocks, a held scarf, and a moveset with at least one reliable two-turn combination plus a high-appeal finisher for turn five (moves like Hyper Beam or Outrage jam opponents but skip a turn — save them for the last round).",
+        "Winning Master in any category earns the Master Ribbon for that type. Wallace — Sootopolis Gym Leader and Hoenn's Contest Master — appears in the audience at high ranks and later gives you HM07 Waterfall after the Sootopolis story. Contests and the main plot intertwine at Sootopolis: Juan replaces Wallace as Gym Leader in Emerald, while Wallace remains the contest icon.",
+        "You do not need Master ribbons to finish the game, but collecting all twenty is a true post-game goal alongside the Battle Frontier.",
+      ],
+      details: [
+        "Enter Master rank only after winning Hyper in the same category.",
+        "Use combo openers turns 1–4; finish with your strongest single appeal on turn 5.",
+        "Equip scarf and verify condition on the Pokénav before each attempt.",
+        "Win to earn the Master Ribbon for that category.",
+        "Wallace is the story's Contest Master — you will meet him again at Sootopolis Gym.",
+      ],
+      tips: [
+        "Beauty: Sunny Day → Overheat or Fire Blast. Tough: Harden → Tackle or Bulk Up → Brick Break. Smart: Calm Mind → Psychic on Gardevoir or Claydol.",
+      ],
+      secrets: [
+        "After becoming Champion, the Berry Master sometimes appears at this hall (announced on TV) and produces elite Pokéblocks — watch the TV in Lilycove or your home for the notice.",
+      ],
+      tags: ["contests", "master-rank", "wallace", "lilycove"],
+    },
+  ],
+};
+
+const contestPostGameChapter: GuideSection = {
+  id: "contests-postgame",
+  title: "Ch. 49 — Contest Mastery (Post-Game)",
+  description: "Rare berries, the Blend Master, and the full set of twenty contest ribbons.",
+  steps: [
+    {
+      id: "contests-postgame-1",
+      title: "Berry Master rare berries",
+      location: "Route 123 — Berry Master's house",
+      summary: "Unlock Pamtre, Belue, and other contest berries with password phrases.",
+      story: [
+        "After the Hall of Fame, return to the Berry Master's house on Route 123 (east of Lilycove). His wife gives one rare berry per phrase per day. Contest-focused phrases include CHALLENGE CONTEST (Pamtre — strong Beauty), SUPER HUSTLE (Belue — strong Tough), and after other milestones OVERWHELMING LATIAS (Watmel — Cute) and COOL LATIOS (Durin — Smart).",
+        "These berries blend into the highest-Level Pokéblocks in the game. Save before each blend, use Lilycove's four-person blender, and push a fresh specialist to 255 condition with low-Feel blocks.",
+      ],
+      details: [
+        "Fly to Route 123 and speak to the Berry Master's wife.",
+        "Tell her CHALLENGE CONTEST (after Hall of Fame) for Pamtre; SUPER HUSTLE for Belue.",
+        "Blend at Lilycove with three NPC partners for best results.",
+        "Feed blocks to post-game contest candidates.",
+      ],
+      secrets: [
+        "GREAT BATTLE (Spelon) works before the Hall of Fame and is excellent for Cool contests.",
+      ],
+      tags: ["contests", "post-game", "berries", "route-123"],
+    },
+    {
+      id: "contests-postgame-2",
+      title: "All twenty ribbons",
+      location: "Lilycove Contest Hall",
+      summary: "Complete Master rank in all five categories for the full contest sweep.",
+      story: [
+        "Twenty ribbons await: Normal, Super, Hyper, and Master in each of Cool, Beauty, Cute, Smart, and Tough. Each requires a winning Pokémon in that category — five specialists, or fewer if you manage sheen carefully across types (difficult on one cartridge).",
+        "Watch TV for Berry Master blend announcements at the Contest Hall; his blends shortcut the grind. Pair that with scarves, combos, and nature-correct Pokémon. When the last Master Ribbon is yours, you have completed Hoenn's contest circuit — a feat separate from the Battle Frontier and worth showing off in your profile.",
+      ],
+      details: [
+        "Win Master rank in Cool, Beauty, Cute, Smart, and Tough (five Master Ribbons).",
+        "You need prior ribbons in each category: Normal → Super → Hyper → Master per type.",
+        "Use Berry Master TV events (post-Champion) for top-tier Pokéblocks at Lilycove.",
+        "Track progress via each Pokémon's ribbon list in the summary screen.",
+      ],
+      tips: [
+        "Raise one Pokémon per category during the main game if you want ribbons before the Frontier grind.",
+      ],
+      tags: ["contests", "post-game", "ribbons", "lilycove"],
+    },
+  ],
+};
+
+function insertAfter(chapters: GuideSection[], afterId: string, chapter: GuideSection) {
+  const idx = chapters.findIndex((c) => c.id === afterId);
+  if (idx === -1) throw new Error(`Chapter not found: ${afterId}`);
+  chapters.splice(idx + 1, 0, chapter);
+}
+
+function renumberChapters(chapters: GuideSection[]) {
+  chapters.forEach((ch, i) => {
+    ch.title = ch.title.replace(/^Ch\. \d+ —/, `Ch. ${i + 1} —`);
+  });
+}
+
+const built: GuideSection[] = [...storyChapters];
+insertAfter(built, "route-117", contestPrepChapter);
+insertAfter(built, "lilycove", contestsLilycoveChapter);
+insertAfter(built, "battle-frontier", contestPostGameChapter);
+renumberChapters(built);
+
+export const walkthrough = built;

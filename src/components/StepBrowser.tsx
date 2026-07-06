@@ -43,11 +43,21 @@ function useMobileGuideNav(viewMode: LayoutViewMode): boolean {
   return viewMode === "mobile" || touchDevice;
 }
 
-/** Ignore swipes that start on maps, galleries, or form controls. */
+/** Ignore swipes on form controls, the step rail, and pannable map surfaces. */
 function swipeShouldIgnore(target: EventTarget | null): boolean {
   if (!(target instanceof Element)) return false;
   return !!target.closest(
-    "input, textarea, select, button, a, .screenshots, .annotated-map, .area-map-view, .hoenn-map__viewport, .step-rail__panel",
+    [
+      "input",
+      "textarea",
+      "select",
+      "button",
+      "a",
+      ".step-rail",
+      ".annotated-map__frame--zoomable",
+      ".annotated-map__frame--panoramic",
+      ".hoenn-map__viewport",
+    ].join(", "),
   );
 }
 
@@ -117,36 +127,57 @@ export function StepBrowser({
     return () => window.removeEventListener("keydown", onKey);
   }, [goNext, goPrev]);
 
-  const dismissSwipeIntro = () => {
+  const dismissSwipeIntro = useCallback(() => {
     setSwipeIntroDismissed(true);
     try {
       sessionStorage.setItem(SWIPE_INTRO_KEY, "1");
     } catch {
       /* private browsing */
     }
-  };
+  }, []);
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    if (!mobileNav || e.touches.length !== 1 || swipeShouldIgnore(e.target)) {
+  // Capture-phase listeners so swipes register across the full step card, not only
+  // above screenshot galleries (bubbling handlers miss touches on nested widgets).
+  useEffect(() => {
+    if (!mobileNav) return;
+    const el = stageRef.current;
+    if (!el) return;
+
+    const onStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1 || swipeShouldIgnore(e.target)) {
+        swipeRef.current = null;
+        return;
+      }
+      swipeRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    };
+
+    const onEnd = (e: TouchEvent) => {
+      if (!swipeRef.current) return;
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+      const dx = touch.clientX - swipeRef.current.x;
+      const dy = touch.clientY - swipeRef.current.y;
       swipeRef.current = null;
-      return;
-    }
-    swipeRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-  };
+      if (Math.abs(dx) < SWIPE_MIN_PX) return;
+      if (Math.abs(dy) > Math.abs(dx) * SWIPE_MAX_VERTICAL_RATIO) return;
+      dismissSwipeIntro();
+      if (dx < 0) goNext();
+      else goPrev();
+    };
 
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (!mobileNav || !swipeRef.current) return;
-    const touch = e.changedTouches[0];
-    if (!touch) return;
-    const dx = touch.clientX - swipeRef.current.x;
-    const dy = touch.clientY - swipeRef.current.y;
-    swipeRef.current = null;
-    if (Math.abs(dx) < SWIPE_MIN_PX) return;
-    if (Math.abs(dy) > Math.abs(dx) * SWIPE_MAX_VERTICAL_RATIO) return;
-    dismissSwipeIntro();
-    if (dx < 0) goNext();
-    else goPrev();
-  };
+    const onCancel = () => {
+      swipeRef.current = null;
+    };
+
+    el.addEventListener("touchstart", onStart, { capture: true, passive: true });
+    el.addEventListener("touchend", onEnd, { capture: true, passive: true });
+    el.addEventListener("touchcancel", onCancel, { capture: true, passive: true });
+    return () => {
+      el.removeEventListener("touchstart", onStart, { capture: true });
+      el.removeEventListener("touchend", onEnd, { capture: true });
+      el.removeEventListener("touchcancel", onCancel, { capture: true });
+    };
+  }, [mobileNav, goNext, goPrev, dismissSwipeIntro]);
 
   const didMountScroll = useRef(false);
   useEffect(() => {
@@ -232,12 +263,7 @@ export function StepBrowser({
         </div>
       </aside>
 
-      <div
-        className="step-stage"
-        ref={stageRef}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
+      <div className="step-stage" ref={stageRef}>
         <div className="step-stage__progress">
           <div
             className="step-stage__progress-bar"

@@ -20,6 +20,41 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.8.0",
+    date: "2026-07-06",
+    summary: "Full Pokémon Contest walkthrough — prep, Lilycove ranks, and post-game ribbons.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "New chapter **Contest Preparation** (after Route 117): how Emerald contests work, berry flavors and natures, combo movesets, and when to start farming — all contests are Lilycove-only in Emerald.",
+          "New chapter **Pokémon Contests at Lilycove** (after Lilycove City): Contest Pass, Pokéblock Case, Berry Blender timing, condition/sheen, Fan Club scarves in Slateport, Normal→Master ranks, and Wallace.",
+          "New chapter **Contest Mastery (Post-Game)** (after Battle Frontier): Berry Master password berries (CHALLENGE CONTEST, SUPER HUSTLE, etc.), Blend Master TV events, and the full twenty-ribbon sweep.",
+          "Fixed incorrect references to Contest Halls in Verdanturf, Fallarbor, and Slateport — Emerald uses Battle Tents there; contests are only at Lilycove.",
+        ],
+      },
+      {
+        heading: "Map",
+        items: [
+          "Contest steps link to Lilycove, Slateport (Fan Club scarves), Mauville area (berry prep and Route 123 rare berries).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.7.8",
+    date: "2026-07-06",
+    summary: "Swipe navigation works across the full step on mobile.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Fixed mobile swipes only registering near the top of a step — you can now swipe left or right anywhere in the guide body (story, objectives, tips, encounters). Pannable map screenshots are still excluded so you can pan those normally.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.7.7",
     date: "2026-07-06",
     summary: "Clearer swipe navigation hints on phones.",
