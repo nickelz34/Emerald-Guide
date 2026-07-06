@@ -663,11 +663,116 @@
   touch-action: pan-y;
 }
 
-.app-shell[data-view="mobile"] .step-nav__swipe-hint {
-  margin: 0.65rem 0 0;
+.step-swipe-intro {
+  display: none;
+}
+
+.step-swipe-banner {
+  display: none;
+}
+
+.app-shell[data-view="mobile"] .step-swipe-intro,
+.app-shell[data-view="mobile"] .step-swipe-banner {
+  display: flex;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .step-swipe-intro,
+  .step-swipe-banner {
+    display: flex;
+  }
+}
+
+.step-swipe-intro {
+  margin: 0 0 0.75rem;
+  padding: 0.85rem 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.step-swipe-intro__body strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--emerald);
+  font-size: 0.9rem;
+}
+
+.step-swipe-intro__body p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.step-swipe-intro__dismiss {
+  flex-shrink: 0;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  background: rgba(52, 211, 153, 0.2);
+  color: var(--emerald);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.step-swipe-banner {
+  margin: 0 0 0.85rem;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
   font-size: 0.78rem;
   color: var(--text-muted);
   text-align: center;
+}
+
+.step-swipe-banner__arrow {
+  color: var(--emerald);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.app-shell[data-view="mobile"] .step-nav__swipe-hint {
+  margin: 0.65rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.app-shell[data-view="mobile"] .step-nav__swipe-hint strong {
+  color: var(--emerald);
+  font-weight: 600;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .step-stage {
+    touch-action: pan-y;
+  }
+
+  .step-nav__swipe-hint {
+    display: block;
+    margin: 0.65rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .step-nav__swipe-hint strong {
+    color: var(--emerald);
+    font-weight: 600;
+  }
+
+  .step-nav__keys {
+    display: none;
+  }
 }
 
 .app-shell[data-view="mobile"] .step-nav__keys {

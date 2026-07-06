@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.7.7",
+    date: "2026-07-06",
+    summary: "Clearer swipe navigation hints on phones.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "On mobile and touch devices, a welcome callout explains swipe navigation when you first open the guide (dismiss with Got it or your first swipe).",
+          "A swipe reminder stays visible at the top of every step, with a matching note below the Previous/Next buttons.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.7.6",
     date: "2026-07-06",
     summary: "Swipe between walkthrough steps on mobile.",

@@ -23,6 +23,25 @@ interface FlatStep {
 
 const SWIPE_MIN_PX = 56;
 const SWIPE_MAX_VERTICAL_RATIO = 0.85;
+const SWIPE_INTRO_KEY = "emerald-guide-swipe-intro-dismissed";
+
+/** Mobile layout toggle or a touch-first device (phone/tablet). */
+function useMobileGuideNav(viewMode: LayoutViewMode): boolean {
+  const [touchDevice, setTouchDevice] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const onChange = () => setTouchDevice(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return viewMode === "mobile" || touchDevice;
+}
 
 /** Ignore swipes that start on maps, galleries, or form controls. */
 function swipeShouldIgnore(target: EventTarget | null): boolean {
@@ -40,6 +59,7 @@ export function StepBrowser({
   onActiveStepChange,
   viewMode = "desktop",
 }: StepBrowserProps) {
+  const mobileNav = useMobileGuideNav(viewMode);
   const flat = useMemo<FlatStep[]>(
     () =>
       sections.flatMap((section) =>
@@ -51,6 +71,13 @@ export function StepBrowser({
   const [internalId, setInternalId] = useState<string | undefined>(flat[0]?.step.id);
   const [filter, setFilter] = useState("");
   const [railOpen, setRailOpen] = useState(false);
+  const [swipeIntroDismissed, setSwipeIntroDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem(SWIPE_INTRO_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
   const stageRef = useRef<HTMLDivElement>(null);
   const swipeRef = useRef<{ x: number; y: number } | null>(null);
 
@@ -90,8 +117,17 @@ export function StepBrowser({
     return () => window.removeEventListener("keydown", onKey);
   }, [goNext, goPrev]);
 
+  const dismissSwipeIntro = () => {
+    setSwipeIntroDismissed(true);
+    try {
+      sessionStorage.setItem(SWIPE_INTRO_KEY, "1");
+    } catch {
+      /* private browsing */
+    }
+  };
+
   const onTouchStart = (e: React.TouchEvent) => {
-    if (viewMode !== "mobile" || e.touches.length !== 1 || swipeShouldIgnore(e.target)) {
+    if (!mobileNav || e.touches.length !== 1 || swipeShouldIgnore(e.target)) {
       swipeRef.current = null;
       return;
     }
@@ -99,7 +135,7 @@ export function StepBrowser({
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (viewMode !== "mobile" || !swipeRef.current) return;
+    if (!mobileNav || !swipeRef.current) return;
     const touch = e.changedTouches[0];
     if (!touch) return;
     const dx = touch.clientX - swipeRef.current.x;
@@ -107,6 +143,7 @@ export function StepBrowser({
     swipeRef.current = null;
     if (Math.abs(dx) < SWIPE_MIN_PX) return;
     if (Math.abs(dy) > Math.abs(dx) * SWIPE_MAX_VERTICAL_RATIO) return;
+    dismissSwipeIntro();
     if (dx < 0) goNext();
     else goPrev();
   };
@@ -208,6 +245,38 @@ export function StepBrowser({
           />
         </div>
 
+        {mobileNav && (
+          <>
+            {!swipeIntroDismissed && (
+              <div className="step-swipe-intro" role="status">
+                <div className="step-swipe-intro__body">
+                  <strong>Swipe to navigate</strong>
+                  <p>
+                    Swipe <strong>left</strong> for the next step and <strong>right</strong> to go
+                    back. You can swipe anywhere on the guide except maps and screenshots.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="step-swipe-intro__dismiss"
+                  onClick={dismissSwipeIntro}
+                >
+                  Got it
+                </button>
+              </div>
+            )}
+            <p className="step-swipe-banner" role="note">
+              <span className="step-swipe-banner__arrow" aria-hidden="true">
+                ←
+              </span>
+              Swipe left or right to move through the guide
+              <span className="step-swipe-banner__arrow" aria-hidden="true">
+                →
+              </span>
+            </p>
+          </>
+        )}
+
         <article className="step-card">
           <span className="step-card__crumb">
             {current.sectionTitle}
@@ -296,8 +365,10 @@ export function StepBrowser({
             {category === "walkthrough" ? "Next step" : "Next"} →
           </button>
         </div>
-        {viewMode === "mobile" ? (
-          <p className="step-nav__swipe-hint">Tip: swipe left or right to move between steps.</p>
+        {mobileNav ? (
+          <p className="step-nav__swipe-hint">
+            Swipe <strong>left</strong> for next · <strong>right</strong> for previous
+          </p>
         ) : (
           <p className="step-nav__keys">Tip: use ← → arrow keys to move between steps.</p>
         )}
