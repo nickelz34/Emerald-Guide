@@ -106,9 +106,16 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
   const labels = areaId ? (AREA_NOTE_LABELS[areaId] ?? []) : [];
 
   // Game-extracted items, berries, entrances, etc. (true-scale on the big map).
+  // Skip auto-generated building entrances when hand-authored annotations already
+  // cover the area — avoids duplicate pins (e.g. "House (NW)" + "House1").
+  const hasBuildingAnnotations =
+    areaId &&
+    MAP_ANNOTATIONS[areaId]?.markers.some((m) => m.type === "building" || m.type === "poi");
+
   if (labels.length > 0) {
     for (const pt of ALL_MAP_POINTS) {
       if (!noteMatchesArea(pt.note, labels)) continue;
+      if (hasBuildingAnnotations && pt.category === "entrance") continue;
       const local = toCropLocal(pt.x, pt.y, crop);
       if (!local) continue;
       add({

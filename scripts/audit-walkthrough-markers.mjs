@@ -106,8 +106,33 @@ function checkMarker(areaId, markerId, tile, data) {
   const issues = [];
   const id = markerId.toLowerCase();
 
-  // Exit / warp markers — should be near a warp
-  if (id.includes("exit") || id.includes("-r10") || id.includes("route") || id.endsWith("-north") || id.endsWith("-south") || id.includes("dock") || id.includes("harbor") || id.includes("woods") || id.includes("tunnel") || id.includes("cave") || id.includes("entrance") || id.includes("league") || id.includes("vr") || id.includes("surf") && !id.includes("grass")) {
+  // Exit / warp markers — should be near a warp (skip route-to-route connection exits)
+  const isRouteConnection =
+    /-r\d+$/.test(id) ||
+    /^r\d+-/.test(id) ||
+    /-route\d+$/i.test(id) ||
+    id.endsWith("-north") ||
+    id.endsWith("-south") ||
+    id.endsWith("-east") ||
+    id.endsWith("-west");
+
+  if (
+    !isRouteConnection &&
+    (id.includes("exit") ||
+      id.includes("-r10") ||
+      id.includes("route") ||
+      id.endsWith("-north") ||
+      id.endsWith("-south") ||
+      id.includes("dock") ||
+      id.includes("harbor") ||
+      id.includes("woods") ||
+      id.includes("tunnel") ||
+      id.includes("cave") ||
+      id.includes("entrance") ||
+      id.includes("league") ||
+      id.includes("vr") ||
+      (id.includes("surf") && !id.includes("grass")))
+  ) {
     const w = nearest(tile, data.warps.map((x) => [x.x, x.y]));
     if (w && w.dist > 3) {
       issues.push(`far from nearest warp ${warpLabel(data.warps.find((x) => x.x === w.tile[0] && x.y === w.tile[1]))} (d=${w.dist.toFixed(1)})`);

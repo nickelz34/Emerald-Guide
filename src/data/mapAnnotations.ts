@@ -50,9 +50,9 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
       { id: "old-center", type: "building", label: "Pokémon Center", detail: "SW — heal here.", x: 32.5, y: 82.5 },
       { id: "old-house2", type: "building", label: "House (SE)", x: 77.5, y: 82.5 },
       { id: "old-sign", type: "poi", label: "Town sign", x: 57.5, y: 47.5 },
-      { id: "old-r101", type: "poi", label: "To Route 101 / Littleroot", x: 52.5, y: 2.5 },
+      { id: "old-r101", type: "poi", label: "To Route 101 / Littleroot", x: 52.5, y: 97.5 },
       { id: "old-r102", type: "poi", label: "To Route 102 / Petalburg", x: 2.5, y: 52.5 },
-      { id: "old-r103", type: "poi", label: "To Route 103", x: 97.5, y: 52.5 },
+      { id: "old-r103", type: "poi", label: "To Route 103", x: 52.5, y: 2.5 },
     ],
   },
   "route-101": {
@@ -77,8 +77,8 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "route-102": {
     title: "Route 102",
     markers: [
-      { id: "r102-petalburg", type: "poi", label: "To Petalburg", x: 1, y: 57.5 },
-      { id: "r102-oldale", type: "poi", label: "To Oldale", x: 99, y: 47.5 },
+      { id: "r102-petalburg", type: "poi", label: "To Petalburg", x: 1, y: 52.5 },
+      { id: "r102-oldale", type: "poi", label: "To Oldale", x: 99, y: 52.5 },
       { id: "r102-grass-w", type: "wild", label: "Grass (west)", detail: "Ralts 4%.", x: 11, y: 27.5 },
       { id: "r102-pond", type: "wild", label: "Grass (NE)", detail: "Ralts 4% — Wally catches his here.", x: 77, y: 22.5 },
       { id: "r102-grass-c", type: "wild", label: "Grass (center)", x: 39, y: 52.5 },
@@ -139,7 +139,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     title: "Rustboro City",
     markers: [
       { id: "rust-r104", type: "poi", label: "To Route 104 (south)", x: 51.3, y: 99.2 },
-      { id: "rust-r116", type: "poi", label: "To Route 116 (east)", x: 98.8, y: 17.5 },
+      { id: "rust-r116", type: "poi", label: "To Route 116 (east)", x: 98.8, y: 50.8 },
       { id: "rust-devon", type: "building", label: "Devon Corp", detail: "Big multi-story building (NW). Letter, PokéNav, Exp. Share.", x: 28.8, y: 25.8 },
       { id: "rust-gym", type: "building", label: "Rustboro Gym", detail: "Roxanne — badge #1.", x: 68.8, y: 32.5 },
       { id: "rust-school", type: "building", label: "Trainer's School", x: 68.8, y: 57.5 },
@@ -213,7 +213,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   mauville: {
     title: "Mauville City",
     markers: [
-      { id: "mau-r110", type: "poi", label: "To Route 110 (north)", x: 51.3, y: 2.5 },
+      { id: "mau-r110", type: "poi", label: "To Route 110 (north)", x: 51.3, y: 97.5 },
       { id: "mau-r117", type: "poi", label: "To Route 117 (west)", x: 1.3, y: 52.5 },
       { id: "mau-r118", type: "poi", label: "To Route 118 (east)", x: 98.8, y: 52.5 },
       { id: "mau-gym", type: "building", label: "Mauville Gym", detail: "Wattson — badge #3 (building with the dark archway).", x: 21.3, y: 27.5 },
@@ -300,7 +300,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "route-119": {
     title: "Route 119",
     markers: [
-      { id: "r119-north", type: "poi", label: "North exit", x: 51.3, y: 0.4 },
+      { id: "r119-north", type: "poi", label: "North exit", x: 98.8, y: 50.4 },
       { id: "r119-institute", type: "building", label: "Weather Institute", detail: "Team Aqua event and Castform gift.", x: 16.3, y: 23.2 },
       { id: "r119-fly", type: "item", label: "HM02 Fly", detail: "Gift after Weather Institute event.", x: 16.3, y: 23.2 },
       { id: "r119-bridge1", type: "poi", label: "Acro Bike bridge", detail: "Narrow white bridge near the north river.", x: 21.3, y: 6.1 },
@@ -324,13 +324,13 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "route-120": {
     title: "Route 120",
     markers: [
-      { id: "r120-north", type: "poi", label: "To Fortree", x: 51.3, y: 0.5 },
+      { id: "r120-north", type: "poi", label: "To Fortree", x: 1.3, y: 50.5 },
       { id: "r120-steven", type: "npc", label: "Steven / Devon Scope", detail: "Kecleon on the bridge — receive Devon Scope.", x: 33.8, y: 15.5 },
       { id: "r120-kecleon", type: "wild", label: "Kecleon", detail: "Invisible — blocks the bridge until scoped.", x: 31.3, y: 16.5 },
       { id: "r120-grass-n", type: "wild", label: "Tall grass (north)", x: 81.3, y: 14.5 },
       { id: "r120-grass-c", type: "wild", label: "Tall grass maze", x: 76.3, y: 50.5 },
       { id: "r120-ancient", type: "poi", label: "Ancient Tomb area", detail: "Registeel puzzle area is on Route 120.", x: 18.8, y: 55.5 },
-      { id: "r120-south", type: "poi", label: "South exit", x: 51.3, y: 99.5 },
+      { id: "r120-south", type: "poi", label: "South exit", x: 98.8, y: 130.5 },
     ],
   },
   mossdeep: {
@@ -437,7 +437,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "route-111": {
     title: "Route 111",
     markers: [
-      { id: "r111-north", type: "poi", label: "North section", x: 51.3, y: 0.4 },
+      { id: "r111-north", type: "poi", label: "North section", x: 1.3, y: 50.4 },
       { id: "r111-desert", type: "poi", label: "Desert Ruins", detail: "Regirock puzzle chamber in the desert.", x: 73.8, y: 62.5 },
       { id: "r111-sand", type: "poi", label: "Desert", detail: "Need Go-Goggles.", x: 73.8, y: 57.5 },
       { id: "r111-grass", type: "wild", label: "Desert grass", detail: "Sandshrew, Spinda, Skarmory.", x: 56.3, y: 55.4 },
