@@ -61,11 +61,27 @@ const SKIP_GFX = new Set([
   "OBJ_EVENT_GFX_SUBMARINE_SHADOW",
 ]);
 
-/** Runtime variable gfx → default overworld sheet. */
-const GFX_ID_REMAP = {
-  OBJ_EVENT_GFX_VAR_0: "OBJ_EVENT_GFX_BRENDAN_NORMAL",
-  OBJ_EVENT_GFX_VAR_1: "OBJ_EVENT_GFX_MAY_NORMAL",
-};
+/** Skip decorations, doll props, and hidden placeholder object events. */
+function shouldSkipObjectEvent(oe) {
+  const gfx = oe.graphics_id;
+  const script = oe.script || "";
+  if (SKIP_GFX.has(gfx)) return true;
+  if (gfx.includes("_DOLL")) return true;
+  if (/^OBJ_EVENT_GFX_VAR_/.test(gfx) && !/Rival/i.test(script)) return true;
+  const flag = oe.flag || "";
+  if (flag.includes("FLAG_DECORATION")) return true;
+  if (flag.includes("FLAG_HIDE") && (!oe.script || oe.script === "0x0")) return true;
+  return false;
+}
+
+/** Resolve runtime variable gfx only for real NPC scripts (e.g. Birch lab rival). */
+function resolveGfxForEvent(oe) {
+  const gfx = oe.graphics_id;
+  const script = oe.script || "";
+  if (gfx === "OBJ_EVENT_GFX_VAR_0" && /Rival/i.test(script)) return "OBJ_EVENT_GFX_BRENDAN_NORMAL";
+  if (gfx === "OBJ_EVENT_GFX_VAR_1" && /Rival/i.test(script)) return "OBJ_EVENT_GFX_MAY_NORMAL";
+  return gfx;
+}
 
 const SCRIPT_LABELS = {
   LittlerootTown_ProfessorBirchsLab_EventScript_Birch: { class: "Professor", name: "Birch" },
@@ -317,7 +333,7 @@ function dimsForGfx(gfxId) {
 }
 
 function resolveGfxId(gfxId) {
-  return GFX_ID_REMAP[gfxId] ?? gfxId;
+  return gfxId;
 }
 
 function localSpriteFile(rel) {
@@ -326,8 +342,7 @@ function localSpriteFile(rel) {
 }
 
 function spritePathForGfx(gfxId) {
-  const resolved = resolveGfxId(gfxId);
-  const pic = gfxIdToPicName(resolved);
+  const pic = gfxIdToPicName(gfxId);
   const rel = picToPath.get(pic);
   if (!rel) return null;
   const file = localSpriteFile(rel);
@@ -336,8 +351,7 @@ function spritePathForGfx(gfxId) {
 }
 
 function makeSprite(gfxId, movementType) {
-  const resolved = resolveGfxId(gfxId);
-  const dim = dimsForGfx(resolved);
+  const dim = dimsForGfx(gfxId);
   const sheet = spritePathForGfx(gfxId);
   if (!sheet) return null;
   return {
@@ -430,9 +444,9 @@ for (const { id: areaId, mapId } of areas) {
   const list = [];
 
   for (const oe of map.object_events || []) {
-    if (SKIP_GFX.has(oe.graphics_id)) continue;
+    if (shouldSkipObjectEvent(oe)) continue;
     let trainerId = scriptToTrainer.get(oe.script);
-    let gfxId = oe.graphics_id;
+    let gfxId = resolveGfxForEvent(oe);
 
     if (GYM_LEADER_GFX.has(gfxId) && gymCtx) {
       trainerId = gymCtx.leaderTrainerId;
@@ -471,7 +485,7 @@ for (const { id: areaId, mapId } of areas) {
       script: oe.script,
       trainerType: oe.trainer_type,
     });
-    gfxNeeded.add(resolveGfxId(oe.graphics_id));
+    gfxNeeded.add(gfxId);
   }
 
   if (list.length) areaEntities.set(areaId, list);
@@ -489,8 +503,7 @@ let dlFail = 0;
 const downloaded = new Set();
 
 for (const gfxId of gfxNeeded) {
-  const resolved = resolveGfxId(gfxId);
-  const pic = gfxIdToPicName(resolved);
+  const pic = gfxIdToPicName(gfxId);
   const rel = picToPath.get(pic);
   if (!rel) {
     dlFail++;
@@ -518,8 +531,7 @@ for (const gfxId of gfxNeeded) {
 }
 
 for (const gfxId of gfxNeeded) {
-  const resolved = resolveGfxId(gfxId);
-  const pic = gfxIdToPicName(resolved);
+  const pic = gfxIdToPicName(gfxId);
   const rel = picToPath.get(pic);
   if (!rel) continue;
   const outDir = rel.includes("/pokemon/") ? OVERWORLD_SPRITE_DIR : TRAINER_SPRITE_DIR;
