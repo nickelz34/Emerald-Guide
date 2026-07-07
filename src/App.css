@@ -2059,18 +2059,23 @@
 .trainer-modal {
   position: fixed;
   inset: 0;
-  z-index: 1200;
+  z-index: 1300;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
   background: rgba(8, 12, 20, 0.72);
   backdrop-filter: blur(4px);
+  overflow: hidden;
 }
 
 .trainer-modal__panel {
   width: min(920px, 100%);
-  max-height: min(92vh, 960px);
+  max-height: min(
+    90dvh,
+    calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 2rem)
+  );
   display: flex;
   flex-direction: column;
   background: var(--bg-card);
@@ -2078,6 +2083,7 @@
   border-radius: var(--radius);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
   overflow: hidden;
+  min-height: 0;
 }
 
 .trainer-modal__head {
@@ -2085,6 +2091,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  flex-shrink: 0;
   padding: 1.1rem 1.25rem;
   border-bottom: 1px solid var(--border);
   background: rgba(15, 23, 42, 0.55);
@@ -2119,8 +2126,12 @@
 }
 
 .trainer-modal__body {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   padding: 0;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .trainer-modal__content {
@@ -2549,14 +2560,25 @@
 
 @media (max-width: 900px) {
   .trainer-modal {
-    padding: 0.75rem;
-    align-items: flex-end;
+    padding: max(0.65rem, env(safe-area-inset-top, 0px)) max(0.65rem, env(safe-area-inset-right, 0px))
+      max(0.65rem, env(safe-area-inset-bottom, 0px)) max(0.65rem, env(safe-area-inset-left, 0px));
+    align-items: center;
   }
 
   .trainer-modal__panel {
-    max-height: 92vh;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    width: 100%;
+    max-height: calc(
+      100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1.3rem
+    );
+    border-radius: 12px;
+  }
+
+  .trainer-modal__head {
+    padding: 0.85rem 1rem;
+  }
+
+  .trainer-modal__content {
+    padding: 1rem 1rem max(1.25rem, env(safe-area-inset-bottom, 0px));
   }
 }
 
