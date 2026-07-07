@@ -798,6 +798,7 @@
 /* Map lightbox — mobile layout (lightbox is outside app-shell; use data-view on .lightbox) */
 .lightbox[data-view="mobile"] .lightbox__panel--annotated {
   width: min(96vw, 920px);
+  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 0.5rem);
   padding: 2.75rem 0.75rem 0.75rem;
 }
 
@@ -809,23 +810,76 @@
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__sidebar {
   flex: 0 0 auto;
   width: 100%;
-  max-height: min(32vh, 240px);
+  max-height: min(32dvh, 240px);
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__frame {
   flex: 1 1 auto;
-  min-height: min(46vh, 360px);
+  min-height: min(46dvh, 360px);
   max-height: none;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
   flex: 1 1 auto;
-  min-height: min(42vh, 300px);
+  min-height: min(42dvh, 300px);
   max-height: none;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
-  height: clamp(160px, 36vh, 260px);
+  height: clamp(160px, 36dvh, 260px);
+}
+
+/* Mobile lightbox: stack map above legend (Hoenn crops + interior area maps) */
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  overflow: hidden;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: min(46dvh, 360px);
+  max-height: none;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__sidebar {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  max-height: min(32dvh, 240px);
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox {
+  width: 100%;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: min(46dvh, 360px);
+  max-height: none;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__legend {
+  flex-shrink: 0;
+  justify-content: flex-start;
+  margin: 0;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: min(32dvh, 240px);
+  grid-template-columns: 1fr;
 }
 
 /* Map lightbox — desktop: larger map on top, scrollable legend band below */
@@ -943,6 +997,8 @@
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .marker-index,
@@ -5539,33 +5595,71 @@
 
   .lightbox__panel--annotated {
     width: min(96vw, 920px);
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 0.5rem);
     padding: 2.75rem 0.75rem 0.75rem;
   }
 
-  .lightbox__panel--annotated .annotated-map__lightbox-body {
+  .lightbox__panel--annotated .annotated-map__lightbox-body,
+  .lightbox__panel--annotated .hoenn-crop__lightbox-body {
     flex-direction: column;
+    align-items: stretch;
     overflow: hidden;
   }
 
-  .lightbox__panel--annotated .annotated-map__sidebar {
+  .lightbox__panel--annotated .annotated-map__sidebar,
+  .lightbox__panel--annotated .hoenn-crop__sidebar {
     flex: 0 0 auto;
     width: 100%;
-    max-height: min(32vh, 240px);
+    min-width: 0;
+    max-height: min(32dvh, 240px);
   }
 
-  .lightbox__panel--annotated .annotated-map__frame {
+  .lightbox__panel--annotated .annotated-map__frame,
+  .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
     flex: 1 1 auto;
-    min-height: min(46vh, 360px);
+    width: 100%;
+    min-height: min(46dvh, 360px);
     max-height: none;
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
     flex: 1 1 auto;
-    min-height: min(42vh, 300px);
+    min-height: min(42dvh, 300px);
     max-height: none;
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
-    height: clamp(160px, 36vh, 260px);
+    height: clamp(160px, 36dvh, 260px);
+  }
+
+  .lightbox__panel--annotated .area-map-view--lightbox {
+    width: 100%;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: min(46dvh, 360px);
+    max-height: none;
+  }
+
+  .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__legend {
+    flex-shrink: 0;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: min(32dvh, 240px);
+    grid-template-columns: 1fr;
   }
 }

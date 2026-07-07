@@ -1,267 +1,861 @@
 {
   "_comment": "Tile coords from pret/pokeemerald. pct = ((tx*16+8)/imgW, (ty*16+8)/imgH). Override imgW/imgH when screenshot differs from layout.",
   "littleroot": {
-    "lr-player": [5, 8],
-    "lr-rival": [14, 8],
-    "lr-lab": [7, 16],
-    "lr-route101": [10, 0],
-    "lr-sign": [15, 13]
+    "lr-player": [
+      5,
+      8
+    ],
+    "lr-rival": [
+      14,
+      8
+    ],
+    "lr-lab": [
+      7,
+      16
+    ],
+    "lr-route101": [
+      10,
+      0
+    ],
+    "lr-sign": [
+      15,
+      13
+    ]
   },
   "oldale": {
-    "old-house": [5, 7],
-    "old-mart": [14, 6],
-    "old-center": [6, 16],
-    "old-house2": [15, 16],
-    "old-sign": [11, 9],
-    "old-r101": [10, 0],
-    "old-r102": [0, 10],
-    "old-r103": [19, 10]
+    "old-house": [
+      5,
+      7
+    ],
+    "old-mart": [
+      14,
+      6
+    ],
+    "old-center": [
+      6,
+      16
+    ],
+    "old-house2": [
+      15,
+      16
+    ],
+    "old-sign": [
+      11,
+      9
+    ],
+    "old-r101": [
+      10,
+      19
+    ],
+    "old-r102": [
+      0,
+      10
+    ],
+    "old-r103": [
+      10,
+      0
+    ]
   },
   "route-101": {
-    "r101-oldale": [10, 0],
-    "r101-birch": [9, 13],
-    "r101-grass-nw": [3, 4],
-    "r101-grass-ne": [14, 4],
-    "r101-grass-e": [13, 12],
-    "r101-grass-sw": [3, 15],
-    "r101-littleroot": [10, 19]
+    "r101-oldale": [
+      10,
+      0
+    ],
+    "r101-birch": [
+      9,
+      13
+    ],
+    "r101-grass-nw": [
+      3,
+      4
+    ],
+    "r101-grass-ne": [
+      14,
+      4
+    ],
+    "r101-grass-e": [
+      13,
+      12
+    ],
+    "r101-grass-sw": [
+      3,
+      15
+    ],
+    "r101-littleroot": [
+      10,
+      19
+    ]
   },
   "route-102": {
-    "r102-petalburg": [0, 11],
-    "r102-oldale": [49, 9],
-    "r102-grass-w": [5, 5],
-    "r102-pond": [38, 4],
-    "r102-grass-c": [19, 10],
-    "r102-grass-e": [29, 13],
-    "r102-calvin": [33, 14],
-    "r102-tiana": [8, 7]
+    "r102-petalburg": [
+      0,
+      10
+    ],
+    "r102-oldale": [
+      49,
+      10
+    ],
+    "r102-grass-w": [
+      5,
+      5
+    ],
+    "r102-pond": [
+      38,
+      4
+    ],
+    "r102-grass-c": [
+      19,
+      10
+    ],
+    "r102-grass-e": [
+      29,
+      13
+    ],
+    "r102-calvin": [
+      33,
+      14
+    ],
+    "r102-tiana": [
+      8,
+      7
+    ]
   },
   "route-103": {
-    "r103-sign": [11, 9],
-    "r103-grass-w": [8, 4],
-    "r103-rival": [10, 3],
-    "r103-cave": [45, 6],
-    "r103-water": [36, 6],
-    "r103-grass-e": [60, 5],
-    "r103-path": [65, 7]
+    "r103-sign": [
+      11,
+      9
+    ],
+    "r103-grass-w": [
+      8,
+      4
+    ],
+    "r103-rival": [
+      10,
+      3
+    ],
+    "r103-cave": [
+      45,
+      6
+    ],
+    "r103-water": [
+      36,
+      6
+    ],
+    "r103-grass-e": [
+      60,
+      5
+    ],
+    "r103-path": [
+      65,
+      7
+    ]
   },
   "petalburg-woods": {
-    "pw-exit-n": [15, 5],
-    "pw-exit-sw": [17, 38],
-    "pw-exit-se": [37, 38],
-    "pw-grunt": [26, 17],
-    "pw-item1": [4, 26],
-    "pw-item2": [39, 35],
-    "pw-grass": [19, 18]
+    "pw-exit-n": [
+      15,
+      5
+    ],
+    "pw-exit-sw": [
+      17,
+      38
+    ],
+    "pw-exit-se": [
+      37,
+      38
+    ],
+    "pw-grunt": [
+      26,
+      17
+    ],
+    "pw-item1": [
+      4,
+      26
+    ],
+    "pw-item2": [
+      39,
+      35
+    ],
+    "pw-grass": [
+      19,
+      18
+    ]
   },
   "route-104": {
-    "r104-rustboro": [20, 0],
-    "r104-woods": [11, 30],
-    "r104-flower": [5, 18],
-    "r104-berry": [8, 19],
-    "r104-grass-n": [29, 8],
-    "r104-grass-s": [31, 24],
-    "r104-surf": [12, 54]
+    "r104-rustboro": [
+      20,
+      0
+    ],
+    "r104-woods": [
+      11,
+      30
+    ],
+    "r104-flower": [
+      5,
+      18
+    ],
+    "r104-berry": [
+      8,
+      19
+    ],
+    "r104-grass-n": [
+      29,
+      8
+    ],
+    "r104-grass-s": [
+      31,
+      24
+    ],
+    "r104-surf": [
+      12,
+      54
+    ]
   },
   "petalburg": {
-    "pet-woods": [0, 15],
-    "pet-wally": [7, 5],
-    "pet-gym": [15, 8],
-    "pet-mart": [25, 12],
-    "pet-center": [20, 16],
-    "pet-house": [10, 19],
-    "pet-house2": [20, 24]
+    "pet-woods": [
+      0,
+      15
+    ],
+    "pet-wally": [
+      7,
+      5
+    ],
+    "pet-gym": [
+      15,
+      8
+    ],
+    "pet-mart": [
+      25,
+      12
+    ],
+    "pet-center": [
+      20,
+      16
+    ],
+    "pet-house": [
+      10,
+      19
+    ],
+    "pet-house2": [
+      20,
+      24
+    ]
   },
   "rustboro": {
-    "rust-r104": [20, 59],
-    "rust-r116": [39, 10],
-    "rust-devon": [11, 15],
-    "rust-gym": [27, 19],
-    "rust-school": [27, 34],
-    "rust-center": [16, 38],
-    "rust-mart": [16, 45],
-    "rust-cut": [9, 38]
+    "rust-r104": [
+      20,
+      59
+    ],
+    "rust-r116": [
+      39,
+      30
+    ],
+    "rust-devon": [
+      11,
+      15
+    ],
+    "rust-gym": [
+      27,
+      19
+    ],
+    "rust-school": [
+      27,
+      34
+    ],
+    "rust-center": [
+      16,
+      38
+    ],
+    "rust-mart": [
+      16,
+      45
+    ],
+    "rust-cut": [
+      9,
+      38
+    ]
   },
   "route-116": {
-    "r116-rustboro": [0, 10],
-    "r116-cottage": [38, 8],
-    "r116-tunnel": [47, 8],
-    "r116-hp": [80, 8],
-    "r116-grass-w": [12, 7],
-    "r116-grass-c": [26, 16]
+    "r116-rustboro": [
+      0,
+      10
+    ],
+    "r116-cottage": [
+      38,
+      8
+    ],
+    "r116-tunnel": [
+      47,
+      8
+    ],
+    "r116-hp": [
+      80,
+      8
+    ],
+    "r116-grass-w": [
+      12,
+      7
+    ],
+    "r116-grass-c": [
+      26,
+      16
+    ]
   },
   "rusturf-tunnel": {
-    "rt-west": [4, 10],
-    "rt-east": [29, 16],
-    "rt-cave-w": [4, 10],
-    "rt-cave-e": [29, 16],
-    "rt-grass": [18, 20]
+    "rt-west": [
+      4,
+      10
+    ],
+    "rt-east": [
+      29,
+      16
+    ],
+    "rt-cave-w": [
+      4,
+      10
+    ],
+    "rt-cave-e": [
+      29,
+      16
+    ],
+    "rt-grass": [
+      18,
+      20
+    ]
   },
   "dewford": {
-    "dew-house1": [3, 3],
-    "dew-center": [2, 10],
-    "dew-house2": [8, 8],
-    "dew-gym": [8, 17],
-    "dew-house3": [17, 14],
-    "dew-dock": [12, 9]
+    "dew-house1": [
+      3,
+      3
+    ],
+    "dew-center": [
+      2,
+      10
+    ],
+    "dew-house2": [
+      8,
+      8
+    ],
+    "dew-gym": [
+      8,
+      17
+    ],
+    "dew-house3": [
+      17,
+      14
+    ],
+    "dew-dock": [
+      12,
+      9
+    ]
   },
   "slateport": {
-    "sl-north": [20, 0],
-    "sl-south": [20, 59],
-    "sl-museum": [30, 26],
-    "sl-pc": [19, 19],
-    "sl-mart": [13, 26],
-    "sl-fan": [4, 26],
-    "sl-contest": [10, 12],
-    "sl-stern": [26, 38],
-    "sl-harbor": [28, 12],
-    "sl-market": [14, 51],
-    "sl-secret": [5, 47]
+    "sl-north": [
+      20,
+      0
+    ],
+    "sl-south": [
+      20,
+      59
+    ],
+    "sl-museum": [
+      30,
+      26
+    ],
+    "sl-pc": [
+      19,
+      19
+    ],
+    "sl-mart": [
+      13,
+      26
+    ],
+    "sl-fan": [
+      4,
+      26
+    ],
+    "sl-contest": [
+      10,
+      12
+    ],
+    "sl-stern": [
+      26,
+      38
+    ],
+    "sl-harbor": [
+      28,
+      12
+    ],
+    "sl-market": [
+      14,
+      51
+    ],
+    "sl-secret": [
+      5,
+      47
+    ]
   },
   "mauville": {
-    "mau-r110": [20, 0],
-    "mau-r117": [0, 10],
-    "mau-r118": [39, 10],
-    "mau-gym": [8, 5],
-    "mau-pc": [22, 5],
-    "mau-bike": [35, 5],
-    "mau-game": [8, 13],
-    "mau-mart": [23, 14]
+    "mau-r110": [
+      20,
+      19
+    ],
+    "mau-r117": [
+      0,
+      10
+    ],
+    "mau-r118": [
+      39,
+      10
+    ],
+    "mau-gym": [
+      8,
+      5
+    ],
+    "mau-pc": [
+      22,
+      5
+    ],
+    "mau-bike": [
+      35,
+      5
+    ],
+    "mau-game": [
+      8,
+      13
+    ],
+    "mau-mart": [
+      23,
+      14
+    ]
   },
   "route-110": {
-    "r110-north": [20, 0],
-    "r110-south": [20, 99],
-    "r110-trick": [11, 66],
-    "r110-cycle-n": [16, 16],
-    "r110-cycle-s": [17, 88],
-    "r110-rival": [34, 54],
-    "r110-grass-w": [3, 39],
-    "r110-grass-e": [33, 40],
-    "r110-secret": [33, 39],
-    "r110-gulpin": [20, 94]
+    "r110-north": [
+      20,
+      0
+    ],
+    "r110-south": [
+      20,
+      99
+    ],
+    "r110-trick": [
+      11,
+      66
+    ],
+    "r110-cycle-n": [
+      16,
+      16
+    ],
+    "r110-cycle-s": [
+      17,
+      88
+    ],
+    "r110-rival": [
+      34,
+      54
+    ],
+    "r110-grass-w": [
+      3,
+      39
+    ],
+    "r110-grass-e": [
+      33,
+      40
+    ],
+    "r110-secret": [
+      33,
+      39
+    ],
+    "r110-gulpin": [
+      20,
+      94
+    ]
   },
   "route-117": {
-    "r117-mauville": [59, 10],
-    "r117-daycare": [51, 5],
-    "r117-grass": [25, 12]
+    "r117-mauville": [
+      59,
+      10
+    ],
+    "r117-daycare": [
+      51,
+      5
+    ],
+    "r117-grass": [
+      25,
+      12
+    ]
   },
   "route-118": {
-    "r118-mauville": [0, 10],
-    "r118-wally": [44, 7],
-    "r118-grass": [53, 12]
+    "r118-mauville": [
+      0,
+      10
+    ],
+    "r118-wally": [
+      44,
+      7
+    ],
+    "r118-grass": [
+      53,
+      12
+    ]
   },
   "mt-chimney": {
-    "mc-cable": [17, 36],
-    "mc-maxie": [13, 6],
-    "mc-meteor": [20, 41],
-    "mc-wild": [16, 18]
+    "mc-cable": [
+      17,
+      36
+    ],
+    "mc-maxie": [
+      13,
+      6
+    ],
+    "mc-meteor": [
+      20,
+      41
+    ],
+    "mc-wild": [
+      16,
+      18
+    ]
   },
   "route-113": {
-    "r113-fallarbor": [0, 10],
-    "r113-glass": [33, 5],
-    "r113-ash-grass": [45, 6],
-    "r113-east": [99, 10]
+    "r113-fallarbor": [
+      0,
+      10
+    ],
+    "r113-glass": [
+      33,
+      5
+    ],
+    "r113-ash-grass": [
+      45,
+      6
+    ],
+    "r113-east": [
+      99,
+      10
+    ]
   },
   "lavaridge": {
-    "lav-springs": [5, 4],
-    "lav-pc": [9, 6],
-    "lav-mart": [15, 5],
-    "lav-gym": [5, 15],
-    "lav-houses": [16, 15]
+    "lav-springs": [
+      5,
+      4
+    ],
+    "lav-pc": [
+      9,
+      6
+    ],
+    "lav-mart": [
+      15,
+      5
+    ],
+    "lav-gym": [
+      5,
+      15
+    ],
+    "lav-houses": [
+      16,
+      15
+    ]
   },
   "fallarbor": {
-    "fall-r113": [19, 10],
-    "fall-contest": [8, 7],
-    "fall-pc": [14, 7],
-    "fall-meteor": [6, 17],
-    "fall-maniac": [1, 6],
-    "fall-mart": [15, 15]
+    "fall-r113": [
+      19,
+      10
+    ],
+    "fall-contest": [
+      8,
+      7
+    ],
+    "fall-pc": [
+      14,
+      7
+    ],
+    "fall-meteor": [
+      6,
+      17
+    ],
+    "fall-maniac": [
+      1,
+      6
+    ],
+    "fall-mart": [
+      15,
+      15
+    ]
   },
   "route-119": {
-    "r119-north": [20, 0],
-    "r119-institute": [6, 32],
-    "r119-fly": [6, 32],
-    "r119-bridge1": [8, 8],
-    "r119-kecleon": [31, 6],
-    "r119-tropius": [12, 123],
-    "r119-south-grass": [12, 123],
-    "r119-south": [20, 139]
+    "r119-north": [
+      39,
+      70
+    ],
+    "r119-institute": [
+      6,
+      32
+    ],
+    "r119-fly": [
+      6,
+      32
+    ],
+    "r119-bridge1": [
+      8,
+      8
+    ],
+    "r119-kecleon": [
+      31,
+      6
+    ],
+    "r119-tropius": [
+      12,
+      123
+    ],
+    "r119-south-grass": [
+      12,
+      123
+    ],
+    "r119-south": [
+      20,
+      139
+    ]
   },
   "fortree": {
-    "ft-pc": [5, 6],
-    "ft-mart": [4, 14],
-    "ft-house": [17, 3],
-    "ft-treehouses": [22, 3],
-    "ft-treehouse-sw": [12, 13],
-    "ft-gym": [22, 11]
+    "ft-pc": [
+      5,
+      6
+    ],
+    "ft-mart": [
+      4,
+      14
+    ],
+    "ft-house": [
+      17,
+      3
+    ],
+    "ft-treehouses": [
+      22,
+      3
+    ],
+    "ft-treehouse-sw": [
+      12,
+      13
+    ],
+    "ft-gym": [
+      22,
+      11
+    ]
   },
   "route-120": {
-    "r120-north": [20, 0],
-    "r120-steven": [13, 15],
-    "r120-kecleon": [12, 16],
-    "r120-grass-n": [32, 14],
-    "r120-grass-c": [30, 50],
-    "r120-ancient": [7, 55],
-    "r120-south": [20, 99]
+    "r120-north": [
+      0,
+      50
+    ],
+    "r120-steven": [
+      13,
+      15
+    ],
+    "r120-kecleon": [
+      12,
+      16
+    ],
+    "r120-grass-n": [
+      32,
+      14
+    ],
+    "r120-grass-c": [
+      30,
+      50
+    ],
+    "r120-ancient": [
+      7,
+      55
+    ],
+    "r120-south": [
+      39,
+      130
+    ]
   },
   "mossdeep": {
-    "mos-gym": [38, 9],
-    "mos-space": [64, 15],
-    "mos-pc": [28, 16],
-    "mos-mart": [37, 18],
-    "mos-sun": [57, 21],
-    "mos-house": [28, 9],
-    "mos-dive": [40, 35]
+    "mos-gym": [
+      38,
+      9
+    ],
+    "mos-space": [
+      64,
+      15
+    ],
+    "mos-pc": [
+      28,
+      16
+    ],
+    "mos-mart": [
+      37,
+      18
+    ],
+    "mos-sun": [
+      57,
+      21
+    ],
+    "mos-house": [
+      28,
+      9
+    ],
+    "mos-dive": [
+      40,
+      35
+    ]
   },
   "sootopolis": {
-    "soo-cave": [31, 16],
-    "soo-gym": [31, 32],
-    "soo-mart": [17, 29],
-    "soo-pc": [43, 31],
-    "soo-rod": [31, 40],
-    "soo-dive": [31, 55]
+    "soo-cave": [
+      31,
+      16
+    ],
+    "soo-gym": [
+      31,
+      32
+    ],
+    "soo-mart": [
+      17,
+      29
+    ],
+    "soo-pc": [
+      43,
+      31
+    ],
+    "soo-rod": [
+      31,
+      40
+    ],
+    "soo-dive": [
+      31,
+      55
+    ]
   },
   "lilycove": {
-    "lily-dept": [27, 6],
-    "lily-pc": [24, 14],
-    "lily-contest": [23, 24],
-    "lily-motel": [37, 24],
-    "lily-delete": [36, 6],
-    "lily-harbor": [12, 32],
-    "lily-hideout": [70, 5]
+    "lily-dept": [
+      27,
+      6
+    ],
+    "lily-pc": [
+      24,
+      14
+    ],
+    "lily-contest": [
+      23,
+      24
+    ],
+    "lily-motel": [
+      37,
+      24
+    ],
+    "lily-delete": [
+      36,
+      6
+    ],
+    "lily-harbor": [
+      12,
+      32
+    ],
+    "lily-hideout": [
+      70,
+      5
+    ]
   },
   "pacifidlog": {
-    "pac-pc": [8, 15],
-    "pac-mirage": [3, 22],
-    "pac-houses": [12, 24],
-    "pac-surf": [8, 20]
+    "pac-pc": [
+      8,
+      15
+    ],
+    "pac-mirage": [
+      3,
+      22
+    ],
+    "pac-houses": [
+      12,
+      24
+    ],
+    "pac-surf": [
+      8,
+      20
+    ]
   },
   "sky-pillar": {
-    "sp-entrance": [14, 5],
-    "sp-beach": [14, 20],
-    "sp-rocks": [10, 12]
+    "sp-entrance": [
+      14,
+      5
+    ],
+    "sp-beach": [
+      14,
+      20
+    ],
+    "sp-rocks": [
+      10,
+      12
+    ]
   },
   "sealed-chamber": {
-    "sc-entrance": [10, 19],
-    "sc-braille": [10, 4],
-    "sc-regi": [10, 12],
-    "sc-tablets": [10, 9]
+    "sc-entrance": [
+      10,
+      19
+    ],
+    "sc-braille": [
+      10,
+      4
+    ],
+    "sc-regi": [
+      10,
+      12
+    ],
+    "sc-tablets": [
+      10,
+      9
+    ]
   },
   "ever-grande": {
-    "eg-league": [18, 5],
-    "eg-vr": [18, 41]
+    "eg-league": [
+      18,
+      5
+    ],
+    "eg-vr": [
+      18,
+      41
+    ]
   },
   "route-105": {
-    "r105-island": [9, 20],
-    "r105-surf": [19, 40],
-    "r105-south-isles": [4, 58]
+    "r105-island": [
+      9,
+      20
+    ],
+    "r105-surf": [
+      19,
+      40
+    ],
+    "r105-south-isles": [
+      4,
+      58
+    ]
   },
   "route-111": {
-    "r111-north": [20, 0],
-    "r111-desert": [29, 87],
-    "r111-sand": [29, 80],
-    "r111-grass": [22, 77],
-    "r111-winstrate": [13, 113],
-    "r111-south": [20, 139]
+    "r111-north": [
+      0,
+      70
+    ],
+    "r111-desert": [
+      29,
+      87
+    ],
+    "r111-sand": [
+      29,
+      80
+    ],
+    "r111-grass": [
+      22,
+      77
+    ],
+    "r111-winstrate": [
+      13,
+      113
+    ],
+    "r111-south": [
+      20,
+      139
+    ]
   }
 }
