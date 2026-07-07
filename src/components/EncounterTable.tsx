@@ -24,7 +24,7 @@ import { AreaMapView } from "./AreaMapView";
 import { SpeciesPanel } from "./PokemonFinder";
 import { SecretsExtrasBlock, ItemsBerriesBlock } from "./StepSecretsExtras";
 import { TrainerModalBody } from "./TrainerDetailPanel";
-import { touchSafeBackdropClose, touchSafeButtonClose } from "../lib/touchSafeClose";
+import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 
 interface EncounterTableProps {
   areaIds: string[];
@@ -355,12 +355,10 @@ export function RouteDetailModal({
   };
 
   return createPortal(
-    <div
+    <ModalBackdrop
       className="route-modal"
-      role="dialog"
-      aria-modal="true"
+      onClose={onClose}
       aria-labelledby="route-modal-title"
-      {...touchSafeBackdropClose(onClose)}
     >
       <div className="route-modal__panel" onClick={(e) => e.stopPropagation()}>
         <div className="route-modal__head">
@@ -388,14 +386,7 @@ export function RouteDetailModal({
               </>
             )}
           </div>
-          <button
-            type="button"
-            className="route-modal__close"
-            aria-label="Close"
-            {...touchSafeButtonClose(onClose)}
-          >
-            ×
-          </button>
+          <ModalCloseButton className="route-modal__close" onClose={onClose} />
         </div>
 
         <div className="route-modal__body">
@@ -497,7 +488,7 @@ export function RouteDetailModal({
           )}
         </div>
       </div>
-    </div>,
+    </ModalBackdrop>,
     document.body,
   );
 }
