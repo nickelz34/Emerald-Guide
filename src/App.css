@@ -1635,6 +1635,30 @@
   display: none;
 }
 
+/* Compact route markers when zoomed out — dot by default, label on tap/zoom-in. */
+.hoenn-map__pin-dot--route {
+  display: none;
+  width: 9px;
+  height: 9px;
+  background: var(--pin-color, #5ec4e8);
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route .hoenn-map__pin-dot--route {
+  display: block;
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route .hoenn-map__pin-label {
+  display: none;
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route.is-active .hoenn-map__pin-dot--route {
+  display: none;
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route.is-active .hoenn-map__pin-label {
+  display: inline-block;
+}
+
 /* Distinct shapes per category */
 .hoenn-map__pin--gym .hoenn-map__pin-dot {
   border-radius: 3px;
@@ -3160,6 +3184,40 @@
   .hoenn-map__legend-head {
     flex: 1 1 100%;
     justify-content: space-between;
+  }
+}
+
+/* Hoenn map — mobile / narrow screens */
+@media (max-width: 900px) {
+  .hoenn-map__viewport {
+    aspect-ratio: auto;
+    min-height: min(58vh, 520px);
+    height: min(58vh, 520px);
+  }
+
+  .hoenn-map__controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+.app-shell[data-view="mobile"] .hoenn-map__viewport {
+  aspect-ratio: auto;
+  min-height: min(58vh, 520px);
+  height: min(58vh, 520px);
+}
+
+@media (max-width: 900px) {
+  .map-modal__panel {
+    width: min(100vw - 1rem, 900px);
+    max-height: calc(100vh - 1rem);
+    padding: 0.85rem 0.9rem 1rem;
+  }
+
+  .map-modal__panel .hoenn-map__viewport {
+    min-height: min(52vh, 460px);
+    max-height: min(62vh, 540px);
   }
 }
 

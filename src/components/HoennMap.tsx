@@ -80,6 +80,11 @@ const MAP_H = 6128;
 const MIN_SCALE = 1;
 const MAX_SCALE = 14;
 const ZOOM_STEP = 1.35;
+/** Narrow viewports start zoomed in so the overworld map is readable on phones. */
+const NARROW_VIEWPORT_MAX = 900;
+const MOBILE_DEFAULT_SCALE = 2.75;
+/** Route text labels only appear once zoomed in past this (overworld map). */
+const ROUTE_LABEL_MIN_SCALE = 3.25;
 
 interface HoennMapProps {
   activeStepId?: string;
@@ -187,6 +192,11 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   /** Width the map occupies at scale 1 (whole map contained in the viewport). */
   const fitW = vp.w && vp.h ? Math.min(vp.w, vp.h * mapAr) : vp.w;
 
+  const isNarrowViewport = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
+  const isOverworld = !currentArea;
+  const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
+  const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
+
   const canvasW = fitW * view.scale;
   const canvasH = canvasW / mapAr;
 
@@ -207,7 +217,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     [vp.w, vp.h, mapAr],
   );
 
-  const fit = useCallback(() => setView(clamp({ scale: 1, x: 0, y: 0 })), [clamp]);
+  const fit = useCallback(
+    () => setView(clamp({ scale: defaultScale, x: 0, y: 0 })),
+    [clamp, defaultScale],
+  );
 
   /** Select a point and pan/zoom the map so it sits in the middle of the view. */
   const focusPoint = useCallback(
@@ -259,9 +272,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       } else {
         setVisible(initialVisible());
       }
-      setView(clamp({ scale: 1, x: 0, y: 0 }));
+      setView(clamp({ scale: defaultScale, x: 0, y: 0 }));
     },
-    [clamp],
+    [clamp, defaultScale],
   );
 
   // When a step asks to be shown (e.g. "Show on Hoenn map"), pan the overworld map to
@@ -309,8 +322,15 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   // Re-center / re-clamp whenever the viewport size changes.
   useEffect(() => {
     if (!vp.w || !vp.h) return;
-    setView((v) => clamp(v));
-  }, [vp.w, vp.h, clamp]);
+    setView((v) => {
+      const next = clamp(v);
+      // When rotating or resizing onto a phone, bump a "fit whole map" view to the mobile default zoom.
+      if (isNarrowViewport && isOverworld && v.scale === 1 && defaultScale > 1) {
+        return clamp({ ...next, scale: defaultScale });
+      }
+      return next;
+    });
+  }, [vp.w, vp.h, clamp, isNarrowViewport, isOverworld, defaultScale]);
 
   // Native wheel listener so we can preventDefault (React onWheel is passive).
   useEffect(() => {
@@ -407,7 +427,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -474,7 +494,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       />
                     </span>
                   ) : point.category === "route" ? (
-                    <span className="hoenn-map__pin-label">{point.name}</span>
+                    <>
+                      <span className="hoenn-map__pin-dot hoenn-map__pin-dot--route" aria-hidden="true" />
+                      <span className="hoenn-map__pin-label">{point.name}</span>
+                    </>
                   ) : (
                     <span className="hoenn-map__pin-dot" />
                   )}
