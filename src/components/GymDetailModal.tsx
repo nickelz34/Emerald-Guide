@@ -3,13 +3,16 @@ import { createPortal } from "react-dom";
 import { getStepById } from "../data";
 import {
   getGymForMapPoint,
+  getGymLeaderExtraSprites,
   gymJuniorTrainerPoint,
   gymLeaderTrainerPoint,
   type GymJunior,
 } from "../data/gymData";
 import { getTrainerBattle } from "../data/trainerParties";
+import type { GymTrainerSprite } from "../data/gymSpritesGenerated";
 import type { MapPoint } from "../data/mapPoints";
 import { TYPE_COLORS } from "../data/species";
+import { assetUrl } from "../lib/assetUrl";
 import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import { TrainerModalBody, TrainerDetailModal } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
@@ -26,22 +29,57 @@ function partyPreview(trainerId: string): string | undefined {
   return battle.party.map((m) => `${m.species} Lv.${m.level}`).join(" · ");
 }
 
+function GymTrainerSprite({
+  sprite,
+  className = "gym-modal__sprite",
+  scale = 1,
+}: {
+  sprite: Pick<GymTrainerSprite, "spriteSheet" | "spriteWidth" | "spriteHeight" | "spriteFrame">;
+  className?: string;
+  scale?: number;
+}) {
+  if (!sprite.spriteSheet) return null;
+  const fw = sprite.spriteWidth * scale;
+  const fh = sprite.spriteHeight * scale;
+  return (
+    <div
+      className={className}
+      style={{
+        ["--trainer-frame" as string]: sprite.spriteFrame,
+        ["--trainer-fw" as string]: fw,
+        ["--trainer-fh" as string]: fh,
+      }}
+      aria-hidden
+    >
+      <img src={assetUrl(sprite.spriteSheet)} alt="" draggable={false} />
+    </div>
+  );
+}
+
 function JuniorTrainerRow({
   junior,
+  gym,
   onSelect,
 }: {
   junior: GymJunior;
+  gym: NonNullable<ReturnType<typeof getGymForMapPoint>>;
   onSelect: () => void;
 }) {
   const preview = partyPreview(junior.trainerId);
+  const trainerPoint = gymJuniorTrainerPoint(gym, junior);
   return (
     <li className="gym-modal__junior">
       <button type="button" className="gym-modal__junior-btn" onClick={onSelect}>
-        <span className="gym-modal__junior-name">
-          {junior.trainerClass} {junior.name}
+        {trainerPoint.spriteSheet ? (
+          <GymTrainerSprite sprite={trainerPoint} className="gym-modal__junior-sprite" scale={2} />
+        ) : null}
+        <span className="gym-modal__junior-text">
+          <span className="gym-modal__junior-name">
+            {junior.trainerClass} {junior.name}
+          </span>
+          {junior.note && <span className="gym-modal__junior-note">{junior.note}</span>}
+          {preview && <span className="gym-modal__junior-party">{preview}</span>}
         </span>
-        {junior.note && <span className="gym-modal__junior-note">{junior.note}</span>}
-        {preview && <span className="gym-modal__junior-party">{preview}</span>}
       </button>
     </li>
   );
@@ -75,6 +113,7 @@ export function GymDetailModal({ gymPoint, onClose, onJumpToGuide }: GymDetailMo
   if (!gymPoint || !gym) return null;
 
   const leaderPoint = gymLeaderTrainerPoint(gym);
+  const leaderExtras = getGymLeaderExtraSprites(gym);
 
   return createPortal(
     <>
@@ -93,6 +132,21 @@ export function GymDetailModal({ gymPoint, onClose, onJumpToGuide }: GymDetailMo
           <div className="gym-modal__body">
             <section className="gym-modal__hero" aria-label="Gym overview">
               <div className="gym-modal__hero-main">
+                {(leaderPoint.spriteSheet || leaderExtras.length > 0) && (
+                  <div className="gym-modal__leader-sprites">
+                    {leaderPoint.spriteSheet ? (
+                      <GymTrainerSprite sprite={leaderPoint} className="gym-modal__leader-sprite" scale={3} />
+                    ) : null}
+                    {leaderExtras.map((sprite) => (
+                      <GymTrainerSprite
+                        key={sprite.graphicsId}
+                        sprite={sprite}
+                        className="gym-modal__leader-sprite"
+                        scale={3}
+                      />
+                    ))}
+                  </div>
+                )}
                 <span className="gym-modal__badge-label">Gym Leader</span>
                 <h4 className="gym-modal__leader">{gym.leaderName}</h4>
                 <div className="gym-modal__chips">
@@ -144,6 +198,7 @@ export function GymDetailModal({ gymPoint, onClose, onJumpToGuide }: GymDetailMo
                     <JuniorTrainerRow
                       key={junior.trainerId}
                       junior={junior}
+                      gym={gym}
                       onSelect={() => setNestedTrainer(gymJuniorTrainerPoint(gym, junior))}
                     />
                   ))}
