@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.32",
+    date: "2026-07-07",
+    summary: "Interior map sprites no longer treat bedroom dolls and decoration placeholders as trainers.",
+    sections: [
+      {
+        heading: "Walkthrough — interior sprites",
+        items: [
+          "Chapter 1 (player bedroom) no longer shows the Swablu doll or decoration-slot placeholders as clickable trainers.",
+          "Hidden Mom and other FLAG_HIDE objects with no script are excluded from area map pins.",
+          "Birch's Lab rival sprite is preserved via selective VAR_0/VAR_1 remapping only when the object has a Rival script.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.31",
     date: "2026-07-07",
     summary: "Interior walkthrough maps now show NPC and trainer overworld sprites across caves, labs, tunnels, and dungeons.",

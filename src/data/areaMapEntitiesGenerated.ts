@@ -512,42 +512,6 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
     },
     {
       id: "area-e27",
-      name: "Var 0 Var 0",
-      category: "trainer",
-      trainerClass: "Var 0",
-      trainerName: "Var 0",
-      
-      x: 30,
-      y: 72.73,
-      graphicsId: "OBJ_EVENT_GFX_VAR_0",
-      spriteSheet: "sprites/trainers/brendan_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 1,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e28",
-      name: "Var 1 Var 1",
-      category: "trainer",
-      trainerClass: "Var 1",
-      trainerName: "Var 1",
-      
-      x: 43.33,
-      y: 72.73,
-      graphicsId: "OBJ_EVENT_GFX_VAR_1",
-      spriteSheet: "sprites/trainers/may_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 1,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e29",
       name: "Artist Artist",
       category: "trainer",
       trainerClass: "Artist",
@@ -567,7 +531,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "dewfordtown-gym": [
     {
-      id: "area-e30",
+      id: "area-e28",
       name: "Gym Leader Brawly",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -585,7 +549,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e31",
+      id: "area-e29",
       name: "Black Belt Takao",
       category: "trainer",
       trainerClass: "Black Belt",
@@ -603,7 +567,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e32",
+      id: "area-e30",
       name: "Battle Girl Jocelyn",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -621,7 +585,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e33",
+      id: "area-e31",
       name: "Battle Girl Laura",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -639,7 +603,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e34",
+      id: "area-e32",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -657,7 +621,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e35",
+      id: "area-e33",
       name: "Black Belt Cristian",
       category: "trainer",
       trainerClass: "Black Belt",
@@ -675,7 +639,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e36",
+      id: "area-e34",
       name: "Battle Girl Lilith",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -693,7 +657,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e37",
+      id: "area-e35",
       name: "Sailor Brenden",
       category: "trainer",
       trainerClass: "Sailor",
@@ -713,7 +677,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "fortreecity-gym": [
     {
-      id: "area-e38",
+      id: "area-e36",
       name: "Gym Leader Winona",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -731,7 +695,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e39",
+      id: "area-e37",
       name: "Bird Keeper Jared",
       category: "trainer",
       trainerClass: "Bird Keeper",
@@ -749,7 +713,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e40",
+      id: "area-e38",
       name: "Camper Flint",
       category: "trainer",
       trainerClass: "Camper",
@@ -767,7 +731,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e41",
+      id: "area-e39",
       name: "Picnicker Ashley",
       category: "trainer",
       trainerClass: "Picnicker",
@@ -785,7 +749,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e42",
+      id: "area-e40",
       name: "Bird Keeper Edwardo",
       category: "trainer",
       trainerClass: "Bird Keeper",
@@ -803,7 +767,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e43",
+      id: "area-e41",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -821,7 +785,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e44",
+      id: "area-e42",
       name: "Bird Keeper Humberto",
       category: "trainer",
       trainerClass: "Bird Keeper",
@@ -839,7 +803,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e45",
+      id: "area-e43",
       name: "Bird Keeper Darius",
       category: "trainer",
       trainerClass: "Bird Keeper",
@@ -859,7 +823,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "granitecave-1f": [
     {
-      id: "area-e46",
+      id: "area-e44",
       name: "Hiker Hiker",
       category: "trainer",
       trainerClass: "Hiker",
@@ -879,7 +843,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "jaggedpass": [
     {
-      id: "area-e47",
+      id: "area-e45",
       name: "Hiker Eric",
       category: "trainer",
       trainerClass: "Hiker",
@@ -897,7 +861,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e48",
+      id: "area-e46",
       name: "Camper Ethan",
       category: "trainer",
       trainerClass: "Camper",
@@ -915,7 +879,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e49",
+      id: "area-e47",
       name: "Picnicker Diana",
       category: "trainer",
       trainerClass: "Picnicker",
@@ -933,7 +897,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e50",
+      id: "area-e48",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -951,7 +915,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e51",
+      id: "area-e49",
       name: "Picnicker Autumn",
       category: "trainer",
       trainerClass: "Picnicker",
@@ -969,7 +933,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e52",
+      id: "area-e50",
       name: "Triathlete Julio",
       category: "trainer",
       trainerClass: "Triathlete",
@@ -989,7 +953,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "lavaridgetown-gym-1f": [
     {
-      id: "area-e53",
+      id: "area-e51",
       name: "Gym Leader Flannery",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -1007,7 +971,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e54",
+      id: "area-e52",
       name: "Kindler Cole",
       category: "trainer",
       trainerClass: "Kindler",
@@ -1025,7 +989,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e55",
+      id: "area-e53",
       name: "Cooltrainer Gerald",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -1043,7 +1007,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e56",
+      id: "area-e54",
       name: "Kindler Axle",
       category: "trainer",
       trainerClass: "Kindler",
@@ -1061,7 +1025,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e57",
+      id: "area-e55",
       name: "Battle Girl Danielle",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -1079,7 +1043,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e58",
+      id: "area-e56",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -1099,7 +1063,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "lavaridgetown-gym-b1f": [
     {
-      id: "area-e59",
+      id: "area-e57",
       name: "Man 5 Jace",
       category: "trainer",
       trainerClass: "Man 5",
@@ -1117,7 +1081,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e60",
+      id: "area-e58",
       name: "Man 5 Keegan",
       category: "trainer",
       trainerClass: "Man 5",
@@ -1135,7 +1099,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e61",
+      id: "area-e59",
       name: "Man 5 Jeff",
       category: "trainer",
       trainerClass: "Man 5",
@@ -1153,7 +1117,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
     {
-      id: "area-e62",
+      id: "area-e60",
       name: "Hiker Eli",
       category: "trainer",
       trainerClass: "Hiker",
@@ -1171,157 +1135,9 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_BURIED",
     },
   ],
-  "littleroottown-brendanshouse-2f": [
-    {
-      id: "area-e63",
-      name: "Var 0 Var 0",
-      category: "trainer",
-      trainerClass: "Var 0",
-      trainerName: "Var 0",
-      
-      x: 5.56,
-      y: 12.5,
-      graphicsId: "OBJ_EVENT_GFX_VAR_0",
-      spriteSheet: "sprites/trainers/brendan_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e64",
-      name: "Var 1 Var 1",
-      category: "trainer",
-      trainerClass: "Var 1",
-      trainerName: "Var 1",
-      
-      x: 5.56,
-      y: 25,
-      graphicsId: "OBJ_EVENT_GFX_VAR_1",
-      spriteSheet: "sprites/trainers/may_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e65",
-      name: "Mom Mom",
-      category: "trainer",
-      trainerClass: "Mom",
-      trainerName: "Mom",
-      
-      x: 83.33,
-      y: 25,
-      graphicsId: "OBJ_EVENT_GFX_MOM",
-      spriteSheet: "sprites/trainers/mom.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e66",
-      name: "Swablu Doll Swablu Doll",
-      category: "trainer",
-      trainerClass: "Swablu Doll",
-      trainerName: "Swablu Doll",
-      
-      x: 61.11,
-      y: 75,
-      graphicsId: "OBJ_EVENT_GFX_SWABLU_DOLL",
-      spriteSheet: "sprites/trainers/graphics_object_events_pics_dolls_swablu_doll.png",
-      spriteWidth: 16,
-      spriteHeight: 16,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-  ],
-  "littleroottown-mayshouse-2f": [
-    {
-      id: "area-e67",
-      name: "Var 0 Var 0",
-      category: "trainer",
-      trainerClass: "Var 0",
-      trainerName: "Var 0",
-      
-      x: 5.56,
-      y: 87.5,
-      graphicsId: "OBJ_EVENT_GFX_VAR_0",
-      spriteSheet: "sprites/trainers/brendan_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e68",
-      name: "Var 1 Var 1",
-      category: "trainer",
-      trainerClass: "Var 1",
-      trainerName: "Var 1",
-      
-      x: 16.67,
-      y: 87.5,
-      graphicsId: "OBJ_EVENT_GFX_VAR_1",
-      spriteSheet: "sprites/trainers/may_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e69",
-      name: "Mom Mom",
-      category: "trainer",
-      trainerClass: "Mom",
-      trainerName: "Mom",
-      
-      x: 16.67,
-      y: 25,
-      graphicsId: "OBJ_EVENT_GFX_MOM",
-      spriteSheet: "sprites/trainers/mom.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e70",
-      name: "Pichu Doll Pichu Doll",
-      category: "trainer",
-      trainerClass: "Pichu Doll",
-      trainerName: "Pichu Doll",
-      
-      x: 38.89,
-      y: 62.5,
-      graphicsId: "OBJ_EVENT_GFX_PICHU_DOLL",
-      spriteSheet: "sprites/trainers/graphics_object_events_pics_dolls_pichu_doll.png",
-      spriteWidth: 16,
-      spriteHeight: 16,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-  ],
   "littleroottown-professorbirchslab": [
     {
-      id: "area-e71",
+      id: "area-e61",
       name: "Aide Aide",
       category: "trainer",
       trainerClass: "Aide",
@@ -1339,7 +1155,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e72",
+      id: "area-e62",
       name: "Professor Birch",
       category: "trainer",
       trainerClass: "Professor",
@@ -1357,7 +1173,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e73",
+      id: "area-e63",
       name: "Rival Rival",
       category: "trainer",
       trainerClass: "Rival",
@@ -1365,7 +1181,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       
       x: 57.69,
       y: 38.46,
-      graphicsId: "OBJ_EVENT_GFX_VAR_0",
+      graphicsId: "OBJ_EVENT_GFX_BRENDAN_NORMAL",
       spriteSheet: "sprites/trainers/brendan_walking.png",
       spriteWidth: 16,
       spriteHeight: 32,
@@ -1377,7 +1193,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "magmahideout-1f": [
     {
-      id: "area-e74",
+      id: "area-e64",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1395,7 +1211,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e75",
+      id: "area-e65",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1415,7 +1231,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "magmahideout-2f-2r": [
     {
-      id: "area-e76",
+      id: "area-e66",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1433,7 +1249,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e77",
+      id: "area-e67",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1451,7 +1267,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e78",
+      id: "area-e68",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1469,7 +1285,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e79",
+      id: "area-e69",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1489,7 +1305,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "magmahideout-3f-1r": [
     {
-      id: "area-e80",
+      id: "area-e70",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1507,7 +1323,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e81",
+      id: "area-e71",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1527,7 +1343,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "magmahideout-3f-2r": [
     {
-      id: "area-e82",
+      id: "area-e72",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1547,7 +1363,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "magmahideout-4f": [
     {
-      id: "area-e83",
+      id: "area-e73",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1565,7 +1381,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e84",
+      id: "area-e74",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1583,7 +1399,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e85",
+      id: "area-e75",
       name: "Team Magma Grunt",
       category: "trainer",
       trainerClass: "Team Magma",
@@ -1601,7 +1417,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e86",
+      id: "area-e76",
       name: "Magma Admin Tabitha",
       category: "trainer",
       trainerClass: "Magma Admin",
@@ -1619,7 +1435,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e87",
+      id: "area-e77",
       name: "Magma Leader Maxie",
       category: "trainer",
       trainerClass: "Magma Leader",
@@ -1639,7 +1455,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mauvillecity-gym": [
     {
-      id: "area-e88",
+      id: "area-e78",
       name: "Gym Leader Wattson",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -1657,7 +1473,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e89",
+      id: "area-e79",
       name: "Guitarist Shawn",
       category: "trainer",
       trainerClass: "Guitarist",
@@ -1675,7 +1491,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e90",
+      id: "area-e80",
       name: "Battle Girl Vivian",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -1693,7 +1509,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e91",
+      id: "area-e81",
       name: "Youngster Ben",
       category: "trainer",
       trainerClass: "Youngster",
@@ -1711,7 +1527,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e92",
+      id: "area-e82",
       name: "Guitarist Kirk",
       category: "trainer",
       trainerClass: "Guitarist",
@@ -1729,7 +1545,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e93",
+      id: "area-e83",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -1747,7 +1563,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e94",
+      id: "area-e84",
       name: "Bug Maniac Angelo",
       category: "trainer",
       trainerClass: "Bug Maniac",
@@ -1767,97 +1583,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "meteorfalls-1f-1r": [
     {
-      id: "area-e95",
-      name: "Magma Member  Magma Member",
-      category: "trainer",
-      trainerClass: "Magma Member ",
-      trainerName: "Magma Member ",
-      
-      x: 41.67,
-      y: 50,
-      graphicsId: "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
-      spriteSheet: "sprites/trainers/team_magma_magma_member_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e96",
-      name: "Magma Member  Magma Member",
-      category: "trainer",
-      trainerClass: "Magma Member ",
-      trainerName: "Magma Member ",
-      
-      x: 48.33,
-      y: 52.38,
-      graphicsId: "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
-      spriteSheet: "sprites/trainers/team_magma_magma_member_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 2,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e97",
-      name: "Archie Archie",
-      category: "trainer",
-      trainerClass: "Archie",
-      trainerName: "Archie",
-      
-      x: 21.67,
-      y: 50,
-      graphicsId: "OBJ_EVENT_GFX_ARCHIE",
-      spriteSheet: "sprites/trainers/team_aqua_archie.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e98",
-      name: "Aqua Member  Aqua Member",
-      category: "trainer",
-      trainerClass: "Aqua Member ",
-      trainerName: "Aqua Member ",
-      
-      x: 21.67,
-      y: 50,
-      graphicsId: "OBJ_EVENT_GFX_AQUA_MEMBER_M",
-      spriteSheet: "sprites/trainers/team_aqua_aqua_member_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e99",
-      name: "Aqua Member  Aqua Member",
-      category: "trainer",
-      trainerClass: "Aqua Member ",
-      trainerName: "Aqua Member ",
-      
-      x: 21.67,
-      y: 52.38,
-      graphicsId: "OBJ_EVENT_GFX_AQUA_MEMBER_M",
-      spriteSheet: "sprites/trainers/team_aqua_aqua_member_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e100",
+      id: "area-e85",
       name: "Professor Cozmo",
       category: "trainer",
       trainerClass: "Professor",
@@ -1877,7 +1603,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mossdeepcity-gym": [
     {
-      id: "area-e101",
+      id: "area-e86",
       name: "Gym Leader Tate",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -1895,7 +1621,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e102",
+      id: "area-e87",
       name: "Psychic Preston",
       category: "trainer",
       trainerClass: "Psychic",
@@ -1913,7 +1639,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e103",
+      id: "area-e88",
       name: "Psychic Blake",
       category: "trainer",
       trainerClass: "Psychic",
@@ -1931,7 +1657,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e104",
+      id: "area-e89",
       name: "Psychic Maura",
       category: "trainer",
       trainerClass: "Psychic",
@@ -1949,7 +1675,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e105",
+      id: "area-e90",
       name: "Psychic Samantha",
       category: "trainer",
       trainerClass: "Psychic",
@@ -1967,7 +1693,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e106",
+      id: "area-e91",
       name: "Psychic Virgil",
       category: "trainer",
       trainerClass: "Psychic",
@@ -1985,7 +1711,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e107",
+      id: "area-e92",
       name: "Psychic Hannah",
       category: "trainer",
       trainerClass: "Psychic",
@@ -2003,7 +1729,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e108",
+      id: "area-e93",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -2021,7 +1747,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e109",
+      id: "area-e94",
       name: "Gym Leader Liza",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -2039,7 +1765,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e110",
+      id: "area-e95",
       name: "Gentleman Nate",
       category: "trainer",
       trainerClass: "Gentleman",
@@ -2057,7 +1783,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e111",
+      id: "area-e96",
       name: "Hex Maniac Sylvia",
       category: "trainer",
       trainerClass: "Hex Maniac",
@@ -2075,7 +1801,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e112",
+      id: "area-e97",
       name: "Gentleman Clifford",
       category: "trainer",
       trainerClass: "Gentleman",
@@ -2093,7 +1819,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e113",
+      id: "area-e98",
       name: "Psychic Macey",
       category: "trainer",
       trainerClass: "Psychic",
@@ -2111,7 +1837,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e114",
+      id: "area-e99",
       name: "Hex Maniac Kathleen",
       category: "trainer",
       trainerClass: "Hex Maniac",
@@ -2129,7 +1855,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e115",
+      id: "area-e100",
       name: "Psychic Nicholas",
       category: "trainer",
       trainerClass: "Psychic",
@@ -2149,7 +1875,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mossdeepcity-stevenshouse": [
     {
-      id: "area-e116",
+      id: "area-e101",
       name: "Champion Steven",
       category: "trainer",
       trainerClass: "Champion",
@@ -2167,7 +1893,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e117",
+      id: "area-e102",
       name: "Ninja Boy Letter",
       category: "trainer",
       trainerClass: "Ninja Boy",
@@ -2187,7 +1913,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mtpyre-2f": [
     {
-      id: "area-e118",
+      id: "area-e103",
       name: "Pokemaniac Mark",
       category: "trainer",
       trainerClass: "Pokemaniac",
@@ -2205,7 +1931,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e119",
+      id: "area-e104",
       name: "Woman 1 Woman",
       category: "trainer",
       trainerClass: "Woman 1",
@@ -2223,7 +1949,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e120",
+      id: "area-e105",
       name: "Pokefan  Pokefan M",
       category: "trainer",
       trainerClass: "Pokefan ",
@@ -2241,7 +1967,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e121",
+      id: "area-e106",
       name: "Young Couple Dez & Luke",
       category: "trainer",
       trainerClass: "Young Couple",
@@ -2259,7 +1985,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e122",
+      id: "area-e107",
       name: "Young Couple Dez & Luke",
       category: "trainer",
       trainerClass: "Young Couple",
@@ -2277,7 +2003,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e123",
+      id: "area-e108",
       name: "Black Belt Zander",
       category: "trainer",
       trainerClass: "Black Belt",
@@ -2295,7 +2021,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e124",
+      id: "area-e109",
       name: "Hex Maniac Leah",
       category: "trainer",
       trainerClass: "Hex Maniac",
@@ -2315,7 +2041,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mtpyre-3f": [
     {
-      id: "area-e125",
+      id: "area-e110",
       name: "Psychic William",
       category: "trainer",
       trainerClass: "Psychic",
@@ -2333,7 +2059,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e126",
+      id: "area-e111",
       name: "Psychic Kayla",
       category: "trainer",
       trainerClass: "Psychic",
@@ -2351,7 +2077,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e127",
+      id: "area-e112",
       name: "Pkmn Breeder Gabrielle",
       category: "trainer",
       trainerClass: "Pkmn Breeder",
@@ -2371,7 +2097,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mtpyre-4f": [
     {
-      id: "area-e128",
+      id: "area-e113",
       name: "Hex Maniac Tasha",
       category: "trainer",
       trainerClass: "Hex Maniac",
@@ -2391,7 +2117,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mtpyre-5f": [
     {
-      id: "area-e129",
+      id: "area-e114",
       name: "Black Belt Atsushi",
       category: "trainer",
       trainerClass: "Black Belt",
@@ -2411,7 +2137,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mtpyre-6f": [
     {
-      id: "area-e130",
+      id: "area-e115",
       name: "Hex Maniac Valerie",
       category: "trainer",
       trainerClass: "Hex Maniac",
@@ -2429,7 +2155,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e131",
+      id: "area-e116",
       name: "Psychic Cedric",
       category: "trainer",
       trainerClass: "Psychic",
@@ -2449,7 +2175,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "mtpyre-summit": [
     {
-      id: "area-e132",
+      id: "area-e117",
       name: "Old Man Old Man",
       category: "trainer",
       trainerClass: "Old Man",
@@ -2467,25 +2193,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e133",
-      name: "Archie Archie",
-      category: "trainer",
-      trainerClass: "Archie",
-      trainerName: "Archie",
-      
-      x: 47,
-      y: 18.92,
-      graphicsId: "OBJ_EVENT_GFX_ARCHIE",
-      spriteSheet: "sprites/trainers/team_aqua_archie.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 1,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e134",
+      id: "area-e118",
       name: "Expert  Old Lady",
       category: "trainer",
       trainerClass: "Expert ",
@@ -2503,7 +2211,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e135",
+      id: "area-e119",
       name: "Team Aqua Grunt",
       category: "trainer",
       trainerClass: "Team Aqua",
@@ -2521,7 +2229,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e136",
+      id: "area-e120",
       name: "Team Aqua Grunt",
       category: "trainer",
       trainerClass: "Team Aqua",
@@ -2539,7 +2247,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e137",
+      id: "area-e121",
       name: "Team Aqua Grunt",
       category: "trainer",
       trainerClass: "Team Aqua",
@@ -2557,7 +2265,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e138",
+      id: "area-e122",
       name: "Team Aqua Grunt",
       category: "trainer",
       trainerClass: "Team Aqua",
@@ -2574,28 +2282,10 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       script: "MtPyre_Summit_EventScript_Grunt4",
       trainerType: "TRAINER_TYPE_NORMAL",
     },
-    {
-      id: "area-e139",
-      name: "Maxie Maxie",
-      category: "trainer",
-      trainerClass: "Maxie",
-      trainerName: "Maxie",
-      
-      x: 47,
-      y: 18.92,
-      graphicsId: "OBJ_EVENT_GFX_MAXIE",
-      spriteSheet: "sprites/trainers/team_magma_maxie.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 1,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
   ],
   "petalburgcity-gym": [
     {
-      id: "area-e140",
+      id: "area-e123",
       name: "Gym Leader Norman",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -2613,7 +2303,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e141",
+      id: "area-e124",
       name: "Cooltrainer Mary",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2631,7 +2321,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e142",
+      id: "area-e125",
       name: "Cooltrainer Randall",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2649,7 +2339,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e143",
+      id: "area-e126",
       name: "Cooltrainer Parker",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2667,7 +2357,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e144",
+      id: "area-e127",
       name: "Cooltrainer Alexia",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2685,7 +2375,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e145",
+      id: "area-e128",
       name: "Cooltrainer George",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2703,7 +2393,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e146",
+      id: "area-e129",
       name: "Cooltrainer Jody",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2721,7 +2411,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e147",
+      id: "area-e130",
       name: "Cooltrainer Berke",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -2739,7 +2429,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e148",
+      id: "area-e131",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -2756,82 +2446,10 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       script: "PetalburgCity_Gym_EventScript_GymGuide",
       trainerType: "TRAINER_TYPE_NONE",
     },
-    {
-      id: "area-e149",
-      name: "Wally Wally",
-      category: "trainer",
-      trainerClass: "Wally",
-      trainerName: "Wally",
-      
-      x: 50,
-      y: 100,
-      graphicsId: "OBJ_EVENT_GFX_WALLY",
-      spriteSheet: "sprites/trainers/wally.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 1,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e150",
-      name: "Pokefan  Pokefan",
-      category: "trainer",
-      trainerClass: "Pokefan ",
-      trainerName: "Pokefan ",
-      
-      x: 16.67,
-      y: 7.14,
-      graphicsId: "OBJ_EVENT_GFX_POKEFAN_M",
-      spriteSheet: "sprites/trainers/pokefan_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 1,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
   ],
   "petalburgwoods": [
     {
-      id: "area-e151",
-      name: "Aqua Member  Aqua Member",
-      category: "trainer",
-      trainerClass: "Aqua Member ",
-      trainerName: "Aqua Member ",
-      
-      x: 55.21,
-      y: 40.91,
-      graphicsId: "OBJ_EVENT_GFX_AQUA_MEMBER_M",
-      spriteSheet: "sprites/trainers/team_aqua_aqua_member_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e152",
-      name: "Man 2 Man 2",
-      category: "trainer",
-      trainerClass: "Man 2",
-      trainerName: "Man 2",
-      
-      x: 55.21,
-      y: 47.73,
-      graphicsId: "OBJ_EVENT_GFX_MAN_2",
-      spriteSheet: "sprites/trainers/man_2.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e153",
+      id: "area-e132",
       name: "Boy 2 Boy1",
       category: "trainer",
       trainerClass: "Boy 2",
@@ -2849,7 +2467,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e154",
+      id: "area-e133",
       name: "Bug Catcher Lyle",
       category: "trainer",
       trainerClass: "Bug Catcher",
@@ -2867,7 +2485,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e155",
+      id: "area-e134",
       name: "Bug Catcher James",
       category: "trainer",
       trainerClass: "Bug Catcher",
@@ -2885,7 +2503,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e156",
+      id: "area-e135",
       name: "Boy 3 Boy2",
       category: "trainer",
       trainerClass: "Boy 3",
@@ -2903,7 +2521,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e157",
+      id: "area-e136",
       name: "Girl 2 Girl",
       category: "trainer",
       trainerClass: "Girl 2",
@@ -2923,7 +2541,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhouseend": [
     {
-      id: "area-e158",
+      id: "area-e137",
       name: "Man 1 Trick Master",
       category: "trainer",
       trainerClass: "Man 1",
@@ -2943,7 +2561,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle1": [
     {
-      id: "area-e159",
+      id: "area-e138",
       name: "Lass Sally",
       category: "trainer",
       trainerClass: "Lass",
@@ -2961,7 +2579,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e160",
+      id: "area-e139",
       name: "Youngster Eddie",
       category: "trainer",
       trainerClass: "Youngster",
@@ -2979,7 +2597,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e161",
+      id: "area-e140",
       name: "Lass Robin",
       category: "trainer",
       trainerClass: "Lass",
@@ -2999,7 +2617,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle2": [
     {
-      id: "area-e162",
+      id: "area-e141",
       name: "School Kid Ted",
       category: "trainer",
       trainerClass: "School Kid",
@@ -3017,7 +2635,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e163",
+      id: "area-e142",
       name: "School Kid Paul",
       category: "trainer",
       trainerClass: "School Kid",
@@ -3035,7 +2653,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e164",
+      id: "area-e143",
       name: "School Kid Georgia",
       category: "trainer",
       trainerClass: "School Kid",
@@ -3055,7 +2673,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle3": [
     {
-      id: "area-e165",
+      id: "area-e144",
       name: "Camper Justin",
       category: "trainer",
       trainerClass: "Camper",
@@ -3073,7 +2691,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e166",
+      id: "area-e145",
       name: "Picnicker Martha",
       category: "trainer",
       trainerClass: "Picnicker",
@@ -3091,7 +2709,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e167",
+      id: "area-e146",
       name: "Hiker Alan",
       category: "trainer",
       trainerClass: "Hiker",
@@ -3111,7 +2729,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle4": [
     {
-      id: "area-e168",
+      id: "area-e147",
       name: "Battle Girl Cora",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -3129,7 +2747,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e169",
+      id: "area-e148",
       name: "Battle Girl Paula",
       category: "trainer",
       trainerClass: "Battle Girl",
@@ -3147,7 +2765,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e170",
+      id: "area-e149",
       name: "Black Belt Yuji",
       category: "trainer",
       trainerClass: "Black Belt",
@@ -3167,7 +2785,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle6": [
     {
-      id: "area-e171",
+      id: "area-e150",
       name: "Pkmn Ranger Sophia",
       category: "trainer",
       trainerClass: "Pkmn Ranger",
@@ -3185,7 +2803,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e172",
+      id: "area-e151",
       name: "Bird Keeper Benny",
       category: "trainer",
       trainerClass: "Bird Keeper",
@@ -3203,7 +2821,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e173",
+      id: "area-e152",
       name: "Pkmn Ranger Sebastian",
       category: "trainer",
       trainerClass: "Pkmn Ranger",
@@ -3223,7 +2841,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle7": [
     {
-      id: "area-e174",
+      id: "area-e153",
       name: "Psychic Joshua",
       category: "trainer",
       trainerClass: "Psychic",
@@ -3241,7 +2859,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e175",
+      id: "area-e154",
       name: "Psychic Alexis",
       category: "trainer",
       trainerClass: "Psychic",
@@ -3259,7 +2877,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e176",
+      id: "area-e155",
       name: "Hex Maniac Patricia",
       category: "trainer",
       trainerClass: "Hex Maniac",
@@ -3277,7 +2895,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e177",
+      id: "area-e156",
       name: "Psychic Alvaro",
       category: "trainer",
       trainerClass: "Psychic",
@@ -3295,7 +2913,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e178",
+      id: "area-e157",
       name: "Psychic Mariela",
       category: "trainer",
       trainerClass: "Psychic",
@@ -3313,7 +2931,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e179",
+      id: "area-e158",
       name: "Gentleman Everett",
       category: "trainer",
       trainerClass: "Gentleman",
@@ -3333,7 +2951,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "route110-trickhousepuzzle8": [
     {
-      id: "area-e180",
+      id: "area-e159",
       name: "Cooltrainer Vincent",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -3351,7 +2969,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e181",
+      id: "area-e160",
       name: "Cooltrainer Leroy",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -3369,7 +2987,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e182",
+      id: "area-e161",
       name: "Cooltrainer Keira",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -3389,7 +3007,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "rustborocity-gym": [
     {
-      id: "area-e183",
+      id: "area-e162",
       name: "Gym Leader Roxanne",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -3407,7 +3025,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e184",
+      id: "area-e163",
       name: "Youngster Josh",
       category: "trainer",
       trainerClass: "Youngster",
@@ -3425,7 +3043,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e185",
+      id: "area-e164",
       name: "Youngster Tommy",
       category: "trainer",
       trainerClass: "Youngster",
@@ -3443,7 +3061,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e186",
+      id: "area-e165",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -3461,7 +3079,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e187",
+      id: "area-e166",
       name: "Hiker Marc",
       category: "trainer",
       trainerClass: "Hiker",
@@ -3481,7 +3099,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "rusturftunnel": [
     {
-      id: "area-e188",
+      id: "area-e167",
       name: "Black Belt Boyfriend",
       category: "trainer",
       trainerClass: "Black Belt",
@@ -3499,25 +3117,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e189",
-      name: "Expert  Expert",
-      category: "trainer",
-      trainerClass: "Expert ",
-      trainerName: "Expert ",
-      
-      x: 15.28,
-      y: 20.83,
-      graphicsId: "OBJ_EVENT_GFX_EXPERT_M",
-      spriteSheet: "sprites/trainers/expert_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e190",
+      id: "area-e168",
       name: "Team Aqua Grunt",
       category: "trainer",
       trainerClass: "Team Aqua",
@@ -3535,7 +3135,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e191",
+      id: "area-e169",
       name: "Pokémon Peeko",
       category: "trainer",
       trainerClass: "Pokémon",
@@ -3553,7 +3153,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e192",
+      id: "area-e170",
       name: "Hiker Mike",
       category: "trainer",
       trainerClass: "Hiker",
@@ -3571,7 +3171,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e193",
+      id: "area-e171",
       name: "NPC Wanda",
       category: "trainer",
       trainerClass: "NPC",
@@ -3591,7 +3191,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "safarizone-north": [
     {
-      id: "area-e194",
+      id: "area-e172",
       name: "Fisherman Fisherman",
       category: "trainer",
       trainerClass: "Fisherman",
@@ -3609,7 +3209,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e195",
+      id: "area-e173",
       name: "Man 4 Man",
       category: "trainer",
       trainerClass: "Man 4",
@@ -3629,7 +3229,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "safarizone-northeast": [
     {
-      id: "area-e196",
+      id: "area-e174",
       name: "Boy 3 Boy",
       category: "trainer",
       trainerClass: "Boy 3",
@@ -3647,7 +3247,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e197",
+      id: "area-e175",
       name: "Girl 3 Girl",
       category: "trainer",
       trainerClass: "Girl 3",
@@ -3665,7 +3265,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e198",
+      id: "area-e176",
       name: "Woman 1 Woman",
       category: "trainer",
       trainerClass: "Woman 1",
@@ -3685,7 +3285,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "safarizone-northwest": [
     {
-      id: "area-e199",
+      id: "area-e177",
       name: "Man 1 Man",
       category: "trainer",
       trainerClass: "Man 1",
@@ -3705,7 +3305,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "safarizone-southeast": [
     {
-      id: "area-e200",
+      id: "area-e178",
       name: "Rich Boy Rich Boy",
       category: "trainer",
       trainerClass: "Rich Boy",
@@ -3723,7 +3323,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e201",
+      id: "area-e179",
       name: "Fat Man Fat Man",
       category: "trainer",
       trainerClass: "Fat Man",
@@ -3741,7 +3341,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e202",
+      id: "area-e180",
       name: "Little Girl Little Girl",
       category: "trainer",
       trainerClass: "Little Girl",
@@ -3759,7 +3359,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e203",
+      id: "area-e181",
       name: "Camper Expansion Zone Attendant",
       category: "trainer",
       trainerClass: "Camper",
@@ -3779,7 +3379,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "safarizone-southwest": [
     {
-      id: "area-e204",
+      id: "area-e182",
       name: "Woman 2 Woman",
       category: "trainer",
       trainerClass: "Woman 2",
@@ -3797,83 +3397,9 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
   ],
-  "seafloorcavern-room9": [
-    {
-      id: "area-e205",
-      name: "Archie Archie",
-      category: "trainer",
-      trainerClass: "Archie",
-      trainerName: "Archie",
-      
-      x: 35.19,
-      y: 93.48,
-      graphicsId: "OBJ_EVENT_GFX_ARCHIE",
-      spriteSheet: "sprites/trainers/team_aqua_archie.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e206",
-      name: "Maxie Maxie",
-      category: "trainer",
-      trainerClass: "Maxie",
-      trainerName: "Maxie",
-      
-      x: 35.19,
-      y: 93.48,
-      graphicsId: "OBJ_EVENT_GFX_MAXIE",
-      spriteSheet: "sprites/trainers/team_magma_maxie.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e207",
-      name: "Magma Member  Magma Member",
-      category: "trainer",
-      trainerClass: "Magma Member ",
-      trainerName: "Magma Member ",
-      
-      x: 31.48,
-      y: 91.3,
-      graphicsId: "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
-      spriteSheet: "sprites/trainers/team_magma_magma_member_m.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e208",
-      name: "Magma Member  Magma Member",
-      category: "trainer",
-      trainerClass: "Magma Member ",
-      trainerName: "Magma Member ",
-      
-      x: 31.48,
-      y: 93.48,
-      graphicsId: "OBJ_EVENT_GFX_MAGMA_MEMBER_F",
-      spriteSheet: "sprites/trainers/team_magma_magma_member_f.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "0x0",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-  ],
   "shoalcave-lowtideentranceroom": [
     {
-      id: "area-e209",
+      id: "area-e183",
       name: "Expert  Shell Bell Expert",
       category: "trainer",
       trainerClass: "Expert ",
@@ -3893,7 +3419,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "sootopoliscity-gym-1f": [
     {
-      id: "area-e210",
+      id: "area-e184",
       name: "Gym Leader Wallace",
       category: "trainer",
       trainerClass: "Gym Leader",
@@ -3911,7 +3437,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e211",
+      id: "area-e185",
       name: "Gym Guide Gym Guide",
       category: "trainer",
       trainerClass: "Gym Guide",
@@ -3931,7 +3457,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "sootopoliscity-gym-b1f": [
     {
-      id: "area-e212",
+      id: "area-e186",
       name: "Lass Andrea",
       category: "trainer",
       trainerClass: "Lass",
@@ -3949,7 +3475,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e213",
+      id: "area-e187",
       name: "Beauty Connie",
       category: "trainer",
       trainerClass: "Beauty",
@@ -3967,7 +3493,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e214",
+      id: "area-e188",
       name: "Lady Brianna",
       category: "trainer",
       trainerClass: "Lady",
@@ -3985,7 +3511,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e215",
+      id: "area-e189",
       name: "Beauty Bridget",
       category: "trainer",
       trainerClass: "Beauty",
@@ -4003,7 +3529,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e216",
+      id: "area-e190",
       name: "Beauty Tiffany",
       category: "trainer",
       trainerClass: "Beauty",
@@ -4021,7 +3547,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e217",
+      id: "area-e191",
       name: "Pokefan Bethany",
       category: "trainer",
       trainerClass: "Pokefan",
@@ -4039,7 +3565,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e218",
+      id: "area-e192",
       name: "Lass Crissy",
       category: "trainer",
       trainerClass: "Lass",
@@ -4057,7 +3583,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e219",
+      id: "area-e193",
       name: "Beauty Olivia",
       category: "trainer",
       trainerClass: "Beauty",
@@ -4075,7 +3601,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e220",
+      id: "area-e194",
       name: "Lady Daphne",
       category: "trainer",
       trainerClass: "Lady",
@@ -4093,7 +3619,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e221",
+      id: "area-e195",
       name: "Pokefan Annika",
       category: "trainer",
       trainerClass: "Pokefan",
@@ -4113,7 +3639,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "sstidallowerdeck": [
     {
-      id: "area-e222",
+      id: "area-e196",
       name: "Sailor Phillip",
       category: "trainer",
       trainerClass: "Sailor",
@@ -4131,7 +3657,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e223",
+      id: "area-e197",
       name: "Sailor Leonard",
       category: "trainer",
       trainerClass: "Sailor",
@@ -4151,7 +3677,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "victoryroad-1f": [
     {
-      id: "area-e224",
+      id: "area-e198",
       name: "Cooltrainer Edgar",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4169,7 +3695,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e225",
+      id: "area-e199",
       name: "Cooltrainer Hope",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4187,7 +3713,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e226",
+      id: "area-e200",
       name: "Cooltrainer Albert",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4205,7 +3731,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e227",
+      id: "area-e201",
       name: "Wally Entrance Wally",
       category: "trainer",
       trainerClass: "Wally",
@@ -4223,7 +3749,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e228",
+      id: "area-e202",
       name: "Rival Wally",
       category: "trainer",
       trainerClass: "Rival",
@@ -4241,7 +3767,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NONE",
     },
     {
-      id: "area-e229",
+      id: "area-e203",
       name: "Cooltrainer Katelynn",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4259,7 +3785,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e230",
+      id: "area-e204",
       name: "Cooltrainer Quincy",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4279,7 +3805,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "victoryroad-b1f": [
     {
-      id: "area-e231",
+      id: "area-e205",
       name: "Cooltrainer Samuel",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4297,7 +3823,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e232",
+      id: "area-e206",
       name: "Cooltrainer Shannon",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4315,7 +3841,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e233",
+      id: "area-e207",
       name: "Cooltrainer Michelle",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4333,7 +3859,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e234",
+      id: "area-e208",
       name: "Cooltrainer Mitchell",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4351,7 +3877,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e235",
+      id: "area-e209",
       name: "Cooltrainer Halle",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4371,7 +3897,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
   ],
   "victoryroad-b2f": [
     {
-      id: "area-e236",
+      id: "area-e210",
       name: "Cooltrainer Vito",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4389,7 +3915,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e237",
+      id: "area-e211",
       name: "Cooltrainer Owen",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4407,7 +3933,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e238",
+      id: "area-e212",
       name: "Cooltrainer Caroline",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4425,7 +3951,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e239",
+      id: "area-e213",
       name: "Cooltrainer Julie",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4443,7 +3969,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e240",
+      id: "area-e214",
       name: "Cooltrainer Dianne",
       category: "trainer",
       trainerClass: "Cooltrainer",
@@ -4461,7 +3987,7 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
     {
-      id: "area-e241",
+      id: "area-e215",
       name: "Cooltrainer Felix",
       category: "trainer",
       trainerClass: "Cooltrainer",
