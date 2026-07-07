@@ -35,7 +35,7 @@ export function MapZoomViewport({
 }: MapZoomViewportProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const narrow = useNarrowViewport();
-  const cropFit = Boolean(cropAspect) && narrow;
+  const cropFit = Boolean(cropAspect);
   const maxFitZoom = narrow ? 2 : 1;
   const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
     enabled,

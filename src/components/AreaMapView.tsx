@@ -137,10 +137,14 @@ export function AreaMapView({
   const mapFrame = (
     <div
       className="area-map-view__frame"
-      style={{
-        aspectRatio: `${area.width} / ${area.height}`,
-        width: inLightbox ? "100%" : `min(100%, ${Math.round(aspect * maxH)}px)`,
-      }}
+      style={
+        inLightbox
+          ? { width: "100%", height: "100%" }
+          : {
+              aspectRatio: `${area.width} / ${area.height}`,
+              width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+            }
+      }
       onClick={(e) => e.stopPropagation()}
     >
       <img src={assetUrl(area.image)} alt={label} className="area-map-view__image" draggable={false} />
@@ -150,7 +154,7 @@ export function AreaMapView({
 
   const sidebar =
     showLegend && categories.length > 0 ? (
-      <>
+      <div className="area-map-view__sidebar">
         <ul className="area-map-view__legend" aria-label="Map markers">
           {categories.map((cat) => (
             <li key={cat.id}>
@@ -191,7 +195,7 @@ export function AreaMapView({
             })}
           </ul>
         )}
-      </>
+      </div>
     ) : null;
 
   if (inLightbox) {
