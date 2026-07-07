@@ -5,6 +5,7 @@ import { hoennCropImagePath } from "../data/hoennCropImages";
 import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
 import { MapZoomViewport } from "./MapZoomViewport";
+import { MapPinVisual, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
@@ -123,33 +124,13 @@ export function HoennCrop({
               left: `${point.x}%`,
               top: `${point.y}%`,
               ["--pin-color" as string]: cat?.color,
-              ...(trainer
-                ? {
-                    ["--trainer-frame" as string]: point.spriteFrame,
-                    ["--trainer-fw" as string]: point.spriteWidth,
-                    ["--trainer-fh" as string]: point.spriteHeight,
-                  }
-                : {}),
+              ...pinSpriteStyle(point),
             }}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => handlePinClick(point, e)}
             aria-label={point.name}
           >
-            {trainer ? (
-              <span
-                className="hoenn-map__trainer-frame"
-                aria-hidden="true"
-              >
-                <img
-                  src={assetUrl(point.spriteSheet)}
-                  alt=""
-                  className="hoenn-map__trainer-sprite"
-                  draggable={false}
-                />
-              </span>
-            ) : (
-              <span className="hoenn-map__pin-dot" />
-            )}
+            <MapPinVisual point={point} />
             <span className="hoenn-map__pin-hint" aria-hidden="true">
               {trainer ? (
                 <TrainerPinHint trainer={point} />

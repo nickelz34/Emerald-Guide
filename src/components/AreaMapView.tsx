@@ -6,11 +6,8 @@ import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
 import { MapZoomViewport } from "./MapZoomViewport";
+import { MapPinVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
-
-function isTrainerPoint(p: MapPoint): p is TrainerPoint {
-  return p.category === "trainer" && "spriteSheet" in p;
-}
 
 interface AreaMapViewProps {
   areaMapId: string;
@@ -98,13 +95,7 @@ export function AreaMapView({
           left: `${point.x}%`,
           top: `${point.y}%`,
           ["--pin-color" as string]: cat?.color,
-          ...(trainer
-            ? {
-                ["--trainer-frame" as string]: point.spriteFrame,
-                ["--trainer-fw" as string]: point.spriteWidth,
-                ["--trainer-fh" as string]: point.spriteHeight,
-              }
-            : {}),
+          ...pinSpriteStyle(point),
         }}
         onPointerDown={(e) => e.stopPropagation()}
         onClick={(e) => {
@@ -113,21 +104,7 @@ export function AreaMapView({
         }}
         aria-label={point.name}
       >
-        {trainer ? (
-          <span
-            className="hoenn-map__trainer-frame"
-            aria-hidden="true"
-          >
-            <img
-              src={assetUrl(point.spriteSheet)}
-              alt=""
-              className="hoenn-map__trainer-sprite"
-              draggable={false}
-            />
-          </span>
-        ) : (
-          <span className="hoenn-map__pin-dot" />
-        )}
+        <MapPinVisual point={point} />
         <span className="hoenn-map__pin-hint" aria-hidden="true">
           {trainer ? (
             <TrainerPinHint trainer={point} />
