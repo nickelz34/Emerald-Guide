@@ -106,6 +106,13 @@ export function HoennCrop({
               left: `${point.x}%`,
               top: `${point.y}%`,
               ["--pin-color" as string]: cat?.color,
+              ...(trainer
+                ? {
+                    ["--trainer-frame" as string]: point.spriteFrame,
+                    ["--trainer-fw" as string]: point.spriteWidth,
+                    ["--trainer-fh" as string]: point.spriteHeight,
+                  }
+                : {}),
             }}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => handlePinClick(point, e)}
@@ -114,11 +121,6 @@ export function HoennCrop({
             {trainer ? (
               <span
                 className="hoenn-map__trainer-frame"
-                style={{
-                  ["--trainer-frame" as string]: point.spriteFrame,
-                  ["--trainer-fw" as string]: point.spriteWidth,
-                  ["--trainer-fh" as string]: point.spriteHeight,
-                }}
                 aria-hidden="true"
               >
                 <img

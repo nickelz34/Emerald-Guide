@@ -1595,8 +1595,12 @@
 }
 
 .map-zoom-viewport .hoenn-map__pin--trainer {
-  transform: translate(-50%, -100%) scale(var(--pin-zoom));
-  transform-origin: 50% 100%;
+  transform: translate(
+      calc(var(--trainer-fw, 16) * -0.5px),
+      calc(var(--trainer-fh, 32) * -1px)
+    )
+    scale(var(--pin-zoom));
+  transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
 }
 
 .map-zoom-viewport .map-marker {
@@ -2035,18 +2039,21 @@
 
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
 .hoenn-map__pin--trainer {
-  transform: translate(-50%, -100%);
+  width: calc(var(--trainer-fw, 16) * 1px);
+  height: calc(var(--trainer-fh, 32) * 1px);
+  transform: translate(
+    calc(var(--trainer-fw, 16) * -0.5px),
+    calc(var(--trainer-fh, 32) * -1px)
+  );
+  transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
   z-index: 3;
-  /* Widen the click target — sprites are only 16×32px. */
-  min-width: 28px;
-  min-height: 36px;
 }
 
 /* Small ground shadow like the in-game OAM shadow under NPCs. */
 .hoenn-map__pin--trainer::before {
   content: "";
   position: absolute;
-  left: 50%;
+  left: calc(var(--trainer-fw, 16) * 0.5px);
   bottom: 0;
   width: calc(var(--trainer-fw, 16) * 0.55px);
   height: 3px;
