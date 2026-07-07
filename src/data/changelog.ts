@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.29",
+    date: "2026-07-07",
+    summary: "Gym guide modals now show authentic overworld sprites for gym leaders and in-gym trainers.",
+    sections: [
+      {
+        heading: "Hoenn map — gym sprites",
+        items: [
+          "Gym leader overworld sprites (Roxanne through Wallace) appear in the gym modal hero and leader battle section.",
+          "Every junior trainer row shows their in-gym overworld sprite; tap still opens full party details.",
+          "Tate & Liza display both leader sprites side by side. New `npm run sync:gym-sprites` script keeps assets in sync with pokeemerald.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.28",
     date: "2026-07-07",
     summary: "Clicking a gym on the Hoenn map opens a full gym guide — leader, trainers, and walkthrough tips.",

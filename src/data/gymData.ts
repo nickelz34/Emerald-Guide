@@ -1,4 +1,9 @@
 import type { TrainerPoint } from "./mapTrainersGenerated";
+import {
+  GYM_LEADER_EXTRA_SPRITES,
+  GYM_TRAINER_SPRITES,
+  type GymTrainerSprite,
+} from "./gymSpritesGenerated";
 
 export interface GymJunior {
   name: string;
@@ -188,42 +193,65 @@ export function getGymForMapPoint(mapPointId: string): GymData | undefined {
   return GYM_BY_MAP_ID[mapPointId];
 }
 
-export function gymLeaderTrainerPoint(gym: GymData): TrainerPoint {
+export function getGymLeaderExtraSprites(gym: GymData): GymTrainerSprite[] {
+  return GYM_LEADER_EXTRA_SPRITES[gym.leaderTrainerId] ?? [];
+}
+
+function withGymSprite(point: TrainerPoint, trainerId: string): TrainerPoint {
+  const sprite = GYM_TRAINER_SPRITES[trainerId];
+  if (!sprite) return point;
   return {
-    id: `${gym.mapPointId}-leader`,
-    name: gym.leaderName,
-    category: "trainer",
-    x: 0,
-    y: 0,
-    trainerClass: "Gym Leader",
-    trainerName: gym.leaderName,
-    trainerId: gym.leaderTrainerId,
-    graphicsId: "",
-    spriteSheet: "",
-    spriteWidth: 16,
-    spriteHeight: 32,
-    spriteFrame: 0,
-    note: `${gym.gymName} · ${gym.badgeName}`,
-    desc: gym.doubleBattle ? "Double battle" : "Gym Leader battle",
+    ...point,
+    graphicsId: sprite.graphicsId,
+    spriteSheet: sprite.spriteSheet,
+    spriteWidth: sprite.spriteWidth,
+    spriteHeight: sprite.spriteHeight,
+    spriteFrame: sprite.spriteFrame,
   };
 }
 
+export function gymLeaderTrainerPoint(gym: GymData): TrainerPoint {
+  return withGymSprite(
+    {
+      id: `${gym.mapPointId}-leader`,
+      name: gym.leaderName,
+      category: "trainer",
+      x: 0,
+      y: 0,
+      trainerClass: "Gym Leader",
+      trainerName: gym.leaderName,
+      trainerId: gym.leaderTrainerId,
+      graphicsId: "",
+      spriteSheet: "",
+      spriteWidth: 16,
+      spriteHeight: 32,
+      spriteFrame: 0,
+      note: `${gym.gymName} · ${gym.badgeName}`,
+      desc: gym.doubleBattle ? "Double battle" : "Gym Leader battle",
+    },
+    gym.leaderTrainerId,
+  );
+}
+
 export function gymJuniorTrainerPoint(gym: GymData, junior: GymJunior): TrainerPoint {
-  return {
-    id: `${gym.mapPointId}-${junior.trainerId}`,
-    name: `${junior.trainerClass} ${junior.name}`,
-    category: "trainer",
-    x: 0,
-    y: 0,
-    trainerClass: junior.trainerClass,
-    trainerName: junior.name,
-    trainerId: junior.trainerId,
-    graphicsId: "",
-    spriteSheet: "",
-    spriteWidth: 16,
-    spriteHeight: 32,
-    spriteFrame: 0,
-    note: junior.note ?? gym.gymName,
-    desc: junior.note,
-  };
+  return withGymSprite(
+    {
+      id: `${gym.mapPointId}-${junior.trainerId}`,
+      name: `${junior.trainerClass} ${junior.name}`,
+      category: "trainer",
+      x: 0,
+      y: 0,
+      trainerClass: junior.trainerClass,
+      trainerName: junior.name,
+      trainerId: junior.trainerId,
+      graphicsId: "",
+      spriteSheet: "",
+      spriteWidth: 16,
+      spriteHeight: 32,
+      spriteFrame: 0,
+      note: junior.note ?? gym.gymName,
+      desc: junior.note,
+    },
+    junior.trainerId,
+  );
 }
