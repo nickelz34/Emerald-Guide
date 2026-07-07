@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { LayoutViewMode } from "../hooks/useViewMode";
 import type { StepScreenshot } from "../data/stepImages";
+import { preloadStepMapImages } from "../lib/preloadMapImages";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
 
@@ -34,6 +35,7 @@ export function LightboxProvider({
 
   useEffect(() => {
     if (!state) return;
+    preloadStepMapImages(state.images);
     (document.activeElement as HTMLElement | null)?.blur();
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";

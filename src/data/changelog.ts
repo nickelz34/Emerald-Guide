@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.22",
+    date: "2026-07-07",
+    summary: "Walkthrough outdoor maps load much faster on iPhone without losing map quality.",
+    sections: [
+      {
+        heading: "Walkthrough maps (performance)",
+        items: [
+          "Outdoor walkthrough maps now load pre-cut crop images (~10–75 KB each) instead of downloading and decoding the full 28 MB Hoenn composite on every step.",
+          "Crop images are pixel-identical to the previous CSS window into the big map — same tiles, same markers, no visual downgrade.",
+          "The current step’s map image is preloaded as soon as you open the step so the lightbox is ready when you tap the map.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.21",
     date: "2026-07-07",
     summary: "Walkthrough map lightboxes are larger on iPhone, trainer sprites align correctly, and map markers are more accurate.",

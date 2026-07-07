@@ -1,6 +1,7 @@
-import { useMemo, useState, type CSSProperties, type KeyboardEvent, type MouseEvent } from "react";
+import { useMemo, useState, useEffect, type CSSProperties, type KeyboardEvent, type MouseEvent } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { HOENN_MAP_W, HOENN_MAP_H, type MapCrop } from "../data/mapCrops";
+import { hoennCropImagePath } from "../data/hoennCropImages";
 import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
 import { MapZoomViewport } from "./MapZoomViewport";
@@ -54,19 +55,35 @@ export function HoennCrop({
   const aspect = cropWpx / cropHpx;
   const maxH = inLightbox ? 720 : 460;
   const isWide = aspect > 1.25;
+  const cropImagePath = hoennCropImagePath(areaId);
+  const cropImageSrc = cropImagePath ? assetUrl(cropImagePath) : null;
+  const [mapReady, setMapReady] = useState(!cropImageSrc);
 
-  const frameStyle: CSSProperties = {
-    ...(inLightbox
-      ? { width: "100%", height: "100%" }
-      : {
-          aspectRatio: `${cropWpx} / ${cropHpx}`,
-          width: `min(100%, ${Math.round(aspect * maxH)}px)`,
-        }),
-    backgroundImage: `url(${HOENN_MAP_SRC})`,
-    backgroundSize: `${sizeX}% ${sizeY}%`,
-    backgroundPosition: `${posX}% ${posY}%`,
-    backgroundRepeat: "no-repeat",
-  };
+  useEffect(() => {
+    setMapReady(!cropImageSrc);
+  }, [cropImageSrc]);
+
+  const frameStyle: CSSProperties = cropImageSrc
+    ? {
+        ...(inLightbox
+          ? { width: "100%", height: "100%" }
+          : {
+              aspectRatio: `${cropWpx} / ${cropHpx}`,
+              width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+            }),
+      }
+    : {
+        ...(inLightbox
+          ? { width: "100%", height: "100%" }
+          : {
+              aspectRatio: `${cropWpx} / ${cropHpx}`,
+              width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+            }),
+        backgroundImage: `url(${HOENN_MAP_SRC})`,
+        backgroundSize: `${sizeX}% ${sizeY}%`,
+        backgroundPosition: `${posX}% ${posY}%`,
+        backgroundRepeat: "no-repeat",
+      };
 
   const interactive = Boolean(onClick);
   const categories = POI_CATEGORIES.filter((c) => points.some((p) => p.category === c.id));
@@ -210,14 +227,25 @@ export function HoennCrop({
 
   const mapFrame = (
     <div
-      className={`hoenn-crop__frame hoenn-crop__frame--pins ${interactive ? "hoenn-crop__frame--clickable" : ""}`}
+      className={`hoenn-crop__frame hoenn-crop__frame--pins${cropImageSrc ? " hoenn-crop__frame--image" : ""}${!mapReady ? " hoenn-crop__frame--loading" : ""} ${interactive ? "hoenn-crop__frame--clickable" : ""}`}
       style={frameStyle}
       onClick={interactive ? onClick : undefined}
       onKeyDown={onKeyDown}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       aria-label={interactive ? `Enlarge ${caption ?? "map"}` : undefined}
+      aria-busy={!mapReady}
     >
+      {cropImageSrc && (
+        <img
+          src={cropImageSrc}
+          alt=""
+          className="hoenn-crop__image"
+          decoding="async"
+          draggable={false}
+          onLoad={() => setMapReady(true)}
+        />
+      )}
       {pinLayer}
     </div>
   );

@@ -4223,6 +4223,30 @@
   position: absolute;
 }
 
+.hoenn-crop__frame--image {
+  background-color: #3868a8;
+}
+
+.hoenn-crop__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hoenn-crop__frame--loading .hoenn-crop__image {
+  opacity: 0;
+}
+
+.hoenn-crop__frame--loading.hoenn-crop__frame--image {
+  background-color: #2a5088;
+}
+
 .hoenn-crop__markers {
   position: absolute;
   inset: 0;

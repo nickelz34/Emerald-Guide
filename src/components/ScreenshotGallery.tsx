@@ -1,6 +1,8 @@
 import { getStepImages } from "../data/stepImages";
 import { getAreasForStep } from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
+import { preloadStepMapImages } from "../lib/preloadMapImages";
+import { useEffect } from "react";
 import { useLightbox } from "./ImageLightbox";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
@@ -19,6 +21,10 @@ export function ScreenshotGallery({ stepId, compact }: ScreenshotGalleryProps) {
   const { open } = useLightbox();
   const images = getStepImages(stepId);
   const defaultAreaId = areaIdForStep(stepId);
+
+  useEffect(() => {
+    preloadStepMapImages(getStepImages(stepId));
+  }, [stepId]);
 
   if (images.length === 0) return null;
 

@@ -149,7 +149,7 @@ export function AreaMapView({
       }
       onClick={(e) => e.stopPropagation()}
     >
-      <img src={assetUrl(area.image)} alt={label} className="area-map-view__image" draggable={false} />
+      <img src={assetUrl(area.image)} alt={label} className="area-map-view__image" decoding="async" draggable={false} />
       {pinLayer}
     </div>
   );
