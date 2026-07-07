@@ -5,6 +5,8 @@ interface MapZoomViewportProps {
   enabled: boolean;
   contentKey?: string | number;
   className?: string;
+  /** Crop aspect ratio (e.g. "384 / 384") — sizes viewport to map, no letterboxing. */
+  cropAspect?: string;
   children: ReactNode;
 }
 
@@ -24,10 +26,17 @@ function useNarrowViewport() {
 }
 
 /** Pinch/drag zoom wrapper for walkthrough map lightboxes. */
-export function MapZoomViewport({ enabled, contentKey, className = "", children }: MapZoomViewportProps) {
+export function MapZoomViewport({
+  enabled,
+  contentKey,
+  className = "",
+  cropAspect,
+  children,
+}: MapZoomViewportProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const narrow = useNarrowViewport();
-  const maxFitZoom = narrow ? 1.35 : 1;
+  const cropFit = Boolean(cropAspect) && narrow;
+  const maxFitZoom = narrow ? 2 : 1;
   const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
     enabled,
     contentKey,
@@ -56,8 +65,11 @@ export function MapZoomViewport({ enabled, contentKey, className = "", children 
   return (
     <div
       ref={attachViewportRef}
-      className={`map-zoom-viewport ${className}`.trim()}
-      style={zoomStyle}
+      className={`map-zoom-viewport${cropFit ? " map-zoom-viewport--crop-fit" : ""} ${className}`.trim()}
+      style={{
+        ...zoomStyle,
+        ...(cropAspect ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect } : {}),
+      }}
     >
       <div className="map-zoom-viewport__canvas" style={canvasStyle}>
         <div ref={contentRef} className="map-zoom-viewport__content">

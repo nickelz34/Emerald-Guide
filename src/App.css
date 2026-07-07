@@ -797,21 +797,19 @@
 
 /* Map lightbox — mobile layout (lightbox is outside app-shell; use data-view on .lightbox) */
 .lightbox[data-view="mobile"] {
-  padding:
-    max(0.3rem, env(safe-area-inset-top))
-    max(0.2rem, env(safe-area-inset-right))
-    max(0.3rem, env(safe-area-inset-bottom))
-    max(0.2rem, env(safe-area-inset-left));
+  padding: 0;
   align-items: stretch;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated {
   width: 100%;
-  max-width: 100%;
-  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 0.35rem);
-  padding: 2.45rem 0.4rem 0.4rem;
-  gap: 0.45rem;
-  border-radius: var(--radius-sm);
+  max-width: 100vw;
+  max-height: 100dvh;
+  padding: 2.15rem 0 0;
+  gap: 0.35rem;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__lightbox-body {
@@ -858,8 +856,14 @@
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-title,
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__lightbox-title {
-  margin: 0 0 0.25rem;
+  margin: 0;
+  padding: 0 0.5rem 0.25rem;
   font-size: 0.88rem;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop--lightbox,
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox {
+  align-items: stretch;
 }
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view__lightbox-body {
@@ -873,10 +877,10 @@
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame,
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__zoom,
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__zoom {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: min(64dvh, 540px);
-  max-height: min(78dvh, 660px);
+  min-height: 0;
+  max-height: none;
   height: auto;
 }
 
@@ -889,15 +893,17 @@
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
-  max-height: min(80dvh, 680px);
+  max-height: none;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__sidebar {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   width: 100%;
   min-width: 0;
-  max-height: min(32dvh, 260px);
-  padding: 0.55rem 0.5rem;
+  min-height: min(26dvh, 220px);
+  max-height: none;
+  margin: 0 0.3rem 0.3rem;
+  padding: 0.6rem 0.55rem;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -943,7 +949,7 @@
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: min(32dvh, 260px);
+  max-height: none;
   grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
   gap: 0.45rem;
 }
@@ -1093,7 +1099,7 @@
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__point-index {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: min(32dvh, 260px);
+  max-height: none;
   overflow-y: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;
@@ -1477,7 +1483,52 @@
 }
 
 .map-zoom-viewport__content {
-  width: 100cqw;
+  width: 100%;
+}
+
+/* Crop-fit: viewport height follows map aspect ratio — no letterboxing on mobile. */
+.map-zoom-viewport--crop-fit {
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 0;
+  max-height: none;
+  height: auto;
+}
+
+.map-zoom-viewport--crop-fit .map-zoom-viewport__canvas {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-zoom-viewport--crop-fit .map-zoom-viewport__content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-zoom-viewport--crop-fit .hoenn-crop__frame {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  aspect-ratio: unset;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+
+.map-zoom-viewport--crop-fit .area-map-view__frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+.map-zoom-viewport--crop-fit .area-map-view__image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .map-zoom-viewport__content .hoenn-crop__frame,
@@ -4234,6 +4285,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  align-items: stretch;
 }
 
 .hoenn-crop--lightbox .hoenn-crop__caption {
@@ -5872,27 +5924,33 @@
   }
 
   .lightbox {
-    padding:
-      max(0.3rem, env(safe-area-inset-top))
-      max(0.2rem, env(safe-area-inset-right))
-      max(0.3rem, env(safe-area-inset-bottom))
-      max(0.2rem, env(safe-area-inset-left));
+    padding: 0;
     align-items: stretch;
   }
 
+  .lightbox[data-view="desktop"] .lightbox__panel--annotated,
+  .lightbox[data-view="mobile"] .lightbox__panel--annotated,
   .lightbox__panel--annotated {
     width: 100%;
-    max-width: 100%;
-    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 0.35rem);
-    padding: 2.45rem 0.4rem 0.4rem;
-    gap: 0.45rem;
-    border-radius: var(--radius-sm);
+    max-width: 100vw;
+    max-height: 100dvh;
+    padding: 2.15rem 0 0;
+    gap: 0.35rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 
   .lightbox__panel--annotated .hoenn-crop__lightbox-title,
   .lightbox__panel--annotated .area-map-view__lightbox-title {
-    margin: 0 0 0.25rem;
+    margin: 0;
+    padding: 0 0.5rem 0.25rem;
     font-size: 0.88rem;
+  }
+
+  .lightbox__panel--annotated .hoenn-crop--lightbox,
+  .lightbox__panel--annotated .area-map-view--lightbox {
+    align-items: stretch;
   }
 
   .lightbox__panel--annotated .annotated-map__lightbox-body,
@@ -5905,11 +5963,13 @@
 
   .lightbox__panel--annotated .annotated-map__sidebar,
   .lightbox__panel--annotated .hoenn-crop__sidebar {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     width: 100%;
     min-width: 0;
-    max-height: min(32dvh, 260px);
-    padding: 0.55rem 0.5rem;
+    min-height: min(26dvh, 220px);
+    max-height: none;
+    margin: 0 0.3rem 0.3rem;
+    padding: 0.6rem 0.55rem;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -5918,10 +5978,10 @@
   .lightbox__panel--annotated .annotated-map__frame,
   .lightbox__panel--annotated .hoenn-crop__zoom,
   .lightbox__panel--annotated .area-map-view__zoom {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     width: 100%;
-    min-height: min(64dvh, 540px);
-    max-height: min(78dvh, 660px);
+    min-height: 0;
+    max-height: none;
     height: auto;
   }
 
@@ -5934,7 +5994,7 @@
 
   .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
   .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
-    max-height: min(80dvh, 680px);
+    max-height: none;
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
@@ -5979,7 +6039,7 @@
   .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
     flex: 1 1 auto;
     min-height: 0;
-    max-height: min(32dvh, 260px);
+    max-height: none;
     grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
     gap: 0.45rem;
   }

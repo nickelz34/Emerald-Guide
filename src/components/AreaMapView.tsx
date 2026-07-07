@@ -201,7 +201,12 @@ export function AreaMapView({
       >
         <p className="area-map-view__lightbox-title">{label}</p>
         <div className="area-map-view__lightbox-body">
-          <MapZoomViewport enabled contentKey={areaMapId} className="area-map-view__zoom">
+          <MapZoomViewport
+            enabled
+            contentKey={areaMapId}
+            className="area-map-view__zoom"
+            cropAspect={`${area.width} / ${area.height}`}
+          >
             {mapFrame}
           </MapZoomViewport>
           {sidebar}

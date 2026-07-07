@@ -221,6 +221,7 @@ export function HoennCrop({
       enabled
       contentKey={`${crop.x}-${crop.y}-${crop.w}-${crop.h}-${areaId ?? ""}`}
       className="hoenn-crop__zoom"
+      cropAspect={`${cropWpx} / ${cropHpx}`}
     >
       {mapFrame}
     </MapZoomViewport>
