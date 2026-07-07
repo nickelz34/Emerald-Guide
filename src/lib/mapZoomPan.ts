@@ -30,12 +30,13 @@ export function computeFitView(
   frameH: number,
   contentW: number,
   contentH: number,
+  maxZoom = 1,
 ): { pan: Pan; zoom: number } {
   if (contentW <= 0 || contentH <= 0 || frameW <= 0 || frameH <= 0) {
     return { pan: { x: 0, y: 0 }, zoom: 1 };
   }
 
-  const fitZoom = Math.min(frameW / contentW, frameH / contentH, 1);
+  const fitZoom = Math.min(frameW / contentW, frameH / contentH, maxZoom);
   const zoom = Math.max(0.12, fitZoom);
   const scaledW = contentW * zoom;
   const scaledH = contentH * zoom;
@@ -55,6 +56,8 @@ interface UseMapZoomPanOptions {
   contentRef: RefObject<HTMLElement | null>;
   /** Ignore pointer drags that start on these selectors (pins, buttons, etc.). */
   dragIgnoreSelector?: string;
+  /** Max initial fit zoom (e.g. 1.35 on mobile to fill portrait viewports). */
+  maxFitZoom?: number;
 }
 
 export function useMapZoomPan({
@@ -62,6 +65,7 @@ export function useMapZoomPan({
   contentKey,
   contentRef,
   dragIgnoreSelector = ".hoenn-map__pin, .map-marker, .map-zoom-viewport__recenter",
+  maxFitZoom = 1,
 }: UseMapZoomPanOptions) {
   const [zoom, setZoom] = useState(1);
   const [fitZoom, setFitZoom] = useState(1);
@@ -118,12 +122,13 @@ export function useMapZoomPan({
       viewport.clientHeight,
       content.offsetWidth,
       content.offsetHeight,
+      maxFitZoom,
     );
     setFitZoom(nextZoom);
     setZoom(nextZoom);
     setPan(nextPan);
     requestAnimationFrame(syncRecenterPosition);
-  }, [contentRef, enabled, syncRecenterPosition]);
+  }, [contentRef, enabled, maxFitZoom, syncRecenterPosition]);
 
   const zoomAtPoint = useCallback((newZoom: number, clientX: number, clientY: number) => {
     const viewport = viewportRef.current;

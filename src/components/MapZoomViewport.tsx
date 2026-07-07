@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useMapZoomPan } from "../lib/mapZoomPan";
 
 interface MapZoomViewportProps {
@@ -8,13 +8,31 @@ interface MapZoomViewportProps {
   children: ReactNode;
 }
 
+function useNarrowViewport() {
+  const [narrow, setNarrow] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const onChange = () => setNarrow(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return narrow;
+}
+
 /** Pinch/drag zoom wrapper for walkthrough map lightboxes. */
 export function MapZoomViewport({ enabled, contentKey, className = "", children }: MapZoomViewportProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const narrow = useNarrowViewport();
+  const maxFitZoom = narrow ? 1.35 : 1;
   const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
     enabled,
     contentKey,
     contentRef,
+    maxFitZoom,
   });
 
   useEffect(() => {
