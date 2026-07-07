@@ -50,6 +50,7 @@ export function AreaMapView({
   const maxH = variant === "lightbox" ? 720 : 360;
   const aspect = area ? area.width / area.height : 1;
   const inLightbox = variant === "lightbox";
+  const isWide = aspect > 1.25;
 
   if (!area) return null;
 
@@ -58,7 +59,7 @@ export function AreaMapView({
 
   return (
     <figure
-      className={`area-map-view area-map-view--${variant} ${onClick ? "area-map-view--clickable" : ""} ${className}`}
+      className={`area-map-view area-map-view--${variant}${inLightbox && isWide ? " area-map-view--wide" : ""} ${onClick ? "area-map-view--clickable" : ""} ${className}`}
       onClick={onClick}
       onKeyDown={
         onClick

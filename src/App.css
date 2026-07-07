@@ -814,15 +814,18 @@
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__frame {
-  flex: 1 1 auto;
-  min-height: min(46dvh, 360px);
-  max-height: none;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 0;
+  max-height: min(52dvh, 420px);
+  height: auto;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
-  flex: 1 1 auto;
-  min-height: min(42dvh, 300px);
-  max-height: none;
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: min(42dvh, 300px);
+  height: auto;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
@@ -838,9 +841,14 @@
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: min(46dvh, 360px);
+  min-height: 0;
+  max-height: min(52dvh, 420px);
+  height: auto;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__frame {
   max-height: none;
 }
 
@@ -863,9 +871,14 @@
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: min(46dvh, 360px);
+  min-height: 0;
+  max-height: min(52dvh, 420px);
+  height: auto;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--wide .area-map-view__frame {
   max-height: none;
 }
 
@@ -901,15 +914,17 @@
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__frame,
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__frame--zoomable {
-  flex: 1 1 68%;
-  min-height: min(360px, 48vh);
-  max-height: none;
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: min(52vh, 520px);
+  height: auto;
   width: 100%;
 }
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
-  flex: 1 1 68%;
-  min-height: min(340px, 46vh);
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: min(46vh, 400px);
 }
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
@@ -920,9 +935,14 @@
 }
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
-  flex: 1 1 68%;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: min(360px, 48vh);
+  min-height: 0;
+  max-height: min(52vh, 520px);
+  height: auto;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__frame {
   max-height: none;
 }
 
@@ -967,9 +987,14 @@
 }
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
-  flex: 1 1 68%;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: min(360px, 48vh);
+  min-height: 0;
+  max-height: min(52vh, 520px);
+  height: auto;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view--wide .area-map-view__frame {
   max-height: none;
 }
 
@@ -1334,9 +1359,10 @@
 }
 
 .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
-  flex: 1 1 auto;
-  min-height: min(52vh, 420px);
-  max-height: none;
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: min(46dvh, 400px);
+  height: auto;
 }
 
 .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__canvas {
@@ -3945,7 +3971,7 @@
 }
 
 .hoenn-crop__lightbox-body .hoenn-crop__frame {
-  flex: 1 1 280px;
+  flex: 0 0 auto;
   min-width: 0;
 }
 
@@ -4227,6 +4253,12 @@
 
 .area-map-view--lightbox .area-map-view__frame {
   border: none;
+}
+
+.area-map-view--wide .area-map-view__image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .screenshots__annotated {
@@ -5616,16 +5648,23 @@
 
   .lightbox__panel--annotated .annotated-map__frame,
   .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     width: 100%;
-    min-height: min(46dvh, 360px);
+    min-height: 0;
+    max-height: min(52dvh, 420px);
+    height: auto;
+  }
+
+  .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__frame,
+  .lightbox__panel--annotated .area-map-view--wide .area-map-view__frame {
     max-height: none;
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
-    flex: 1 1 auto;
-    min-height: min(42dvh, 300px);
-    max-height: none;
+    flex: 0 0 auto;
+    min-height: 0;
+    max-height: min(42dvh, 300px);
+    height: auto;
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__img {
@@ -5644,10 +5683,11 @@
   }
 
   .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     width: 100%;
-    min-height: min(46dvh, 360px);
-    max-height: none;
+    min-height: 0;
+    max-height: min(52dvh, 420px);
+    height: auto;
   }
 
   .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__legend {

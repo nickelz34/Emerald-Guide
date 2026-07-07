@@ -52,6 +52,7 @@ export function HoennCrop({
   const inLightbox = variant === "lightbox";
   const aspect = cropWpx / cropHpx;
   const maxH = inLightbox ? 720 : 460;
+  const isWide = aspect > 1.25;
 
   const frameStyle: CSSProperties = {
     aspectRatio: `${cropWpx} / ${cropHpx}`,
@@ -213,7 +214,7 @@ export function HoennCrop({
 
   if (inLightbox) {
     return (
-      <figure className={`hoenn-crop hoenn-crop--lightbox ${className}`}>
+      <figure className={`hoenn-crop hoenn-crop--lightbox${isWide ? " hoenn-crop--wide" : ""} ${className}`}>
         {(caption || areaId) && <p className="hoenn-crop__lightbox-title">{caption}</p>}
         <div className="hoenn-crop__lightbox-body">
           {frame}
