@@ -13,7 +13,7 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const API = "https://pokeapi.co/api/v2";
 const WILD_URL =
   "https://raw.githubusercontent.com/pret/pokeemerald/master/src/data/wild_encounters.json";
-const WILD_OUT = path.join(ROOT, "public/data/wild_encounters.json");
+const WILD_OUT = path.join(ROOT, "src/data/wild_encounters.json");
 const DEX_OUT = path.join(ROOT, "src/data/dexGenerated.ts");
 const SPECIES_OUT = path.join(ROOT, "src/data/speciesDataGenerated.ts");
 const MAX_GEN3 = 386;

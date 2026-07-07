@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.27",
+    date: "2026-07-07",
+    summary: "Wild encounter data is fully bundled — zero runtime data fetches.",
+    sections: [
+      {
+        heading: "Offline data",
+        items: [
+          "wild_encounters.json is imported at build time instead of fetched on first Pokédex visit.",
+          "The app no longer makes any network requests for guide data — everything ships in the bundle.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.26",
     date: "2026-07-07",
     summary: "The Pokémon Finder is now simply called the Pokédex everywhere in the app.",
@@ -42,7 +56,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         items: [
           "Pokédex listings (Hoenn, National, All) ship as bundled data instead of PokéAPI fetches.",
           "Species detail panels (stats, types, abilities, flavor text, evolution) load from local data — no network needed.",
-          "Wild encounter source JSON is bundled under public/data/ and served from the same origin.",
+          "Wild encounter source JSON is bundled in the app and transformed at build time — no fetch on load.",
           "Inter font is self-hosted via @fontsource — Google Fonts CDN removed from index.html.",
           "Run npm run sync:offline-data to refresh dex, species, and wild data from upstream sources.",
         ],

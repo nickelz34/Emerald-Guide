@@ -1,10 +1,9 @@
 /**
- * Complete Emerald wild-encounter data, sourced from pret/pokeemerald
- * (bundled at public/data/wild_encounters.json) and transformed into a per-species
- * "Pokédex" the UI can search.
+ * Complete Emerald wild-encounter data from pret/pokeemerald (bundled in
+ * wild_encounters.json) and transformed into a per-species Pokédex the UI can search.
  */
 
-import { assetUrl } from "../lib/assetUrl";
+import rawWildEncounters from "./wild_encounters.json";
 import type { EncounterMethod } from "../types";
 
 export type Rarity = "Common" | "Uncommon" | "Rare" | "Very Rare";
@@ -324,18 +323,11 @@ function transform(raw: RawJson): WildPokemon[] {
 
 let cache: Promise<WildPokemon[]> | null = null;
 
+const WILD_POKEDEX: WildPokemon[] = transform(rawWildEncounters as RawJson);
+
 export function loadWildPokedex(): Promise<WildPokemon[]> {
   if (!cache) {
-    cache = fetch(assetUrl("data/wild_encounters.json"))
-      .then((r) => {
-        if (!r.ok) throw new Error(`Failed to load encounter data (${r.status})`);
-        return r.json() as Promise<RawJson>;
-      })
-      .then(transform)
-      .catch((err) => {
-        cache = null; // allow retry
-        throw err;
-      });
+    cache = Promise.resolve(WILD_POKEDEX);
   }
   return cache;
 }
