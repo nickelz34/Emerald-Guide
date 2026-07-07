@@ -535,28 +535,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         return;
       }
 
-      const alreadySelected = selectedId === point.id;
-      const twoStep = isTouchDevice;
-
       if (isTrainerPoint(point)) {
-        if (twoStep && !alreadySelected) {
-          setSelectedId(point.id);
-          setModalRoute(null);
-          setModalTrainer(null);
-          return;
-        }
         setSelectedId(point.id);
         setModalRoute(null);
         setModalTrainer(point);
         return;
       }
       if (point.category === "route") {
-        if (twoStep && !alreadySelected) {
-          setSelectedId(point.id);
-          setModalRoute(null);
-          setModalTrainer(null);
-          return;
-        }
         setSelectedId(point.id);
         setModalRoute(point);
         setModalTrainer(null);
@@ -564,9 +549,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       }
       setModalTrainer(null);
       setModalRoute(null);
-      setSelectedId(alreadySelected ? null : point.id);
+      setSelectedId((id) => (id === point.id ? null : point.id));
     },
-    [isTouchDevice, selectedId],
+    [],
   );
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -733,11 +718,6 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     </>
                   ) : (
                     <span className="hoenn-map__pin-dot" />
-                  )}
-                  {isTouchDevice && active && (
-                    <span className="hoenn-map__active-label" aria-hidden="true">
-                      {point.name}
-                    </span>
                   )}
                   <span className="hoenn-map__pin-hint" aria-hidden="true">
                     {trainer ? (
@@ -960,7 +940,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         ) : (
           <p className="hoenn-map__hint">
             {isTouchDevice
-              ? "Drag to pan, pinch to zoom. Tap a marker for its name; tap again for routes/trainers. Tap empty map to dismiss."
+              ? "Drag to pan, pinch to zoom. Tap a marker for details. Tap empty map to dismiss."
               : "Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details."}
           </p>
         )}

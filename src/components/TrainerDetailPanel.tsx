@@ -5,7 +5,6 @@ import { getTrainerBattle, type TrainerBattleData, type TrainerPartyMon } from "
 import { TRAINER_BATTLES } from "../data/trainerPartiesGenerated";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 import { getTrainerBattleTips } from "../lib/trainerBattleTips";
-import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import { resistTypes, teamWeaknesses } from "../lib/typeChart";
 import { emeraldSpriteUrl, loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
 const FACING_LABELS = ["south", "north", "west", "east"] as const;
@@ -665,10 +664,14 @@ export function TrainerDetailModal({ trainer, onClose }: TrainerDetailModalProps
   if (!trainer) return null;
 
   return createPortal(
-    <ModalBackdrop
+    <div
       className="trainer-modal"
-      onClose={onClose}
+      role="dialog"
+      aria-modal="true"
       aria-labelledby="trainer-modal-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div className="trainer-modal__panel" onClick={(e) => e.stopPropagation()}>
         <div className="trainer-modal__head">
@@ -676,13 +679,23 @@ export function TrainerDetailModal({ trainer, onClose }: TrainerDetailModalProps
             <h3 id="trainer-modal-title">{trainer.name}</h3>
             <p className="trainer-modal__subtitle">{trainer.trainerClass}</p>
           </div>
-          <ModalCloseButton className="trainer-modal__close" onClose={onClose} />
+          <button
+            type="button"
+            className="trainer-modal__close"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            aria-label="Close"
+          >
+            ×
+          </button>
         </div>
         <div className="trainer-modal__body">
           <TrainerModalBody trainer={trainer} />
         </div>
       </div>
-    </ModalBackdrop>,
+    </div>,
     document.body,
   );
 }

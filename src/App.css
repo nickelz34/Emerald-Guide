@@ -1553,25 +1553,6 @@
   pointer-events: none;
 }
 
-.hoenn-map__active-label {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 6px);
-  transform: translateX(-50%);
-  padding: 3px 8px;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.25;
-  white-space: nowrap;
-  color: #fff;
-  background: rgba(8, 18, 34, 0.97);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
-  pointer-events: none;
-  z-index: 30;
-}
-
 .hoenn-map__canvas {
   position: absolute;
   top: 0;
@@ -2718,14 +2699,18 @@
 
 @media (max-width: 640px) {
   .route-modal {
-    padding: 0;
-    align-items: flex-end;
+    padding: 1rem;
+    align-items: center;
   }
 
   .route-modal__panel {
-    max-height: 92vh;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    max-height: 85vh;
+    border-radius: 12px;
+  }
+
+  .route-modal__close {
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
@@ -2781,20 +2766,9 @@
   color: #fff;
 }
 
-/* Touch devices: hide hover-only UI; show name label on the selected marker. */
+/* Touch devices: hide floating map popups (use legend panel / modals). */
 @media (hover: none) and (pointer: coarse) {
-  .hoenn-map__pin-hint {
-    display: none !important;
-    opacity: 0;
-  }
-
-  .hoenn-map__pin.is-active .hoenn-map__pin-hint {
-    display: flex !important;
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-    pointer-events: none;
-  }
-
+  .hoenn-map__pin-hint,
   .hoenn-map__pin-tip {
     display: none !important;
   }
