@@ -11,7 +11,7 @@ interface MapZoomViewportProps {
 /** Pinch/drag zoom wrapper for walkthrough map lightboxes. */
 export function MapZoomViewport({ enabled, contentKey, className = "", children }: MapZoomViewportProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
-  const { attachViewportRef, canvasStyle, fitToContent, recenterPos } = useMapZoomPan({
+  const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
     enabled,
     contentKey,
     contentRef,
@@ -36,7 +36,11 @@ export function MapZoomViewport({ enabled, contentKey, className = "", children 
   }
 
   return (
-    <div ref={attachViewportRef} className={`map-zoom-viewport ${className}`.trim()}>
+    <div
+      ref={attachViewportRef}
+      className={`map-zoom-viewport ${className}`.trim()}
+      style={zoomStyle}
+    >
       <div className="map-zoom-viewport__canvas" style={canvasStyle}>
         <div ref={contentRef} className="map-zoom-viewport__content">
           {children}

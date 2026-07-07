@@ -1471,6 +1471,28 @@
   line-height: 1.35;
 }
 
+/* Shrink pins as the map zooms in so markers don't pile on top of each other. */
+.map-zoom-viewport {
+  --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
+}
+
+.map-zoom-viewport .hoenn-map__pin {
+  transform: translate(-50%, -50%) scale(var(--pin-zoom));
+}
+
+.map-zoom-viewport .hoenn-map__pin--trainer {
+  transform: translate(-50%, -100%) scale(var(--pin-zoom));
+}
+
+.map-zoom-viewport .map-marker {
+  transform: translate(-50%, -50%) scale(var(--pin-zoom));
+}
+
+.map-zoom-viewport .map-marker:hover,
+.map-zoom-viewport .map-marker--active {
+  transform: translate(-50%, -50%) scale(calc(var(--pin-zoom) * 1.28));
+}
+
 .lightbox__panel--annotated .annotated-map:not(.annotated-map--panoramic) .annotated-map__frame--zoomable .annotated-map__canvas {
   width: 100%;
 }
@@ -3904,6 +3926,7 @@
   overflow: hidden;
   scrollbar-width: none;
   overscroll-behavior: none;
+  --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
 .annotated-map__frame--zoomable::-webkit-scrollbar {
@@ -3919,6 +3942,12 @@
 .annotated-map__frame--zoomable .map-marker {
   cursor: pointer;
   pointer-events: auto;
+  transform: translate(-50%, -50%) scale(var(--pin-zoom));
+}
+
+.annotated-map__frame--zoomable .map-marker:hover,
+.annotated-map__frame--zoomable .map-marker--active {
+  transform: translate(-50%, -50%) scale(calc(var(--pin-zoom) * 1.28));
 }
 
 .annotated-map__frame--panoramic {

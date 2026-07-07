@@ -64,6 +64,7 @@ export function useMapZoomPan({
   dragIgnoreSelector = ".hoenn-map__pin, .map-marker, .map-zoom-viewport__recenter",
 }: UseMapZoomPanOptions) {
   const [zoom, setZoom] = useState(1);
+  const [fitZoom, setFitZoom] = useState(1);
   const [pan, setPan] = useState<Pan>({ x: 0, y: 0 });
   const [recenterPos, setRecenterPos] = useState<{ left: number; top: number } | null>(null);
 
@@ -118,6 +119,7 @@ export function useMapZoomPan({
       content.offsetWidth,
       content.offsetHeight,
     );
+    setFitZoom(nextZoom);
     setZoom(nextZoom);
     setPan(nextPan);
     requestAnimationFrame(syncRecenterPosition);
@@ -311,6 +313,7 @@ export function useMapZoomPan({
   useEffect(() => {
     if (!enabled) return;
     setZoom(1);
+    setFitZoom(1);
     setPan({ x: 0, y: 0 });
     pinchRef.current = null;
     touchPanRef.current = null;
@@ -344,7 +347,13 @@ export function useMapZoomPan({
     attachViewportRef,
     canvasStyle,
     fitToContent,
+    fitZoom,
     recenterPos,
     syncRecenterPosition,
+    zoom,
+    zoomStyle: {
+      "--map-zoom": zoom,
+      "--map-zoom-fit": fitZoom,
+    } as CSSProperties,
   };
 }
