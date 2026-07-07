@@ -11,6 +11,8 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [react()],
     server: {
+      host: true,
+      allowedHosts: true,
       watch: {
         // Windows locks PNGs under public/, and native fs.watch throws EBUSY on them.
         // Polling avoids the native watcher entirely, and we still ignore the static

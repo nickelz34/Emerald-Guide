@@ -359,7 +359,9 @@ export function RouteDetailModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="route-modal-title"
-      onClick={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div className="route-modal__panel" onClick={(e) => e.stopPropagation()}>
         <div className="route-modal__head">
@@ -387,7 +389,15 @@ export function RouteDetailModal({
               </>
             )}
           </div>
-          <button type="button" className="route-modal__close" onClick={onClose} aria-label="Close">
+          <button
+            type="button"
+            className="route-modal__close"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            aria-label="Close"
+          >
             ×
           </button>
         </div>

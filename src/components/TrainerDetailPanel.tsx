@@ -669,7 +669,9 @@ export function TrainerDetailModal({ trainer, onClose }: TrainerDetailModalProps
       role="dialog"
       aria-modal="true"
       aria-labelledby="trainer-modal-title"
-      onClick={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div className="trainer-modal__panel" onClick={(e) => e.stopPropagation()}>
         <div className="trainer-modal__head">
@@ -677,7 +679,15 @@ export function TrainerDetailModal({ trainer, onClose }: TrainerDetailModalProps
             <h3 id="trainer-modal-title">{trainer.name}</h3>
             <p className="trainer-modal__subtitle">{trainer.trainerClass}</p>
           </div>
-          <button type="button" className="trainer-modal__close" onClick={onClose} aria-label="Close">
+          <button
+            type="button"
+            className="trainer-modal__close"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            aria-label="Close"
+          >
             ×
           </button>
         </div>

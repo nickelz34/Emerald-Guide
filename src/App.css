@@ -1549,6 +1549,10 @@
   cursor: grabbing;
 }
 
+.hoenn-map__viewport--modal-open {
+  pointer-events: none;
+}
+
 .hoenn-map__canvas {
   position: absolute;
   top: 0;
@@ -1633,6 +1637,30 @@
 
 .hoenn-map__pin--route .hoenn-map__pin-hint {
   display: none;
+}
+
+/* Compact route markers when zoomed out — dot by default, label on tap/zoom-in. */
+.hoenn-map__pin-dot--route {
+  display: none;
+  width: 9px;
+  height: 9px;
+  background: var(--pin-color, #5ec4e8);
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route .hoenn-map__pin-dot--route {
+  display: block;
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route .hoenn-map__pin-label {
+  display: none;
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route.is-active .hoenn-map__pin-dot--route {
+  display: none;
+}
+
+.hoenn-map__viewport--compact-routes .hoenn-map__pin--route.is-active .hoenn-map__pin-label {
+  display: inline-block;
 }
 
 /* Distinct shapes per category */
@@ -2458,14 +2486,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(2px);
+  overflow: hidden;
 }
 
 .route-modal__panel {
   width: min(720px, 100%);
-  max-height: 90vh;
+  max-height: min(
+    90dvh,
+    calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 2rem)
+  );
   display: flex;
   flex-direction: column;
   background: var(--panel-bg, #1a2332);
@@ -2473,6 +2506,7 @@
   border-radius: 12px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
   overflow: hidden;
+  min-height: 0;
 }
 
 .route-modal__head {
@@ -2480,6 +2514,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  flex-shrink: 0;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.15);
@@ -2519,8 +2554,12 @@
 }
 
 .route-modal__body {
-  padding: 1rem 1.25rem 1.25rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 1rem 1.25rem max(1.25rem, env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .route-modal__section {
@@ -2671,14 +2710,30 @@
 
 @media (max-width: 640px) {
   .route-modal {
-    padding: 0;
-    align-items: flex-end;
+    padding: max(0.65rem, env(safe-area-inset-top, 0px)) max(0.65rem, env(safe-area-inset-right, 0px))
+      max(0.65rem, env(safe-area-inset-bottom, 0px)) max(0.65rem, env(safe-area-inset-left, 0px));
+    align-items: center;
   }
 
   .route-modal__panel {
-    max-height: 92vh;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    width: 100%;
+    max-height: calc(
+      100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1.3rem
+    );
+    border-radius: 12px;
+  }
+
+  .route-modal__head {
+    padding: 0.85rem 1rem;
+  }
+
+  .route-modal__body {
+    padding: 0.85rem 1rem max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .route-modal__close {
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
@@ -2732,6 +2787,28 @@
   font-size: 0.78rem;
   font-weight: 600;
   color: #fff;
+}
+
+/* Touch devices: hide floating map popups (use legend panel / modals). */
+@media (hover: none) and (pointer: coarse) {
+  .hoenn-map__pin-hint,
+  .hoenn-map__pin-tip {
+    display: none !important;
+  }
+
+  .hoenn-map--compact .hoenn-map__legend-detail {
+    display: block;
+  }
+
+  .hoenn-map__pin {
+    touch-action: manipulation;
+  }
+
+  .route-modal__close,
+  .trainer-modal__close {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 .hoenn-map__pin-tip {
@@ -3160,6 +3237,40 @@
   .hoenn-map__legend-head {
     flex: 1 1 100%;
     justify-content: space-between;
+  }
+}
+
+/* Hoenn map — mobile / narrow screens */
+@media (max-width: 900px) {
+  .hoenn-map__viewport {
+    aspect-ratio: auto;
+    min-height: min(58vh, 520px);
+    height: min(58vh, 520px);
+  }
+
+  .hoenn-map__controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+.app-shell[data-view="mobile"] .hoenn-map__viewport {
+  aspect-ratio: auto;
+  min-height: min(58vh, 520px);
+  height: min(58vh, 520px);
+}
+
+@media (max-width: 900px) {
+  .map-modal__panel {
+    width: min(100vw - 1rem, 900px);
+    max-height: calc(100vh - 1rem);
+    padding: 0.85rem 0.9rem 1rem;
+  }
+
+  .map-modal__panel .hoenn-map__viewport {
+    min-height: min(52vh, 460px);
+    max-height: min(62vh, 540px);
   }
 }
 

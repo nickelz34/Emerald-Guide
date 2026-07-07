@@ -80,6 +80,11 @@ const MAP_H = 6128;
 const MIN_SCALE = 1;
 const MAX_SCALE = 14;
 const ZOOM_STEP = 1.35;
+/** Narrow viewports start zoomed in so the overworld map is readable on phones. */
+const NARROW_VIEWPORT_MAX = 900;
+const MOBILE_DEFAULT_SCALE = 2.75;
+/** Route text labels only appear once zoomed in past this (overworld map). */
+const ROUTE_LABEL_MIN_SCALE = 3.25;
 
 interface HoennMapProps {
   activeStepId?: string;
@@ -98,10 +103,22 @@ interface View {
   y: number;
 }
 
+function touchDistance(touches: TouchList) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.hypot(dx, dy);
+}
+
+/** WebKit pinch events (iOS Safari). */
+interface GestureEvent extends UIEvent {
+  scale: number;
+}
+
 export function HoennMap({ activeStepId, onSelectRegion, compact = false }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
   const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
@@ -144,6 +161,36 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     moved: boolean;
   } | null>(null);
   const suppressClickRef = useRef(false);
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  const blockMapMarkerUntilRef = useRef(0);
+  const markerTouchHandledRef = useRef(false);
+  const pinPointerRef = useRef<{ pointerId: number; x: number; y: number; moved: boolean } | null>(null);
+  const modalOpenRef = useRef(false);
+
+  const clearSelection = useCallback(() => {
+    setSelectedId(null);
+    setModalTrainer(null);
+    setModalRoute(null);
+  }, []);
+
+  const closeRouteModal = useCallback(() => {
+    blockMapMarkerUntilRef.current = Date.now() + 600;
+    setModalRoute(null);
+  }, []);
+
+  const closeTrainerModal = useCallback(() => {
+    blockMapMarkerUntilRef.current = Date.now() + 600;
+    setModalTrainer(null);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const update = () => setIsTouchDevice(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const passesTrainerFilter = useCallback(
     (p: MapPoint) => {
@@ -187,6 +234,12 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   /** Width the map occupies at scale 1 (whole map contained in the viewport). */
   const fitW = vp.w && vp.h ? Math.min(vp.w, vp.h * mapAr) : vp.w;
 
+  const isNarrowViewport = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
+  const isOverworld = !currentArea;
+  const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
+  const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
+  modalOpenRef.current = modalRoute !== null || modalTrainer !== null;
+
   const canvasW = fitW * view.scale;
   const canvasH = canvasW / mapAr;
 
@@ -207,7 +260,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     [vp.w, vp.h, mapAr],
   );
 
-  const fit = useCallback(() => setView(clamp({ scale: 1, x: 0, y: 0 })), [clamp]);
+  const fit = useCallback(
+    () => setView(clamp({ scale: defaultScale, x: 0, y: 0 })),
+    [clamp, defaultScale],
+  );
 
   /** Select a point and pan/zoom the map so it sits in the middle of the view. */
   const focusPoint = useCallback(
@@ -259,9 +315,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       } else {
         setVisible(initialVisible());
       }
-      setView(clamp({ scale: 1, x: 0, y: 0 }));
+      setView(clamp({ scale: defaultScale, x: 0, y: 0 }));
     },
-    [clamp],
+    [clamp, defaultScale],
   );
 
   // When a step asks to be shown (e.g. "Show on Hoenn map"), pan the overworld map to
@@ -290,6 +346,20 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     [clamp],
   );
 
+  const zoomToScale = useCallback(
+    (targetScale: number, cx: number, cy: number) => {
+      setView((prev) => {
+        const nextScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        if (nextScale === prev.scale) return prev;
+        const ratio = nextScale / prev.scale;
+        const x = cx - (cx - prev.x) * ratio;
+        const y = cy - (cy - prev.y) * ratio;
+        return clamp({ scale: nextScale, x, y });
+      });
+    },
+    [clamp],
+  );
+
   const zoomButton = useCallback(
     (factor: number) => zoomAt(factor, vp.w / 2, vp.h / 2),
     [zoomAt, vp.w, vp.h],
@@ -309,8 +379,15 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   // Re-center / re-clamp whenever the viewport size changes.
   useEffect(() => {
     if (!vp.w || !vp.h) return;
-    setView((v) => clamp(v));
-  }, [vp.w, vp.h, clamp]);
+    setView((v) => {
+      const next = clamp(v);
+      // When rotating or resizing onto a phone, bump a "fit whole map" view to the mobile default zoom.
+      if (isNarrowViewport && isOverworld && v.scale === 1 && defaultScale > 1) {
+        return clamp({ ...next, scale: defaultScale });
+      }
+      return next;
+    });
+  }, [vp.w, vp.h, clamp, isNarrowViewport, isOverworld, defaultScale]);
 
   // Native wheel listener so we can preventDefault (React onWheel is passive).
   useEffect(() => {
@@ -326,8 +403,159 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt]);
 
+  // Touch pan + pinch zoom, plus WebKit gesture events for iOS Safari.
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    const pinchRef: { current: { startDist: number; startScale: number } | null } = { current: null };
+    const touchPanRef: {
+      current: { x: number; y: number; originX: number; originY: number; moved: boolean } | null;
+    } = { current: null };
+    let gestureStartScale = 1;
+
+    const onTouchStart = (e: TouchEvent) => {
+      suppressClickRef.current = false;
+      if (e.touches.length === 1) {
+        const v = viewRef.current;
+        touchPanRef.current = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          originX: v.x,
+          originY: v.y,
+          moved: false,
+        };
+        pinchRef.current = null;
+      } else if (e.touches.length === 2) {
+        touchPanRef.current = null;
+        pinchRef.current = {
+          startDist: touchDistance(e.touches),
+          startScale: viewRef.current.scale,
+        };
+        suppressClickRef.current = true;
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const rect = el.getBoundingClientRect();
+
+      if (e.touches.length === 1 && touchPanRef.current) {
+        e.preventDefault();
+        const pan = touchPanRef.current;
+        const dx = e.touches[0].clientX - pan.x;
+        const dy = e.touches[0].clientY - pan.y;
+        if (!pan.moved && Math.hypot(dx, dy) > 4) {
+          pan.moved = true;
+          suppressClickRef.current = true;
+        }
+        setView((prev) => clamp({ ...prev, x: pan.originX + dx, y: pan.originY + dy }));
+        return;
+      }
+
+      if (e.touches.length !== 2 || !pinchRef.current) return;
+      e.preventDefault();
+      const dist = touchDistance(e.touches);
+      const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+      const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+      zoomToScale(pinchRef.current.startScale * (dist / pinchRef.current.startDist), cx, cy);
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length === 0) {
+        const pan = touchPanRef.current;
+        if (pan && !pan.moved && !modalOpenRef.current) {
+          const target = e.target as HTMLElement;
+          if (!target.closest(".hoenn-map__pin")) {
+            clearSelection();
+          }
+        }
+        touchPanRef.current = null;
+        pinchRef.current = null;
+      } else if (e.touches.length === 1) {
+        pinchRef.current = null;
+        const v = viewRef.current;
+        touchPanRef.current = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          originX: v.x,
+          originY: v.y,
+          moved: false,
+        };
+      }
+    };
+
+    const onGestureStart = (e: Event) => {
+      e.preventDefault();
+      gestureStartScale = viewRef.current.scale;
+    };
+
+    const onGestureChange = (e: Event) => {
+      e.preventDefault();
+      const ge = e as GestureEvent;
+      const rect = el.getBoundingClientRect();
+      zoomToScale(gestureStartScale * ge.scale, rect.width / 2, rect.height / 2);
+    };
+
+    const onGestureEnd = (e: Event) => {
+      e.preventDefault();
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd);
+    el.addEventListener("touchcancel", onTouchEnd);
+    el.addEventListener("gesturestart", onGestureStart);
+    el.addEventListener("gesturechange", onGestureChange);
+    el.addEventListener("gestureend", onGestureEnd);
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
+      el.removeEventListener("gesturestart", onGestureStart);
+      el.removeEventListener("gesturechange", onGestureChange);
+      el.removeEventListener("gestureend", onGestureEnd);
+    };
+  }, [clamp, zoomToScale, clearSelection]);
+
+  const onViewportClick = () => {
+    if (suppressClickRef.current || modalOpenRef.current) {
+      suppressClickRef.current = false;
+      return;
+    }
+    clearSelection();
+  };
+
+  const activateMarker = useCallback(
+    (point: MapPoint) => {
+      if (Date.now() < blockMapMarkerUntilRef.current) return;
+      if (suppressClickRef.current) {
+        suppressClickRef.current = false;
+        return;
+      }
+
+      if (isTrainerPoint(point)) {
+        setSelectedId(point.id);
+        setModalRoute(null);
+        setModalTrainer(point);
+        return;
+      }
+      if (point.category === "route") {
+        setSelectedId(point.id);
+        setModalRoute(point);
+        setModalTrainer(null);
+        return;
+      }
+      setModalTrainer(null);
+      setModalRoute(null);
+      setSelectedId((id) => (id === point.id ? null : point.id));
+    },
+    [],
+  );
+
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0) return;
+    if (e.button !== 0 || e.pointerType === "touch") return;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     dragState.current = {
       pointerId: e.pointerId,
@@ -353,28 +581,6 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     if (!drag || drag.pointerId !== e.pointerId) return;
     if (drag.moved) suppressClickRef.current = true;
     dragState.current = null;
-  };
-
-  const handleMarkerClick = (point: MapPoint) => {
-    if (suppressClickRef.current) {
-      suppressClickRef.current = false;
-      return;
-    }
-    if (isTrainerPoint(point)) {
-      setSelectedId(point.id);
-      setModalRoute(null);
-      setModalTrainer(point);
-      return;
-    }
-    if (point.category === "route") {
-      setSelectedId(point.id);
-      setModalRoute(point);
-      setModalTrainer(null);
-      return;
-    }
-    setModalTrainer(null);
-    setModalRoute(null);
-    setSelectedId((id) => (id === point.id ? null : point.id));
   };
 
   const jumpToGuide = (point: MapPoint) => {
@@ -407,12 +613,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onClick={onViewportClick}
         >
           <div
             className="hoenn-map__canvas"
@@ -443,15 +650,46 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     top: `${point.y}%`,
                     ["--pin-color" as string]: cat?.color,
                   }}
-                  onPointerDown={(e) => e.stopPropagation()}
+                  onPointerDown={(e) => {
+                    e.stopPropagation();
+                    suppressClickRef.current = false;
+                    pinPointerRef.current = {
+                      pointerId: e.pointerId,
+                      x: e.clientX,
+                      y: e.clientY,
+                      moved: false,
+                    };
+                  }}
+                  onPointerMove={(e) => {
+                    e.stopPropagation();
+                    const p = pinPointerRef.current;
+                    if (!p || p.pointerId !== e.pointerId) return;
+                    if (Math.hypot(e.clientX - p.x, e.clientY - p.y) > 10) p.moved = true;
+                  }}
+                  onPointerUp={(e) => {
+                    e.stopPropagation();
+                    const p = pinPointerRef.current;
+                    if (!p || p.pointerId !== e.pointerId) return;
+                    pinPointerRef.current = null;
+                    if (p.moved) return;
+                    if (e.pointerType === "touch") {
+                      markerTouchHandledRef.current = true;
+                      e.preventDefault();
+                      activateMarker(point);
+                    }
+                  }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleMarkerClick(point);
+                    if (markerTouchHandledRef.current) {
+                      markerTouchHandledRef.current = false;
+                      return;
+                    }
+                    activateMarker(point);
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      handleMarkerClick(point);
+                      activateMarker(point);
                     }
                   }}
                   aria-label={point.name}
@@ -474,7 +712,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       />
                     </span>
                   ) : point.category === "route" ? (
-                    <span className="hoenn-map__pin-label">{point.name}</span>
+                    <>
+                      <span className="hoenn-map__pin-dot hoenn-map__pin-dot--route" aria-hidden="true" />
+                      <span className="hoenn-map__pin-label">{point.name}</span>
+                    </>
                   ) : (
                     <span className="hoenn-map__pin-dot" />
                   )}
@@ -698,7 +939,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
           </div>
         ) : (
           <p className="hoenn-map__hint">
-            Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details.
+            {isTouchDevice
+              ? "Drag to pan, pinch to zoom. Tap a marker for details. Tap empty map to dismiss."
+              : "Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details."}
           </p>
         )}
       </aside>
@@ -751,10 +994,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       )}
       <RouteDetailModal
         route={modalRoute}
-        onClose={() => setModalRoute(null)}
+        onClose={closeRouteModal}
         onJumpToGuide={jumpToGuide}
       />
-      <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
+      <TrainerDetailModal trainer={modalTrainer} onClose={closeTrainerModal} />
     </div>
   );
 }
