@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.34",
+    date: "2026-07-07",
+    summary: "Hidden item map pins now use a grey-and-white Poké Ball matching the visible item ball size.",
+    sections: [
+      {
+        heading: "Maps — collectible sprites",
+        items: [
+          "Hidden items no longer use the Itemfinder icon — they show a 16×16 Poké Ball with a grey top hemisphere and white bottom, derived from the same sprite as visible item balls.",
+          "Dashed outline styling is kept so hidden items remain visually distinct from regular item balls.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.33",
     date: "2026-07-07",
     summary: "Item, berry, and hidden-item map pins now use authentic game sprites instead of colored dots.",
