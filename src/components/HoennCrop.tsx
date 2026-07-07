@@ -3,6 +3,7 @@ import { assetUrl } from "../lib/assetUrl";
 import { HOENN_MAP_W, HOENN_MAP_H, type MapCrop } from "../data/mapCrops";
 import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
+import { MapZoomViewport } from "./MapZoomViewport";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
@@ -168,6 +169,9 @@ export function HoennCrop({
           ))}
         </ul>
         {inLightbox && (
+          <p className="map-zoom-viewport__hint">Pinch to zoom; drag to pan.</p>
+        )}
+        {inLightbox && (
           <ul className="area-map-view__point-index" aria-label="All points of interest">
             {points.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
@@ -198,11 +202,11 @@ export function HoennCrop({
       </div>
     ) : null;
 
-  const frame = (
+  const mapFrame = (
     <div
       className={`hoenn-crop__frame hoenn-crop__frame--pins ${interactive ? "hoenn-crop__frame--clickable" : ""}`}
       style={frameStyle}
-      onClick={onClick}
+      onClick={interactive ? onClick : undefined}
       onKeyDown={onKeyDown}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
@@ -210,6 +214,18 @@ export function HoennCrop({
     >
       {pinLayer}
     </div>
+  );
+
+  const frame = inLightbox ? (
+    <MapZoomViewport
+      enabled
+      contentKey={`${crop.x}-${crop.y}-${crop.w}-${crop.h}-${areaId ?? ""}`}
+      className="hoenn-crop__zoom"
+    >
+      {mapFrame}
+    </MapZoomViewport>
+  ) : (
+    mapFrame
   );
 
   if (inLightbox) {

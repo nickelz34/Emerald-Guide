@@ -810,14 +810,14 @@
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__sidebar {
   flex: 0 0 auto;
   width: 100%;
-  max-height: min(32dvh, 240px);
+  max-height: min(26dvh, 200px);
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .annotated-map__frame {
   flex: 0 0 auto;
   width: 100%;
   min-height: 0;
-  max-height: min(52dvh, 420px);
+  max-height: min(65dvh, 520px);
   height: auto;
 }
 
@@ -840,23 +840,41 @@
   overflow: hidden;
 }
 
-.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
-  flex: 0 0 auto;
-  width: 100%;
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view__lightbox-body {
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
   min-height: 0;
-  max-height: min(52dvh, 420px);
+  overflow: hidden;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame,
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__zoom,
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__zoom {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: min(58dvh, 480px);
+  max-height: min(68dvh, 560px);
   height: auto;
 }
 
-.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__frame {
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
+  flex: 0 0 auto;
+  min-height: 0;
   max-height: none;
+  height: auto;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
+  max-height: min(72dvh, 600px);
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__sidebar {
   flex: 0 0 auto;
   width: 100%;
   min-width: 0;
-  max-height: min(32dvh, 240px);
+  max-height: min(26dvh, 200px);
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox {
@@ -870,11 +888,19 @@
   gap: 0.65rem;
 }
 
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__lightbox-body {
+  flex: 1;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__frame {
   flex: 0 0 auto;
   width: 100%;
   min-height: 0;
-  max-height: min(52dvh, 420px);
+  max-height: none;
   height: auto;
 }
 
@@ -891,7 +917,7 @@
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: min(32dvh, 240px);
+  max-height: min(26dvh, 200px);
   grid-template-columns: 1fr;
 }
 
@@ -916,7 +942,7 @@
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__frame--zoomable {
   flex: 0 0 auto;
   min-height: 0;
-  max-height: min(52vh, 520px);
+  max-height: min(62vh, 600px);
   height: auto;
   width: 100%;
 }
@@ -934,21 +960,31 @@
   margin: 0 auto;
 }
 
-.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
-  flex: 0 0 auto;
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__zoom,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view__zoom {
+  flex: 1 1 auto;
   width: 100%;
-  min-height: 0;
-  max-height: min(52vh, 520px);
+  min-height: min(52vh, 440px);
+  max-height: min(62vh, 600px);
   height: auto;
 }
 
-.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__frame {
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
+  flex: 0 0 auto;
+  min-height: 0;
   max-height: none;
+  height: auto;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
+  max-height: min(66vh, 640px);
 }
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .annotated-map__sidebar,
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__sidebar {
-  flex: 0 0 min(32vh, 340px);
+  flex: 0 0 min(28vh, 300px);
   width: 100%;
   min-height: 0;
   display: flex;
@@ -990,7 +1026,7 @@
   flex: 0 0 auto;
   width: 100%;
   min-height: 0;
-  max-height: min(52vh, 520px);
+  max-height: none;
   height: auto;
 }
 
@@ -1352,6 +1388,87 @@
 .annotated-map__recenter-icon {
   width: 1rem;
   height: 1rem;
+}
+
+/* Shared pinch/drag zoom viewport for walkthrough map lightboxes */
+.map-zoom-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  overflow: clip;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  container-type: inline-size;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  overscroll-behavior: none;
+}
+
+.map-zoom-viewport--dragging {
+  cursor: grabbing;
+}
+
+.map-zoom-viewport__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: none;
+  transform-origin: 0 0;
+  will-change: transform;
+  touch-action: none;
+  overflow: visible;
+}
+
+.map-zoom-viewport__content {
+  width: 100cqw;
+}
+
+.map-zoom-viewport__content .hoenn-crop__frame,
+.map-zoom-viewport__content .area-map-view__frame {
+  width: 100%;
+  max-width: none;
+}
+
+.map-zoom-viewport__recenter {
+  position: absolute;
+  z-index: 4;
+  width: 1.85rem;
+  height: 1.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.map-zoom-viewport__recenter:hover,
+.map-zoom-viewport__recenter:focus-visible {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.map-zoom-viewport__recenter-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.map-zoom-viewport__hint {
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.35;
 }
 
 .lightbox__panel--annotated .annotated-map:not(.annotated-map--panoramic) .annotated-map__frame--zoomable .annotated-map__canvas {
@@ -4277,6 +4394,29 @@
   border: none;
 }
 
+.area-map-view__lightbox-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  width: 100%;
+}
+
+.area-map-view__lightbox-body {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.area-map-view--lightbox .area-map-view__caption {
+  display: none;
+}
+
 .area-map-view--wide .area-map-view__image {
   width: 100%;
   height: auto;
@@ -5654,7 +5794,8 @@
   }
 
   .lightbox__panel--annotated .annotated-map__lightbox-body,
-  .lightbox__panel--annotated .hoenn-crop__lightbox-body {
+  .lightbox__panel--annotated .hoenn-crop__lightbox-body,
+  .lightbox__panel--annotated .area-map-view__lightbox-body {
     flex-direction: column;
     align-items: stretch;
     overflow: hidden;
@@ -5665,21 +5806,29 @@
     flex: 0 0 auto;
     width: 100%;
     min-width: 0;
-    max-height: min(32dvh, 240px);
+    max-height: min(26dvh, 200px);
   }
 
   .lightbox__panel--annotated .annotated-map__frame,
-  .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
-    flex: 0 0 auto;
+  .lightbox__panel--annotated .hoenn-crop__zoom,
+  .lightbox__panel--annotated .area-map-view__zoom {
+    flex: 1 1 auto;
     width: 100%;
-    min-height: 0;
-    max-height: min(52dvh, 420px);
+    min-height: min(58dvh, 480px);
+    max-height: min(68dvh, 560px);
     height: auto;
   }
 
-  .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__frame,
-  .lightbox__panel--annotated .area-map-view--wide .area-map-view__frame {
+  .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
+    flex: 0 0 auto;
+    min-height: 0;
     max-height: none;
+    height: auto;
+  }
+
+  .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
+  .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
+    max-height: min(72dvh, 600px);
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {
@@ -5708,7 +5857,7 @@
     flex: 0 0 auto;
     width: 100%;
     min-height: 0;
-    max-height: min(52dvh, 420px);
+    max-height: none;
     height: auto;
   }
 
@@ -5721,7 +5870,7 @@
   .lightbox__panel--annotated .area-map-view--lightbox .area-map-view__point-index {
     flex: 1 1 auto;
     min-height: 0;
-    max-height: min(32dvh, 240px);
+    max-height: min(26dvh, 200px);
     grid-template-columns: 1fr;
   }
 }
