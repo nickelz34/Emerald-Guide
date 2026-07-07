@@ -22,9 +22,9 @@ export const COLLECTIBLE_SPRITES: Partial<Record<PoiCategory, CollectibleSprite>
     "spriteFrame": 0
   },
   hidden: {
-    "spriteSheet": "sprites/items/itemfinder.png",
-    "spriteWidth": 24,
-    "spriteHeight": 24,
+    "spriteSheet": "sprites/items/hidden_item_ball.png",
+    "spriteWidth": 16,
+    "spriteHeight": 16,
     "spriteFrame": 0
   },
 };
