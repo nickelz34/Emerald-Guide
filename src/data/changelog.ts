@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.25",
+    date: "2026-07-07",
+    summary: "Pokédex, species stats, wild encounters, and fonts are fully offline — no runtime API calls.",
+    sections: [
+      {
+        heading: "Offline data",
+        items: [
+          "Pokédex listings (Hoenn, National, All) ship as bundled data instead of PokéAPI fetches.",
+          "Species detail panels (stats, types, abilities, flavor text, evolution) load from local data — no network needed.",
+          "Wild encounter source JSON is bundled under public/data/ and served from the same origin.",
+          "Inter font is self-hosted via @fontsource — Google Fonts CDN removed from index.html.",
+          "Run npm run sync:offline-data to refresh dex, species, and wild data from upstream sources.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.24",
     date: "2026-07-07",
     summary: "Pokémon Emerald sprites are bundled with the app — no more flaky CDN loads.",

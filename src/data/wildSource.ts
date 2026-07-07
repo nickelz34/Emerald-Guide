@@ -1,15 +1,11 @@
-import type { EncounterMethod } from "../types";
-
 /**
- * Complete Emerald wild-encounter data, sourced at runtime from the authoritative
- * pret/pokeemerald decompilation (src/data/wild_encounters.json) and transformed
- * into a per-species "Pokédex" the UI can search. This guarantees every wild
- * Pokémon in the game is searchable, with accurate locations, methods, levels,
- * and encounter rates.
+ * Complete Emerald wild-encounter data, sourced from pret/pokeemerald
+ * (bundled at public/data/wild_encounters.json) and transformed into a per-species
+ * "Pokédex" the UI can search.
  */
 
-const WILD_URL =
-  "https://raw.githubusercontent.com/pret/pokeemerald/master/src/data/wild_encounters.json";
+import { assetUrl } from "../lib/assetUrl";
+import type { EncounterMethod } from "../types";
 
 export type Rarity = "Common" | "Uncommon" | "Rare" | "Very Rare";
 
@@ -330,7 +326,7 @@ let cache: Promise<WildPokemon[]> | null = null;
 
 export function loadWildPokedex(): Promise<WildPokemon[]> {
   if (!cache) {
-    cache = fetch(WILD_URL)
+    cache = fetch(assetUrl("data/wild_encounters.json"))
       .then((r) => {
         if (!r.ok) throw new Error(`Failed to load encounter data (${r.status})`);
         return r.json() as Promise<RawJson>;

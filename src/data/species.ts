@@ -1,13 +1,10 @@
 /**
- * On-demand species info from PokéAPI. Fetched only when a Pokémon detail is
- * opened, then cached. Provides types, base stats, abilities, sprite, dex
- * flavor text, and the evolution line — i.e. "all the info" beyond raw
- * encounter data.
- *
- * In-game Emerald battle sprites (#1–386) are bundled under public/sprites/pokemon/.
+ * Species info for Gen 3 Pokémon — bundled locally (see speciesDataGenerated.ts).
+ * Emerald battle sprites (#1–386) live under public/sprites/pokemon/.
  */
 
 import { assetUrl } from "../lib/assetUrl";
+import { SPECIES_BY_SLUG } from "./speciesDataGenerated";
 
 export interface StatLine {
   label: string;
@@ -52,16 +49,10 @@ export const TYPE_COLORS: Record<string, string> = {
   Fairy: "#ec8fe6",
 };
 
-const STAT_LABELS: Record<string, string> = {
-  hp: "HP",
-  attack: "Attack",
-  defense: "Defense",
-  "special-attack": "Sp. Atk",
-  "special-defense": "Sp. Def",
-  speed: "Speed",
+/** Species whose slug differs from the bundled key. */
+const POKEMON_SLUG_ALIASES: Record<string, string> = {
+  deoxys: "deoxys-normal",
 };
-
-const API = "https://pokeapi.co/api/v2";
 
 /**
  * In-game Pokémon Emerald front sprite for a National-dex number (#1–386).
@@ -72,94 +63,18 @@ export function emeraldSpriteUrl(nationalNumber?: number): string | undefined {
   return assetUrl(`sprites/pokemon/emerald/${nationalNumber}.png`);
 }
 
-/** Species whose default /pokemon slug differs from the species name. */
-const POKEMON_SLUG_ALIASES: Record<string, string> = {
-  deoxys: "deoxys-normal",
-};
-
-function cap(s: string): string {
-  return s
-    .split("-")
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-    .join(" ");
-}
-
-interface ChainLink {
-  species: { name: string };
-  evolves_to: ChainLink[];
-}
-
-function flattenChain(link: ChainLink, acc: string[] = []): string[] {
-  acc.push(cap(link.species.name));
-  if (link.evolves_to.length > 0) {
-    // Follow the primary line (first branch) for a simple display.
-    flattenChain(link.evolves_to[0], acc);
-  }
-  return acc;
-}
-
 const cache = new Map<string, Promise<SpeciesInfo>>();
 
 export function loadSpeciesInfo(slug: string): Promise<SpeciesInfo> {
   const existing = cache.get(slug);
   if (existing) return existing;
 
-  const promise = (async () => {
-    const apiSlug = POKEMON_SLUG_ALIASES[slug] ?? slug;
-    const pokemon = await fetch(`${API}/pokemon/${apiSlug}`).then((r) => {
-      if (!r.ok) throw new Error(`PokéAPI ${r.status}`);
-      return r.json();
-    });
-
-    const stats: StatLine[] = pokemon.stats.map((s: { base_stat: number; stat: { name: string } }) => ({
-      label: STAT_LABELS[s.stat.name] ?? cap(s.stat.name),
-      value: s.base_stat,
-    }));
-
-    const info: SpeciesInfo = {
-      slug,
-      baseExp: pokemon.base_experience ?? undefined,
-      sprite:
-        pokemon.sprites?.other?.["official-artwork"]?.front_default ??
-        pokemon.sprites?.front_default ??
-        undefined,
-      types: pokemon.types.map((t: { type: { name: string } }) => cap(t.type.name)),
-      abilities: pokemon.abilities
-        .filter((a: { is_hidden: boolean }) => !a.is_hidden)
-        .map((a: { ability: { name: string } }) => cap(a.ability.name)),
-      hiddenAbility: pokemon.abilities
-        .filter((a: { is_hidden: boolean }) => a.is_hidden)
-        .map((a: { ability: { name: string } }) => cap(a.ability.name))[0],
-      stats,
-      total: stats.reduce((sum, s) => sum + s.value, 0),
-      heightM: pokemon.height ? pokemon.height / 10 : undefined,
-      weightKg: pokemon.weight ? pokemon.weight / 10 : undefined,
-      evolution: [],
-    };
-
-    // Species + evolution are best-effort; failures shouldn't block the core info.
-    try {
-      const species = await fetch(pokemon.species.url).then((r) => r.json());
-      info.dexNumber = species.id;
-      info.genus = species.genera?.find((g: { language: { name: string } }) => g.language.name === "en")?.genus;
-      const flavorEntries = species.flavor_text_entries?.filter(
-        (f: { language: { name: string } }) => f.language.name === "en",
-      );
-      const emerald = flavorEntries?.find((f: { version: { name: string } }) => f.version.name === "emerald");
-      info.flavor = (emerald ?? flavorEntries?.[0])?.flavor_text?.replace(/[\n\f\r]+/g, " ");
-
-      if (species.evolution_chain?.url) {
-        const chain = await fetch(species.evolution_chain.url).then((r) => r.json());
-        info.evolution = flattenChain(chain.chain);
-      }
-    } catch {
-      // keep base info
-    }
-
-    return info;
-  })().catch((err) => {
-    cache.delete(slug);
-    throw err;
+  const promise = Promise.resolve().then(() => {
+    if (!slug) throw new Error("No species slug");
+    const key = POKEMON_SLUG_ALIASES[slug] ?? slug;
+    const info = SPECIES_BY_SLUG[key];
+    if (!info) throw new Error(`Unknown species: ${slug}`);
+    return { ...info, slug };
   });
 
   cache.set(slug, promise);
