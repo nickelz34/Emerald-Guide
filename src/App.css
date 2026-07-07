@@ -2758,6 +2758,22 @@
   color: #fff;
 }
 
+/* Touch devices: skip hover hints and floating map popups (use legend panel / modals). */
+@media (hover: none) and (pointer: coarse) {
+  .hoenn-map__pin-hint,
+  .hoenn-map__pin-tip {
+    display: none !important;
+  }
+
+  .hoenn-map--compact .hoenn-map__legend-detail {
+    display: block;
+  }
+
+  .hoenn-map__pin {
+    touch-action: manipulation;
+  }
+}
+
 .hoenn-map__pin-tip {
   position: absolute;
   left: 50%;

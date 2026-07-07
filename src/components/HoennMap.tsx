@@ -163,6 +163,12 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const viewRef = useRef(view);
   viewRef.current = view;
 
+  const clearSelection = useCallback(() => {
+    setSelectedId(null);
+    setModalTrainer(null);
+    setModalRoute(null);
+  }, []);
+
   const passesTrainerFilter = useCallback(
     (p: MapPoint) => {
       if (!rematchableOnly || currentArea) return true;
@@ -385,6 +391,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     let gestureStartScale = 1;
 
     const onTouchStart = (e: TouchEvent) => {
+      suppressClickRef.current = false;
       if (e.touches.length === 1) {
         const v = viewRef.current;
         touchPanRef.current = {
@@ -431,6 +438,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
 
     const onTouchEnd = (e: TouchEvent) => {
       if (e.touches.length === 0) {
+        const pan = touchPanRef.current;
+        if (pan && !pan.moved) {
+          const target = e.target as HTMLElement;
+          if (!target.closest(".hoenn-map__pin")) {
+            clearSelection();
+          }
+        }
         touchPanRef.current = null;
         pinchRef.current = null;
       } else if (e.touches.length === 1) {
@@ -479,7 +493,15 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       el.removeEventListener("gesturechange", onGestureChange);
       el.removeEventListener("gestureend", onGestureEnd);
     };
-  }, [clamp, zoomToScale]);
+  }, [clamp, zoomToScale, clearSelection]);
+
+  const onViewportClick = () => {
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false;
+      return;
+    }
+    clearSelection();
+  };
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0 || e.pointerType === "touch") return;
@@ -568,6 +590,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onClick={onViewportClick}
         >
           <div
             className="hoenn-map__canvas"
@@ -599,6 +622,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     ["--pin-color" as string]: cat?.color,
                   }}
                   onPointerDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => {
+                    e.stopPropagation();
+                    suppressClickRef.current = false;
+                  }}
                   onClick={(e) => {
                     e.stopPropagation();
                     handleMarkerClick(point);
