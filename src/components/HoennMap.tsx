@@ -13,14 +13,11 @@ import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import { MapPinVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS, ...ROUTE_POINTS];
-
-function isTrainerPoint(p: MapPoint): p is TrainerPoint {
-  return p.category === "trainer" && "spriteSheet" in p;
-}
 
 /** Area maps grouped for the switcher's <optgroup> list. */
 const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
@@ -690,13 +687,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     left: `${point.x}%`,
                     top: `${point.y}%`,
                     ["--pin-color" as string]: cat?.color,
-                    ...(trainer
-                      ? {
-                          ["--trainer-frame" as string]: point.spriteFrame,
-                          ["--trainer-fw" as string]: point.spriteWidth,
-                          ["--trainer-fh" as string]: point.spriteHeight,
-                        }
-                      : {}),
+                    ...pinSpriteStyle(point),
                   }}
                   onPointerDown={(e) => {
                     e.stopPropagation();
@@ -742,25 +733,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   }}
                   aria-label={point.name}
                 >
-                  {trainer ? (
-                    <span
-                      className="hoenn-map__trainer-frame"
-                      aria-hidden="true"
-                    >
-                      <img
-                        src={assetUrl(point.spriteSheet)}
-                        alt=""
-                        className="hoenn-map__trainer-sprite"
-                        draggable={false}
-                      />
-                    </span>
-                  ) : point.category === "route" ? (
+                  {point.category === "route" ? (
                     <>
                       <span className="hoenn-map__pin-dot hoenn-map__pin-dot--route" aria-hidden="true" />
                       <span className="hoenn-map__pin-label">{point.name}</span>
                     </>
                   ) : (
-                    <span className="hoenn-map__pin-dot" />
+                    <MapPinVisual point={point} />
                   )}
                   <span className="hoenn-map__pin-hint" aria-hidden="true">
                     {trainer ? (

@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.33",
+    date: "2026-07-07",
+    summary: "Item, berry, and hidden-item map pins now use authentic game sprites instead of colored dots.",
+    sections: [
+      {
+        heading: "Maps — collectible sprites",
+        items: [
+          "Visible item balls use the in-game 16×16 item ball overworld sprite on the Hoenn map, walkthrough crops, and interior area maps.",
+          "Berry trees use a mature cheri berry tree sprite; hidden items use the Itemfinder icon with a dashed outline.",
+          "New `npm run sync:item-sprites` script downloads sprites from pokeemerald into public/sprites/items/.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.32",
     date: "2026-07-07",
     summary: "Interior map sprites no longer treat bedroom dolls and decoration placeholders as trainers.",

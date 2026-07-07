@@ -2051,6 +2051,49 @@
   border-style: dashed;
 }
 
+/* Collectible pins: item ball, berry tree, and Itemfinder for hidden items. */
+.hoenn-map__pin--item,
+.hoenn-map__pin--berry,
+.hoenn-map__pin--hidden {
+  width: calc(var(--item-fw, 16) * 1px);
+  height: calc(var(--item-fh, 16) * 1px);
+  transform: translate(
+    calc(var(--item-fw, 16) * -0.5px),
+    calc(var(--item-fh, 16) * -1px)
+  );
+  transform-origin: calc(var(--item-fw, 16) * 0.5px) calc(var(--item-fh, 16) * 1px);
+  z-index: 2;
+}
+
+.hoenn-map__item-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  line-height: 0;
+}
+
+.hoenn-map__item-sprite {
+  display: block;
+  width: calc(var(--item-fw, 16) * 1px);
+  height: calc(var(--item-fh, 16) * 1px);
+  image-rendering: pixelated;
+}
+
+.hoenn-map__pin--hidden .hoenn-map__item-frame::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 1.5px dashed rgba(201, 210, 223, 0.95);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.hoenn-map__pin--hidden .hoenn-map__item-sprite {
+  opacity: 0.92;
+}
+
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
 .hoenn-map__pin--trainer {
   width: calc(var(--trainer-fw, 16) * 1px);
