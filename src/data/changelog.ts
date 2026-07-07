@@ -20,6 +20,39 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.21",
+    date: "2026-07-07",
+    summary: "Walkthrough map lightboxes are larger on iPhone, trainer sprites align correctly, and map markers are more accurate.",
+    sections: [
+      {
+        heading: "Walkthrough maps (mobile)",
+        items: [
+          "Walkthrough map lightboxes on iPhone now use nearly the full screen — map on top, legend below, with less wasted space around the edges.",
+          "The map viewport matches each area’s shape (square towns, wide routes, tall caves) so square maps like Oldale Town no longer float in a tall empty frame.",
+          "The legend band below the map is taller and easier to read, with a scrollable marker list that fills the remaining screen space.",
+          "Pinch to zoom and drag to pan in the lightbox; map pins shrink as you zoom in so markers don’t pile on top of each other.",
+          "Interior area maps (Petalburg Woods, Granite Cave, Trick House, etc.) use the same edge-to-edge lightbox layout as overworld route and town crops.",
+        ],
+      },
+      {
+        heading: "Walkthrough maps (accuracy)",
+        items: [
+          "Fixed walkthrough map POI positions (e.g. Oldale Town route exits) by syncing marker tiles from pokeemerald map data.",
+          "Trainer markers no longer appear twice — hand-placed dots are skipped when an overworld trainer sprite already marks the same spot.",
+          "Trainer sprites on walkthrough and area maps now anchor on the correct tile — feet line up with the map instead of sitting slightly to the left.",
+        ],
+      },
+      {
+        heading: "Walkthrough maps (other fixes)",
+        items: [
+          "Fixed walkthrough map lightbox layout on iPhone so the map stacks above the legend instead of crushing them side by side.",
+          "Wide route map lightboxes no longer over-zoom on mobile.",
+          "Trainer detail modal opens reliably on iPhone when tapping a trainer sprite in a walkthrough map.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.20",
     date: "2026-07-06",
     summary: "Route labels show on the main Hoenn map by default.",
