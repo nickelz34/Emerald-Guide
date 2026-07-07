@@ -183,6 +183,17 @@ export const CHAPTER_AREA_MAP: Record<string, string> = {
   "battle-frontier": "battlefrontier-battlepyramidlobby",
 };
 
+/** Encounter / area ids that use interior area maps instead of the Hoenn composite crop. */
+export const INTERIOR_AREA_MAP: Record<string, string> = {
+  ...CHAPTER_AREA_MAP,
+  "new-mauville": "newmauville-inside",
+  "scorched-slab": "scorchedslab",
+  "meteor-falls": "meteorfalls-1f-1r",
+  "jagged-pass": "jaggedpass",
+  "aquahideout": "aquahideout-b1f",
+  "trick-house": "route110-trickhousepuzzle1",
+};
+
 function areaCaption(area: AreaMap): string {
   return area.floor ? `${area.name}   ${area.floor}` : area.name;
 }

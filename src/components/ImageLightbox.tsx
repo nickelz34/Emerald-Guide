@@ -1,7 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { LayoutViewMode } from "../hooks/useViewMode";
 import type { StepScreenshot } from "../data/stepImages";
-import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
 
@@ -86,16 +85,7 @@ export function LightboxProvider({
                 showLegend
                 variant="lightbox"
               />
-            ) : (
-              <AnnotatedScreenshot
-                key={current.src}
-                imageSrc={current.src}
-                caption={current.caption}
-                areaId={current.areaId ?? state.areaId}
-                showLegend
-                variant="lightbox"
-              />
-            )}
+            ) : null}
             {state.images.length > 1 && (
               <div className="lightbox__footer">
                 <button type="button" className="lightbox__nav lightbox__nav--prev" onClick={prev} aria-label="Previous">

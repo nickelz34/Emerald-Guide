@@ -1602,6 +1602,39 @@
   transition: transform 0.12s ease;
 }
 
+/* Route labels — always visible on the overworld map */
+.hoenn-map__pin--route {
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.hoenn-map__pin-label {
+  display: inline-block;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #fff;
+  background: color-mix(in srgb, var(--pin-color, #5ec4e8) 88%, #000 12%);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.hoenn-map__pin--route:hover .hoenn-map__pin-label,
+.hoenn-map__pin--route.is-active .hoenn-map__pin-label {
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.hoenn-map__pin--route .hoenn-map__pin-hint {
+  display: none;
+}
+
 /* Distinct shapes per category */
 .hoenn-map__pin--gym .hoenn-map__pin-dot {
   border-radius: 3px;
@@ -1916,7 +1949,7 @@
 .trainer-modal {
   position: fixed;
   inset: 0;
-  z-index: 1100;
+  z-index: 1200;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2411,6 +2444,238 @@
   }
 
   .trainer-modal__panel {
+    max-height: 92vh;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+/* ── Route guide modal (Hoenn map route markers) ── */
+.route-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+}
+
+.route-modal__panel {
+  width: min(720px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-bg, #1a2332);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.route-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.route-modal__head h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.route-modal__subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted, #9aa8bc);
+}
+
+.route-modal__back {
+  padding-left: 0;
+  font-size: 0.95rem;
+}
+
+.route-modal__close {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.route-modal__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.route-modal__body {
+  padding: 1rem 1.25rem 1.25rem;
+  overflow-y: auto;
+}
+
+.route-modal__section {
+  margin-bottom: 1.25rem;
+}
+
+.route-modal__section:last-child {
+  margin-bottom: 0;
+}
+
+.route-modal__section h4 {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted, #9aa8bc);
+}
+
+.route-modal__list,
+.route-modal__pickups {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.route-modal__note {
+  margin: 0;
+  color: var(--muted, #9aa8bc);
+  font-size: 0.9rem;
+}
+
+.route-modal__enc-mon {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.route-modal__enc-sprite {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.route-modal__enc-sprite img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.route-modal__enc-sprite-fallback {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted, #9aa8bc);
+}
+
+.route-modal__enc-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.route-modal__enc-table .route-modal__link {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--link, #5ec4e8);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.route-modal__enc-table .route-modal__link:hover:not(:disabled) {
+  color: #8fdcf5;
+}
+
+.route-modal__enc-table .route-modal__link:disabled {
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
+
+.route-modal__trainers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.route-modal__trainer-btn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.route-modal__trainer-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(245, 101, 101, 0.45);
+}
+
+.route-modal__trainer-name {
+  font-weight: 600;
+}
+
+.route-modal__trainer-meta {
+  font-size: 0.85rem;
+  color: var(--muted, #9aa8bc);
+}
+
+.route-modal__trainer-badge {
+  margin-left: auto;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: rgba(245, 185, 66, 0.2);
+  color: #f5b942;
+}
+
+.route-modal__actions {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 640px) {
+  .route-modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .route-modal__panel {
     max-height: 92vh;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -3471,6 +3736,10 @@
   overflow: hidden;
 }
 
+.hoenn-crop__frame--pins .hoenn-map__pin {
+  position: absolute;
+}
+
 .hoenn-crop__markers {
   position: absolute;
   inset: 0;
@@ -4224,6 +4493,48 @@
 
 .step-card__secrets li {
   line-height: 1.5;
+}
+
+.step-card__items {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  background: rgba(59, 157, 255, 0.08);
+  border: 1px solid rgba(59, 157, 255, 0.35);
+  border-radius: var(--radius);
+}
+
+.step-card__items strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #7ec8ff;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.step-card__items ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.step-card__items li {
+  line-height: 1.45;
+}
+
+.step-card__item-name {
+  display: block;
+  font-weight: 600;
+}
+
+.step-card__item-desc {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
 }
 
 .step-card__encounters {

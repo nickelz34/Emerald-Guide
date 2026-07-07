@@ -141,3 +141,21 @@ export function loadDex(scope: DexScope): Promise<DexEntry[]> {
   if (scope === "national") return loadNationalDex();
   return loadAllDex();
 }
+
+/** Resolve a display name (e.g. from encounter tables) to a dex entry. */
+export function findDexEntryByName(entries: DexEntry[], name: string): DexEntry | undefined {
+  const slug = name
+    .toLowerCase()
+    .replace(/\./g, "")
+    .replace(/'/g, "")
+    .replace(/♀/g, "-f")
+    .replace(/♂/g, "-m")
+    .replace(/\s+/g, "-");
+  const norm = name.toLowerCase().replace(/['.]/g, "");
+  return entries.find(
+    (e) =>
+      e.slug === slug ||
+      e.name.toLowerCase() === name.toLowerCase() ||
+      e.name.toLowerCase().replace(/['.]/g, "") === norm,
+  );
+}

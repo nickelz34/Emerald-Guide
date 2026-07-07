@@ -47,6 +47,16 @@ for (const mt of descText.matchAll(/static const u8 (\w+)\[\] =\s*_\(([\s\S]*?)\
   const text = parts.join(" ").replace(/\\[nlp]/g, " ").replace(/\s+/g, " ").trim();
   descByVar.set(mt[1], text);
 }
+function cleanItemDescription(desc) {
+  return desc
+    .replace(/\{POKEBLOCK\}/gi, "Pokéblock")
+    .replace(/\{POKéMON\}/gi, "Pokémon")
+    .replace(/\{POKEMON\}/gi, "Pokémon")
+    .replace(/to grow ([A-Z]+)\./g, (_, berry) => {
+      const name = berry.charAt(0) + berry.slice(1).toLowerCase();
+      return `to grow ${name}.`;
+    });
+}
 const itemsText = fs.readFileSync(path.join(REPO, "src/data/items.h"), "utf8");
 const byConst = new Map();
 const items = [];
@@ -68,7 +78,7 @@ for (const mt of itemsText.matchAll(/\[ITEM_(\w+)\]\s*=\s*\{([\s\S]*?)\n\s*\},/g
   const nameM = body.match(/\.name\s*=\s*_\("([^"]*)"\)/);
   const descM = body.match(/\.description\s*=\s*(\w+)/);
   if (!nameM) continue;
-  const rec = { const: konst, name: titleCase(nameM[1]), desc: descM ? descByVar.get(descM[1]) || "" : "" };
+  const rec = { const: konst, name: titleCase(nameM[1]), desc: cleanItemDescription(descM ? descByVar.get(descM[1]) || "" : "") };
   byConst.set(konst, rec);
   items.push({ ...rec, norm: konst.replace(/[^A-Z0-9]/g, "") });
 }

@@ -8,6 +8,7 @@
 
 export type PoiCategory =
   | "town"
+  | "route"
   | "gym"
   | "cave"
   | "landmark"
@@ -26,6 +27,7 @@ export interface PoiCategoryMeta {
 
 export const POI_CATEGORIES: PoiCategoryMeta[] = [
   { id: "town", label: "Towns & Cities", color: "#f5b942" },
+  { id: "route", label: "Routes", color: "#5ec4e8" },
   { id: "gym", label: "Gyms", color: "#e0553b" },
   { id: "cave", label: "Caves & Dungeons", color: "#9b6bd6" },
   { id: "landmark", label: "Landmarks", color: "#39c07a" },
@@ -36,8 +38,8 @@ export const POI_CATEGORIES: PoiCategoryMeta[] = [
   { id: "trainer", label: "Trainers", color: "#f56565" },
 ];
 
-/** Categories shown by default; only towns & cities start visible. */
-export const DEFAULT_VISIBLE_CATEGORIES: PoiCategory[] = ["town"];
+/** Categories shown by default on the main Hoenn map. */
+export const DEFAULT_VISIBLE_CATEGORIES: PoiCategory[] = ["town", "route"];
 
 export interface MapPoint {
   id: string;

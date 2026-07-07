@@ -2,7 +2,6 @@ import { getStepImages } from "../data/stepImages";
 import { getAreasForStep } from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
 import { useLightbox } from "./ImageLightbox";
-import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
 
@@ -49,19 +48,7 @@ export function ScreenshotGallery({ stepId, compact }: ScreenshotGalleryProps) {
             />
           );
         }
-        const areaId = shot.annotate === false ? undefined : shot.areaId ?? defaultAreaId;
-        return (
-          <AnnotatedScreenshot
-            key={shot.src}
-            imageSrc={shot.src}
-            caption={shot.caption}
-            areaId={areaId}
-            staticMap={shot.annotate === false}
-            showLegend={false}
-            onImageClick={() => open(images, i, areaId)}
-            className="screenshots__annotated"
-          />
-        );
+        return null;
       })}
     </div>
   );

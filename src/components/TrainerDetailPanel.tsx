@@ -369,7 +369,7 @@ function TrainerMonCard({ mon, index }: { mon: TrainerPartyMon; index: number })
 }
 
 /** Rich trainer breakdown for the click-to-open modal. */
-function TrainerModalBody({ trainer }: { trainer: TrainerPoint }) {
+export function TrainerModalBody({ trainer }: { trainer: TrainerPoint }) {
   const battle = getTrainerBattle(trainer.trainerId);
   const tips = getTrainerBattleTips(trainer, battle);
   const mapLabel = formatMapId(trainer.mapId);

@@ -3,8 +3,9 @@ import { METHOD_LABELS } from "../types";
 import { loadWildPokedex, type Rarity, type WildPokemon } from "../data/wildSource";
 import { loadDex, DEX_META, type DexEntry, type DexScope } from "../data/dex";
 import { emeraldSpriteUrl, loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
-import { assetUrl } from "../lib/assetUrl";
-import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
+import { getAreaDisplayMap } from "../data/stepImages";
+import { HoennCrop } from "./HoennCrop";
+import { AreaMapView } from "./AreaMapView";
 import { useLightbox } from "./ImageLightbox";
 
 const RARITY_CLASS: Record<Rarity, string> = {
@@ -93,7 +94,7 @@ function DexCard({ card, scope, onSelect }: { card: FinderCard; scope: DexScope;
   );
 }
 
-function StatBars({ stats, total }: { stats: SpeciesInfo["stats"]; total: number }) {
+export function StatBars({ stats, total }: { stats: SpeciesInfo["stats"]; total: number }) {
   return (
     <div className="stat-bars">
       {stats.map((s) => (
@@ -117,7 +118,7 @@ function StatBars({ stats, total }: { stats: SpeciesInfo["stats"]; total: number
   );
 }
 
-function SpeciesPanel({ slug, name, nationalNumber }: { slug: string; name: string; nationalNumber: number }) {
+export function SpeciesPanel({ slug, name, nationalNumber }: { slug: string; name: string; nationalNumber: number }) {
   const [info, setInfo] = useState<SpeciesInfo | null>(null);
   const [error, setError] = useState(false);
   const sprite = emeraldSpriteUrl(nationalNumber);
@@ -235,9 +236,8 @@ function WhereToFind({ wild }: { wild?: WildPokemon }) {
       </p>
       <div className="poke-locations">
         {wild.locations.map((loc) => {
-          const images = loc.screenshot
-            ? [{ src: assetUrl(`screenshots/${loc.screenshot}`), caption: loc.name, areaId: loc.areaId }]
-            : [];
+          const mapShot = loc.areaId ? getAreaDisplayMap(loc.areaId, loc.name) : null;
+          const images = mapShot ? [mapShot] : [];
           return (
             <div key={loc.id} className={`poke-location ${images.length === 0 ? "poke-location--nomap" : ""}`}>
               <div className="poke-location__info">
@@ -264,14 +264,23 @@ function WhereToFind({ wild }: { wild?: WildPokemon }) {
                 </table>
               </div>
 
-              {images.length > 0 && (
+              {images.length > 0 && mapShot && (
                 <div className="poke-location__map">
-                  <AnnotatedScreenshot
-                    imageSrc={images[0].src}
-                    areaId={loc.areaId}
-                    showLegend={false}
-                    onImageClick={() => open(images, 0, loc.areaId)}
-                  />
+                  {mapShot.areaMapId ? (
+                    <AreaMapView
+                      areaMapId={mapShot.areaMapId}
+                      caption={mapShot.caption}
+                      showLegend={false}
+                      onClick={() => open(images, 0, loc.areaId)}
+                    />
+                  ) : mapShot.crop ? (
+                    <HoennCrop
+                      crop={mapShot.crop}
+                      caption={mapShot.caption}
+                      areaId={mapShot.areaId}
+                      onClick={() => open(images, 0, loc.areaId)}
+                    />
+                  ) : null}
                   <span className="poke-location__map-hint">Click the map to zoom &amp; see every marker</span>
                 </div>
               )}

@@ -30,10 +30,45 @@ const MAP_H = H_TILES * 16;
 /** Tiles of surrounding context to include around each map. */
 const PAD = 2;
 
-/** areaId → manifest map when no walkthrough event supplies one (annotation-only areas). */
-const AREA_MAP_OVERRIDES = {
-  "route-117": "MAP_ROUTE117",
+/** Walkthrough chapter id → outdoor areaId (when chapter id ≠ area id). */
+const CHAPTER_TO_AREA = {
+  "petalburg-gym": "petalburg",
+  "sootopolis-gym": "sootopolis",
+  league: "ever-grande",
+  "seafloor-cavern": "route-128",
+  "magma-hideout": "route-112",
+  "mt-pyre": "route-122",
+  "sealed-chamber": "route-124",
+  "victory-road": "ever-grande",
 };
+
+/** Landmarks / areas not in the outdoor composite — crop around map point %. */
+const MANUAL_AREA_CROPS = {
+  sootopolis: { x: 72.5, y: 42.5, w: 8, h: 14, caption: "Sootopolis City" },
+  "sky-pillar": { x: 62.5, y: 62.5, w: 12, h: 18, caption: "Sky Pillar" },
+  "mt-chimney": { x: 17.5, y: 0, w: 10, h: 18, caption: "Mt. Chimney" },
+  "battle-frontier": { x: 86, y: 82, w: 14, h: 18, caption: "Battle Frontier" },
+  "marine-cave": { x: 84, y: 56, w: 10, h: 14, caption: "Marine Cave" },
+  "fiery-path": { x: 19, y: 10, w: 6, h: 10, caption: "Fiery Path" },
+  "safari-zone": { x: 51, y: 18, w: 10, h: 12, caption: "Safari Zone" },
+  "sealed-chamber": { x: 54, y: 52, w: 12, h: 14, caption: "Sealed Chamber approach" },
+};
+
+/** Convert pokeemerald MAP_* id to guide areaId slug. */
+function mapIdToAreaId(mapId) {
+  const raw = mapId.replace(/^MAP_/, "");
+  if (raw.startsWith("ROUTE")) {
+    return `route-${raw.slice(5).toLowerCase()}`;
+  }
+  if (raw.endsWith("_TOWN") || raw.endsWith("_CITY")) {
+    return raw
+      .replace(/_TOWN$/, "")
+      .replace(/_CITY$/, "")
+      .toLowerCase()
+      .replace(/_/g, "-");
+  }
+  return raw.toLowerCase().replace(/_/g, "-");
+}
 
 const round = (n) => Math.round(n * 10000) / 10000;
 
@@ -100,23 +135,69 @@ for (const [areaId, mapId] of Object.entries(areaMapId)) {
   areaNoteLabels[areaId] = [mapNameToLabel(m.name)];
 }
 
-// Merge annotation-only areas that have tile markers but no walkthrough crop event yet.
-for (const [areaId, mapId] of Object.entries(AREA_MAP_OVERRIDES)) {
-  if (areaBounds[areaId]) continue;
-  const m = mapById.get(mapId);
-  if (!m) continue;
-  areaBounds[areaId] = {
-    x: round((m.gx / W_TILES) * 100),
-    y: round((m.gy / H_TILES) * 100),
-    w: round((m.w / W_TILES) * 100),
-    h: round((m.h / H_TILES) * 100),
+// Every connected outdoor map on the composite → areaId, bounds, and note labels.
+for (const m of manifest.maps) {
+  const areaId = mapIdToAreaId(m.id);
+  if (!areaBounds[areaId]) {
+    areaBounds[areaId] = {
+      x: round((m.gx / W_TILES) * 100),
+      y: round((m.gy / H_TILES) * 100),
+      w: round((m.w / W_TILES) * 100),
+      h: round((m.h / H_TILES) * 100),
+    };
+    areaNoteLabels[areaId] = [mapNameToLabel(m.name)];
+  }
+}
+
+/** Padded crop for an area (walkthrough windows). */
+function paddedCropForBounds(b) {
+  const gx = Math.max(0, (b.x / 100) * W_TILES - PAD);
+  const gy = Math.max(0, (b.y / 100) * H_TILES - PAD);
+  const gx2 = Math.min(W_TILES, (b.x / 100) * W_TILES + (b.w / 100) * W_TILES + PAD);
+  const gy2 = Math.min(H_TILES, (b.y / 100) * H_TILES + (b.h / 100) * H_TILES + PAD);
+  return {
+    x: round((gx / W_TILES) * 100),
+    y: round((gy / H_TILES) * 100),
+    w: round(((gx2 - gx) / W_TILES) * 100),
+    h: round(((gy2 - gy) / H_TILES) * 100),
   };
-  areaNoteLabels[areaId] = [mapNameToLabel(m.name)];
+}
+
+/** areaId → padded crop + caption for any outdoor location. */
+const areaMapCrop = {};
+for (const [areaId, bounds] of Object.entries(areaBounds)) {
+  const labels = areaNoteLabels[areaId];
+  areaMapCrop[areaId] = {
+    crop: paddedCropForBounds(bounds),
+    caption: labels?.[0] ?? areaId.replace(/-/g, " "),
+    areaId,
+  };
+}
+for (const [areaId, manual] of Object.entries(MANUAL_AREA_CROPS)) {
+  const { caption, ...crop } = manual;
+  areaMapCrop[areaId] = { crop, caption, areaId };
+  if (!areaBounds[areaId]) areaBounds[areaId] = crop;
+  if (!areaNoteLabels[areaId]) areaNoteLabels[areaId] = [caption];
+}
+
+/** Walkthrough chapter id → default outdoor crop when a step has no event-specific crop. */
+const chapterMapCrop = {};
+for (const [chapterId, areaId] of Object.entries(CHAPTER_TO_AREA)) {
+  if (areaMapCrop[areaId]) chapterMapCrop[chapterId] = { ...areaMapCrop[areaId] };
+}
+for (const areaId of Object.keys(areaMapCrop)) {
+  if (!chapterMapCrop[areaId] && areaMapCrop[areaId]) {
+    chapterMapCrop[areaId] = { ...areaMapCrop[areaId] };
+  }
 }
 
 /** areaId → markerId → full-map % position from pret tile coords (pixel-perfect on composite). */
 const markerMapPos = {};
-const areaToMapId = { ...AREA_MAP_OVERRIDES, ...areaMapId };
+const areaToMapId = { ...areaMapId };
+for (const m of manifest.maps) {
+  const aid = mapIdToAreaId(m.id);
+  if (!areaToMapId[aid]) areaToMapId[aid] = m.id;
+}
 for (const [areaId, markers] of Object.entries(markerTiles)) {
   if (areaId.startsWith("_")) continue;
   const mapId = areaToMapId[areaId];
@@ -165,6 +246,24 @@ for (const e of eventEntries) {
 }
 lines.push("};");
 lines.push("");
+lines.push("/** Outdoor areaId → padded window into the Hoenn composite map. */");
+lines.push("export const AREA_MAP_CROP: Record<string, EventMapCrop> = {");
+for (const [areaId, entry] of Object.entries(areaMapCrop).sort(([a], [b]) => a.localeCompare(b))) {
+  lines.push(
+    `  ${JSON.stringify(areaId)}: { crop: ${fmtCrop(entry.crop)}, caption: ${JSON.stringify(entry.caption)}, areaId: ${JSON.stringify(entry.areaId)} },`,
+  );
+}
+lines.push("};");
+lines.push("");
+lines.push("/** Walkthrough chapter id → default outdoor crop for that chapter. */");
+lines.push("export const CHAPTER_MAP_CROP: Record<string, EventMapCrop> = {");
+for (const [chapterId, entry] of Object.entries(chapterMapCrop).sort(([a], [b]) => a.localeCompare(b))) {
+  lines.push(
+    `  ${JSON.stringify(chapterId)}: { crop: ${fmtCrop(entry.crop)}, caption: ${JSON.stringify(entry.caption)}, areaId: ${JSON.stringify(entry.areaId)} },`,
+  );
+}
+lines.push("};");
+lines.push("");
 lines.push("/** Exact composite bounds per areaId (no padding) — used to place markers. */");
 lines.push("export const AREA_MAP_BOUNDS: Record<string, MapCrop> = {");
 for (const [areaId, b] of Object.entries(areaBounds)) {
@@ -191,9 +290,56 @@ for (const [areaId, markers] of Object.entries(markerMapPos)) {
 lines.push("};");
 lines.push("");
 
+// ── Route labels for the main Hoenn overworld map ──
+const walkthroughSrc = fs.readFileSync(path.join(ROOT, "src/data/walkthrough.ts"), "utf8");
+const walkthroughRoutes = new Set(
+  [...walkthroughSrc.matchAll(/^\s+id: "(route-\d+)"/gm)].map((m) => m[1]),
+);
+
+/** One labeled pin per outdoor route map on the composite (Routes 101–134). */
+const routePoints = [];
+for (const m of manifest.maps) {
+  if (!m.id.startsWith("MAP_ROUTE")) continue;
+  const areaId = mapIdToAreaId(m.id);
+  const bounds = areaBounds[areaId];
+  if (!bounds) continue;
+  const label = mapNameToLabel(m.name);
+  const entry = {
+    id: areaId,
+    name: label,
+    category: "route",
+    x: round(bounds.x + bounds.w / 2),
+    y: round(bounds.y + bounds.h / 2),
+    ...(walkthroughRoutes.has(areaId) ? { stepId: `${areaId}-1` } : {}),
+  };
+  routePoints.push(entry);
+}
+routePoints.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
+
+const routeLines = [];
+routeLines.push("// AUTO-GENERATED by scripts/gen-map-crops.mjs — do not edit by hand.");
+routeLines.push("// Labeled route pins for the main Hoenn overworld map (center of each route's tile bounds).");
+routeLines.push("");
+routeLines.push('import type { MapPoint } from "./mapPoints";');
+routeLines.push("");
+routeLines.push("export const ROUTE_POINTS: MapPoint[] = [");
+for (const p of routePoints) {
+  const step = p.stepId ? `, stepId: ${JSON.stringify(p.stepId)}` : "";
+  routeLines.push(
+    `  { id: ${JSON.stringify(p.id)}, name: ${JSON.stringify(p.name)}, category: "route", x: ${p.x}, y: ${p.y}${step} },`,
+  );
+}
+routeLines.push("];");
+routeLines.push("");
+
+fs.writeFileSync(path.join(ROOT, "src/data/mapRoutesGenerated.ts"), routeLines.join("\n"));
+
 fs.writeFileSync(path.join(ROOT, "src/data/mapCrops.ts"), lines.join("\n"));
 
 console.log(`Wrote src/data/mapCrops.ts`);
+console.log(`Wrote src/data/mapRoutesGenerated.ts (${routePoints.length} routes)`);
 console.log(`  composite: ${MAP_W}x${MAP_H}px (${W_TILES}x${H_TILES} tiles)`);
 console.log(`  outdoor crops: ${eventEntries.length} events`);
-console.log(`  interior/other (kept as-is): ${missing.length} events -> ${missing.join(", ")}`);
+console.log(`  area crops: ${Object.keys(areaMapCrop).length}`);
+console.log(`  chapter crops: ${Object.keys(chapterMapCrop).length}`);
+console.log(`  interior/other (area maps): ${missing.length} events -> ${missing.slice(0, 8).join(", ")}${missing.length > 8 ? "…" : ""}`);

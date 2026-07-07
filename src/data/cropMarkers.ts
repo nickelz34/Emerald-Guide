@@ -1,12 +1,25 @@
 import { MAP_ANNOTATIONS, type MapMarker, type MarkerType } from "./mapAnnotations";
 import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
 import { GENERATED_POINTS } from "./mapPointsGenerated";
+import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
 import { AREA_MAP_BOUNDS, AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, type MapCrop } from "./mapCrops";
 
 const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
+export type CropMapPoint = MapPoint | TrainerPoint;
+
+const MARKER_TO_POI: Record<MarkerType, PoiCategory> = {
+  trainer: "trainer",
+  item: "item",
+  npc: "landmark",
+  building: "town",
+  poi: "landmark",
+  wild: "landmark",
+};
+
 const POI_TO_MARKER: Record<PoiCategory, MarkerType> = {
   town: "building",
+  route: "poi",
   gym: "building",
   cave: "poi",
   landmark: "poi",
@@ -16,6 +29,10 @@ const POI_TO_MARKER: Record<PoiCategory, MarkerType> = {
   entrance: "building",
   trainer: "trainer",
 };
+
+function isTrainerPoint(p: MapPoint): p is TrainerPoint {
+  return p.category === "trainer" && "spriteSheet" in p;
+}
 
 /** Convert a full-map percentage position to crop-local (0–100), or null if outside. */
 function toCropLocal(mapX: number, mapY: number, crop: MapCrop): { x: number; y: number } | null {
@@ -49,33 +66,44 @@ function noteMatchesArea(note: string | undefined, labels: string[]): boolean {
   return labels.some((label) => n.includes(label.toLowerCase()));
 }
 
-/**
- * POI markers for a Hoenn map crop — combines hand-placed area annotations with
- * game-extracted map points, all projected into crop-local coordinates.
- */
-export function getCropMarkers(crop: MapCrop, areaId?: string): MapMarker[] {
-  const seen = new Set<string>();
-  const out: MapMarker[] = [];
+function annotationToMapPoint(marker: MapMarker, local: { x: number; y: number }): MapPoint {
+  return {
+    id: marker.id,
+    name: marker.label,
+    category: MARKER_TO_POI[marker.type],
+    x: local.x,
+    y: local.y,
+    desc: marker.detail,
+  };
+}
 
-  const add = (m: MapMarker) => {
-    const key = `${m.type}:${Math.round(m.x)}:${Math.round(m.y)}`;
-    if (seen.has(key)) return;
-    seen.add(key);
-    out.push(m);
+/**
+ * Walkthrough crop markers — hand-placed annotations + game-extracted POIs for the
+ * area, plus overworld trainer sprites when available. Rendered with hoenn-map__pin
+ * styling (POI_CATEGORIES colors) in HoennCrop.
+ */
+export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[] {
+  const seen = new Set<string>();
+  const out: CropMapPoint[] = [];
+
+  const add = (pt: CropMapPoint) => {
+    if (seen.has(pt.id)) return;
+    seen.add(pt.id);
+    out.push(pt);
   };
 
-  // Hand-tuned walkthrough markers (trainers, grass, story POIs).
+  // Hand-tuned walkthrough markers (trainers, grass, story POIs, buildings).
   if (areaId && MAP_ANNOTATIONS[areaId] && AREA_MAP_BOUNDS[areaId]) {
     const bounds = AREA_MAP_BOUNDS[areaId];
     for (const marker of MAP_ANNOTATIONS[areaId].markers) {
       const mapPos = markerToMapPos(marker, areaId, bounds);
       const local = toCropLocal(mapPos.x, mapPos.y, crop);
       if (!local) continue;
-      add({ ...marker, x: local.x, y: local.y });
+      add(annotationToMapPoint(marker, local));
     }
   }
 
-  const labels = areaId ? AREA_NOTE_LABELS[areaId] ?? [] : [];
+  const labels = areaId ? (AREA_NOTE_LABELS[areaId] ?? []) : [];
 
   // Game-extracted items, berries, entrances, etc. (true-scale on the big map).
   if (labels.length > 0) {
@@ -85,14 +113,39 @@ export function getCropMarkers(crop: MapCrop, areaId?: string): MapMarker[] {
       if (!local) continue;
       add({
         id: `mp-${pt.id}`,
-        type: POI_TO_MARKER[pt.category],
-        label: pt.name,
-        detail: pt.desc ?? pt.note,
+        name: pt.name,
+        category: pt.category,
         x: local.x,
         y: local.y,
+        desc: pt.desc ?? pt.note,
+        note: pt.note,
       });
+    }
+
+    // Overworld trainer sprites from the main map data (same as Hoenn map modal).
+    for (const tr of MAP_TRAINERS) {
+      if (!noteMatchesArea(tr.note, labels)) continue;
+      const local = toCropLocal(tr.x, tr.y, crop);
+      if (!local) continue;
+      add({ ...tr, x: local.x, y: local.y });
     }
   }
 
   return out;
 }
+
+/** @deprecated Use getCropMapPoints — kept for any legacy callers. */
+export function getCropMarkers(crop: MapCrop, areaId?: string): MapMarker[] {
+  return getCropMapPoints(crop, areaId)
+    .filter((p): p is MapPoint => !isTrainerPoint(p))
+    .map((p) => ({
+      id: p.id,
+      type: POI_TO_MARKER[p.category] ?? "poi",
+      label: p.name,
+      detail: p.desc ?? p.note,
+      x: p.x,
+      y: p.y,
+    }));
+}
+
+export { isTrainerPoint };

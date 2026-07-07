@@ -1,15 +1,29 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { PokemonEncounter, TimeSlot, EncounterMethod } from "../types";
 import { TIME_LABELS, METHOD_LABELS } from "../types";
 import {
   getAreaData,
   getAreasForStep,
   getSecretsExtrasForArea,
+  getRouteHiddenItems,
+  getRoutePickups,
+  getRouteSecretsExtras,
+  getRouteTrainers,
+  loadRouteEncounters,
   SECRETS_EXTRAS_SECTION_TITLE,
 } from "../data/areaData";
 import { getAreaIdForEncounterStep } from "../data/encounters";
-import { assetUrl } from "../lib/assetUrl";
-import { AnnotatedScreenshot } from "./AnnotatedScreenshot";
+import { getAreaDisplayMap } from "../data/stepImages";
+import type { MapPoint } from "../data/mapPoints";
+import { findDexEntryByName, loadAllDex, type DexEntry } from "../data/dex";
+import { emeraldSpriteUrl } from "../data/species";
+import type { TrainerPoint } from "../data/mapTrainersGenerated";
+import { HoennCrop } from "./HoennCrop";
+import { AreaMapView } from "./AreaMapView";
+import { SpeciesPanel } from "./PokemonFinder";
+import { SecretsExtrasBlock, ItemsBerriesBlock } from "./StepSecretsExtras";
+import { TrainerModalBody } from "./TrainerDetailPanel";
 
 interface EncounterTableProps {
   areaIds: string[];
@@ -76,17 +90,18 @@ export function EncounterTable({
     <div className={`encounter-panel ${compact ? "encounter-panel--compact" : ""}`}>
       {areas.map(({ id, data }) => {
         if (!data) return null;
-        const shot = data.screenshot;
+        const label = id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+        const mapShot = getAreaDisplayMap(id, label);
         const extras = showAreaSecrets ? getSecretsExtrasForArea(id) : [];
         return (
           <div key={id} className="area-block">
-            {areas.length > 1 && <h4 className="area-block__title">{id.replace(/-/g, " ")}</h4>}
-            {showScreenshots && shot && (
-              <AnnotatedScreenshot
-                imageSrc={assetUrl(`screenshots/${shot}`)}
-                areaId={id}
-                showLegend
-              />
+            {areas.length > 1 && <h4 className="area-block__title">{label}</h4>}
+            {showScreenshots && mapShot && (
+              mapShot.areaMapId ? (
+                <AreaMapView areaMapId={mapShot.areaMapId} caption={mapShot.caption} showLegend />
+              ) : mapShot.crop ? (
+                <HoennCrop crop={mapShot.crop} caption={mapShot.caption} areaId={mapShot.areaId} showLegend />
+              ) : null
             )}
             {extras.length > 0 && (
               <div className="area-block__secrets">
@@ -210,4 +225,273 @@ export function EncounterStepPanel({ stepId }: { stepId: string }) {
   const areaId = getAreaIdForEncounterStep(stepId);
   if (!areaId) return null;
   return <EncounterTable areaIds={[areaId]} />;
+}
+
+interface RouteDetailModalProps {
+  route: MapPoint | null;
+  onClose: () => void;
+  onJumpToGuide?: (point: MapPoint) => void;
+}
+
+function RouteEncounterMon({
+  enc,
+  dexEntry,
+  onOpen,
+}: {
+  enc: PokemonEncounter;
+  dexEntry?: DexEntry;
+  onOpen: () => void;
+}) {
+  const sprite = dexEntry && !dexEntry.isGlitch ? emeraldSpriteUrl(dexEntry.nationalNumber) : undefined;
+  const clickable = Boolean(dexEntry && !dexEntry.isGlitch);
+
+  return (
+    <div className="route-modal__enc-mon">
+      <span className="route-modal__enc-sprite" aria-hidden="true">
+        {sprite ? (
+          <img src={sprite} alt="" loading="lazy" decoding="async" />
+        ) : (
+          <span className="route-modal__enc-sprite-fallback">?</span>
+        )}
+      </span>
+      <div className="route-modal__enc-label">
+        <button
+          type="button"
+          className="route-modal__link"
+          onClick={onOpen}
+          disabled={!clickable}
+          title={clickable ? `View ${enc.name} stats` : undefined}
+        >
+          {enc.name}
+        </button>
+        {enc.notes && <span className="encounter-note">{enc.notes}</span>}
+      </div>
+    </div>
+  );
+}
+
+/** Full route guide — encounters, items, trainers, secrets — opened from the Hoenn map. */
+export function RouteDetailModal({
+  route,
+  onClose,
+  onJumpToGuide,
+}: RouteDetailModalProps) {
+  const areaId = route?.id ?? "";
+  const [encounters, setEncounters] = useState<PokemonEncounter[]>([]);
+  const [encLoading, setEncLoading] = useState(false);
+  const [encError, setEncError] = useState(false);
+  const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
+  const [selectedPokemon, setSelectedPokemon] = useState<DexEntry | null>(null);
+  const [selectedTrainer, setSelectedTrainer] = useState<TrainerPoint | null>(null);
+
+  const pickups = useMemo(() => (areaId ? getRoutePickups(areaId) : []), [areaId]);
+  const hiddenItems = useMemo(() => (areaId ? getRouteHiddenItems(areaId) : []), [areaId]);
+  const trainers = useMemo(() => (areaId ? getRouteTrainers(areaId) : []), [areaId]);
+  const secretsExtras = useMemo(
+    () => (areaId ? getRouteSecretsExtras(areaId, hiddenItems) : []),
+    [areaId, hiddenItems],
+  );
+
+  const dexLookup = useMemo(() => {
+    const cache = new Map<string, DexEntry | undefined>();
+    for (const enc of encounters) {
+      if (!cache.has(enc.name)) {
+        cache.set(enc.name, findDexEntryByName(dexEntries, enc.name));
+      }
+    }
+    return cache;
+  }, [encounters, dexEntries]);
+
+  useEffect(() => {
+    if (!route) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (selectedTrainer) setSelectedTrainer(null);
+      else if (selectedPokemon) setSelectedPokemon(null);
+      else onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [route, onClose, selectedTrainer, selectedPokemon]);
+
+  useEffect(() => {
+    if (!route) {
+      setEncounters([]);
+      setSelectedPokemon(null);
+      setSelectedTrainer(null);
+      return;
+    }
+    setSelectedPokemon(null);
+    setSelectedTrainer(null);
+    setEncLoading(true);
+    setEncError(false);
+    loadRouteEncounters(route.id)
+      .then(setEncounters)
+      .catch(() => setEncError(true))
+      .finally(() => setEncLoading(false));
+  }, [route]);
+
+  useEffect(() => {
+    let alive = true;
+    loadAllDex()
+      .then((entries) => alive && setDexEntries(entries))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  if (!route) return null;
+
+  const openPokemon = (name: string) => {
+    const entry = findDexEntryByName(dexEntries, name);
+    if (entry && !entry.isGlitch) setSelectedPokemon(entry);
+  };
+
+  return createPortal(
+    <div
+      className="route-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="route-modal-title"
+      onClick={onClose}
+    >
+      <div className="route-modal__panel" onClick={(e) => e.stopPropagation()}>
+        <div className="route-modal__head">
+          <div>
+            {selectedPokemon ? (
+              <button
+                type="button"
+                className="btn btn--ghost route-modal__back"
+                onClick={() => setSelectedPokemon(null)}
+              >
+                ← Back to {route.name}
+              </button>
+            ) : selectedTrainer ? (
+              <button
+                type="button"
+                className="btn btn--ghost route-modal__back"
+                onClick={() => setSelectedTrainer(null)}
+              >
+                ← Back to {route.name}
+              </button>
+            ) : (
+              <>
+                <h3 id="route-modal-title">{route.name}</h3>
+                <p className="route-modal__subtitle">Route guide — wild Pokémon, items, and trainers</p>
+              </>
+            )}
+          </div>
+          <button type="button" className="route-modal__close" onClick={onClose} aria-label="Close">
+            ×
+          </button>
+        </div>
+
+        <div className="route-modal__body">
+          {selectedPokemon ? (
+            <SpeciesPanel
+              slug={selectedPokemon.slug}
+              name={selectedPokemon.name}
+              nationalNumber={selectedPokemon.nationalNumber}
+            />
+          ) : selectedTrainer ? (
+            <TrainerModalBody trainer={selectedTrainer} />
+          ) : (
+            <>
+              {secretsExtras.length > 0 && <SecretsExtrasBlock items={secretsExtras} />}
+
+              <section className="route-modal__section">
+                <h4>Wild Pokémon</h4>
+                {encLoading ? (
+                  <p className="route-modal__note">Loading encounter data…</p>
+                ) : encError ? (
+                  <p className="route-modal__note">Couldn&apos;t load wild encounter data (offline?).</p>
+                ) : encounters.length === 0 ? (
+                  <p className="route-modal__note">No wild encounters recorded for this route.</p>
+                ) : (
+                  <>
+                    <div className="encounter-table-wrap">
+                      <table className="encounter-table route-modal__enc-table">
+                        <thead>
+                          <tr>
+                            <th>Pokémon</th>
+                            <th>Level</th>
+                            <th>Time</th>
+                            <th>Method</th>
+                            <th>Rate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {encounters.map((enc, i) => (
+                            <tr key={`${enc.name}-${enc.method}-${enc.time}-${i}`}>
+                              <td>
+                                <RouteEncounterMon
+                                  enc={enc}
+                                  dexEntry={dexLookup.get(enc.name)}
+                                  onOpen={() => openPokemon(enc.name)}
+                                />
+                              </td>
+                              <td>{enc.level}</td>
+                              <td>
+                                <span className={timeBadgeClass(enc.time)}>{TIME_LABELS[enc.time]}</span>
+                              </td>
+                              <td>{METHOD_LABELS[enc.method]}</td>
+                              <td>{enc.rate ?? "—"}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="encounter-legend">
+                      Click a Pokémon name for types, abilities, and base stats. Gen 3 times: Morning
+                      4:00–9:59 · Day 10:00–19:59 · Night 20:00–3:59
+                    </p>
+                  </>
+                )}
+              </section>
+
+              {pickups.length > 0 && <ItemsBerriesBlock items={pickups} />}
+
+              {trainers.length > 0 && (
+                <section className="route-modal__section">
+                  <h4>Trainers</h4>
+                  <ul className="route-modal__trainers">
+                    {trainers.map((trainer) => (
+                      <li key={trainer.id}>
+                        <button
+                          type="button"
+                          className="route-modal__trainer-btn"
+                          onClick={() => setSelectedTrainer(trainer)}
+                        >
+                          <span className="route-modal__trainer-name">{trainer.name}</span>
+                          <span className="route-modal__trainer-meta">{trainer.trainerClass}</span>
+                          {trainer.rematchable && (
+                            <span className="route-modal__trainer-badge">Rematch</span>
+                          )}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {route.stepId && onJumpToGuide && (
+                <div className="route-modal__actions">
+                  <button type="button" className="btn btn--primary" onClick={() => onJumpToGuide(route)}>
+                    Return to walkthrough
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
 }

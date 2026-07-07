@@ -1,4 +1,9 @@
 import type { PokemonEncounter } from "../types";
+import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
+import { GENERATED_POINTS } from "./mapPointsGenerated";
+import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
+import { AREA_NOTE_LABELS } from "./mapCrops";
+import { loadWildPokedex, type WildPokemon } from "./wildSource";
 
 export interface AreaExtras {
   secrets?: string[];
@@ -438,4 +443,130 @@ export function getSecretsExtrasForStep(stepId: string, stepSecrets?: string[]):
     fromAreas.push(...getSecretsExtrasForArea(areaId));
   }
   return mergeUniqueLines(stepSecrets, fromAreas);
+}
+
+const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
+
+/** Clean pokeemerald item/berry description strings for display. */
+export function formatItemDescription(desc: string): string {
+  return desc
+    .replace(/\{POKEBLOCK\}/gi, "Pok\u00e9block")
+    .replace(/\{POK\u00e9MON\}/gi, "Pok\u00e9mon")
+    .replace(/\{POKEMON\}/gi, "Pok\u00e9mon")
+    .replace(/to grow ([A-Z]+)\./g, (_, berry) => {
+      const name = berry.charAt(0) + berry.slice(1).toLowerCase();
+      return `to grow ${name}.`;
+    });
+}
+
+export interface RoutePickup {
+  id: string;
+  name: string;
+  category: PoiCategory;
+  desc?: string;
+}
+
+/** MAP_ROUTE101-style id for a route area slug. */
+export function areaIdToMapId(areaId: string): string {
+  const m = areaId.match(/^route-(\d+)$/);
+  if (m) return `MAP_ROUTE${m[1]}`;
+  return `MAP_${areaId.replace(/-/g, "_").toUpperCase()}`;
+}
+
+/** Whether a map POI note belongs to the given outdoor area. */
+export function noteMatchesArea(note: string | undefined, areaId: string): boolean {
+  if (!note) return false;
+  const n = note.toLowerCase();
+  const labels = AREA_NOTE_LABELS[areaId] ?? [];
+  if (labels.some((label) => n.includes(label.toLowerCase()))) return true;
+  return n.includes(areaId.replace(/-/g, " "));
+}
+
+/** Visible items and berries on this route (from game-extracted map POIs). */
+export function getRoutePickups(areaId: string): RoutePickup[] {
+  return ALL_MAP_POINTS.filter(
+    (p) =>
+      noteMatchesArea(p.note, areaId) &&
+      (p.category === "item" || p.category === "berry"),
+  )
+    .map((p) => ({
+      id: p.id,
+      name: p.name,
+      category: p.category,
+      desc: p.desc ? formatItemDescription(p.desc) : p.note,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Hidden items on this route. */
+export function getRouteHiddenItems(areaId: string): RoutePickup[] {
+  return ALL_MAP_POINTS.filter(
+    (p) => noteMatchesArea(p.note, areaId) && p.category === "hidden",
+  )
+    .map((p) => ({
+      id: p.id,
+      name: p.name,
+      category: p.category,
+      desc: p.desc ? formatItemDescription(p.desc) : p.note,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Overworld trainers on this route (deduped by trainer id). */
+export function getRouteTrainers(areaId: string): TrainerPoint[] {
+  const mapId = areaIdToMapId(areaId);
+  const seen = new Map<string, TrainerPoint>();
+  for (const t of MAP_TRAINERS) {
+    const onRoute = t.mapId === mapId || noteMatchesArea(t.note, areaId);
+    if (!onRoute) continue;
+    const key = t.trainerId ?? t.id;
+    if (!seen.has(key)) seen.set(key, t);
+  }
+  return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Build encounter rows from the live pokeemerald wild table for one map. */
+export function encountersFromWildData(wildList: WildPokemon[], areaId: string): PokemonEncounter[] {
+  const rows: PokemonEncounter[] = [];
+  for (const mon of wildList) {
+    for (const loc of mon.locations) {
+      if (loc.id !== areaId && loc.areaId !== areaId) continue;
+      for (const row of loc.rows) {
+        rows.push({
+          name: mon.name,
+          level: row.level,
+          time: "any",
+          method: row.method,
+          rate: row.rate,
+        });
+      }
+    }
+  }
+  return rows.sort((a, b) => {
+    const ar = parseFloat(a.rate?.replace("%", "") ?? "0");
+    const br = parseFloat(b.rate?.replace("%", "") ?? "0");
+    return br - ar || a.name.localeCompare(b.name) || a.method.localeCompare(b.method);
+  });
+}
+
+/** Curated encounters first; otherwise pokeemerald wild data. */
+export async function loadRouteEncounters(areaId: string): Promise<PokemonEncounter[]> {
+  const curated = getAreaData(areaId)?.encounters ?? [];
+  if (curated.length > 0) return curated;
+  const wild = await loadWildPokedex();
+  return encountersFromWildData(wild, areaId);
+}
+
+/** Tips, secrets, and hidden-item notes for the route detail panel. */
+export function getRouteSecretsExtras(areaId: string, hiddenItems: RoutePickup[]): string[] {
+  const lines = [...getSecretsExtrasForArea(areaId)];
+  const seen = new Set(lines);
+  for (const item of hiddenItems) {
+    const line = item.desc ? `${item.name} — ${item.desc}` : item.name;
+    if (!seen.has(line)) {
+      seen.add(line);
+      lines.push(line);
+    }
+  }
+  return lines;
 }

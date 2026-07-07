@@ -20,6 +20,170 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.20",
+    date: "2026-07-06",
+    summary: "Route labels show on the main Hoenn map by default.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "The main Hoenn map now shows **Routes** and **Towns & Cities** when you first open it (both legend filters are on by default).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.19",
+    date: "2026-07-06",
+    summary: "Removed the experimental Walkpath map overlay.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Removed the **Walkpath** overlay and its legend toggle from the main Hoenn map.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.16",
+    date: "2026-07-06",
+    summary: "Trainer details from the route guide open inside the same modal.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Clicking a trainer in the route guide now opens their full battle details inside that modal (with a Back button), instead of a second window that could appear behind the route guide.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.15",
+    date: "2026-07-06",
+    summary: "Trainer battle details open on top of the route guide modal.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Fixed trainer battle details opening behind the route guide when you click a trainer in the route modal — the trainer window now stacks above it.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.14",
+    date: "2026-07-06",
+    summary: "Berry descriptions no longer show raw {POKEBLOCK} game placeholders.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Fixed berry item descriptions that started with “{POKEBLOCK}” — they now read “Pokéblock ingredient…” with proper berry names (e.g. Nanab, Razz).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.13",
+    date: "2026-07-06",
+    summary: "Route guide Items & Berries section uses the same callout bubble as walkthrough sections.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Items & Berries in the route guide modal now appear in their own blue callout bubble, matching the walkthrough’s secrets and tips panels.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.12",
+    date: "2026-07-06",
+    summary: "Route guide secrets section matches the walkthrough bubble styling.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Secrets, Extras, & Hidden Items in the route guide modal now uses the same purple callout bubble as walkthrough steps.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.11",
+    date: "2026-07-06",
+    summary: "Route guide wild Pokémon table now shows Emerald sprites beside each species.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "The route guide modal’s Wild Pokémon list now displays each species’ in-game Emerald sprite next to its name.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.10",
+    date: "2026-07-06",
+    summary: "Clicking a route on the Hoenn map opens a full route guide with encounters, items, and trainers.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Route markers on the main Hoenn map now open a **Route guide** modal — wild Pokémon (with encounter rates), visible items & berries, trainers, and a Secrets/Extras/Hidden Items section for that route.",
+          "Click any Pokémon in the route encounter table for full species stats (types, abilities, base stats). Click a trainer to open the existing battle-details modal.",
+          "Routes without a curated walkthrough table still show live encounter data from pokeemerald; items and hidden pickups come from the map POI data.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.9",
+    date: "2026-07-06",
+    summary: "All Hoenn routes are labeled on the main map with a new Routes layer filter.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Added labeled pins for Routes 101–134 on the main Hoenn overworld map — positions come from the true-scale composite tile bounds.",
+          "New **Routes** layer in the Hoenn map legend (off by default, like other POI layers). Toggle it on to show route names across the region.",
+          "Routes with a walkthrough chapter link to the guide when you open the pin and click Return to guide.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.8",
+    date: "2026-07-06",
+    summary: "Walkthrough Hoenn crops show all hand-placed markers again, with main-map pin styling.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Fixed walkthrough map crops dropping story/building/grass markers — hand-tuned MAP_ANNOTATIONS and area-filtered game POIs are back.",
+          "Those markers still render with hoenn-map__pin dots and POI_CATEGORIES colors (same look as the main Hoenn map); overworld trainer sprites remain when map data has them.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.7",
+    date: "2026-07-06",
+    summary: "Walkthrough maps now use the true-scale Hoenn composite and matching marker colors everywhere.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Walkthrough step maps no longer fall back to legacy town/route screenshot PNGs — outdoor steps show a crop of public/maps/hoenn-map.png; interiors use generated area maps from the same pipeline as the map modal.",
+          "HoennCrop pins now use the same hoenn-map__pin styles and POI_CATEGORIES colors as the main interactive map (items, berries, gyms, trainers with overworld sprites, etc.).",
+          "Encounter tables and Pokédex location maps also use Hoenn composite crops or area maps instead of old annotated screenshots.",
+          "Generator adds AREA_MAP_CROP and CHAPTER_MAP_CROP (57 outdoor areas, 64 chapter defaults) so every route and town resolves to the big map.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.6",
     date: "2026-07-06",
     summary: "Hoenn overworld map can filter trainers to PokeNav Match Call rematches only.",

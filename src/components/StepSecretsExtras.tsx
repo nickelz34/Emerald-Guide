@@ -1,6 +1,7 @@
 import {
   getSecretsExtrasForStep,
   SECRETS_EXTRAS_SECTION_TITLE,
+  type RoutePickup,
 } from "../data/areaData";
 
 interface StepSecretsExtrasProps {
@@ -11,6 +12,11 @@ interface StepSecretsExtrasProps {
 /** Merged secrets, extras, and hidden-item notes for a walkthrough step. */
 export function StepSecretsExtras({ stepId, secrets }: StepSecretsExtrasProps) {
   const items = getSecretsExtrasForStep(stepId, secrets);
+  return <SecretsExtrasBlock items={items} />;
+}
+
+/** Shared bubble used in walkthrough steps and the Hoenn route guide modal. */
+export function SecretsExtrasBlock({ items }: { items: string[] }) {
   if (items.length === 0) return null;
 
   return (
@@ -19,6 +25,25 @@ export function StepSecretsExtras({ stepId, secrets }: StepSecretsExtrasProps) {
       <ul>
         {items.map((item) => (
           <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** Visible items and berries on a route — same callout bubble pattern as walkthrough sections. */
+export function ItemsBerriesBlock({ items }: { items: RoutePickup[] }) {
+  if (items.length === 0) return null;
+
+  return (
+    <div className="step-card__items">
+      <strong>Items &amp; Berries</strong>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            <span className="step-card__item-name">{item.name}</span>
+            {item.desc && <span className="step-card__item-desc">{item.desc}</span>}
+          </li>
         ))}
       </ul>
     </div>

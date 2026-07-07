@@ -9,11 +9,13 @@ import {
   type PoiCategory,
 } from "../data/mapPoints";
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
+import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import { RouteDetailModal } from "./EncounterTable";
 
-const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
+const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS, ...ROUTE_POINTS];
 
 function isTrainerPoint(p: MapPoint): p is TrainerPoint {
   return p.category === "trainer" && "spriteSheet" in p;
@@ -102,6 +104,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
+  const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
   const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
   const [rematchableOnly, setRematchableOnly] = useState(false);
   const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
@@ -359,10 +362,18 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     }
     if (isTrainerPoint(point)) {
       setSelectedId(point.id);
+      setModalRoute(null);
       setModalTrainer(point);
       return;
     }
+    if (point.category === "route") {
+      setSelectedId(point.id);
+      setModalRoute(point);
+      setModalTrainer(null);
+      return;
+    }
     setModalTrainer(null);
+    setModalRoute(null);
     setSelectedId((id) => (id === point.id ? null : point.id));
   };
 
@@ -462,6 +473,8 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                         draggable={false}
                       />
                     </span>
+                  ) : point.category === "route" ? (
+                    <span className="hoenn-map__pin-label">{point.name}</span>
                   ) : (
                     <span className="hoenn-map__pin-dot" />
                   )}
@@ -477,7 +490,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       </>
                     )}
                   </span>
-                  {!trainer && active && (
+                  {!trainer && point.category !== "route" && active && (
                     <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
                       <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
                         {cat?.label}
@@ -634,6 +647,32 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   View battle details
                 </button>
               </div>
+            ) : selectedPoint.category === "route" ? (
+              <>
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
+                >
+                  {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
+                </span>
+                <h5>{selectedPoint.name}</h5>
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalRoute(selectedPoint)}
+                >
+                  View route guide
+                </button>
+                {selectedPoint.stepId && (
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--sm"
+                    onClick={() => jumpToGuide(selectedPoint)}
+                  >
+                    Return to walkthrough
+                  </button>
+                )}
+              </>
             ) : (
               <>
                 <span
@@ -689,7 +728,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       <button
                         type="button"
                         className={`hoenn-map__index-item ${selectedId === p.id ? "is-active" : ""}`}
-                        onClick={() => focusPoint(p)}
+                        onClick={() => {
+                          focusPoint(p);
+                          if (p.category === "route") {
+                            setModalRoute(p);
+                            setModalTrainer(null);
+                          }
+                        }}
                       >
                         <span className="hoenn-map__index-name">{p.name}</span>
                         {p.note && <span className="hoenn-map__index-loc">{p.note}</span>}
@@ -704,6 +749,11 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         )}
       </div>
       )}
+      <RouteDetailModal
+        route={modalRoute}
+        onClose={() => setModalRoute(null)}
+        onJumpToGuide={jumpToGuide}
+      />
       <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
     </div>
   );

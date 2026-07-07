@@ -1,9 +1,10 @@
-import { useMemo, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { useMemo, useState, type CSSProperties, type KeyboardEvent, type MouseEvent } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { HOENN_MAP_W, HOENN_MAP_H, type MapCrop } from "../data/mapCrops";
-import { getCropMarkers } from "../data/cropMarkers";
-import { MARKER_LEGEND, type MarkerType } from "../data/mapAnnotations";
-import { MapMarkerLegend } from "./AnnotatedScreenshot";
+import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
+import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
+import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
 const HOENN_MAP_SRC = assetUrl("maps/hoenn-map.png");
 
@@ -18,9 +19,8 @@ interface HoennCropProps {
 }
 
 /**
- * Renders a "window" into the shared true-scale Hoenn map, framed to a single
- * town or route. Uses the one big map image (already cached by the map modal)
- * and CSS background sizing/position — no separate per-event image needed.
+ * Renders a window into the shared true-scale Hoenn map with the same POI /
+ * trainer pins and colors as the main interactive map modal.
  */
 export function HoennCrop({
   crop,
@@ -32,24 +32,10 @@ export function HoennCrop({
   className = "",
 }: HoennCropProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [hiddenTypes, setHiddenTypes] = useState<Set<MarkerType>>(() => new Set());
+  const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
 
-  const markers = useMemo(() => getCropMarkers(crop, areaId), [crop, areaId]);
-
-  const visibleMarkers = useMemo(
-    () => markers.filter((m) => !hiddenTypes.has(m.type)),
-    [markers, hiddenTypes],
-  );
-
-  const usedTypes = useMemo(() => {
-    const s = new Set<MarkerType>();
-    markers.forEach((m) => s.add(m.type));
-    return s;
-  }, [markers]);
-
-  const activeMarker = markers.find((m) => m.id === activeId) ?? null;
-  const legendEntry = (type: MarkerType) => MARKER_LEGEND.find((e) => e.type === type)!;
-  const activeStyle = activeMarker ? legendEntry(activeMarker.type) : null;
+  const points = useMemo(() => getCropMapPoints(crop, areaId), [crop, areaId]);
+  const activePoint = points.find((p) => p.id === activeId) ?? null;
 
   const cropWpx = (crop.w / 100) * HOENN_MAP_W;
   const cropHpx = (crop.h / 100) * HOENN_MAP_H;
@@ -58,7 +44,6 @@ export function HoennCrop({
 
   const denomX = HOENN_MAP_W - cropWpx;
   const denomY = HOENN_MAP_H - cropHpx;
-
   const posX = denomX > 0 ? (cropXpx / denomX) * 100 : 0;
   const posY = denomY > 0 ? (cropYpx / denomY) * 100 : 0;
   const sizeX = (HOENN_MAP_W / cropWpx) * 100;
@@ -78,15 +63,7 @@ export function HoennCrop({
   };
 
   const interactive = Boolean(onClick);
-  const toggleType = (type: MarkerType) => {
-    setHiddenTypes((prev) => {
-      const next = new Set(prev);
-      if (next.has(type)) next.delete(type);
-      else next.add(type);
-      return next;
-    });
-    setActiveId(null);
-  };
+  const categories = POI_CATEGORIES.filter((c) => points.some((p) => p.category === c.id));
 
   const onKeyDown = interactive
     ? (e: KeyboardEvent<HTMLDivElement>) => {
@@ -97,88 +74,132 @@ export function HoennCrop({
       }
     : undefined;
 
-  const markerLayer =
-    visibleMarkers.length > 0 ? (
-      <div className="hoenn-crop__markers" aria-hidden={false}>
-        {visibleMarkers.map((marker) => {
-          const style = legendEntry(marker.type);
-          const active = activeId === marker.id;
-          return (
-            <button
-              key={marker.id}
-              type="button"
-              className={`map-marker map-marker--${marker.type} ${active ? "map-marker--active" : ""}`}
-              style={{
-                left: `${marker.x}%`,
-                top: `${marker.y}%`,
-                background: style.color,
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveId(active ? null : marker.id);
-              }}
-              aria-label={`${style.label}: ${marker.label}`}
-              title={marker.label}
-            >
-              <span className="map-marker__symbol">{style.symbol}</span>
-            </button>
-          );
-        })}
-      </div>
-    ) : null;
+  const handlePinClick = (point: MapPoint, e: MouseEvent) => {
+    e.stopPropagation();
+    if (isTrainerPoint(point)) {
+      setActiveId(point.id);
+      setModalTrainer(point);
+      return;
+    }
+    setModalTrainer(null);
+    setActiveId(activeId === point.id ? null : point.id);
+  };
 
-  const markerDetail =
-    activeMarker && activeStyle ? (
-      <div className={`map-marker-detail ${inLightbox ? "" : "map-marker-detail--inline"}`} role="status">
-        <span className="map-marker-detail__swatch" style={{ background: activeStyle.color }}>
-          {activeStyle.symbol}
-        </span>
-        <div className="map-marker-detail__body">
-          <strong>{activeMarker.label}</strong>
-          <span className="map-marker-detail__type">{activeStyle.label}</span>
-          {activeMarker.detail && <p>{activeMarker.detail}</p>}
-        </div>
-      </div>
-    ) : null;
+  const pinLayer = (
+    <>
+      {points.map((point) => {
+        const cat = POI_CATEGORIES.find((c) => c.id === point.category);
+        const active = activeId === point.id;
+        const trainer = isTrainerPoint(point);
+        return (
+          <button
+            key={point.id}
+            type="button"
+            className={`hoenn-map__pin hoenn-map__pin--${point.category} ${active ? "is-active" : ""}`}
+            style={{
+              left: `${point.x}%`,
+              top: `${point.y}%`,
+              ["--pin-color" as string]: cat?.color,
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => handlePinClick(point, e)}
+            aria-label={point.name}
+          >
+            {trainer ? (
+              <span
+                className="hoenn-map__trainer-frame"
+                style={{
+                  ["--trainer-frame" as string]: point.spriteFrame,
+                  ["--trainer-fw" as string]: point.spriteWidth,
+                  ["--trainer-fh" as string]: point.spriteHeight,
+                }}
+                aria-hidden="true"
+              >
+                <img
+                  src={assetUrl(point.spriteSheet)}
+                  alt=""
+                  className="hoenn-map__trainer-sprite"
+                  draggable={false}
+                />
+              </span>
+            ) : (
+              <span className="hoenn-map__pin-dot" />
+            )}
+            <span className="hoenn-map__pin-hint" aria-hidden="true">
+              {trainer ? (
+                <TrainerPinHint trainer={point} />
+              ) : (
+                <>
+                  <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
+                    {cat?.label}
+                  </span>
+                  <span className="hoenn-map__pin-hint-name">{point.name}</span>
+                </>
+              )}
+            </span>
+            {!trainer && active && (
+              <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
+                <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
+                  {cat?.label}
+                </span>
+                <strong>{point.name}</strong>
+                {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </>
+  );
 
   const sidebar =
-    showLegend && markers.length > 0 ? (
+    showLegend && points.length > 0 ? (
       <div className="hoenn-crop__sidebar">
-        <MapMarkerLegend
-          hiddenTypes={hiddenTypes}
-          onToggleType={toggleType}
-          usedTypes={usedTypes}
-          showZoomHint={false}
-        />
-        <ul className="marker-index" aria-label="All points of interest">
-          {markers.map((marker) => {
-            const style = legendEntry(marker.type);
-            if (hiddenTypes.has(marker.type)) return null;
-            return (
-              <li key={marker.id}>
-                <button
-                  type="button"
-                  className={`marker-index__btn ${activeId === marker.id ? "marker-index__btn--active" : ""}`}
-                  onClick={() => setActiveId(activeId === marker.id ? null : marker.id)}
-                >
-                  <span className="marker-index__swatch" style={{ background: style.color }}>
-                    {style.symbol}
-                  </span>
-                  <span>
-                    <strong>{marker.label}</strong>
-                    {marker.detail && <small>{marker.detail}</small>}
-                  </span>
-                </button>
-              </li>
-            );
-          })}
+        <ul className="area-map-view__legend" aria-label="Map markers">
+          {categories.map((cat) => (
+            <li key={cat.id}>
+              <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
+              {cat.label}
+              <span className="area-map-view__legend-count">
+                {points.filter((p) => p.category === cat.id).length}
+              </span>
+            </li>
+          ))}
         </ul>
+        {inLightbox && (
+          <ul className="area-map-view__point-index" aria-label="All points of interest">
+            {points.map((point) => {
+              const cat = POI_CATEGORIES.find((c) => c.id === point.category);
+              const active = activeId === point.id;
+              return (
+                <li key={point.id}>
+                  <button
+                    type="button"
+                    className={`marker-index__btn ${active ? "marker-index__btn--active" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePinClick(point, e);
+                    }}
+                  >
+                    <span className="marker-index__swatch" style={{ background: cat?.color }}>
+                      {cat?.label.charAt(0)}
+                    </span>
+                    <span>
+                      <strong>{point.name}</strong>
+                      {point.desc && <small>{point.desc}</small>}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     ) : null;
 
   const frame = (
     <div
-      className={`hoenn-crop__frame ${interactive ? "hoenn-crop__frame--clickable" : ""}`}
+      className={`hoenn-crop__frame hoenn-crop__frame--pins ${interactive ? "hoenn-crop__frame--clickable" : ""}`}
       style={frameStyle}
       onClick={onClick}
       onKeyDown={onKeyDown}
@@ -186,7 +207,7 @@ export function HoennCrop({
       tabIndex={interactive ? 0 : undefined}
       aria-label={interactive ? `Enlarge ${caption ?? "map"}` : undefined}
     >
-      {markerLayer}
+      {pinLayer}
     </div>
   );
 
@@ -194,11 +215,11 @@ export function HoennCrop({
     return (
       <figure className={`hoenn-crop hoenn-crop--lightbox ${className}`}>
         {(caption || areaId) && <p className="hoenn-crop__lightbox-title">{caption}</p>}
-        {markerDetail}
         <div className="hoenn-crop__lightbox-body">
           {frame}
           {sidebar}
         </div>
+        <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
       </figure>
     );
   }
@@ -206,11 +227,20 @@ export function HoennCrop({
   return (
     <figure className={`hoenn-crop ${className}`}>
       {frame}
-      {markerDetail}
-      {caption && <figcaption className="hoenn-crop__caption">{caption}</figcaption>}
-      {markers.length > 0 && !showLegend && (
-        <span className="hoenn-crop__badge">{visibleMarkers.length} markers</span>
+      {activePoint && !isTrainerPoint(activePoint) && !showLegend && (
+        <figcaption className="area-map-view__active">
+          <span style={{ color: POI_CATEGORIES.find((c) => c.id === activePoint.category)?.color }}>
+            {POI_CATEGORIES.find((c) => c.id === activePoint.category)?.label}
+          </span>
+          {" — "}
+          {activePoint.name}
+        </figcaption>
       )}
+      {caption && <figcaption className="hoenn-crop__caption">{caption}</figcaption>}
+      {points.length > 0 && !showLegend && (
+        <span className="hoenn-crop__badge">{points.length} markers</span>
+      )}
+      <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
     </figure>
   );
 }
