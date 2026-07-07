@@ -71,7 +71,8 @@ function initialVisible(): Record<PoiCategory, boolean> {
   return v;
 }
 
-const HOENN_MAP_SRC = assetUrl("maps/hoenn-map.png");
+const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
+const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
 
 /** Native pixel size of the source map (true-scale render, 16px per game tile). */
 const MAP_W = 12800;
@@ -141,7 +142,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     () => [...(currentArea ? areaPoints(currentArea) : ALL_POINTS), ...trainerPoints],
     [currentArea, trainerPoints],
   );
-  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_SRC;
+  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_PNG;
+  const useHoennWebp = !currentArea;
+  const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
   const mapH = currentArea ? currentArea.height : MAP_H;
   const mapAr = mapW / mapH;
@@ -183,6 +186,10 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalTrainer(null);
   }, []);
+
+  useEffect(() => {
+    setMapReady(false);
+  }, [imgSrc, currentAreaId]);
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
@@ -613,7 +620,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer ? " hoenn-map__viewport--modal-open" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -629,12 +636,28 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
               transform: `translate(${view.x}px, ${view.y}px)`,
             }}
           >
-            <img
-              src={imgSrc}
-              alt={currentArea ? currentArea.name : "Map of the Hoenn region"}
-              className={`hoenn-map__image ${currentArea ? "hoenn-map__image--pixel" : ""}`}
-              draggable={false}
-            />
+            {useHoennWebp ? (
+              <picture>
+                <source srcSet={HOENN_MAP_WEBP} type="image/webp" />
+                <img
+                  src={imgSrc}
+                  alt="Map of the Hoenn region"
+                  className={`hoenn-map__image${mapReady ? "" : " hoenn-map__image--loading"}`}
+                  decoding="async"
+                  draggable={false}
+                  onLoad={() => setMapReady(true)}
+                />
+              </picture>
+            ) : (
+              <img
+                src={imgSrc}
+                alt={currentArea!.name}
+                className={`hoenn-map__image hoenn-map__image--pixel${mapReady ? "" : " hoenn-map__image--loading"}`}
+                decoding="async"
+                draggable={false}
+                onLoad={() => setMapReady(true)}
+              />
+            )}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;

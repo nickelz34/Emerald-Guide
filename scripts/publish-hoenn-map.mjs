@@ -19,3 +19,9 @@ if (r.status !== 0) process.exit(r.status ?? 1);
 fs.mkdirSync(path.dirname(dst), { recursive: true });
 fs.copyFileSync(src, dst);
 console.log(`Published ${dst}`);
+
+const opt = spawnSync(process.execPath, [path.join(ROOT, "scripts/optimize-hoenn-map.mjs")], {
+  cwd: ROOT,
+  stdio: "inherit",
+});
+if (opt.status !== 0) process.exit(opt.status ?? 1);

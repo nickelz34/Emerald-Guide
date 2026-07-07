@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { guideData, getFlatSteps } from "./data";
 import { CategoryHeader, Sidebar } from "./components/Sidebar";
 import { HoennMap } from "./components/HoennMap";
@@ -6,6 +6,7 @@ import { StepBrowser } from "./components/StepBrowser";
 import { PokemonFinder } from "./components/PokemonFinder";
 import { MapModal } from "./components/MapModal";
 import { LightboxProvider } from "./components/ImageLightbox";
+import { preloadHoennOverworldMap } from "./lib/preloadMapImages";
 import { useViewMode } from "./hooks/useViewMode";
 import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
@@ -42,6 +43,20 @@ export default function App() {
     setNav("walkthrough");
     setMapOpen(false);
   };
+
+  useEffect(() => {
+    const run = () => preloadHoennOverworldMap();
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(run);
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(run, 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (nav === "map" || mapOpen) preloadHoennOverworldMap();
+  }, [nav, mapOpen]);
 
   return (
     <LightboxProvider viewMode={viewMode}>

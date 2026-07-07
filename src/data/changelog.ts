@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.23",
+    date: "2026-07-07",
+    summary: "The main Hoenn map loads much faster with lossless compression and background preloading.",
+    sections: [
+      {
+        heading: "Hoenn map (performance)",
+        items: [
+          "Losslessly compressed the full Hoenn overworld map — ~28 MB down to ~1.4 MB WebP (or ~4 MB PNG fallback) with identical pixels at full 12800×6128 resolution.",
+          "Safari and modern browsers load the WebP automatically; older browsers still get the optimized PNG.",
+          "The map begins preloading in the background after the app opens, and again when you open the Hoenn Map tab or walkthrough map modal.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.22",
     date: "2026-07-07",
     summary: "Walkthrough outdoor maps load much faster on iPhone without losing map quality.",

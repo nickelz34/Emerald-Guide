@@ -1901,6 +1901,20 @@
   will-change: transform;
 }
 
+.hoenn-map__viewport--loading {
+  background: #2a5088;
+}
+
+.hoenn-map__image--loading {
+  opacity: 0;
+}
+
+.hoenn-map__canvas picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .hoenn-map__image {
   display: block;
   width: 100%;

@@ -5,6 +5,21 @@ import type { StepScreenshot } from "../data/stepImages";
 
 const preloaded = new Set<string>();
 
+function preloadUrl(path: string) {
+  const url = assetUrl(path);
+  if (preloaded.has(url)) return;
+  preloaded.add(url);
+  const img = new Image();
+  img.decoding = "async";
+  img.src = url;
+}
+
+/** Warm cache for the full Hoenn overworld composite (WebP + PNG fallback). */
+export function preloadHoennOverworldMap() {
+  preloadUrl("maps/hoenn-map.webp");
+  preloadUrl("maps/hoenn-map.png");
+}
+
 /** Warm the browser cache for walkthrough map images on the current step. */
 export function preloadStepMapImages(images: StepScreenshot[]) {
   for (const shot of images) {
@@ -16,13 +31,6 @@ export function preloadStepMapImages(images: StepScreenshot[]) {
       path = hoennCropImagePath(shot.areaId);
     }
     if (!path) continue;
-
-    const url = assetUrl(path);
-    if (preloaded.has(url)) continue;
-    preloaded.add(url);
-
-    const img = new Image();
-    img.decoding = "async";
-    img.src = url;
+    preloadUrl(path);
   }
 }
