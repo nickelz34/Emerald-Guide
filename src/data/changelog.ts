@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.26",
+    date: "2026-07-07",
+    summary: "The Pokémon Finder is now simply called the Pokédex everywhere in the app.",
+    sections: [
+      {
+        heading: "Naming",
+        items: [
+          "Renamed the Pokémon Finder tab and component to Pokédex — navigation, headers, and code now use consistent naming.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.25",
     date: "2026-07-07",
     summary: "Pokédex, species stats, wild encounters, and fonts are fully offline — no runtime API calls.",
@@ -45,7 +58,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         heading: "Pokémon sprites",
         items: [
           "All 386 Gen 3 Emerald front sprites now live in public/sprites/pokemon/emerald/ and ship with the site.",
-          "Route guide, Pokémon finder, and trainer party views load sprites from the same origin instead of jsDelivr.",
+          "Route guide, Pokédex, and trainer party views load sprites from the same origin instead of jsDelivr.",
           "Run npm run sync:pokemon-sprites to refresh sprites from the PokeAPI sprite set if needed.",
         ],
       },

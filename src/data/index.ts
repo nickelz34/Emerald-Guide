@@ -4,10 +4,10 @@ import type { GuideData, GuideCategory, GuideSection, GuideStep } from "../types
 
 export const guideData: GuideData = {
   walkthrough,
-  encounters,
+  pokedex: encounters,
 };
 
-export const CATEGORY_ORDER: GuideCategory[] = ["walkthrough", "encounters"];
+export const CATEGORY_ORDER: GuideCategory[] = ["walkthrough", "pokedex"];
 
 export function getAllStepIds(): string[] {
   return Object.values(guideData).flatMap((sections) =>

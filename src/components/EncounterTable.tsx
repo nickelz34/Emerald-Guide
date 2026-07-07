@@ -21,7 +21,7 @@ import { emeraldSpriteUrl } from "../data/species";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
-import { SpeciesPanel } from "./PokemonFinder";
+import { SpeciesPanel } from "./Pokedex";
 import { SecretsExtrasBlock, ItemsBerriesBlock } from "./StepSecretsExtras";
 import { TrainerModalBody } from "./TrainerDetailPanel";
 import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";

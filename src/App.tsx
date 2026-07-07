@@ -3,7 +3,7 @@ import { guideData, getFlatSteps } from "./data";
 import { CategoryHeader, Sidebar } from "./components/Sidebar";
 import { HoennMap } from "./components/HoennMap";
 import { StepBrowser } from "./components/StepBrowser";
-import { PokemonFinder } from "./components/PokemonFinder";
+import { Pokedex } from "./components/Pokedex";
 import { MapModal } from "./components/MapModal";
 import { LightboxProvider } from "./components/ImageLightbox";
 import { preloadHoennOverworldMap } from "./lib/preloadMapImages";
@@ -75,8 +75,8 @@ export default function App() {
 
             {nav === "map" ? (
               <HoennMap activeStepId={activeStepId} onSelectRegion={handleMapRegion} />
-            ) : nav === "encounters" ? (
-              <PokemonFinder />
+            ) : nav === "pokedex" ? (
+              <Pokedex />
             ) : (
               <StepBrowser
                 key={category}

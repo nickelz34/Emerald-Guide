@@ -18,7 +18,7 @@ const RARITY_CLASS: Record<Rarity, string> = {
 const STAT_MAX = 200;
 const SCOPES: DexScope[] = ["hoenn", "national", "all"];
 
-interface FinderCard {
+interface PokedexCard {
   entry: DexEntry;
   wild?: WildPokemon;
 }
@@ -52,7 +52,7 @@ function MethodTags({ methods }: { methods: WildPokemon["methods"] }) {
   );
 }
 
-function DexCard({ card, scope, onSelect }: { card: FinderCard; scope: DexScope; onSelect: () => void }) {
+function DexCard({ card, scope, onSelect }: { card: PokedexCard; scope: DexScope; onSelect: () => void }) {
   const { entry, wild } = card;
   const num = dexNumber(entry, scope);
   const sprite = emeraldSpriteUrl(entry.nationalNumber);
@@ -151,7 +151,7 @@ export function SpeciesPanel({ slug, name, nationalNumber }: { slug: string; nam
             {info.genus && <span className="species-panel__genus">{info.genus}</span>}
           </div>
         ) : error ? (
-          <p className="poke-detail__note">Couldn’t load extended stats for {name} (offline?).</p>
+          <p className="poke-detail__note">Couldn’t load extended stats for {name}.</p>
         ) : (
           <p className="poke-detail__note">Loading stats &amp; type info…</p>
         )}
@@ -292,7 +292,7 @@ function WhereToFind({ wild }: { wild?: WildPokemon }) {
   );
 }
 
-function PokemonDetail({ card, onBack }: { card: FinderCard; onBack: () => void }) {
+function PokedexDetail({ card, onBack }: { card: PokedexCard; onBack: () => void }) {
   const { entry, wild } = card;
   return (
     <div className="poke-detail">
@@ -328,7 +328,7 @@ function PokemonDetail({ card, onBack }: { card: FinderCard; onBack: () => void 
   );
 }
 
-export function PokemonFinder() {
+export function Pokedex() {
   const [scope, setScope] = useState<DexScope>("hoenn");
   const [dex, setDex] = useState<DexEntry[] | null>(null);
   const [wildList, setWildList] = useState<WildPokemon[] | null>(null);
@@ -366,7 +366,7 @@ export function PokemonFinder() {
     return map;
   }, [wildList]);
 
-  const cards = useMemo<FinderCard[]>(() => {
+  const cards = useMemo<PokedexCard[]>(() => {
     if (!dex) return [];
     return dex.map((entry) => ({ entry, wild: entry.slug ? wildMap.get(entry.slug) : undefined }));
   }, [dex, wildMap]);
@@ -395,11 +395,11 @@ export function PokemonFinder() {
   };
 
   if (selectedCard) {
-    return <PokemonDetail card={selectedCard} onBack={() => setSelected(null)} />;
+    return <PokedexDetail card={selectedCard} onBack={() => setSelected(null)} />;
   }
 
   return (
-    <div className="pokefinder">
+    <div className="pokedex">
       <div className="dex-toggle" role="tablist" aria-label="Pokédex scope">
         {SCOPES.map((s) => (
           <button
@@ -417,28 +417,28 @@ export function PokemonFinder() {
       </div>
       <p className="dex-toggle__blurb">{DEX_META[scope].blurb}</p>
 
-      <div className="pokefinder__searchbar">
+      <div className="pokedex__searchbar">
         <input
           type="search"
-          className="search pokefinder__search"
+          className="search pokedex__search"
           placeholder="Search by name, dex number, method, or location… (e.g. Ralts, 280, Surf, Route 119)"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           autoFocus
         />
-        <span className="pokefinder__count">
+        <span className="pokedex__count">
           {dex ? `${results.length} / ${dex.length}` : "…"} Pokémon
         </span>
       </div>
 
       {loadError ? (
-        <p className="pokefinder__empty">
-          Couldn’t load the Pokédex ({loadError}). Check your connection and reopen this tab.
+        <p className="pokedex__empty">
+          Couldn’t load the Pokédex ({loadError}). Try refreshing the page.
         </p>
       ) : !dex ? (
-        <p className="pokefinder__empty">Loading the {DEX_META[scope].label} Pokédex…</p>
+        <p className="pokedex__empty">Loading the {DEX_META[scope].label} Pokédex…</p>
       ) : results.length === 0 ? (
-        <p className="pokefinder__empty">No Pokémon match “{query}”.</p>
+        <p className="pokedex__empty">No Pokémon match “{query}”.</p>
       ) : (
         <div className="poke-grid">
           {results.map((card) => (

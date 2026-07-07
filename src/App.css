@@ -5168,25 +5168,25 @@
   color: var(--text-muted);
 }
 
-/* ── Wild Pokémon finder ── */
-.pokefinder__searchbar {
+/* ── Pokédex ── */
+.pokedex__searchbar {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.pokefinder__search {
+.pokedex__search {
   flex: 1;
 }
 
-.pokefinder__count {
+.pokedex__count {
   font-size: 0.82rem;
   color: var(--text-muted);
   white-space: nowrap;
 }
 
-.pokefinder__empty {
+.pokedex__empty {
   color: var(--text-muted);
   padding: 2rem 0;
   text-align: center;

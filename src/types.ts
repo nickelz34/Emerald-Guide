@@ -1,4 +1,4 @@
-export type GuideCategory = "walkthrough" | "encounters";
+export type GuideCategory = "walkthrough" | "pokedex";
 
 export type TimeSlot = "morning" | "day" | "night" | "any";
 
@@ -67,15 +67,15 @@ export interface GuideSection {
 
 export interface GuideData {
   walkthrough: GuideSection[];
-  encounters: GuideSection[];
+  pokedex: GuideSection[];
 }
 
 export const CATEGORY_LABELS: Record<GuideCategory, string> = {
   walkthrough: "Story Walkthrough",
-  encounters: "Pokédex",
+  pokedex: "Pokédex",
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<GuideCategory, string> = {
   walkthrough: "Beat the game from Littleroot to the Hall of Fame — including legendary catches woven into the story.",
-  encounters: "What to catch on each route — rates, methods, and time of day.",
+  pokedex: "Browse every Gen 3 species — stats, types, evolutions, and where to catch each one.",
 };
