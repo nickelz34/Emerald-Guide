@@ -103,6 +103,17 @@ interface View {
   y: number;
 }
 
+function touchDistance(touches: TouchList) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.hypot(dx, dy);
+}
+
+/** WebKit pinch events (iOS Safari). */
+interface GestureEvent extends UIEvent {
+  scale: number;
+}
+
 export function HoennMap({ activeStepId, onSelectRegion, compact = false }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
@@ -149,6 +160,8 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     moved: boolean;
   } | null>(null);
   const suppressClickRef = useRef(false);
+  const viewRef = useRef(view);
+  viewRef.current = view;
 
   const passesTrainerFilter = useCallback(
     (p: MapPoint) => {
@@ -303,6 +316,20 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     [clamp],
   );
 
+  const zoomToScale = useCallback(
+    (targetScale: number, cx: number, cy: number) => {
+      setView((prev) => {
+        const nextScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        if (nextScale === prev.scale) return prev;
+        const ratio = nextScale / prev.scale;
+        const x = cx - (cx - prev.x) * ratio;
+        const y = cy - (cy - prev.y) * ratio;
+        return clamp({ scale: nextScale, x, y });
+      });
+    },
+    [clamp],
+  );
+
   const zoomButton = useCallback(
     (factor: number) => zoomAt(factor, vp.w / 2, vp.h / 2),
     [zoomAt, vp.w, vp.h],
@@ -346,8 +373,116 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt]);
 
+  // Touch pan + pinch zoom, plus WebKit gesture events for iOS Safari.
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    const pinchRef: { current: { startDist: number; startScale: number } | null } = { current: null };
+    const touchPanRef: {
+      current: { x: number; y: number; originX: number; originY: number; moved: boolean } | null;
+    } = { current: null };
+    let gestureStartScale = 1;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        const v = viewRef.current;
+        touchPanRef.current = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          originX: v.x,
+          originY: v.y,
+          moved: false,
+        };
+        pinchRef.current = null;
+      } else if (e.touches.length === 2) {
+        touchPanRef.current = null;
+        pinchRef.current = {
+          startDist: touchDistance(e.touches),
+          startScale: viewRef.current.scale,
+        };
+        suppressClickRef.current = true;
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const rect = el.getBoundingClientRect();
+
+      if (e.touches.length === 1 && touchPanRef.current) {
+        e.preventDefault();
+        const pan = touchPanRef.current;
+        const dx = e.touches[0].clientX - pan.x;
+        const dy = e.touches[0].clientY - pan.y;
+        if (!pan.moved && Math.hypot(dx, dy) > 4) {
+          pan.moved = true;
+          suppressClickRef.current = true;
+        }
+        setView((prev) => clamp({ ...prev, x: pan.originX + dx, y: pan.originY + dy }));
+        return;
+      }
+
+      if (e.touches.length !== 2 || !pinchRef.current) return;
+      e.preventDefault();
+      const dist = touchDistance(e.touches);
+      const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+      const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+      zoomToScale(pinchRef.current.startScale * (dist / pinchRef.current.startDist), cx, cy);
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length === 0) {
+        touchPanRef.current = null;
+        pinchRef.current = null;
+      } else if (e.touches.length === 1) {
+        pinchRef.current = null;
+        const v = viewRef.current;
+        touchPanRef.current = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          originX: v.x,
+          originY: v.y,
+          moved: false,
+        };
+      }
+    };
+
+    const onGestureStart = (e: Event) => {
+      e.preventDefault();
+      gestureStartScale = viewRef.current.scale;
+    };
+
+    const onGestureChange = (e: Event) => {
+      e.preventDefault();
+      const ge = e as GestureEvent;
+      const rect = el.getBoundingClientRect();
+      zoomToScale(gestureStartScale * ge.scale, rect.width / 2, rect.height / 2);
+    };
+
+    const onGestureEnd = (e: Event) => {
+      e.preventDefault();
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd);
+    el.addEventListener("touchcancel", onTouchEnd);
+    el.addEventListener("gesturestart", onGestureStart);
+    el.addEventListener("gesturechange", onGestureChange);
+    el.addEventListener("gestureend", onGestureEnd);
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
+      el.removeEventListener("gesturestart", onGestureStart);
+      el.removeEventListener("gesturechange", onGestureChange);
+      el.removeEventListener("gestureend", onGestureEnd);
+    };
+  }, [clamp, zoomToScale]);
+
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0) return;
+    if (e.button !== 0 || e.pointerType === "touch") return;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     dragState.current = {
       pointerId: e.pointerId,
@@ -721,7 +856,9 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
           </div>
         ) : (
           <p className="hoenn-map__hint">
-            Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details.
+            {isNarrowViewport
+              ? "Drag to pan, pinch to zoom, or use + / −. Tap a marker for details."
+              : "Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details."}
           </p>
         )}
       </aside>
