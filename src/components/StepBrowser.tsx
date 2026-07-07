@@ -6,6 +6,8 @@ import { ScreenshotGallery } from "./ScreenshotGallery";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
+import { GymGuidePanel } from "./GymGuidePanel";
+import { getGymForWalkthroughStep } from "../data/gymData";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -95,6 +97,7 @@ export function StepBrowser({
   const currentId = activeStepId ?? internalId;
   const currentIndex = Math.max(0, flat.findIndex((f) => f.step.id === currentId));
   const current = flat[currentIndex] ?? flat[0];
+  const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
 
   const select = (id: string) => {
     setInternalId(id);
@@ -322,6 +325,12 @@ export function StepBrowser({
           )}
 
           <ScreenshotGallery stepId={current.step.id} compact />
+
+          {gymForStep && (
+            <section className="gym-guide-embed" aria-label="Gym guide">
+              <GymGuidePanel gym={gymForStep} showWalkthroughText={false} />
+            </section>
+          )}
 
           <StepDetails details={current.step.details} />
 

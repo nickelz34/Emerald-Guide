@@ -14,11 +14,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { PNG } from "pngjs";
+import { loadManifest } from "./map-origin-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
 const MAPS_DIR = path.join(REPO, "data/maps");
-const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, ".calib/manifest.json"), "utf8"));
+const manifest = loadManifest(ROOT);
 const OUT_IMG_DIR = path.join(ROOT, "public/maps/areas");
 const DRY = process.argv.includes("--dry");
 
@@ -315,6 +316,20 @@ function groupAndFloor(mapName) {
   if (mapName === "MossdeepCity_StevensHouse") {
     return { group: "Mossdeep City", floor: "Steven's House" };
   }
+  if (/^RustboroCity_Gym$/.test(mapName)) return { group: "Rustboro City", floor: "Gym" };
+  if (/^DewfordTown_Gym$/.test(mapName)) return { group: "Dewford Town", floor: "Gym" };
+  if (/^MauvilleCity_Gym$/.test(mapName)) return { group: "Mauville City", floor: "Gym" };
+  if (/^LavaridgeTown_Gym_/.test(mapName)) {
+    const floor = mapName.replace("LavaridgeTown_Gym_", "");
+    return { group: "Lavaridge Town", floor: `Gym ${floor}` };
+  }
+  if (/^PetalburgCity_Gym$/.test(mapName)) return { group: "Petalburg City", floor: "Gym" };
+  if (/^FortreeCity_Gym$/.test(mapName)) return { group: "Fortree City", floor: "Gym" };
+  if (/^MossdeepCity_Gym$/.test(mapName)) return { group: "Mossdeep City", floor: "Gym" };
+  if (/^SootopolisCity_Gym_/.test(mapName)) {
+    const floor = mapName.replace("SootopolisCity_Gym_", "");
+    return { group: "Sootopolis City", floor: `Gym ${floor}` };
+  }
   // e.g. GraniteCave_B1F -> {group:"Granite Cave", floor:"B1F"}
   const parts = mapName.split("_");
   const floorTokens = [];
@@ -336,6 +351,17 @@ const ALWAYS_INCLUDE = new Set([
   "BattleFrontier_BattlePyramidLobby",
   "BattleFrontier_BattlePyramidFloor",
   "BattleFrontier_BattlePyramidTop",
+  // Hoenn gym interiors (trainers only — no item balls)
+  "RustboroCity_Gym",
+  "DewfordTown_Gym",
+  "MauvilleCity_Gym",
+  "LavaridgeTown_Gym_1F",
+  "LavaridgeTown_Gym_B1F",
+  "PetalburgCity_Gym",
+  "FortreeCity_Gym",
+  "MossdeepCity_Gym",
+  "SootopolisCity_Gym_1F",
+  "SootopolisCity_Gym_B1F",
 ]);
 
 // ---- collect candidate maps ----

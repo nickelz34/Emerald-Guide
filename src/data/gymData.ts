@@ -189,6 +189,10 @@ export const GYMS: GymData[] = [
 
 export const GYM_BY_MAP_ID = Object.fromEntries(GYMS.map((g) => [g.mapPointId, g])) as Record<string, GymData>;
 
+export function getGymForWalkthroughStep(stepId: string): GymData | undefined {
+  return GYMS.find((g) => g.walkthroughStepId === stepId);
+}
+
 export function getGymForMapPoint(mapPointId: string): GymData | undefined {
   return GYM_BY_MAP_ID[mapPointId];
 }
