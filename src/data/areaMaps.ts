@@ -474,6 +474,18 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    id: "dewfordtown-gym",
+    mapId: "MAP_DEWFORD_TOWN_GYM",
+    name: "Dewford Town Gym",
+    group: "Dewford Town",
+    floor: "Gym",
+    image: "maps/areas/dewfordtown-gym.png",
+    width: 288,
+    height: 448,
+    markers: [
+    ],
+  },
+  {
     id: "fierypath",
     mapId: "MAP_FIERY_PATH",
     name: "Fiery Path",
@@ -485,6 +497,18 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [
       { id: "ait75", name: "TM06", category: "item", x: 24.29, y: 9.21, desc: "Poisons the foe with a toxin that gradually worsens." },
       { id: "ait76", name: "Fire Stone", category: "item", x: 21.43, y: 85.53, desc: "Makes certain species of POKéMON evolve." },
+    ],
+  },
+  {
+    id: "fortreecity-gym",
+    mapId: "MAP_FORTREE_CITY_GYM",
+    name: "Fortree City Gym",
+    group: "Fortree City",
+    floor: "Gym",
+    image: "maps/areas/fortreecity-gym.png",
+    width: 320,
+    height: 400,
+    markers: [
     ],
   },
   {
@@ -542,6 +566,30 @@ export const AREA_MAPS: AreaMap[] = [
       { id: "ait83", name: "Burn Heal", category: "item", x: 78.33, y: 53.26, desc: "Heals POKéMON of a burn." },
       { id: "ahi84", name: "Full Heal", category: "hidden", x: 28.33, y: 22.83, desc: "Heals all the status problems of one POKéMON." },
       { id: "ahi85", name: "Great Ball", category: "hidden", x: 25, y: 64.13, desc: "A good BALL with a higher catch rate than a POKé BALL." },
+    ],
+  },
+  {
+    id: "lavaridgetown-gym-1f",
+    mapId: "MAP_LAVARIDGE_TOWN_GYM_1F",
+    name: "Lavaridge Town Gym 1F",
+    group: "Lavaridge Town",
+    floor: "Gym 1F",
+    image: "maps/areas/lavaridgetown-gym-1f.png",
+    width: 272,
+    height: 304,
+    markers: [
+    ],
+  },
+  {
+    id: "lavaridgetown-gym-b1f",
+    mapId: "MAP_LAVARIDGE_TOWN_GYM_B1F",
+    name: "Lavaridge Town Gym B1F",
+    group: "Lavaridge Town",
+    floor: "Gym B1F",
+    image: "maps/areas/lavaridgetown-gym-b1f.png",
+    width: 272,
+    height: 304,
+    markers: [
     ],
   },
   {
@@ -665,6 +713,18 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    id: "mauvillecity-gym",
+    mapId: "MAP_MAUVILLE_CITY_GYM",
+    name: "Mauville City Gym",
+    group: "Mauville City",
+    floor: "Gym",
+    image: "maps/areas/mauvillecity-gym.png",
+    width: 160,
+    height: 336,
+    markers: [
+    ],
+  },
+  {
     id: "meteorfalls-1f-1r",
     mapId: "MAP_METEOR_FALLS_1F_1R",
     name: "Meteor Falls 1F 1R",
@@ -691,6 +751,18 @@ export const AREA_MAPS: AreaMap[] = [
     height: 288,
     markers: [
       { id: "ait102", name: "TM02", category: "item", x: 50, y: 19.44, desc: "Hooks and slashes the foe with long, sharp claws." },
+    ],
+  },
+  {
+    id: "mossdeepcity-gym",
+    mapId: "MAP_MOSSDEEP_CITY_GYM",
+    name: "Mossdeep City Gym",
+    group: "Mossdeep City",
+    floor: "Gym",
+    image: "maps/areas/mossdeepcity-gym.png",
+    width: 416,
+    height: 576,
+    markers: [
     ],
   },
   {
@@ -835,6 +907,18 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    id: "petalburgcity-gym",
+    mapId: "MAP_PETALBURG_CITY_GYM",
+    name: "Petalburg City Gym",
+    group: "Petalburg City",
+    floor: "Gym",
+    image: "maps/areas/petalburgcity-gym.png",
+    width: 144,
+    height: 1792,
+    markers: [
+    ],
+  },
+  {
     id: "petalburgwoods",
     mapId: "MAP_PETALBURG_WOODS",
     name: "Petalburg Woods",
@@ -958,6 +1042,18 @@ export const AREA_MAPS: AreaMap[] = [
     height: 352,
     markers: [
       { id: "ait141", name: "Bead Mail", category: "item", x: 16.67, y: 11.36, desc: "MAIL featuring a sketch of the holding POKéMON." },
+    ],
+  },
+  {
+    id: "rustborocity-gym",
+    mapId: "MAP_RUSTBORO_CITY_GYM",
+    name: "Rustboro City Gym",
+    group: "Rustboro City",
+    floor: "Gym",
+    image: "maps/areas/rustborocity-gym.png",
+    width: 176,
+    height: 320,
+    markers: [
     ],
   },
   {
@@ -1120,6 +1216,30 @@ export const AREA_MAPS: AreaMap[] = [
     height: 240,
     markers: [
       { id: "ait159", name: "Ice Heal", category: "item", x: 64.29, y: 83.33, desc: "Defrosts a frozen POKéMON." },
+    ],
+  },
+  {
+    id: "sootopoliscity-gym-1f",
+    mapId: "MAP_SOOTOPOLIS_CITY_GYM_1F",
+    name: "Sootopolis City Gym 1F",
+    group: "Sootopolis City",
+    floor: "Gym 1F",
+    image: "maps/areas/sootopoliscity-gym-1f.png",
+    width: 272,
+    height: 416,
+    markers: [
+    ],
+  },
+  {
+    id: "sootopoliscity-gym-b1f",
+    mapId: "MAP_SOOTOPOLIS_CITY_GYM_B1F",
+    name: "Sootopolis City Gym B1F",
+    group: "Sootopolis City",
+    floor: "Gym B1F",
+    image: "maps/areas/sootopoliscity-gym-b1f.png",
+    width: 272,
+    height: 416,
+    markers: [
     ],
   },
   {

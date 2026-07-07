@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.30",
+    date: "2026-07-07",
+    summary: "Gym walkthrough steps now show accurate interior maps with trainer sprites and full gym guide details.",
+    sections: [
+      {
+        heading: "Walkthrough — gyms",
+        items: [
+          "Gym battle steps display pixel-perfect gym interior maps (fixes Mauville showing the Contest Hall by mistake).",
+          "Trainer, gym leader, and NPC sprites appear at their in-game positions on gym floor plans — tap for party details.",
+          "Gym steps embed the same leader, junior trainer, and puzzle info as clicking a gym on the Hoenn map.",
+          "Multi-floor gyms (Lavaridge, Sootopolis) show both floors. New gym area maps generated via gen-area-maps.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.29",
     date: "2026-07-07",
     summary: "Gym guide modals now show authentic overworld sprites for gym leaders and in-gym trainers.",
