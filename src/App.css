@@ -1478,10 +1478,12 @@
 
 .map-zoom-viewport .hoenn-map__pin {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
+  transform-origin: 50% 100%;
 }
 
 .map-zoom-viewport .hoenn-map__pin--trainer {
   transform: translate(-50%, -100%) scale(var(--pin-zoom));
+  transform-origin: 50% 100%;
 }
 
 .map-zoom-viewport .map-marker {
