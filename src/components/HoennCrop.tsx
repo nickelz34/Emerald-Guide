@@ -3,6 +3,7 @@ import { assetUrl } from "../lib/assetUrl";
 import { HOENN_MAP_W, HOENN_MAP_H, type MapCrop } from "../data/mapCrops";
 import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
+import { MapZoomViewport } from "./MapZoomViewport";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
@@ -52,10 +53,15 @@ export function HoennCrop({
   const inLightbox = variant === "lightbox";
   const aspect = cropWpx / cropHpx;
   const maxH = inLightbox ? 720 : 460;
+  const isWide = aspect > 1.25;
 
   const frameStyle: CSSProperties = {
-    aspectRatio: `${cropWpx} / ${cropHpx}`,
-    width: inLightbox ? "100%" : `min(100%, ${Math.round(aspect * maxH)}px)`,
+    ...(inLightbox
+      ? { width: "100%", height: "100%" }
+      : {
+          aspectRatio: `${cropWpx} / ${cropHpx}`,
+          width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+        }),
     backgroundImage: `url(${HOENN_MAP_SRC})`,
     backgroundSize: `${sizeX}% ${sizeY}%`,
     backgroundPosition: `${posX}% ${posY}%`,
@@ -100,6 +106,13 @@ export function HoennCrop({
               left: `${point.x}%`,
               top: `${point.y}%`,
               ["--pin-color" as string]: cat?.color,
+              ...(trainer
+                ? {
+                    ["--trainer-frame" as string]: point.spriteFrame,
+                    ["--trainer-fw" as string]: point.spriteWidth,
+                    ["--trainer-fh" as string]: point.spriteHeight,
+                  }
+                : {}),
             }}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => handlePinClick(point, e)}
@@ -108,11 +121,6 @@ export function HoennCrop({
             {trainer ? (
               <span
                 className="hoenn-map__trainer-frame"
-                style={{
-                  ["--trainer-frame" as string]: point.spriteFrame,
-                  ["--trainer-fw" as string]: point.spriteWidth,
-                  ["--trainer-fh" as string]: point.spriteHeight,
-                }}
                 aria-hidden="true"
               >
                 <img
@@ -167,6 +175,9 @@ export function HoennCrop({
           ))}
         </ul>
         {inLightbox && (
+          <p className="map-zoom-viewport__hint">Pinch to zoom; drag to pan.</p>
+        )}
+        {inLightbox && (
           <ul className="area-map-view__point-index" aria-label="All points of interest">
             {points.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
@@ -197,11 +208,11 @@ export function HoennCrop({
       </div>
     ) : null;
 
-  const frame = (
+  const mapFrame = (
     <div
       className={`hoenn-crop__frame hoenn-crop__frame--pins ${interactive ? "hoenn-crop__frame--clickable" : ""}`}
       style={frameStyle}
-      onClick={onClick}
+      onClick={interactive ? onClick : undefined}
       onKeyDown={onKeyDown}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
@@ -211,9 +222,22 @@ export function HoennCrop({
     </div>
   );
 
+  const frame = inLightbox ? (
+    <MapZoomViewport
+      enabled
+      contentKey={`${crop.x}-${crop.y}-${crop.w}-${crop.h}-${areaId ?? ""}`}
+      className="hoenn-crop__zoom"
+      cropAspect={`${cropWpx} / ${cropHpx}`}
+    >
+      {mapFrame}
+    </MapZoomViewport>
+  ) : (
+    mapFrame
+  );
+
   if (inLightbox) {
     return (
-      <figure className={`hoenn-crop hoenn-crop--lightbox ${className}`}>
+      <figure className={`hoenn-crop hoenn-crop--lightbox${isWide ? " hoenn-crop--wide" : ""} ${className}`}>
         {(caption || areaId) && <p className="hoenn-crop__lightbox-title">{caption}</p>}
         <div className="hoenn-crop__lightbox-body">
           {frame}

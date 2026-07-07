@@ -230,6 +230,8 @@ export function AnnotatedScreenshot({
 
   const [zoom, setZoom] = useState(1);
 
+  const [fitZoom, setFitZoom] = useState(1);
+
   const [pan, setPan] = useState<Pan>({ x: 0, y: 0 });
 
   const [panoramic, setPanoramic] = useState(false);
@@ -355,6 +357,7 @@ export function AnnotatedScreenshot({
       img.offsetHeight,
     );
     setZoom(nextZoom);
+    setFitZoom(nextZoom);
     setPan(nextPan);
     requestAnimationFrame(syncRecenterPosition);
   }, [zoomEnabled, syncRecenterPosition]);
@@ -685,6 +688,8 @@ export function AnnotatedScreenshot({
 
     setZoom(1);
 
+    setFitZoom(1);
+
     setPan({ x: 0, y: 0 });
 
     setActiveId(null);
@@ -769,6 +774,7 @@ export function AnnotatedScreenshot({
         );
         setPan(nextPan);
         setZoom(nextZoom);
+        setFitZoom(nextZoom);
         requestAnimationFrame(syncRecenterPosition);
       });
     },
@@ -841,6 +847,15 @@ export function AnnotatedScreenshot({
       ref={attachFrameRef}
 
       className={`annotated-map__frame ${zoomEnabled && onImageClick ? "annotated-map__frame--clickable" : ""} ${staticMap && onImageClick ? "annotated-map__frame--clickable" : ""} ${zoomEnabled ? "annotated-map__frame--zoomable" : ""} ${panoramic ? "annotated-map__frame--panoramic" : ""}`}
+
+      style={
+        zoomEnabled
+          ? ({
+              "--map-zoom": zoom,
+              "--map-zoom-fit": fitZoom,
+            } as CSSProperties)
+          : undefined
+      }
 
       onClick={staticMap && onImageClick && !zoomEnabled ? onImageClick : undefined}
 

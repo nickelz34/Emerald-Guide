@@ -37,12 +37,14 @@ const {
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
 const MAPS_DIR = path.join(REPO, "data/maps");
-const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, ".calib/manifest.json"), "utf8"));
+const { loadManifest, mapIdToDir } = await import("./map-origin-lib.mjs");
+const manifest = loadManifest(ROOT);
 const RAW = "https://raw.githubusercontent.com/pret/pokeemerald/master";
 const SPRITE_DIR = path.join(ROOT, "public/sprites/trainers");
 
 const compositeIds = new Set(manifest.maps.map((m) => m.id));
-const { minX, minY, wTiles, hTiles } = manifest;
+const { wTiles, hTiles } = manifest;
+const mapOrigin = new Map(manifest.maps.map((m) => [m.id, { gx: m.gx, gy: m.gy }]));
 
 // Area maps we already ship (parse mapIds from generated file).
 const areaMapIds = new Set();
@@ -102,53 +104,49 @@ async function fetchTextCached(relPath, cache) {
 }
 
 // ---- layouts + maps ----
-const layoutsJson = JSON.parse(fs.readFileSync(path.join(REPO, "data/layouts/layouts.json"), "utf8"));
+const layoutsJson = JSON.parse(
+  fs.existsSync(path.join(REPO, "data/layouts/layouts.json"))
+    ? fs.readFileSync(path.join(REPO, "data/layouts/layouts.json"), "utf8")
+    : await fetchText(`${RAW}/data/layouts/layouts.json`),
+);
 const layoutById = new Map(layoutsJson.layouts.map((l) => [l.id, l]));
 const maps = new Map();
-for (const dir of fs.readdirSync(MAPS_DIR)) {
-  const mj = path.join(MAPS_DIR, dir, "map.json");
-  if (!fs.existsSync(mj)) continue;
-  const m = JSON.parse(fs.readFileSync(mj, "utf8"));
-  const l = layoutById.get(m.layout);
-  if (!l) continue;
-  maps.set(m.id, { ...m, w: l.width, h: l.height });
-}
 
-// Connected overworld component (same as generate.mjs)
-const origin = new Map();
-origin.set("MAP_LITTLEROOT_TOWN", { gx: 0, gy: 0 });
-const q = ["MAP_LITTLEROOT_TOWN"];
-while (q.length) {
-  const id = q.shift();
-  const cur = maps.get(id);
-  const o = origin.get(id);
-  if (!cur) continue;
-  for (const c of cur.connections || []) {
-    if (origin.has(c.map) || !maps.get(c.map)) continue;
-    if (!["up", "down", "left", "right"].includes(c.direction)) continue;
-    const nb = maps.get(c.map);
-    const off = Number(c.offset) || 0;
-    let gx, gy;
-    if (c.direction === "down") {
-      gx = o.gx + off;
-      gy = o.gy + cur.h;
-    } else if (c.direction === "up") {
-      gx = o.gx + off;
-      gy = o.gy - nb.h;
-    } else if (c.direction === "right") {
-      gx = o.gx + cur.w;
-      gy = o.gy + off;
-    } else {
-      gx = o.gx - nb.w;
-      gy = o.gy + off;
-    }
-    origin.set(c.map, { gx, gy });
-    q.push(c.map);
+async function loadMapJson(mapId) {
+  const dir = mapIdToDir(mapId);
+  const local = path.join(MAPS_DIR, dir, "map.json");
+  try {
+    const text = fs.existsSync(local)
+      ? fs.readFileSync(local, "utf8")
+      : await fetchText(`${RAW}/data/maps/${dir}/map.json`);
+    const m = JSON.parse(text);
+    const l = layoutById.get(m.layout);
+    if (!l) return null;
+    return { ...m, w: l.width, h: l.height };
+  } catch {
+    return null;
   }
 }
 
-const toGlobalX = (id, lx) => +(((origin.get(id).gx - minX) + lx + 0.5) / wTiles * 100).toFixed(2);
-const toGlobalY = (id, ly) => +(((origin.get(id).gy - minY) + ly + 1) / hTiles * 100).toFixed(2);
+const mapIdsToLoad = new Set([
+  ...manifest.maps.map((m) => m.id),
+  ...areaMapIds,
+]);
+for (const mapId of mapIdsToLoad) {
+  const loaded = await loadMapJson(mapId);
+  if (loaded) maps.set(mapId, loaded);
+}
+
+const toGlobalX = (id, lx) => {
+  const o = mapOrigin.get(id);
+  if (!o) return 0;
+  return +(((o.gx + lx + 0.5) / wTiles) * 100).toFixed(2);
+};
+const toGlobalY = (id, ly) => {
+  const o = mapOrigin.get(id);
+  if (!o) return 0;
+  return +(((o.gy + ly + 1) / hTiles) * 100).toFixed(2);
+};
 const toLocalX = (x, W) => +(((x + 0.5) / W) * 100).toFixed(2);
 const toLocalY = (y, H) => +(((y + 1) / H) * 100).toFixed(2);
 
@@ -188,10 +186,17 @@ for (const mt of trainersH.matchAll(
 
 // ---- scripts.inc: EventScript -> TRAINER_* ----
 const scriptToTrainer = new Map();
-for (const dir of fs.readdirSync(MAPS_DIR)) {
-  const si = path.join(MAPS_DIR, dir, "scripts.inc");
-  if (!fs.existsSync(si)) continue;
-  const text = fs.readFileSync(si, "utf8");
+for (const mapId of mapIdsToLoad) {
+  const dir = mapIdToDir(mapId);
+  const local = path.join(MAPS_DIR, dir, "scripts.inc");
+  let text = "";
+  try {
+    text = fs.existsSync(local)
+      ? fs.readFileSync(local, "utf8")
+      : await fetchText(`${RAW}/data/maps/${dir}/scripts.inc`);
+  } catch {
+    continue;
+  }
   let current = null;
   for (const line of text.split(/\r?\n/)) {
     const label = line.match(/^([\w]+)::/);
@@ -345,8 +350,8 @@ function addTrainer(rec) {
 }
 
 // Overworld composite maps
-for (const [id] of origin) {
-  if (!compositeIds.has(id)) continue;
+for (const { id } of manifest.maps) {
+  if (!compositeIds.has(id) || !maps.has(id)) continue;
   const m = maps.get(id);
   const area = areaName(m.name);
   for (const oe of m.object_events || []) {

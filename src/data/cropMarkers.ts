@@ -2,7 +2,7 @@ import { MAP_ANNOTATIONS, type MapMarker, type MarkerType } from "./mapAnnotatio
 import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
 import { GENERATED_POINTS } from "./mapPointsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
-import { AREA_MAP_BOUNDS, AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, type MapCrop } from "./mapCrops";
+import { AREA_MAP_BOUNDS, AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
 
 const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
@@ -66,6 +66,22 @@ function noteMatchesArea(note: string | undefined, labels: string[]): boolean {
   return labels.some((label) => n.includes(label.toLowerCase()));
 }
 
+/** Tile distance between two full-map percentage positions. */
+function mapTileDistance(ax: number, ay: number, bx: number, by: number): number {
+  const wTiles = HOENN_MAP_W / 16;
+  const hTiles = HOENN_MAP_H / 16;
+  const dx = (ax - bx) / (100 / wTiles);
+  const dy = (ay - by) / (100 / hTiles);
+  return Math.hypot(dx, dy);
+}
+
+function trainerSpriteNear(mapPos: { x: number; y: number }, labels: string[]): boolean {
+  return MAP_TRAINERS.some((tr) => {
+    if (!noteMatchesArea(tr.note, labels)) return false;
+    return mapTileDistance(mapPos.x, mapPos.y, tr.x, tr.y) < 1.25;
+  });
+}
+
 function annotationToMapPoint(marker: MapMarker, local: { x: number; y: number }): MapPoint {
   return {
     id: marker.id,
@@ -92,18 +108,20 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
     out.push(pt);
   };
 
+  const labels = areaId ? (AREA_NOTE_LABELS[areaId] ?? []) : [];
+
   // Hand-tuned walkthrough markers (trainers, grass, story POIs, buildings).
   if (areaId && MAP_ANNOTATIONS[areaId] && AREA_MAP_BOUNDS[areaId]) {
     const bounds = AREA_MAP_BOUNDS[areaId];
     for (const marker of MAP_ANNOTATIONS[areaId].markers) {
       const mapPos = markerToMapPos(marker, areaId, bounds);
+      // Prefer auto-generated trainer sprites over hand-placed trainer dots.
+      if (marker.type === "trainer" && trainerSpriteNear(mapPos, labels)) continue;
       const local = toCropLocal(mapPos.x, mapPos.y, crop);
       if (!local) continue;
       add(annotationToMapPoint(marker, local));
     }
   }
-
-  const labels = areaId ? (AREA_NOTE_LABELS[areaId] ?? []) : [];
 
   // Game-extracted items, berries, entrances, etc. (true-scale on the big map).
   // Skip auto-generated building entrances when hand-authored annotations already
