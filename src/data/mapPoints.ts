@@ -75,14 +75,14 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "ever-grande", name: "Ever Grande City", category: "town", x: 97.5, y: 57.44, note: "The Pokémon League plateau.", stepId: "victory-road-1" },
 
   // ── Gyms (offset slightly from their city so both layers stay visible) ──
-  { id: "gym-rustboro", name: "Rustboro Gym — Roxanne (Rock)", category: "gym", x: 3.44, y: 36.95, stepId: "rustboro-1" },
-  { id: "gym-dewford", name: "Dewford Gym — Brawly (Fighting)", category: "gym", x: 8.56, y: 99.09, stepId: "dewford-1" },
-  { id: "gym-mauville", name: "Mauville Gym — Wattson (Electric)", category: "gym", x: 26.06, y: 37.99, stepId: "mauville-1" },
-  { id: "gym-lavaridge", name: "Lavaridge Gym — Flannery (Fire)", category: "gym", x: 18.19, y: 19.71, stepId: "lavaridge-1" },
-  { id: "gym-petalburg", name: "Petalburg Gym — Norman (Normal)", category: "gym", x: 6.94, y: 62.79, stepId: "petalburg-1" },
-  { id: "gym-fortree", name: "Fortree Gym — Winona (Flying)", category: "gym", x: 42.81, y: 3, stepId: "fortree-1" },
+  { id: "gym-rustboro", name: "Rustboro Gym — Roxanne (Rock)", category: "gym", x: 3.44, y: 36.95, stepId: "rustboro-2" },
+  { id: "gym-dewford", name: "Dewford Gym — Brawly (Fighting)", category: "gym", x: 8.56, y: 99.09, stepId: "dewford-2" },
+  { id: "gym-mauville", name: "Mauville Gym — Wattson (Electric)", category: "gym", x: 26.06, y: 37.99, stepId: "mauville-2" },
+  { id: "gym-lavaridge", name: "Lavaridge Gym — Flannery (Fire)", category: "gym", x: 18.19, y: 19.71, stepId: "lavaridge-2" },
+  { id: "gym-petalburg", name: "Petalburg Gym — Norman (Normal)", category: "gym", x: 6.94, y: 62.79, stepId: "petalburg-gym-1" },
+  { id: "gym-fortree", name: "Fortree Gym — Winona (Flying)", category: "gym", x: 42.81, y: 3, stepId: "fortree-2" },
   { id: "gym-mossdeep", name: "Mossdeep Gym — Tate & Liza (Psychic)", category: "gym", x: 84.81, y: 28.59, stepId: "mossdeep-1" },
-  { id: "gym-sootopolis", name: "Sootopolis Gym — Juan (Water)", category: "gym", x: 75, y: 48.2, stepId: "sootopolis-1" },
+  { id: "gym-sootopolis", name: "Sootopolis Gym — Wallace (Water)", category: "gym", x: 75, y: 48.2, stepId: "sootopolis-gym-2" },
 
   // ── Caves & Dungeons ──
   { id: "meteor-falls", name: "Meteor Falls", category: "cave", x: 3.44, y: 20.76, note: "Waterfall cave; Bagon & TM lie deep inside." },

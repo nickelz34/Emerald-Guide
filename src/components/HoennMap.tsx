@@ -14,6 +14,7 @@ import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { RouteDetailModal } from "./EncounterTable";
+import { GymDetailModal } from "./GymDetailModal";
 
 const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS, ...ROUTE_POINTS];
 
@@ -123,6 +124,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
   const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
+  const [modalGym, setModalGym] = useState<MapPoint | null>(null);
   const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
   const [rematchableOnly, setRematchableOnly] = useState(false);
   const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
@@ -175,6 +177,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     setSelectedId(null);
     setModalTrainer(null);
     setModalRoute(null);
+    setModalGym(null);
   }, []);
 
   const closeRouteModal = useCallback(() => {
@@ -185,6 +188,11 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const closeTrainerModal = useCallback(() => {
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalTrainer(null);
+  }, []);
+
+  const closeGymModal = useCallback(() => {
+    blockMapMarkerUntilRef.current = Date.now() + 600;
+    setModalGym(null);
   }, []);
 
   useEffect(() => {
@@ -245,7 +253,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const isOverworld = !currentArea;
   const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
   const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
-  modalOpenRef.current = modalRoute !== null || modalTrainer !== null;
+  modalOpenRef.current = modalRoute !== null || modalTrainer !== null || modalGym !== null;
 
   const canvasW = fitW * view.scale;
   const canvasH = canvasW / mapAr;
@@ -545,6 +553,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       if (isTrainerPoint(point)) {
         setSelectedId(point.id);
         setModalRoute(null);
+        setModalGym(null);
         setModalTrainer(point);
         return;
       }
@@ -552,10 +561,19 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         setSelectedId(point.id);
         setModalRoute(point);
         setModalTrainer(null);
+        setModalGym(null);
+        return;
+      }
+      if (point.category === "gym") {
+        setSelectedId(point.id);
+        setModalGym(point);
+        setModalTrainer(null);
+        setModalRoute(null);
         return;
       }
       setModalTrainer(null);
       setModalRoute(null);
+      setModalGym(null);
       setSelectedId((id) => (id === point.id ? null : point.id));
     },
     [],
@@ -620,7 +638,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer ? " hoenn-map__viewport--modal-open" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -939,6 +957,32 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   </button>
                 )}
               </>
+            ) : selectedPoint.category === "gym" ? (
+              <>
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
+                >
+                  {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
+                </span>
+                <h5>{selectedPoint.name}</h5>
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalGym(selectedPoint)}
+                >
+                  View gym guide
+                </button>
+                {selectedPoint.stepId && (
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--sm"
+                    onClick={() => jumpToGuide(selectedPoint)}
+                  >
+                    Return to walkthrough
+                  </button>
+                )}
+              </>
             ) : (
               <>
                 <span
@@ -1001,6 +1045,15 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                           if (p.category === "route") {
                             setModalRoute(p);
                             setModalTrainer(null);
+                            setModalGym(null);
+                          } else if (p.category === "gym") {
+                            setModalGym(p);
+                            setModalTrainer(null);
+                            setModalRoute(null);
+                          } else if (isTrainerPoint(p)) {
+                            setModalTrainer(p);
+                            setModalRoute(null);
+                            setModalGym(null);
                           }
                         }}
                       >
@@ -1017,6 +1070,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         )}
       </div>
       )}
+      <GymDetailModal gymPoint={modalGym} onClose={closeGymModal} onJumpToGuide={jumpToGuide} />
       <RouteDetailModal
         route={modalRoute}
         onClose={closeRouteModal}

@@ -19,6 +19,7 @@ function formatMapId(mapId?: string): string | null {
 }
 
 function formatEncounterType(trainer: TrainerPoint): string {
+  if (trainer.trainerClass === "Gym Leader") return "Gym Leader battle";
   switch (trainer.trainerType) {
     case "TRAINER_TYPE_BURIED":
       return "Hidden — tree or rock disguise";
@@ -390,23 +391,27 @@ export function TrainerModalBody({ trainer }: { trainer: TrainerPoint }) {
   return (
     <div className="trainer-modal__content">
       <section className="trainer-modal__hero" aria-label="Trainer overview">
-        <div
-          className="trainer-modal__trainer-sprite"
-          style={{
-            ["--trainer-frame" as string]: trainer.spriteFrame,
-            ["--trainer-fw" as string]: trainer.spriteWidth,
-            ["--trainer-fh" as string]: trainer.spriteHeight,
-          }}
-        >
-          <img src={assetUrl(trainer.spriteSheet)} alt="" draggable={false} />
-        </div>
+        {trainer.spriteSheet ? (
+          <div
+            className="trainer-modal__trainer-sprite"
+            style={{
+              ["--trainer-frame" as string]: trainer.spriteFrame,
+              ["--trainer-fw" as string]: trainer.spriteWidth,
+              ["--trainer-fh" as string]: trainer.spriteHeight,
+            }}
+          >
+            <img src={assetUrl(trainer.spriteSheet)} alt="" draggable={false} />
+          </div>
+        ) : null}
         <div className="trainer-modal__hero-text">
           <p className="trainer-modal__class">{trainer.trainerClass}</p>
           <h4 className="trainer-modal__name">{trainer.trainerName}</h4>
           {mapLabel && <p className="trainer-modal__location">{mapLabel}</p>}
           <div className="trainer-modal__hero-badges">
             <span className="trainer-detail__badge">{formatEncounterType(trainer)}</span>
-            <span className="trainer-detail__badge">Facing {facing}</span>
+            {trainer.spriteSheet ? (
+              <span className="trainer-detail__badge">Facing {facing}</span>
+            ) : null}
             {battle?.doubleBattle && <span className="trainer-detail__badge">Double battle</span>}
             {payout != null && (
               <span className="trainer-detail__badge trainer-detail__badge--money">

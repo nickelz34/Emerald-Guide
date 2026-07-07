@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.28",
+    date: "2026-07-07",
+    summary: "Clicking a gym on the Hoenn map opens a full gym guide — leader, trainers, and walkthrough tips.",
+    sections: [
+      {
+        heading: "Hoenn map — gyms",
+        items: [
+          "Gym markers now open a Gym guide modal with badge info, puzzle notes, walkthrough strategy, and the leader’s full party breakdown.",
+          "Every junior trainer inside each gym is listed with a party preview — tap one for the same battle-details view as overworld trainers.",
+          "Gym pins link to the correct walkthrough battle step; Sootopolis shows Wallace (Emerald’s 8th Gym Leader).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.27",
     date: "2026-07-07",
     summary: "Wild encounter data is fully bundled — zero runtime data fetches.",
