@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.24",
+    date: "2026-07-07",
+    summary: "Pokémon Emerald sprites are bundled with the app — no more flaky CDN loads.",
+    sections: [
+      {
+        heading: "Pokémon sprites",
+        items: [
+          "All 386 Gen 3 Emerald front sprites now live in public/sprites/pokemon/emerald/ and ship with the site.",
+          "Route guide, Pokémon finder, and trainer party views load sprites from the same origin instead of jsDelivr.",
+          "Run npm run sync:pokemon-sprites to refresh sprites from the PokeAPI sprite set if needed.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.23",
     date: "2026-07-07",
     summary: "The main Hoenn map loads much faster with lossless compression and background preloading.",

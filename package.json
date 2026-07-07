@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.10.23",
+  "version": "1.10.24",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
     "gen:hoenn-crops": "node scripts/gen-hoenn-crop-images.mjs",
     "gen:area-maps": "node scripts/gen-area-maps.mjs",
     "gen:trainers": "node scripts/gen-map-trainers.mjs",
+    "sync:pokemon-sprites": "node scripts/sync-pokemon-sprites.mjs",
     "audit:trainers": "node scripts/audit-trainers.mjs",
     "verify:area-items": "node scripts/verify-area-items.mjs",
     "verify:area-assets": "node scripts/verify-area-assets.mjs",

@@ -3,7 +3,11 @@
  * opened, then cached. Provides types, base stats, abilities, sprite, dex
  * flavor text, and the evolution line — i.e. "all the info" beyond raw
  * encounter data.
+ *
+ * In-game Emerald battle sprites (#1–386) are bundled under public/sprites/pokemon/.
  */
+
+import { assetUrl } from "../lib/assetUrl";
 
 export interface StatLine {
   label: string;
@@ -60,13 +64,12 @@ const STAT_LABELS: Record<string, string> = {
 const API = "https://pokeapi.co/api/v2";
 
 /**
- * Actual in-game Pokémon Emerald front sprite for a National-dex number,
- * served from the PokéAPI sprite set via the jsDelivr CDN. Valid for #1–386;
- * returns undefined for anything outside Gen 3 (e.g. the glitch slot).
+ * In-game Pokémon Emerald front sprite for a National-dex number (#1–386).
+ * Bundled locally — no CDN fetch. Returns undefined outside Gen 3 (e.g. glitch slot).
  */
 export function emeraldSpriteUrl(nationalNumber?: number): string | undefined {
   if (!nationalNumber || nationalNumber < 1 || nationalNumber > 386) return undefined;
-  return `https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/pokemon/versions/generation-iii/emerald/${nationalNumber}.png`;
+  return assetUrl(`sprites/pokemon/emerald/${nationalNumber}.png`);
 }
 
 /** Species whose default /pokemon slug differs from the species name. */
