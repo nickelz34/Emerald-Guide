@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.31",
+    date: "2026-07-07",
+    summary: "Interior walkthrough maps now show NPC and trainer overworld sprites across caves, labs, tunnels, and dungeons.",
+    sections: [
+      {
+        heading: "Walkthrough — interior sprites",
+        items: [
+          "All 96 area maps now scan pokeemerald for trainers, story NPCs, and key Pokémon overworld sprites.",
+          "Birch's Lab shows Professor Birch, the aide, and your rival; Rusturf Tunnel shows Wanda, Peeko, and the Aqua grunt.",
+          "Caves and story interiors include hikers, Team Magma/Aqua, Archie, Maxie, Steven, and legendaries where they appear on the map.",
+          "New `npm run sync:area-map-entities` script; sprites saved under public/sprites/trainers/ and public/sprites/overworld/.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.30",
     date: "2026-07-07",
     summary: "Gym walkthrough steps now show accurate interior maps with trainer sprites and full gym guide details.",

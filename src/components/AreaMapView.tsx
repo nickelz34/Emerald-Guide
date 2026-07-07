@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { AREA_MAPS } from "../data/areaMaps";
+import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
@@ -45,7 +46,22 @@ export function AreaMapView({
       desc: m.desc,
       note: area.name,
     }));
-    return [...items, ...(AREA_TRAINERS[area.id] ?? []), ...(GYM_MAP_ENTITIES[area.id] ?? [])];
+    const seen = new Set<string>();
+    const sprites: TrainerPoint[] = [];
+    for (const src of [
+      AREA_MAP_ENTITIES[area.id],
+      GYM_MAP_ENTITIES[area.id],
+      AREA_TRAINERS[area.id],
+    ]) {
+      if (!src) continue;
+      for (const p of src) {
+        const key = p.trainerId ?? `${p.script ?? p.name}-${p.x}-${p.y}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        sprites.push(p);
+      }
+    }
+    return [...items, ...sprites];
   }, [area]);
 
   const activePoint = points.find((p) => p.id === activeId) ?? null;

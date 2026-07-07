@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.10.30",
+  "version": "1.10.31",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,7 @@
     "gen:trainers": "node scripts/gen-map-trainers.mjs",
     "sync:pokemon-sprites": "node scripts/sync-pokemon-sprites.mjs",
     "sync:gym-sprites": "node scripts/sync-gym-sprites.mjs",
+    "sync:area-map-entities": "node scripts/sync-area-map-entities.mjs",
     "audit:trainers": "node scripts/audit-trainers.mjs",
     "verify:area-items": "node scripts/verify-area-items.mjs",
     "verify:area-assets": "node scripts/verify-area-assets.mjs",
