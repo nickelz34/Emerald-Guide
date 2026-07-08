@@ -229,6 +229,61 @@ export const AREA_DATA: Record<string, AreaExtras> = {
       { name: "Aron", level: "7–9", time: "any", method: "rock-smash", rate: "100%", notes: "Rock Smash rocks" },
     ],
   },
+  littleroot: {
+    secrets: [
+      "Your home town and Prof. Birch's lab.",
+      "Choose Brendan or May's house at the start — same layout either way.",
+      "Starter choice and first Pokédex from Prof. Birch after the Route 101 rescue.",
+    ],
+    encounters: [],
+  },
+  oldale: {
+    secrets: [
+      "First town north of home.",
+      "Poké Mart opens after you deliver Devon goods to Rustboro.",
+    ],
+    encounters: [],
+  },
+  petalburg: {
+    secrets: [
+      "Your father Norman's gym city.",
+      "Norman's gym stays closed until you have four badges.",
+      "Wally catches his first Pokémon here with Norman's help.",
+    ],
+    encounters: [],
+  },
+  rustboro: {
+    secrets: [
+      "Devon Corporation — deliver Mr. Stone's letter from Route 104.",
+      "First gym: Roxanne (Rock). HM01 Cut from Roxanne.",
+      "Devon Goods unlock the Rusturf Tunnel and Slateport shipyard.",
+    ],
+    encounters: [],
+  },
+  verdanturf: {
+    secrets: [
+      "Clean-air resort west of Mauville.",
+      "Contest Hall and Pokéblock case from the woman in the house.",
+      "Rusturf Tunnel shortcut to Mauville through Route 117.",
+    ],
+    encounters: [],
+  },
+  lavaridge: {
+    secrets: [
+      "Hot-spring town — fourth gym with Flannery (Fire).",
+      "Herb shop sells useful battle items.",
+      "Jagged Pass south leads toward Mt. Chimney.",
+    ],
+    encounters: [],
+  },
+  fortree: {
+    secrets: [
+      "Treetop walkways — fifth gym with Winona (Flying).",
+      "Steven gives the Devon Scope here to spot invisible Kecleon on Route 120.",
+      "Bring Electric and Rock moves for the gym and nearby routes.",
+    ],
+    encounters: [],
+  },
   dewford: {
     screenshot: "dewford_town_e.png",
     secrets: ["Granite Cave on the island — only path to Steven and Flash."],

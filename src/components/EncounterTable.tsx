@@ -349,6 +349,8 @@ export function RouteDetailModal({
 
   if (!route) return null;
 
+  const isTown = route.category === "town";
+
   const openPokemon = (name: string) => {
     const entry = findDexEntryByName(dexEntries, name);
     if (entry && !entry.isGlitch) setSelectedPokemon(entry);
@@ -382,7 +384,11 @@ export function RouteDetailModal({
             ) : (
               <>
                 <h3 id="route-modal-title">{route.name}</h3>
-                <p className="route-modal__subtitle">Route guide — wild Pokémon, items, and trainers</p>
+                <p className="route-modal__subtitle">
+                  {isTown
+                    ? "Town guide — secrets, items, trainers, and encounters"
+                    : "Route guide — wild Pokémon, items, and trainers"}
+                </p>
               </>
             )}
           </div>
@@ -409,7 +415,9 @@ export function RouteDetailModal({
                 ) : encError ? (
                   <p className="route-modal__note">Couldn&apos;t load wild encounter data (offline?).</p>
                 ) : encounters.length === 0 ? (
-                  <p className="route-modal__note">No wild encounters recorded for this route.</p>
+                  <p className="route-modal__note">
+                    No wild encounters recorded for this {isTown ? "town" : "route"}.
+                  </p>
                 ) : (
                   <>
                     <div className="encounter-table-wrap">

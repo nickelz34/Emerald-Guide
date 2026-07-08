@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.39",
+    date: "2026-07-08",
+    summary: "Town map pins open a full town guide modal, matching trainer and gym pin behavior.",
+    sections: [
+      {
+        heading: "Maps — town guide",
+        items: [
+          "Clicking a town pin on the Hoenn map now opens the town guide modal with secrets, wild encounters, items, and trainers.",
+          "Town entries in the map index and legend sidebar include a View town guide button.",
+          "Added curated guide notes for Littleroot, Oldale, Petalburg, Rustboro, Verdanturf, Lavaridge, and Fortree.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.38",
     date: "2026-07-08",
     summary: "Town map pin redrawn as crisp 12×19 pixel art matching the requested marker.",
