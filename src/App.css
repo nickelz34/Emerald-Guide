@@ -2147,10 +2147,6 @@
   border-radius: 2px;
 }
 
-.hoenn-map__pin--hidden .hoenn-map__pin-dot {
-  border-style: dashed;
-}
-
 /* Collectible pins: item ball, berry tree, and Itemfinder for hidden items. */
 .hoenn-map__pin--item,
 .hoenn-map__pin--berry,
@@ -2179,19 +2175,6 @@
   width: calc(var(--item-fw, 16) * 1px);
   height: calc(var(--item-fh, 16) * 1px);
   image-rendering: pixelated;
-}
-
-.hoenn-map__pin--hidden .hoenn-map__item-frame::after {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  border: 1.5px dashed rgba(201, 210, 223, 0.95);
-  border-radius: 4px;
-  pointer-events: none;
-}
-
-.hoenn-map__pin--hidden .hoenn-map__item-sprite {
-  opacity: 0.92;
 }
 
 /* Trainers: authentic overworld sprites, feet anchored on tile. */

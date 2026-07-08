@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.45",
+    date: "2026-07-08",
+    summary: "Hidden item map pins no longer show a dashed outline around the sprite.",
+    sections: [
+      {
+        heading: "Maps — hidden item pins",
+        items: [
+          "Removed the dotted/dashed border overlay on hidden-item pins; they now render as the Itemfinder ball sprite only, like regular item balls.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.44",
     date: "2026-07-08",
     summary: "Caves and dungeons are no longer a separate map layer — they show as gray entrance pins only.",
