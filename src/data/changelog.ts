@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.36",
+    date: "2026-07-08",
+    summary: "Towns and cities on the Hoenn map now use a red map-pin sprite instead of a yellow dot.",
+    sections: [
+      {
+        heading: "Maps — town markers",
+        items: [
+          "Town and city pins use a 13×17 teardrop map-pin sprite (red body, gold cap) anchored at the tip.",
+          "New `npm run gen:town-pin` script regenerates public/sprites/map/town_pin.png.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.35",
     date: "2026-07-08",
     summary: "Gym markers on the Hoenn map now show each gym's badge sprite instead of a generic diamond pin.",
