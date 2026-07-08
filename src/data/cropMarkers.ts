@@ -2,7 +2,7 @@ import { MAP_ANNOTATIONS, type MapMarker, type MarkerType } from "./mapAnnotatio
 import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
 import { GENERATED_POINTS } from "./mapPointsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
-import { AREA_MAP_BOUNDS, AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
+import { AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
 
 const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
@@ -51,12 +51,24 @@ function toCropLocal(mapX: number, mapY: number, crop: MapCrop): { x: number; y:
   };
 }
 
-function markerToMapPos(marker: MapMarker, areaId: string, bounds: MapCrop): { x: number; y: number } {
+function markerToCropLocal(
+  marker: MapMarker,
+  areaId: string,
+  displayCrop: MapCrop,
+): { x: number; y: number; mapPos: { x: number; y: number } } | null {
   const tilePos = AREA_MARKER_MAP_POS[areaId]?.[marker.id];
-  if (tilePos) return tilePos;
+  if (tilePos) {
+    const local = toCropLocal(tilePos.x, tilePos.y, displayCrop);
+    if (!local) return null;
+    return { ...local, mapPos: tilePos };
+  }
   return {
-    x: bounds.x + (marker.x / 100) * bounds.w,
-    y: bounds.y + (marker.y / 100) * bounds.h,
+    x: marker.x,
+    y: marker.y,
+    mapPos: {
+      x: displayCrop.x + (marker.x / 100) * displayCrop.w,
+      y: displayCrop.y + (marker.y / 100) * displayCrop.h,
+    },
   };
 }
 
@@ -124,19 +136,18 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
   const labels = areaId ? (AREA_NOTE_LABELS[areaId] ?? []) : [];
 
   // Hand-tuned walkthrough markers (trainers, grass, story POIs, buildings).
-  if (areaId && MAP_ANNOTATIONS[areaId] && AREA_MAP_BOUNDS[areaId]) {
-    const bounds = AREA_MAP_BOUNDS[areaId];
+  if (areaId && MAP_ANNOTATIONS[areaId]) {
     for (const marker of MAP_ANNOTATIONS[areaId].markers) {
-      const mapPos = markerToMapPos(marker, areaId, bounds);
+      const placed = markerToCropLocal(marker, areaId, crop);
+      if (!placed) continue;
+      const { mapPos, x, y } = placed;
       // Prefer auto-generated trainer sprites over hand-placed trainer dots.
       if (marker.type === "trainer" && trainerSpriteNear(mapPos, labels)) continue;
       // Prefer main-map building entrances over hand-placed duplicates.
       if (marker.type === "building" && labels.length > 0 && generatedEntranceNear(mapPos, labels)) {
         continue;
       }
-      const local = toCropLocal(mapPos.x, mapPos.y, crop);
-      if (!local) continue;
-      add(annotationToMapPoint(marker, local));
+      add(annotationToMapPoint(marker, { x, y }));
     }
   }
 

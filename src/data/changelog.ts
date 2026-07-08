@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.40",
+    date: "2026-07-08",
+    summary: "Walkthrough landmark pins align correctly on crop maps and in the zoom lightbox.",
+    sections: [
+      {
+        heading: "Maps — marker alignment",
+        items: [
+          "Fixed green landmark pins drifting on walkthrough maps by placing hand-authored markers in crop-local coordinates and tile-calibrated markers through the same display crop used for the image.",
+          "Fixed landmark and entrance dots shifting when the map lightbox scales pins during zoom — pins now scale from their center anchor.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.39",
     date: "2026-07-08",
     summary: "Walkthrough map pins now use the same entrance labels and categories as the main Hoenn map.",

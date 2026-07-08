@@ -1589,9 +1589,9 @@
   --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
-.map-zoom-viewport .hoenn-map__pin {
+.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--trainer) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
-  transform-origin: 50% 100%;
+  transform-origin: center;
 }
 
 .map-zoom-viewport .hoenn-map__pin--trainer {
