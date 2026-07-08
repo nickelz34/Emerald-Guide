@@ -2063,6 +2063,40 @@
   transform: scale(1.08);
 }
 
+/* Town / city map pin — teardrop anchored at the point. */
+.hoenn-map__pin--town {
+  width: calc(var(--town-fw, 13) * 1px);
+  height: calc(var(--town-fh, 17) * 1px);
+  transform: translate(
+    calc(var(--town-fw, 13) * -0.5px),
+    calc(var(--town-fh, 17) * -1px)
+  );
+  transform-origin: calc(var(--town-fw, 13) * 0.5px) calc(var(--town-fh, 17) * 1px);
+  z-index: 3;
+}
+
+.hoenn-map__town-frame {
+  display: block;
+  width: calc(var(--town-fw, 13) * 1px);
+  height: calc(var(--town-fh, 18) * 1px);
+  overflow: hidden;
+  position: relative;
+}
+
+.hoenn-map__town-sprite {
+  display: block;
+  width: calc(var(--town-fw, 13) * 1px);
+  height: calc(var(--town-fh, 18) * 1px);
+  image-rendering: pixelated;
+  pointer-events: none;
+  transition: transform 0.12s ease;
+}
+
+.hoenn-map__pin--town:hover .hoenn-map__town-sprite,
+.hoenn-map__pin--town.is-active .hoenn-map__town-sprite {
+  transform: scale(1.08);
+}
+
 .hoenn-map__pin--gym .hoenn-map__pin-dot {
   border-radius: 3px;
   transform: rotate(45deg);

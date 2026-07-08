@@ -2,6 +2,7 @@ import { assetUrl } from "../lib/assetUrl";
 import type { MapPoint } from "../data/mapPoints";
 import { getCollectibleSprite, isCollectibleSpriteCategory } from "../data/itemSpritesGenerated";
 import { getGymBadgeSprite } from "../data/gymBadgesGenerated";
+import { getTownPinSprite } from "../data/townSprites";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
 export function isTrainerPoint(p: MapPoint): p is TrainerPoint {
@@ -43,6 +44,20 @@ export function MapPinVisual({ point }: MapPinVisualProps) {
     }
   }
 
+  if (point.category === "town") {
+    const town = getTownPinSprite();
+    return (
+      <span className="hoenn-map__town-frame" aria-hidden="true">
+        <img
+          src={assetUrl(town.spriteSheet)}
+          alt=""
+          className="hoenn-map__town-sprite"
+          draggable={false}
+        />
+      </span>
+    );
+  }
+
   if (isCollectibleSpriteCategory(point.category)) {
     const sprite = getCollectibleSprite(point.category);
     if (sprite) {
@@ -79,6 +94,13 @@ export function pinSpriteStyle(point: MapPoint): Record<string, string | number>
         ["--badge-fh"]: badge.spriteHeight,
       };
     }
+  }
+  if (point.category === "town") {
+    const town = getTownPinSprite();
+    return {
+      ["--town-fw"]: town.spriteWidth,
+      ["--town-fh"]: town.spriteHeight,
+    };
   }
   if (isCollectibleSpriteCategory(point.category)) {
     const sprite = getCollectibleSprite(point.category);
