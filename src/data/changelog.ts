@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.39",
+    date: "2026-07-08",
+    summary: "Walkthrough map pins now use the same entrance labels and categories as the main Hoenn map.",
+    sections: [
+      {
+        heading: "Maps — walkthrough marker labels",
+        items: [
+          "Fixed building markers on walkthrough town/route crops showing as “Towns & Cities” instead of “Entrances”.",
+          "Walkthrough crops now prefer the same game-extracted entrance pins used on the full Hoenn map, avoiding duplicate hand-placed building markers.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.38",
     date: "2026-07-08",
     summary: "Town map pin redrawn as crisp 12×19 pixel art matching the requested marker.",

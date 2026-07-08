@@ -12,7 +12,7 @@ const MARKER_TO_POI: Record<MarkerType, PoiCategory> = {
   trainer: "trainer",
   item: "item",
   npc: "landmark",
-  building: "town",
+  building: "entrance",
   poi: "landmark",
   wild: "landmark",
 };
@@ -82,6 +82,19 @@ function trainerSpriteNear(mapPos: { x: number; y: number }, labels: string[]): 
   });
 }
 
+function generatedEntranceNear(
+  mapPos: { x: number; y: number },
+  labels: string[],
+  maxTiles = 2,
+): boolean {
+  return ALL_MAP_POINTS.some(
+    (pt) =>
+      pt.category === "entrance" &&
+      noteMatchesArea(pt.note, labels) &&
+      mapTileDistance(mapPos.x, mapPos.y, pt.x, pt.y) < maxTiles,
+  );
+}
+
 function annotationToMapPoint(marker: MapMarker, local: { x: number; y: number }): MapPoint {
   return {
     id: marker.id,
@@ -117,6 +130,10 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
       const mapPos = markerToMapPos(marker, areaId, bounds);
       // Prefer auto-generated trainer sprites over hand-placed trainer dots.
       if (marker.type === "trainer" && trainerSpriteNear(mapPos, labels)) continue;
+      // Prefer main-map building entrances over hand-placed duplicates.
+      if (marker.type === "building" && labels.length > 0 && generatedEntranceNear(mapPos, labels)) {
+        continue;
+      }
       const local = toCropLocal(mapPos.x, mapPos.y, crop);
       if (!local) continue;
       add(annotationToMapPoint(marker, local));
@@ -124,16 +141,9 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
   }
 
   // Game-extracted items, berries, entrances, etc. (true-scale on the big map).
-  // Skip auto-generated building entrances when hand-authored annotations already
-  // cover the area — avoids duplicate pins (e.g. "House (NW)" + "House1").
-  const hasBuildingAnnotations =
-    areaId &&
-    MAP_ANNOTATIONS[areaId]?.markers.some((m) => m.type === "building" || m.type === "poi");
-
   if (labels.length > 0) {
     for (const pt of ALL_MAP_POINTS) {
       if (!noteMatchesArea(pt.note, labels)) continue;
-      if (hasBuildingAnnotations && pt.category === "entrance") continue;
       const local = toCropLocal(pt.x, pt.y, crop);
       if (!local) continue;
       add({
