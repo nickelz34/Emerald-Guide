@@ -29,7 +29,6 @@ export default function App() {
 
   const handleSelect = (key: NavKey) => {
     setNav(key);
-    if (key !== "map") setActiveStepId(undefined);
   };
 
   const handleShowOnMap = (stepId: string) => {

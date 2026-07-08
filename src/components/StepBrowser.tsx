@@ -81,7 +81,9 @@ export function StepBrowser({
     [sections],
   );
 
-  const [internalId, setInternalId] = useState<string | undefined>(flat[0]?.step.id);
+  const [internalId, setInternalId] = useState<string | undefined>(
+    () => activeStepId ?? flat[0]?.step.id,
+  );
   const [filter, setFilter] = useState("");
   const [railOpen, setRailOpen] = useState(false);
   const [swipeIntroDismissed, setSwipeIntroDismissed] = useState(() => {
@@ -112,6 +114,10 @@ export function StepBrowser({
   const goPrev = useCallback(() => {
     if (currentIndex > 0) select(flat[currentIndex - 1].step.id);
   }, [currentIndex, flat]);
+
+  useEffect(() => {
+    if (activeStepId) setInternalId(activeStepId);
+  }, [activeStepId]);
 
   useEffect(() => {
     // Reset to first step when the category (sections) changes.

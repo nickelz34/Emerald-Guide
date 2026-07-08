@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.50",
+    date: "2026-07-08",
+    summary: "Walkthrough position is preserved when you switch to the map and back.",
+    sections: [
+      {
+        heading: "Walkthrough — navigation",
+        items: [
+          "Leaving the walkthrough for the Hoenn Map (or Pokédex) no longer resets your current step — returning picks up where you left off.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.49",
     date: "2026-07-08",
     summary: "Item bag icons in map callouts actually render now (were blank PNGs).",
