@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.56",
+    date: "2026-07-08",
+    summary: "Tall desktop walkthrough maps keep marker alignment in the lightbox.",
+    sections: [
+      {
+        heading: "Maps — desktop lightbox",
+        items: [
+          "Desktop crop-fit lightboxes now size their width from the crop aspect ratio, fixing tall maps like Route 104 whose markers were spread far left and right.",
+          "Removed the Hoenn crop contain fallback so pins and the map image use the same coordinate box.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.55",
     date: "2026-07-08",
     summary: "Walkthrough map pins stay readable when you zoom in.",
