@@ -1,6 +1,7 @@
 import { assetUrl } from "../lib/assetUrl";
 import type { MapPoint } from "../data/mapPoints";
 import { getCollectibleSprite, isCollectibleSpriteCategory } from "../data/itemSpritesGenerated";
+import { getGymBadgeSprite } from "../data/gymBadgesGenerated";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
 export function isTrainerPoint(p: MapPoint): p is TrainerPoint {
@@ -11,7 +12,7 @@ interface MapPinVisualProps {
   point: MapPoint;
 }
 
-/** Pin glyph: trainer overworld sprite, collectible sprite, or colored dot fallback. */
+/** Pin glyph: trainer overworld sprite, gym badge, collectible sprite, or colored dot fallback. */
 export function MapPinVisual({ point }: MapPinVisualProps) {
   if (isTrainerPoint(point)) {
     return (
@@ -24,6 +25,22 @@ export function MapPinVisual({ point }: MapPinVisualProps) {
         />
       </span>
     );
+  }
+
+  if (point.category === "gym") {
+    const badge = getGymBadgeSprite(point.id);
+    if (badge) {
+      return (
+        <span className="hoenn-map__badge-frame" aria-hidden="true">
+          <img
+            src={assetUrl(badge.spriteSheet)}
+            alt=""
+            className="hoenn-map__badge-sprite"
+            draggable={false}
+          />
+        </span>
+      );
+    }
   }
 
   if (isCollectibleSpriteCategory(point.category)) {
@@ -52,6 +69,16 @@ export function pinSpriteStyle(point: MapPoint): Record<string, string | number>
       ["--trainer-fw"]: point.spriteWidth,
       ["--trainer-fh"]: point.spriteHeight,
     };
+  }
+  if (point.category === "gym") {
+    const badge = getGymBadgeSprite(point.id);
+    if (badge) {
+      return {
+        ["--badge-frame"]: badge.spriteFrame,
+        ["--badge-fw"]: badge.spriteWidth,
+        ["--badge-fh"]: badge.spriteHeight,
+      };
+    }
   }
   if (isCollectibleSpriteCategory(point.category)) {
     const sprite = getCollectibleSprite(point.category);

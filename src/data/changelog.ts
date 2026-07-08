@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.35",
+    date: "2026-07-08",
+    summary: "Gym markers on the Hoenn map now show each gym's badge sprite instead of a generic diamond pin.",
+    sections: [
+      {
+        heading: "Maps — gym badges",
+        items: [
+          "Each gym pin uses the corresponding Hoenn badge from the trainer card sheet (Stone, Knuckle, Dynamo, etc.).",
+          "Badge sprites are synced via `npm run sync:gym-sprites` into public/sprites/gym/badges.png.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.34",
     date: "2026-07-07",
     summary: "Hidden item map pins now use a grey-and-white Poké Ball matching the visible item ball size.",

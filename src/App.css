@@ -2018,17 +2018,53 @@
 }
 
 /* Distinct shapes per category */
-.hoenn-map__pin--gym .hoenn-map__pin-dot {
-  border-radius: 3px;
-  transform: rotate(45deg);
-}
-
 .hoenn-map__pin--cave .hoenn-map__pin-dot {
   border-radius: 3px;
 }
 
 .hoenn-map__pin--landmark .hoenn-map__pin-dot {
   border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+}
+
+/* Gym badges from the trainer card sheet — one frame per Hoenn gym. */
+.hoenn-map__pin--gym {
+  width: calc(var(--badge-fw, 16) * 1px);
+  height: calc(var(--badge-fh, 16) * 1px);
+  transform: translate(
+    calc(var(--badge-fw, 16) * -0.5px),
+    calc(var(--badge-fh, 16) * -1px)
+  );
+  transform-origin: calc(var(--badge-fw, 16) * 0.5px) calc(var(--badge-fh, 16) * 1px);
+  z-index: 3;
+}
+
+.hoenn-map__badge-frame {
+  display: block;
+  width: calc(var(--badge-fw, 16) * 1px);
+  height: calc(var(--badge-fh, 16) * 1px);
+  overflow: hidden;
+  position: relative;
+}
+
+.hoenn-map__badge-sprite {
+  display: block;
+  height: calc(var(--badge-fh, 16) * 1px);
+  width: auto;
+  max-width: none;
+  margin-left: calc(var(--badge-frame, 0) * var(--badge-fw, 16) * -1px);
+  image-rendering: pixelated;
+  pointer-events: none;
+  transition: transform 0.12s ease;
+}
+
+.hoenn-map__pin--gym:hover .hoenn-map__badge-sprite,
+.hoenn-map__pin--gym.is-active .hoenn-map__badge-sprite {
+  transform: scale(1.08);
+}
+
+.hoenn-map__pin--gym .hoenn-map__pin-dot {
+  border-radius: 3px;
   transform: rotate(45deg);
 }
 
