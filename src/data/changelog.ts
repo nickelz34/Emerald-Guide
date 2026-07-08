@@ -20,6 +20,45 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.53",
+    date: "2026-07-08",
+    summary: "The changelog modal now stays within the visible viewport.",
+    sections: [
+      {
+        heading: "Changelog",
+        items: [
+          "Constrained the changelog modal using dynamic viewport height and safe-area padding so the top no longer runs offscreen or gets cut off on mobile browsers.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.52",
+    date: "2026-07-08",
+    summary: "The app is now branded as Emerald Guide without a dash.",
+    sections: [
+      {
+        heading: "Branding",
+        items: [
+          "Updated the browser tab title, header brand, changelog subtitle, and README references to use Emerald Guide.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.51",
+    date: "2026-07-08",
+    summary: "The app is now branded as Emerald Guide in browser and UI labels.",
+    sections: [
+      {
+        heading: "Branding",
+        items: [
+          "Updated the browser tab title, header brand, changelog subtitle, and README references to use Emerald Guide.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.50",
     date: "2026-07-08",
     summary: "Walkthrough position is preserved when you switch to the map and back.",
