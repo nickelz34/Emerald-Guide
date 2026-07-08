@@ -345,6 +345,8 @@ function groupAndFloor(mapName) {
 }
 const toLocalX = (x, W) => +(((x + 0.5) / W) * 100).toFixed(2);
 const toLocalY = (y, H) => +(((y + 0.5) / H) * 100).toFixed(2);
+/** Berry trees are object events — sprite feet sit on the bottom of the tile. */
+const berryFootY = (y, H) => +(((y + 1) / H) * 100).toFixed(2);
 
 /** Non-composite maps rendered even without field pickups (walkthrough navigation). */
 const ALWAYS_INCLUDE = new Set([
@@ -431,10 +433,10 @@ for (const c of candidates) {
     const wm = /_([A-Z]+)(?:_\d+)?$/.exec(bid);
     const word = wm ? wm[1] : "";
     if (word === "SOIL") {
-      markers.push({ id: nid("be"), name: "Soft Soil", category: "berry", x: toLocalX(oe.x, W), y: toLocalY(oe.y, H), desc: "Loamy soil where a Berry can be planted." });
+      markers.push({ id: nid("be"), name: "Soft Soil", category: "berry", x: toLocalX(oe.x, W), y: berryFootY(oe.y, H), desc: "Loamy soil where a Berry can be planted." });
     } else {
       const b = berryConst(word);
-      markers.push({ id: nid("be"), name: b?.name || `${titleCase(word)} Berry`, category: "berry", x: toLocalX(oe.x, W), y: toLocalY(oe.y, H), desc: b?.desc || "" });
+      markers.push({ id: nid("be"), name: b?.name || `${titleCase(word)} Berry`, category: "berry", x: toLocalX(oe.x, W), y: berryFootY(oe.y, H), desc: b?.desc || "" });
     }
   }
   for (const bg of c.hidden) {

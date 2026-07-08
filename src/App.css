@@ -1589,7 +1589,9 @@
   --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
-.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--trainer) {
+.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--trainer):not(.hoenn-map__pin--item):not(
+    .hoenn-map__pin--berry
+  ):not(.hoenn-map__pin--hidden) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
   transform-origin: center;
 }
@@ -1601,6 +1603,17 @@
     )
     scale(var(--pin-zoom));
   transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
+}
+
+.map-zoom-viewport .hoenn-map__pin--item,
+.map-zoom-viewport .hoenn-map__pin--berry,
+.map-zoom-viewport .hoenn-map__pin--hidden {
+  transform: translate(
+      calc(var(--item-fw, 16) * -0.5px),
+      calc(var(--item-fh, 16) * -1px)
+    )
+    scale(var(--pin-zoom));
+  transform-origin: calc(var(--item-fw, 16) * 0.5px) calc(var(--item-fh, 16) * 1px);
 }
 
 .map-zoom-viewport .map-marker {

@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.43",
+    date: "2026-07-08",
+    summary: "Berry tree map pins now use the correct in-game sprite size and ground anchoring.",
+    sections: [
+      {
+        heading: "Maps — berry pin alignment",
+        items: [
+          "Berry tree pins now use the authentic 16×32 overworld sprite (one tile wide, two tall) instead of a doubled 32×32 crop that showed two trees side by side.",
+          "Berry coordinates anchor to the soil at the bottom of each tile, matching trainer and NPC foot placement on the map.",
+          "Walkthrough crop zoom no longer recenters berry/item sprites — they keep their ground anchor while scaling.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.42",
     date: "2026-07-08",
     summary: "Walkthrough map pins now match the main Hoenn map with distinct colors and no stacked duplicates.",
