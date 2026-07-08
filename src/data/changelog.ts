@@ -20,16 +20,305 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
-    version: "1.10.39",
+    version: "1.10.60",
     date: "2026-07-08",
-    summary: "Town map pins open a full town guide modal, matching trainer and gym pin behavior.",
+    summary: "Desktop main map dragging stays reliable when panning across markers.",
     sections: [
       {
-        heading: "Maps — town guide",
+        heading: "Maps — desktop panning",
         items: [
-          "Clicking a town pin on the Hoenn map now opens the town guide modal with secrets, wild encounters, items, and trainers.",
-          "Town entries in the map index and legend sidebar include a View town guide button.",
-          "Added curated guide notes for Littleroot, Oldale, Petalburg, Rustboro, Verdanturf, Lavaridge, and Fortree.",
+          "Mouse drags on the main Hoenn map can now begin over map markers, preventing dense marker areas from blocking pan navigation after zooming in.",
+          "Marker clicks and touch marker taps still open marker details normally.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.59",
+    date: "2026-07-08",
+    summary: "Walkthrough map markers stay larger while zooming, with gym badges emphasized.",
+    sections: [
+      {
+        heading: "Maps — walkthrough zoom",
+        items: [
+          "Raised the minimum zoomed marker scale so sprites, item balls, hidden items, and standard markers remain easier to see.",
+          "Gym badge pins now receive an additional size boost in walkthrough map lightboxes so gyms stand out from other markers.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.58",
+    date: "2026-07-08",
+    summary: "Walkthrough area map image taps now open the lightbox directly from the map frame.",
+    sections: [
+      {
+        heading: "Maps — walkthrough images",
+        items: [
+          "Area map frames now explicitly open the detailed zoomable lightbox in walkthrough cards, so Chapter 8 route/woods maps behave like Dewford and other Hoenn crop images.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.57",
+    date: "2026-07-08",
+    summary: "Walkthrough area map images open the detailed lightbox again.",
+    sections: [
+      {
+        heading: "Maps — walkthrough images",
+        items: [
+          "Clicking or tapping interior/route area map images in walkthrough cards now opens the detailed zoomable map lightbox, matching Hoenn crop maps like Dewford Town.",
+          "Marker clicks still show marker details without opening the lightbox.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.56",
+    date: "2026-07-08",
+    summary: "Tall desktop walkthrough maps keep marker alignment in the lightbox.",
+    sections: [
+      {
+        heading: "Maps — desktop lightbox",
+        items: [
+          "Desktop crop-fit lightboxes now size their width from the crop aspect ratio, fixing tall maps like Route 104 whose markers were spread far left and right.",
+          "Removed the Hoenn crop contain fallback so pins and the map image use the same coordinate box.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.55",
+    date: "2026-07-08",
+    summary: "Walkthrough map pins stay readable when you zoom in.",
+    sections: [
+      {
+        heading: "Maps — walkthrough zoom",
+        items: [
+          "Trainer sprites, item balls, hidden items, and other walkthrough map pins now keep a larger minimum size while zooming so they do not shrink away.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.54",
+    date: "2026-07-08",
+    summary: "Desktop town map lightboxes no longer stretch square Hoenn crops.",
+    sections: [
+      {
+        heading: "Maps — desktop lightbox",
+        items: [
+          "Desktop walkthrough map lightboxes now preserve the Hoenn crop aspect ratio, fixing stretched square town maps like Oldale Town.",
+          "Crop-fit images use contain sizing as a safeguard against future aspect-ratio drift.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.53",
+    date: "2026-07-08",
+    summary: "The changelog modal now stays within the visible viewport.",
+    sections: [
+      {
+        heading: "Changelog",
+        items: [
+          "Constrained the changelog modal using dynamic viewport height and safe-area padding so the top no longer runs offscreen or gets cut off on mobile browsers.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.52",
+    date: "2026-07-08",
+    summary: "The app is now branded as Emerald Guide without a dash.",
+    sections: [
+      {
+        heading: "Branding",
+        items: [
+          "Updated the browser tab title, header brand, changelog subtitle, and README references to use Emerald Guide.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.51",
+    date: "2026-07-08",
+    summary: "The app is now branded as Emerald Guide in browser and UI labels.",
+    sections: [
+      {
+        heading: "Branding",
+        items: [
+          "Updated the browser tab title, header brand, changelog subtitle, and README references to use Emerald Guide.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.50",
+    date: "2026-07-08",
+    summary: "Walkthrough position is preserved when you switch to the map and back.",
+    sections: [
+      {
+        heading: "Walkthrough — navigation",
+        items: [
+          "Leaving the walkthrough for the Hoenn Map (or Pokédex) no longer resets your current step — returning picks up where you left off.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.49",
+    date: "2026-07-08",
+    summary: "Item bag icons in map callouts actually render now (were blank PNGs).",
+    sections: [
+      {
+        heading: "Maps — item icon fix",
+        items: [
+          "Fixed sync:item-icons palette lookup: pngjs stores palette entries as arrays, so every pixel was keyed out as transparent (81-byte blank PNGs).",
+          "Icons now remap through the correct source palette baked into each pret graphic, then apply the item's own palette for shared sprites like X items and potions.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.48",
+    date: "2026-07-08",
+    summary: "Item bag icons in map callouts now load reliably in the browser.",
+    sections: [
+      {
+        heading: "Maps — item icon fix",
+        items: [
+          "Bag icons are now exported as RGBA PNGs with the correct per-item palette (fixes invisible or broken images in the selection callout).",
+          "Each item gets its own icon file (e.g. guard_spec.png vs dire_hit.png) so shared graphics like X items render with the right colors.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.47",
+    date: "2026-07-08",
+    summary: "Item and hidden-item map callouts now show the in-game bag icon beside the description.",
+    sections: [
+      {
+        heading: "Maps — selection callout sprites",
+        items: [
+          "Tapping a visible item or hidden item pin shows that item's authentic bag icon (Potion, Revive, TM, etc.) in the on-map callout, scaled up for readability.",
+          "Entrances, berries, towns, and other pin types keep a text-only callout.",
+          "New `npm run sync:item-icons` script downloads the needed icons from pokeemerald into `public/sprites/items/icons/`.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.46",
+    date: "2026-07-08",
+    summary: "Item and entrance details now appear on the map when you tap a pin.",
+    sections: [
+      {
+        heading: "Maps — pin details on click",
+        items: [
+          "Clicking or tapping an item ball, berry, hidden item, or entrance now shows its name and description in a callout on the map itself instead of only in the legend panel below.",
+          "Works in the full Hoenn map and the compact map modal, including on touch devices.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.45",
+    date: "2026-07-08",
+    summary: "Hidden item map pins no longer show a dashed outline around the sprite.",
+    sections: [
+      {
+        heading: "Maps — hidden item pins",
+        items: [
+          "Removed the dotted/dashed border overlay on hidden-item pins; they now render as the Itemfinder ball sprite only, like regular item balls.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.44",
+    date: "2026-07-08",
+    summary: "Caves and dungeons are no longer a separate map layer — they show as gray entrance pins only.",
+    sections: [
+      {
+        heading: "Maps — cave/dungeon pins",
+        items: [
+          "Removed the purple Caves & Dungeons layer and hand-placed cave pins from the main Hoenn map; cave and dungeon locations are covered by the existing gray entrance markers from game data.",
+          "Walkthrough crop maps now mark cave, tunnel, woods, and dungeon doorways as entrance pins (gray) instead of green story POIs.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.43",
+    date: "2026-07-08",
+    summary: "Berry tree map pins now use the correct in-game sprite size and ground anchoring.",
+    sections: [
+      {
+        heading: "Maps — berry pin alignment",
+        items: [
+          "Berry tree pins now use the authentic 16×32 overworld sprite (one tile wide, two tall) instead of a doubled 32×32 crop that showed two trees side by side.",
+          "Berry coordinates anchor to the soil at the bottom of each tile, matching trainer and NPC foot placement on the map.",
+          "Walkthrough crop zoom no longer recenters berry/item sprites — they keep their ground anchor while scaling.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.42",
+    date: "2026-07-08",
+    summary: "Walkthrough map pins now match the main Hoenn map with distinct colors and no stacked duplicates.",
+    sections: [
+      {
+        heading: "Maps — walkthrough pin overhaul",
+        items: [
+          "Walkthrough crops now load pins from the same main-map data as the full Hoenn map (entrances, items, berries, trainers, landmarks) before adding guide-only markers.",
+          "Removed stacked duplicates: overlapping entrances collapse to one gray pin; hand annotations are skipped when a main-map pin already exists at that spot.",
+          "Route exit markers use blue route pins, grass/surf areas use green wild pins, and NPCs use light-blue ring pins — each visually distinct from landmarks and entrances.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.41",
+    date: "2026-07-08",
+    summary: "Cave and building entrances on walkthrough maps no longer show duplicate green and gray pins.",
+    sections: [
+      {
+        heading: "Maps — entrance deduplication",
+        items: [
+          "Hand-placed cave and building POI markers are now skipped when the main Hoenn map already has a gray entrance pin at the same location.",
+          "Walkthrough maps show only the gray entrance marker for caves, tunnels, and woods — matching the main map.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.40",
+    date: "2026-07-08",
+    summary: "Walkthrough landmark pins align correctly on crop maps and in the zoom lightbox.",
+    sections: [
+      {
+        heading: "Maps — marker alignment",
+        items: [
+          "Fixed green landmark pins drifting on walkthrough maps by placing hand-authored markers in crop-local coordinates and tile-calibrated markers through the same display crop used for the image.",
+          "Fixed landmark and entrance dots shifting when the map lightbox scales pins during zoom — pins now scale from their center anchor.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.39",
+    date: "2026-07-08",
+    summary: "Walkthrough map pins now use the same entrance labels and categories as the main Hoenn map.",
+    sections: [
+      {
+        heading: "Maps — walkthrough marker labels",
+        items: [
+          "Fixed building markers on walkthrough town/route crops showing as “Towns & Cities” instead of “Entrances”.",
+          "Walkthrough crops now prefer the same game-extracted entrance pins used on the full Hoenn map, avoiding duplicate hand-placed building markers.",
         ],
       },
     ],

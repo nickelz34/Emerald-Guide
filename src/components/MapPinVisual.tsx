@@ -1,6 +1,7 @@
 import { assetUrl } from "../lib/assetUrl";
 import type { MapPoint } from "../data/mapPoints";
 import { getCollectibleSprite, isCollectibleSpriteCategory } from "../data/itemSpritesGenerated";
+import { getItemBagIcon } from "../data/itemIconsGenerated";
 import { getGymBadgeSprite } from "../data/gymBadgesGenerated";
 import { getTownPinSprite } from "../data/townSprites";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
@@ -112,4 +113,39 @@ export function pinSpriteStyle(point: MapPoint): Record<string, string | number>
     }
   }
   return {};
+}
+
+const SELECTION_ICON_SCALE = 2;
+
+/** True when the on-map selection callout should show an in-game bag icon. */
+export function isItemSelectionPoint(point: MapPoint): boolean {
+  return point.category === "item" || point.category === "hidden";
+}
+
+/** In-game bag icon for item / hidden selection callouts only. */
+export function MapSelectionVisual({ point }: MapPinVisualProps) {
+  if (!isItemSelectionPoint(point)) return null;
+
+  const icon = getItemBagIcon(point.name);
+  if (!icon) return null;
+
+  const w = icon.spriteWidth * SELECTION_ICON_SCALE;
+  const h = icon.spriteHeight * SELECTION_ICON_SCALE;
+
+  return (
+    <span
+      className="hoenn-map__selection-icon hoenn-map__selection-icon--item"
+      style={{ width: w, height: h }}
+      aria-hidden="true"
+    >
+      <img
+        src={assetUrl(icon.spriteSheet)}
+        alt=""
+        className="hoenn-map__selection-item-icon"
+        width={w}
+        height={h}
+        draggable={false}
+      />
+    </span>
+  );
 }

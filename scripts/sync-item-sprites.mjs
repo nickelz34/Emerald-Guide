@@ -29,9 +29,9 @@ const ASSETS = [
     id: "berry",
     rel: "graphics/object_events/pics/berry_trees/cheri.png",
     out: "berry_tree.png",
-    /** Mature cheri tree frame (rightmost 32×32 in the 96×32 sheet). */
-    crop: { x: 64, y: 0, w: 32, h: 32 },
-    width: 32,
+    /** Mature cheri tree frame (16×32, one tile wide × two tall — matches in-game OAM). */
+    crop: { x: 80, y: 0, w: 16, h: 32 },
+    width: 16,
     height: 32,
     frame: 0,
   },

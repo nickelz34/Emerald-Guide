@@ -20,7 +20,7 @@ export const MARKER_LEGEND: { type: MarkerType; label: string; color: string; sy
   { type: "trainer", label: "Trainer battle", color: "#f56565", symbol: "⚔" },
   { type: "item", label: "Item / hidden item", color: "#ecc94b", symbol: "◆" },
   { type: "npc", label: "Important NPC", color: "#63b3ed", symbol: "●" },
-  { type: "building", label: "Building / shop", color: "#b794f4", symbol: "■" },
+  { type: "building", label: "Building / entrance", color: "#b794f4", symbol: "■" },
   { type: "poi", label: "Story / point of interest", color: "#38b2ac", symbol: "!" },
   { type: "wild", label: "Wild Pokémon (grass/surf)", color: "#48bb78", symbol: "🌿" },
 ];
@@ -93,7 +93,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
       { id: "r103-sign", type: "poi", label: "Route sign", x: 14.4, y: 43.2 },
       { id: "r103-grass-w", type: "wild", label: "Grass (west)", x: 10.6, y: 20.5 },
       { id: "r103-rival", type: "trainer", label: "Rival battle", detail: "May/Brendan on the west ledge.", x: 13.1, y: 15.9 },
-      { id: "r103-cave", type: "poi", label: "Cave entrance", detail: "North cliff cave on the east side.", x: 56.9, y: 29.5 },
+      { id: "r103-cave", type: "building", label: "Cave entrance", detail: "North cliff cave on the east side.", x: 56.9, y: 29.5 },
       { id: "r103-water", type: "wild", label: "Surf / fish", detail: "Central water — Wingull, Magikarp.", x: 45.6, y: 29.5 },
       { id: "r103-grass-e", type: "wild", label: "Grass (east)", x: 75.6, y: 25 },
       { id: "r103-path", type: "poi", label: "Sandy path east", x: 81.9, y: 34.1 },
@@ -102,9 +102,9 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "petalburg-woods": {
     title: "Petalburg Woods",
     markers: [
-      { id: "pw-exit-n", type: "poi", label: "Exit to Route 104 (north)", x: 32.3, y: 12.5 },
-      { id: "pw-exit-sw", type: "poi", label: "Exit to Route 104 (southwest)", x: 36.5, y: 87.5 },
-      { id: "pw-exit-se", type: "poi", label: "Exit to Route 104 (southeast)", x: 78.1, y: 87.5 },
+      { id: "pw-exit-n", type: "building", label: "Exit to Route 104 (north)", x: 32.3, y: 12.5 },
+      { id: "pw-exit-sw", type: "building", label: "Exit to Route 104 (southwest)", x: 36.5, y: 87.5 },
+      { id: "pw-exit-se", type: "building", label: "Exit to Route 104 (southeast)", x: 78.1, y: 87.5 },
       { id: "pw-grunt", type: "trainer", label: "Team Aqua Grunt", detail: "Story battle — Great Ball reward.", x: 55.2, y: 39.8 },
       { id: "pw-item1", type: "item", label: "Paralyze Heal", detail: "Item ball — west side.", x: 9.4, y: 60.2 },
       { id: "pw-item2", type: "item", label: "Potion", detail: "Hidden item — east side.", x: 82.3, y: 80.7 },
@@ -115,7 +115,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     title: "Route 104",
     markers: [
       { id: "r104-rustboro", type: "poi", label: "To Rustboro (north)", x: 51.3, y: 0.6 },
-      { id: "r104-woods", type: "poi", label: "Petalburg Woods entrance", x: 28.8, y: 38.1 },
+      { id: "r104-woods", type: "building", label: "Petalburg Woods entrance", x: 28.8, y: 38.1 },
       { id: "r104-flower", type: "building", label: "Pretty Petal shop", detail: "Buy berries and decorations.", x: 13.8, y: 23.1 },
       { id: "r104-berry", type: "npc", label: "Berry florist", detail: "White Herb florist east of the flower shop.", x: 21.3, y: 24.4 },
       { id: "r104-grass-n", type: "wild", label: "Grass (north)", detail: "Taillow day-only.", x: 73.8, y: 10.6 },
@@ -164,8 +164,8 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     markers: [
       { id: "rt-west", type: "poi", label: "West path", x: 12.5, y: 43.8 },
       { id: "rt-east", type: "poi", label: "East path", x: 81.9, y: 68.8 },
-      { id: "rt-cave-w", type: "poi", label: "Tunnel entrance (west)", x: 12.5, y: 43.8 },
-      { id: "rt-cave-e", type: "poi", label: "Tunnel entrance (east)", x: 81.9, y: 68.8 },
+      { id: "rt-cave-w", type: "building", label: "Tunnel entrance (west)", x: 12.5, y: 43.8 },
+      { id: "rt-cave-e", type: "building", label: "Tunnel entrance (east)", x: 81.9, y: 68.8 },
       { id: "rt-grass", type: "wild", label: "Grass outside tunnel", detail: "Screenshot shows the exterior approach, not the cave interior.", x: 51.4, y: 85.4 },
     ],
   },
@@ -174,7 +174,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     markers: [
       {
         id: "gc-entrance",
-        type: "poi",
+        type: "building",
         label: "Granite Cave entrance",
         detail: "Wild Pokémon and Steven are inside — use Flash on dark floors.",
         x: 51,
@@ -228,7 +228,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     markers: [
       { id: "r110-north", type: "poi", label: "To Mauville", x: 51.3, y: 0.5 },
       { id: "r110-south", type: "poi", label: "To Slateport", x: 51.3, y: 99.5 },
-      { id: "r110-trick", type: "poi", label: "Trick House", detail: "Pink-roof house near the lower-left route.", x: 28.8, y: 66.5 },
+      { id: "r110-trick", type: "building", label: "Trick House", detail: "Pink-roof house near the lower-left route.", x: 28.8, y: 66.5 },
       { id: "r110-cycle-n", type: "poi", label: "Cycling Road north gate", detail: "Elevated road near Mauville.", x: 41.3, y: 16.5 },
       { id: "r110-cycle-s", type: "poi", label: "Cycling Road south gate", x: 43.8, y: 88.5 },
       { id: "r110-rival", type: "trainer", label: "Rival battle", detail: "On the main road near the east grass strip.", x: 86.3, y: 54.5 },
@@ -348,7 +348,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   sootopolis: {
     title: "Sootopolis City",
     markers: [
-      { id: "soo-cave", type: "poi", label: "Cave of Origin", detail: "Dark entrance in the north rock face — legendary story.", x: 52.5, y: 27.5 },
+      { id: "soo-cave", type: "building", label: "Cave of Origin", detail: "Dark entrance in the north rock face — legendary story.", x: 52.5, y: 27.5 },
       { id: "soo-gym", type: "building", label: "Sootopolis Gym", detail: "Juan — badge #8 (central island building).", x: 52.5, y: 54.2 },
       { id: "soo-mart", type: "building", label: "Poké Mart", x: 29.2, y: 49.2 },
       { id: "soo-pc", type: "building", label: "Pokémon Center", x: 72.5, y: 52.5 },
@@ -365,7 +365,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
       { id: "lily-motel", type: "building", label: "Cove Lily Motel", x: 46.9, y: 61.3 },
       { id: "lily-delete", type: "npc", label: "Move Deleter house", x: 45.6, y: 16.3 },
       { id: "lily-harbor", type: "poi", label: "Harbor / ferries (east shore)", x: 15.6, y: 81.3 },
-      { id: "lily-hideout", type: "poi", label: "Team Aqua Hideout (east)", detail: "Across the eastern shore behind the city.", x: 88.1, y: 13.8 },
+      { id: "lily-hideout", type: "building", label: "Team Aqua Hideout (east)", detail: "Across the eastern shore behind the city.", x: 88.1, y: 13.8 },
     ],
   },
   pacifidlog: {
@@ -380,7 +380,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "sky-pillar": {
     title: "Sky Pillar",
     markers: [
-      { id: "sp-entrance", type: "poi", label: "Sky Pillar entrance", x: 51.8, y: 23.9 },
+      { id: "sp-entrance", type: "building", label: "Sky Pillar entrance", x: 51.8, y: 23.9 },
       { id: "sp-beach", type: "poi", label: "Beach approach", x: 51.8, y: 89.1 },
       { id: "sp-rocks", type: "poi", label: "Rocky exterior", x: 37.5, y: 54.3 },
     ],
@@ -388,7 +388,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "victory-road": {
     title: "Victory Road entrance",
     markers: [
-      { id: "vr-cave", type: "poi", label: "Victory Road cave", x: 47, y: 88 },
+      { id: "vr-cave", type: "building", label: "Victory Road cave", x: 47, y: 88 },
       { id: "vr-league-path", type: "poi", label: "Path to Pokémon League", x: 72, y: 14 },
       { id: "vr-exterior", type: "wild", label: "Exterior grass", x: 55, y: 38 },
     ],
@@ -396,7 +396,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "sealed-chamber": {
     title: "Sealed Chamber",
     markers: [
-      { id: "sc-entrance", type: "poi", label: "Chamber entrance", x: 50, y: 84.8 },
+      { id: "sc-entrance", type: "building", label: "Chamber entrance", x: 50, y: 84.8 },
       { id: "sc-braille", type: "poi", label: "Braille wall", detail: "Use Dig at the back wall.", x: 50, y: 19.6 },
       { id: "sc-regi", type: "poi", label: "Regi unlock room", detail: "Wailord slot 1, Relicanth slot 6.", x: 50, y: 54.3 },
       { id: "sc-tablets", type: "poi", label: "Braille tablets", x: 50, y: 41.3 },
@@ -407,14 +407,14 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     markers: [
       { id: "mc-kyogre", type: "poi", label: "Kyogre", detail: "Save before interacting.", x: 52, y: 35 },
       { id: "mc-player", type: "poi", label: "Approach point", x: 50, y: 62 },
-      { id: "mc-exit", type: "poi", label: "Cave exit", x: 50, y: 88 },
+      { id: "mc-exit", type: "building", label: "Cave exit", x: 50, y: 88 },
     ],
   },
   "ever-grande": {
     title: "Ever Grande City",
     markers: [
       { id: "eg-league", type: "building", label: "Pokémon League", detail: "Elite Four + Steven.", x: 46.3, y: 6.9 },
-      { id: "eg-vr", type: "poi", label: "Victory Road entrance", x: 46.3, y: 51.9 },
+      { id: "eg-vr", type: "building", label: "Victory Road entrance", x: 46.3, y: 51.9 },
     ],
   },
   "battle-frontier": {
@@ -429,7 +429,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   "route-105": {
     title: "Route 105",
     markers: [
-      { id: "r105-island", type: "poi", label: "Island Cave", detail: "Regice — walk clockwise on wall.", x: 23.8, y: 25.6 },
+      { id: "r105-island", type: "building", label: "Island Cave", detail: "Regice — walk clockwise on wall.", x: 23.8, y: 25.6 },
       { id: "r105-surf", type: "wild", label: "Surf / rods", x: 48.8, y: 50.6 },
       { id: "r105-south-isles", type: "poi", label: "Southern islands", x: 11.3, y: 73.1 },
     ],
@@ -438,7 +438,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     title: "Route 111",
     markers: [
       { id: "r111-north", type: "poi", label: "North section", x: 1.3, y: 50.4 },
-      { id: "r111-desert", type: "poi", label: "Desert Ruins", detail: "Regirock puzzle chamber in the desert.", x: 73.8, y: 62.5 },
+      { id: "r111-desert", type: "building", label: "Desert Ruins", detail: "Regirock puzzle chamber in the desert.", x: 73.8, y: 62.5 },
       { id: "r111-sand", type: "poi", label: "Desert", detail: "Need Go-Goggles.", x: 73.8, y: 57.5 },
       { id: "r111-grass", type: "wild", label: "Desert grass", detail: "Sandshrew, Spinda, Skarmory.", x: 56.3, y: 55.4 },
       { id: "r111-winstrate", type: "trainer", label: "Winstrate family", detail: "House south of the desert.", x: 33.8, y: 81.1 },

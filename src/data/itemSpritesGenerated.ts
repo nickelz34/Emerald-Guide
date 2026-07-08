@@ -17,7 +17,7 @@ export const COLLECTIBLE_SPRITES: Partial<Record<PoiCategory, CollectibleSprite>
   },
   berry: {
     "spriteSheet": "sprites/items/berry_tree.png",
-    "spriteWidth": 32,
+    "spriteWidth": 16,
     "spriteHeight": 32,
     "spriteFrame": 0
   },

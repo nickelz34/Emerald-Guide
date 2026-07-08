@@ -10,13 +10,14 @@ export type PoiCategory =
   | "town"
   | "route"
   | "gym"
-  | "cave"
   | "landmark"
   | "item"
   | "hidden"
   | "berry"
   | "entrance"
-  | "trainer";
+  | "trainer"
+  | "npc"
+  | "wild";
 
 export interface PoiCategoryMeta {
   id: PoiCategory;
@@ -29,13 +30,14 @@ export const POI_CATEGORIES: PoiCategoryMeta[] = [
   { id: "town", label: "Towns & Cities", color: "#f5b942" },
   { id: "route", label: "Routes", color: "#5ec4e8" },
   { id: "gym", label: "Gyms", color: "#e0553b" },
-  { id: "cave", label: "Caves & Dungeons", color: "#9b6bd6" },
   { id: "landmark", label: "Landmarks", color: "#39c07a" },
   { id: "item", label: "Items", color: "#3b9dff" },
   { id: "hidden", label: "Hidden Items", color: "#c9d2df" },
   { id: "berry", label: "Berries", color: "#ff5fa8" },
   { id: "entrance", label: "Entrances", color: "#7d8aa0" },
   { id: "trainer", label: "Trainers", color: "#f56565" },
+  { id: "npc", label: "NPCs", color: "#63b3ed" },
+  { id: "wild", label: "Wild encounters", color: "#48bb78" },
 ];
 
 /** Categories shown by default on the main Hoenn map. */
@@ -84,19 +86,6 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "gym-mossdeep", name: "Mossdeep Gym — Tate & Liza (Psychic)", category: "gym", x: 84.81, y: 28.59, stepId: "mossdeep-1" },
   { id: "gym-sootopolis", name: "Sootopolis Gym — Wallace (Water)", category: "gym", x: 75, y: 48.2, stepId: "sootopolis-gym-2" },
 
-  // ── Caves & Dungeons ──
-  { id: "meteor-falls", name: "Meteor Falls", category: "cave", x: 3.44, y: 20.76, note: "Waterfall cave; Bagon & TM lie deep inside." },
-  { id: "rusturf-tunnel", name: "Rusturf Tunnel", category: "cave", x: 16.06, y: 36.95, note: "Short tunnel linking Route 116 to Verdanturf." },
-  { id: "granite-cave", name: "Granite Cave", category: "cave", x: 6.06, y: 93.6, note: "Steven's letter, TM Rock Tomb & HM Flash." },
-  { id: "jagged-pass", name: "Jagged Pass", category: "cave", x: 20.81, y: 17.36, note: "Rocky slope down from Mt. Chimney." },
-  { id: "fiery-path", name: "Fiery Path", category: "cave", x: 21.44, y: 14.75, note: "Volcanic cave with Fire-types & TM Toxic." },
-  { id: "scorched-slab", name: "Scorched Slab", category: "cave", x: 47.44, y: 6.14, note: "Route 120 cave holding TM Sunny Day." },
-  { id: "cave-of-origin", name: "Cave of Origin", category: "cave", x: 75, y: 45.2, note: "Where the awakened legendary is confronted." },
-  { id: "new-mauville", name: "New Mauville", category: "cave", x: 29.44, y: 48.17, note: "Underground generator beneath Route 110." },
-  { id: "seafloor-cavern", name: "Seafloor Cavern", category: "cave", x: 87.5, y: 62.66, note: "Team hideout deep under Route 128." },
-  { id: "shoal-cave", name: "Shoal Cave", category: "cave", x: 82.81, y: 20.76, note: "Tide-changing cave; Shell Bell ingredients.", stepId: "shoal-cave-1" },
-  { id: "victory-road", name: "Victory Road", category: "cave", x: 97.31, y: 57.83, note: "Final gauntlet before the League." },
-
   // ── Landmarks ──
   { id: "mt-chimney", name: "Mt. Chimney", category: "landmark", x: 21, y: 12.5, note: "Volcano summit; cable car & meteorite showdown." },
   { id: "petalburg-woods", name: "Petalburg Woods", category: "landmark", x: 1.31, y: 55.48, note: "Forest on Route 104; first Team encounter." },
@@ -109,3 +98,8 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "pokemon-league", name: "Pokémon League", category: "landmark", x: 97.31, y: 48.43, note: "Elite Four & Champion await at the top." },
   { id: "battle-frontier", name: "Battle Frontier", category: "landmark", x: 92, y: 90, note: "Post-game battle facilities island." },
 ];
+
+/** Walkthrough step links for generated entrance pins (from mapPointsGenerated). */
+export const ENTRANCE_STEP_IDS: Record<string, string> = {
+  en378: "shoal-cave-1",
+};
