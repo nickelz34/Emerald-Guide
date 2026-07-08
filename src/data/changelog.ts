@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.54",
+    date: "2026-07-08",
+    summary: "Desktop town map lightboxes no longer stretch square Hoenn crops.",
+    sections: [
+      {
+        heading: "Maps — desktop lightbox",
+        items: [
+          "Desktop walkthrough map lightboxes now preserve the Hoenn crop aspect ratio, fixing stretched square town maps like Oldale Town.",
+          "Crop-fit images use contain sizing as a safeguard against future aspect-ratio drift.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.53",
     date: "2026-07-08",
     summary: "The changelog modal now stays within the visible viewport.",

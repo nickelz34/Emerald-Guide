@@ -997,9 +997,9 @@
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame,
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__zoom,
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .area-map-view__zoom {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: min(52vh, 440px);
+  min-height: 0;
   max-height: min(62vh, 600px);
   height: auto;
 }
@@ -1524,6 +1524,10 @@
   border-left: none;
   border-right: none;
   border-radius: 0;
+}
+
+.map-zoom-viewport--crop-fit .hoenn-crop__image {
+  object-fit: contain;
 }
 
 .map-zoom-viewport--crop-fit .area-map-view__frame {
