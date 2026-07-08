@@ -141,7 +141,7 @@ export function AreaMapView({
               width: `min(100%, ${Math.round(aspect * maxH)}px)`,
             }
       }
-      onClick={(e) => e.stopPropagation()}
+      onClick={inLightbox ? (e) => e.stopPropagation() : undefined}
     >
       <img src={assetUrl(area.image)} alt={label} className="area-map-view__image" decoding="async" draggable={false} />
       {pinLayer}

@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.57",
+    date: "2026-07-08",
+    summary: "Walkthrough area map images open the detailed lightbox again.",
+    sections: [
+      {
+        heading: "Maps — walkthrough images",
+        items: [
+          "Clicking or tapping interior/route area map images in walkthrough cards now opens the detailed zoomable map lightbox, matching Hoenn crop maps like Dewford Town.",
+          "Marker clicks still show marker details without opening the lightbox.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.56",
     date: "2026-07-08",
     summary: "Tall desktop walkthrough maps keep marker alignment in the lightbox.",
