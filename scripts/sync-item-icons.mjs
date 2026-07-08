@@ -1,6 +1,6 @@
 /**
- * Copy in-game bag item icons from pokeemerald and emit a name → sprite lookup
- * for map selection callouts (visible items + hidden items).
+ * Export in-game bag item icons (with correct palettes) for map selection callouts.
+ * Writes one RGBA PNG per item display name under public/sprites/items/icons/.
  *
  * Usage:
  *   node scripts/sync-item-icons.mjs
@@ -8,6 +8,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import https from "node:https";
+import { PNG } from "pngjs";
+import sharp from "sharp";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
@@ -32,6 +34,15 @@ function titleCase(s) {
       return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
     })
     .join(" ");
+}
+
+function slugify(name) {
+  return name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
 }
 
 function fetchBuffer(url) {
@@ -80,14 +91,16 @@ function collectMapItemNames() {
   return names;
 }
 
-function parseIconPaths(graphicsH) {
+function parseAssetPaths(graphicsH) {
   const iconPaths = new Map();
+  const palettePaths = new Map();
   for (const m of graphicsH.matchAll(
-    /const u32 (gItemIcon_\w+)\[\] = INCGFX_U32\("graphics\/items\/icons\/([^"]+)\.png"/g,
+    /const u32 (gItemIcon(?:Palette)?_\w+)\[\] = INCGFX_U32\("graphics\/items\/(icons|icon_palettes)\/([^"]+)"/g,
   )) {
-    iconPaths.set(m[1], `${m[2]}.png`);
+    const map = m[1].includes("Palette") ? palettePaths : iconPaths;
+    map.set(m[1], `${m[3]}`);
   }
-  return iconPaths;
+  return { iconPaths, palettePaths };
 }
 
 function parseItemNames(itemsH) {
@@ -97,41 +110,119 @@ function parseItemNames(itemsH) {
     const nameM = body.match(/\.name\s*=\s*_\("([^"]*)"\)/);
     const idM = body.match(/\.itemId\s*=\s*(ITEM_\w+)/);
     if (!nameM) continue;
-    const displayName = titleCase(nameM[1]);
-    const itemConst = idM?.[1] ?? `ITEM_${m[1]}`;
-    itemNames.set(itemConst, displayName);
+    itemNames.set(idM?.[1] ?? `ITEM_${m[1]}`, titleCase(nameM[1]));
   }
   return itemNames;
 }
 
 function parseItemIconTable(tableH) {
-  const itemToIcon = new Map();
-  for (const m of tableH.matchAll(/\[ITEM_(\w+)\]\s*=\s*\{(gItemIcon_\w+)/g)) {
-    itemToIcon.set(`ITEM_${m[1]}`, m[2]);
+  const itemAssets = new Map();
+  for (const m of tableH.matchAll(
+    /\[ITEM_(\w+)\]\s*=\s*\{(gItemIcon_\w+),\s*(gItemIconPalette_\w+)/g,
+  )) {
+    itemAssets.set(`ITEM_${m[1]}`, { iconVar: m[2], paletteVar: m[3] });
   }
-  return itemToIcon;
+  return itemAssets;
 }
 
-function buildNameToIcon(itemNames, itemToIcon, iconPaths) {
-  const nameToIcon = new Map();
-  for (const [itemConst, iconVar] of itemToIcon) {
+function buildNameToAssets(itemNames, itemAssets, iconPaths, palettePaths) {
+  const nameToAssets = new Map();
+  for (const [itemConst, assets] of itemAssets) {
     const name = itemNames.get(itemConst);
-    const iconFile = iconPaths.get(iconVar);
-    if (!name || !iconFile) continue;
-    if (!nameToIcon.has(name)) nameToIcon.set(name, iconFile);
+    const iconRel = iconPaths.get(assets.iconVar);
+    const paletteRel = palettePaths.get(assets.paletteVar);
+    if (!name || !iconRel || !paletteRel) continue;
+    if (!nameToAssets.has(name)) {
+      nameToAssets.set(name, {
+        iconRel: `graphics/items/icons/${iconRel}`,
+        paletteRel: `graphics/items/icon_palettes/${paletteRel}`,
+      });
+    }
   }
-  return nameToIcon;
+  return nameToAssets;
 }
 
-const FALLBACK_ICONS = {
-  Item: "question_mark.png",
-  "Random Item": "question_mark.png",
-  "Contest Poké Ball": "poke_ball.png",
-  "Rival's Poké Ball": "poke_ball.png",
-  Beldum: "poke_ball.png",
-  Chikorita: "poke_ball.png",
-  Cyndaquil: "poke_ball.png",
-  Totodile: "poke_ball.png",
+function parseJascPal(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const count = parseInt(lines[2], 10);
+  const colors = [];
+  for (let i = 0; i < count; i++) {
+    const [r, g, b] = lines[3 + i].trim().split(/\s+/).map(Number);
+    colors.push({ r, g, b });
+  }
+  return colors;
+}
+
+/** Remap a pret indexed item icon to RGBA using the item's JASC palette. */
+function renderItemIcon(iconBuf, paletteText) {
+  const src = PNG.sync.read(iconBuf);
+  const pal = parseJascPal(paletteText);
+  const embedded = src.palette ?? [];
+  const out = new PNG({ width: src.width, height: src.height, colorType: 6 });
+
+  const indexForRgb = (r, g, b, a) => {
+    if (a === 0) return 0;
+    for (let p = 0; p < embedded.length; p++) {
+      const e = embedded[p];
+      if (r === e.r && g === e.g && b === e.b) return p;
+    }
+    return 0;
+  };
+
+  for (let i = 0; i < src.width * src.height; i++) {
+    const si = i * 4;
+    const idx = indexForRgb(src.data[si], src.data[si + 1], src.data[si + 2], src.data[si + 3]);
+    const di = i * 4;
+    if (idx === 0) {
+      out.data[di] = 0;
+      out.data[di + 1] = 0;
+      out.data[di + 2] = 0;
+      out.data[di + 3] = 0;
+      continue;
+    }
+    const c = pal[idx] ?? pal[0];
+    out.data[di] = c.r;
+    out.data[di + 1] = c.g;
+    out.data[di + 2] = c.b;
+    out.data[di + 3] = 255;
+  }
+
+  return PNG.sync.write({ ...out, colorType: 6, inputHasAlpha: true });
+}
+
+const FALLBACK_ASSETS = {
+  Item: {
+    iconRel: "graphics/items/icons/question_mark.png",
+    paletteRel: "graphics/items/icon_palettes/question_mark.pal",
+  },
+  "Random Item": {
+    iconRel: "graphics/items/icons/question_mark.png",
+    paletteRel: "graphics/items/icon_palettes/question_mark.pal",
+  },
+  "Contest Poké Ball": {
+    iconRel: "graphics/items/icons/poke_ball.png",
+    paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
+  },
+  "Rival's Poké Ball": {
+    iconRel: "graphics/items/icons/poke_ball.png",
+    paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
+  },
+  Beldum: {
+    iconRel: "graphics/items/icons/poke_ball.png",
+    paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
+  },
+  Chikorita: {
+    iconRel: "graphics/items/icons/poke_ball.png",
+    paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
+  },
+  Cyndaquil: {
+    iconRel: "graphics/items/icons/poke_ball.png",
+    paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
+  },
+  Totodile: {
+    iconRel: "graphics/items/icons/poke_ball.png",
+    paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
+  },
 };
 
 const [graphicsH, itemsH, tableH] = await Promise.all([
@@ -140,42 +231,63 @@ const [graphicsH, itemsH, tableH] = await Promise.all([
   loadFile("src/data/item_icon_table.h").then((b) => b.toString("utf8")),
 ]);
 
-const iconPaths = parseIconPaths(graphicsH);
+const { iconPaths, palettePaths } = parseAssetPaths(graphicsH);
 const itemNames = parseItemNames(itemsH);
-const itemToIcon = parseItemIconTable(tableH);
-const nameToIcon = buildNameToIcon(itemNames, itemToIcon, iconPaths);
+const itemAssets = parseItemIconTable(tableH);
+const nameToAssets = buildNameToAssets(itemNames, itemAssets, iconPaths, palettePaths);
 
 const neededNames = collectMapItemNames();
-for (const [alias, file] of Object.entries(FALLBACK_ICONS)) {
-  if (neededNames.has(alias)) nameToIcon.set(alias, file);
+for (const [alias, assets] of Object.entries(FALLBACK_ASSETS)) {
+  if (neededNames.has(alias)) nameToAssets.set(alias, assets);
 }
 
-const filesToCopy = new Set();
+const assetCache = new Map();
+async function loadAsset(rel) {
+  if (!assetCache.has(rel)) assetCache.set(rel, await loadFile(rel));
+  return assetCache.get(rel);
+}
+
+fs.mkdirSync(OUT_DIR, { recursive: true });
+
 const resolved = {};
 const missing = [];
 
 for (const name of [...neededNames].sort()) {
-  const file = nameToIcon.get(name);
-  if (!file) {
+  const assets = nameToAssets.get(name);
+  if (!assets) {
     missing.push(name);
     continue;
   }
-  filesToCopy.add(file);
-  resolved[name] = file;
+
+  const iconBuf = await loadAsset(assets.iconRel);
+  const paletteText = (await loadAsset(assets.paletteRel)).toString("utf8");
+  const outName = `${slugify(name)}.png`;
+  const outPath = path.join(OUT_DIR, outName);
+
+  let pngBuf;
+  try {
+    pngBuf = renderItemIcon(iconBuf, paletteText);
+  } catch {
+    pngBuf = await sharp(iconBuf).ensureAlpha().png().toBuffer();
+  }
+
+  fs.writeFileSync(outPath, pngBuf);
+  resolved[name] = outName;
+  console.log(`Wrote ${outPath}`);
 }
 
 if (missing.length) {
   console.warn("No icon mapping for:", missing.join(", "));
 }
 
-fs.mkdirSync(OUT_DIR, { recursive: true });
-
-for (const file of [...filesToCopy].sort()) {
-  const rel = `graphics/items/icons/${file}`;
-  const buf = await loadFile(rel);
-  const outPath = path.join(OUT_DIR, file);
-  fs.writeFileSync(outPath, buf);
-  console.log(`Wrote ${outPath}`);
+// Remove stale per-name exports that are no longer referenced.
+const keep = new Set(Object.values(resolved));
+for (const file of fs.readdirSync(OUT_DIR)) {
+  if (!file.endsWith(".png")) continue;
+  if (!keep.has(file)) {
+    fs.unlinkSync(path.join(OUT_DIR, file));
+    console.log(`Removed stale ${file}`);
+  }
 }
 
 const ts = `/** Auto-generated by scripts/sync-item-icons.mjs — do not edit. */
@@ -185,7 +297,7 @@ export interface ItemBagIcon {
   spriteHeight: number;
 }
 
-/** In-game bag icon (24×24 source) keyed by the item display name on map pins. */
+/** In-game bag icon (24×24 RGBA) keyed by the item display name on map pins. */
 export const ITEM_BAG_ICONS: Record<string, ItemBagIcon> = {
 ${Object.entries(resolved)
   .sort(([a], [b]) => a.localeCompare(b))

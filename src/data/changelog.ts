@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.48",
+    date: "2026-07-08",
+    summary: "Item bag icons in map callouts now load reliably in the browser.",
+    sections: [
+      {
+        heading: "Maps — item icon fix",
+        items: [
+          "Bag icons are now exported as RGBA PNGs with the correct per-item palette (fixes invisible or broken images in the selection callout).",
+          "Each item gets its own icon file (e.g. guard_spec.png vs dire_hit.png) so shared graphics like X items render with the right colors.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.47",
     date: "2026-07-08",
     summary: "Item and hidden-item map callouts now show the in-game bag icon beside the description.",
