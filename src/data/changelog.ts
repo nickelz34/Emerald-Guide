@@ -20,6 +20,33 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.58",
+    date: "2026-07-08",
+    summary: "Walkthrough area map image taps now open the lightbox directly from the map frame.",
+    sections: [
+      {
+        heading: "Maps — walkthrough images",
+        items: [
+          "Area map frames now explicitly open the detailed zoomable lightbox in walkthrough cards, so Chapter 8 route/woods maps behave like Dewford and other Hoenn crop images.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.57",
+    date: "2026-07-08",
+    summary: "Walkthrough area map images open the detailed lightbox again.",
+    sections: [
+      {
+        heading: "Maps — walkthrough images",
+        items: [
+          "Clicking or tapping interior/route area map images in walkthrough cards now opens the detailed zoomable map lightbox, matching Hoenn crop maps like Dewford Town.",
+          "Marker clicks still show marker details without opening the lightbox.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.56",
     date: "2026-07-08",
     summary: "Tall desktop walkthrough maps keep marker alignment in the lightbox.",
