@@ -57,6 +57,15 @@ function stepIdForPoint(point: MapPoint): string | undefined {
   return point.stepId ?? ENTRANCE_STEP_IDS[point.id];
 }
 
+/** Pins that show an on-map callout instead of opening a modal. */
+function isMapCalloutPoint(point: MapPoint): boolean {
+  return (
+    !isTrainerPoint(point) &&
+    point.category !== "route" &&
+    point.category !== "gym"
+  );
+}
+
 /** Best map point to focus for a given walkthrough step. */
 function resolveFocusPoint(stepId: string): MapPoint | undefined {
   const direct = ALL_POINTS.find((pt) => stepIdForPoint(pt) === stepId);
@@ -763,7 +772,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       </>
                     )}
                   </span>
-                  {!trainer && point.category !== "route" && active && (
+                  {!trainer && point.category !== "route" && active && !isMapCalloutPoint(point) && (
                     <span className="hoenn-map__pin-tip" onClick={(e) => e.stopPropagation()}>
                       <span className="hoenn-map__pin-cat" style={{ color: cat?.color }}>
                         {cat?.label}
@@ -802,6 +811,48 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
               ⟳
             </button>
           </div>
+
+          {selectedPoint && isMapCalloutPoint(selectedPoint) && (
+            <div
+              className="hoenn-map__selection"
+              role="status"
+              onClick={(e) => e.stopPropagation()}
+              onPointerDown={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="hoenn-map__selection-close"
+                aria-label="Dismiss"
+                onClick={clearSelection}
+              >
+                ×
+              </button>
+              <span
+                className="hoenn-map__pin-cat"
+                style={{
+                  color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color,
+                }}
+              >
+                {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
+              </span>
+              <strong className="hoenn-map__selection-name">{selectedPoint.name}</strong>
+              {selectedPoint.desc && (
+                <p className="hoenn-map__selection-desc">{selectedPoint.desc}</p>
+              )}
+              {selectedPoint.note && (
+                <p className="hoenn-map__selection-note">{selectedPoint.note}</p>
+              )}
+              {stepIdForPoint(selectedPoint) && (
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => jumpToGuide(selectedPoint)}
+                >
+                  Return to guide
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -907,7 +958,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
             })}
           </ul>
         </div>
-        {selectedPoint ? (
+        {selectedPoint && !isMapCalloutPoint(selectedPoint) ? (
           <div className="hoenn-map__legend-detail">
             {isTrainerPoint(selectedPoint) ? (
               <div className="hoenn-map__trainer-summary">
@@ -973,33 +1024,16 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                 )}
               </>
             ) : (
-              <>
-                <span
-                  className="hoenn-map__pin-cat"
-                  style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
-                >
-                  {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
-                </span>
-                <h5>{selectedPoint.name}</h5>
-                {selectedPoint.desc && <p className="hoenn-map__detail-desc">{selectedPoint.desc}</p>}
-                {selectedPoint.note && <p className="hoenn-map__detail-note">{selectedPoint.note}</p>}
-                {stepIdForPoint(selectedPoint) && (
-                  <button
-                    type="button"
-                    className="btn btn--primary btn--sm"
-                    onClick={() => jumpToGuide(selectedPoint)}
-                  >
-                    Return to guide
-                  </button>
-                )}
-              </>
+              null
             )}
           </div>
         ) : (
           <p className="hoenn-map__hint">
-            {isTouchDevice
-              ? "Drag to pan, pinch to zoom. Tap a marker for details. Tap empty map to dismiss."
-              : "Drag to pan, scroll or use + / − to zoom, and hover or click a marker for details."}
+            {selectedPoint && isMapCalloutPoint(selectedPoint)
+              ? "Tap empty map or × to dismiss the marker details."
+              : isTouchDevice
+                ? "Drag to pan, pinch to zoom. Tap a marker for details. Tap empty map to dismiss."
+                : "Drag to pan, scroll or use + / − to zoom, and click a marker for details."}
           </p>
         )}
       </aside>

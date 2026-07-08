@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.46",
+    date: "2026-07-08",
+    summary: "Item and entrance details now appear on the map when you tap a pin.",
+    sections: [
+      {
+        heading: "Maps — pin details on click",
+        items: [
+          "Clicking or tapping an item ball, berry, hidden item, or entrance now shows its name and description in a callout on the map itself instead of only in the legend panel below.",
+          "Works in the full Hoenn map and the compact map modal, including on touch devices.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.45",
     date: "2026-07-08",
     summary: "Hidden item map pins no longer show a dashed outline around the sprite.",
