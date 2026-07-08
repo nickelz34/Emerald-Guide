@@ -29,7 +29,7 @@ export function ChangelogModal({ open, onClose }: ChangelogModalProps) {
         <div className="changelog-modal__head">
           <div>
             <h3 id="changelog-title">Changelog</h3>
-            <p className="changelog-modal__subtitle">Every version of Emerald-Guide, newest first.</p>
+            <p className="changelog-modal__subtitle">Every version of Emerald Guide, newest first.</p>
           </div>
           <button type="button" className="changelog-modal__close" onClick={onClose} aria-label="Close changelog">
             ×

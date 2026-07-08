@@ -2,7 +2,7 @@ LIVE SITE IS IN BETA BUT ITS UP :)
 
 https://nickelz34.github.io/Emerald-Guide/
 
-# Emerald-Guide
+# Emerald Guide
 
 A local web app that helps you play through Pokémon Emerald. Open it in your browser while you play the game on a GBA, emulator, or cartridge — it tells you what to do next, shows you annotated maps of each area, and lets you look up any Pokémon's wild locations, stats, and evolutions.
 
@@ -12,7 +12,7 @@ This is a **guide only**. It does not run the game, does not need a ROM, and doe
 
 ## What this app does
 
-When you open Emerald-Guide, you see a navigation bar across the top with six sections. Here is what each one is for and how you use it.
+When you open Emerald Guide, you see a navigation bar across the top with six sections. Here is what each one is for and how you use it.
 
 ### Story Walkthrough
 
@@ -97,7 +97,7 @@ A clickable overworld map of the entire Hoenn region. Each town, route, and dung
 
 ## What you need to install
 
-Emerald-Guide is a web app built with React and Vite. To run it on your own computer you need three things installed first. None of them are part of the game — they are standard developer tools used to download and serve the app.
+Emerald Guide is a web app built with React and Vite. To run it on your own computer you need three things installed first. None of them are part of the game — they are standard developer tools used to download and serve the app.
 
 ### 1. Node.js (version 18 or newer)
 
@@ -247,7 +247,7 @@ After a few seconds you will see output like:
 
 1. Open your web browser (Chrome, Edge, Firefox).
 2. Go to **http://localhost:5173**
-3. You should see the Emerald-Guide home page with the navigation bar at the top (Story Walkthrough, Pokédex, Secrets, Legendaries, Tips, Hoenn Map).
+3. You should see the Emerald Guide home page with the navigation bar at the top (Story Walkthrough, Pokédex, Secrets, Legendaries, Tips, Hoenn Map).
 
 If the page does not load, make sure the PowerShell window is still open and shows the Vite "ready" message. If port 5173 is already in use by another program, stop the other program or run:
 
@@ -416,7 +416,7 @@ Look for:
 
 1. Open your browser.
 2. Navigate to **http://localhost:5173**
-3. The Emerald-Guide interface should appear.
+3. The Emerald Guide interface should appear.
 
 The dev server listens on `localhost` only, so no firewall changes are needed for local use.
 
