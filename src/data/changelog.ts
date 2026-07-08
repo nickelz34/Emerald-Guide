@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.38",
+    date: "2026-07-08",
+    summary: "Town map pin redrawn as crisp 12×19 pixel art matching the requested marker.",
+    sections: [
+      {
+        heading: "Maps — town markers",
+        items: [
+          "Replaced the blurry downscaled pin with hand-authored 12×19 pixel art: navy outline, gold cap, red body, and 2×2 white center.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.37",
     date: "2026-07-08",
     summary: "Town map pin art updated to match the requested 14×18 teardrop marker.",
