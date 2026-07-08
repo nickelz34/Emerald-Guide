@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.55",
+    date: "2026-07-08",
+    summary: "Walkthrough map pins stay readable when you zoom in.",
+    sections: [
+      {
+        heading: "Maps — walkthrough zoom",
+        items: [
+          "Trainer sprites, item balls, hidden items, and other walkthrough map pins now keep a larger minimum size while zooming so they do not shrink away.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.54",
     date: "2026-07-08",
     summary: "Desktop town map lightboxes no longer stretch square Hoenn crops.",
