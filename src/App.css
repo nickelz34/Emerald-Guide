@@ -1591,9 +1591,14 @@
 
 /* Shrink pins as the map zooms in so markers don't pile on top of each other. */
 .map-zoom-viewport {
-  --pin-zoom-min: 0.84;
-  --pin-gym-zoom-boost: 1.2;
-  --pin-zoom: min(1, clamp(var(--pin-zoom-min), calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
+  --pin-zoom-min: 1;
+  --pin-zoom-max: 1.12;
+  --pin-gym-zoom-boost: 1.28;
+  --pin-zoom: clamp(
+    var(--pin-zoom-min),
+    calc((var(--map-zoom-fit, 1) / var(--map-zoom, 1)) * var(--pin-zoom-max)),
+    var(--pin-zoom-max)
+  );
   --pin-gym-zoom: calc(var(--pin-zoom) * var(--pin-gym-zoom-boost));
 }
 
@@ -4593,8 +4598,13 @@
   overflow: hidden;
   scrollbar-width: none;
   overscroll-behavior: none;
-  --pin-zoom-min: 0.84;
-  --pin-zoom: min(1, clamp(var(--pin-zoom-min), calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
+  --pin-zoom-min: 1;
+  --pin-zoom-max: 1.12;
+  --pin-zoom: clamp(
+    var(--pin-zoom-min),
+    calc((var(--map-zoom-fit, 1) / var(--map-zoom, 1)) * var(--pin-zoom-max)),
+    var(--pin-zoom-max)
+  );
 }
 
 .annotated-map__frame--zoomable::-webkit-scrollbar {
