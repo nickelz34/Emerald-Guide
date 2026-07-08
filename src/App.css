@@ -2065,28 +2065,28 @@
 
 /* Town / city map pin — teardrop anchored at the point. */
 .hoenn-map__pin--town {
-  width: calc(var(--town-fw, 14) * 1px);
-  height: calc(var(--town-fh, 18) * 1px);
+  width: calc(var(--town-fw, 12) * 1px);
+  height: calc(var(--town-fh, 19) * 1px);
   transform: translate(
-    calc(var(--town-fw, 14) * -0.5px),
-    calc(var(--town-fh, 18) * -1px)
+    calc(var(--town-fw, 12) * -0.5px),
+    calc(var(--town-fh, 19) * -1px)
   );
-  transform-origin: calc(var(--town-fw, 14) * 0.5px) calc(var(--town-fh, 18) * 1px);
+  transform-origin: calc(var(--town-fw, 12) * 0.5px) calc(var(--town-fh, 19) * 1px);
   z-index: 3;
 }
 
 .hoenn-map__town-frame {
   display: block;
-  width: calc(var(--town-fw, 14) * 1px);
-  height: calc(var(--town-fh, 18) * 1px);
+  width: calc(var(--town-fw, 12) * 1px);
+  height: calc(var(--town-fh, 19) * 1px);
   overflow: hidden;
   position: relative;
 }
 
 .hoenn-map__town-sprite {
   display: block;
-  width: calc(var(--town-fw, 14) * 1px);
-  height: calc(var(--town-fh, 18) * 1px);
+  width: calc(var(--town-fw, 12) * 1px);
+  height: calc(var(--town-fh, 19) * 1px);
   image-rendering: pixelated;
   pointer-events: none;
   transition: transform 0.12s ease;
