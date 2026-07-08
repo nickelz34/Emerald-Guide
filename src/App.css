@@ -1591,15 +1591,26 @@
 
 /* Shrink pins as the map zooms in so markers don't pile on top of each other. */
 .map-zoom-viewport {
-  --pin-zoom-min: 0.72;
+  --pin-zoom-min: 0.84;
+  --pin-gym-zoom-boost: 1.2;
   --pin-zoom: min(1, clamp(var(--pin-zoom-min), calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
+  --pin-gym-zoom: calc(var(--pin-zoom) * var(--pin-gym-zoom-boost));
 }
 
-.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--trainer):not(.hoenn-map__pin--item):not(
-    .hoenn-map__pin--berry
-  ):not(.hoenn-map__pin--hidden) {
+.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--gym):not(.hoenn-map__pin--trainer):not(
+    .hoenn-map__pin--item
+  ):not(.hoenn-map__pin--berry):not(.hoenn-map__pin--hidden) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
   transform-origin: center;
+}
+
+.map-zoom-viewport .hoenn-map__pin--gym {
+  transform: translate(
+      calc(var(--badge-fw, 16) * -0.5px),
+      calc(var(--badge-fh, 16) * -1px)
+    )
+    scale(var(--pin-gym-zoom));
+  transform-origin: calc(var(--badge-fw, 16) * 0.5px) calc(var(--badge-fh, 16) * 1px);
 }
 
 .map-zoom-viewport .hoenn-map__pin--trainer {
@@ -4582,7 +4593,7 @@
   overflow: hidden;
   scrollbar-width: none;
   overscroll-behavior: none;
-  --pin-zoom-min: 0.72;
+  --pin-zoom-min: 0.84;
   --pin-zoom: min(1, clamp(var(--pin-zoom-min), calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
