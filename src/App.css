@@ -1004,6 +1004,11 @@
   height: auto;
 }
 
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .map-zoom-viewport--crop-fit {
+  width: min(100%, calc(min(62vh, 600px) * var(--map-aspect-ratio, 1)));
+  align-self: center;
+}
+
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
   flex: 0 0 auto;
   min-height: 0;
@@ -1524,10 +1529,6 @@
   border-left: none;
   border-right: none;
   border-radius: 0;
-}
-
-.map-zoom-viewport--crop-fit .hoenn-crop__image {
-  object-fit: contain;
 }
 
 .map-zoom-viewport--crop-fit .area-map-view__frame {

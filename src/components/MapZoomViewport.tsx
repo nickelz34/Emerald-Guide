@@ -36,6 +36,12 @@ export function MapZoomViewport({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const narrow = useNarrowViewport();
   const cropFit = Boolean(cropAspect);
+  const cropAspectRatio = cropAspect
+    ? (() => {
+        const [w, h] = cropAspect.split("/").map((part) => Number(part.trim()));
+        return Number.isFinite(w) && Number.isFinite(h) && h > 0 ? w / h : undefined;
+      })()
+    : undefined;
   const maxFitZoom = narrow ? 2 : 1;
   const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
     enabled,
@@ -69,6 +75,7 @@ export function MapZoomViewport({
       style={{
         ...zoomStyle,
         ...(cropAspect ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect } : {}),
+        ...(cropAspectRatio ? { ["--map-aspect-ratio" as string]: cropAspectRatio } : {}),
       }}
     >
       <div className="map-zoom-viewport__canvas" style={canvasStyle}>
