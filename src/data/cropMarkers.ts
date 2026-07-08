@@ -17,7 +17,6 @@ const CATEGORY_PRIORITY: Record<PoiCategory, number> = {
   berry: 70,
   entrance: 60,
   town: 55,
-  cave: 50,
   landmark: 45,
   route: 40,
   npc: 35,
@@ -28,7 +27,6 @@ const POI_TO_MARKER: Record<PoiCategory, MarkerType> = {
   town: "building",
   route: "poi",
   gym: "building",
-  cave: "poi",
   landmark: "poi",
   item: "item",
   hidden: "item",
@@ -129,7 +127,7 @@ function generatedEntranceNear(
 
 function generatedLandmarkNear(mapPos: { x: number; y: number }, maxTiles = 2): boolean {
   return ALL_MAP_POINTS.some((pt) => {
-    if (!["landmark", "cave", "gym"].includes(pt.category)) return false;
+    if (!["landmark", "gym"].includes(pt.category)) return false;
     return mapTileDistance(mapPos.x, mapPos.y, pt.x, pt.y) < maxTiles;
   });
 }

@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.44",
+    date: "2026-07-08",
+    summary: "Caves and dungeons are no longer a separate map layer — they show as gray entrance pins only.",
+    sections: [
+      {
+        heading: "Maps — cave/dungeon pins",
+        items: [
+          "Removed the purple Caves & Dungeons layer and hand-placed cave pins from the main Hoenn map; cave and dungeon locations are covered by the existing gray entrance markers from game data.",
+          "Walkthrough crop maps now mark cave, tunnel, woods, and dungeon doorways as entrance pins (gray) instead of green story POIs.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.43",
     date: "2026-07-08",
     summary: "Berry tree map pins now use the correct in-game sprite size and ground anchoring.",

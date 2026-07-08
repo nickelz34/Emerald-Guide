@@ -2031,10 +2031,6 @@
 }
 
 /* Distinct shapes per category */
-.hoenn-map__pin--cave .hoenn-map__pin-dot {
-  border-radius: 3px;
-}
-
 .hoenn-map__pin--landmark .hoenn-map__pin-dot {
   border-radius: 50% 50% 50% 0;
   transform: rotate(45deg);

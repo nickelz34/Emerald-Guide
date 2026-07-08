@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { getRegionForStep, type MapRegion } from "../data/mapRegions";
 import {
+  ENTRANCE_STEP_IDS,
   MAP_POINTS,
   POI_CATEGORIES,
   DEFAULT_VISIBLE_CATEGORIES,
@@ -51,16 +52,24 @@ const REGION_POINT_ALIAS: Record<string, string> = {
   frontier: "battle-frontier",
 };
 
+/** Walkthrough step id for a map pin (hand points or linked entrances). */
+function stepIdForPoint(point: MapPoint): string | undefined {
+  return point.stepId ?? ENTRANCE_STEP_IDS[point.id];
+}
+
 /** Best map point to focus for a given walkthrough step. */
 function resolveFocusPoint(stepId: string): MapPoint | undefined {
-  const direct = ALL_POINTS.find((pt) => pt.stepId === stepId);
+  const direct = ALL_POINTS.find((pt) => stepIdForPoint(pt) === stepId);
   if (direct) return direct;
   const region = getRegionForStep(stepId);
   if (!region) return undefined;
   const aliasId = REGION_POINT_ALIAS[region.id] ?? region.id;
   const byId = ALL_POINTS.find((pt) => pt.id === aliasId);
   if (byId) return byId;
-  return ALL_POINTS.find((pt) => pt.stepId && region.stepIds.includes(pt.stepId));
+  return ALL_POINTS.find((pt) => {
+    const sid = stepIdForPoint(pt);
+    return sid !== undefined && region.stepIds.includes(sid);
+  });
 }
 
 function initialVisible(): Record<PoiCategory, boolean> {
@@ -606,13 +615,14 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   };
 
   const jumpToGuide = (point: MapPoint) => {
-    if (!point.stepId) return;
+    const stepId = stepIdForPoint(point);
+    if (!stepId) return;
     onSelectRegion({
       id: point.id,
       label: point.name,
       x: point.x,
       y: point.y,
-      stepIds: [point.stepId],
+      stepIds: [stepId],
     });
   };
 
@@ -761,7 +771,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       <strong>{point.name}</strong>
                       {point.desc && <span className="hoenn-map__pin-desc">{point.desc}</span>}
                       {point.note && <span className="hoenn-map__pin-note">{point.note}</span>}
-                      {point.stepId && (
+                      {stepIdForPoint(point) && (
                         <button
                           type="button"
                           className="btn btn--primary btn--sm"
@@ -926,7 +936,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                 >
                   View route guide
                 </button>
-                {selectedPoint.stepId && (
+                {stepIdForPoint(selectedPoint) && (
                   <button
                     type="button"
                     className="btn btn--ghost btn--sm"
@@ -952,7 +962,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                 >
                   View gym guide
                 </button>
-                {selectedPoint.stepId && (
+                {stepIdForPoint(selectedPoint) && (
                   <button
                     type="button"
                     className="btn btn--ghost btn--sm"
@@ -973,7 +983,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                 <h5>{selectedPoint.name}</h5>
                 {selectedPoint.desc && <p className="hoenn-map__detail-desc">{selectedPoint.desc}</p>}
                 {selectedPoint.note && <p className="hoenn-map__detail-note">{selectedPoint.note}</p>}
-                {selectedPoint.stepId && (
+                {stepIdForPoint(selectedPoint) && (
                   <button
                     type="button"
                     className="btn btn--primary btn--sm"
