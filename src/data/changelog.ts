@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.58",
+    date: "2026-07-08",
+    summary: "Walkthrough area map image taps now open the lightbox directly from the map frame.",
+    sections: [
+      {
+        heading: "Maps — walkthrough images",
+        items: [
+          "Area map frames now explicitly open the detailed zoomable lightbox in walkthrough cards, so Chapter 8 route/woods maps behave like Dewford and other Hoenn crop images.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.57",
     date: "2026-07-08",
     summary: "Walkthrough area map images open the detailed lightbox again.",
