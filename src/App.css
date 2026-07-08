@@ -1590,7 +1590,8 @@
 
 /* Shrink pins as the map zooms in so markers don't pile on top of each other. */
 .map-zoom-viewport {
-  --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
+  --pin-zoom-min: 0.72;
+  --pin-zoom: min(1, clamp(var(--pin-zoom-min), calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
 .map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--trainer):not(.hoenn-map__pin--item):not(
@@ -4580,7 +4581,8 @@
   overflow: hidden;
   scrollbar-width: none;
   overscroll-behavior: none;
-  --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
+  --pin-zoom-min: 0.72;
+  --pin-zoom: min(1, clamp(var(--pin-zoom-min), calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
 .annotated-map__frame--zoomable::-webkit-scrollbar {
