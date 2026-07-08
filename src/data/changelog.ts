@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.37",
+    date: "2026-07-08",
+    summary: "Town map pin art updated to match the requested 14×18 teardrop marker.",
+    sections: [
+      {
+        heading: "Maps — town markers",
+        items: [
+          "Town pin art replaced with the requested 14×18 teardrop marker (red body, gold cap, white center, navy outline).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.36",
     date: "2026-07-08",
     summary: "Towns and cities on the Hoenn map now use a red map-pin sprite instead of a yellow dot.",
