@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.41",
+    date: "2026-07-08",
+    summary: "Cave and building entrances on walkthrough maps no longer show duplicate green and gray pins.",
+    sections: [
+      {
+        heading: "Maps — entrance deduplication",
+        items: [
+          "Hand-placed cave and building POI markers are now skipped when the main Hoenn map already has a gray entrance pin at the same location.",
+          "Walkthrough maps show only the gray entrance marker for caves, tunnels, and woods — matching the main map.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.40",
     date: "2026-07-08",
     summary: "Walkthrough landmark pins align correctly on crop maps and in the zoom lightbox.",

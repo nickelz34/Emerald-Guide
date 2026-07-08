@@ -107,6 +107,12 @@ function generatedEntranceNear(
   );
 }
 
+function shouldPreferGeneratedEntrance(marker: MapMarker, mapPos: { x: number; y: number }, labels: string[]): boolean {
+  if (labels.length === 0) return false;
+  if (marker.type !== "building" && marker.type !== "poi") return false;
+  return generatedEntranceNear(mapPos, labels);
+}
+
 function annotationToMapPoint(marker: MapMarker, local: { x: number; y: number }): MapPoint {
   return {
     id: marker.id,
@@ -143,10 +149,8 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
       const { mapPos, x, y } = placed;
       // Prefer auto-generated trainer sprites over hand-placed trainer dots.
       if (marker.type === "trainer" && trainerSpriteNear(mapPos, labels)) continue;
-      // Prefer main-map building entrances over hand-placed duplicates.
-      if (marker.type === "building" && labels.length > 0 && generatedEntranceNear(mapPos, labels)) {
-        continue;
-      }
+      // Prefer main-map entrance pins over hand-placed building/cave duplicates.
+      if (shouldPreferGeneratedEntrance(marker, mapPos, labels)) continue;
       add(annotationToMapPoint(marker, { x, y }));
     }
   }
