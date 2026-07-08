@@ -1,6 +1,6 @@
 /**
- * Generate the town/city map pin sprite (red teardrop with gold cap).
- * Output: public/sprites/map/town_pin.png
+ * Verify the town/city map pin sprite dimensions.
+ * Art lives at public/sprites/map/town_pin.png (14×18 teardrop marker).
  *
  * Usage:
  *   node scripts/gen-town-pin.mjs
@@ -11,56 +11,18 @@ import { PNG } from "pngjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const OUT = path.join(ROOT, "public/sprites/map/town_pin.png");
+const EXPECT_W = 14;
+const EXPECT_H = 18;
 
-/** 13×18 pixel art — '.' = transparent */
-const ART = `
-.............
-.............
-.....ooo.....
-....oyyyo....
-...oyYYYo....
-..oyYRRYo...
-..oyRRRRo...
-..oyRRRRo...
-..oyRRwRo...
-..oyRwwwRo..
-...oyRRRo...
-....oyYo...
-.....ooo...
-......o....
-......o....
-.............
-.............
-`.trim().split("\n");
-
-const PALETTE = {
-  o: [32, 40, 72, 255],
-  y: [200, 152, 24, 255],
-  Y: [255, 216, 56, 255],
-  R: [216, 56, 48, 255],
-  w: [255, 255, 255, 255],
-};
-
-const W = ART[0].length;
-const H = ART.length;
-const png = new PNG({ width: W, height: H });
-
-for (let y = 0; y < H; y++) {
-  for (let x = 0; x < W; x++) {
-    const ch = ART[y][x];
-    const i = (y * W + x) * 4;
-    const c = PALETTE[ch];
-    if (!c) {
-      png.data[i + 3] = 0;
-      continue;
-    }
-    png.data[i] = c[0];
-    png.data[i + 1] = c[1];
-    png.data[i + 2] = c[2];
-    png.data[i + 3] = c[3];
-  }
+if (!fs.existsSync(OUT)) {
+  console.error(`Missing ${OUT}`);
+  process.exit(1);
 }
 
-fs.mkdirSync(path.dirname(OUT), { recursive: true });
-fs.writeFileSync(OUT, PNG.sync.write({ ...png, colorType: 6, inputHasAlpha: true }));
-console.log(`Wrote ${OUT} (${W}×${H})`);
+const png = PNG.sync.read(fs.readFileSync(OUT));
+if (png.width !== EXPECT_W || png.height !== EXPECT_H) {
+  console.error(`Expected ${EXPECT_W}×${EXPECT_H}, got ${png.width}×${png.height}`);
+  process.exit(1);
+}
+
+console.log(`OK ${OUT} (${png.width}×${png.height})`);
