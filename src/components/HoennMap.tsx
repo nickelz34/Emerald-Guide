@@ -709,25 +709,33 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     ...pinSpriteStyle(point),
                   }}
                   onPointerDown={(e) => {
-                    e.stopPropagation();
+                    if (e.pointerType === "touch") {
+                      e.stopPropagation();
+                    }
                     suppressClickRef.current = false;
-                    pinPointerRef.current = {
-                      pointerId: e.pointerId,
-                      x: e.clientX,
-                      y: e.clientY,
-                      moved: false,
-                    };
+                    if (e.pointerType === "touch") {
+                      pinPointerRef.current = {
+                        pointerId: e.pointerId,
+                        x: e.clientX,
+                        y: e.clientY,
+                        moved: false,
+                      };
+                    } else {
+                      pinPointerRef.current = null;
+                    }
                   }}
                   onPointerMove={(e) => {
-                    e.stopPropagation();
                     const p = pinPointerRef.current;
-                    if (!p || p.pointerId !== e.pointerId) return;
+                    if (!p) return;
+                    e.stopPropagation();
+                    if (p.pointerId !== e.pointerId) return;
                     if (Math.hypot(e.clientX - p.x, e.clientY - p.y) > 10) p.moved = true;
                   }}
                   onPointerUp={(e) => {
-                    e.stopPropagation();
                     const p = pinPointerRef.current;
-                    if (!p || p.pointerId !== e.pointerId) return;
+                    if (!p) return;
+                    e.stopPropagation();
+                    if (p.pointerId !== e.pointerId) return;
                     pinPointerRef.current = null;
                     if (p.moved) return;
                     if (e.pointerType === "touch") {

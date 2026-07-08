@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.60",
+    date: "2026-07-08",
+    summary: "Desktop main map dragging stays reliable when panning across markers.",
+    sections: [
+      {
+        heading: "Maps — desktop panning",
+        items: [
+          "Mouse drags on the main Hoenn map can now begin over map markers, preventing dense marker areas from blocking pan navigation after zooming in.",
+          "Marker clicks and touch marker taps still open marker details normally.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.59",
     date: "2026-07-08",
     summary: "Walkthrough map markers stay larger while zooming, with gym badges emphasized.",
