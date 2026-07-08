@@ -572,7 +572,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         setModalTrainer(point);
         return;
       }
-      if (point.category === "route") {
+      if (point.category === "route" || point.category === "town") {
         setSelectedId(point.id);
         setModalRoute(point);
         setModalTrainer(null);
@@ -1034,6 +1034,33 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   </button>
                 )}
               </>
+            ) : selectedPoint.category === "town" ? (
+              <>
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
+                >
+                  {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
+                </span>
+                <h5>{selectedPoint.name}</h5>
+                {selectedPoint.note && <p className="hoenn-map__detail-note">{selectedPoint.note}</p>}
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalRoute(selectedPoint)}
+                >
+                  View town guide
+                </button>
+                {selectedPoint.stepId && (
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--sm"
+                    onClick={() => jumpToGuide(selectedPoint)}
+                  >
+                    Return to walkthrough
+                  </button>
+                )}
+              </>
             ) : (
               null
             )}
@@ -1076,7 +1103,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                         className={`hoenn-map__index-item ${selectedId === p.id ? "is-active" : ""}`}
                         onClick={() => {
                           focusPoint(p);
-                          if (p.category === "route") {
+                          if (p.category === "route" || p.category === "town") {
                             setModalRoute(p);
                             setModalTrainer(null);
                             setModalGym(null);
