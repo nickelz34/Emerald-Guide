@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.61",
+    date: "2026-07-08",
+    summary: "Desktop main map panning now keeps tracking through long drags.",
+    sections: [
+      {
+        heading: "Maps — desktop panning",
+        items: [
+          "Main Hoenn map mouse panning now tracks movement from the window after drag start, so dragging stays responsive while crossing markers, labels, or the edge of the map viewport.",
+          "Interactive controls and marker taps/clicks remain available without starting an unwanted pan.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.60",
     date: "2026-07-08",
     summary: "Desktop main map dragging stays reliable when panning across markers.",

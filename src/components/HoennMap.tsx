@@ -180,6 +180,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     originY: number;
     moved: boolean;
   } | null>(null);
+  const desktopDragCleanupRef = useRef<(() => void) | null>(null);
   const suppressClickRef = useRef(false);
   const viewRef = useRef(view);
   viewRef.current = view;
@@ -596,7 +597,16 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0 || e.pointerType === "touch") return;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+
+    const target = e.target as HTMLElement;
+    if (target.closest("button, input, select, textarea, a, .hoenn-map__selection")) return;
+
+    desktopDragCleanupRef.current?.();
+    desktopDragCleanupRef.current = null;
+
+    const viewport = e.currentTarget as HTMLElement;
+    viewport.setPointerCapture(e.pointerId);
+    viewport.classList.add("is-dragging");
     dragState.current = {
       pointerId: e.pointerId,
       startX: e.clientX,
@@ -605,23 +615,55 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       originY: view.y,
       moved: false,
     };
+
+    const cleanup = () => {
+      window.removeEventListener("pointermove", onDesktopPointerMove, true);
+      window.removeEventListener("pointerup", onDesktopPointerEnd, true);
+      window.removeEventListener("pointercancel", onDesktopPointerEnd, true);
+    };
+
+    const finishDrag = (pointerId: number) => {
+      const drag = dragState.current;
+      if (!drag || drag.pointerId !== pointerId) return;
+      if (drag.moved) suppressClickRef.current = true;
+      dragState.current = null;
+      desktopDragCleanupRef.current = null;
+      cleanup();
+      if (viewport.hasPointerCapture(pointerId)) {
+        viewport.releasePointerCapture(pointerId);
+      }
+      viewport.classList.remove("is-dragging");
+    };
+
+    function onDesktopPointerMove(event: PointerEvent) {
+      const drag = dragState.current;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      const dx = event.clientX - drag.startX;
+      const dy = event.clientY - drag.startY;
+      if (!drag.moved && Math.hypot(dx, dy) > 4) drag.moved = true;
+      setView((prev) => clamp({ ...prev, x: drag.originX + dx, y: drag.originY + dy }));
+      event.preventDefault();
+    }
+
+    function onDesktopPointerEnd(event: PointerEvent) {
+      if (!dragState.current || dragState.current.pointerId !== event.pointerId) return;
+      finishDrag(event.pointerId);
+      event.preventDefault();
+    }
+
+    desktopDragCleanupRef.current = cleanup;
+    window.addEventListener("pointermove", onDesktopPointerMove, true);
+    window.addEventListener("pointerup", onDesktopPointerEnd, true);
+    window.addEventListener("pointercancel", onDesktopPointerEnd, true);
+    e.preventDefault();
   };
 
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const drag = dragState.current;
-    if (!drag || drag.pointerId !== e.pointerId) return;
-    const dx = e.clientX - drag.startX;
-    const dy = e.clientY - drag.startY;
-    if (!drag.moved && Math.hypot(dx, dy) > 4) drag.moved = true;
-    setView((prev) => clamp({ ...prev, x: drag.originX + dx, y: drag.originY + dy }));
-  };
-
-  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    const drag = dragState.current;
-    if (!drag || drag.pointerId !== e.pointerId) return;
-    if (drag.moved) suppressClickRef.current = true;
-    dragState.current = null;
-  };
+  useEffect(() => {
+    return () => {
+      desktopDragCleanupRef.current?.();
+      desktopDragCleanupRef.current = null;
+    };
+  }, []);
 
   const jumpToGuide = (point: MapPoint) => {
     const stepId = stepIdForPoint(point);
@@ -657,9 +699,6 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
           className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
           onClick={onViewportClick}
         >
           <div
