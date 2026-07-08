@@ -2,33 +2,42 @@ import { MAP_ANNOTATIONS, type MapMarker, type MarkerType } from "./mapAnnotatio
 import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
 import { GENERATED_POINTS } from "./mapPointsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
-import { AREA_MAP_BOUNDS, AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
+import { AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
 
 const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
 
 export type CropMapPoint = MapPoint | TrainerPoint;
 
-const MARKER_TO_POI: Record<MarkerType, PoiCategory> = {
-  trainer: "trainer",
-  item: "item",
-  npc: "landmark",
-  building: "town",
-  poi: "landmark",
-  wild: "landmark",
+/** Higher priority wins when pins overlap on walkthrough crops. */
+const CATEGORY_PRIORITY: Record<PoiCategory, number> = {
+  trainer: 100,
+  gym: 90,
+  item: 80,
+  hidden: 75,
+  berry: 70,
+  entrance: 60,
+  town: 55,
+  landmark: 45,
+  route: 40,
+  npc: 35,
+  wild: 30,
 };
 
 const POI_TO_MARKER: Record<PoiCategory, MarkerType> = {
   town: "building",
   route: "poi",
   gym: "building",
-  cave: "poi",
   landmark: "poi",
   item: "item",
   hidden: "item",
   berry: "item",
   entrance: "building",
   trainer: "trainer",
+  npc: "npc",
+  wild: "wild",
 };
+
+type PlacedPoint = CropMapPoint & { mapX: number; mapY: number };
 
 function isTrainerPoint(p: MapPoint): p is TrainerPoint {
   return p.category === "trainer" && "spriteSheet" in p;
@@ -51,13 +60,26 @@ function toCropLocal(mapX: number, mapY: number, crop: MapCrop): { x: number; y:
   };
 }
 
-function markerToMapPos(marker: MapMarker, areaId: string, bounds: MapCrop): { x: number; y: number } {
-  const tilePos = AREA_MARKER_MAP_POS[areaId]?.[marker.id];
-  if (tilePos) return tilePos;
+function toMapPos(localX: number, localY: number, crop: MapCrop): { x: number; y: number } {
   return {
-    x: bounds.x + (marker.x / 100) * bounds.w,
-    y: bounds.y + (marker.y / 100) * bounds.h,
+    x: crop.x + (localX / 100) * crop.w,
+    y: crop.y + (localY / 100) * crop.h,
   };
+}
+
+function markerToCropLocal(
+  marker: MapMarker,
+  areaId: string,
+  displayCrop: MapCrop,
+): { x: number; y: number; mapPos: { x: number; y: number } } | null {
+  const tilePos = AREA_MARKER_MAP_POS[areaId]?.[marker.id];
+  if (tilePos) {
+    const local = toCropLocal(tilePos.x, tilePos.y, displayCrop);
+    if (!local) return null;
+    return { ...local, mapPos: tilePos };
+  }
+  const mapPos = toMapPos(marker.x, marker.y, displayCrop);
+  return { x: marker.x, y: marker.y, mapPos };
 }
 
 function noteMatchesArea(note: string | undefined, labels: string[]): boolean {
@@ -82,81 +104,170 @@ function trainerSpriteNear(mapPos: { x: number; y: number }, labels: string[]): 
   });
 }
 
-function annotationToMapPoint(marker: MapMarker, local: { x: number; y: number }): MapPoint {
-  return {
-    id: marker.id,
-    name: marker.label,
-    category: MARKER_TO_POI[marker.type],
-    x: local.x,
-    y: local.y,
-    desc: marker.detail,
-  };
+function generatedCollectibleNear(mapPos: { x: number; y: number }, labels: string[]): boolean {
+  return ALL_MAP_POINTS.some((pt) => {
+    if (!["item", "hidden", "berry"].includes(pt.category)) return false;
+    if (!noteMatchesArea(pt.note, labels)) return false;
+    return mapTileDistance(mapPos.x, mapPos.y, pt.x, pt.y) < 1.25;
+  });
+}
+
+function generatedEntranceNear(
+  mapPos: { x: number; y: number },
+  labels: string[],
+  maxTiles = 2,
+): boolean {
+  return ALL_MAP_POINTS.some(
+    (pt) =>
+      pt.category === "entrance" &&
+      noteMatchesArea(pt.note, labels) &&
+      mapTileDistance(mapPos.x, mapPos.y, pt.x, pt.y) < maxTiles,
+  );
+}
+
+function generatedLandmarkNear(mapPos: { x: number; y: number }, maxTiles = 2): boolean {
+  return ALL_MAP_POINTS.some((pt) => {
+    if (!["landmark", "gym"].includes(pt.category)) return false;
+    return mapTileDistance(mapPos.x, mapPos.y, pt.x, pt.y) < maxTiles;
+  });
+}
+
+/** Route exits and town connections — blue route pins on walkthrough crops. */
+function isRouteLinkMarker(marker: MapMarker): boolean {
+  if (marker.type !== "poi") return false;
+  const label = marker.label.toLowerCase();
+  const id = marker.id.toLowerCase();
+  if (label.startsWith("to route") || label.startsWith("exit to route")) return true;
+  if (label.startsWith("to ") && (label.includes(" town") || label.includes(" city") || label.includes("route"))) {
+    return true;
+  }
+  if (/-r\d+$/.test(id) || /^r\d+-[a-z]/.test(id)) {
+    return !id.includes("grass") && !id.includes("cave") && !id.includes("rival") && !id.includes("birch");
+  }
+  if (/^(old|pet|rust|dew|sl|mau|lav|fall|lily|mos|pac|ft|eg)-r/.test(id)) return true;
+  return false;
+}
+
+function categoryForMarker(marker: MapMarker): PoiCategory {
+  switch (marker.type) {
+    case "trainer":
+      return "trainer";
+    case "item":
+      return "item";
+    case "npc":
+      return "npc";
+    case "building":
+      return "entrance";
+    case "wild":
+      return "wild";
+    case "poi":
+      return isRouteLinkMarker(marker) ? "route" : "landmark";
+  }
+}
+
+function shouldSkipHandMarker(marker: MapMarker, mapPos: { x: number; y: number }, labels: string[]): boolean {
+  if (marker.type === "trainer" && trainerSpriteNear(mapPos, labels)) return true;
+  if (marker.type === "item" && generatedCollectibleNear(mapPos, labels)) return true;
+  // Main-map entrances replace all hand building markers for outdoor areas.
+  if (marker.type === "building" && labels.length > 0) return true;
+  if ((marker.type === "building" || marker.type === "poi") && generatedEntranceNear(mapPos, labels)) {
+    return true;
+  }
+  if (marker.type === "poi" && !isRouteLinkMarker(marker) && generatedLandmarkNear(mapPos)) {
+    return true;
+  }
+  return false;
+}
+
+function priority(pt: CropMapPoint): number {
+  return CATEGORY_PRIORITY[pt.category] ?? 0;
+}
+
+/** Drop overlapping pins — keep the highest-priority marker per cluster. */
+function dedupeOverlapping(points: PlacedPoint[]): CropMapPoint[] {
+  const sorted = [...points].sort((a, b) => priority(b) - priority(a));
+  const kept: PlacedPoint[] = [];
+
+  for (const candidate of sorted) {
+    const clusterTiles =
+      candidate.category === "entrance" ? 2.5 : 1.25;
+    const overlaps = kept.some((existing) => {
+      const dist = mapTileDistance(candidate.mapX, candidate.mapY, existing.mapX, existing.mapY);
+      if (dist >= clusterTiles) return false;
+      // Same entrance cluster — keep one gray pin.
+      if (candidate.category === "entrance" && existing.category === "entrance") return true;
+      // Lower-priority annotation on top of a main-map pin.
+      if (priority(existing) >= priority(candidate)) return true;
+      return dist < 1;
+    });
+    if (!overlaps) kept.push(candidate);
+  }
+
+  return kept.map(({ mapX: _mapX, mapY: _mapY, ...pt }) => pt);
+}
+
+function placeMapPoint(
+  pt: CropMapPoint,
+  mapX: number,
+  mapY: number,
+  crop: MapCrop,
+  out: PlacedPoint[],
+): void {
+  const local = toCropLocal(mapX, mapY, crop);
+  if (!local) return;
+  out.push({ ...pt, x: local.x, y: local.y, mapX, mapY });
 }
 
 /**
- * Walkthrough crop markers — hand-placed annotations + game-extracted POIs for the
- * area, plus overworld trainer sprites when available. Rendered with hoenn-map__pin
- * styling (POI_CATEGORIES colors) in HoennCrop.
+ * Walkthrough crop markers — main Hoenn map POIs first, then unique walkthrough-only
+ * annotations (route links, grass, story beats). Rendered with hoenn-map__pin styling.
  */
 export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[] {
-  const seen = new Set<string>();
-  const out: CropMapPoint[] = [];
-
-  const add = (pt: CropMapPoint) => {
-    if (seen.has(pt.id)) return;
-    seen.add(pt.id);
-    out.push(pt);
-  };
-
+  const candidates: PlacedPoint[] = [];
   const labels = areaId ? (AREA_NOTE_LABELS[areaId] ?? []) : [];
 
-  // Hand-tuned walkthrough markers (trainers, grass, story POIs, buildings).
-  if (areaId && MAP_ANNOTATIONS[areaId] && AREA_MAP_BOUNDS[areaId]) {
-    const bounds = AREA_MAP_BOUNDS[areaId];
-    for (const marker of MAP_ANNOTATIONS[areaId].markers) {
-      const mapPos = markerToMapPos(marker, areaId, bounds);
-      // Prefer auto-generated trainer sprites over hand-placed trainer dots.
-      if (marker.type === "trainer" && trainerSpriteNear(mapPos, labels)) continue;
-      const local = toCropLocal(mapPos.x, mapPos.y, crop);
-      if (!local) continue;
-      add(annotationToMapPoint(marker, local));
-    }
-  }
-
-  // Game-extracted items, berries, entrances, etc. (true-scale on the big map).
-  // Skip auto-generated building entrances when hand-authored annotations already
-  // cover the area — avoids duplicate pins (e.g. "House (NW)" + "House1").
-  const hasBuildingAnnotations =
-    areaId &&
-    MAP_ANNOTATIONS[areaId]?.markers.some((m) => m.type === "building" || m.type === "poi");
-
+  // 1. Same data as the main Hoenn map for this area.
   if (labels.length > 0) {
     for (const pt of ALL_MAP_POINTS) {
-      if (!noteMatchesArea(pt.note, labels)) continue;
-      if (hasBuildingAnnotations && pt.category === "entrance") continue;
-      const local = toCropLocal(pt.x, pt.y, crop);
-      if (!local) continue;
-      add({
-        id: `mp-${pt.id}`,
-        name: pt.name,
-        category: pt.category,
-        x: local.x,
-        y: local.y,
-        desc: pt.desc ?? pt.note,
-        note: pt.note,
-      });
+      const inArea =
+        noteMatchesArea(pt.note, labels) ||
+        (areaId && (pt.id === areaId || pt.id === `gym-${areaId}`));
+      if (!inArea) continue;
+      placeMapPoint({ ...pt, id: `mp-${pt.id}` }, pt.x, pt.y, crop, candidates);
     }
 
-    // Overworld trainer sprites from the main map data (same as Hoenn map modal).
     for (const tr of MAP_TRAINERS) {
       if (!noteMatchesArea(tr.note, labels)) continue;
-      const local = toCropLocal(tr.x, tr.y, crop);
-      if (!local) continue;
-      add({ ...tr, x: local.x, y: local.y });
+      placeMapPoint({ ...tr }, tr.x, tr.y, crop, candidates);
     }
   }
 
-  return out;
+  // 2. Walkthrough-only annotations not covered by the main map.
+  if (areaId && MAP_ANNOTATIONS[areaId]) {
+    for (const marker of MAP_ANNOTATIONS[areaId].markers) {
+      const placed = markerToCropLocal(marker, areaId, crop);
+      if (!placed) continue;
+      const { mapPos } = placed;
+      if (shouldSkipHandMarker(marker, mapPos, labels)) continue;
+
+      placeMapPoint(
+        {
+          id: marker.id,
+          name: marker.label,
+          category: categoryForMarker(marker),
+          x: 0,
+          y: 0,
+          desc: marker.detail,
+        },
+        mapPos.x,
+        mapPos.y,
+        crop,
+        candidates,
+      );
+    }
+  }
+
+  return dedupeOverlapping(candidates);
 }
 
 /** @deprecated Use getCropMapPoints — kept for any legacy callers. */

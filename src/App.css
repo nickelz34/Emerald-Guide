@@ -1589,9 +1589,11 @@
   --pin-zoom: min(1, clamp(0.45, calc(var(--map-zoom-fit, 1) / var(--map-zoom, 1)), 1));
 }
 
-.map-zoom-viewport .hoenn-map__pin {
+.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--trainer):not(.hoenn-map__pin--item):not(
+    .hoenn-map__pin--berry
+  ):not(.hoenn-map__pin--hidden) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
-  transform-origin: 50% 100%;
+  transform-origin: center;
 }
 
 .map-zoom-viewport .hoenn-map__pin--trainer {
@@ -1601,6 +1603,17 @@
     )
     scale(var(--pin-zoom));
   transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
+}
+
+.map-zoom-viewport .hoenn-map__pin--item,
+.map-zoom-viewport .hoenn-map__pin--berry,
+.map-zoom-viewport .hoenn-map__pin--hidden {
+  transform: translate(
+      calc(var(--item-fw, 16) * -0.5px),
+      calc(var(--item-fh, 16) * -1px)
+    )
+    scale(var(--pin-zoom));
+  transform-origin: calc(var(--item-fw, 16) * 0.5px) calc(var(--item-fh, 16) * 1px);
 }
 
 .map-zoom-viewport .map-marker {
@@ -2018,13 +2031,30 @@
 }
 
 /* Distinct shapes per category */
-.hoenn-map__pin--cave .hoenn-map__pin-dot {
-  border-radius: 3px;
-}
-
 .hoenn-map__pin--landmark .hoenn-map__pin-dot {
   border-radius: 50% 50% 50% 0;
   transform: rotate(45deg);
+}
+
+.hoenn-map__pin--wild .hoenn-map__pin-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  transform: none;
+}
+
+.hoenn-map__pin--npc .hoenn-map__pin-dot {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 2.5px solid var(--pin-color, var(--orange));
+}
+
+/* Walkthrough crop route-exit pins (main map uses text labels instead). */
+.hoenn-crop__frame--pins .hoenn-map__pin--route .hoenn-map__pin-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
 }
 
 /* Gym badges from the trainer card sheet — one frame per Hoenn gym. */
@@ -2117,10 +2147,6 @@
   border-radius: 2px;
 }
 
-.hoenn-map__pin--hidden .hoenn-map__pin-dot {
-  border-style: dashed;
-}
-
 /* Collectible pins: item ball, berry tree, and Itemfinder for hidden items. */
 .hoenn-map__pin--item,
 .hoenn-map__pin--berry,
@@ -2149,19 +2175,6 @@
   width: calc(var(--item-fw, 16) * 1px);
   height: calc(var(--item-fh, 16) * 1px);
   image-rendering: pixelated;
-}
-
-.hoenn-map__pin--hidden .hoenn-map__item-frame::after {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  border: 1.5px dashed rgba(201, 210, 223, 0.95);
-  border-radius: 4px;
-  pointer-events: none;
-}
-
-.hoenn-map__pin--hidden .hoenn-map__item-sprite {
-  opacity: 0.92;
 }
 
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
@@ -3675,6 +3688,92 @@
 
 .hoenn-map__controls button:hover {
   background: rgba(20, 40, 70, 0.95);
+}
+
+/* Selected item / entrance callout — anchored on the map, not in the legend. */
+.hoenn-map__selection {
+  position: absolute;
+  left: 0.65rem;
+  right: 0.65rem;
+  bottom: 3.35rem;
+  z-index: 35;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.65rem;
+  padding: 0.7rem 2.1rem 0.7rem 0.75rem;
+  border-radius: 10px;
+  background: rgba(8, 18, 34, 0.96);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  max-height: min(38%, 240px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hoenn-map__selection-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+}
+
+.hoenn-map__selection-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  line-height: 0;
+}
+
+.hoenn-map__selection-item-icon {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.hoenn-map__selection-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.4rem;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.hoenn-map__selection-close:hover,
+.hoenn-map__selection-close:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.hoenn-map__selection-name {
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+
+.hoenn-map__selection-desc {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #dfe6f2;
+  line-height: 1.4;
+}
+
+.hoenn-map__selection-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.35;
 }
 
 /* ── Legend ── */
