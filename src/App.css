@@ -2027,6 +2027,27 @@
   transform: rotate(45deg);
 }
 
+.hoenn-map__pin--wild .hoenn-map__pin-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  transform: none;
+}
+
+.hoenn-map__pin--npc .hoenn-map__pin-dot {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 2.5px solid var(--pin-color, var(--orange));
+}
+
+/* Walkthrough crop route-exit pins (main map uses text labels instead). */
+.hoenn-crop__frame--pins .hoenn-map__pin--route .hoenn-map__pin-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
+}
+
 /* Gym badges from the trainer card sheet — one frame per Hoenn gym. */
 .hoenn-map__pin--gym {
   width: calc(var(--badge-fw, 16) * 1px);

@@ -16,7 +16,9 @@ export type PoiCategory =
   | "hidden"
   | "berry"
   | "entrance"
-  | "trainer";
+  | "trainer"
+  | "npc"
+  | "wild";
 
 export interface PoiCategoryMeta {
   id: PoiCategory;
@@ -36,6 +38,8 @@ export const POI_CATEGORIES: PoiCategoryMeta[] = [
   { id: "berry", label: "Berries", color: "#ff5fa8" },
   { id: "entrance", label: "Entrances", color: "#7d8aa0" },
   { id: "trainer", label: "Trainers", color: "#f56565" },
+  { id: "npc", label: "NPCs", color: "#63b3ed" },
+  { id: "wild", label: "Wild encounters", color: "#48bb78" },
 ];
 
 /** Categories shown by default on the main Hoenn map. */

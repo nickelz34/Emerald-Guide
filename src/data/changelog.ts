@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.42",
+    date: "2026-07-08",
+    summary: "Walkthrough map pins now match the main Hoenn map with distinct colors and no stacked duplicates.",
+    sections: [
+      {
+        heading: "Maps — walkthrough pin overhaul",
+        items: [
+          "Walkthrough crops now load pins from the same main-map data as the full Hoenn map (entrances, items, berries, trainers, landmarks) before adding guide-only markers.",
+          "Removed stacked duplicates: overlapping entrances collapse to one gray pin; hand annotations are skipped when a main-map pin already exists at that spot.",
+          "Route exit markers use blue route pins, grass/surf areas use green wild pins, and NPCs use light-blue ring pins — each visually distinct from landmarks and entrances.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.41",
     date: "2026-07-08",
     summary: "Cave and building entrances on walkthrough maps no longer show duplicate green and gray pins.",
