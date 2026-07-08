@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.59",
+    date: "2026-07-08",
+    summary: "Walkthrough map markers stay larger while zooming, with gym badges emphasized.",
+    sections: [
+      {
+        heading: "Maps — walkthrough zoom",
+        items: [
+          "Raised the minimum zoomed marker scale so sprites, item balls, hidden items, and standard markers remain easier to see.",
+          "Gym badge pins now receive an additional size boost in walkthrough map lightboxes so gyms stand out from other markers.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.58",
     date: "2026-07-08",
     summary: "Walkthrough area map image taps now open the lightbox directly from the map frame.",
