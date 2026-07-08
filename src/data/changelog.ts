@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.47",
+    date: "2026-07-08",
+    summary: "Item and hidden-item map callouts now show the in-game bag icon beside the description.",
+    sections: [
+      {
+        heading: "Maps — selection callout sprites",
+        items: [
+          "Tapping a visible item or hidden item pin shows that item's authentic bag icon (Potion, Revive, TM, etc.) in the on-map callout, scaled up for readability.",
+          "Entrances, berries, towns, and other pin types keep a text-only callout.",
+          "New `npm run sync:item-icons` script downloads the needed icons from pokeemerald into `public/sprites/items/icons/`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.46",
     date: "2026-07-08",
     summary: "Item and entrance details now appear on the map when you tap a pin.",

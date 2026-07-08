@@ -14,7 +14,7 @@ import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
-import { MapPinVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
+import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
 
@@ -827,30 +827,33 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
               >
                 ×
               </button>
-              <span
-                className="hoenn-map__pin-cat"
-                style={{
-                  color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color,
-                }}
-              >
-                {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
-              </span>
-              <strong className="hoenn-map__selection-name">{selectedPoint.name}</strong>
-              {selectedPoint.desc && (
-                <p className="hoenn-map__selection-desc">{selectedPoint.desc}</p>
-              )}
-              {selectedPoint.note && (
-                <p className="hoenn-map__selection-note">{selectedPoint.note}</p>
-              )}
-              {stepIdForPoint(selectedPoint) && (
-                <button
-                  type="button"
-                  className="btn btn--primary btn--sm"
-                  onClick={() => jumpToGuide(selectedPoint)}
+              <MapSelectionVisual point={selectedPoint} />
+              <div className="hoenn-map__selection-body">
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{
+                    color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color,
+                  }}
                 >
-                  Return to guide
-                </button>
-              )}
+                  {POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.label}
+                </span>
+                <strong className="hoenn-map__selection-name">{selectedPoint.name}</strong>
+                {selectedPoint.desc && (
+                  <p className="hoenn-map__selection-desc">{selectedPoint.desc}</p>
+                )}
+                {selectedPoint.note && (
+                  <p className="hoenn-map__selection-note">{selectedPoint.note}</p>
+                )}
+                {stepIdForPoint(selectedPoint) && (
+                  <button
+                    type="button"
+                    className="btn btn--primary btn--sm"
+                    onClick={() => jumpToGuide(selectedPoint)}
+                  >
+                    Return to guide
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>
