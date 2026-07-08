@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.49",
+    date: "2026-07-08",
+    summary: "Item bag icons in map callouts actually render now (were blank PNGs).",
+    sections: [
+      {
+        heading: "Maps — item icon fix",
+        items: [
+          "Fixed sync:item-icons palette lookup: pngjs stores palette entries as arrays, so every pixel was keyed out as transparent (81-byte blank PNGs).",
+          "Icons now remap through the correct source palette baked into each pret graphic, then apply the item's own palette for shared sprites like X items and potions.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.48",
     date: "2026-07-08",
     summary: "Item bag icons in map callouts now load reliably in the browser.",

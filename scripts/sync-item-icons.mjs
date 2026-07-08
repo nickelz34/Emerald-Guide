@@ -153,34 +153,66 @@ function parseJascPal(text) {
   return colors;
 }
 
-/** Remap a pret indexed item icon to RGBA using the item's JASC palette. */
-function renderItemIcon(iconBuf, paletteText) {
-  const src = PNG.sync.read(iconBuf);
-  const pal = parseJascPal(paletteText);
-  const embedded = src.palette ?? [];
-  const out = new PNG({ width: src.width, height: src.height, colorType: 6 });
+const TRANSPARENT_KEY = { r: 180, g: 180, b: 180 };
 
-  const indexForRgb = (r, g, b, a) => {
-    if (a === 0) return 0;
-    for (let p = 0; p < embedded.length; p++) {
-      const e = embedded[p];
-      if (r === e.r && g === e.g && b === e.b) return p;
+function indexForRgb(r, g, b, a, pal) {
+  if (a === 0) return 0;
+  if (r === TRANSPARENT_KEY.r && g === TRANSPARENT_KEY.g && b === TRANSPARENT_KEY.b) return 0;
+  for (let p = 1; p < pal.length; p++) {
+    const c = pal[p];
+    if (r === c.r && g === c.g && b === c.b) return p;
+  }
+  return -1;
+}
+
+/** Pick the palette baked into pret's indexed PNG (fewest misses on pixel lookup). */
+function detectSourcePaletteText(src, candidateTexts) {
+  let best = candidateTexts[0];
+  let bestMiss = Infinity;
+  for (const text of candidateTexts) {
+    const pal = parseJascPal(text);
+    let miss = 0;
+    for (let i = 0; i < src.width * src.height; i++) {
+      const si = i * 4;
+      if (
+        indexForRgb(src.data[si], src.data[si + 1], src.data[si + 2], src.data[si + 3], pal) < 0
+      ) {
+        miss++;
+      }
     }
-    return 0;
-  };
+    if (miss < bestMiss) {
+      bestMiss = miss;
+      best = text;
+    }
+  }
+  return best;
+}
+
+/** Remap a pret indexed item icon to RGBA using source → target JASC palettes. */
+function renderItemIcon(iconBuf, sourcePaletteText, targetPaletteText) {
+  const src = PNG.sync.read(iconBuf);
+  const sourcePal = parseJascPal(sourcePaletteText);
+  const targetPal = parseJascPal(targetPaletteText);
+  const out = new PNG({ width: src.width, height: src.height, colorType: 6 });
 
   for (let i = 0; i < src.width * src.height; i++) {
     const si = i * 4;
-    const idx = indexForRgb(src.data[si], src.data[si + 1], src.data[si + 2], src.data[si + 3]);
+    const idx = indexForRgb(
+      src.data[si],
+      src.data[si + 1],
+      src.data[si + 2],
+      src.data[si + 3],
+      sourcePal,
+    );
     const di = i * 4;
-    if (idx === 0) {
+    if (idx <= 0) {
       out.data[di] = 0;
       out.data[di + 1] = 0;
       out.data[di + 2] = 0;
       out.data[di + 3] = 0;
       continue;
     }
-    const c = pal[idx] ?? pal[0];
+    const c = targetPal[idx] ?? targetPal[0];
     out.data[di] = c.r;
     out.data[di + 1] = c.g;
     out.data[di + 2] = c.b;
@@ -247,6 +279,23 @@ async function loadAsset(rel) {
   return assetCache.get(rel);
 }
 
+/** iconRel → palette .pal texts used with that graphic (for source-palette detection). */
+const palettesByIcon = new Map();
+for (const assets of nameToAssets.values()) {
+  if (!palettesByIcon.has(assets.iconRel)) palettesByIcon.set(assets.iconRel, new Set());
+  palettesByIcon.get(assets.iconRel).add(assets.paletteRel);
+}
+
+const sourcePaletteByIcon = new Map();
+for (const [iconRel, paletteRels] of palettesByIcon) {
+  const iconBuf = await loadAsset(iconRel);
+  const src = PNG.sync.read(iconBuf);
+  const texts = await Promise.all(
+    [...paletteRels].map(async (rel) => (await loadAsset(rel)).toString("utf8")),
+  );
+  sourcePaletteByIcon.set(iconRel, detectSourcePaletteText(src, texts));
+}
+
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const resolved = {};
@@ -260,13 +309,15 @@ for (const name of [...neededNames].sort()) {
   }
 
   const iconBuf = await loadAsset(assets.iconRel);
-  const paletteText = (await loadAsset(assets.paletteRel)).toString("utf8");
+  const targetPaletteText = (await loadAsset(assets.paletteRel)).toString("utf8");
+  const sourcePaletteText = [...sourcePaletteByIcon.entries()].find(([rel]) => rel === assets.iconRel)?.[1];
   const outName = `${slugify(name)}.png`;
   const outPath = path.join(OUT_DIR, outName);
 
   let pngBuf;
   try {
-    pngBuf = renderItemIcon(iconBuf, paletteText);
+    const sourcePaletteText = sourcePaletteByIcon.get(assets.iconRel) ?? targetPaletteText;
+    pngBuf = renderItemIcon(iconBuf, sourcePaletteText, targetPaletteText);
   } catch {
     pngBuf = await sharp(iconBuf).ensureAlpha().png().toBuffer();
   }
