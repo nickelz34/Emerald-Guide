@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.51",
+    date: "2026-07-08",
+    summary: "The app is now branded as Emerald-Guide in browser and UI labels.",
+    sections: [
+      {
+        heading: "Branding",
+        items: [
+          "Updated the browser tab title, header brand, changelog subtitle, and README references to use Emerald-Guide.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.50",
     date: "2026-07-08",
     summary: "Walkthrough position is preserved when you switch to the map and back.",
@@ -1274,7 +1287,7 @@ export const CHANGELOG: ChangelogRelease[] = [
       {
         heading: "Version & changelog",
         items: [
-          "The version badge next to “Emerald Guide” is now a button — click it to open a detailed changelog.",
+          "The version badge next to “Emerald-Guide” is now a button — click it to open a detailed changelog.",
           "Every release is listed with date, summary, and grouped change notes.",
           "Changelog data lives in src/data/changelog.ts and must be updated alongside any app change.",
         ],
@@ -1351,7 +1364,7 @@ export const CHANGELOG: ChangelogRelease[] = [
           "Mobile: collapsible “Steps” panel so content appears immediately without scrolling past the full step list.",
           "Mobile: tighter spacing on step cards, navigation keys, and header.",
           "Horizontal map legend bar below the map (replacing the side legend).",
-          "App version badge displayed next to the Emerald Guide title.",
+          "App version badge displayed next to the Emerald-Guide title.",
           "Removed standalone Tips and Secrets top-level sections (tips/secrets now live inside walkthrough events).",
         ],
       },

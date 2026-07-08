@@ -52,7 +52,7 @@ export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: Sideba
       <div className="sidebar__brand">
         <span className="sidebar__icon">◆</span>
         <div className="sidebar__brand-text">
-          <h1>Emerald Guide</h1>
+          <h1>Emerald-Guide</h1>
           <button
             type="button"
             className="sidebar__version"
