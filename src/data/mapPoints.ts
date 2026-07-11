@@ -15,6 +15,7 @@ export type PoiCategory =
   | "hidden"
   | "berry"
   | "entrance"
+  | "shop"
   | "trainer"
   | "npc"
   | "wild";
@@ -35,13 +36,14 @@ export const POI_CATEGORIES: PoiCategoryMeta[] = [
   { id: "hidden", label: "Hidden Items", color: "#c9d2df" },
   { id: "berry", label: "Berries", color: "#ff5fa8" },
   { id: "entrance", label: "Entrances", color: "#7d8aa0" },
+  { id: "shop", label: "Shops", color: "#4fd1c5" },
   { id: "trainer", label: "Trainers", color: "#f56565" },
   { id: "npc", label: "NPCs", color: "#63b3ed" },
   { id: "wild", label: "Wild encounters", color: "#48bb78" },
 ];
 
 /** Categories shown by default on the main Hoenn map. */
-export const DEFAULT_VISIBLE_CATEGORIES: PoiCategory[] = ["town", "route"];
+export const DEFAULT_VISIBLE_CATEGORIES: PoiCategory[] = ["town", "route", "shop"];
 
 export interface MapPoint {
   id: string;
@@ -73,6 +75,7 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "lilycove", name: "Lilycove City", category: "town", x: 65, y: 23.5, note: "Department store & Contest Hall.", stepId: "lilycove-1" },
   { id: "mossdeep", name: "Mossdeep City", category: "town", x: 85, y: 31.33, note: "Island city with the Space Center.", stepId: "mossdeep-1" },
   { id: "sootopolis", name: "Sootopolis City", category: "town", x: 75, y: 47, note: "Hidden crater city, eighth gym.", stepId: "sootopolis-1" },
+  { id: "mart-sootopolis", name: "Mart", category: "shop", x: 74.2, y: 45.8, note: "Sootopolis City" },
   { id: "pacifidlog", name: "Pacifidlog Town", category: "town", x: 61.25, y: 73.11, note: "Floating town on the open sea.", stepId: "pacifidlog-1" },
   { id: "ever-grande", name: "Ever Grande City", category: "town", x: 97.5, y: 57.44, note: "The Pokémon League plateau.", stepId: "victory-road-1" },
 

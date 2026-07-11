@@ -2153,11 +2153,18 @@
 .hoenn-map__pin--item .hoenn-map__pin-dot,
 .hoenn-map__pin--hidden .hoenn-map__pin-dot,
 .hoenn-map__pin--berry .hoenn-map__pin-dot,
-.hoenn-map__pin--entrance .hoenn-map__pin-dot {
+.hoenn-map__pin--entrance .hoenn-map__pin-dot,
+.hoenn-map__pin--shop .hoenn-map__pin-dot {
   width: 10px;
   height: 10px;
   border-width: 1.5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.hoenn-map__pin--shop .hoenn-map__pin-dot {
+  width: 11px;
+  height: 11px;
+  box-shadow: 0 0 0 2px rgba(79, 209, 197, 0.4), 0 2px 6px rgba(0, 0, 0, 0.45);
 }
 
 .hoenn-map__pin--entrance .hoenn-map__pin-dot {
@@ -3556,6 +3563,228 @@
   }
 
   .gym-modal__close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* ── Mart / shop detail modal (Hoenn map) ── */
+.mart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.mart-modal__panel {
+  width: min(720px, 100%);
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 2rem);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-bg, #1a2332);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.mart-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.mart-modal__head h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.mart-modal__subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted, #9aa8bc);
+}
+
+.mart-modal__close {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mart-modal__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mart-modal__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 1rem 1.25rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.mart-modal__foot {
+  flex-shrink: 0;
+  padding: 0.85rem 1.25rem max(1rem, env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.mart-modal__notes {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.9rem 0.75rem 1.35rem;
+  border-radius: 8px;
+  background: rgba(59, 157, 255, 0.1);
+  border: 1px solid rgba(59, 157, 255, 0.28);
+  color: var(--text, #e8eef7);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.mart-modal__notes li + li {
+  margin-top: 0.35rem;
+}
+
+.mart-modal__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.mart-modal__tab {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.mart-modal__tab.is-active {
+  background: rgba(59, 157, 255, 0.2);
+  border-color: rgba(59, 157, 255, 0.55);
+}
+
+.mart-modal__section + .mart-modal__section {
+  margin-top: 1.25rem;
+}
+
+.mart-modal__section-head h4 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.mart-modal__unlock {
+  margin: 0 0 0.65rem;
+  font-size: 0.82rem;
+  color: var(--emerald, #38b2ac);
+}
+
+.mart-modal__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.mart-modal__table th,
+.mart-modal__table td {
+  padding: 0.55rem 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  vertical-align: top;
+}
+
+.mart-modal__table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted, #9aa8bc);
+  font-weight: 600;
+}
+
+.mart-modal__price {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: #f5d76e;
+  text-align: right !important;
+}
+
+.mart-modal__table th:last-child {
+  text-align: right;
+}
+
+.mart-modal__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.mart-modal__item-icon {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+  margin-top: 0.1rem;
+}
+
+.mart-modal__item-icon--empty {
+  display: inline-block;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mart-modal__item-name {
+  font-weight: 600;
+}
+
+.mart-modal__item-desc {
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  color: var(--muted, #9aa8bc);
+  line-height: 1.35;
+}
+
+.mart-modal__empty {
+  margin: 0;
+  color: var(--muted, #9aa8bc);
+}
+
+@media (max-width: 640px) {
+  .mart-modal {
+    padding: max(0.65rem, env(safe-area-inset-top, 0px)) max(0.65rem, env(safe-area-inset-right, 0px))
+      max(0.65rem, env(safe-area-inset-bottom, 0px)) max(0.65rem, env(safe-area-inset-left, 0px));
+  }
+
+  .mart-modal__panel {
+    width: 100%;
+    max-height: calc(
+      100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1.3rem
+    );
+  }
+
+  .mart-modal__close {
     min-width: 44px;
     min-height: 44px;
   }

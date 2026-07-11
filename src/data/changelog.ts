@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.62",
+    date: "2026-07-11",
+    summary: "Click Poké Marts on the Hoenn map to see shop stock and prices.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Poké Mart, Herb Shop, Bike Shop, and Lilycove Department Store pins now open a shop guide modal with item lists, prices, and short descriptions from the game data.",
+          "A new **Shops** legend filter (on by default with Towns & Routes) shows mart pins in teal so they are easy to find without turning on every entrance.",
+          "Marts that expand mid-game (Oldale, Petalburg, Rustboro) include Early stock / Full stock tabs with unlock notes so you know when new items appear.",
+          "Added a Sootopolis Mart pin on the overworld map (it was missing from generated entrance markers).",
+          "Fixed map marker clicks on desktop: clicking a shop (or other pin) no longer starts a pan, so the shop guide opens immediately instead of only showing the hover label.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.61",
     date: "2026-07-08",
     summary: "Desktop main map panning now keeps tracking through long drags.",

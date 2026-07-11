@@ -17,8 +17,19 @@ import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
+import { MartDetailModal } from "./MartDetailModal";
+import { isMartMapPoint } from "../data/martData";
 
-const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS, ...ROUTE_POINTS];
+const SHOP_NAMES = new Set(["Mart", "Herb Shop", "Department Store", "Bike Shop"]);
+
+function asShopPoint(point: MapPoint): MapPoint {
+  if (point.category === "entrance" && SHOP_NAMES.has(point.name)) {
+    return { ...point, category: "shop" };
+  }
+  return point;
+}
+
+const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS, ...ROUTE_POINTS].map(asShopPoint);
 
 /** Area maps grouped for the switcher's <optgroup> list. */
 const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
@@ -61,6 +72,7 @@ function stepIdForPoint(point: MapPoint): string | undefined {
 function isMapCalloutPoint(point: MapPoint): boolean {
   return (
     !isTrainerPoint(point) &&
+    !isMartMapPoint(point) &&
     point.category !== "route" &&
     point.category !== "gym"
   );
@@ -140,6 +152,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
   const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
   const [modalGym, setModalGym] = useState<MapPoint | null>(null);
+  const [modalMart, setModalMart] = useState<MapPoint | null>(null);
   const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
   const [rematchableOnly, setRematchableOnly] = useState(false);
   const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
@@ -194,6 +207,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     setModalTrainer(null);
     setModalRoute(null);
     setModalGym(null);
+    setModalMart(null);
   }, []);
 
   const closeRouteModal = useCallback(() => {
@@ -209,6 +223,11 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const closeGymModal = useCallback(() => {
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalGym(null);
+  }, []);
+
+  const closeMartModal = useCallback(() => {
+    blockMapMarkerUntilRef.current = Date.now() + 600;
+    setModalMart(null);
   }, []);
 
   useEffect(() => {
@@ -269,7 +288,8 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const isOverworld = !currentArea;
   const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
   const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
-  modalOpenRef.current = modalRoute !== null || modalTrainer !== null || modalGym !== null;
+  modalOpenRef.current =
+    modalRoute !== null || modalTrainer !== null || modalGym !== null || modalMart !== null;
 
   const canvasW = fitW * view.scale;
   const canvasH = canvasW / mapAr;
@@ -570,6 +590,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         setSelectedId(point.id);
         setModalRoute(null);
         setModalGym(null);
+        setModalMart(null);
         setModalTrainer(point);
         return;
       }
@@ -578,6 +599,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         setModalRoute(point);
         setModalTrainer(null);
         setModalGym(null);
+        setModalMart(null);
         return;
       }
       if (point.category === "gym") {
@@ -585,11 +607,21 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
         setModalGym(point);
         setModalTrainer(null);
         setModalRoute(null);
+        setModalMart(null);
+        return;
+      }
+      if (isMartMapPoint(point)) {
+        setSelectedId(point.id);
+        setModalMart(point);
+        setModalTrainer(null);
+        setModalRoute(null);
+        setModalGym(null);
         return;
       }
       setModalTrainer(null);
       setModalRoute(null);
       setModalGym(null);
+      setModalMart(null);
       setSelectedId((id) => (id === point.id ? null : point.id));
     },
     [],
@@ -599,7 +631,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     if (e.button !== 0 || e.pointerType === "touch") return;
 
     const target = e.target as HTMLElement;
-    if (target.closest("button, input, select, textarea, a, .hoenn-map__selection")) return;
+    if (target.closest("button, input, select, textarea, a, .hoenn-map__selection, .hoenn-map__pin")) return;
 
     desktopDragCleanupRef.current?.();
     desktopDragCleanupRef.current = null;
@@ -696,7 +728,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym ? " hoenn-map__viewport--modal-open" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym || modalMart ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onClick={onViewportClick}
@@ -748,9 +780,8 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                     ...pinSpriteStyle(point),
                   }}
                   onPointerDown={(e) => {
-                    if (e.pointerType === "touch") {
-                      e.stopPropagation();
-                    }
+                    // Keep pin taps/clicks from starting a map pan (desktop + touch).
+                    e.stopPropagation();
                     suppressClickRef.current = false;
                     if (e.pointerType === "touch") {
                       pinPointerRef.current = {
@@ -1073,6 +1104,35 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                   </button>
                 )}
               </>
+            ) : isMartMapPoint(selectedPoint) ? (
+              <>
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === selectedPoint.category)?.color }}
+                >
+                  Shop
+                </span>
+                <h5>
+                  {selectedPoint.note ? `${selectedPoint.note} ` : ""}
+                  {selectedPoint.name}
+                </h5>
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalMart(selectedPoint)}
+                >
+                  View shop stock
+                </button>
+                {stepIdForPoint(selectedPoint) && (
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--sm"
+                    onClick={() => jumpToGuide(selectedPoint)}
+                  >
+                    Return to walkthrough
+                  </button>
+                )}
+              </>
             ) : selectedPoint.category === "town" ? (
               <>
                 <span
@@ -1146,14 +1206,22 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                             setModalRoute(p);
                             setModalTrainer(null);
                             setModalGym(null);
+                            setModalMart(null);
                           } else if (p.category === "gym") {
                             setModalGym(p);
                             setModalTrainer(null);
                             setModalRoute(null);
+                            setModalMart(null);
+                          } else if (isMartMapPoint(p)) {
+                            setModalMart(p);
+                            setModalTrainer(null);
+                            setModalRoute(null);
+                            setModalGym(null);
                           } else if (isTrainerPoint(p)) {
                             setModalTrainer(p);
                             setModalRoute(null);
                             setModalGym(null);
+                            setModalMart(null);
                           }
                         }}
                       >
@@ -1171,6 +1239,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
       </div>
       )}
       <GymDetailModal gymPoint={modalGym} onClose={closeGymModal} onJumpToGuide={jumpToGuide} />
+      <MartDetailModal martPoint={modalMart} onClose={closeMartModal} onJumpToGuide={jumpToGuide} />
       <RouteDetailModal
         route={modalRoute}
         onClose={closeRouteModal}
