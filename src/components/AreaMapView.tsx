@@ -10,6 +10,7 @@ import { MapZoomViewport } from "./MapZoomViewport";
 import { MapPinVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { fitPinPopups } from "../lib/fitMapPopup";
+import { formatItemDescription } from "../lib/itemText";
 
 interface AreaMapViewProps {
   areaMapId: string;
@@ -42,7 +43,7 @@ export function AreaMapView({
       category: m.category,
       x: m.x,
       y: m.y,
-      desc: m.desc,
+      desc: m.desc ? formatItemDescription(m.desc) : m.desc,
       note: area.name,
     }));
     const seen = new Set<string>();

@@ -10,6 +10,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { cleanItemDescription } from "./item-text-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
@@ -93,7 +94,7 @@ for (const mt of itemsText.matchAll(/\[ITEM_(\w+)\]\s*=\s*\{([\s\S]*?)\n\s*\},/g
   const rec = {
     const: konst,
     name: titleCase(nameM[1]),
-    desc: descM ? descByVar.get(descM[1]) || "" : "",
+    desc: cleanItemDescription(descM ? descByVar.get(descM[1]) || "" : ""),
   };
   byConst.set(konst, rec);
   items.push({ ...rec, norm: konst.replace(/[^A-Z0-9]/g, "") });
@@ -221,7 +222,7 @@ lines.push('import type { MapPoint } from "./mapPoints";');
 lines.push("");
 lines.push("export const GENERATED_POINTS: MapPoint[] = [");
 for (const p of points) {
-  const desc = p.desc ? `, desc: ${JSON.stringify(p.desc)}` : "";
+  const desc = p.desc ? `, desc: ${JSON.stringify(cleanItemDescription(p.desc))}` : "";
   lines.push(
     `  { id: ${JSON.stringify(p.id)}, name: ${JSON.stringify(p.name)}, category: ${JSON.stringify(p.category)}, x: ${p.x}, y: ${p.y}, note: ${JSON.stringify(p.note)}${desc} },`,
   );

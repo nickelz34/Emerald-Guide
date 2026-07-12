@@ -5,6 +5,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { cleanItemDescription } from "./item-text-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
@@ -359,7 +360,7 @@ function loadItemIndex() {
       const: `ITEM_${konst}`,
       name: titleCase(nameM[1]),
       price: priceM ? Number(priceM[1]) : 0,
-      description: descM ? descByVar.get(descM[1]) || "" : "",
+      description: cleanItemDescription(descM ? descByVar.get(descM[1]) || "" : ""),
     });
   }
   return byConst;
@@ -391,7 +392,7 @@ function loadDecorIndex() {
       const: konst,
       name: titleCase(nameM[1]),
       price: priceM ? Number(priceM[1]) : 0,
-      description: descM ? descByVar.get(descM[1]) || "" : "",
+      description: cleanItemDescription(descM ? descByVar.get(descM[1]) || "" : ""),
     });
   }
   return byConst;

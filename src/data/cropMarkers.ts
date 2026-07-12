@@ -5,13 +5,18 @@ import { LANDMARK_PINS_GENERATED } from "./mapLandmarksGenerated";
 import { SHOP_PINS_GENERATED } from "./shopPinsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
 import { AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
+import { formatItemDescription } from "../lib/itemText";
 
 const ALL_MAP_POINTS: MapPoint[] = [
   ...MAP_POINTS,
   ...LANDMARK_PINS_GENERATED,
   ...GENERATED_POINTS,
   ...SHOP_PINS_GENERATED,
-];
+].map((p) =>
+  p.desc
+    ? { ...p, desc: formatItemDescription(p.desc) }
+    : p,
+);
 
 export type CropMapPoint = MapPoint | TrainerPoint;
 

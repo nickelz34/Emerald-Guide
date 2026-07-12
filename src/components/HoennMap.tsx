@@ -22,6 +22,7 @@ import { GymDetailModal } from "./GymDetailModal";
 import { MartDetailModal } from "./MartDetailModal";
 import { isMartMapPoint } from "../data/martData";
 import { fitPinPopups } from "../lib/fitMapPopup";
+import { formatItemDescription } from "../lib/itemText";
 
 const SHOP_NAMES = new Set([
   "Mart",
@@ -41,13 +42,19 @@ function asShopPoint(point: MapPoint): MapPoint {
   return point;
 }
 
+function withCleanItemDesc(point: MapPoint): MapPoint {
+  if (!point.desc) return point;
+  const desc = formatItemDescription(point.desc);
+  return desc === point.desc ? point : { ...point, desc };
+}
+
 const ALL_POINTS: MapPoint[] = [
   ...MAP_POINTS,
   ...LANDMARK_PINS_GENERATED,
   ...GENERATED_POINTS,
   ...SHOP_PINS_GENERATED,
   ...ROUTE_POINTS,
-].map(asShopPoint);
+].map(asShopPoint).map(withCleanItemDesc);
 
 /** Area maps grouped for the switcher's <optgroup> list. */
 const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
@@ -63,15 +70,17 @@ const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
 
 /** Convert an area map's markers into the MapPoint shape used by the pins/list. */
 function areaPoints(area: AreaMap): MapPoint[] {
-  return area.markers.map((m) => ({
-    id: m.id,
-    name: m.name,
-    category: m.category,
-    x: m.x,
-    y: m.y,
-    desc: m.desc,
-    note: area.name,
-  }));
+  return area.markers.map((m) =>
+    withCleanItemDesc({
+      id: m.id,
+      name: m.name,
+      category: m.category,
+      x: m.x,
+      y: m.y,
+      desc: m.desc,
+      note: area.name,
+    }),
+  );
 }
 
 /** Region ids whose id doesn't match a map point id 1:1. */

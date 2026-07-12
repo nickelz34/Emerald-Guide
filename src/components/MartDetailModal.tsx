@@ -11,6 +11,7 @@ import {
   type MartSection,
 } from "../data/martData";
 import type { MapPoint } from "../data/mapPoints";
+import { formatItemDescription } from "../lib/itemText";
 
 interface MartDetailModalProps {
   martPoint: MapPoint | null;
@@ -69,7 +70,9 @@ function StockTable({ section, showFloor }: { section: MartSection; showFloor?: 
                   <div>
                     <div className="mart-modal__item-name">{item.name}</div>
                     {item.description && (
-                      <div className="mart-modal__item-desc">{item.description}</div>
+                      <div className="mart-modal__item-desc">
+                        {formatItemDescription(item.description)}
+                      </div>
                     )}
                   </div>
                 </div>

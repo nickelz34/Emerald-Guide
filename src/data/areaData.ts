@@ -6,6 +6,9 @@ import { SHOP_PINS_GENERATED } from "./shopPinsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
 import { AREA_NOTE_LABELS } from "./mapCrops";
 import { loadWildPokedex, type WildPokemon } from "./wildSource";
+import { formatItemDescription, formatItemName } from "../lib/itemText";
+
+export { formatItemDescription, formatItemName };
 
 export interface AreaExtras {
   secrets?: string[];
@@ -508,18 +511,6 @@ const ALL_MAP_POINTS: MapPoint[] = [
   ...GENERATED_POINTS,
   ...SHOP_PINS_GENERATED,
 ];
-
-/** Clean pokeemerald item/berry description strings for display. */
-export function formatItemDescription(desc: string): string {
-  return desc
-    .replace(/\{POKEBLOCK\}/gi, "Pok\u00e9block")
-    .replace(/\{POK\u00e9MON\}/gi, "Pok\u00e9mon")
-    .replace(/\{POKEMON\}/gi, "Pok\u00e9mon")
-    .replace(/to grow ([A-Z]+)\./g, (_, berry) => {
-      const name = berry.charAt(0) + berry.slice(1).toLowerCase();
-      return `to grow ${name}.`;
-    });
-}
 
 export interface RoutePickup {
   id: string;

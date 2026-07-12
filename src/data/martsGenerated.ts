@@ -55,25 +55,25 @@ export const MARTS: MartData[] =
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           }
         ]
       },
@@ -88,31 +88,31 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           }
         ]
       }
@@ -138,31 +138,31 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_ESCAPE_ROPE",
@@ -174,7 +174,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_X_SPEED",
@@ -198,7 +198,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_ORANGE_MAIL",
             "name": "Orange Mail",
             "price": 50,
-            "description": "A ZIGZAGOON-print MAIL to be held by a POKéMON."
+            "description": "A ZIGZAGOON-print MAIL to be held by a Pokémon."
           }
         ]
       },
@@ -213,7 +213,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_GREAT_BALL",
@@ -225,31 +225,31 @@ export const MARTS: MartData[] =
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_ESCAPE_ROPE",
@@ -261,7 +261,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_X_SPEED",
@@ -285,7 +285,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_ORANGE_MAIL",
             "name": "Orange Mail",
             "price": 50,
-            "description": "A ZIGZAGOON-print MAIL to be held by a POKéMON."
+            "description": "A ZIGZAGOON-print MAIL to be held by a Pokémon."
           }
         ]
       }
@@ -309,31 +309,31 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_ESCAPE_ROPE",
@@ -345,7 +345,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_X_SPEED",
@@ -378,7 +378,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_TIMER_BALL",
@@ -390,31 +390,31 @@ export const MARTS: MartData[] =
             "const": "ITEM_REPEAT_BALL",
             "name": "Repeat Ball",
             "price": 1000,
-            "description": "A BALL that works better on POKéMON caught before."
+            "description": "A BALL that works better on Pokémon caught before."
           },
           {
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_ESCAPE_ROPE",
@@ -426,7 +426,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_X_SPEED",
@@ -468,7 +468,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_GREAT_BALL",
@@ -480,25 +480,25 @@ export const MARTS: MartData[] =
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_ESCAPE_ROPE",
@@ -510,13 +510,13 @@ export const MARTS: MartData[] =
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_HARBOR_MAIL",
             "name": "Harbor Mail",
             "price": 50,
-            "description": "A WINGULL-print MAIL to be held by a POKéMON."
+            "description": "A WINGULL-print MAIL to be held by a Pokémon."
           }
         ]
       }
@@ -540,7 +540,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_GREAT_BALL",
@@ -552,25 +552,25 @@ export const MARTS: MartData[] =
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_X_SPEED",
@@ -636,49 +636,49 @@ export const MARTS: MartData[] =
             "const": "ITEM_NEST_BALL",
             "name": "Nest Ball",
             "price": 1000,
-            "description": "A BALL that works better on weaker POKéMON."
+            "description": "A BALL that works better on weaker Pokémon."
           },
           {
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_BURN_HEAL",
             "name": "Burn Heal",
             "price": 250,
-            "description": "Heals POKéMON of a burn."
+            "description": "Heals Pokémon of a burn."
           },
           {
             "const": "ITEM_ICE_HEAL",
             "name": "Ice Heal",
             "price": 250,
-            "description": "Defrosts a frozen POKéMON."
+            "description": "Defrosts a frozen Pokémon."
           },
           {
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_X_SPECIAL",
@@ -690,7 +690,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_FLUFFY_TAIL",
             "name": "Fluffy Tail",
             "price": 1000,
-            "description": "Use to flee from any battle with a wild POKéMON."
+            "description": "Use to flee from any battle with a wild Pokémon."
           }
         ]
       }
@@ -720,19 +720,19 @@ export const MARTS: MartData[] =
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_ESCAPE_ROPE",
@@ -744,7 +744,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_SUPER_REPEL",
             "name": "Super Repel",
             "price": 500,
-            "description": "Repels weak wild POKéMON for 200 steps."
+            "description": "Repels weak wild Pokémon for 200 steps."
           },
           {
             "const": "ITEM_X_SPECIAL",
@@ -810,43 +810,43 @@ export const MARTS: MartData[] =
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_BURN_HEAL",
             "name": "Burn Heal",
             "price": 250,
-            "description": "Heals POKéMON of a burn."
+            "description": "Heals Pokémon of a burn."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_SUPER_REPEL",
             "name": "Super Repel",
             "price": 500,
-            "description": "Repels weak wild POKéMON for 200 steps."
+            "description": "Repels weak wild Pokémon for 200 steps."
           },
           {
             "const": "ITEM_X_SPEED",
@@ -897,7 +897,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_REVIVAL_HERB",
             "name": "Revival Herb",
             "price": 2800,
-            "description": "A very bitter herb that revives a fainted POKéMON."
+            "description": "A very bitter herb that revives a fainted Pokémon."
           }
         ]
       }
@@ -933,49 +933,49 @@ export const MARTS: MartData[] =
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_HYPER_POTION",
             "name": "Hyper Potion",
             "price": 1200,
-            "description": "Restores the HP of a POKéMON by 200 points."
+            "description": "Restores the HP of a Pokémon by 200 points."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_SUPER_REPEL",
             "name": "Super Repel",
             "price": 500,
-            "description": "Repels weak wild POKéMON for 200 steps."
+            "description": "Repels weak wild Pokémon for 200 steps."
           },
           {
             "const": "ITEM_WOOD_MAIL",
             "name": "Wood Mail",
             "price": 50,
-            "description": "A SLAKOTH-print MAIL to be held by a POKéMON."
+            "description": "A SLAKOTH-print MAIL to be held by a Pokémon."
           }
         ]
       }
@@ -1003,7 +1003,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_POKE_BALL",
             "name": "Poké Ball",
             "price": 200,
-            "description": "A tool used for catching wild POKéMON."
+            "description": "A tool used for catching wild Pokémon."
           },
           {
             "const": "ITEM_GREAT_BALL",
@@ -1027,43 +1027,43 @@ export const MARTS: MartData[] =
             "const": "ITEM_FULL_HEAL",
             "name": "Full Heal",
             "price": 600,
-            "description": "Heals all the status problems of one POKéMON."
+            "description": "Heals all the status problems of one Pokémon."
           },
           {
             "const": "ITEM_ANTIDOTE",
             "name": "Antidote",
             "price": 100,
-            "description": "Heals a poisoned POKéMON."
+            "description": "Heals a poisoned Pokémon."
           },
           {
             "const": "ITEM_PARALYZE_HEAL",
             "name": "Parlyz Heal",
             "price": 200,
-            "description": "Heals a paralyzed POKéMON."
+            "description": "Heals a paralyzed Pokémon."
           },
           {
             "const": "ITEM_BURN_HEAL",
             "name": "Burn Heal",
             "price": 250,
-            "description": "Heals POKéMON of a burn."
+            "description": "Heals Pokémon of a burn."
           },
           {
             "const": "ITEM_ICE_HEAL",
             "name": "Ice Heal",
             "price": 250,
-            "description": "Defrosts a frozen POKéMON."
+            "description": "Defrosts a frozen Pokémon."
           },
           {
             "const": "ITEM_AWAKENING",
             "name": "Awakening",
             "price": 250,
-            "description": "Awakens a sleeping POKéMON."
+            "description": "Awakens a sleeping Pokémon."
           },
           {
             "const": "ITEM_FLUFFY_TAIL",
             "name": "Fluffy Tail",
             "price": 1000,
-            "description": "Use to flee from any battle with a wild POKéMON."
+            "description": "Use to flee from any battle with a wild Pokémon."
           }
         ]
       },
@@ -1078,61 +1078,61 @@ export const MARTS: MartData[] =
             "const": "ITEM_POTION",
             "name": "Potion",
             "price": 300,
-            "description": "Restores the HP of a POKéMON by 20 points."
+            "description": "Restores the HP of a Pokémon by 20 points."
           },
           {
             "const": "ITEM_SUPER_POTION",
             "name": "Super Potion",
             "price": 700,
-            "description": "Restores the HP of a POKéMON by 50 points."
+            "description": "Restores the HP of a Pokémon by 50 points."
           },
           {
             "const": "ITEM_HYPER_POTION",
             "name": "Hyper Potion",
             "price": 1200,
-            "description": "Restores the HP of a POKéMON by 200 points."
+            "description": "Restores the HP of a Pokémon by 200 points."
           },
           {
             "const": "ITEM_MAX_POTION",
             "name": "Max Potion",
             "price": 2500,
-            "description": "Fully restores the HP of a POKéMON."
+            "description": "Fully restores the HP of a Pokémon."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_REPEL",
             "name": "Repel",
             "price": 350,
-            "description": "Repels weak wild POKéMON for 100 steps."
+            "description": "Repels weak wild Pokémon for 100 steps."
           },
           {
             "const": "ITEM_SUPER_REPEL",
             "name": "Super Repel",
             "price": 500,
-            "description": "Repels weak wild POKéMON for 200 steps."
+            "description": "Repels weak wild Pokémon for 200 steps."
           },
           {
             "const": "ITEM_MAX_REPEL",
             "name": "Max Repel",
             "price": 700,
-            "description": "Repels weak wild POKéMON for 250 steps."
+            "description": "Repels weak wild Pokémon for 250 steps."
           },
           {
             "const": "ITEM_WAVE_MAIL",
             "name": "Wave Mail",
             "price": 50,
-            "description": "A WAILMER-print MAIL to be held by a POKéMON."
+            "description": "A WAILMER-print MAIL to be held by a Pokémon."
           },
           {
             "const": "ITEM_MECH_MAIL",
             "name": "Mech Mail",
             "price": 50,
-            "description": "A MAGNEMITE-print MAIL to be held by a POKéMON."
+            "description": "A MAGNEMITE-print MAIL to be held by a Pokémon."
           }
         ]
       },
@@ -1147,37 +1147,37 @@ export const MARTS: MartData[] =
             "const": "ITEM_PROTEIN",
             "name": "Protein",
             "price": 9800,
-            "description": "Raises the base ATTACK stat of one POKéMON."
+            "description": "Raises the base ATTACK stat of one Pokémon."
           },
           {
             "const": "ITEM_CALCIUM",
             "name": "Calcium",
             "price": 9800,
-            "description": "Raises the base SP. ATK stat of one POKéMON."
+            "description": "Raises the base SP. ATK stat of one Pokémon."
           },
           {
             "const": "ITEM_IRON",
             "name": "Iron",
             "price": 9800,
-            "description": "Raises the base DEFENSE stat of one POKéMON."
+            "description": "Raises the base DEFENSE stat of one Pokémon."
           },
           {
             "const": "ITEM_ZINC",
             "name": "Zinc",
             "price": 9800,
-            "description": "Raises the base SP. DEF stat of one POKéMON."
+            "description": "Raises the base SP. DEF stat of one Pokémon."
           },
           {
             "const": "ITEM_CARBOS",
             "name": "Carbos",
             "price": 9800,
-            "description": "Raises the base SPEED stat of one POKéMON."
+            "description": "Raises the base SPEED stat of one Pokémon."
           },
           {
             "const": "ITEM_HP_UP",
             "name": "HP Up",
             "price": 9800,
-            "description": "Raises the base HP of one POKéMON."
+            "description": "Raises the base HP of one Pokémon."
           }
         ]
       },
@@ -1720,37 +1720,37 @@ export const MARTS: MartData[] =
             "const": "ITEM_NET_BALL",
             "name": "Net Ball",
             "price": 1000,
-            "description": "A BALL that works well on WATER- and BUG-type POKéMON."
+            "description": "A BALL that works well on WATER- and BUG-type Pokémon."
           },
           {
             "const": "ITEM_DIVE_BALL",
             "name": "Dive Ball",
             "price": 1000,
-            "description": "A BALL that works better on POKéMON on the ocean floor."
+            "description": "A BALL that works better on Pokémon on the ocean floor."
           },
           {
             "const": "ITEM_HYPER_POTION",
             "name": "Hyper Potion",
             "price": 1200,
-            "description": "Restores the HP of a POKéMON by 200 points."
+            "description": "Restores the HP of a Pokémon by 200 points."
           },
           {
             "const": "ITEM_FULL_HEAL",
             "name": "Full Heal",
             "price": 600,
-            "description": "Heals all the status problems of one POKéMON."
+            "description": "Heals all the status problems of one Pokémon."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_MAX_REPEL",
             "name": "Max Repel",
             "price": 700,
-            "description": "Repels weak wild POKéMON for 250 steps."
+            "description": "Repels weak wild Pokémon for 250 steps."
           },
           {
             "const": "ITEM_X_ATTACK",
@@ -1792,31 +1792,31 @@ export const MARTS: MartData[] =
             "const": "ITEM_HYPER_POTION",
             "name": "Hyper Potion",
             "price": 1200,
-            "description": "Restores the HP of a POKéMON by 200 points."
+            "description": "Restores the HP of a Pokémon by 200 points."
           },
           {
             "const": "ITEM_MAX_POTION",
             "name": "Max Potion",
             "price": 2500,
-            "description": "Fully restores the HP of a POKéMON."
+            "description": "Fully restores the HP of a Pokémon."
           },
           {
             "const": "ITEM_FULL_HEAL",
             "name": "Full Heal",
             "price": 600,
-            "description": "Heals all the status problems of one POKéMON."
+            "description": "Heals all the status problems of one Pokémon."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_MAX_REPEL",
             "name": "Max Repel",
             "price": 700,
-            "description": "Repels weak wild POKéMON for 250 steps."
+            "description": "Repels weak wild Pokémon for 250 steps."
           },
           {
             "const": "ITEM_X_ATTACK",
@@ -1834,7 +1834,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_SHADOW_MAIL",
             "name": "Shadow Mail",
             "price": 50,
-            "description": "A DUSKULL-print MAIL to be held by a POKéMON."
+            "description": "A DUSKULL-print MAIL to be held by a Pokémon."
           }
         ]
       }
@@ -2161,37 +2161,37 @@ export const MARTS: MartData[] =
             "const": "ITEM_PROTEIN",
             "name": "Protein",
             "price": 9800,
-            "description": "Raises the base ATTACK stat of one POKéMON."
+            "description": "Raises the base ATTACK stat of one Pokémon."
           },
           {
             "const": "ITEM_IRON",
             "name": "Iron",
             "price": 9800,
-            "description": "Raises the base DEFENSE stat of one POKéMON."
+            "description": "Raises the base DEFENSE stat of one Pokémon."
           },
           {
             "const": "ITEM_CARBOS",
             "name": "Carbos",
             "price": 9800,
-            "description": "Raises the base SPEED stat of one POKéMON."
+            "description": "Raises the base SPEED stat of one Pokémon."
           },
           {
             "const": "ITEM_ZINC",
             "name": "Zinc",
             "price": 9800,
-            "description": "Raises the base SP. DEF stat of one POKéMON."
+            "description": "Raises the base SP. DEF stat of one Pokémon."
           },
           {
             "const": "ITEM_CALCIUM",
             "name": "Calcium",
             "price": 9800,
-            "description": "Raises the base SP. ATK stat of one POKéMON."
+            "description": "Raises the base SP. ATK stat of one Pokémon."
           },
           {
             "const": "ITEM_HP_UP",
             "name": "HP Up",
             "price": 9800,
-            "description": "Raises the base HP of one POKéMON."
+            "description": "Raises the base HP of one Pokémon."
           }
         ]
       },
@@ -2320,7 +2320,7 @@ export const MARTS: MartData[] =
             "const": "ITEM_TM_HIDDEN_POWER",
             "name": "TM10",
             "price": 3000,
-            "description": "The attack power varies among different POKéMON."
+            "description": "The attack power varies among different Pokémon."
           },
           {
             "const": "ITEM_TM_SECRET_POWER",
@@ -2358,73 +2358,73 @@ export const MARTS: MartData[] =
             "const": "ITEM_HYPER_POTION",
             "name": "Hyper Potion",
             "price": 1200,
-            "description": "Restores the HP of a POKéMON by 200 points."
+            "description": "Restores the HP of a Pokémon by 200 points."
           },
           {
             "const": "ITEM_MAX_POTION",
             "name": "Max Potion",
             "price": 2500,
-            "description": "Fully restores the HP of a POKéMON."
+            "description": "Fully restores the HP of a Pokémon."
           },
           {
             "const": "ITEM_FULL_RESTORE",
             "name": "Full Restore",
             "price": 3000,
-            "description": "Fully restores the HP and status of a POKéMON."
+            "description": "Fully restores the HP and status of a Pokémon."
           },
           {
             "const": "ITEM_FULL_HEAL",
             "name": "Full Heal",
             "price": 600,
-            "description": "Heals all the status problems of one POKéMON."
+            "description": "Heals all the status problems of one Pokémon."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_MAX_REPEL",
             "name": "Max Repel",
             "price": 700,
-            "description": "Repels weak wild POKéMON for 250 steps."
+            "description": "Repels weak wild Pokémon for 250 steps."
           },
           {
             "const": "ITEM_PROTEIN",
             "name": "Protein",
             "price": 9800,
-            "description": "Raises the base ATTACK stat of one POKéMON."
+            "description": "Raises the base ATTACK stat of one Pokémon."
           },
           {
             "const": "ITEM_CALCIUM",
             "name": "Calcium",
             "price": 9800,
-            "description": "Raises the base SP. ATK stat of one POKéMON."
+            "description": "Raises the base SP. ATK stat of one Pokémon."
           },
           {
             "const": "ITEM_IRON",
             "name": "Iron",
             "price": 9800,
-            "description": "Raises the base DEFENSE stat of one POKéMON."
+            "description": "Raises the base DEFENSE stat of one Pokémon."
           },
           {
             "const": "ITEM_ZINC",
             "name": "Zinc",
             "price": 9800,
-            "description": "Raises the base SP. DEF stat of one POKéMON."
+            "description": "Raises the base SP. DEF stat of one Pokémon."
           },
           {
             "const": "ITEM_CARBOS",
             "name": "Carbos",
             "price": 9800,
-            "description": "Raises the base SPEED stat of one POKéMON."
+            "description": "Raises the base SPEED stat of one Pokémon."
           },
           {
             "const": "ITEM_HP_UP",
             "name": "HP Up",
             "price": 9800,
-            "description": "Raises the base HP of one POKéMON."
+            "description": "Raises the base HP of one Pokémon."
           }
         ]
       }
@@ -2456,37 +2456,37 @@ export const MARTS: MartData[] =
             "const": "ITEM_HYPER_POTION",
             "name": "Hyper Potion",
             "price": 1200,
-            "description": "Restores the HP of a POKéMON by 200 points."
+            "description": "Restores the HP of a Pokémon by 200 points."
           },
           {
             "const": "ITEM_MAX_POTION",
             "name": "Max Potion",
             "price": 2500,
-            "description": "Fully restores the HP of a POKéMON."
+            "description": "Fully restores the HP of a Pokémon."
           },
           {
             "const": "ITEM_FULL_RESTORE",
             "name": "Full Restore",
             "price": 3000,
-            "description": "Fully restores the HP and status of a POKéMON."
+            "description": "Fully restores the HP and status of a Pokémon."
           },
           {
             "const": "ITEM_FULL_HEAL",
             "name": "Full Heal",
             "price": 600,
-            "description": "Heals all the status problems of one POKéMON."
+            "description": "Heals all the status problems of one Pokémon."
           },
           {
             "const": "ITEM_REVIVE",
             "name": "Revive",
             "price": 1500,
-            "description": "Revives a fainted POKéMON with half its HP."
+            "description": "Revives a fainted Pokémon with half its HP."
           },
           {
             "const": "ITEM_MAX_REPEL",
             "name": "Max Repel",
             "price": 700,
-            "description": "Repels weak wild POKéMON for 250 steps."
+            "description": "Repels weak wild Pokémon for 250 steps."
           }
         ]
       }

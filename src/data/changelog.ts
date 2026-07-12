@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.73",
+    date: "2026-07-12",
+    summary: "Berry and item descriptions on the Hoenn map no longer show raw game placeholders.",
+    sections: [
+      {
+        heading: "Maps — item text",
+        items: [
+          "Berry pin descriptions that showed “{POKEBLOCK} ingredient… grow NANAB” now read “Pokéblock ingredient… grow Nanab,” matching cleaned Emerald text.",
+          "Mart and map item descriptions normalize the same placeholders (Pokéblock / Pokémon) so names and blurbs stay consistent across the overworld map, area maps, and shop inventories.",
+          "Generators clean item text when regenerating map points and marts, so future decomp syncs keep readable descriptions.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.72",
     date: "2026-07-12",
     summary: "Walkthrough interior map titles are clean — no broken characters or double “Gym” labels.",

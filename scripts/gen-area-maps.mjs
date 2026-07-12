@@ -15,6 +15,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { PNG } from "pngjs";
 import { loadManifest } from "./map-origin-lib.mjs";
+import { cleanItemDescription } from "./item-text-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
@@ -47,16 +48,6 @@ for (const mt of descText.matchAll(/static const u8 (\w+)\[\] =\s*_\(([\s\S]*?)\
   const parts = [...mt[2].matchAll(/"([^"]*)"/g)].map((x) => x[1]);
   const text = parts.join(" ").replace(/\\[nlp]/g, " ").replace(/\s+/g, " ").trim();
   descByVar.set(mt[1], text);
-}
-function cleanItemDescription(desc) {
-  return desc
-    .replace(/\{POKEBLOCK\}/gi, "Pokéblock")
-    .replace(/\{POKéMON\}/gi, "Pokémon")
-    .replace(/\{POKEMON\}/gi, "Pokémon")
-    .replace(/to grow ([A-Z]+)\./g, (_, berry) => {
-      const name = berry.charAt(0) + berry.slice(1).toLowerCase();
-      return `to grow ${name}.`;
-    });
 }
 const itemsText = fs.readFileSync(path.join(REPO, "src/data/items.h"), "utf8");
 const byConst = new Map();
