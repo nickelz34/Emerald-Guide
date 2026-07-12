@@ -1,10 +1,17 @@
 import { MAP_ANNOTATIONS, type MapMarker, type MarkerType } from "./mapAnnotations";
 import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
 import { GENERATED_POINTS } from "./mapPointsGenerated";
+import { LANDMARK_PINS_GENERATED } from "./mapLandmarksGenerated";
+import { SHOP_PINS_GENERATED } from "./shopPinsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
 import { AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
 
-const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
+const ALL_MAP_POINTS: MapPoint[] = [
+  ...MAP_POINTS,
+  ...LANDMARK_PINS_GENERATED,
+  ...GENERATED_POINTS,
+  ...SHOP_PINS_GENERATED,
+];
 
 export type CropMapPoint = MapPoint | TrainerPoint;
 
@@ -15,6 +22,7 @@ const CATEGORY_PRIORITY: Record<PoiCategory, number> = {
   item: 80,
   hidden: 75,
   berry: 70,
+  shop: 65,
   entrance: 60,
   town: 55,
   landmark: 45,
@@ -32,6 +40,7 @@ const POI_TO_MARKER: Record<PoiCategory, MarkerType> = {
   hidden: "item",
   berry: "item",
   entrance: "building",
+  shop: "building",
   trainer: "trainer",
   npc: "npc",
   wild: "wild",

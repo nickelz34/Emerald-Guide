@@ -1,6 +1,8 @@
 import type { PokemonEncounter } from "../types";
 import { MAP_POINTS, type MapPoint, type PoiCategory } from "./mapPoints";
 import { GENERATED_POINTS } from "./mapPointsGenerated";
+import { LANDMARK_PINS_GENERATED } from "./mapLandmarksGenerated";
+import { SHOP_PINS_GENERATED } from "./shopPinsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
 import { AREA_NOTE_LABELS } from "./mapCrops";
 import { loadWildPokedex, type WildPokemon } from "./wildSource";
@@ -500,7 +502,12 @@ export function getSecretsExtrasForStep(stepId: string, stepSecrets?: string[]):
   return mergeUniqueLines(stepSecrets, fromAreas);
 }
 
-const ALL_MAP_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS];
+const ALL_MAP_POINTS: MapPoint[] = [
+  ...MAP_POINTS,
+  ...LANDMARK_PINS_GENERATED,
+  ...GENERATED_POINTS,
+  ...SHOP_PINS_GENERATED,
+];
 
 /** Clean pokeemerald item/berry description strings for display. */
 export function formatItemDescription(desc: string): string {
