@@ -5679,7 +5679,7 @@
 
 .step-rail__item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.55rem;
   width: 100%;
   padding: 0.45rem 0.55rem;
@@ -5711,6 +5711,7 @@
   width: 22px;
   height: 22px;
   flex-shrink: 0;
+  margin-top: 0.05rem;
   border-radius: 50%;
   background: var(--bg-card);
   color: var(--text-muted);
@@ -5725,6 +5726,32 @@
 
 .step-rail__label {
   line-height: 1.25;
+}
+
+.step-rail__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.step-rail__match {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.step-rail__results {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0.35rem 0 0.5rem;
+}
+
+.step-rail__match-field {
+  color: var(--emerald);
+  font-weight: 600;
+  margin-right: 0.35rem;
 }
 
 .step-stage {

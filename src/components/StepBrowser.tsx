@@ -8,6 +8,10 @@ import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { getGymForWalkthroughStep } from "../data/gymData";
+import {
+  filterWalkthroughSteps,
+  walkthroughMatchFieldLabel,
+} from "../data/walkthroughSearch";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -198,9 +202,23 @@ export function StepBrowser({
     stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentId]);
 
+  const q = filter.trim();
+  const searchGroups = useMemo(() => {
+    return sections
+      .map((section) => {
+        const results = filterWalkthroughSteps(section, filter);
+        const visible = q ? results.filter((r) => r.hit) : results;
+        return { section, visible };
+      })
+      .filter((g) => g.visible.length > 0);
+  }, [sections, filter, q]);
+  const matchCount = useMemo(
+    () => (q ? searchGroups.reduce((n, g) => n + g.visible.length, 0) : 0),
+    [q, searchGroups],
+  );
+
   if (!current) return null;
 
-  const q = filter.trim().toLowerCase();
   const region = getRegionForStep(current.step.id);
 
   const currentSection = sections.find((sec) =>
@@ -234,24 +252,20 @@ export function StepBrowser({
         <input
           type="search"
           className="step-rail__filter"
-          placeholder="Filter steps…"
+          placeholder="Search items, locations, story…"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
+        {q ? (
+          <p className="step-rail__results">
+            {matchCount} matching step{matchCount === 1 ? "" : "s"}
+          </p>
+        ) : null}
         <nav className="step-rail__nav">
-          {sections.map((section) => {
-            const steps = section.steps.filter(
-              (s) =>
-                !q ||
-                s.title.toLowerCase().includes(q) ||
-                s.location?.toLowerCase().includes(q) ||
-                s.summary.toLowerCase().includes(q),
-            );
-            if (steps.length === 0) return null;
-            return (
+          {searchGroups.map(({ section, visible }) => (
               <div key={section.id} className="step-rail__group">
                 <p className="step-rail__group-title">{section.title}</p>
-                {steps.map((s) => {
+                {visible.map(({ step: s, hit }) => {
                   const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
                   const active = s.id === currentId;
                   return (
@@ -262,13 +276,20 @@ export function StepBrowser({
                       onClick={() => select(s.id)}
                     >
                       <span className="step-rail__num">{eventNum}</span>
-                      <span className="step-rail__label">{s.title}</span>
+                      <span className="step-rail__item-body">
+                        <span className="step-rail__label">{s.title}</span>
+                        {hit && (
+                          <span className="step-rail__match">
+                            <span className="step-rail__match-field">{walkthroughMatchFieldLabel(hit.field)}</span>
+                            {hit.snippet}
+                          </span>
+                        )}
+                      </span>
                     </button>
                   );
                 })}
               </div>
-            );
-          })}
+            ))}
         </nav>
         </div>
       </aside>

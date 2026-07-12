@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.75",
+    date: "2026-07-12",
+    summary: "Walkthrough search finds items, story beats, and secrets — not just step titles.",
+    sections: [
+      {
+        heading: "Walkthrough — search",
+        items: [
+          "The step search box now looks through story text, objectives, tips, secrets, tags, linked route items/hidden items, gym names, and wild Pokémon — so queries like “Master Ball” return the Magma Hideout pickup and related mentions.",
+          "Matching steps show a short snippet under the title (e.g. Objectives / Story / Item) and a result count, ranked so titles and item pickups surface before looser story mentions.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.74",
     date: "2026-07-12",
     summary: "Walkthrough search no longer leaves the page stuck zoomed in on phones.",
