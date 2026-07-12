@@ -10,6 +10,8 @@ import {
   type PoiCategory,
 } from "../data/mapPoints";
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
+import { LANDMARK_PINS_GENERATED } from "../data/mapLandmarksGenerated";
+import { SHOP_PINS_GENERATED } from "../data/shopPinsGenerated";
 import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
@@ -39,7 +41,13 @@ function asShopPoint(point: MapPoint): MapPoint {
   return point;
 }
 
-const ALL_POINTS: MapPoint[] = [...MAP_POINTS, ...GENERATED_POINTS, ...ROUTE_POINTS].map(asShopPoint);
+const ALL_POINTS: MapPoint[] = [
+  ...MAP_POINTS,
+  ...LANDMARK_PINS_GENERATED,
+  ...GENERATED_POINTS,
+  ...SHOP_PINS_GENERATED,
+  ...ROUTE_POINTS,
+].map(asShopPoint);
 
 /** Area maps grouped for the switcher's <optgroup> list. */
 const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {

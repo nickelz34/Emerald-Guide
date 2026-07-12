@@ -129,11 +129,41 @@ const MART_DEFS = [
       "LilycoveCity_DepartmentStore_3F",
       "LilycoveCity_DepartmentStore_4F",
       "LilycoveCity_DepartmentStore_5F",
+      "LilycoveCity_DepartmentStoreRooftop",
     ],
     notes: [
-      "1F is the lobby (elevator / rooftop access). Shopping floors are 2F–5F.",
-      "5F sells secret-base decorations (dolls, cushions, posters, mats).",
-      "Rooftop has a drink stand and temporary Clear Bell / Tidal Bell events — not a standard mart list.",
+      "1F is the lobby (elevator, rooftop stairs, and the Lottery Corner — not item shopping).",
+      "2F–4F each have a left and right register; 5F has four decoration clerks (far-left → far-right).",
+      "Rooftop: vending machine (always) plus a clear-out sale clerk when Lilycove PokéNews is airing.",
+    ],
+    manualSections: [
+      {
+        id: "lilycove-rooftop-vending",
+        label: "Drinks",
+        floor: "Rooftop",
+        counter: "Vending machine",
+        unlockNote: null,
+        items: [
+          {
+            const: "ITEM_FRESH_WATER",
+            name: "Fresh Water",
+            price: 200,
+            description: "A bottle of mineral water. Restores 50 HP.",
+          },
+          {
+            const: "ITEM_SODA_POP",
+            name: "Soda Pop",
+            price: 300,
+            description: "A sweet-tasting soft drink. Restores 60 HP.",
+          },
+          {
+            const: "ITEM_LEMONADE",
+            name: "Lemonade",
+            price: 350,
+            description: "A very sweet drink. Restores 80 HP.",
+          },
+        ],
+      },
     ],
   },
   {
@@ -388,45 +418,110 @@ function resolveConst(itemConst, itemIndex, decorIndex) {
   };
 }
 
+const DEPT_COUNTER_FROM_SCRIPT = {
+  ClerkLeft: "Left register",
+  ClerkRight: "Right register",
+  ClerkFarLeft: "Far-left register",
+  ClerkMidLeft: "Mid-left register",
+  ClerkMidRight: "Mid-right register",
+  ClerkFarRight: "Far-right register",
+  SaleWoman: "Clear-out sale clerk",
+};
+
+const DEPT_THEME_BY_SUFFIX = {
+  Pokemart1: "Balls & status heals",
+  Pokemart2: "Potions & Repels",
+  Vitamins: "Vitamins",
+  StatBoosters: "Battle items",
+  AttackTMs: "Attack TMs",
+  DefenseTMs: "Defense & status TMs",
+  Dolls: "Dolls",
+  Cushions: "Cushions",
+  Posters: "Posters",
+  Mats: "Mats",
+  ClearOutSale: "Clear-out sale decorations",
+};
+
+const DEPT_FLOOR_ORDER = ["2F", "3F", "4F", "5F", "Rooftop"];
+const DEPT_COUNTER_ORDER = [
+  "Left register",
+  "Right register",
+  "Far-left register",
+  "Mid-left register",
+  "Mid-right register",
+  "Far-right register",
+  "Vending machine",
+  "Clear-out sale clerk",
+];
+
+function floorFromMapFolder(mapFolder) {
+  if (/Rooftop$/i.test(mapFolder)) return "Rooftop";
+  return mapFolder.match(/_(\d+F)$/)?.[1] || null;
+}
+
+function themeFromListName(listName) {
+  if (/Pokemart1$/i.test(listName)) return DEPT_THEME_BY_SUFFIX.Pokemart1;
+  if (/Pokemart2$/i.test(listName)) return DEPT_THEME_BY_SUFFIX.Pokemart2;
+  const suffix = listName.match(/Pokemart(?:Decor)?_(.+)$/i)?.[1];
+  if (!suffix) return null;
+  if (DEPT_THEME_BY_SUFFIX[suffix]) return DEPT_THEME_BY_SUFFIX[suffix];
+  const raw = suffix.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/_/g, " ");
+  if (/^basic$/i.test(raw)) return "Early stock";
+  if (/^expanded$/i.test(raw)) return "Full stock";
+  if (/^plants$/i.test(raw)) return "Plant decorations";
+  return titleCase(raw);
+}
+
 function sectionLabelFromListName(listName, mapFolder) {
   // OldaleTown_Mart_Pokemart_Basic → Basic
   const m = listName.match(/Pokemart(?:_(\w+))?$/i);
-  if (m?.[1]) {
+  if (m?.[1] && !/DepartmentStore/i.test(listName)) {
     const raw = m[1].replace(/([a-z])([A-Z])/g, "$1 $2");
     if (/^basic$/i.test(raw)) return "Early stock";
     if (/^expanded$/i.test(raw)) return "Full stock";
     if (/^plants$/i.test(raw)) return "Plant decorations";
     return titleCase(raw.replace(/_/g, " "));
   }
-  // LilycoveCity_DepartmentStore_2F_Pokemart1 → 2F · Clerk 1
-  const floor = mapFolder.match(/_(\d+F)$/)?.[1];
-  const clerk = listName.match(/Pokemart(\d+)$/i)?.[1];
-  const themed = listName.match(/Pokemart(?:Decor)?_?(.+)$/i)?.[1];
-  if (floor && themed && !clerk) {
-    return `${floor} · ${titleCase(themed.replace(/_/g, " "))}`;
-  }
-  if (floor && clerk) {
-    const clerkLabel =
-      clerk === "1" ? "Balls & status heals" : clerk === "2" ? "Potions & Repels" : `Clerk ${clerk}`;
-    return `${floor} · ${clerkLabel}`;
-  }
+  const floor = floorFromMapFolder(mapFolder);
+  const theme = themeFromListName(listName);
+  if (floor && theme) return `${floor} · ${theme}`;
   if (/PokemartDecor_Desks/i.test(listName)) return "Desks";
   if (/PokemartDecor_Chairs/i.test(listName)) return "Chairs";
   if (/PokemartDecor_Dolls/i.test(listName)) return "Dolls";
   if (/PokemartDecor$/i.test(listName)) return "Decorations";
-  return "Stock";
+  return theme || "Stock";
 }
 
-function parseMartListBlock(listName, body, itemIndex, decorIndex, mapFolder, unlockByList) {
+function parseClerkCounters(scriptsText) {
+  const byList = new Map();
+  for (const m of scriptsText.matchAll(
+    /EventScript_(ClerkLeft|ClerkRight|ClerkFarLeft|ClerkMidLeft|ClerkMidRight|ClerkFarRight|SaleWoman)\b[\s\S]*?pokemart(?:decoration2?)?\s+(\w+)/gi,
+  )) {
+    const counter = DEPT_COUNTER_FROM_SCRIPT[m[1]];
+    if (counter) byList.set(m[2], counter);
+  }
+  return byList;
+}
+
+function parseMartListBlock(listName, body, itemIndex, decorIndex, mapFolder, unlockByList, clerkByList) {
   const items = [];
   for (const im of body.matchAll(/\.2byte\s+((?:ITEM|DECOR)_\w+)/g)) {
     items.push(resolveConst(im[1], itemIndex, decorIndex));
   }
   if (!items.length) return null;
+  const floor = floorFromMapFolder(mapFolder);
+  const counter = clerkByList.get(listName) || null;
+  const theme = themeFromListName(listName);
+  let unlockNote = unlockByList.get(listName) || null;
+  if (/ClearOutSale/i.test(listName) && !unlockNote) {
+    unlockNote = "Only while Lilycove PokéNews is advertising the clear-out sale";
+  }
   return {
     id: listName,
-    label: sectionLabelFromListName(listName, mapFolder),
-    unlockNote: unlockByList.get(listName) || null,
+    label: theme || sectionLabelFromListName(listName, mapFolder),
+    floor: floor || null,
+    counter,
+    unlockNote,
     items,
   };
 }
@@ -460,14 +555,36 @@ function parseMartScripts(mapFolder, itemIndex, decorIndex) {
     }
   }
 
+  const clerkByList = parseClerkCounters(text);
   const sections = [];
+  // Standard lists end with pokemartlistend; some decor lists terminate with .2byte 0.
   for (const m of text.matchAll(
-    /^(\w+):\s*\n((?:\s*\.2byte\s+(?:ITEM|DECOR)_\w+\s*\n)+)\s*pokemartlistend/gm,
+    /^(\w+):\s*\n((?:\s*\.2byte\s+(?:ITEM|DECOR)_\w+\s*\n)+)\s*(?:pokemartlistend|\.2byte\s+0)/gm,
   )) {
-    const section = parseMartListBlock(m[1], m[2], itemIndex, decorIndex, mapFolder, unlockByList);
+    const section = parseMartListBlock(
+      m[1],
+      m[2],
+      itemIndex,
+      decorIndex,
+      mapFolder,
+      unlockByList,
+      clerkByList,
+    );
     if (section) sections.push(section);
   }
   return sections;
+}
+
+function sortDepartmentSections(sections) {
+  return [...sections].sort((a, b) => {
+    const fa = DEPT_FLOOR_ORDER.indexOf(a.floor);
+    const fb = DEPT_FLOOR_ORDER.indexOf(b.floor);
+    const floorCmp = (fa < 0 ? 99 : fa) - (fb < 0 ? 99 : fb);
+    if (floorCmp !== 0) return floorCmp;
+    const ca = DEPT_COUNTER_ORDER.indexOf(a.counter);
+    const cb = DEPT_COUNTER_ORDER.indexOf(b.counter);
+    return (ca < 0 ? 99 : ca) - (cb < 0 ? 99 : cb);
+  });
 }
 
 function parseNamedLists(mapFolder, listDefs, itemIndex, decorIndex) {
@@ -525,13 +642,14 @@ function main() {
       seen.add(id);
       unique.push({ ...s, id });
     }
+    const ordered = def.kind === "department" ? sortDepartmentSections(unique) : unique;
     marts.push({
       id: def.id,
       name: def.name,
       location: def.location,
       kind: def.kind,
       notes: def.notes || [],
-      sections: unique,
+      sections: ordered,
     });
   }
 
@@ -554,6 +672,10 @@ function main() {
   lines.push("  /** When set, this list replaces earlier stock after a story flag. */");
   lines.push("  unlockNote: string | null;");
   lines.push("  items: MartItem[];");
+  lines.push('  /** Department-store floor key, e.g. "2F" or "Rooftop". */');
+  lines.push("  floor?: string | null;");
+  lines.push("  /** Which register / clerk on that floor sells this list. */");
+  lines.push("  counter?: string | null;");
   lines.push("}");
   lines.push("");
   lines.push('export type MartKind = "mart" | "department" | "specialty";');

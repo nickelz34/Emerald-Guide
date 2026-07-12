@@ -3594,6 +3594,10 @@
   min-height: 0;
 }
 
+.mart-modal__panel--department {
+  width: min(820px, 100%);
+}
+
 .mart-modal__head {
   display: flex;
   align-items: flex-start;
@@ -3693,6 +3697,19 @@
 .mart-modal__section-head h4 {
   margin: 0 0 0.35rem;
   font-size: 1rem;
+}
+
+.mart-modal__section-theme {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  color: var(--muted, #9aa8bc);
+}
+
+.mart-modal__floor-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
 }
 
 .mart-modal__unlock {

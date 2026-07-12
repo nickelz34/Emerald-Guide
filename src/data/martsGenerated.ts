@@ -16,6 +16,10 @@ export interface MartSection {
   /** When set, this list replaces earlier stock after a story flag. */
   unlockNote: string | null;
   items: MartItem[];
+  /** Department-store floor key, e.g. "2F" or "Rooftop". */
+  floor?: string | null;
+  /** Which register / clerk on that floor sells this list. */
+  counter?: string | null;
 }
 
 export type MartKind = "mart" | "department" | "specialty";
@@ -43,6 +47,8 @@ export const MARTS: MartData[] =
       {
         "id": "OldaleTown_Mart_Pokemart_Basic",
         "label": "Early stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -74,6 +80,8 @@ export const MARTS: MartData[] =
       {
         "id": "OldaleTown_Mart_Pokemart_Expanded",
         "label": "Full stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": "After your adventure starts (Pok? Balls unlock)",
         "items": [
           {
@@ -122,6 +130,8 @@ export const MARTS: MartData[] =
       {
         "id": "PetalburgCity_Mart_Pokemart_Basic",
         "label": "Early stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -195,6 +205,8 @@ export const MARTS: MartData[] =
       {
         "id": "PetalburgCity_Mart_Pokemart_Expanded",
         "label": "Full stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": "After Norman's Gym opens (four badges - expanded stock)",
         "items": [
           {
@@ -289,6 +301,8 @@ export const MARTS: MartData[] =
       {
         "id": "RustboroCity_Mart_Pokemart_Basic",
         "label": "Early stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -356,6 +370,8 @@ export const MARTS: MartData[] =
       {
         "id": "RustboroCity_Mart_Pokemart_Expanded",
         "label": "Full stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": "After helping the Devon employee on Route 116 (expanded stock)",
         "items": [
           {
@@ -444,6 +460,8 @@ export const MARTS: MartData[] =
       {
         "id": "SlateportCity_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -514,6 +532,8 @@ export const MARTS: MartData[] =
       {
         "id": "MauvilleCity_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -602,6 +622,8 @@ export const MARTS: MartData[] =
       {
         "id": "VerdanturfTown_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -684,6 +706,8 @@ export const MARTS: MartData[] =
       {
         "id": "FallarborTown_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -772,6 +796,8 @@ export const MARTS: MartData[] =
       {
         "id": "LavaridgeTown_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -845,6 +871,8 @@ export const MARTS: MartData[] =
       {
         "id": "LavaridgeTown_HerbShop_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -885,6 +913,8 @@ export const MARTS: MartData[] =
       {
         "id": "FortreeCity_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -957,14 +987,16 @@ export const MARTS: MartData[] =
     "location": "Lilycove City",
     "kind": "department",
     "notes": [
-      "1F is the lobby (elevator / rooftop access). Shopping floors are 2F–5F.",
-      "5F sells secret-base decorations (dolls, cushions, posters, mats).",
-      "Rooftop has a drink stand and temporary Clear Bell / Tidal Bell events — not a standard mart list."
+      "1F is the lobby (elevator, rooftop stairs, and the Lottery Corner — not item shopping).",
+      "2F–4F each have a left and right register; 5F has four decoration clerks (far-left → far-right).",
+      "Rooftop: vending machine (always) plus a clear-out sale clerk when Lilycove PokéNews is airing."
     ],
     "sections": [
       {
         "id": "LilycoveCity_DepartmentStore_2F_Pokemart1",
-        "label": "2F · Balls & status heals",
+        "label": "Balls & status heals",
+        "floor": "2F",
+        "counter": "Left register",
         "unlockNote": null,
         "items": [
           {
@@ -1037,7 +1069,9 @@ export const MARTS: MartData[] =
       },
       {
         "id": "LilycoveCity_DepartmentStore_2F_Pokemart2",
-        "label": "2F · Potions & Repels",
+        "label": "Potions & Repels",
+        "floor": "2F",
+        "counter": "Right register",
         "unlockNote": null,
         "items": [
           {
@@ -1105,6 +1139,8 @@ export const MARTS: MartData[] =
       {
         "id": "LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins",
         "label": "Vitamins",
+        "floor": "3F",
+        "counter": "Left register",
         "unlockNote": null,
         "items": [
           {
@@ -1147,7 +1183,9 @@ export const MARTS: MartData[] =
       },
       {
         "id": "LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters",
-        "label": "Stat Boosters",
+        "label": "Battle items",
+        "floor": "3F",
+        "counter": "Right register",
         "unlockNote": null,
         "items": [
           {
@@ -1196,7 +1234,9 @@ export const MARTS: MartData[] =
       },
       {
         "id": "LilycoveCity_DepartmentStore_4F_Pokemart_AttackTMs",
-        "label": "Attack Tms",
+        "label": "Attack TMs",
+        "floor": "4F",
+        "counter": "Left register",
         "unlockNote": null,
         "items": [
           {
@@ -1227,7 +1267,9 @@ export const MARTS: MartData[] =
       },
       {
         "id": "LilycoveCity_DepartmentStore_4F_Pokemart_DefenseTMs",
-        "label": "Defense Tms",
+        "label": "Defense & status TMs",
+        "floor": "4F",
+        "counter": "Right register",
         "unlockNote": null,
         "items": [
           {
@@ -1259,6 +1301,8 @@ export const MARTS: MartData[] =
       {
         "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Dolls",
         "label": "Dolls",
+        "floor": "5F",
+        "counter": "Far-left register",
         "unlockNote": null,
         "items": [
           {
@@ -1338,6 +1382,8 @@ export const MARTS: MartData[] =
       {
         "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Cushions",
         "label": "Cushions",
+        "floor": "5F",
+        "counter": "Mid-left register",
         "unlockNote": null,
         "items": [
           {
@@ -1399,6 +1445,8 @@ export const MARTS: MartData[] =
       {
         "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Posters",
         "label": "Posters",
+        "floor": "5F",
+        "counter": "Mid-right register",
         "unlockNote": null,
         "items": [
           {
@@ -1460,6 +1508,8 @@ export const MARTS: MartData[] =
       {
         "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Mats",
         "label": "Mats",
+        "floor": "5F",
+        "counter": "Far-right register",
         "unlockNote": null,
         "items": [
           {
@@ -1523,6 +1573,126 @@ export const MARTS: MartData[] =
             "description": "A trick mat that spins around when stepped on."
           }
         ]
+      },
+      {
+        "id": "lilycove-rooftop-vending",
+        "label": "Drinks",
+        "floor": "Rooftop",
+        "counter": "Vending machine",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "ITEM_FRESH_WATER",
+            "name": "Fresh Water",
+            "price": 200,
+            "description": "A bottle of mineral water. Restores 50 HP."
+          },
+          {
+            "const": "ITEM_SODA_POP",
+            "name": "Soda Pop",
+            "price": 300,
+            "description": "A sweet-tasting soft drink. Restores 60 HP."
+          },
+          {
+            "const": "ITEM_LEMONADE",
+            "name": "Lemonade",
+            "price": 350,
+            "description": "A very sweet drink. Restores 80 HP."
+          }
+        ]
+      },
+      {
+        "id": "LilycoveCity_DepartmentStoreRooftop_PokemartDecor_ClearOutSale",
+        "label": "Clear-out sale decorations",
+        "floor": "Rooftop",
+        "counter": "Clear-out sale clerk",
+        "unlockNote": "Only while Lilycove PokéNews is advertising the clear-out sale",
+        "items": [
+          {
+            "const": "DECOR_MUD_BALL",
+            "name": "Mud Ball",
+            "price": 200,
+            "description": "A large ball of mud. Crumbles if stepped on."
+          },
+          {
+            "const": "DECOR_FENCE_LENGTH",
+            "name": "Fence Length",
+            "price": 500,
+            "description": "A small fence that blocks passage."
+          },
+          {
+            "const": "DECOR_FENCE_WIDTH",
+            "name": "Fence Width",
+            "price": 500,
+            "description": "A small fence that blocks passage."
+          },
+          {
+            "const": "DECOR_TIRE",
+            "name": "Tire",
+            "price": 800,
+            "description": "An old large tire. Decorations can be placed on top."
+          },
+          {
+            "const": "DECOR_BREAKABLE_DOOR",
+            "name": "Breakable Door",
+            "price": 3000,
+            "description": "A weird door that people can walk right through."
+          },
+          {
+            "const": "DECOR_SOLID_BOARD",
+            "name": "Solid Board",
+            "price": 3000,
+            "description": "Place over a hole to cross to the other side."
+          },
+          {
+            "const": "DECOR_SAND_ORNAMENT",
+            "name": "Sand Ornament",
+            "price": 3000,
+            "description": "An ornament made of sand. Crumbles if touched."
+          },
+          {
+            "const": "DECOR_STAND",
+            "name": "Stand",
+            "price": 7000,
+            "description": "A large pedestal with steps."
+          },
+          {
+            "const": "DECOR_SLIDE",
+            "name": "Slide",
+            "price": 8000,
+            "description": "Use to slide down from the platform."
+          },
+          {
+            "const": "DECOR_TV",
+            "name": "Tv",
+            "price": 3000,
+            "description": "A small, gray- colored toy TV."
+          },
+          {
+            "const": "DECOR_ROUND_TV",
+            "name": "Round Tv",
+            "price": 4000,
+            "description": "A toy TV modeled in the image of a SEEDOT."
+          },
+          {
+            "const": "DECOR_CUTE_TV",
+            "name": "Cute Tv",
+            "price": 4000,
+            "description": "A toy TV modeled in the image of a SKITTY."
+          },
+          {
+            "const": "DECOR_WAILMER_DOLL",
+            "name": "Wailmer Doll",
+            "price": 10000,
+            "description": "A large doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_RHYDON_DOLL",
+            "name": "Rhydon Doll",
+            "price": 10000,
+            "description": "A large doll. Place it on a mat or a desk."
+          }
+        ]
       }
     ]
   },
@@ -1536,6 +1706,8 @@ export const MARTS: MartData[] =
       {
         "id": "MossdeepCity_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -1606,6 +1778,8 @@ export const MARTS: MartData[] =
       {
         "id": "SootopolisCity_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -1731,6 +1905,8 @@ export const MARTS: MartData[] =
       {
         "id": "Route104_PrettyPetalFlowerShop_Pokemart_Plants",
         "label": "Plant decorations",
+        "floor": null,
+        "counter": null,
         "unlockNote": "After earning the Dynamo Badge (Mauville)",
         "items": [
           {
@@ -1785,6 +1961,8 @@ export const MARTS: MartData[] =
       {
         "id": "FortreeCity_DecorationShop_PokemartDecor_Desks",
         "label": "Desks",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -1840,6 +2018,8 @@ export const MARTS: MartData[] =
       {
         "id": "FortreeCity_DecorationShop_PokemartDecor_Chairs",
         "label": "Chairs",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -2164,6 +2344,8 @@ export const MARTS: MartData[] =
       {
         "id": "BattleFrontier_Mart_Pokemart",
         "label": "Stock",
+        "floor": null,
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
@@ -2260,6 +2442,8 @@ export const MARTS: MartData[] =
       {
         "id": "EverGrandeCity_PokemonLeague_1F_Pokemart",
         "label": "Stock",
+        "floor": "1F",
+        "counter": null,
         "unlockNote": null,
         "items": [
           {
