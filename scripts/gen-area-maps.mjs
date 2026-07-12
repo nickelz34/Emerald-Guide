@@ -316,19 +316,19 @@ function groupAndFloor(mapName) {
   if (mapName === "MossdeepCity_StevensHouse") {
     return { group: "Mossdeep City", floor: "Steven's House" };
   }
-  if (/^RustboroCity_Gym$/.test(mapName)) return { group: "Rustboro City", floor: "Gym" };
-  if (/^DewfordTown_Gym$/.test(mapName)) return { group: "Dewford Town", floor: "Gym" };
-  if (/^MauvilleCity_Gym$/.test(mapName)) return { group: "Mauville City", floor: "Gym" };
+  if (/^RustboroCity_Gym$/.test(mapName)) return { group: "Rustboro City", floor: "" };
+  if (/^DewfordTown_Gym$/.test(mapName)) return { group: "Dewford Town", floor: "" };
+  if (/^MauvilleCity_Gym$/.test(mapName)) return { group: "Mauville City", floor: "" };
   if (/^LavaridgeTown_Gym_/.test(mapName)) {
     const floor = mapName.replace("LavaridgeTown_Gym_", "");
-    return { group: "Lavaridge Town", floor: `Gym ${floor}` };
+    return { group: "Lavaridge Town", floor: displayName(floor) };
   }
-  if (/^PetalburgCity_Gym$/.test(mapName)) return { group: "Petalburg City", floor: "Gym" };
-  if (/^FortreeCity_Gym$/.test(mapName)) return { group: "Fortree City", floor: "Gym" };
-  if (/^MossdeepCity_Gym$/.test(mapName)) return { group: "Mossdeep City", floor: "Gym" };
+  if (/^PetalburgCity_Gym$/.test(mapName)) return { group: "Petalburg City", floor: "" };
+  if (/^FortreeCity_Gym$/.test(mapName)) return { group: "Fortree City", floor: "" };
+  if (/^MossdeepCity_Gym$/.test(mapName)) return { group: "Mossdeep City", floor: "" };
   if (/^SootopolisCity_Gym_/.test(mapName)) {
     const floor = mapName.replace("SootopolisCity_Gym_", "");
-    return { group: "Sootopolis City", floor: `Gym ${floor}` };
+    return { group: "Sootopolis City", floor: displayName(floor) };
   }
   // e.g. GraniteCave_B1F -> {group:"Granite Cave", floor:"B1F"}
   const parts = mapName.split("_");
@@ -444,10 +444,13 @@ for (const c of candidates) {
     markers.push({ id: nid("hi"), name: rec?.name || camel((bg.item || "").replace(/^ITEM_/, "")), category: "hidden", x: toLocalX(bg.x, W), y: toLocalY(bg.y, H), desc: rec?.desc || "" });
   }
 
+  const isGymMap = /_Gym(?:_|$)/.test(m.name);
+  const niceName = isGymMap ? `${group} Gym` : displayName(m.name);
+
   areaEntries.push({
     id: m.name.toLowerCase().replace(/_/g, "-"),
     mapId: m.id,
-    name: displayName(m.name),
+    name: niceName,
     group,
     floor,
     image: `maps/areas/${file}`,

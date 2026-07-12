@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { AREA_MAPS } from "../data/areaMaps";
+import { formatAreaMapCaption } from "../data/areaMapLabels";
 import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
@@ -70,7 +71,7 @@ export function AreaMapView({
 
   if (!area) return null;
 
-  const label = caption ?? (area.floor ? `${area.name} — ${area.floor}` : area.name);
+  const label = caption ?? formatAreaMapCaption(area);
   const categories = POI_CATEGORIES.filter((c) => points.some((p) => p.category === c.id));
 
   const handlePinClick = (point: MapPoint, active: boolean) => {

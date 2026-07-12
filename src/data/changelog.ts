@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.72",
+    date: "2026-07-12",
+    summary: "Walkthrough interior map titles are clean — no broken characters or double “Gym” labels.",
+    sections: [
+      {
+        heading: "Walkthrough — maps",
+        items: [
+          "Fixed area-map captions like Dewford Town Gym that showed a missing-glyph control character and repeated “Gym” under the interior map.",
+          "Gym map labels now read cleanly (e.g. “Dewford Town Gym”, “Lavaridge Town Gym - 1F”) across walkthrough cards and the zoom lightbox.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.71",
     date: "2026-07-12",
     summary: "GitHub Pages deploys again — pin verification no longer blocks CI builds.",

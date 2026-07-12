@@ -5,6 +5,7 @@
  */
 import { walkthrough } from "./walkthrough";
 import { AREA_MAPS, type AreaMap } from "./areaMaps";
+import { formatAreaMapCaption } from "./areaMapLabels";
 
 const STEP_TO_CHAPTER: Record<string, string> = {};
 for (const section of walkthrough) {
@@ -87,7 +88,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   // Dive / Seafloor Cavern (multi-floor dive in STEP_AREA_MAPS)
   "seafloor-cavern-2": "seafloorcavern-room9",
 
-  // Mossdeep   Steven's house items
+  // Mossdeep - Steven's house items
   "mossdeep-3": "mossdeepcity-stevenshouse",
 
   // SS Tidal
@@ -205,7 +206,7 @@ export const INTERIOR_AREA_MAP: Record<string, string> = {
 };
 
 function areaCaption(area: AreaMap): string {
-  return area.floor ? `${area.name}   ${area.floor}` : area.name;
+  return formatAreaMapCaption(area);
 }
 
 /** All area maps to show for a walkthrough step (empty if none). */
