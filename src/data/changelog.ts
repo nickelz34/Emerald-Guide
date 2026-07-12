@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.69",
+    date: "2026-07-12",
+    summary: "Walkthrough map markers stay larger in opened guide maps.",
+    sections: [
+      {
+        heading: "Maps — walkthrough zoom",
+        items: [
+          "Boosted marker, trainer, item, hidden-item, and berry sprite sizes in walkthrough map lightboxes so they remain readable after opening a guide map.",
+          "Zooming in no longer shrinks walkthrough map markers below their original size, and gym badge pins keep an extra visibility boost.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.68",
     date: "2026-07-12",
     summary: "Lilycove Department Store shop guide lists stock by floor and register — including the rooftop vending machine.",
