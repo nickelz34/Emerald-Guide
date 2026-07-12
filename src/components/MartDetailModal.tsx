@@ -63,7 +63,7 @@ function StockTable({ section }: { section: MartSection }) {
                   </div>
                 </div>
               </td>
-              <td className="mart-modal__price">{formatMartPrice(item.price)}</td>
+                  <td className="mart-modal__price">{formatMartPrice(item.price, item.priceUnit)}</td>
             </tr>
           ))}
         </tbody>

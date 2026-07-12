@@ -13,14 +13,17 @@ import sharp from "sharp";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
+const ASSET_CACHE = path.join(ROOT, ".calib/asset-cache");
 const RAW = "https://raw.githubusercontent.com/pret/pokeemerald/master";
 const OUT_DIR = path.join(ROOT, "public/sprites/items/icons");
 const OUT_TS = path.join(ROOT, "src/data/itemIconsGenerated.ts");
+const OFFLINE = process.env.OFFLINE === "1" || process.env.OFFLINE === "true";
 
 const MAP_SOURCES = [
   path.join(ROOT, "src/data/mapPointsGenerated.ts"),
   path.join(ROOT, "src/data/mapPoints.ts"),
   path.join(ROOT, "src/data/areaMaps.ts"),
+  path.join(ROOT, "src/data/martsGenerated.ts"),
 ];
 
 function titleCase(s) {
@@ -45,6 +48,23 @@ function slugify(name) {
     .replace(/^_|_$/g, "");
 }
 
+function collectMartDecorNames() {
+  const martPath = path.join(ROOT, "src/data/martsGenerated.ts");
+  const byName = new Map();
+  if (!fs.existsSync(martPath)) return byName;
+  const text = fs.readFileSync(martPath, "utf8");
+  for (const m of text.matchAll(
+    /"const":\s*"(DECOR_\w+)"\s*,\s*\n\s*"name":\s*"([^"]+)"/g,
+  )) {
+    byName.set(m[2], m[1]);
+  }
+  return byName;
+}
+
+function decorConstToGraphic(constName) {
+  return `graphics/decorations/${constName.replace(/^DECOR_/, "").toLowerCase()}.png`;
+}
+
 function fetchBuffer(url) {
   return new Promise((resolve, reject) => {
     https
@@ -67,9 +87,23 @@ function fetchBuffer(url) {
 }
 
 async function loadFile(rel) {
-  const local = path.join(REPO, rel);
+  const normalized = rel.replace(/\\/g, "/");
+  const local = path.join(REPO, normalized);
   if (fs.existsSync(local)) return fs.readFileSync(local);
-  return fetchBuffer(`${RAW}/${rel.replace(/\\/g, "/")}`);
+
+  const cached = path.join(ASSET_CACHE, normalized);
+  if (fs.existsSync(cached)) return fs.readFileSync(cached);
+
+  if (OFFLINE) {
+    throw new Error(
+      `Missing local asset ${normalized} (OFFLINE=1). Clone pokeemerald under .calib/ or re-run without OFFLINE to populate .calib/asset-cache/.`,
+    );
+  }
+
+  const buf = await fetchBuffer(`${RAW}/${normalized}`);
+  fs.mkdirSync(path.dirname(cached), { recursive: true });
+  fs.writeFileSync(cached, buf);
+  return buf;
 }
 
 function collectMapItemNames() {
@@ -86,6 +120,14 @@ function collectMapItemNames() {
       /\{[^}]*name:\s*"([^"]+)"[^}]*category:\s*"(item|hidden)"/g,
     )) {
       names.add(m[1]);
+    }
+    // Mart / shop inventory display names next to ITEM_/DECOR_ consts
+    if (src.endsWith("martsGenerated.ts")) {
+      for (const m of text.matchAll(
+        /"const":\s*"(?:ITEM|DECOR)_\w+"\s*,\s*\n\s*"name":\s*"([^"]+)"/g,
+      )) {
+        names.add(m[1]);
+      }
     }
   }
   return names;
@@ -255,6 +297,10 @@ const FALLBACK_ASSETS = {
     iconRel: "graphics/items/icons/poke_ball.png",
     paletteRel: "graphics/items/icon_palettes/poke_ball.pal",
   },
+  "Daily berry": {
+    iconRel: "graphics/items/icons/oran_berry.png",
+    paletteRel: "graphics/items/icon_palettes/oran_berry.pal",
+  },
 };
 
 const [graphicsH, itemsH, tableH] = await Promise.all([
@@ -310,7 +356,6 @@ for (const name of [...neededNames].sort()) {
 
   const iconBuf = await loadAsset(assets.iconRel);
   const targetPaletteText = (await loadAsset(assets.paletteRel)).toString("utf8");
-  const sourcePaletteText = [...sourcePaletteByIcon.entries()].find(([rel]) => rel === assets.iconRel)?.[1];
   const outName = `${slugify(name)}.png`;
   const outPath = path.join(OUT_DIR, outName);
 
@@ -327,8 +372,41 @@ for (const name of [...neededNames].sort()) {
   console.log(`Wrote ${outPath}`);
 }
 
-if (missing.length) {
-  console.warn("No icon mapping for:", missing.join(", "));
+const decorByName = collectMartDecorNames();
+const stillMissing = [];
+for (const name of missing) {
+  const decorConst = decorByName.get(name);
+  const outName = `${slugify(name)}.png`;
+  const outPath = path.join(OUT_DIR, outName);
+  if (decorConst) {
+    const rel = decorConstToGraphic(decorConst);
+    try {
+      const iconBuf = await loadAsset(rel);
+      const pngBuf = await sharp(iconBuf).ensureAlpha().resize(24, 24, { kernel: "nearest" }).png().toBuffer();
+      fs.writeFileSync(outPath, pngBuf);
+      resolved[name] = outName;
+      console.log(`Wrote decor ${outPath}`);
+      continue;
+    } catch (err) {
+      console.warn(`Decor icon failed for ${name}: ${err.message}`);
+    }
+  }
+  // Fall back so shop panels always show a sprite slot (many secret-base décor lack bag icons).
+  try {
+    const iconBuf = await loadAsset("graphics/items/icons/question_mark.png");
+    const palText = (await loadAsset("graphics/items/icon_palettes/question_mark.pal")).toString("utf8");
+    const pngBuf = renderItemIcon(iconBuf, palText, palText);
+    fs.writeFileSync(outPath, pngBuf);
+    resolved[name] = outName;
+    console.log(`Wrote fallback ${outPath}`);
+  } catch (err) {
+    stillMissing.push(name);
+    console.warn(`Fallback icon failed for ${name}: ${err.message}`);
+  }
+}
+
+if (stillMissing.length) {
+  console.warn("No icon mapping for:", stillMissing.join(", "));
 }
 
 // Remove stale per-name exports that are no longer referenced.

@@ -20,6 +20,50 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.65",
+    date: "2026-07-12",
+    summary: "Map hover labels stay readable near the top and edges of the viewport.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Hover name bubbles on map pins (shops, towns, and other markers) now flip below or shift sideways when they would clip off the top or sides of the map frame — northern shops like Fortree no longer hide their labels.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.64",
+    date: "2026-07-12",
+    summary: "Confirmed the guide runs fully offline — sprites and data stay local.",
+    sections: [
+      {
+        heading: "Reliability",
+        items: [
+          "Audited the app: no runtime requests to CDNs or external APIs for sprites, fonts, maps, or shop data — everything is served from bundled `public/` assets and local TypeScript data.",
+          "Added `npm run verify:local-assets` (also runs during `npm run build`) to fail if any referenced image is missing from `public/` or if app source gains an external data URL.",
+          "Shop item-icon sync now caches any one-time pokeemerald downloads under `.calib/asset-cache/` and supports `OFFLINE=1` so regenerating icons does not require the network when sources are already local.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.10.63",
+    date: "2026-07-12",
+    summary: "Shop guides show item sprites and cover every overworld storefront.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Shop detail panels now show each item’s bag sprite next to its name and price (mart icons are synced from pokeemerald).",
+          "Pretty Petal Flower Shop on Route 104 is a Shops pin: plant decorations after the Dynamo Badge, plus free Wailmer Pail / daily berry notes.",
+          "Also marked as shops with full merchandise panels: Fortree Decoration Shop, Route 113 Glass Workshop (ash prices), Slateport Market stalls, Battle Frontier Mart, and the Pokémon League lobby mart.",
+          "Lilycove Department Store guide now includes 5F decoration clerks (dolls, cushions, posters, mats).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.62",
     date: "2026-07-11",
     summary: "Click Poké Marts on the Hoenn map to see shop stock and prices.",

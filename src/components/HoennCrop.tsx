@@ -8,6 +8,7 @@ import { MapZoomViewport } from "./MapZoomViewport";
 import { MapPinVisual, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
+import { fitPinPopups } from "../lib/fitMapPopup";
 
 const HOENN_MAP_SRC = assetUrl("maps/hoenn-map.png");
 
@@ -127,7 +128,22 @@ export function HoennCrop({
               ...pinSpriteStyle(point),
             }}
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={(e) => handlePinClick(point, e)}
+            onMouseEnter={(e) => {
+              const pin = e.currentTarget;
+              const viewport = pin.closest(".map-zoom-viewport, .hoenn-crop__frame");
+              requestAnimationFrame(() => fitPinPopups(pin, viewport));
+            }}
+            onFocus={(e) => {
+              const pin = e.currentTarget;
+              const viewport = pin.closest(".map-zoom-viewport, .hoenn-crop__frame");
+              requestAnimationFrame(() => fitPinPopups(pin, viewport));
+            }}
+            onClick={(e) => {
+              handlePinClick(point, e);
+              const pin = e.currentTarget;
+              const viewport = pin.closest(".map-zoom-viewport, .hoenn-crop__frame");
+              requestAnimationFrame(() => fitPinPopups(pin, viewport));
+            }}
             aria-label={point.name}
           >
             <MapPinVisual point={point} />

@@ -76,6 +76,9 @@ export const MAP_POINTS: MapPoint[] = [
   { id: "mossdeep", name: "Mossdeep City", category: "town", x: 85, y: 31.33, note: "Island city with the Space Center.", stepId: "mossdeep-1" },
   { id: "sootopolis", name: "Sootopolis City", category: "town", x: 75, y: 47, note: "Hidden crater city, eighth gym.", stepId: "sootopolis-1" },
   { id: "mart-sootopolis", name: "Mart", category: "shop", x: 74.2, y: 45.8, note: "Sootopolis City" },
+  { id: "shop-slateport-market", name: "Market", category: "shop", x: 27.1, y: 77.4, note: "Slateport City" },
+  { id: "shop-battle-frontier-mart", name: "Mart", category: "shop", x: 91.2, y: 88.8, note: "Battle Frontier" },
+  { id: "shop-pokemon-league-mart", name: "Mart", category: "shop", x: 96.4, y: 49.6, note: "Pokémon League" },
   { id: "pacifidlog", name: "Pacifidlog Town", category: "town", x: 61.25, y: 73.11, note: "Floating town on the open sea.", stepId: "pacifidlog-1" },
   { id: "ever-grande", name: "Ever Grande City", category: "town", x: 97.5, y: 57.44, note: "The Pokémon League plateau.", stepId: "victory-road-1" },
 

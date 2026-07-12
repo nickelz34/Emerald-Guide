@@ -3836,6 +3836,46 @@
   transform: translateX(-50%) translateY(0);
 }
 
+/* Keep hover labels inside the clipped map viewport (top/side edges). */
+.hoenn-map__pin-hint--below {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+
+.hoenn-map__pin-hint--start {
+  left: 0;
+  right: auto;
+  transform: translateX(0) translateY(3px);
+}
+
+.hoenn-map__pin:hover .hoenn-map__pin-hint--start,
+.hoenn-map__pin:focus-visible .hoenn-map__pin-hint--start {
+  transform: translateX(0) translateY(0);
+}
+
+.hoenn-map__pin-hint--end {
+  left: auto;
+  right: 0;
+  transform: translateX(0) translateY(3px);
+}
+
+.hoenn-map__pin:hover .hoenn-map__pin-hint--end,
+.hoenn-map__pin:focus-visible .hoenn-map__pin-hint--end {
+  transform: translateX(0) translateY(0);
+}
+
+.hoenn-map__pin-hint--below.hoenn-map__pin-hint--start,
+.hoenn-map__pin-hint--below.hoenn-map__pin-hint--end {
+  transform: translateX(0) translateY(-3px);
+}
+
+.hoenn-map__pin:hover .hoenn-map__pin-hint--below.hoenn-map__pin-hint--start,
+.hoenn-map__pin:hover .hoenn-map__pin-hint--below.hoenn-map__pin-hint--end,
+.hoenn-map__pin:focus-visible .hoenn-map__pin-hint--below.hoenn-map__pin-hint--start,
+.hoenn-map__pin:focus-visible .hoenn-map__pin-hint--below.hoenn-map__pin-hint--end {
+  transform: translateX(0) translateY(0);
+}
+
 .hoenn-map__pin-hint-name {
   font-size: 0.78rem;
   font-weight: 600;
@@ -3883,6 +3923,23 @@
   text-align: left;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   cursor: default;
+}
+
+.hoenn-map__pin-tip--below {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+
+.hoenn-map__pin-tip--start {
+  left: 0;
+  right: auto;
+  transform: translateX(0);
+}
+
+.hoenn-map__pin-tip--end {
+  left: auto;
+  right: 0;
+  transform: translateX(0);
 }
 
 .hoenn-map__pin-tip strong {

@@ -8,6 +8,7 @@ import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
 import { MapZoomViewport } from "./MapZoomViewport";
 import { MapPinVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import { fitPinPopups } from "../lib/fitMapPopup";
 
 interface AreaMapViewProps {
   areaMapId: string;
@@ -98,9 +99,22 @@ export function AreaMapView({
           ...pinSpriteStyle(point),
         }}
         onPointerDown={(e) => e.stopPropagation()}
+        onMouseEnter={(e) => {
+          const pin = e.currentTarget;
+          const viewport = pin.closest(".map-zoom-viewport");
+          requestAnimationFrame(() => fitPinPopups(pin, viewport));
+        }}
+        onFocus={(e) => {
+          const pin = e.currentTarget;
+          const viewport = pin.closest(".map-zoom-viewport");
+          requestAnimationFrame(() => fitPinPopups(pin, viewport));
+        }}
         onClick={(e) => {
           e.stopPropagation();
           handlePinClick(point, active);
+          const pin = e.currentTarget;
+          const viewport = pin.closest(".map-zoom-viewport");
+          requestAnimationFrame(() => fitPinPopups(pin, viewport));
         }}
         aria-label={point.name}
       >

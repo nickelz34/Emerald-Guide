@@ -1,11 +1,11 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.10.62",
+  "version": "1.10.65",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/verify-local-assets.mjs && tsc -b && vite build",
     "preview": "vite preview",
     "render:events": "node .calib/render-locations.mjs all && node .calib/optimize-events.mjs",
     "render:events:list": "node .calib/render-locations.mjs list",
@@ -19,6 +19,7 @@
     "sync:area-map-entities": "node scripts/sync-area-map-entities.mjs",
     "sync:item-sprites": "node scripts/sync-item-sprites.mjs",
     "sync:item-icons": "node scripts/sync-item-icons.mjs",
+    "verify:local-assets": "node scripts/verify-local-assets.mjs",
     "gen:town-pin": "node scripts/gen-town-pin.mjs",
     "audit:trainers": "node scripts/audit-trainers.mjs",
     "verify:area-items": "node scripts/verify-area-items.mjs",

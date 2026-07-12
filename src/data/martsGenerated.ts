@@ -6,6 +6,8 @@ export interface MartItem {
   name: string;
   price: number;
   description: string;
+  /** When set, price is paid in this currency instead of ¥ (e.g. glass workshop ash). */
+  priceUnit?: "ash";
 }
 
 export interface MartSection {
@@ -955,7 +957,8 @@ export const MARTS: MartData[] =
     "location": "Lilycove City",
     "kind": "department",
     "notes": [
-      "1F is the lobby (elevator / rooftop access). Shopping floors are 2F–4F.",
+      "1F is the lobby (elevator / rooftop access). Shopping floors are 2F–5F.",
+      "5F sells secret-base decorations (dolls, cushions, posters, mats).",
       "Rooftop has a drink stand and temporary Clear Bell / Tidal Bell events — not a standard mart list."
     ],
     "sections": [
@@ -1252,6 +1255,274 @@ export const MARTS: MartData[] =
             "description": "Creates a wall of light that lowers SP. ATK damage."
           }
         ]
+      },
+      {
+        "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Dolls",
+        "label": "Dolls",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_PICHU_DOLL",
+            "name": "Pichu Doll",
+            "price": 3000,
+            "description": "A PICHU doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_PIKACHU_DOLL",
+            "name": "Pikachu Doll",
+            "price": 3000,
+            "description": "A PIKACHU doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_MARILL_DOLL",
+            "name": "Marill Doll",
+            "price": 3000,
+            "description": "A MARILL doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_JIGGLYPUFF_DOLL",
+            "name": "Jigglypuff Doll",
+            "price": 3000,
+            "description": "A JIGGLYPUFF doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_DUSKULL_DOLL",
+            "name": "Duskull Doll",
+            "price": 3000,
+            "description": "A DUSKULL doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_WYNAUT_DOLL",
+            "name": "Wynaut Doll",
+            "price": 3000,
+            "description": "A WYNAUT doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_BALTOY_DOLL",
+            "name": "Baltoy Doll",
+            "price": 3000,
+            "description": "A BALTOY doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_KECLEON_DOLL",
+            "name": "Kecleon Doll",
+            "price": 3000,
+            "description": "A KECLEON doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_AZURILL_DOLL",
+            "name": "Azurill Doll",
+            "price": 3000,
+            "description": "An AZURILL doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_SKITTY_DOLL",
+            "name": "Skitty Doll",
+            "price": 3000,
+            "description": "A SKITTY doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_SWABLU_DOLL",
+            "name": "Swablu Doll",
+            "price": 3000,
+            "description": "A SWABLU doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_GULPIN_DOLL",
+            "name": "Gulpin Doll",
+            "price": 3000,
+            "description": "A GULPIN doll. Place it on a mat or a desk."
+          }
+        ]
+      },
+      {
+        "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Cushions",
+        "label": "Cushions",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_PIKA_CUSHION",
+            "name": "Pika Cushion",
+            "price": 2000,
+            "description": "A PIKACHU cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_ROUND_CUSHION",
+            "name": "Round Cushion",
+            "price": 2000,
+            "description": "A MARILL cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_ZIGZAG_CUSHION",
+            "name": "Zigzag Cushion",
+            "price": 2000,
+            "description": "A ZIGZAGOON cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_SPIN_CUSHION",
+            "name": "Spin Cushion",
+            "price": 2000,
+            "description": "A SPINDA cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_DIAMOND_CUSHION",
+            "name": "Diamond Cushion",
+            "price": 2000,
+            "description": "A SABLEYE cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_BALL_CUSHION",
+            "name": "Ball Cushion",
+            "price": 2000,
+            "description": "A BALL cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_GRASS_CUSHION",
+            "name": "Grass Cushion",
+            "price": 2000,
+            "description": "A grass-mark cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_FIRE_CUSHION",
+            "name": "Fire Cushion",
+            "price": 2000,
+            "description": "A fire-mark cushion. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_WATER_CUSHION",
+            "name": "Water Cushion",
+            "price": 2000,
+            "description": "A water-mark cushion. Place it on a mat or a desk."
+          }
+        ]
+      },
+      {
+        "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Posters",
+        "label": "Posters",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_BALL_POSTER",
+            "name": "Ball Poster",
+            "price": 1000,
+            "description": "A small poster printed with POKé BALLS."
+          },
+          {
+            "const": "DECOR_GREEN_POSTER",
+            "name": "Green Poster",
+            "price": 1000,
+            "description": "A small poster with a TREECKO print."
+          },
+          {
+            "const": "DECOR_RED_POSTER",
+            "name": "Red Poster",
+            "price": 1000,
+            "description": "A small poster with a TORCHIC print."
+          },
+          {
+            "const": "DECOR_BLUE_POSTER",
+            "name": "Blue Poster",
+            "price": 1000,
+            "description": "A small poster with a MUDKIP print."
+          },
+          {
+            "const": "DECOR_CUTE_POSTER",
+            "name": "Cute Poster",
+            "price": 1000,
+            "description": "A small poster with an AZURILL print."
+          },
+          {
+            "const": "DECOR_PIKA_POSTER",
+            "name": "Pika Poster",
+            "price": 1500,
+            "description": "A large poster with a PIKACHU and PICHU print."
+          },
+          {
+            "const": "DECOR_LONG_POSTER",
+            "name": "Long Poster",
+            "price": 1500,
+            "description": "A large poster with a SEVIPER print."
+          },
+          {
+            "const": "DECOR_SEA_POSTER",
+            "name": "Sea Poster",
+            "price": 1500,
+            "description": "A large poster with a RELICANTH print."
+          },
+          {
+            "const": "DECOR_SKY_POSTER",
+            "name": "Sky Poster",
+            "price": 1500,
+            "description": "A large poster with a WINGULL print."
+          }
+        ]
+      },
+      {
+        "id": "LilycoveCity_DepartmentStore_5F_Pokemart_Mats",
+        "label": "Mats",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_SURF_MAT",
+            "name": "Surf Mat",
+            "price": 4000,
+            "description": "A mat designed with a SURF image. Put items on top."
+          },
+          {
+            "const": "DECOR_THUNDER_MAT",
+            "name": "Thunder Mat",
+            "price": 4000,
+            "description": "A mat designed with a THUNDER image. Put items on top."
+          },
+          {
+            "const": "DECOR_FIRE_BLAST_MAT",
+            "name": "Fire Blast Mat",
+            "price": 4000,
+            "description": "A mat designed with a FIRE BLAST image. Put items on top."
+          },
+          {
+            "const": "DECOR_POWDER_SNOW_MAT",
+            "name": "Powder Snow Mat",
+            "price": 4000,
+            "description": "A mat with a POWDER SNOW image design. Put items on top."
+          },
+          {
+            "const": "DECOR_ATTRACT_MAT",
+            "name": "Attract Mat",
+            "price": 4000,
+            "description": "A mat designed with an ATTRACT image. Put items on top."
+          },
+          {
+            "const": "DECOR_FISSURE_MAT",
+            "name": "Fissure Mat",
+            "price": 4000,
+            "description": "A mat designed with a FISSURE image. Put items on top."
+          },
+          {
+            "const": "DECOR_SPIKES_MAT",
+            "name": "Spikes Mat",
+            "price": 4000,
+            "description": "A mat designed with a SPIKES image. Put items on top."
+          },
+          {
+            "const": "DECOR_GLITTER_MAT",
+            "name": "Glitter Mat",
+            "price": 2000,
+            "description": "An odd mat that glitters if stepped on."
+          },
+          {
+            "const": "DECOR_JUMP_MAT",
+            "name": "Jump Mat",
+            "price": 2000,
+            "description": "A trick mat that jumps when it is stepped on."
+          },
+          {
+            "const": "DECOR_SPIN_MAT",
+            "name": "Spin Mat",
+            "price": 2000,
+            "description": "A trick mat that spins around when stepped on."
+          }
+        ]
       }
     ]
   },
@@ -1401,7 +1672,7 @@ export const MARTS: MartData[] =
     "location": "Mauville City",
     "kind": "specialty",
     "notes": [
-      "Rydel’s Cycles — you choose either the Mach Bike (speed) or Acro Bike (tricks) for free.",
+      "Rydel's Cycles — you choose either the Mach Bike (speed) or Acro Bike (tricks) for free.",
       "You can swap bikes later by returning the one you have.",
       "The Mach Bike is required for the jagged dirt slope on Route 112 / Jagged Pass shortcuts; the Acro Bike is needed for some rail tricks (e.g. Route 119)."
     ],
@@ -1426,6 +1697,616 @@ export const MARTS: MartData[] =
         ]
       }
     ]
+  },
+  {
+    "id": "pretty-petal-flower-shop",
+    "name": "Pretty Petal Flower Shop",
+    "location": "Route 104",
+    "kind": "specialty",
+    "notes": [
+      "One sister gives the Wailmer Pail (needed to water planted berries).",
+      "Another sister gives one free random berry per day (Cheri, Chesto, Pecha, Rawst, Aspear, Leppa, Oran, or Persim).",
+      "Plant decorations unlock for sale after you earn the Dynamo Badge (Mauville / Wattson)."
+    ],
+    "sections": [
+      {
+        "id": "flower-shop-gifts",
+        "label": "Free gifts",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "ITEM_WAILMER_PAIL",
+            "name": "Wailmer Pail",
+            "price": 0,
+            "description": "A watering can for berries planted in soft soil."
+          },
+          {
+            "const": "ITEM_CHERI_BERRY",
+            "name": "Daily berry",
+            "price": 0,
+            "description": "One free random berry each day (Cheri, Chesto, Pecha, Rawst, Aspear, Leppa, Oran, or Persim)."
+          }
+        ]
+      },
+      {
+        "id": "Route104_PrettyPetalFlowerShop_Pokemart_Plants",
+        "label": "Plant decorations",
+        "unlockNote": "After earning the Dynamo Badge (Mauville)",
+        "items": [
+          {
+            "const": "DECOR_RED_PLANT",
+            "name": "Red Plant",
+            "price": 3000,
+            "description": "A vivid red potted plant."
+          },
+          {
+            "const": "DECOR_TROPICAL_PLANT",
+            "name": "Tropical Plant",
+            "price": 3000,
+            "description": "A flowering tropical plant in a pot."
+          },
+          {
+            "const": "DECOR_PRETTY_FLOWERS",
+            "name": "Pretty Flowers",
+            "price": 3000,
+            "description": "A pot of cute flowers."
+          },
+          {
+            "const": "DECOR_COLORFUL_PLANT",
+            "name": "Colorful Plant",
+            "price": 5000,
+            "description": "A large pot with many colorful flowers."
+          },
+          {
+            "const": "DECOR_BIG_PLANT",
+            "name": "Big Plant",
+            "price": 5000,
+            "description": "A large, umbrella- shaped plant in a big pot."
+          },
+          {
+            "const": "DECOR_GORGEOUS_PLANT",
+            "name": "Gorgeous Plant",
+            "price": 5000,
+            "description": "A large, impressive plant in a big pot."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fortree-decoration-shop",
+    "name": "Decoration Shop",
+    "location": "Fortree City",
+    "kind": "specialty",
+    "notes": [
+      "Secret-base furniture shop — desks and chairs are sent to your PC when purchased."
+    ],
+    "sections": [
+      {
+        "id": "FortreeCity_DecorationShop_PokemartDecor_Desks",
+        "label": "Desks",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_SMALL_DESK",
+            "name": "Small Desk",
+            "price": 3000,
+            "description": "A small desk built for one."
+          },
+          {
+            "const": "DECOR_POKEMON_DESK",
+            "name": "Pokémon Desk",
+            "price": 3000,
+            "description": "A small desk built in the shape of a POKé BALL."
+          },
+          {
+            "const": "DECOR_HEAVY_DESK",
+            "name": "Heavy Desk",
+            "price": 6000,
+            "description": "A large desk made of steel. Put some decorations on it."
+          },
+          {
+            "const": "DECOR_RAGGED_DESK",
+            "name": "Ragged Desk",
+            "price": 6000,
+            "description": "A large desk made of wood. Put some decorations on it."
+          },
+          {
+            "const": "DECOR_COMFORT_DESK",
+            "name": "Comfort Desk",
+            "price": 6000,
+            "description": "A large desk made of leaves. Put some decorations on it."
+          },
+          {
+            "const": "DECOR_BRICK_DESK",
+            "name": "Brick Desk",
+            "price": 9000,
+            "description": "A huge desk made of brick. Holds lots of decorations."
+          },
+          {
+            "const": "DECOR_CAMP_DESK",
+            "name": "Camp Desk",
+            "price": 9000,
+            "description": "A huge desk made of logs. Put lots of decorations on it."
+          },
+          {
+            "const": "DECOR_HARD_DESK",
+            "name": "Hard Desk",
+            "price": 9000,
+            "description": "A huge desk made of rocks. Holds many decorations."
+          }
+        ]
+      },
+      {
+        "id": "FortreeCity_DecorationShop_PokemartDecor_Chairs",
+        "label": "Chairs",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_SMALL_CHAIR",
+            "name": "Small Chair",
+            "price": 2000,
+            "description": "A small chair made for one."
+          },
+          {
+            "const": "DECOR_POKEMON_CHAIR",
+            "name": "Pokémon Chair",
+            "price": 2000,
+            "description": "A small chair built in the shape of a POKé BALL."
+          },
+          {
+            "const": "DECOR_HEAVY_CHAIR",
+            "name": "Heavy Chair",
+            "price": 2000,
+            "description": "A small chair made of steel."
+          },
+          {
+            "const": "DECOR_RAGGED_CHAIR",
+            "name": "Ragged Chair",
+            "price": 2000,
+            "description": "A small chair made of wood."
+          },
+          {
+            "const": "DECOR_COMFORT_CHAIR",
+            "name": "Comfort Chair",
+            "price": 2000,
+            "description": "A small chair made of leaves."
+          },
+          {
+            "const": "DECOR_BRICK_CHAIR",
+            "name": "Brick Chair",
+            "price": 2000,
+            "description": "A small chair made of brick."
+          },
+          {
+            "const": "DECOR_CAMP_CHAIR",
+            "name": "Camp Chair",
+            "price": 2000,
+            "description": "A small chair made of logs."
+          },
+          {
+            "const": "DECOR_HARD_CHAIR",
+            "name": "Hard Chair",
+            "price": 2000,
+            "description": "A small chair made of rock."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "glass-workshop",
+    "name": "Glass Workshop",
+    "location": "Route 113",
+    "kind": "specialty",
+    "notes": [
+      "Talk to the glassblower once to receive the Soot Sack, then walk through ash on Route 113 to fill it.",
+      "Prices below are ash amounts spent from the Soot Sack, not regular money."
+    ],
+    "sections": [
+      {
+        "id": "glass-workshop-catalog",
+        "label": "Ash catalog",
+        "unlockNote": "Requires Soot Sack with enough ash",
+        "items": [
+          {
+            "const": "ITEM_BLUE_FLUTE",
+            "name": "Blue Flute",
+            "price": 250,
+            "priceUnit": "ash",
+            "description": "A glass flute that awakens sleeping Pokémon."
+          },
+          {
+            "const": "ITEM_YELLOW_FLUTE",
+            "name": "Yellow Flute",
+            "price": 500,
+            "priceUnit": "ash",
+            "description": "A glass flute that snaps Pokémon out of confusion."
+          },
+          {
+            "const": "ITEM_RED_FLUTE",
+            "name": "Red Flute",
+            "price": 500,
+            "priceUnit": "ash",
+            "description": "A glass flute that snaps Pokémon out of infatuation."
+          },
+          {
+            "const": "ITEM_WHITE_FLUTE",
+            "name": "White Flute",
+            "price": 1000,
+            "priceUnit": "ash",
+            "description": "A glass flute that lures wild Pokémon."
+          },
+          {
+            "const": "ITEM_BLACK_FLUTE",
+            "name": "Black Flute",
+            "price": 1000,
+            "priceUnit": "ash",
+            "description": "A glass flute that keeps wild Pokémon away."
+          },
+          {
+            "const": "DECOR_PRETTY_CHAIR",
+            "name": "Pretty Chair",
+            "price": 6000,
+            "priceUnit": "ash",
+            "description": "A glass chair for a secret base."
+          },
+          {
+            "const": "DECOR_PRETTY_DESK",
+            "name": "Pretty Desk",
+            "price": 8000,
+            "priceUnit": "ash",
+            "description": "A huge glass desk for a secret base."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "slateport-market",
+    "name": "Market",
+    "location": "Slateport City",
+    "kind": "specialty",
+    "notes": [
+      "Outdoor market vendors south of the Pokémon Center — not the indoor Poké Mart.",
+      "The decorator who sells bricks, balloons, and note mats only opens after you learn Secret Power."
+    ],
+    "sections": [
+      {
+        "id": "SlateportCity_Pokemart_EnergyGuru",
+        "label": "Energy Guru",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "ITEM_PROTEIN",
+            "name": "Protein",
+            "price": 9800,
+            "description": "Raises the base ATTACK stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_IRON",
+            "name": "Iron",
+            "price": 9800,
+            "description": "Raises the base DEFENSE stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_CARBOS",
+            "name": "Carbos",
+            "price": 9800,
+            "description": "Raises the base SPEED stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_ZINC",
+            "name": "Zinc",
+            "price": 9800,
+            "description": "Raises the base SP. DEF stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_CALCIUM",
+            "name": "Calcium",
+            "price": 9800,
+            "description": "Raises the base SP. ATK stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_HP_UP",
+            "name": "HP Up",
+            "price": 9800,
+            "description": "Raises the base HP of one POKéMON."
+          }
+        ]
+      },
+      {
+        "id": "SlateportCity_PokemartDecor_Dolls",
+        "label": "Doll stall",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "DECOR_AZURILL_DOLL",
+            "name": "Azurill Doll",
+            "price": 3000,
+            "description": "An AZURILL doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_MARILL_DOLL",
+            "name": "Marill Doll",
+            "price": 3000,
+            "description": "A MARILL doll. Place it on a mat or a desk."
+          },
+          {
+            "const": "DECOR_SKITTY_DOLL",
+            "name": "Skitty Doll",
+            "price": 3000,
+            "description": "A SKITTY doll. Place it on a mat or a desk."
+          }
+        ]
+      },
+      {
+        "id": "SlateportCity_PokemartDecor",
+        "label": "Decorator",
+        "unlockNote": "After learning Secret Power",
+        "items": [
+          {
+            "const": "DECOR_RED_BRICK",
+            "name": "Red Brick",
+            "price": 500,
+            "description": "A red-colored brick. Decorations can be placed on top."
+          },
+          {
+            "const": "DECOR_BLUE_BRICK",
+            "name": "Blue Brick",
+            "price": 500,
+            "description": "A blue-colored brick. Put some decorations on top."
+          },
+          {
+            "const": "DECOR_YELLOW_BRICK",
+            "name": "Yellow Brick",
+            "price": 500,
+            "description": "A yellow-colored brick. Put some decorations on top."
+          },
+          {
+            "const": "DECOR_RED_BALLOON",
+            "name": "Red Balloon",
+            "price": 500,
+            "description": "A red balloon filled with water. Bursts if stepped on."
+          },
+          {
+            "const": "DECOR_BLUE_BALLOON",
+            "name": "Blue Balloon",
+            "price": 500,
+            "description": "A blue balloon filled with water. Bursts if stepped on."
+          },
+          {
+            "const": "DECOR_YELLOW_BALLOON",
+            "name": "Yellow Balloon",
+            "price": 500,
+            "description": "A yellow balloon filled with water. Pops if stepped on."
+          },
+          {
+            "const": "DECOR_C_LOW_NOTE_MAT",
+            "name": "C Low Note Mat",
+            "price": 500,
+            "description": "A mat that plays a low C note when stepped on."
+          },
+          {
+            "const": "DECOR_D_NOTE_MAT",
+            "name": "D Note Mat",
+            "price": 500,
+            "description": "A mat that plays a D note when stepped on."
+          },
+          {
+            "const": "DECOR_E_NOTE_MAT",
+            "name": "E Note Mat",
+            "price": 500,
+            "description": "A mat that plays an E note when stepped on."
+          },
+          {
+            "const": "DECOR_F_NOTE_MAT",
+            "name": "F Note Mat",
+            "price": 500,
+            "description": "A mat that plays an F note when stepped on."
+          },
+          {
+            "const": "DECOR_G_NOTE_MAT",
+            "name": "G Note Mat",
+            "price": 500,
+            "description": "A mat that plays a G note when stepped on."
+          },
+          {
+            "const": "DECOR_A_NOTE_MAT",
+            "name": "A Note Mat",
+            "price": 500,
+            "description": "A mat that plays an A note when stepped on."
+          },
+          {
+            "const": "DECOR_B_NOTE_MAT",
+            "name": "B Note Mat",
+            "price": 500,
+            "description": "A mat that plays a B note when stepped on."
+          },
+          {
+            "const": "DECOR_C_HIGH_NOTE_MAT",
+            "name": "C High Note Mat",
+            "price": 500,
+            "description": "A mat that plays a high C note when stepped on."
+          }
+        ]
+      },
+      {
+        "id": "SlateportCity_Pokemart_PowerTMs",
+        "label": "TM stall",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "ITEM_TM_HIDDEN_POWER",
+            "name": "TM10",
+            "price": 3000,
+            "description": "The attack power varies among different POKéMON."
+          },
+          {
+            "const": "ITEM_TM_SECRET_POWER",
+            "name": "TM43",
+            "price": 3000,
+            "description": "Adds an effect to attack depending on the location."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "battle-frontier-mart",
+    "name": "Poké Mart",
+    "location": "Battle Frontier",
+    "kind": "mart",
+    "notes": [
+      "Post-game mart inside the Battle Frontier."
+    ],
+    "sections": [
+      {
+        "id": "BattleFrontier_Mart_Pokemart",
+        "label": "Stock",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "ITEM_ULTRA_BALL",
+            "name": "Ultra Ball",
+            "price": 1200,
+            "description": "A better BALL with a higher catch rate than a GREAT BALL."
+          },
+          {
+            "const": "ITEM_HYPER_POTION",
+            "name": "Hyper Potion",
+            "price": 1200,
+            "description": "Restores the HP of a POKéMON by 200 points."
+          },
+          {
+            "const": "ITEM_MAX_POTION",
+            "name": "Max Potion",
+            "price": 2500,
+            "description": "Fully restores the HP of a POKéMON."
+          },
+          {
+            "const": "ITEM_FULL_RESTORE",
+            "name": "Full Restore",
+            "price": 3000,
+            "description": "Fully restores the HP and status of a POKéMON."
+          },
+          {
+            "const": "ITEM_FULL_HEAL",
+            "name": "Full Heal",
+            "price": 600,
+            "description": "Heals all the status problems of one POKéMON."
+          },
+          {
+            "const": "ITEM_REVIVE",
+            "name": "Revive",
+            "price": 1500,
+            "description": "Revives a fainted POKéMON with half its HP."
+          },
+          {
+            "const": "ITEM_MAX_REPEL",
+            "name": "Max Repel",
+            "price": 700,
+            "description": "Repels weak wild POKéMON for 250 steps."
+          },
+          {
+            "const": "ITEM_PROTEIN",
+            "name": "Protein",
+            "price": 9800,
+            "description": "Raises the base ATTACK stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_CALCIUM",
+            "name": "Calcium",
+            "price": 9800,
+            "description": "Raises the base SP. ATK stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_IRON",
+            "name": "Iron",
+            "price": 9800,
+            "description": "Raises the base DEFENSE stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_ZINC",
+            "name": "Zinc",
+            "price": 9800,
+            "description": "Raises the base SP. DEF stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_CARBOS",
+            "name": "Carbos",
+            "price": 9800,
+            "description": "Raises the base SPEED stat of one POKéMON."
+          },
+          {
+            "const": "ITEM_HP_UP",
+            "name": "HP Up",
+            "price": 9800,
+            "description": "Raises the base HP of one POKéMON."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pokemon-league-mart",
+    "name": "Poké Mart",
+    "location": "Pokémon League",
+    "kind": "mart",
+    "notes": [
+      "Clerk inside the Pokémon League lobby before the Elite Four."
+    ],
+    "sections": [
+      {
+        "id": "EverGrandeCity_PokemonLeague_1F_Pokemart",
+        "label": "Stock",
+        "unlockNote": null,
+        "items": [
+          {
+            "const": "ITEM_ULTRA_BALL",
+            "name": "Ultra Ball",
+            "price": 1200,
+            "description": "A better BALL with a higher catch rate than a GREAT BALL."
+          },
+          {
+            "const": "ITEM_HYPER_POTION",
+            "name": "Hyper Potion",
+            "price": 1200,
+            "description": "Restores the HP of a POKéMON by 200 points."
+          },
+          {
+            "const": "ITEM_MAX_POTION",
+            "name": "Max Potion",
+            "price": 2500,
+            "description": "Fully restores the HP of a POKéMON."
+          },
+          {
+            "const": "ITEM_FULL_RESTORE",
+            "name": "Full Restore",
+            "price": 3000,
+            "description": "Fully restores the HP and status of a POKéMON."
+          },
+          {
+            "const": "ITEM_FULL_HEAL",
+            "name": "Full Heal",
+            "price": 600,
+            "description": "Heals all the status problems of one POKéMON."
+          },
+          {
+            "const": "ITEM_REVIVE",
+            "name": "Revive",
+            "price": 1500,
+            "description": "Revives a fainted POKéMON with half its HP."
+          },
+          {
+            "const": "ITEM_MAX_REPEL",
+            "name": "Max Repel",
+            "price": 700,
+            "description": "Repels weak wild POKéMON for 250 steps."
+          }
+        ]
+      }
+    ]
   }
 ];
 
@@ -1445,5 +2326,11 @@ export const MART_BY_ENTRANCE_ID: Record<string, string> =
   "en356": "lilycove-dept-store",
   "en384": "mossdeep-mart",
   "en44": "mauville-bike-shop",
-  "mart-sootopolis": "sootopolis-mart"
+  "en80": "pretty-petal-flower-shop",
+  "en152": "glass-workshop",
+  "en287": "fortree-decoration-shop",
+  "mart-sootopolis": "sootopolis-mart",
+  "shop-slateport-market": "slateport-market",
+  "shop-battle-frontier-mart": "battle-frontier-mart",
+  "shop-pokemon-league-mart": "pokemon-league-mart"
 };

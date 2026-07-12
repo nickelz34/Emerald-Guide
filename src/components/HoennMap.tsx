@@ -19,8 +19,18 @@ import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
 import { MartDetailModal } from "./MartDetailModal";
 import { isMartMapPoint } from "../data/martData";
+import { fitPinPopups } from "../lib/fitMapPopup";
 
-const SHOP_NAMES = new Set(["Mart", "Herb Shop", "Department Store", "Bike Shop"]);
+const SHOP_NAMES = new Set([
+  "Mart",
+  "Herb Shop",
+  "Department Store",
+  "Bike Shop",
+  "Pretty Petal Flower Shop",
+  "Glass Workshop",
+  "Decoration Shop",
+  "Market",
+]);
 
 function asShopPoint(point: MapPoint): MapPoint {
   if (point.category === "entrance" && SHOP_NAMES.has(point.name)) {
@@ -794,6 +804,14 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       pinPointerRef.current = null;
                     }
                   }}
+                  onMouseEnter={(e) => {
+                    const pin = e.currentTarget;
+                    requestAnimationFrame(() => fitPinPopups(pin, viewportRef.current));
+                  }}
+                  onFocus={(e) => {
+                    const pin = e.currentTarget;
+                    requestAnimationFrame(() => fitPinPopups(pin, viewportRef.current));
+                  }}
                   onPointerMove={(e) => {
                     const p = pinPointerRef.current;
                     if (!p) return;
@@ -821,11 +839,15 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
                       return;
                     }
                     activateMarker(point);
+                    const pin = e.currentTarget;
+                    requestAnimationFrame(() => fitPinPopups(pin, viewportRef.current));
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
                       activateMarker(point);
+                      const pin = e.currentTarget;
+                      requestAnimationFrame(() => fitPinPopups(pin, viewportRef.current));
                     }
                   }}
                   aria-label={point.name}
