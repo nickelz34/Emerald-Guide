@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.71",
+    date: "2026-07-12",
+    summary: "GitHub Pages deploys again — pin verification no longer blocks CI builds.",
+    sections: [
+      {
+        heading: "Reliability",
+        items: [
+          "Map/shop pin verify scripts skip pokeemerald regeneration when `.calib/` is absent (as on GitHub Actions), so `npm run build` succeeds in CI while still enforcing committed pin allowlists and route centers.",
+          "This unblocks Pages deploys that had been stuck on v1.10.65 after pin-accuracy checks were added to the build.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.70",
     date: "2026-07-12",
     summary: "Mobile walkthrough gym maps no longer overflow the screen or hide the legend.",

@@ -1,12 +1,13 @@
 /**
  * Verify all main Hoenn map markers stay source-accurate:
- *  1) Regenerating gen-map-landmarks / gen-shop-pins / gen-map-points matches
- *     committed generated TS files
+ *  1) When .calib/pokeemerald is present, regenerating gen-map-landmarks /
+ *     gen-shop-pins / gen-map-points matches committed generated TS files
  *  2) Hand MAP_POINTS only contains APPROXIMATE_MAP_PIN_IDS
  *  3) Route pins match AREA_MAP_BOUNDS centers from mapCrops.ts
  *  4) Shop pin rules (via verify-shop-pins)
  *
  * Usage: node scripts/verify-map-pins.mjs
+ * CI / machines without pokeemerald skip regen drift checks.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -14,6 +15,8 @@ import { spawnSync } from "node:child_process";
 import { parseAreaMapBounds } from "./map-origin-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
+const REPO = path.join(ROOT, ".calib/pokeemerald");
+const MANIFEST = path.join(ROOT, ".calib/manifest.json");
 
 const FILES = {
   landmarks: path.join(ROOT, "src/data/mapLandmarksGenerated.ts"),
@@ -52,20 +55,23 @@ function runGen(script, label) {
     process.exit(run.status || 1);
   }
   const after = fs.readFileSync(FILES[label], "utf8");
-  if (before !== after) {
+  if (before.replace(/\r\n/g, "\n") !== after.replace(/\r\n/g, "\n")) {
     console.error(`${path.basename(FILES[label])} is stale — run: node scripts/${script}`);
     process.exit(1);
   }
 }
 
 const errors = [];
+const canRegen = fs.existsSync(REPO) && fs.existsSync(MANIFEST);
 
-// ── Regen drift checks (need .calib/pokeemerald) ──
-runGen("gen-map-landmarks.mjs", "landmarks");
-runGen("gen-shop-pins.mjs", "shops");
-runGen("gen-map-points.mjs", "points");
+if (canRegen) {
+  runGen("gen-map-landmarks.mjs", "landmarks");
+  runGen("gen-shop-pins.mjs", "shops");
+  runGen("gen-map-points.mjs", "points");
+} else {
+  console.log("Skipping map-pin regen (no .calib/pokeemerald) — static checks only.");
+}
 
-// ── Hand pins must be approximate-only ──
 const mapSrc = fs.readFileSync(FILES.mapPoints, "utf8");
 const approx = new Set(extractApproxIds(mapSrc));
 const hand = extractMapPoints(mapSrc);
@@ -87,7 +93,6 @@ for (const id of approx) {
   }
 }
 
-// ── Generated curated overlays must not duplicate approximate ids ──
 const landmarkPins = extractMapPoints(fs.readFileSync(FILES.landmarks, "utf8"));
 const shopPins = extractMapPoints(fs.readFileSync(FILES.shops, "utf8"));
 for (const p of [...landmarkPins, ...shopPins]) {
@@ -96,7 +101,6 @@ for (const p of [...landmarkPins, ...shopPins]) {
   }
 }
 
-// Expected curated coverage
 const needTowns = [
   "littleroot",
   "oldale",
@@ -139,7 +143,6 @@ for (const id of [...needTowns, ...needGyms, ...needLandmarks]) {
   }
 }
 
-// ── Route pins = center of AREA_MAP_BOUNDS ──
 const bounds = parseAreaMapBounds(fs.readFileSync(FILES.mapCrops, "utf8"));
 const routes = extractMapPoints(fs.readFileSync(FILES.routes, "utf8"));
 const round = (n) => Math.round(n * 10000) / 10000;
@@ -156,7 +159,6 @@ for (const r of routes) {
   }
 }
 
-// ── Shop rules ──
 const shopVerify = spawnSync(process.execPath, [path.join(ROOT, "scripts/verify-shop-pins.mjs")], {
   cwd: ROOT,
   encoding: "utf8",
@@ -174,5 +176,5 @@ if (errors.length) {
 }
 
 console.log(
-  `OK — ${landmarkPins.length} landmark pins, ${shopPins.length} outdoor shop pin(s), ${routes.length} routes, ${approx.size} approximate hand pin(s); mapPointsGenerated regen matches.`,
+  `OK — ${landmarkPins.length} landmark pins, ${shopPins.length} outdoor shop pin(s), ${routes.length} routes, ${approx.size} approximate hand pin(s)${canRegen ? "; mapPointsGenerated regen matches" : "; regen skipped"}.`,
 );

@@ -1,11 +1,13 @@
 /**
  * Verify shop map pins stay accurate:
- *  1) Regenerating gen-shop-pins matches shopPinsGenerated.ts
+ *  1) When .calib/pokeemerald is present, regenerating gen-shop-pins matches
+ *     shopPinsGenerated.ts
  *  2) Every shop pin is either generated, an entrance remapped to shop, or
  *     explicitly listed in APPROXIMATE_SHOP_PIN_IDS
  *  3) Hand-placed "Market" / outdoor shop pins are not still in MAP_POINTS
  *
  * Usage: node scripts/verify-shop-pins.mjs
+ * CI / machines without pokeemerald skip the regen check (static rules still run).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -15,6 +17,8 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const GEN = path.join(ROOT, "src/data/shopPinsGenerated.ts");
 const MAP_POINTS = path.join(ROOT, "src/data/mapPoints.ts");
 const GEN_POINTS = path.join(ROOT, "src/data/mapPointsGenerated.ts");
+const REPO = path.join(ROOT, ".calib/pokeemerald");
+const MANIFEST = path.join(ROOT, ".calib/manifest.json");
 
 const SHOP_ENTRANCE_NAMES = new Set([
   "Mart",
@@ -43,21 +47,27 @@ function extractMapPoints(src) {
   return points;
 }
 
-const before = fs.readFileSync(GEN, "utf8");
-const run = spawnSync(process.execPath, [path.join(ROOT, "scripts/gen-shop-pins.mjs")], {
-  cwd: ROOT,
-  encoding: "utf8",
-});
-if (run.status !== 0) {
-  console.error(run.stdout || "");
-  console.error(run.stderr || "");
-  process.exit(run.status || 1);
-}
-const after = fs.readFileSync(GEN, "utf8");
-if (before !== after) {
-  console.error("shopPinsGenerated.ts is stale — run: npm run gen:shop-pins");
-  // restore? leave regenerated file so user can commit
-  process.exit(1);
+const canRegen = fs.existsSync(REPO) && fs.existsSync(MANIFEST);
+let shopGeneratedSrc = fs.readFileSync(GEN, "utf8");
+
+if (canRegen) {
+  const before = shopGeneratedSrc;
+  const run = spawnSync(process.execPath, [path.join(ROOT, "scripts/gen-shop-pins.mjs")], {
+    cwd: ROOT,
+    encoding: "utf8",
+  });
+  if (run.status !== 0) {
+    console.error(run.stdout || "");
+    console.error(run.stderr || "");
+    process.exit(run.status || 1);
+  }
+  shopGeneratedSrc = fs.readFileSync(GEN, "utf8");
+  if (before.replace(/\r\n/g, "\n") !== shopGeneratedSrc.replace(/\r\n/g, "\n")) {
+    console.error("shopPinsGenerated.ts is stale — run: npm run gen:shop-pins");
+    process.exit(1);
+  }
+} else {
+  console.log("Skipping shop-pin regen (no .calib/pokeemerald) — static checks only.");
 }
 
 const mapSrc = fs.readFileSync(MAP_POINTS, "utf8");
@@ -65,7 +75,7 @@ const genSrc = fs.readFileSync(GEN_POINTS, "utf8");
 const approx = new Set(extractApproxIds(mapSrc));
 const hand = extractMapPoints(mapSrc);
 const generatedEntrances = extractMapPoints(genSrc);
-const shopGenerated = extractMapPoints(after);
+const shopGenerated = extractMapPoints(shopGeneratedSrc);
 
 const errors = [];
 
@@ -80,7 +90,6 @@ for (const p of hand.filter((x) => x.category === "shop")) {
   );
 }
 
-// Outdoor entrance shops must exist in generated points (accuracy source of truth).
 for (const p of generatedEntrances) {
   if (!SHOP_ENTRANCE_NAMES.has(p.name)) continue;
   if (!(p.x >= 0 && p.x <= 100 && p.y >= 0 && p.y <= 100)) {
