@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.74",
+    date: "2026-07-12",
+    summary: "Walkthrough search no longer leaves the page stuck zoomed in on phones.",
+    sections: [
+      {
+        heading: "Walkthrough — mobile",
+        items: [
+          "The step filter box (and other search fields) now use a 16px font on mobile/touch layouts so iOS Safari does not auto-zoom into the text field while you type.",
+          "That keeps the guide at normal scale while filtering steps, instead of staying magnified after you stop typing.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.73",
     date: "2026-07-12",
     summary: "Berry and item descriptions on the Hoenn map no longer show raw game placeholders.",

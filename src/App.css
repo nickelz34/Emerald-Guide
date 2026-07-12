@@ -5630,6 +5630,27 @@
   font-size: 0.85rem;
 }
 
+/*
+ * iOS Safari auto-zooms focused inputs when computed font-size is under 16px,
+ * and often stays zoomed after typing. Keep search fields at 16px on narrow /
+ * touch layouts so the walkthrough filter (and other searches) stay readable.
+ */
+@media (max-width: 900px) {
+  .step-rail__filter,
+  .search,
+  .encounter-filters__search,
+  .encounter-filters select {
+    font-size: 16px;
+  }
+}
+
+.app-shell[data-view="mobile"] .step-rail__filter,
+.app-shell[data-view="mobile"] .search,
+.app-shell[data-view="mobile"] .encounter-filters__search,
+.app-shell[data-view="mobile"] .encounter-filters select {
+  font-size: 16px;
+}
+
 .step-rail__filter:focus {
   border-color: var(--emerald);
   box-shadow: 0 0 0 3px var(--emerald-glow);
