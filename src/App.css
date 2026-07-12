@@ -880,8 +880,16 @@
   flex: 0 0 auto;
   width: 100%;
   min-height: 0;
-  max-height: none;
+  max-height: min(48dvh, 400px);
   height: auto;
+}
+
+/* Tall interior maps (gyms): size by max height × aspect so they don't eat the legend. */
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .map-zoom-viewport--crop-fit {
+  width: min(100%, calc(min(48dvh, 400px) * var(--map-aspect-ratio, 1)));
+  max-width: 100%;
+  max-height: min(48dvh, 400px);
+  align-self: center;
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
@@ -893,15 +901,15 @@
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
-  max-height: none;
+  max-height: min(42dvh, 340px);
 }
 
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__sidebar,
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .area-map-view__sidebar {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   width: 100%;
   min-width: 0;
-  min-height: min(26dvh, 220px);
+  min-height: 0;
   max-height: none;
   margin: 0 0.3rem 0.3rem;
   padding: 0.6rem 0.55rem;
@@ -953,6 +961,15 @@
   max-height: none;
   grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
   gap: 0.45rem;
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated {
+  padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .lightbox__footer {
+  margin-top: 0.25rem;
+  padding: 0 0.35rem max(0.15rem, env(safe-area-inset-bottom, 0px));
 }
 
 /* Map lightbox — desktop: larger map on top, scrollable legend band below */
@@ -6890,10 +6907,10 @@
   .lightbox__panel--annotated .annotated-map__sidebar,
   .lightbox__panel--annotated .hoenn-crop__sidebar,
   .lightbox__panel--annotated .area-map-view__sidebar {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     width: 100%;
     min-width: 0;
-    min-height: min(26dvh, 220px);
+    min-height: 0;
     max-height: none;
     margin: 0 0.3rem 0.3rem;
     padding: 0.6rem 0.55rem;
@@ -6911,8 +6928,15 @@
     flex: 0 0 auto;
     width: 100%;
     min-height: 0;
-    max-height: none;
+    max-height: min(48dvh, 400px);
     height: auto;
+  }
+
+  .lightbox__panel--annotated .map-zoom-viewport--crop-fit {
+    width: min(100%, calc(min(48dvh, 400px) * var(--map-aspect-ratio, 1)));
+    max-width: 100%;
+    max-height: min(48dvh, 400px);
+    align-self: center;
   }
 
   .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
@@ -6924,7 +6948,7 @@
 
   .lightbox__panel--annotated .hoenn-crop--wide .hoenn-crop__zoom,
   .lightbox__panel--annotated .area-map-view--wide .area-map-view__zoom {
-    max-height: none;
+    max-height: min(42dvh, 340px);
   }
 
   .lightbox__panel--annotated .annotated-map--panoramic .annotated-map__frame {

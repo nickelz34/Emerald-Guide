@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.70",
+    date: "2026-07-12",
+    summary: "Mobile walkthrough gym maps no longer overflow the screen or hide the legend.",
+    sections: [
+      {
+        heading: "Walkthrough — maps",
+        items: [
+          "Gym and other tall interior maps in the mobile lightbox are capped to about half the screen height and sized by their aspect ratio, so maps like Mauville and Petalburg no longer load oversized.",
+          "The marker legend below the map stays visible and scrolls inside the remaining space instead of being clipped off the bottom.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.69",
     date: "2026-07-12",
     summary: "Walkthrough map markers stay larger in opened guide maps.",
