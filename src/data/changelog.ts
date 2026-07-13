@@ -20,6 +20,25 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.12",
+    date: "2026-07-13",
+    summary: "Ch. 2 breeding charts — larger egg sprites and a full alignment/layout pass.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "Egg sprites on breeding arrows and party Egg tiles now render at 64×128px on desktop (native 2:1 aspect), up from 32×48px.",
+          "Mobile egg sprites scale to 48×96px so they stay readable without crowding narrow layouts.",
+          "Pair rows use a flat five-column grid (parent × parent → offspring) instead of nesting both parents in one cell — fixes squished desktop layouts.",
+          "Fixed-height sprite stages (128px) bottom-align Pokémon and Egg art so mixed heights no longer throw off rows.",
+          "Gender badge spacers reserve space when a Pokémon has no ♀/♂ symbol, keeping parent columns aligned.",
+          "Held-item icons on incense/Everstone rows sit in the badge row so they do not stack on top of egg sprites.",
+          "Egg-group grids use a compact 64px sprite stage; pair rows keep the taller stage for eggs.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.10",
     date: "2026-07-13",
     summary: "Ch. 2 breeding accuracy pass — egg sprites, mobile gender badges, and verified Gen III mechanics.",
