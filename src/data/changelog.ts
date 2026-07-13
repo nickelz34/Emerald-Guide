@@ -20,6 +20,33 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.13.3",
+    date: "2026-07-13",
+    summary: "Encounter panel coverage — dungeon wild tables, gym step fixes, and interior map links.",
+    sections: [
+      {
+        heading: "Wild encounter coverage",
+        items: [
+          "Aggregate pokeemerald floor maps under dungeon slugs (granite-cave-1f → granite-cave, etc.).",
+          "Fix step inference: dungeon prefixes before town (petalburg-woods no longer maps to Petalburg City).",
+          "Gym steps omit the wild panel instead of showing nearby town grass.",
+          "20 new explicit STEP_AREA_MAP entries for multi-floor dungeons and Safari/ship/cave steps.",
+        ],
+      },
+      {
+        heading: "Interior area maps",
+        items: [
+          "Link contest hall, Battle Pyramid floors, and Trainer Hill (Artisan Cave) to walkthrough steps.",
+          "verify-step-area-maps exempts event-only Navel Rock Top.",
+        ],
+      },
+      {
+        heading: "CI",
+        items: ["verify-encounter-coverage runs in npm run build."],
+      },
+    ],
+  },
+  {
     version: "1.13.2",
     date: "2026-07-13",
     summary: "P2 audit fixes — gym party details, stale encounter tips, and contest/HM07 wording.",
