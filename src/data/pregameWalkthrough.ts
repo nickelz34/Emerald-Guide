@@ -72,7 +72,7 @@ export const pregameEvolutionChapter: GuideSection = {
       summary:
         "High friendship — taming — plus a level-up evolves several species, including Eevee’s day and night forms.",
       story: [
-        "Friendship (often called taming) needs to reach about 220 before a level-up can evolve eligible species. A held Soothe Bell (free from the Route 113 Glass Workshop once you turn in enough ash) or a Luxury Ball catch speeds taming; walking, vitamins, and Center heals help too.",
+        "Friendship (often called taming) needs to reach about 220 before a level-up can evolve eligible species. A held Soothe Bell (free from the Route 113 Glass Workshop owner the first time you talk to him) or a Luxury Ball catch speeds taming; walking, vitamins, and Center heals help too.",
         "Baby lines that evolve this way include Pichu → Pikachu (then use a Thunder Stone for Raichu), Cleffa, Igglybuff, Togepi, and Azurill, plus Golbat, Chansey, and Eevee’s day/night forms. The chart below has the full list; Pacifidlog’s Return/Frustration TMs are handy friendship checks.",
       ],
       details: [],

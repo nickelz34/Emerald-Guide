@@ -63,11 +63,11 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
       type: "grid",
       grid: [
         { name: "Zigzagoon", dex: 263 },
-        { name: "Ralts", dex: 280 },
+        { name: "Skitty", dex: 300 },
         { name: "Eevee", dex: 133 },
         { name: "Slakoth", dex: 287 },
         { name: "Vulpix", dex: 37 },
-        { name: "Growlithe", dex: 58 },
+        { name: "Electrike", dex: 309 },
       ],
       gridNote: "Largest group in practice — Ditto partners with most Field species easily.",
     },
@@ -76,12 +76,13 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
       type: "grid",
       grid: [
         { name: "Marill", dex: 183 },
-        { name: "Ralts", dex: 280 },
         { name: "Cleffa", dex: 173 },
         { name: "Igglybuff", dex: 174 },
         { name: "Azurill", dex: 298 },
+        { name: "Snubbull", dex: 209 },
         { name: "Skitty", dex: 300 },
       ],
+      gridNote: "Ralts is Amorphous + Human-Like in Emerald — not Fairy (that typing arrives in later generations).",
     },
     {
       name: "Grass",
@@ -104,7 +105,7 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
         { name: "Abra", dex: 63 },
         { name: "Machop", dex: 66 },
         { name: "Ralts", dex: 280 },
-        { name: "Electrike", dex: 309 },
+        { name: "Spinda", dex: 327 },
       ],
     },
     {
@@ -128,6 +129,7 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
         { name: "Aron", dex: 304 },
         { name: "Onix", dex: 95 },
         { name: "Magnemite", dex: 81 },
+        { name: "Lunatone", dex: 337 },
       ],
       gridNote: "Genderless species like Magnemite and Voltorb breed only with Ditto.",
     },
@@ -140,6 +142,7 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
         { name: "Duskull", dex: 355 },
         { name: "Gastly", dex: 92 },
         { name: "Koffing", dex: 109 },
+        { name: "Ralts", dex: 280 },
       ],
     },
     {
@@ -179,7 +182,7 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
         { name: "Mewtwo", dex: 150 },
         { name: "Latias", dex: 380 },
         { name: "Kyogre", dex: 382 },
-        { name: "Lunatone", dex: 337 },
+        { name: "Beldum", dex: 374 },
       ],
       gridNote:
         "Legendaries, most baby Pokémon, and several single-stage species are Undiscovered. Breed the evolved line instead (e.g. Pikachu, not Pichu). Nidorina and Nidoqueen are a special case — they cannot breed even though Nidoran♀ can.",

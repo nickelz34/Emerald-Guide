@@ -53,7 +53,7 @@ export const INHERITANCE_BREEDING_CHART: BreedingChartSpec = {
           parentA: { name: "Zigzagoon", dex: 263, gender: "female", subtitle: "Pickup" },
           parentB: { name: "Ditto", dex: 132 },
           methodLabel: "Egg",
-          offspring: [{ name: "Zigzagoon", dex: 263, subtitle: "50% Pickup / Gluttony" }],
+          offspring: [{ name: "Zigzagoon", dex: 263, subtitle: "Pickup (only ability in Emerald)" }],
           note: "In Generations III and IV, ability is chosen randomly from the species' slots — parent ability does not bias the result.",
         },
         {

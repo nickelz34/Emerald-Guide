@@ -20,6 +20,46 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.12.0",
+    date: "2026-07-13",
+    summary:
+      "Comprehensive walkthrough accuracy pass from the full 52-chapter audit — story, gyms, breeding, and wild encounters.",
+    sections: [
+      {
+        heading: "Walkthrough — story & gyms",
+        items: [
+          "Oldale researcher blocks Route 102 (not Route 103); Route 103 rival return now requires Birch's lab visit and rival Poké Ball gift.",
+          "Ralts described as Psychic-only (Gen III); Route 110 drops phantom Duskull, fixes rival location, and corrects Wattson's party (Voltorb/Electrike/Magneton/Manectric).",
+          "Go-Goggles come from your rival after Flannery (not the Lavaridge Mart); Flannery gym uses spin tiles; Route 117 removes Roselia.",
+          "Mt. Pyre: Team Aqua steals the Blue Orb; elders give the Magma Emblem. Magma Hideout awakens Groudon with the Red Orb.",
+          "Sootopolis crisis directed by Wallace (not Steven); Juan is Gym Leader 8 (Kingdra ace); Wallace gives HM07 Waterfall outside the gym.",
+          "Sky Pillar removes Dragon Ascent (Gen VI); Abandoned Ship TM13 Snatch (not TM49). Safari Zone uses Bait/Rocks; Johto bike areas unlock post-Champion.",
+          "Trick House TM list, Trick House/Safari/contest Juan–Wallace roles, and other P1 step-level corrections across the story chapters.",
+        ],
+      },
+      {
+        heading: "Pregame — breeding & evolution",
+        items: [
+          "Eggs go to party (not Bag); Soothe Bell free on first Glass Workshop talk; Wynaut from Lavaridge old woman.",
+          "Flame Body/Magma Armor hatch helpers: Slugma (Route 113/Fiery Path) and Numel (Route 112/113); Zigzagoon ability note fixed for Emerald.",
+          "Egg group chart: Ralts in Amorphous/Human-Like, Lunatone in Mineral, Skitty in Field, Beldum in Undiscovered.",
+        ],
+      },
+      {
+        heading: "Route encounter panels",
+        items: [
+          "Route detail encounter tables now prefer pokeemerald wild_encounters.json data over stale curated tables in areaData.ts.",
+        ],
+      },
+      {
+        heading: "Gym data",
+        items: [
+          "Sootopolis gym panel uses Juan (TRAINER_JUAN_1) with accurate Kingdra team instead of Wallace/Milotic.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.15",
     date: "2026-07-13",
     summary: "Breeding lookup Parent A/B dropdowns use readable dark-theme colors on desktop.",

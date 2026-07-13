@@ -613,12 +613,12 @@ export function encountersFromWildData(wildList: WildPokemon[], areaId: string):
   });
 }
 
-/** Curated encounters first; otherwise pokeemerald wild data. */
+/** pokeemerald wild data first; curated tables are fallback only. */
 export async function loadRouteEncounters(areaId: string): Promise<PokemonEncounter[]> {
-  const curated = getAreaData(areaId)?.encounters ?? [];
-  if (curated.length > 0) return curated;
   const wild = await loadWildPokedex();
-  return encountersFromWildData(wild, areaId);
+  const fromWild = encountersFromWildData(wild, areaId);
+  if (fromWild.length > 0) return fromWild;
+  return getAreaData(areaId)?.encounters ?? [];
 }
 
 /** Tips, secrets, and hidden-item notes for the route detail panel. */

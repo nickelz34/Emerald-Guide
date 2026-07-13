@@ -165,12 +165,12 @@ const storyChapters: GuideSection[] = [
         summary: "A Poké Mart clerk gives a tutorial and a few free Potions.",
         story: [
           "Oldale Town is the first proper stop on your journey, and though it's small, it teaches you two habits that will keep your team alive for the next hundred hours. The Pokémon Center — the building with the red roof — heals your entire party back to full, completely free, as many times as you like. Make a mental note of where it sits; you'll be jogging back to one after nearly every tough fight.",
-          "Next door, the blue-roofed Poké Mart runs a quick shopping tutorial and sends you off with a few free Potions for your trouble. It's worth buying a handful more Poké Balls here too, since Route 102 to the west is crawling with catchable Pokémon. A researcher lingering at the north edge of town blocks the path onto Route 103 until you've spoken with them — a gentle nudge toward your next objective.",
+          "Next door, the blue-roofed Poké Mart runs a quick shopping tutorial and sends you off with a few free Potions for your trouble. It's worth buying a handful more Poké Balls here too, since Route 102 to the west is crawling with catchable Pokémon. A researcher lingering at the west edge of town blocks the path onto Route 102 until you've spoken with them — a gentle nudge toward your next objective.",
         ],
         details: [
           "Heal for free at the Pokémon Center any time your team is worn down.",
           "A Poké Mart employee runs a short shopping tutorial and hands you Potions.",
-          "A researcher blocks Route 103 to the north until you visit — talk to move on.",
+          "A researcher blocks Route 102 to the west until you talk to them — head north to Route 103 first.",
         ],
         secrets: [
           "There's a hidden Potion tucked in the sandy patch on the west side of town — you can sniff it out later once you have the Itemfinder.",
@@ -236,10 +236,10 @@ const storyChapters: GuideSection[] = [
         location: "Littleroot Town → Oldale",
         summary: "Return to the lab, then head west out of Oldale onto Route 102.",
         story: [
-          "With the rival dealt with, nothing keeps you on Route 103. Dropping by Birch's lab is optional now — no new gifts are waiting — so cut back through Oldale and strike west onto Route 102, the long grassy road that winds toward Petalburg City and, eventually, your father's Gym.",
+          "With the rival dealt with, head back to Littleroot and visit Birch's lab. The professor updates your Pokédex with your Route 103 catches, and your rival hands over five more Poké Balls before you strike out again. Cut back through Oldale and take Route 102 west toward Petalburg City and, eventually, your father's Gym.",
         ],
         details: [
-          "The rival returns to the lab ahead of you; visiting is optional now.",
+          "Return to Birch's lab in Littleroot — he updates your Pokédex and your rival gives you 5 more Poké Balls.",
           "From Oldale, take Route 102 west toward Petalburg City.",
         ],
         tags: ["story", "route-103"],
@@ -275,7 +275,7 @@ const storyChapters: GuideSection[] = [
         location: "Route 102",
         summary: "Ralts appears at just 4% — it becomes Gardevoir, a top-tier special attacker.",
         story: [
-          "If you have the patience for it, Route 102 hides one of the best long-term investments in the whole game: Ralts, a tiny Psychic/Fairy-type that appears in only 4% of grass encounters. It looks feeble now, but it grows into Kirlia and then Gardevoir — a graceful, hard-hitting special attacker that will still be pulling its weight against the Elite Four.",
+          "If you have the patience for it, Route 102 hides one of the best long-term investments in the whole game: Ralts, a tiny Psychic-type that appears in only 4% of grass encounters. It looks feeble now, but it grows into Kirlia and then Gardevoir — a graceful, hard-hitting special attacker that will still be pulling its weight against the Elite Four.",
           "Ralts is stubbornly rare, so bring plenty of Poké Balls and settle in for a hunt; a Surskit or two will keep you company in the morning grass while you search. It's entirely optional, but a trainer who lands a good-natured Ralts here rarely regrets the time spent.",
         ],
         details: [
@@ -652,7 +652,7 @@ const storyChapters: GuideSection[] = [
           "Chat with the townsfolk to start the 'hip and happening' trend spread with Steven.",
         ],
         secrets: [
-          "Spreading the \"hip and happening\" trend between Dewford and Slateport's fan club eventually earns you a Silk Scarf — a held item that boosts Normal-type moves.",
+          "Spreading a new \"hip and happening\" trend from another town to the boy in Dewford earns a Silk Scarf — a held item that boosts Normal-type moves.",
           "Route 106's rocky shallows hide a Heart Scale underwater (Dive) and trainers with good EXP — worth a sweep once you have Surf.",
         ],
         tags: ["briney", "dewford"],
@@ -762,7 +762,7 @@ const storyChapters: GuideSection[] = [
         ],
         details: [
           "Browse the open-air market for vitamins, berries, and items for later contest prep.",
-          "Visit the man in the southwest house — he teaches TM43 Secret Power for secret bases.",
+          "Visit the man in the house north of the market — he teaches TM43 Secret Power for secret bases.",
           "The Name Rater can rename one of your Pokémon.",
           "Battle Tent and the Harbor sit on the south side — all Pokémon Contests are in Lilycove only.",
         ],
@@ -826,7 +826,7 @@ const storyChapters: GuideSection[] = [
           "Each room hides a scroll; reading it opens the exit.",
         ],
         secrets: [
-          "Each Trick House room hands out a TM — over the game you can collect prizes like TM39 Rock Tomb, TM32 Double Team, and TM12 Taunt just for solving puzzles.",
+          "Each Trick House room hands out a TM — over the game you can collect prizes like TM31 Brick Break, TM32 Double Team, TM12 Taunt, and TM34 Shock Wave just for solving puzzles.",
         ],
         tags: ["trick-house", "route-110"],
       },
@@ -834,13 +834,13 @@ const storyChapters: GuideSection[] = [
         id: "route-110-2",
         title: "Cycling Road & wild Pokémon",
         location: "Route 110",
-        summary: "Electric Pokémon and Duskull (night) roam the grass beneath Cycling Road.",
+        summary: "Electric Pokémon roam the grass beneath Cycling Road.",
         story: [
-          "The grass flanking the elevated Cycling Road crackles with new faces. Electrike sparks about (later a fast, fierce Manectric), gluttonous Gulpin waddle through the weeds, and the cheerful Minun turns up for Emerald players. Come back after dark and the eerie Duskull floats out — the start of a superb Ghost-type line.",
+          "The grass flanking the elevated Cycling Road crackles with new faces. Electrike sparks about (later a fast, fierce Manectric), gluttonous Gulpin waddle through the weeds, Oddish and Wingull turn up in the patches, and Plusle and Minun cheer each other on in Emerald's version of the route.",
           "The Cycling Road overhead is a one-way rush toward Slateport for now; its ramps demand the Mach Bike you'll pick up in Mauville, so file it away as another reason to return once you're on two wheels.",
         ],
         details: [
-          "Catch Electrike (→ Manectric), Gulpin, Oddish, Minun, and Duskull at night.",
+          "Catch Electrike (→ Manectric), Gulpin, Oddish, Wingull, Plusle, and Minun in the grass.",
           "Cycling Road's ramps need the Mach Bike (from Mauville) to climb.",
           "The Seaside Cycling Road connects down toward Slateport.",
         ],
@@ -849,10 +849,10 @@ const storyChapters: GuideSection[] = [
       {
         id: "route-110-3",
         title: "Rival Battle #3",
-        location: "Route 110 (north)",
-        summary: "Your rival battles you again near the Mauville entrance with a stronger team.",
+        location: "Route 110 (from Slateport)",
+        summary: "Your rival battles you again partway up Route 110 with a stronger team.",
         story: [
-          "Near the northern end of the route, just short of Mauville, your rival is waiting again — and this time they've filled out a proper team, a starter backed by a second Pokémon in the high teens. It's a real test of everything you've built since Littleroot, so lead into their weakness and don't be shy with your items.",
+          "Partway up Route 110 from Slateport — near the southern rest area before Mauville — your rival is waiting again, and this time they've filled out a proper team: a starter backed by a second Pokémon in the high teens. It's a real test of everything you've built since Littleroot, so lead into their weakness and don't be shy with your items.",
           "Beat them and they'll cheer you on toward the Mauville Gym before dashing off. Push north into the bright, breezy city, where an Electric-type leader and a brand-new bike are waiting.",
         ],
         details: [
@@ -896,11 +896,11 @@ const storyChapters: GuideSection[] = [
         summary: "Wattson uses Electric-types behind a switch-puzzle gym.",
         story: [
           "Wattson is a jolly, big-bellied old inventor, and his Gym is one big electrical puzzle — a floor of gates you open and close by hitting switches in the right order to carve a path to the leader. Take it slow; there's no penalty for experimenting, and the trainers you pass give good experience.",
-          "His Magnemite, Voltorb, Magneton, and Manectric hit fast and hard, but they share a glaring blind spot: Ground moves. A Geodude, Marshtomp, or any Ground-type is flat-out immune to Electric and simply walks through the whole Gym. Win and Wattson roars with laughter as he awards the Dynamo Badge and TM34 Shock Wave.",
+          "His Voltorb, Electrike, Magneton, and Manectric hit fast and hard, but they share a glaring blind spot: Ground moves. A Geodude, Marshtomp, or any Ground-type is flat-out immune to Electric and simply walks through the whole Gym. Win and Wattson roars with laughter as he awards the Dynamo Badge and TM34 Shock Wave.",
         ],
         details: [
           "Flip the gym's electric gates in sequence to reach Wattson.",
-          "His team: Magnemite, Voltorb, Magneton, and Manectric (lv 20–24).",
+          "His team: Voltorb, Electrike, Magneton, and Manectric (lv 20–24).",
           "Ground-types (Geodude, Marshtomp) are immune to Electric — they hard-counter him.",
           "Win for the Dynamo Badge and TM34 Shock Wave.",
         ],
@@ -939,11 +939,11 @@ const storyChapters: GuideSection[] = [
         summary: "The Pokémon Day Care and berry patches sit along this short western route.",
         story: [
           "Route 117 is a gentle, sun-dappled path west of Mauville, and its centrepiece is the Pokémon Day Care. Leave two compatible Pokémon with the elderly couple and they'll mind them, level them up slowly, and — if the pair get along — produce an Egg you can hatch into a fresh, breedable Pokémon. It's the gateway to serious team-building for anyone who catches the collecting bug.",
-          "The route's flowery grass is worth combing too: Marill, Oddish, Roselia, and the fireflies Illumise and Volbeat all live here, with berry patches scattered between the trainers for a little farming on the side.",
+          "The route's flowery grass is worth combing too: Marill, Oddish, Seedot, and the fireflies Illumise and Volbeat all live here, with berry patches scattered between the trainers for a little farming on the side.",
         ],
         details: [
           "Leave the Day Care two compatible Pokémon to breed for eggs.",
-          "Catch Marill, Oddish, Roselia, and Illumise/Volbeat here.",
+          "Catch Marill, Oddish, Seedot, and Illumise/Volbeat here.",
         ],
         tips: [
           "For full Day Care rules — egg groups, Everstone natures, IVs, and incense babies — see Pregame: Breeding at the start of this guide.",
@@ -1006,11 +1006,11 @@ const storyChapters: GuideSection[] = [
           "The desert's real treasure is the Mirage Tower, a crumbling spire that flickers in and out of view. Climb it and you'll face a fateful choice between the Root Fossil (which revives into Lileep) and the Claw Fossil (Anorith) — you can only take one, so choose the ancient Pokémon you'd rather have. Come back once the Go-Goggles are yours.",
         ],
         details: [
-          "You need the Go-Goggles (from Lavaridge later) to walk the desert safely.",
+          "You need the Go-Goggles (from your rival after Flannery) to walk the desert safely.",
           "Mirage Tower hides the Root Fossil (Lileep) and Claw Fossil (Anorith) — pick one.",
           "Trapinch, Cacnea, Sandshrew, and Baltoy live in the sand.",
         ],
-        tips: ["Come back for the desert after Lavaridge gives you the Go-Goggles."],
+        tips: ["Come back for the desert after your rival gives you the Go-Goggles outside Lavaridge Gym."],
         secrets: [
           "Mirage Tower crumbles after you grab one fossil — the other is lost for that save file, though you can dig up the alternate fossil at the Desert Underpass much later.",
           "The Desert Ruins in the northeast sand hold Regirock — one of the Regi golems. The door stays sealed until you solve the Sealed Chamber puzzle much later.",
@@ -1044,7 +1044,7 @@ const storyChapters: GuideSection[] = [
         location: "Route 112",
         summary: "Team Magma Grunts loiter near the Fiery Path entrance.",
         story: [
-          "Route 112 climbs the ashy slopes beneath Mt. Chimney, and you're not the only ones here — Team Magma Grunts, Aqua's fire-loving rivals, loiter along the mountainside up to no good. Battle past them; their schemes centre on the volcano above, and you're about to walk straight into the middle of one.",
+          "Route 112 climbs the ashy slopes beneath Mt. Chimney, and you're not the only ones here — Team Magma Grunts clash with Team Aqua along the mountainside. Battle past them; their schemes centre on the volcano above, and you're about to walk straight into the middle of one.",
           "The cable car station perched on the eastern ledge is your eventual ride to the summit, but it's off-limits until you've cut through the Fiery Path to reach it. For now, the glowing cave mouth ahead is the way through.",
         ],
         details: [
@@ -1101,7 +1101,7 @@ const storyChapters: GuideSection[] = [
         id: "route-113-2",
         title: "The Glass Workshop",
         location: "Route 113",
-        summary: "Trade collected ash for flutes and a free Soothe Bell.",
+        summary: "Trade collected ash for flutes; the owner also gives a free Soothe Bell.",
         story: [
           "The Glass Workshop on Route 113 turns your collected soot into treasure. The craftsman there blows the ash into a set of flutes — the Blue Flute wakes sleeping Pokémon, the Red Flute snaps foes out of infatuation, and others cure status or heal you — plus decorative glass for a secret base.",
           "Best of all, talk to him and he'll simply give you a Soothe Bell, a held item that speeds up how quickly a Pokémon warms to you. That's the key to friendship evolutions like Golbat into Crobat. Pocket it, then continue west toward Fallarbor Town.",
@@ -1271,12 +1271,12 @@ const storyChapters: GuideSection[] = [
         summary: "The famous hot springs heal you; an old woman gives an Egg.",
         story: [
           "Lavaridge is a spa town built around natural hot springs, and the locals swear by a soak. Chat around the pools for hints, then seek out the old woman near the springs — she presses a Pokémon Egg into your hands, which will hatch into Wynaut, the pre-evolved form of the powerful Wobbuffet.",
-          "While you're here, buy the Go-Goggles from the Poké Mart. With them equipped, you can finally cross the Route 111 desert and claim that Mirage Tower fossil you passed earlier.",
+          "Beat Flannery and your rival meets you outside the Gym with the Go-Goggles — finally letting you cross the Route 111 desert and claim that Mirage Tower fossil you passed earlier.",
         ],
         details: [
           "Soak in the hot springs to chat with locals and get hints.",
           "An old woman near the springs gives you an Egg that hatches into Wynaut.",
-          "Buy the Go-Goggles here to cross the Route 111 desert.",
+          "After beating Flannery, your rival gives you the Go-Goggles outside the Gym.",
         ],
         secrets: [
           "Wynaut learns Counter and Mirror Coat — a patient Wobbuffet can turn any reckless attacker against itself.",
@@ -1289,11 +1289,11 @@ const storyChapters: GuideSection[] = [
         location: "Lavaridge Town Gym",
         summary: "Flannery uses Fire-types in a gym of hot-spring smoke and spin tiles.",
         story: [
-          "Flannery is Lavaridge's young, earnest Gym Leader, and her arena is a haze of hot-spring steam broken up by spinning warp tiles that disorient you on the way to her platform. Navigate the puzzle, beat the junior trainers, and you'll face a quartet of Fire-types led by a bulky Torkoal that loves Overheat and Attract.",
+          "Flannery is Lavaridge's young, earnest Gym Leader, and her arena is a haze of hot-spring steam broken up by spinning floor tiles that disorient you on the way to her platform. Navigate the puzzle, beat the junior trainers, and you'll face a quartet of Fire-types led by a bulky Torkoal that loves Overheat and Attract.",
           "Water, Ground, and Rock moves melt the whole team. This is your fourth badge — one more and your father will finally accept your challenge. Flannery awards the Heat Badge and TM50 Overheat.",
         ],
         details: [
-          "Navigate the smoke-and-warp-tile puzzle to reach Flannery.",
+          "Navigate the smoke-and-spin-tile puzzle to reach Flannery.",
           "Her team: Numel, Slugma, Camerupt, and Torkoal (lv 24–29).",
           "Torkoal has Overheat and Attract — Water, Ground, or Rock moves win easily.",
           "Win for the Heat Badge and TM50 Overheat.",
@@ -1621,12 +1621,12 @@ const storyChapters: GuideSection[] = [
         location: "Safari Zone",
         summary: "Pay the entry fee for 30 Safari Balls and 500 steps to catch exclusive Pokémon.",
         story: [
-          "The Safari Zone works differently from anywhere else in Hoenn. Pay the 500 entry fee and you're handed 30 Safari Balls and a 500-step allowance — no fainting wild Pokémon, no whittling down HP. Instead you throw Poké Blocks or Bait to change a Pokémon's mood, then lob a Safari Ball and hope it sticks. Your run ends when the balls or the steps run out.",
+          "The Safari Zone works differently from anywhere else in Hoenn. Pay the 500 entry fee and you're handed 30 Safari Balls and a 500-step allowance — no fainting wild Pokémon, no whittling down HP. Instead you throw Bait or Rocks to change catch odds and flee rates, then lob a Safari Ball and hope it sticks. Your run ends when the balls or the steps run out.",
           "The reward is a roster you can't catch in the wild elsewhere: Pikachu, Pinsir, Heracross, Rhyhorn, Doduo, Natu, Girafarig, Phanpy, Oddish, Gloom, Wobbuffet, and more roam the fields. It's the single best spot to round out your Pokédex mid-game.",
         ],
         details: [
           "Entry costs 500; you receive 30 Safari Balls and 500 steps.",
-          "Throw Poké Blocks/Bait to affect the Pokémon, then a Safari Ball to catch it.",
+          "Throw Bait (easier catch, more likely to flee) or Rocks (harder catch, less likely to flee), then a Safari Ball to catch it.",
           "Exclusive catches include Pikachu, Pinsir, Heracross, Rhyhorn, Girafarig, Natu, and Phanpy.",
         ],
         tips: ["Heracross and Pinsir are Safari-only physical powerhouses — worth a dedicated run."],
@@ -1639,15 +1639,15 @@ const storyChapters: GuideSection[] = [
         id: "safari-zone-3",
         title: "The bike-only expansion areas",
         location: "Safari Zone (northern extension)",
-        summary: "Emerald adds Acro/Mach Bike areas with Johto Pokémon.",
+        summary: "Emerald adds Acro/Mach Bike areas with Johto Pokémon — unlocked after the Hall of Fame.",
         story: [
-          "Emerald expands the Safari Zone with two northern areas reached only by bike. The Acro Bike section — full of bike rails and bumps — hides Aipom, Gligar, Girafarig, and Pinsir, while the Mach Bike section over sandy mud holds Phanpy, Rhyhorn, and the elusive Miltank.",
-          "These extensions are also home to Johto natives you won't see anywhere else in the game: Ledyba, Spinarak, Sunkern, Marill, and more. Bring the right bike (swap at Rydel's shop in Mauville) and plenty of Safari Balls.",
+          "Emerald expands the Safari Zone with two northern areas reached only by bike, but they stay locked until you become Champion. After the Hall of Fame, the Acro Bike section — full of bike rails and bumps — opens with Aipom, Gligar, Girafarig, and Pinsir, while the Mach Bike section over sandy mud holds Phanpy, Rhyhorn, and the elusive Miltank.",
+          "These extensions are also home to Johto natives you won't see anywhere else in the main story: Ledyba, Spinarak, Sunkern, Marill, and more. Become Champion first, then bring the right bike (swap at Rydel's shop in Mauville) and plenty of Safari Balls.",
         ],
         details: [
-          "The north-east area needs the Acro Bike; the north-west needs the Mach Bike.",
+          "The north-east area needs the Acro Bike; the north-west needs the Mach Bike — both unlock post-Champion.",
           "Acro area: Aipom, Gligar, Girafarig, Pinsir. Mach area: Phanpy, Rhyhorn, Miltank.",
-          "Johto-only species (Ledyba, Spinarak, Sunkern, Marill) appear only in these extensions.",
+          "Johto-only species (Ledyba, Spinarak, Sunkern, Marill) appear only in these extensions after you beat the Champion.",
         ],
         secrets: [
           "Swap bikes at Rydel's Cycling Shop in Mauville before a run — you can't switch inside the Safari Zone.",
@@ -1706,7 +1706,7 @@ const storyChapters: GuideSection[] = [
         ],
         details: [
           "Surf south via Routes 122/123 to reach Mt. Pyre.",
-          "The team plot escalates with the Red and Blue Orb theft (next chapter).",
+          "The team plot escalates with Team Aqua's Blue Orb theft at Mt. Pyre (next chapter).",
         ],
         tags: ["story", "lilycove"],
       },
@@ -1737,19 +1737,19 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "mt-pyre-2",
-        title: "The Red & Blue Orb theft",
+        title: "Team Aqua steals the Blue Orb",
         location: "Mt. Pyre summit",
-        summary: "Team Magma steals the Magma Emblem's key orb from the old couple.",
+        summary: "Archie takes the Blue Orb; the elders give you the Magma Emblem.",
         story: [
-          "At the summit, an elderly couple has guarded the Red and Blue Orbs for decades — orbs tied to the primal power of Groudon and Kyogre. Team Magma storms the shrine, seizes one orb, and vanishes, setting in motion the awakening that will throw all of Hoenn into crisis.",
-          "The old woman entrusts you with the remaining orb and urges you to act. From here the story splits: chase Magma to their hideout on Jagged Pass, then pursue Aqua to the depths of the sea.",
+          "At the summit, an elderly couple has guarded the Red and Blue Orbs for decades — orbs tied to the primal power of Groudon and Kyogre. Team Aqua storms the shrine under Archie, seizes the Blue Orb, and vanishes toward the sea, setting in motion the awakening that will throw all of Hoenn into crisis.",
+          "The old couple entrusts you with the Magma Emblem instead — the key that opens Team Magma's hideout on Jagged Pass — and urges you to act. From here the story splits: storm Magma's volcano base, then pursue Aqua to the depths.",
         ],
         details: [
           "At the summit, an elderly couple guards the Red and Blue Orbs.",
-          "Team Magma takes an orb, setting up the awakening of Groudon.",
-          "The old woman gives you the remaining orb.",
+          "Team Aqua (Archie) steals the Blue Orb from the shrine.",
+          "The elders give you the Magma Emblem to enter the Magma Hideout.",
         ],
-        tags: ["orbs", "team-magma", "story", "mt-pyre"],
+        tags: ["orbs", "team-aqua", "story", "mt-pyre"],
       },
     ],
   },
@@ -1784,12 +1784,12 @@ const storyChapters: GuideSection[] = [
         location: "Magma Hideout",
         summary: "Maxie uses the orb to wake Groudon, but it flees underground.",
         story: [
-          "Deeper in the hideout, Admin Tabitha and Maxie make their stand. Beat them both and you arrive moments too late: Maxie uses the stolen orb to awaken Groudon, the continent Pokémon — but the beast shakes off his control and vanishes underground, leaving Magma in disarray.",
+          "Deeper in the hideout, Admin Tabitha and Maxie make their stand. Beat them both and you arrive moments too late: Maxie uses the Red Orb to awaken Groudon, the continent Pokémon — but the beast shakes off his control and vanishes underground, leaving Magma in disarray.",
           "The drought begins. Head back to Lilycove and chase Team Aqua's submarine to Slateport — the race for Kyogre is on.",
         ],
         details: [
-          "Defeat Admin Tabitha and Maxie deeper in the base.",
-          "Groudon awakens and vanishes — the drought/rain crisis begins to build.",
+          "Defeat Admin Tabitha and Maxie deeper in the base (Mightyena, Crobat, Camerupt).",
+          "Groudon awakens with the Red Orb and vanishes — the drought/rain crisis begins to build.",
           "Head to Lilycove and chase Team Aqua's submarine to Slateport.",
         ],
         tags: ["groudon", "story", "magma-hideout"],
@@ -1908,11 +1908,11 @@ const storyChapters: GuideSection[] = [
         summary: "Groudon and Kyogre clash above Sootopolis as the climate goes haywire.",
         story: [
           "Sootopolis is a city built inside a volcanic crater, and when you arrive the sky above it is a battlefield — Groudon and Kyogre circling each other as blistering sun and torrential rain alternate in seconds. The townspeople shelter indoors; the world feels like it's coming apart.",
-          "Steven meets you and sends you into the Cave of Origin at the city's heart, hoping the legendaries can be calmed from within. They're not — the orbs' power is beyond anything you can suppress alone.",
+          "Wallace meets you and sends you into the Cave of Origin at the city's heart, hoping the legendaries can be calmed from within. They're not — the orbs' power is beyond anything you can suppress alone.",
         ],
         details: [
           "Reach Sootopolis (Surf/Dive/Waterfall access) to find chaos in the sky.",
-          "Steven directs you to seek the only Pokémon that can stop them.",
+          "Wallace directs you to seek the only Pokémon that can stop them.",
           "Enter the Cave of Origin, but the legendaries can't be calmed from here.",
         ],
         tags: ["story", "sootopolis"],
@@ -1921,12 +1921,12 @@ const storyChapters: GuideSection[] = [
         id: "sootopolis-2",
         title: "Seek Rayquaza",
         location: "Sootopolis → Sky Pillar",
-        summary: "Steven sends you to the Sky Pillar near Pacifidlog to wake Rayquaza.",
+        summary: "Wallace sends you to the Sky Pillar near Pacifidlog to wake Rayquaza.",
         story: [
-          "Steven lays it out plainly: only Rayquaza, the sky dragon sleeping in the ancient Sky Pillar east of Pacifidlog Town, has the power to quell Groudon and Kyogre. Fly or Surf toward Pacifidlog, then find the pillar on its own tiny island — a crumbling tower that will test your Mach Bike skills.",
+          "Wallace lays it out plainly: only Rayquaza, the sky dragon sleeping in the ancient Sky Pillar east of Pacifidlog Town, has the power to quell Groudon and Kyogre. Fly or Surf toward Pacifidlog, then find the pillar on its own tiny island — a crumbling tower that will test your Mach Bike skills.",
         ],
         details: [
-          "Steven meets you and points you to the Sky Pillar east of Pacifidlog Town.",
+          "Wallace meets you and points you to the Sky Pillar east of Pacifidlog Town.",
           "Surf and Fly toward Pacifidlog, then reach the Sky Pillar (next chapter).",
         ],
         tags: ["rayquaza", "story", "sootopolis"],
@@ -1980,7 +1980,7 @@ const storyChapters: GuideSection[] = [
         location: "Route 131",
         summary: "Route 131 east of Pacifidlog leads to the island of the Sky Pillar.",
         story: [
-          "From Pacifidlog, Surf east along Route 131. The current here runs your way, carrying you toward a lonely island crowned by an ancient, crumbling tower — the Sky Pillar, where the sky dragon Rayquaza sleeps. This is exactly where Steven sent you from Sootopolis to end the weather crisis.",
+          "From Pacifidlog, Surf east along Route 131. The current here runs your way, carrying you toward a lonely island crowned by an ancient, crumbling tower — the Sky Pillar, where the sky dragon Rayquaza sleeps. This is exactly where Wallace sent you from Sootopolis to end the weather crisis.",
           "Land on the island and steel yourself: the climb ahead demands the Mach Bike and steady nerves.",
         ],
         details: [
@@ -2029,7 +2029,7 @@ const storyChapters: GuideSection[] = [
           "You can return to catch Rayquaza (lv 70) here after the story — save first.",
         ],
         secrets: [
-          "Rayquaza is level 70 and learns Dragon Ascent — the only Pokémon that can Mega Evolve into Mega Rayquaza in later games.",
+          "Rayquaza is level 70 — a top-tier Dragon/Flying attacker for the post-game and Battle Frontier.",
         ],
         tags: ["rayquaza", "story", "sky-pillar"],
       },
@@ -2050,7 +2050,7 @@ const storyChapters: GuideSection[] = [
         ],
         tips: ["False Swipe + status makes catching much easier."],
         secrets: [
-          "Rayquaza learns Dragon Ascent — the only Pokémon that can Mega Evolve into Mega Rayquaza in later games.",
+          "Rayquaza is level 70 — save before the battle; Outrage and Hyper Beam hit extremely hard.",
         ],
         tags: ["rayquaza", "lv70", "sky-pillar"],
       },
@@ -2058,7 +2058,7 @@ const storyChapters: GuideSection[] = [
   },
   {
     id: "sootopolis-gym",
-    title: "Ch. 39 — Sootopolis Gym (Wallace)",
+    title: "Ch. 39 — Sootopolis Gym (Juan)",
     description: "The eighth badge and HM07 Waterfall.",
     steps: [
       {
@@ -2067,8 +2067,8 @@ const storyChapters: GuideSection[] = [
         location: "Sootopolis City",
         summary: "With the crisis over, Wallace gives you HM07 Waterfall outside the gym.",
         story: [
-          "Peace returns to Sootopolis, and Wallace — the city's Gym Leader and Hoenn's Pokémon Contest Master — stands outside the now-open Gym. He congratulates you on saving the region and hands over HM07 Waterfall, the move that lets you scale waterfalls and opens the path to Victory Road.",
-          "Teach it to a Surf user or HM carrier, then step inside for your eighth and final badge.",
+          "Peace returns to Sootopolis, and Wallace — Hoenn's Pokémon Contest Master — stands outside the now-open Gym. He congratulates you on saving the region and hands over HM07 Waterfall, the move that lets you scale waterfalls and opens the path to Victory Road.",
+          "Teach it to a Surf user or HM carrier, then step inside to face Juan, Sootopolis's Gym Leader, for your eighth and final badge.",
         ],
         details: [
           "After Rayquaza calms the legendaries, the gym opens.",
@@ -2079,20 +2079,20 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sootopolis-gym-2",
-        title: "Gym 8 — Wallace (Rain Badge)",
+        title: "Gym 8 — Juan (Rain Badge)",
         location: "Sootopolis City Gym",
-        summary: "Wallace is a Water-type master on a gym of cracking ice floors.",
+        summary: "Juan is a Water-type master on a gym of cracking ice floors.",
         story: [
-          "Wallace's Gym is an elegant ice-floor puzzle — step on a tile and it cracks beneath you, so you have to plan your route carefully to reach the leader without trapping yourself. His Water-types are polished and tough: Luvdisc, Whiscash, Sealeo, Seaking, and the bulky ace Milotic.",
-          "Electric and Grass moves tear through the team; just be ready for Milotic's high defenses. Win the Rain Badge and every Pokémon in your party obeys you, no matter the level — and the road to the Pokémon League finally opens.",
+          "Juan's Gym is an elegant ice-floor puzzle — step on a tile and it cracks beneath you, so you have to plan your route carefully to reach the leader without trapping yourself. His Water-types are polished and tough: Luvdisc, Whiscash, Sealeo, Crawdaunt, and the ace Kingdra.",
+          "Electric and Grass moves tear through the team; just be ready for Kingdra's high defenses and Rest. Win the Rain Badge and every Pokémon in your party obeys you, no matter the level — and the road to the Pokémon League finally opens.",
         ],
         details: [
-          "Cross the ice-floor puzzle (each tile cracks) to reach Wallace.",
-          "His team: Luvdisc, Whiscash, Sealeo, Seaking, and Milotic (lv 40–43).",
-          "Electric and Grass moves win; Milotic is bulky, so bring strong coverage.",
+          "Cross the ice-floor puzzle (each tile cracks) to reach Juan.",
+          "His team: Luvdisc, Whiscash, Sealeo, Crawdaunt, and Kingdra (lv 41–46).",
+          "Electric and Grass moves win; Kingdra can Rest — bring strong coverage.",
           "Win for the Rain Badge — all Pokémon now obey and Victory Road opens.",
         ],
-        tags: ["gym", "badge-8", "wallace", "sootopolis-gym"],
+        tags: ["gym", "badge-8", "juan", "sootopolis-gym"],
       },
       {
         id: "sootopolis-gym-3",
@@ -2125,11 +2125,11 @@ const storyChapters: GuideSection[] = [
         summary: "Surf to the half-sunk ship between Dewford and Slateport.",
         story: [
           "Out on Route 108, between Dewford and Slateport, a half-sunk ship lists in the shallows. Surf out and climb aboard to explore its flooded cabins — a warren of locked rooms, seawater, and scattered loot. Many doors need keys you'll find on site, so expect to backtrack as you piece the puzzle together.",
-          "The upper cabins give up Harbor Mail, a Revive, and TM49 (Snatch) among other odds and ends. To reach the best prize, though, you'll need to head below the surface.",
+          "The upper cabins give up Harbor Mail, a Revive, and TM13 Snatch among other odds and ends. To reach the best prize, though, you'll need to head below the surface.",
         ],
         details: [
           "Surf to the Abandoned Ship on Route 108 (east of Dewford's waters).",
-          "Explore the cabins for Harbor Mail, a Revive, TM49 Snatch, and more.",
+          "Explore the cabins for Harbor Mail, a Revive, TM13 Snatch, and more.",
           "Some rooms are locked until you find the Room Key and Storage Key.",
         ],
         tips: ["Bring Surf; you can visit as soon as you can cross the water, but Dive unlocks the full ship."],
@@ -2588,7 +2588,7 @@ const contestsLilycoveChapter: GuideSection = {
       summary: "Take Master rank for the toughest AI and meet Hoenn's Contest Master — Wallace.",
       story: [
         "Master rank is the final test. Opponents run optimized combos and maxed condition. Bring your best-blended blocks, a held scarf, and a moveset with at least one reliable two-turn combination plus a high-appeal finisher for turn five (moves like Hyper Beam or Outrage jam opponents but skip a turn — save them for the last round).",
-        "Winning Master in any category earns the Master Ribbon for that type. Wallace — Sootopolis Gym Leader and Hoenn's Contest Master — appears in the audience at high ranks and later gives you HM07 Waterfall after the Sootopolis story. Contests and the main plot intertwine at Sootopolis: Juan replaces Wallace as Gym Leader in Emerald, while Wallace remains the contest icon.",
+        "Winning Master in any category earns the Master Ribbon for that type. Wallace — Hoenn's Contest Master — appears in the audience at high ranks and later gives you HM07 Waterfall outside Sootopolis Gym after the weather crisis. In Emerald, Juan leads the Sootopolis Gym while Wallace stays the contest icon.",
         "You do not need Master ribbons to finish the game, but collecting all twenty is a true post-game goal alongside the Battle Frontier.",
       ],
       details: [
@@ -2596,7 +2596,7 @@ const contestsLilycoveChapter: GuideSection = {
         "Use combo openers turns 1–4; finish with your strongest single appeal on turn 5.",
         "Equip scarf and verify condition on the Pokénav before each attempt.",
         "Win to earn the Master Ribbon for that category.",
-        "Wallace is the story's Contest Master — you will meet him again at Sootopolis Gym.",
+        "Wallace is the story's Contest Master — you will meet him again outside Sootopolis Gym for HM07 Waterfall.",
       ],
       tips: [
         "Beauty: Sunny Day → Overheat or Fire Blast. Tough: Harden → Tackle or Bulk Up → Brick Break. Smart: Calm Mind → Psychic on Gardevoir or Claydol.",
