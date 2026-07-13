@@ -311,30 +311,10 @@ export function StepBrowser({
             <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenGuideSettings}>
               Guide settings
             </button>
-            <button
-              type="button"
-              className="btn btn--ghost btn--sm"
-              onClick={() => void handleSaveProgress()}
-            >
-              Save progress
-            </button>
             <span className="step-rail__mode-label">
               {walkthroughPrefs.playMode === "storyline" ? "Storyline" : "Completionist"}
               {walkthroughPrefs.skipPregame ? " · No pregame" : ""}
             </span>
-            {saveCode ? (
-              <div className="step-rail__save-code" role="status">
-                <span className="step-rail__save-code-label">Your save code</span>
-                <code className="step-rail__save-code-value">{saveCode}</code>
-                <span className="step-rail__save-code-hint">
-                  {copyStatus === "copied"
-                    ? "Copied to clipboard"
-                    : copyStatus === "failed"
-                      ? "Copy manually — clipboard unavailable"
-                      : "Enter this on Guide settings to continue later"}
-                </span>
-              </div>
-            ) : null}
           </div>
         ) : null}
         <input
@@ -439,6 +419,31 @@ export function StepBrowser({
             </p>
           </>
         )}
+
+        {category === "walkthrough" && walkthroughPrefs ? (
+          <div className="step-stage__save">
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => void handleSaveProgress()}
+            >
+              Save progress
+            </button>
+            {saveCode ? (
+              <div className="step-stage__save-code" role="status">
+                <span className="step-stage__save-code-label">Your save code</span>
+                <code className="step-stage__save-code-value">{saveCode}</code>
+                <span className="step-stage__save-code-hint">
+                  {copyStatus === "copied"
+                    ? "Copied to clipboard"
+                    : copyStatus === "failed"
+                      ? "Copy manually — clipboard unavailable"
+                      : "Enter this on Guide settings to continue later"}
+                </span>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
         <article className="step-card">
           <span className="step-card__crumb">
@@ -565,24 +570,6 @@ export function StepBrowser({
             {category === "walkthrough" ? "Next step" : "Next"} →
           </button>
         </div>
-        {category === "walkthrough" && walkthroughPrefs ? (
-          <div className="step-nav__save">
-            <button
-              type="button"
-              className="btn btn--ghost"
-              onClick={() => void handleSaveProgress()}
-            >
-              Save progress
-            </button>
-            {saveCode ? (
-              <p className="step-nav__save-code" role="status">
-                Save code: <code>{saveCode}</code>
-                {copyStatus === "copied" ? " · Copied" : null}
-                {copyStatus === "failed" ? " · Copy manually" : null}
-              </p>
-            ) : null}
-          </div>
-        ) : null}
         {mobileNav ? (
           <p className="step-nav__swipe-hint">
             Swipe <strong>left</strong> for next · <strong>right</strong> for previous

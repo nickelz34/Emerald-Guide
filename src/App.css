@@ -8457,7 +8457,15 @@
   color: var(--text-muted, #9aa8bc);
 }
 
-.step-rail__save-code {
+.step-stage__save {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin: 0.75rem 0 0.85rem;
+}
+
+.step-stage__save-code {
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
@@ -8468,19 +8476,19 @@
   background: rgba(59, 130, 246, 0.1);
 }
 
-.step-rail__save-code-label {
+.step-stage__save-code-label {
   font-size: 0.75rem;
   color: var(--text-muted, #9aa8bc);
 }
 
-.step-rail__save-code-value {
+.step-stage__save-code-value {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.18em;
 }
 
-.step-rail__save-code-hint {
+.step-stage__save-code-hint {
   font-size: 0.75rem;
   color: var(--text-muted, #9aa8bc);
 }
@@ -8505,27 +8513,6 @@
   background: rgba(34, 197, 94, 0.16);
   color: #86efac;
   flex-shrink: 0;
-}
-
-.step-nav__save {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.65rem 1rem;
-  margin-top: 0.75rem;
-}
-
-.step-nav__save-code {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-muted, #9aa8bc);
-}
-
-.step-nav__save-code code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: inherit;
 }
 
 .btn--sm {
