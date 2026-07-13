@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.77",
+    date: "2026-07-12",
+    summary: "Pokédex card names no longer collide with dex numbers on iOS.",
+    sections: [
+      {
+        heading: "Pokédex — mobile",
+        items: [
+          "Long Pokémon names on list cards now ellipsize instead of running into the #000 number, and the number stays fixed-width so it cannot be squeezed on narrow iOS layouts.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.76",
     date: "2026-07-12",
     summary: "Wild Pokémon map pins no longer imply different encounters per grass patch.",
