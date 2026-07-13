@@ -110,6 +110,7 @@ export function StepBrowser({
   const [saveCode, setSaveCode] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const stageRef = useRef<HTMLDivElement>(null);
+  const railNavRef = useRef<HTMLElement>(null);
   const swipeRef = useRef<{ x: number; y: number } | null>(null);
 
   const currentId = activeStepId ?? internalId;
@@ -256,6 +257,42 @@ export function StepBrowser({
     [q, searchGroups],
   );
 
+  // Keep the active chapter/event visible in the left rail (including after refresh).
+  useEffect(() => {
+    const nav = railNavRef.current;
+    if (!nav || !currentId) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const active = nav.querySelector<HTMLElement>(".step-rail__item--active");
+      if (!active) return;
+
+      const scrollParent =
+        ([nav, nav.parentElement, nav.closest(".step-rail")].find((el) => {
+          if (!(el instanceof HTMLElement)) return false;
+          const style = window.getComputedStyle(el);
+          return (
+            /(auto|scroll)/.test(style.overflowY) && el.scrollHeight > el.clientHeight + 1
+          );
+        }) as HTMLElement | undefined) ?? null;
+
+      if (!scrollParent) {
+        active.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+        return;
+      }
+
+      const parentRect = scrollParent.getBoundingClientRect();
+      const activeRect = active.getBoundingClientRect();
+      const nextTop =
+        scrollParent.scrollTop +
+        (activeRect.top - parentRect.top) -
+        parentRect.height / 2 +
+        activeRect.height / 2;
+      scrollParent.scrollTo({ top: Math.max(0, nextTop), behavior: "auto" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [currentId, searchGroups]);
+
   if (!current) return null;
 
   const region = getRegionForStep(current.step.id);
@@ -311,7 +348,7 @@ export function StepBrowser({
             {matchCount} matching step{matchCount === 1 ? "" : "s"}
           </p>
         ) : null}
-        <nav className="step-rail__nav">
+        <nav className="step-rail__nav" ref={railNavRef}>
           {searchGroups.map(({ section, visible }) => (
               <div
                 key={section.id}

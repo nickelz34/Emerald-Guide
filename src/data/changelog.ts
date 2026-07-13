@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.15.1",
+    date: "2026-07-13",
+    summary: "Keep the chapter list scrolled to your current walkthrough step after refresh.",
+    sections: [
+      {
+        heading: "Walkthrough progress",
+        items: [
+          "After a page refresh, the left chapter/event list scrolls to the step you left off on instead of jumping back to the top.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.15.0",
     date: "2026-07-13",
     summary:
