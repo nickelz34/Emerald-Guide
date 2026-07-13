@@ -93,12 +93,14 @@ function parseMap(m) {
     (o) => o.trainer_type && o.trainer_type !== "TRAINER_TYPE_NONE",
   );
   const items = (m.object_events ?? []).filter((o) => o.graphics_id === "OBJ_EVENT_GFX_ITEM_BALL");
+  const berries = (m.object_events ?? []).filter((o) => o.graphics_id === "OBJ_EVENT_GFX_BERRY_TREE");
+  const boats = (m.object_events ?? []).filter((o) => o.graphics_id === "OBJ_EVENT_GFX_MR_BRINEYS_BOAT");
   const hidden = (m.bg_events ?? []).filter((b) => b.type === "hidden_item");
   const signs = (m.bg_events ?? []).filter((b) => b.type === "sign");
   const npcs = (m.object_events ?? []).filter(
     (o) => o.trainer_type === "TRAINER_TYPE_NONE" && o.graphics_id !== "OBJ_EVENT_GFX_ITEM_BALL",
   );
-  return { warps, trainers, items, hidden, signs, npcs };
+  return { warps, trainers, items, berries, boats, hidden, signs, npcs };
 }
 
 /** Expected entity hints per marker id (partial match on dest_map or script) */
@@ -116,14 +118,19 @@ function checkMarker(areaId, markerId, tile, data) {
     id.endsWith("-east") ||
     id.endsWith("-west");
 
+  const skipWarpExitCheck =
+    id === "pet-woods" ||
+    id.includes("dock") ||
+    (id.includes("surf") && !id.includes("grass") && areaId === "pacifidlog");
+
   if (
     !isRouteConnection &&
+    !skipWarpExitCheck &&
     (id.includes("exit") ||
       id.includes("-r10") ||
       id.includes("route") ||
       id.endsWith("-north") ||
       id.endsWith("-south") ||
-      id.includes("dock") ||
       id.includes("harbor") ||
       id.includes("woods") ||
       id.includes("tunnel") ||
@@ -139,6 +146,21 @@ function checkMarker(areaId, markerId, tile, data) {
     }
   }
 
+  if (id.includes("dock")) {
+    const boatTiles = [
+      ...data.boats.map((x) => [x.x, x.y]),
+      ...data.npcs
+        .filter((o) => o.graphics_id === "OBJ_EVENT_GFX_EXPERT_M")
+        .map((x) => [x.x, x.y]),
+    ];
+    const b = nearest(tile, boatTiles);
+    if (b && b.dist > 2) {
+      issues.push(`far from Briney boat/NPC (d=${b.dist.toFixed(1)})`);
+    } else if (!boatTiles.length) {
+      issues.push("no Briney boat on map");
+    }
+  }
+
   if (id.includes("grunt") || id.includes("calvin") || id.includes("tiana") || id.includes("rival") || id.includes("maxie") || id.includes("winstrate")) {
     const t = nearest(tile, data.trainers.map((x) => [x.x, x.y]));
     const n = nearest(tile, data.npcs.map((x) => [x.x, x.y]));
@@ -150,19 +172,48 @@ function checkMarker(areaId, markerId, tile, data) {
     }
   }
 
-  if (id.includes("item") || id.includes("berry") || id.includes("hp") || id.includes("meteor") || id.includes("secret") && areaId === "slateport") {
+  if (id.includes("item") || id.includes("berry") || id.includes("hp") || (id.includes("meteor") && areaId !== "fallarbor") || (id.includes("secret") && areaId === "slateport")) {
     const all = [
       ...data.items.map((x) => [x.x, x.y]),
+      ...data.berries.map((x) => [x.x, x.y]),
       ...data.hidden.map((x) => [x.x, x.y]),
+      ...data.npcs.map((x) => [x.x, x.y]),
     ];
     const n = nearest(tile, all);
     if (n && n.dist > 2) {
-      issues.push(`far from nearest item (d=${n.dist.toFixed(1)})`);
+      issues.push(`far from nearest item/npc (d=${n.dist.toFixed(1)})`);
+    }
+  }
+
+  if (id.includes("springs")) {
+    const springsNpcs = data.npcs.filter((o) => o.graphics_id?.includes("HOT_SPRINGS"));
+    const n = nearest(tile, springsNpcs.map((x) => [x.x, x.y]));
+    if (n && n.dist > 2) {
+      issues.push(`far from hot springs NPC (d=${n.dist.toFixed(1)})`);
     }
   }
 
   // Gym / building / mart / center — near interior warp
-  if (id.includes("gym") || id.includes("mart") || id.includes("center") || id.includes("pc") || id.includes("museum") || id.includes("devon") || id.includes("school") || id.includes("contest") || id.includes("stern") || id.includes("game") || id.includes("bike") || id.includes("space") || id.includes("dept") || id.includes("daycare") || id.includes("lab") || id.includes("house") || id.includes("wally") || id.includes("springs") || id.includes("meteor") && areaId === "fallarbor") {
+  if (
+    id.includes("gym") ||
+    id.includes("mart") ||
+    id.includes("center") ||
+    id.includes("pc") ||
+    id.includes("museum") ||
+    id.includes("devon") ||
+    id.includes("school") ||
+    id.includes("contest") ||
+    id.includes("stern") ||
+    id.includes("game") ||
+    id.includes("bike") ||
+    id.includes("space") ||
+    id.includes("dept") ||
+    id.includes("daycare") ||
+    id.includes("lab") ||
+    id.includes("house") ||
+    id.includes("wally") ||
+    (id.includes("meteor") && areaId === "fallarbor")
+  ) {
     const interior = data.warps.filter((w) => w.dest_map && !w.dest_map.includes("ROUTE") && !w.dest_map.includes("MAP_PETALBURG_WOODS"));
     const w = nearest(tile, interior.map((x) => [x.x, x.y]));
     if (w && w.dist > 4) {
@@ -211,10 +262,15 @@ async function main() {
     }
   }
 
-  console.log(`\n\n=== SUMMARY: ${problems.length} markers with issues ===`);
+  const markerProblems = problems.filter((p) => p.markerId !== "*");
+  console.log(`\n\n=== SUMMARY: ${markerProblems.length} markers with issues (${problems.length} areas total) ===`);
   for (const p of problems) {
     console.log(`${p.areaId}/${p.markerId}: ${p.tile ? JSON.stringify(p.tile) : ""} — ${p.issues?.join("; ") ?? p.issue}`);
   }
+  if (markerProblems.length) process.exit(1);
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
