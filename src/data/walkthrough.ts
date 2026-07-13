@@ -2566,7 +2566,7 @@ const trickHouseChapter: GuideSection = {
       summary: "Unlocks after 6 badges — reward TM26 Earthquake.",
       story: [
         "Winona's Feather Badge unlocks the seventh puzzle — a gauntlet of Psychics and Hex Maniacs. TM26 Earthquake is the reward, one of the best physical Ground moves in the game.",
-        "Puzzle #8 stays locked until you become Champion — see Postgame: Hoenn.",
+        "Puzzle #8 stays locked until you become Champion — see the next step.",
       ],
       details: [
         "Requires 6 badges (Feather Badge).",
@@ -2574,6 +2574,26 @@ const trickHouseChapter: GuideSection = {
         "Puzzle #8 unlocks after the Hall of Fame (post-game).",
       ],
       tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-8",
+      title: "Trick House puzzle #8 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after the Hall of Fame — choose a Red Tent or Blue Tent.",
+      story: [
+        "After you become Champion, the Trick Master opens the eighth and final puzzle — a sliding-floor maze stocked with Cooltrainers. Clear it for Bead Mail and a Nugget along the way, then claim your choice of Red Tent or Blue Tent Secret Base furniture as the grand prize.",
+        "A hidden Nugget waits under a cushion in the prize room once all eight puzzles are done. Map floors for this puzzle are linked on this step.",
+      ],
+      details: [
+        "Requires Hall of Fame (Champion).",
+        "Clear the sliding maze; pick up Bead Mail and a Nugget if you want them.",
+        "Choose the Red Tent or Blue Tent as the puzzle reward.",
+        "Search the cushion in the prize room for a second Nugget after finishing all eight.",
+      ],
+      tips: [
+        "Save before the sliding maze if you want to practice the path without trainer fights.",
+      ],
+      tags: ["optional", "trick-house", "route-110", "post-game"],
     },
   ],
 };
@@ -2790,7 +2810,7 @@ const contestsLilycoveChapter: GuideSection = {
 const contestPostGameChapter: GuideSection = {
   id: "contests-postgame",
   title: "Ch. 49 — Postgame: Contest Mastery",
-  description: "Rare berries, the Blend Master, and the full set of twenty contest ribbons.",
+  description: "Rare berries, the Blend Master, museum paintings, and the full set of twenty contest ribbons.",
   steps: [
     {
       id: "contests-postgame-1",
@@ -2813,24 +2833,46 @@ const contestPostGameChapter: GuideSection = {
       tags: ["contests", "post-game", "berries", "route-123"],
     },
     {
-      id: "contests-postgame-2",
-      title: "All twenty ribbons",
-      location: "Lilycove Contest Hall",
-      summary: "Complete Master rank in all five categories for the full contest sweep.",
+      id: "contests-postgame-blend",
+      title: "Blend Master TV event",
+      location: "Lilycove Contest Hall — Berry Blender",
+      summary: "Post-HoF Pokémon News: the Blend Master replaces Mister for one day of perfect blends.",
       story: [
-        "Twenty ribbons await: Normal, Super, Hyper, and Master in each of Cool, Beauty, Cute, Smart, and Tough. Each requires a winning Pokémon in that category — five specialists, or fewer if you manage sheen carefully across types (difficult on one cartridge).",
-        "Watch TV for Berry Master blend announcements at the Contest Hall; his blends shortcut the grind. Pair that with scarves, combos, and nature-correct Pokémon. When the last Master Ribbon is yours, you have completed Hoenn's contest circuit — a feat separate from the Battle Frontier and worth showing off in your profile.",
+        "After the Hall of Fame, watch Hoenn TV until Pokémon News announces that the Blend Master is visiting Lilycove for the day. He replaces Mister at the Contest Hall blender, always lands perfect hits, and can push RPM toward the mid-160s with strong berries — producing gold high-Level Pokéblocks with correspondingly high Feel.",
+        "The visit lasts one in-game day and needs a working RTC battery. Stock high-value berries (#31–35 such as Pamtre/Belue) before you fly over; he answers strong berries with same-flavor mid/high berries and weak berries with the rare set, so your ingredient choice still matters.",
+      ],
+      details: [
+        "Watch TV after Hall of Fame until the Blend Master Pokémon News airs.",
+        "Fly to Lilycove Contest Hall the same day and blend with the Blend Master.",
+        "Use high-Level berries for the best gold Pokéblocks; expect high Feel.",
+      ],
+      tips: [
+        "Save before blending rare password berries so a mistimed mash does not waste them.",
+      ],
+      secrets: [
+        "Without the Blend Master you still blend with up to three Lilycove NPCs — he is a post-Champion boost, not a soft lock.",
+      ],
+      tags: ["contests", "post-game", "blend-master", "lilycove"],
+    },
+    {
+      id: "contests-postgame-2",
+      title: "All twenty ribbons & museum paintings",
+      location: "Lilycove Contest Hall & Museum",
+      summary: "Master all five categories, hang museum paintings (~800+ score), and claim the Glass Ornament.",
+      story: [
+        "Twenty ribbons await: Normal, Super, Hyper, and Master in each of Cool, Beauty, Cute, Smart, and Tough. Pair that grind with Blend Master days and Berry Master rares for the condition ceiling.",
+        "Winning Master Rank with a high score (about 800 points) prompts an artist to paint your Pokémon for Lilycove Museum’s second floor. Collect all five category paintings for a Trainer Card star and a Glass Ornament from the museum curator — see Postgame: Hoenn diplomas for the full four-star list.",
       ],
       details: [
         "Win Master rank in Cool, Beauty, Cute, Smart, and Tough (five Master Ribbons).",
         "You need prior ribbons in each category: Normal → Super → Hyper → Master per type.",
-        "Use Berry Master TV events (post-Champion) for top-tier Pokéblocks at Lilycove.",
-        "Track progress via each Pokémon's ribbon list in the summary screen.",
+        "Score ~800+ in Master to unlock each museum painting.",
+        "Collect five paintings for the Glass Ornament and a Trainer Card star.",
       ],
       tips: [
         "Raise one Pokémon per category during the main game if you want ribbons before the Frontier grind.",
       ],
-      tags: ["contests", "post-game", "ribbons", "lilycove"],
+      tags: ["contests", "post-game", "ribbons", "lilycove", "museum"],
     },
   ],
 };

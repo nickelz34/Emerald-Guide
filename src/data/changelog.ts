@@ -23,7 +23,7 @@ export const CHANGELOG: ChangelogRelease[] = [
     version: "1.14.0",
     date: "2026-07-13",
     summary:
-      "Postgame audit — Mystery Gift & event islands chapter, Pregame-style Postgame titles, and Altering Cave / Trick House 8 accuracy fixes.",
+      "Postgame audit complete — Mystery Gift events, Pregame-style titles, and remaining cartridge follow-ups.",
     sections: [
       {
         heading: "Postgame chapter labels",
@@ -36,7 +36,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         heading: "Mystery Gift & distribution events",
         items: [
           "Enable Mystery Gift (Easy Chat LINK TOGETHER WITH ALL) and Wonder Card delivery notes.",
-          "Eon Ticket → Southern Island (international Emerald: record mix from Ruby/Sapphire; level-50 non-roamer Eon + Soul Dew).",
+          "Eon Ticket → Southern Island (international Emerald: record mix; level-50 non-roamer Eon + Soul Dew).",
           "MysticTicket → Navel Rock (Lugia & Ho-Oh level 70; Sacred Ash; Navel Rock Top map linked).",
           "AuroraTicket → Birth Island (triangle shortest-path puzzle; Deoxys level 30 → Speed Forme on Emerald).",
           "Old Sea Map → Faraway Island (Japan/Taiwan Emerald distributions only; Mew level 30).",
@@ -44,17 +44,22 @@ export const CHANGELOG: ChangelogRelease[] = [
         ],
       },
       {
-        heading: "Accuracy fixes from external audit",
+        heading: "Cartridge follow-ups completed",
         items: [
-          "Altering Cave: no TV swarms — released Emerald is Zubat-only; Wonder Spot Johto fauna was never distributed (Bulbapedia / Serebii / PokéBase).",
-          "Trick House puzzle 8 reward corrected to Red Tent or Blue Tent (not a rare shard).",
-          "Cross-checked ticket boarding (Lilycove + S.S. Ticket), levels, and regional limits against Bulbapedia and Serebii.",
+          "Battle Frontier: Sudowoodo (Wailmer Pail) + Artisan Cave/Smeargle; Skitty↔Meowth trade; BP-betting Hiker after 3 Silver Symbols (Artisan Cave maps moved off Trainer Hill).",
+          "Trick House puzzle #8 dedicated optional step (Red/Blue Tent, Bead Mail, Nugget).",
+          "Blend Master TV event step; museum paintings (~800 score) + Glass Ornament called out with the ribbon sweep.",
+          "Match Call rematches expanded (4 Gym tiers, Wattson–New Mauville lock, E4/Wallace non-scaling).",
+          "Mass outbreaks (post-HoF ~0.5% roll, one natural per save; record mix for more) + Altering Cave Zubat-only.",
+          "Diplomas at Cove Lily Motel + four Trainer Card star conditions.",
         ],
       },
       {
-        heading: "Audit follow-ups (not added yet)",
+        heading: "Accuracy fixes",
         items: [
-          "Cartridge gaps still available to add later: Frontier Sudowoodo / Artisan Cave / Meowth trade, Blend Master step, dex diplomas, outbreak TV, gym rematch tier details, BP bettor.",
+          "Altering Cave: no TV swarms — released Emerald is Zubat-only; Wonder Spot Johto fauna was never distributed.",
+          "Trick House puzzle 8 reward corrected to Red Tent or Blue Tent (not a rare shard).",
+          "Cross-checked ticket boarding, levels, regional limits, rematch math, and outbreak rules against Bulbapedia / Serebii / StrategyWiki / PokéBase.",
         ],
       },
     ],

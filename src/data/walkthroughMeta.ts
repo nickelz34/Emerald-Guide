@@ -44,6 +44,7 @@ const OPTIONAL_STEP_IDS = new Set([
   "trick-5",
   "trick-6",
   "trick-7",
+  "trick-8",
 ]);
 
 /** Story-critical steps that must never be marked optional. */
