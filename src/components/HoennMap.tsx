@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { getRegionForStep, type MapRegion } from "../data/mapRegions";
 import {
@@ -201,6 +201,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   );
   const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_PNG;
   const useHoennWebp = !currentArea;
+  const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
   const mapH = currentArea ? currentArea.height : MAP_H;
@@ -259,8 +260,12 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     setSelectedId(null);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setMapReady(false);
+    const img = mapImgRef.current;
+    if (img?.complete && img.naturalWidth > 0) {
+      setMapReady(true);
+    }
   }, [imgSrc, currentAreaId]);
 
   useEffect(() => {
@@ -774,6 +779,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
               <picture>
                 <source srcSet={HOENN_MAP_WEBP} type="image/webp" />
                 <img
+                  ref={mapImgRef}
                   src={imgSrc}
                   alt="Map of the Hoenn region"
                   className={`hoenn-map__image${mapReady ? "" : " hoenn-map__image--loading"}`}
@@ -784,6 +790,7 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
               </picture>
             ) : (
               <img
+                ref={mapImgRef}
                 src={imgSrc}
                 alt={currentArea!.name}
                 className={`hoenn-map__image hoenn-map__image--pixel${mapReady ? "" : " hoenn-map__image--loading"}`}
