@@ -33,6 +33,7 @@
     "verify:area-assets": "node scripts/verify-area-assets.mjs",
     "verify:step-area-maps": "node scripts/verify-step-area-maps.mjs",
     "verify:hidden-items": "node scripts/verify-hidden-items.mjs",
+    "verify:encounter-coverage": "node scripts/verify-encounter-coverage.mjs",
     "render:hoenn": "node scripts/publish-hoenn-map.mjs",
     "optimize:hoenn": "node scripts/optimize-hoenn-map.mjs"
   },
