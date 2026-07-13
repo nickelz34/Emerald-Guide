@@ -129,6 +129,8 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "postgame-hoenn-4": "littleroottown-professorbirchslab",
   "postgame-hoenn-7": "meteorfalls-1f-1r",
 
+  "victory-road-1": "victoryroad-1f",
+
   // Battle Frontier gate
   "battle-frontier-2": "battlefrontier-battlepyramidlobby",
 };

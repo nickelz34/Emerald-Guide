@@ -417,7 +417,102 @@ export const AREA_DATA: Record<string, AreaExtras> = {
     ],
     encounters: [],
   },
+  "jagged-pass": {
+    tips: ["Descend from Mt. Chimney toward Lavaridge — Numel, Machop, and Spoink on the ash path."],
+    secrets: [
+      "Pick up the Meteorite on Mt. Chimney before descending.",
+      "Team Magma Hideout entrance is sealed until you have the Magma Emblem later.",
+    ],
+    encounters: [],
+  },
+  "meteor-falls": {
+    secrets: [
+      "Steven's guest room on 1F holds a Dusk Ball.",
+      "Deeper floors need Surf and Waterfall — Bagon appears on B1F.",
+    ],
+    encounters: [],
+  },
+  "new-mauville": {
+    secrets: [
+      "Wattson's optional errand — TM24 Thunderbolt and a Thunder Stone inside.",
+      "Also holds an Ultra Ball, Escape Ropes, and a Full Heal.",
+    ],
+    encounters: [],
+  },
+  "abandoned-ship": {
+    secrets: [
+      "Scanner on B1F for Captain Stern's quest in Slateport.",
+      "TM13 Snatch and Harbor Mail in the upper cabins — Dive unlocks the flooded lower decks.",
+    ],
+    encounters: [],
+  },
+  "shoal-cave": {
+    tips: ["Tide shifts every six hours — low tide for Shoal Shell/Salt; high tide opens the ice room."],
+    secrets: ["Shoal Shell and Shoal Salt combine for HM07 Waterfall with the old man in Sootopolis."],
+    encounters: [],
+  },
+  "safari-zone": {
+    tips: [
+      "Bait lowers flee but makes catches harder; Mud does the opposite.",
+      "Blocks and Balls are consumed — plan catches before entering.",
+    ],
+    encounters: [],
+  },
+  "magma-hideout": {
+    secrets: [
+      "Master Ball on B1F after the Mt. Pyre earthquake — only one per save.",
+      "Multi-floor maze east of Lavaridge — bring plenty of Repels.",
+    ],
+    encounters: [],
+  },
+  "seafloor-cavern": {
+    secrets: [
+      "Archie awakens Kyogre with the Blue Orb — save before the boss fight.",
+      "Reach via Dive on Route 128 after the Mossdeep Space Center story.",
+    ],
+    encounters: [],
+  },
 };
+
+/** Walkthrough steps with no wild encounter table (gyms, contests, interiors, story-only). */
+export const ENCOUNTER_EXEMPT_STEPS = new Set([
+  "contest-prep-1",
+  "contest-prep-2",
+  "contest-prep-3",
+  "contests-lilycove-1",
+  "contests-lilycove-2",
+  "contests-lilycove-3",
+  "contests-lilycove-4",
+  "contests-lilycove-5",
+  "contests-postgame-1",
+  "contests-postgame-2",
+  "league-1",
+  "league-2",
+  "league-3",
+  "pregame-evolution-1",
+  "pregame-evolution-2",
+  "pregame-evolution-3",
+  "pregame-evolution-4",
+  "pregame-evolution-5",
+  "pregame-breeding-1",
+  "pregame-breeding-2",
+  "pregame-breeding-3",
+  "petalburg-gym-1",
+  "petalburg-gym-2",
+  "petalburg-gym-3",
+  "rustboro-2",
+  "dewford-2",
+  "mauville-2",
+  "lavaridge-2",
+  "fortree-2",
+  "mossdeep-1",
+  "sootopolis-gym-1",
+  "sootopolis-gym-2",
+  "lilycove-2",
+  "route-120-3",
+  "slateport-3",
+  "battle-frontier-1",
+]);
 
 /** Maps walkthrough / guide step ids to encounter area ids. */
 export const STEP_AREA_MAP: Record<string, string[]> = {
@@ -434,7 +529,7 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "route-112-2": ["fiery-path"],
   "route-113-1": ["route-113"],
   "mt-chimney-1": ["mt-chimney"],
-  "mt-chimney-2": ["mt-chimney"],
+  "mt-chimney-2": ["jagged-pass"],
   "route-119-1": ["route-119"],
   "route-120-2": ["route-120"],
   "lilycove-1": ["lilycove"],
@@ -530,6 +625,11 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "safari-zone-1": ["safari-zone"],
   "safari-zone-2": ["safari-zone"],
   "safari-zone-3": ["safari-zone"],
+
+  // Interior / optional steps — explicit area (inference would show the wrong town or route)
+  "mauville-3": ["new-mauville"],
+  "route-114-2": ["meteor-falls"],
+  "route-114-3": ["meteor-falls"],
 };
 
 const TOWN_AREA_PREFIXES = [
@@ -566,6 +666,9 @@ const DUNGEON_AREA_PREFIXES = [
   "shoal-cave",
   "magma-hideout",
   "seafloor-cavern",
+  "new-mauville",
+  "jagged-pass",
+  "meteor-falls",
 ] as const;
 
 /** Infer an encounter area slug from a walkthrough step id when not explicitly mapped. */
@@ -594,6 +697,7 @@ export function wildLocationMatchesArea(locId: string, locAreaId: string | undef
 }
 
 export function getAreasForStep(stepId: string): string[] {
+  if (ENCOUNTER_EXEMPT_STEPS.has(stepId)) return [];
   const mapped = STEP_AREA_MAP[stepId];
   if (mapped?.length) return mapped;
   const inferred = inferAreaIdFromStepId(stepId);

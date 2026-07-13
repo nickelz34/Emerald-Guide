@@ -1,6 +1,6 @@
 /**
  * Report walkthrough steps that lack encounter area mapping.
- * Steps in ENCOUNTER_EXEMPT are allowed to have no wild table (contests, League, pregame).
+ * Parses ENCOUNTER_EXEMPT_STEPS and DUNGEON_AREA_PREFIXES from areaData.ts (single source of truth).
  *
  * Run: node scripts/verify-encounter-coverage.mjs
  */
@@ -16,42 +16,29 @@ const WALKTHROUGH_FILES = [
   "src/data/pregameWalkthrough.ts",
 ];
 
-/** Steps where wild encounters are not expected in the UI. */
-const ENCOUNTER_EXEMPT = new Set([
-  "contest-prep-1",
-  "contest-prep-2",
-  "contest-prep-3",
-  "contests-lilycove-1",
-  "contests-lilycove-2",
-  "contests-lilycove-3",
-  "contests-lilycove-4",
-  "contests-lilycove-5",
-  "contests-postgame-1",
-  "contests-postgame-2",
-  "league-1",
-  "league-2",
-  "league-3",
-  "pregame-evolution-1",
-  "pregame-evolution-2",
-  "pregame-evolution-3",
-  "pregame-evolution-4",
-  "pregame-evolution-5",
-  "pregame-breeding-1",
-  "pregame-breeding-2",
-  "pregame-breeding-3",
-  "petalburg-gym-1",
-  "petalburg-gym-2",
-  "petalburg-gym-3",
-  "sootopolis-gym-1",
-  "sootopolis-gym-2",
-  "sootopolis-gym-3",
-  "lavaridge-2",
-  "rustboro-2",
-  "dewford-2",
-  "fortree-2",
-  "mossdeep-1",
-  "mauville-2",
-]);
+const areaSrc = readFileSync(join(root, "src/data/areaData.ts"), "utf8");
+
+function parseStringSet(name) {
+  const re = new RegExp(`export const ${name}[^=]*=\\s*new Set\\(\\[([\\s\\S]*?)\\]\\)`);
+  const m = areaSrc.match(re);
+  if (!m) throw new Error(`Could not parse ${name} from areaData.ts`);
+  return new Set([...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]));
+}
+
+function parseConstArray(name) {
+  const re = new RegExp(`const ${name}[^=]*=\\s*\\[([\\s\\S]*?)\\] as const`);
+  const m = areaSrc.match(re);
+  if (!m) throw new Error(`Could not parse ${name} from areaData.ts`);
+  return [...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]);
+}
+
+const ENCOUNTER_EXEMPT = parseStringSet("ENCOUNTER_EXEMPT_STEPS");
+const TOWN = parseConstArray("TOWN_AREA_PREFIXES");
+const DUNGEON = parseConstArray("DUNGEON_AREA_PREFIXES");
+
+const mapBlock = areaSrc.match(/export const STEP_AREA_MAP[^=]*=\s*(\{[\s\S]*?\n\};)/)?.[1];
+if (!mapBlock) throw new Error("Could not parse STEP_AREA_MAP");
+const STEP_AREA_MAP = Function(`return ${mapBlock.replace(/;$/, "")}`)();
 
 function collectStepIds(src) {
   const ids = [];
@@ -66,7 +53,6 @@ function collectStepIds(src) {
   return ids.filter(isWalkthroughStepId);
 }
 
-/** Drop chapter slugs picked up when scanning between nested steps arrays. */
 function isWalkthroughStepId(id) {
   if (/^route-\d+$/.test(id)) return false;
   if (
@@ -82,50 +68,10 @@ function isWalkthroughStepId(id) {
   return /-\d+$/.test(id) || /^(postgame|pregame|battle-frontier|trick|mirage)-/.test(id);
 }
 
-const areaSrc = readFileSync(join(root, "src/data/areaData.ts"), "utf8");
-const mapBlock = areaSrc.match(/export const STEP_AREA_MAP[^=]*=\s*(\{[\s\S]*?\n\};)/)?.[1];
-if (!mapBlock) throw new Error("Could not parse STEP_AREA_MAP");
-const STEP_AREA_MAP = Function(`return ${mapBlock.replace(/;$/, "")}`)();
-
-const TOWN = [
-  "littleroot",
-  "oldale",
-  "petalburg",
-  "rustboro",
-  "dewford",
-  "slateport",
-  "mauville",
-  "lavaridge",
-  "fallarbor",
-  "fortree",
-  "lilycove",
-  "mossdeep",
-  "sootopolis",
-  "pacifidlog",
-  "ever-grande",
-  "battle-frontier",
-  "verdanturf",
-];
-const DUNGEON = [
-  "granite-cave",
-  "petalburg-woods",
-  "rusturf-tunnel",
-  "mt-chimney",
-  "mt-pyre",
-  "victory-road",
-  "sky-pillar",
-  "sealed-chamber",
-  "safari-zone",
-  "abandoned-ship",
-  "shoal-cave",
-  "magma-hideout",
-  "seafloor-cavern",
-];
-
 function inferAreaId(stepId) {
   const routeMatch = stepId.match(/^(route-\d+)-\d+$/);
   if (routeMatch) return routeMatch[1];
-  if (/-gym-\d+$/.test(stepId)) return undefined;
+  if (ENCOUNTER_EXEMPT.has(stepId) || /-gym-\d+$/.test(stepId)) return undefined;
   const sortedDungeons = [...DUNGEON].sort((a, b) => b.length - a.length);
   for (const prefix of sortedDungeons) {
     if (stepId.startsWith(`${prefix}-`)) return prefix;
@@ -137,6 +83,7 @@ function inferAreaId(stepId) {
 }
 
 function getAreasForStep(stepId) {
+  if (ENCOUNTER_EXEMPT.has(stepId)) return [];
   const mapped = STEP_AREA_MAP[stepId];
   if (mapped?.length) return mapped;
   const inferred = inferAreaId(stepId);
@@ -150,7 +97,7 @@ for (const rel of WALKTHROUGH_FILES) {
 }
 
 const unique = [...new Set(stepIds)].sort();
-const missing = unique.filter((id) => !ENCOUNTER_EXEMPT.has(id) && getAreasForStep(id).length === 0);
+const missing = unique.filter((id) => getAreasForStep(id).length === 0 && !ENCOUNTER_EXEMPT.has(id));
 const explicit = unique.filter((id) => STEP_AREA_MAP[id]?.length);
 const inferred = unique.filter((id) => !STEP_AREA_MAP[id] && getAreasForStep(id).length > 0);
 
