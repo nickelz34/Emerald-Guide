@@ -129,6 +129,9 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "postgame-hoenn-4": "littleroottown-professorbirchslab",
   "postgame-hoenn-7": "meteorfalls-1f-1r",
 
+  // Postgame event islands
+  "postgame-events-3": "navelrock-top",
+
   "victory-road-1": "victoryroad-1f",
 
   // Battle Frontier gate
@@ -210,6 +213,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "safarizone-southeast",
     "safarizone-southwest",
   ],
+  // Artisan Cave maps kept here until a dedicated Frontier side-content step exists.
   "postgame-hoenn-3": ["artisancave-1f", "artisancave-b1f"],
   "seafloor-cavern-1": ["underwater-route127", "underwater-route128"],
 };

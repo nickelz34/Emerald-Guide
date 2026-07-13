@@ -7,6 +7,7 @@ const POSTGAME_CHAPTER_IDS = new Set([
   "battle-frontier",
   "postgame-hoenn",
   "contests-postgame",
+  "postgame-events",
 ]);
 
 /** Entire chapter is optional side content in the main story band. */

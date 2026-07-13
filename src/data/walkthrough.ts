@@ -4,6 +4,7 @@ import {
   postgameOpeningChapter,
   postgameFrontierChapter,
   postgameHoennChapter,
+  postgameEventsChapter,
 } from "./postgameWalkthrough";
 import {
   pregameEvolutionChapter,
@@ -2565,7 +2566,7 @@ const trickHouseChapter: GuideSection = {
       summary: "Unlocks after 6 badges — reward TM26 Earthquake.",
       story: [
         "Winona's Feather Badge unlocks the seventh puzzle — a gauntlet of Psychics and Hex Maniacs. TM26 Earthquake is the reward, one of the best physical Ground moves in the game.",
-        "Puzzle #8 stays locked until you become Champion — see the post-game Hoenn chapter.",
+        "Puzzle #8 stays locked until you become Champion — see Postgame: Hoenn.",
       ],
       details: [
         "Requires 6 badges (Feather Badge).",
@@ -2788,7 +2789,7 @@ const contestsLilycoveChapter: GuideSection = {
 
 const contestPostGameChapter: GuideSection = {
   id: "contests-postgame",
-  title: "Ch. 49 — Contest Mastery (Post-Game)",
+  title: "Ch. 49 — Postgame: Contest Mastery",
   description: "Rare berries, the Blend Master, and the full set of twenty contest ribbons.",
   steps: [
     {
@@ -2858,6 +2859,7 @@ insertAfter(built, "league", postgameOpeningChapter);
 insertAfter(built, "postgame-opening", postgameFrontierChapter);
 insertAfter(built, "battle-frontier", postgameHoennChapter);
 insertAfter(built, "postgame-hoenn", contestPostGameChapter);
+insertAfter(built, "contests-postgame", postgameEventsChapter);
 renumberChapters(built);
 applyWalkthroughMetadata(built);
 

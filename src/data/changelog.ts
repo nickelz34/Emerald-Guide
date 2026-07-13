@@ -20,6 +20,46 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.14.0",
+    date: "2026-07-13",
+    summary:
+      "Postgame audit — Mystery Gift & event islands chapter, Pregame-style Postgame titles, and Altering Cave / Trick House 8 accuracy fixes.",
+    sections: [
+      {
+        heading: "Postgame chapter labels",
+        items: [
+          "All postgame chapters now use the same title pattern as Pregame: `Ch. N — Postgame: Topic` (Opening, Battle Frontier, Hoenn, Contest Mastery).",
+          "New chapter **Postgame: Mystery Gift & Event Islands** after Contest Mastery.",
+        ],
+      },
+      {
+        heading: "Mystery Gift & distribution events",
+        items: [
+          "Enable Mystery Gift (Easy Chat LINK TOGETHER WITH ALL) and Wonder Card delivery notes.",
+          "Eon Ticket → Southern Island (international Emerald: record mix from Ruby/Sapphire; level-50 non-roamer Eon + Soul Dew).",
+          "MysticTicket → Navel Rock (Lugia & Ho-Oh level 70; Sacred Ash; Navel Rock Top map linked).",
+          "AuroraTicket → Birth Island (triangle shortest-path puzzle; Deoxys level 30 → Speed Forme on Emerald).",
+          "Old Sea Map → Faraway Island (Japan/Taiwan Emerald distributions only; Mew level 30).",
+          "Latias/Latios step secrets restored to point at the events chapter (Deoxys/Jirachi notes).",
+        ],
+      },
+      {
+        heading: "Accuracy fixes from external audit",
+        items: [
+          "Altering Cave: no TV swarms — released Emerald is Zubat-only; Wonder Spot Johto fauna was never distributed (Bulbapedia / Serebii / PokéBase).",
+          "Trick House puzzle 8 reward corrected to Red Tent or Blue Tent (not a rare shard).",
+          "Cross-checked ticket boarding (Lilycove + S.S. Ticket), levels, and regional limits against Bulbapedia and Serebii.",
+        ],
+      },
+      {
+        heading: "Audit follow-ups (not added yet)",
+        items: [
+          "Cartridge gaps still available to add later: Frontier Sudowoodo / Artisan Cave / Meowth trade, Blend Master step, dex diplomas, outbreak TV, gym rematch tier details, BP bettor.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.13.4",
     date: "2026-07-13",
     summary: "Encounter coverage polish — dungeon AREA_DATA, interior step fixes, unified exempt list.",

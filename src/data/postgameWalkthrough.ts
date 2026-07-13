@@ -2,7 +2,7 @@ import type { GuideSection } from "../types";
 
 export const postgameOpeningChapter: GuideSection = {
   id: "postgame-opening",
-  title: "Ch. 45 \u2014 Post-Game Opening",
+  title: "Ch. 45 \u2014 Postgame: Opening",
   description: "S.S. Ticket, the Eon roamer, and the National Dex.",
   steps: [
     {
@@ -48,7 +48,9 @@ export const postgameOpeningChapter: GuideSection = {
         "Mean Look, Shadow Tag, or a Master Ball are the reliable ways to finish the chase.",
       ],
       secrets: [
-        "The other Eon can still appear in Battle Frontier trainer teams, but you cannot catch both on one cartridge.",
+        "The other Eon can still appear in Battle Frontier trainer teams, but you cannot catch both as roamers on one cartridge.",
+        "Southern Island (Eon Ticket) lets you catch the non-roamer Eon holding Soul Dew \u2014 see Postgame: Mystery Gift & Event Islands.",
+        "Event-only mythicals such as Deoxys (AuroraTicket / Birth Island) and Jirachi (Colosseum bonus disc or Pok\u00e9mon Channel) are covered in the event-islands chapter; they are not wild encounters in a normal cartridge playthrough.",
       ],
       tags: ["post-game", "latias", "latios", "roamer", "littleroot"],
     },
@@ -81,7 +83,7 @@ export const postgameOpeningChapter: GuideSection = {
 
 export const postgameFrontierChapter: GuideSection = {
   id: "battle-frontier",
-  title: "Ch. 46 \u2014 Battle Frontier",
+  title: "Ch. 46 \u2014 Postgame: Battle Frontier",
   description: "Sail on the S.S. Tidal, earn BP, and challenge the seven Frontier Brains.",
   steps: [
     {
@@ -187,7 +189,7 @@ export const postgameFrontierChapter: GuideSection = {
 
 export const postgameHoennChapter: GuideSection = {
   id: "postgame-hoenn",
-  title: "Ch. 47 \u2014 Post-Game Hoenn",
+  title: "Ch. 47 \u2014 Postgame: Hoenn",
   description: "Beldum, Underpass fossils, Trainer Hill, Safari expansion, and Steven\u2019s rematch.",
   steps: [
     {
@@ -307,21 +309,24 @@ export const postgameHoennChapter: GuideSection = {
       id: "postgame-hoenn-6",
       title: "Rematches, Trick House 8, Altering Cave",
       location: "Hoenn \u2014 trainers, Route 110, Route 103",
-      summary: "Match Call rematches, the final Trick House prize, and Altering Cave swarms.",
+      summary: "Match Call rematches, the final Trick House prize, and Zubat-only Altering Cave.",
       story: [
         "The Pok\u00e9Nav Match Call list grows throughout the story. Trainers you defeat auto-register after you earn the Balance Badge from Norman, and their rematch teams scale up over time \u2014 gym leaders join the rotation after the Hall of Fame.",
-        "On Route 110, the Trick House finally opens its eighth puzzle after you become Champion, paying out a rare shard reward at the end. Meanwhile, Altering Cave on Route 103 begins rotating special swarms (watch TV in Lilycove or your house for announcements) if you are hunting niche species for the National Dex.",
+        "On Route 110, the Trick House finally opens its eighth puzzle after you become Champion. Finish it and the Trick Master lets you choose a Red Tent or Blue Tent (Secret Base furniture). Altering Cave also appears on Route 103 after the Hall of Fame, but in released Emerald it only ever contains wild Zubat \u2014 the Johto fauna Mystery Gift that would have changed the cave was never distributed.",
       ],
       details: [
         "Use Match Call to rematch registered trainers across Hoenn.",
         "Clear Trick House puzzle 8 on Route 110 (unlocks after becoming Champion).",
-        "Visit Altering Cave on Route 103 during announced swarm events.",
+        "Choose the Red Tent or Blue Tent as the puzzle 8 reward.",
+        "Visit Altering Cave on Route 103 if you want \u2014 expect only Zubat.",
       ],
       tips: [
         "Rematch teams scale sharply \u2014 heal and swap leads before accepting calls.",
+        "Safari Zone expansion and Artisan Cave cover the Johto species that Altering Cave was meant to host.",
       ],
       secrets: [
-        "Trick House puzzle 8 stays locked until you clear the Pokémon League.",
+        "Trick House puzzle 8 stays locked until you clear the Pok\u00e9mon League.",
+        "Altering Cave\u2019s unused encounter table would have featured Mareep, Aipom, Pineco, Shuckle, Teddiursa, Houndour, Stantler, and Smeargle via Wonder Spot \u2014 see Postgame: Mystery Gift & Event Islands for other distribution content that did ship.",
       ],
       tags: ["post-game", "rematch", "trick-house", "altering-cave"],
     },
@@ -346,6 +351,135 @@ export const postgameHoennChapter: GuideSection = {
         "Steven\u2019s rematch team is separate from his Champion fight in the League \u2014 levels and movesets are higher here.",
       ],
       tags: ["post-game", "steven", "meteor-falls", "optional"],
+    },
+  ],
+};
+
+
+/** Mystery Gift / distribution islands \u2014 capstone after cartridge post-game chapters. */
+export const postgameEventsChapter: GuideSection = {
+  id: "postgame-events",
+  title: "Ch. 49 \u2014 Postgame: Mystery Gift & Event Islands",
+  description:
+    "Enable Mystery Gift, then chase Eon Ticket, MysticTicket, AuroraTicket, and Old Sea Map destinations.",
+  steps: [
+    {
+      id: "postgame-events-1",
+      title: "Enable Mystery Gift",
+      location: "Any Pok\u00e9 Mart \u2014 then title / main menu",
+      summary: "Unlock Mystery Gift with the mart questionnaire Easy Chat phrase, then receive Wonder Cards at a Pok\u00e9mon Center.",
+      story: [
+        "Official Nintendo Wonder Spot distributions for English Emerald have ended, but the cartridge still contains the full Mystery Gift pipeline. To turn the option on, talk to the questionnaire girl in any Pok\u00e9 Mart basement and answer Easy Chat questions until you can enter the phrase LINK TOGETHER WITH ALL (the standard English Emerald unlock string).",
+        "After you save and reset, Mystery Gift appears on the title-screen / continue menu. Connecting at a Wonder Spot (or injecting a Wonder Card with modern tools) queues a delivery: speak to the delivery person upstairs in a Pok\u00e9mon Center (2F) to receive the ticket item. Only MysticTicket and AuroraTicket use this path on international Emerald \u2014 the Eon Ticket and Old Sea Map follow different rules covered in the next steps.",
+      ],
+      details: [
+        "Talk to the Pok\u00e9 Mart questionnaire attendant.",
+        "Enter Easy Chat phrase LINK TOGETHER WITH ALL when prompted.",
+        "Save, soft-reset, and open Mystery Gift from the title / main menu.",
+        "Receive Wonder Cards historically via Nintendo Wonder Spot (wireless); claim delivered items from the Pok\u00e9mon Center 2F delivery person.",
+      ],
+      tips: [
+        "You still need the S.S. Ticket (Postgame: Opening) before Lilycove Harbor will accept event tickets for island voyages.",
+      ],
+      secrets: [
+        "Altering Cave on Route 103 was coded for Wonder Spot Johto fauna, but that Mystery Gift was never held \u2014 the cave stays Zubat-only in released Emerald.",
+        "Direct mythicals such as Jirachi (Colosseum bonus disc / Pok\u00e9mon Channel) and Celebi were separate promotions, not Lilycove ferry tickets.",
+      ],
+      tags: ["post-game", "mystery-gift", "events"],
+    },
+    {
+      id: "postgame-events-2",
+      title: "Eon Ticket \u2014 Southern Island",
+      location: "Pok\u00e9mon Center Record Corner \u2192 Lilycove Harbor \u2192 Southern Island",
+      summary: "Record-mix the Eon Ticket onto international Emerald, then catch the non-roamer Latias or Latios with Soul Dew.",
+      story: [
+        "The Eon Ticket opens Southern Island so you can catch whichever Eon Pok\u00e9mon you did not choose as the post-Hall of Fame roamer. On international Emerald this ticket is not a Wonder Spot Mystery Gift \u2014 Emerald lacks Mystery Event, so the only legitimate path is mixing records at a Pok\u00e9mon Center with a Ruby or Sapphire (or Emerald) that holds an original e-Card / event Eon Ticket. Tickets received only by mixing cannot be shared further (original holders can redistribute up to 30 times).",
+        "After a successful mix the Eon Ticket appears in your Key Items pocket. With it and the S.S. Ticket in your bag, speak to the sailor at Lilycove Harbor and choose Southern Island on the S.S. Tidal. Inside, a static Latias or Latios (level 50) waits holding Soul Dew \u2014 the only legitimate Gen III source of that item. Emerald lets you return to the island later with the ticket still in inventory (Ruby/Sapphire locked you out after leaving).",
+      ],
+      details: [
+        "Mix records with a game that has an original (not mix-only) Eon Ticket \u2014 the only path on international Emerald.",
+        "Confirm the Eon Ticket is in your Key Items pocket after the mix.",
+        "Sail from Lilycove Harbor to Southern Island (requires S.S. Ticket).",
+        "Catch the non-roamer Latias or Latios at level 50 holding Soul Dew.",
+      ],
+      tips: [
+        "Save before the encounter \u2014 only one island Eon appears per save file.",
+        "Mean Look / trapping still helps if you want a non-Master Ball catch.",
+      ],
+      secrets: [
+        "Soul Dew boosts Latias/Latios Special Attack and Special Defense in Gen III \u2014 it is banned in the Battle Frontier along with the Eon pair.",
+      ],
+      tags: ["post-game", "eon-ticket", "southern-island", "latias", "latios", "events"],
+    },
+    {
+      id: "postgame-events-3",
+      title: "MysticTicket \u2014 Navel Rock",
+      location: "Lilycove Harbor \u2192 Navel Rock",
+      summary: "Board with the MysticTicket for level-70 Lugia and Ho-Oh.",
+      story: [
+        "The MysticTicket was distributed via Mystery Gift at Nintendo events (Pok\u00e9mon Centers, Rocks America, and similar Wonder Spots). Once the Wonder Card is claimed and the ticket sits in your Key Items pocket, show it at Lilycove Harbor \u2014 you must already own the S.S. Ticket. The sailor will offer Navel Rock as a destination on the S.S. Tidal.",
+        "Navel Rock is a tall Sevii Island cavern. Take the upward stairs for Ho-Oh (level 70) on the summit and the downward path for Lugia (level 70) in the depths. Use the Itemfinder near the top for Sacred Ash. Both legendaries are among the highest-level static encounters in Emerald, so bring Ultra Balls, status, and a sturdy lead.",
+      ],
+      details: [
+        "Obtain MysticTicket via Mystery Gift Wonder Card (historical Nintendo events).",
+        "Board the S.S. Tidal from Lilycove Harbor with both the S.S. Ticket and MysticTicket.",
+        "Climb to Navel Rock Top for Ho-Oh (level 70); descend for Lugia (level 70).",
+        "Search the summit with the Itemfinder for Sacred Ash.",
+      ],
+      tips: [
+        "Stock Full Restores and status moves before the climb \u2014 both birds hit hard at level 70.",
+        "Save on the exterior before either fight if you prefer not to re-sail after a KO.",
+      ],
+      secrets: [
+        "Navel Rock never appears on the Pok\u00e9Nav map in Emerald until you have visited it.",
+      ],
+      tags: ["post-game", "mystic-ticket", "navel-rock", "lugia", "ho-oh", "events"],
+    },
+    {
+      id: "postgame-events-4",
+      title: "AuroraTicket \u2014 Birth Island",
+      location: "Lilycove Harbor \u2192 Birth Island",
+      summary: "Solve the triangle puzzle for level-30 Deoxys (Speed Forme after capture in Emerald).",
+      story: [
+        "The AuroraTicket unlocks Birth Island the same way the MysticTicket unlocks Navel Rock: receive it through Mystery Gift, then sail from Lilycove Harbor with your S.S. Ticket. Japanese Emerald cartridges were historically excluded from AuroraTicket distributions, while other language Emeralds and FireRed/LeafGreen could receive it.",
+        "Birth Island itself is nearly empty rock around a black stone triangle. Speak to the triangle, then walk the shortest possible path to its new position; repeat until the stone glows red hot. Deoxys then appears at level 30. Catch carefully \u2014 it is fragile compared with Navel Rock\u2019s birds. After the battle, Emerald converts the caught Deoxys to Speed Forme for that cartridge (stats follow the destination game\u2019s form rules in Gen III link battles).",
+      ],
+      details: [
+        "Obtain AuroraTicket via Mystery Gift Wonder Card.",
+        "Sail from Lilycove Harbor to Birth Island.",
+        "Interact with the triangle and approach via the shortest path until it turns red.",
+        "Catch Deoxys at level 30; it becomes Speed Forme on Emerald after capture.",
+      ],
+      tips: [
+        "If Deoxys faints, re-enter the Hall of Fame and return \u2014 it can respawn after another champion clear.",
+        "False Swipe and a status condition make the level-30 catch reliable.",
+      ],
+      secrets: [
+        "You cannot change Deoxys\u2019s form on a single Gen III cart \u2014 trading it into FireRed or LeafGreen changes the displayed forme while it is on that cartridge.",
+      ],
+      tags: ["post-game", "aurora-ticket", "birth-island", "deoxys", "events"],
+    },
+    {
+      id: "postgame-events-5",
+      title: "Old Sea Map \u2014 Faraway Island",
+      location: "Lilycove Harbor \u2192 Faraway Island",
+      summary: "Japan/Taiwan Emerald distributions only: find Mew on Faraway Island.",
+      story: [
+        "The Old Sea Map was distributed only for Japanese (and later Taiwanese) Emerald at Pok\u00e9mon Festa / Pok\u00e9Park events. It was never released for English, European, or other international Emerald cartridges. Those players received Mew through other promotions instead of this ferry ticket.",
+        "If the Old Sea Map is present in the Key Items pocket (legitimately on a JP/TW save, or injected into an international ROM), Lilycove Harbor adds Faraway Island to the S.S. Tidal destinations. Explore the island forest to encounter Mew at level 30. International carts still contain the maps and scripts \u2014 only the official Wonder Card distribution was region-locked.",
+      ],
+      details: [
+        "Old Sea Map: Japan Pok\u00e9mon Festa / Pok\u00e9Park 2005 and Taiwan Pok\u00e9Park 2006 Emerald distributions only.",
+        "Board from Lilycove Harbor with the S.S. Ticket and Old Sea Map.",
+        "Find and catch Mew at level 30 on Faraway Island.",
+      ],
+      tips: [
+        "Treat this step as historical / regional documentation if you play an English cart without the map.",
+      ],
+      secrets: [
+        "Faraway Island encounter data is excluded from the guide\u2019s normal wild-dex sweep because the island is event-gated.",
+      ],
+      tags: ["post-game", "old-sea-map", "faraway-island", "mew", "events"],
     },
   ],
 };

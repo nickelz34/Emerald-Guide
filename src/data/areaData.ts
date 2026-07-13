@@ -486,6 +486,11 @@ export const ENCOUNTER_EXEMPT_STEPS = new Set([
   "contests-lilycove-5",
   "contests-postgame-1",
   "contests-postgame-2",
+  "postgame-events-1",
+  "postgame-events-2",
+  "postgame-events-3",
+  "postgame-events-4",
+  "postgame-events-5",
   "league-1",
   "league-2",
   "league-3",
@@ -603,6 +608,11 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "fortree-1": ["fortree"],
   "verdanturf-1": ["verdanturf"],
   "postgame-hoenn-6": ["route-110", "route-103"],
+  "postgame-events-1": ["lilycove"],
+  "postgame-events-2": ["lilycove"],
+  "postgame-events-3": ["lilycove"],
+  "postgame-events-4": ["lilycove"],
+  "postgame-events-5": ["lilycove"],
 
   // Dungeons — explicit maps (inference fixed, but multi-area steps listed for clarity)
   "granite-cave-1": ["granite-cave"],
