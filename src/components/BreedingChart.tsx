@@ -49,8 +49,8 @@ function GenderBadge({ gender }: { gender: "female" | "male" }) {
 }
 
 function GenderSlot({ gender }: { gender?: "female" | "male" }) {
-  if (gender) return <GenderBadge gender={gender} />;
-  return <span className="breed-chart__gender-spacer" aria-hidden="true" />;
+  if (!gender) return null;
+  return <GenderBadge gender={gender} />;
 }
 
 function MonSprite({
@@ -76,8 +76,8 @@ function MonSprite({
         .filter(Boolean)
         .join(" ")}
     >
-      {!compact && <GenderSlot gender={mon.gender} />}
       <span className="breed-chart__sprite-stage">
+        {!compact && !isEgg && <GenderSlot gender={mon.gender} />}
         {src ? (
           <img
             className={`breed-chart__mon-sprite${isEgg ? " breed-chart__mon-sprite--egg" : ""}`}
@@ -113,14 +113,12 @@ function PairArrow({ edge }: { edge: BreedingPairEdge }) {
       className={`breed-chart__arrow-col${blocked ? " breed-chart__arrow-col--blocked" : ""}`}
       aria-hidden="true"
     >
-      {itemSrc ? (
-        <span className="breed-chart__arrow-item-slot">
-          <img className="breed-chart__arrow-item" src={itemSrc} alt="" width={24} height={24} draggable={false} />
-        </span>
-      ) : (
-        <span className="breed-chart__gender-spacer" />
-      )}
       <span className="breed-chart__arrow-stage">
+        {itemSrc && (
+          <span className="breed-chart__arrow-item-slot">
+            <img className="breed-chart__arrow-item" src={itemSrc} alt="" width={24} height={24} draggable={false} />
+          </span>
+        )}
         {eggSrc && (
           <img className="breed-chart__arrow-egg" src={eggSrc} alt="" width={64} height={128} draggable={false} />
         )}
