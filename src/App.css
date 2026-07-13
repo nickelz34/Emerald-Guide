@@ -3568,32 +3568,47 @@
 }
 
 .breeding-lookup__lead {
-  margin: 0 0 0.85rem;
+  margin: 0 0 1rem;
   font-size: 0.9rem;
   color: var(--text-muted, #9aa8bc);
+  line-height: 1.45;
 }
 
-.breeding-lookup__pickers {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+.breeding-lookup__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  justify-items: stretch;
   gap: 0.75rem 1rem;
+}
+
+.breeding-lookup__parent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
 }
 
 .breeding-lookup__field {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  flex: 1 1 140px;
-  min-width: 0;
+  width: 100%;
   font-size: 0.8rem;
   color: var(--text-muted, #9aa8bc);
+}
+
+.breeding-lookup__field-label {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .breeding-lookup__field select {
   font: inherit;
   font-size: 0.95rem;
   color: inherit;
+  width: 100%;
   padding: 0.45rem 0.55rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -3601,22 +3616,178 @@
 }
 
 .breeding-lookup__times {
-  font-size: 1.25rem;
+  align-self: center;
+  margin-top: 2.1rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  padding-bottom: 0.35rem;
+  color: var(--text-muted, #9aa8bc);
+  line-height: 1;
 }
 
-.breeding-lookup__sprites {
+.breeding-lookup__card {
   display: flex;
-  gap: 1rem;
-  margin: 0.75rem 0 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 0.55rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.breeding-lookup__sprite-stage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+
+.breeding-lookup__sprite,
+.breeding-lookup__offspring-sprite {
   image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.breeding-lookup__sprite {
+  width: 64px;
+  height: 64px;
+}
+
+.breeding-lookup__sprite-fallback {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  opacity: 0.45;
+}
+
+.breeding-lookup__mon-name {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.breeding-lookup__types {
+  justify-content: center;
+}
+
+.breeding-lookup__egg-groups {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.breeding-lookup__egg-group {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-muted, #9aa8bc);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.breeding-lookup__egg-group--shared {
+  color: #9fd4ff;
+  background: rgba(77, 144, 213, 0.22);
+  border-color: rgba(77, 144, 213, 0.45);
+}
+
+.breeding-lookup__egg-group--ditto {
+  color: #d8b4fe;
+  background: rgba(171, 106, 200, 0.18);
+  border-color: rgba(171, 106, 200, 0.35);
+}
+
+.breeding-lookup__egg-group--blocked {
+  color: #f0a090;
+  background: rgba(224, 85, 59, 0.14);
+  border-color: rgba(224, 85, 59, 0.35);
+}
+
+.breeding-lookup__gender {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted, #9aa8bc);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.breeding-lookup__flow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 1rem 0 0.25rem;
+  padding: 0.65rem 0.5rem;
+  border-radius: 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.breeding-lookup__flow--ok {
+  border-color: rgba(99, 187, 91, 0.25);
+}
+
+.breeding-lookup__flow--no {
+  border-color: rgba(224, 85, 59, 0.25);
+}
+
+.breeding-lookup__flow-egg {
+  image-rendering: pixelated;
+  width: 48px;
+  height: 96px;
+  object-fit: contain;
+}
+
+.breeding-lookup__flow-arrow {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-muted, #9aa8bc);
+  padding-bottom: 1.5rem;
+}
+
+.breeding-lookup__flow-offspring {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.breeding-lookup__flow-mon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.breeding-lookup__flow-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.breeding-lookup__flow-blocked {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e0553b;
+  padding: 0.35rem 0;
 }
 
 .breeding-lookup__result {
-  margin-top: 0.75rem;
-  padding: 0.75rem 0.85rem;
-  border-radius: 8px;
+  margin-top: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -3631,19 +3802,97 @@
 }
 
 .breeding-lookup__summary {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.5rem;
   font-weight: 650;
+  font-size: 0.98rem;
 }
 
-.breeding-lookup__offspring {
-  margin: 0 0 0.4rem;
-  font-size: 0.92rem;
-}
-
-.breeding-lookup__result ul {
-  margin: 0.35rem 0 0;
-  padding-left: 1.15rem;
+.breeding-lookup__shared {
+  margin: 0 0 0.55rem;
   font-size: 0.88rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.breeding-lookup__offspring-block {
+  margin: 0.5rem 0;
+}
+
+.breeding-lookup__offspring-title,
+.breeding-lookup__notes-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+}
+
+.breeding-lookup__offspring-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.breeding-lookup__offspring-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.breeding-lookup__offspring-note {
+  font-size: 0.82rem;
+  color: var(--text-muted, #9aa8bc);
+  font-style: italic;
+  padding-left: 0.15rem;
+}
+
+.breeding-lookup__offspring-sprite {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.breeding-lookup__notes {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.breeding-lookup__notes ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-muted, #9aa8bc);
+}
+
+@media (max-width: 640px) {
+  .breeding-lookup__pair {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .breeding-lookup__times {
+    margin: 0;
+    justify-self: center;
+  }
+
+  .breeding-lookup__sprite,
+  .breeding-lookup__sprite-fallback {
+    width: 56px;
+    height: 56px;
+  }
+
+  .breeding-lookup__sprite-stage {
+    width: 56px;
+    height: 56px;
+  }
+
+  .breeding-lookup__flow-egg {
+    width: 40px;
+    height: 80px;
+  }
 }
 
 .evo-methods {

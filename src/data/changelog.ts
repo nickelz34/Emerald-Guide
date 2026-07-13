@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.14",
+    date: "2026-07-13",
+    summary: "Breeding lookup tool redesign — aligned parent columns and richer compatibility details.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "Breeding lookup parent sprites now sit in dedicated columns under Parent A and Parent B instead of stacking on the left.",
+          "Each parent card shows types, egg groups (shared groups highlighted), and gender ratio.",
+          "Visual Egg → offspring flow with sprites, expanded Emerald breeding rules, and incense variant notes.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.13",
     date: "2026-07-13",
     summary: "Breeding chart gender symbols are larger and sit above each Pokémon sprite.",
