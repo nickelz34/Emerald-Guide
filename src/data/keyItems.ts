@@ -13,7 +13,15 @@ export const KEY_ITEM_UNLOCKS: KeyItemUnlock[] = [
     name: "PokéNav",
     obtainLocation: "Rustboro — Devon Corp (Mr. Stone)",
     walkthroughStepId: "rusturf-tunnel-2",
-    note: "Includes Map, Condition, and Match Call.",
+    note: "Map and Condition at first; Match Call added when you leave Devon Corp.",
+  },
+  {
+    id: "exp-share",
+    name: "Exp. Share",
+    obtainLocation: "Rustboro — Devon Corp 3F (Mr. Stone)",
+    walkthroughStepId: "granite-cave-1",
+    prerequisite: "Deliver Mr. Stone's Letter to Steven",
+    note: "Return to Devon Corp after Granite Cave.",
   },
   {
     id: "old-rod",
@@ -33,10 +41,9 @@ export const KEY_ITEM_UNLOCKS: KeyItemUnlock[] = [
   {
     id: "super-rod",
     name: "Super Rod",
-    obtainLocation: "Mossdeep City — fisherman near the shore",
+    obtainLocation: "Mossdeep City — house east of the Gym",
     walkthroughStepId: "mossdeep-3",
-    prerequisite: "Mind Badge",
-    note: "Relicanth and Wailmer for Regi puzzle.",
+    note: "Free gift from the fisherman; fish Relicanth and Wailmer for the Regi puzzle.",
   },
   {
     id: "itemfinder",

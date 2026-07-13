@@ -391,8 +391,8 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     markers: [
       { id: "r119-north", type: "poi", label: "North exit", x: 98.8, y: 50.4 },
       { id: "r119-institute", type: "building", label: "Weather Institute", detail: "Team Aqua event and Castform gift.", x: 16.3, y: 23.2 },
-      { id: "r119-rival", type: "trainer", label: "Rival battle", detail: "Rival Battle #4 — just north of the Weather Institute.", x: 18.8, y: 16.5 },
-      { id: "r119-fly", type: "item", label: "HM02 Fly", detail: "Gift after Weather Institute event.", x: 16.3, y: 23.2 },
+      { id: "r119-rival", type: "trainer", label: "Rival battle", detail: "Rival Battle #4 — gives HM02 Fly after you win.", x: 18.8, y: 16.5 },
+      { id: "r119-fly", type: "item", label: "HM02 Fly", detail: "Rival gifts this immediately after Rival Battle #4.", x: 18.8, y: 16.5 },
       { id: "r119-bridge1", type: "poi", label: "Acro Bike bridge", detail: "Narrow white bridge near the north river.", x: 21.3, y: 6.1 },
       { id: "r119-kecleon", type: "wild", label: "Kecleon", detail: "Invisible encounter — north section (fixed location, not the grass table).", x: 78.8, y: 4.6 },
       {

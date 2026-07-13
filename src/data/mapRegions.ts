@@ -12,7 +12,7 @@ export const MAP_REGIONS: MapRegion[] = [
   { id: "littleroot", label: "Littleroot", x: 11.5, y: 83, stepIds: ["littleroot-1", "route-101-1", "secret-base", "postgame-1", "postgame-2", "postgame-3", "postgame-hoenn-4"] },
   { id: "oldale", label: "Oldale", x: 16, y: 74, stepIds: ["oldale-1", "route-103-1", "route-102-1"] },
   { id: "petalburg", label: "Petalburg", x: 14, y: 63, stepIds: ["petalburg-1", "petalburg-gym-1", "route-104-1", "petalburg-woods-1"] },
-  { id: "rustboro", label: "Rustboro", x: 17.5, y: 36, stepIds: ["rustboro-1", "route-116-1", "rusturf-tunnel-1", "exp-share", "dex-nav"] },
+  { id: "rustboro", label: "Rustboro", x: 17.5, y: 36, stepIds: ["rustboro-1", "route-116-1", "rusturf-tunnel-1", "granite-cave-1"] },
   { id: "dewford", label: "Dewford", x: 7.5, y: 73, stepIds: ["dewford-1", "granite-cave-1"] },
   { id: "slateport", label: "Slateport", x: 39, y: 69, stepIds: ["slateport-1", "contests-lilycove-3"] },
   { id: "mauville", label: "Mauville", x: 43, y: 53, stepIds: ["mauville-1", "route-117-1", "contest-prep-2", "berry-master", "contests-postgame-1"] },

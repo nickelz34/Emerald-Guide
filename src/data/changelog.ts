@@ -20,6 +20,41 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.13.1",
+    date: "2026-07-13",
+    summary:
+      "Re-audit fix pass — Emerald-accurate orb plot, Fly source, Sootopolis flow, and key-item timing.",
+    sections: [
+      {
+        heading: "Story & plot (pokeemerald-verified)",
+        items: [
+          "Mt. Pyre: Team Magma took the Blue Orb first; Aqua steals the Red Orb; elders give Magma Emblem.",
+          "Magma Hideout: Maxie awakens Groudon with the Blue Orb (not Red).",
+          "Seafloor Cavern: Archie awakens Kyogre with the Red Orb (not Blue).",
+          "Sootopolis: Steven escorts you to Cave of Origin first; Wallace directs Sky Pillar inside the cave.",
+        ],
+      },
+      {
+        heading: "HMs & key items",
+        items: [
+          "HM02 Fly now correctly from rival after Rival Battle #4 on Route 119 (not Weather Institute bed).",
+          "Exp. Share added to key-items table — Devon Corp 3F after delivering Letter to Steven.",
+          "Super Rod corrected to free gift in Mossdeep house east of Gym.",
+          "PokéNav / Match Call timing: Map at gift; Match Call after leaving Devon; rematches post-Norman.",
+        ],
+      },
+      {
+        heading: "Post-game & data",
+        items: [
+          "Trick House puzzle 8 unlocks after becoming Champion (not Battle Frontier symbols).",
+          "Granite Cave areaData: Hiker gives Flash, not Steven.",
+          "Route 119 map pin for HM02 Fly moved to rival battle location.",
+          "New verify:audit-prose script guards against regression of these fixes in CI builds.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.13.0",
     date: "2026-07-13",
     summary:

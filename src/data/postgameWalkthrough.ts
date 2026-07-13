@@ -309,19 +309,19 @@ export const postgameHoennChapter: GuideSection = {
       location: "Hoenn \u2014 trainers, Route 110, Route 103",
       summary: "Match Call rematches, the final Trick House prize, and Altering Cave swarms.",
       story: [
-        "The Pok\u00e9Nav Match Call list comes alive after the championship. Registered trainers start offering rematches with higher levels and revised teams, cycling on a schedule tied to place and time \u2014 the best source of experience and money in post-game.",
-        "On Route 110, the Trick House finally opens its eighth puzzle when you have enough Frontier symbols, paying out a rare shard reward at the end. Meanwhile, Altering Cave on Route 103 begins rotating special swarms (watch TV in Lilycove or your house for announcements) if you are hunting niche species for the National Dex.",
+        "The Pok\u00e9Nav Match Call list grows throughout the story. Trainers you defeat auto-register after you earn the Balance Badge from Norman, and their rematch teams scale up over time \u2014 gym leaders join the rotation after the Hall of Fame.",
+        "On Route 110, the Trick House finally opens its eighth puzzle after you become Champion, paying out a rare shard reward at the end. Meanwhile, Altering Cave on Route 103 begins rotating special swarms (watch TV in Lilycove or your house for announcements) if you are hunting niche species for the National Dex.",
       ],
       details: [
         "Use Match Call to rematch registered trainers across Hoenn.",
-        "Clear Trick House puzzle 8 on Route 110 (requires Frontier progress).",
+        "Clear Trick House puzzle 8 on Route 110 (unlocks after becoming Champion).",
         "Visit Altering Cave on Route 103 during announced swarm events.",
       ],
       tips: [
         "Rematch teams scale sharply \u2014 heal and swap leads before accepting calls.",
       ],
       secrets: [
-        "Trick House puzzle 8 stays locked until you earn enough Battle Frontier symbols.",
+        "Trick House puzzle 8 stays locked until you clear the Pokémon League.",
       ],
       tags: ["post-game", "rematch", "trick-house", "altering-cave"],
     },
