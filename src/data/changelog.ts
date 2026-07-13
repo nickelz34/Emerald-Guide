@@ -20,6 +20,30 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.8",
+    date: "2026-07-13",
+    summary: "Ch. 1 evolution events match the stone chart style — full sprite rows, item icons, no What to do lists.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Events 1, 3, 4, and 5 now use the same visual chart pattern as Event 2 (Evolution stones): grouped species rows with bag icons on every arrow where a held item or method icon applies.",
+          "Event 1 basics chart expanded with Hoenn starter lines and more common level-up examples; Everstone block row is icon-only like the stone chart.",
+          "Trade chart split into per-item groups (Metal Coat, Dragon Scale, King's Rock, Up-Grade, Deep Sea Tooth/Scale) with icons on every row; plain trades use a Poké Ball group icon.",
+          "Friendship chart uses Soothe Bell icons throughout; Eevee day/night rows use Sun Stone and Moon Stone icons.",
+          "All five Ch. 1 events keep empty What to do checklists — story, charts, and tips carry the detail.",
+        ],
+      },
+      {
+        heading: "Sprites & evolution charts",
+        items: [
+          "Synced bag icons for Metal Coat, Dragon Scale, King's Rock, Deep Sea Tooth, Deep Sea Scale, and Soothe Bell (public/sprites/items/icons/) and registered them in itemIconsGenerated.",
+          "Evolution chart species data moved into evolutionBasics.ts, evolutionTrades.ts, evolutionFriendship.ts, and evolutionUnique.ts alongside evolutionStones.ts.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.7",
     date: "2026-07-12",
     summary: "Emerald evolution accuracy pass: friendship list, Porygon2 trade, and Tyrogue’s unique branch.",
