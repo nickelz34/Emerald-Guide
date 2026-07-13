@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.10.76",
+    date: "2026-07-12",
+    summary: "Wild Pokémon map pins no longer imply different encounters per grass patch.",
+    sections: [
+      {
+        heading: "Maps — wild encounters",
+        items: [
+          "Route maps now show one tall-grass pin (and one surf/fish pin where relevant) instead of separate markers on each grass clump — Emerald uses one encounter table per map + terrain type, shared by every tile of that terrain.",
+          "Pin labels and details say the table applies to any matching tile on the route; Kecleon stays as a fixed-location pin because those are scripted encounters, not the grass table.",
+          "Wally’s Ralts catch on Route 102 is a story POI, separate from the route-wide grass marker.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.75",
     date: "2026-07-12",
     summary: "Walkthrough search finds items, story beats, and secrets — not just step titles.",
