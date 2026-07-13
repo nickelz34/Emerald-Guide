@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type SetStateAction } from "react";
 import type { WalkthroughPlayMode } from "../types";
 
 export interface WalkthroughPreferences {
   setupComplete: boolean;
   skipPregame: boolean;
   playMode: WalkthroughPlayMode;
+  /** Last walkthrough step the user was on (persisted across reloads). */
+  activeStepId?: string;
 }
 
 const STORAGE_KEY = "emerald-guide-walkthrough-prefs";
@@ -31,6 +33,8 @@ function readStoredPreferences(): WalkthroughPreferences | null {
       setupComplete: parsed.setupComplete,
       skipPregame: parsed.skipPregame,
       playMode: parsed.playMode,
+      activeStepId:
+        typeof parsed.activeStepId === "string" ? parsed.activeStepId : undefined,
     };
   } catch {
     return null;
@@ -43,14 +47,14 @@ export function getWalkthroughStartStepId(prefs: WalkthroughPreferences): string
 
 export function useWalkthroughPreferences(): [
   WalkthroughPreferences,
-  (next: WalkthroughPreferences) => void,
+  (next: SetStateAction<WalkthroughPreferences>) => void,
   () => void,
 ] {
   const [prefs, setPrefsState] = useState<WalkthroughPreferences>(
     () => readStoredPreferences() ?? DEFAULT_WALKTHROUGH_PREFERENCES,
   );
 
-  const setPrefs = useCallback((next: WalkthroughPreferences) => {
+  const setPrefs = useCallback((next: SetStateAction<WalkthroughPreferences>) => {
     setPrefsState(next);
   }, []);
 

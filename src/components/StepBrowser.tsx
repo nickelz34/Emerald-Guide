@@ -25,6 +25,7 @@ import {
   walkthroughMatchFieldLabel,
 } from "../data/walkthroughSearch";
 import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
+import { encodeSaveCode } from "../lib/saveCode";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -107,6 +108,8 @@ export function StepBrowser({
   );
   const [filter, setFilter] = useState("");
   const [railOpen, setRailOpen] = useState(false);
+  const [saveCode, setSaveCode] = useState<string | null>(null);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const [swipeIntroDismissed, setSwipeIntroDismissed] = useState(() => {
     try {
       return sessionStorage.getItem(SWIPE_INTRO_KEY) === "1";
@@ -130,19 +133,48 @@ export function StepBrowser({
   const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
   const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
 
-  const select = (id: string) => {
-    setInternalId(id);
-    onActiveStepChange?.(id);
-    setRailOpen(false);
-  };
+  const flatIndexById = useMemo(() => {
+    const map = new Map<string, number>();
+    flat.forEach((entry, index) => map.set(entry.step.id, index));
+    return map;
+  }, [flat]);
+
+  const select = useCallback(
+    (id: string) => {
+      setInternalId(id);
+      onActiveStepChange?.(id);
+      setRailOpen(false);
+      setSaveCode(null);
+      setCopyStatus("idle");
+    },
+    [onActiveStepChange],
+  );
 
   const goNext = useCallback(() => {
     if (currentIndex < flat.length - 1) select(flat[currentIndex + 1].step.id);
-  }, [currentIndex, flat]);
+  }, [currentIndex, flat, select]);
 
   const goPrev = useCallback(() => {
     if (currentIndex > 0) select(flat[currentIndex - 1].step.id);
-  }, [currentIndex, flat]);
+  }, [currentIndex, flat, select]);
+
+  const handleSaveProgress = useCallback(async () => {
+    if (!walkthroughPrefs || !current?.step.id) return;
+    const code = encodeSaveCode({
+      skipPregame: walkthroughPrefs.skipPregame,
+      playMode: walkthroughPrefs.playMode,
+      stepId: current.step.id,
+    });
+    if (!code) return;
+    setSaveCode(code);
+    setCopyStatus("idle");
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("failed");
+    }
+  }, [walkthroughPrefs, current?.step.id]);
 
   useEffect(() => {
     if (activeStepId) setInternalId(activeStepId);
@@ -279,10 +311,30 @@ export function StepBrowser({
             <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenGuideSettings}>
               Guide settings
             </button>
+            <button
+              type="button"
+              className="btn btn--ghost btn--sm"
+              onClick={() => void handleSaveProgress()}
+            >
+              Save progress
+            </button>
             <span className="step-rail__mode-label">
               {walkthroughPrefs.playMode === "storyline" ? "Storyline" : "Completionist"}
               {walkthroughPrefs.skipPregame ? " · No pregame" : ""}
             </span>
+            {saveCode ? (
+              <div className="step-rail__save-code" role="status">
+                <span className="step-rail__save-code-label">Your save code</span>
+                <code className="step-rail__save-code-value">{saveCode}</code>
+                <span className="step-rail__save-code-hint">
+                  {copyStatus === "copied"
+                    ? "Copied to clipboard"
+                    : copyStatus === "failed"
+                      ? "Copy manually — clipboard unavailable"
+                      : "Enter this on Guide settings to continue later"}
+                </span>
+              </div>
+            ) : null}
           </div>
         ) : null}
         <input
@@ -307,11 +359,16 @@ export function StepBrowser({
                 {visible.map(({ step: s, hit }) => {
                   const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
                   const active = s.id === currentId;
+                  const stepFlatIndex = flatIndexById.get(s.id) ?? -1;
+                  const reached =
+                    category === "walkthrough" && stepFlatIndex >= 0 && stepFlatIndex < currentIndex;
                   return (
                     <button
                       key={s.id}
                       type="button"
-                      className={`step-rail__item ${active ? "step-rail__item--active" : ""}`}
+                      className={`step-rail__item ${active ? "step-rail__item--active" : ""}${
+                        reached ? " step-rail__item--reached" : ""
+                      }`}
                       onClick={() => select(s.id)}
                     >
                       <span className="step-rail__num">{eventNum}</span>
@@ -320,6 +377,11 @@ export function StepBrowser({
                           <span className="step-rail__label">{s.title}</span>
                           {s.optional ? (
                             <span className="step-optional-badge">Optional</span>
+                          ) : null}
+                          {reached ? (
+                            <span className="step-reached-badge" aria-label="Reached">
+                              Reached
+                            </span>
                           ) : null}
                         </span>
                         {hit && (
@@ -503,6 +565,24 @@ export function StepBrowser({
             {category === "walkthrough" ? "Next step" : "Next"} →
           </button>
         </div>
+        {category === "walkthrough" && walkthroughPrefs ? (
+          <div className="step-nav__save">
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => void handleSaveProgress()}
+            >
+              Save progress
+            </button>
+            {saveCode ? (
+              <p className="step-nav__save-code" role="status">
+                Save code: <code>{saveCode}</code>
+                {copyStatus === "copied" ? " · Copied" : null}
+                {copyStatus === "failed" ? " · Copy manually" : null}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         {mobileNav ? (
           <p className="step-nav__swipe-hint">
             Swipe <strong>left</strong> for next · <strong>right</strong> for previous
