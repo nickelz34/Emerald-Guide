@@ -1,4 +1,3 @@
-import { getFlatSteps } from "../data";
 import type { WalkthroughPlayMode } from "../types";
 
 export interface SaveCodeState {
@@ -7,125 +6,143 @@ export interface SaveCodeState {
   stepId: string;
 }
 
-export type DecodeSaveCodeResult =
+export type LoadSaveCodeResult =
   | { ok: true; state: SaveCodeState }
   | { ok: false; error: string };
 
-const SAVE_CODE_VERSION = 1;
-const SAVE_CODE_LENGTH = 6;
-const CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+export const SAVE_CODE_LENGTH = 4;
+const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const STORAGE_PREFIX = "emerald-guide-save:";
+const INDEX_KEY = "emerald-guide-save-codes";
 
-/** Bit layout (24 bits): version[4] | skip[1] | mode[1] | stepIndex[10] | checksum[8] */
-const VERSION_SHIFT = 20;
-const SKIP_SHIFT = 19;
-const MODE_SHIFT = 18;
-const STEP_SHIFT = 8;
-const VERSION_MASK = 0xf;
-const STEP_MASK = 0x3ff;
-const CHECKSUM_MASK = 0xff;
-
-function walkthroughStepIds(): string[] {
-  return getFlatSteps("walkthrough").map((step) => step.id);
+function storageKey(code: string): string {
+  return `${STORAGE_PREFIX}${code}`;
 }
 
-function computeChecksum(
-  version: number,
-  skipPregame: boolean,
-  playModeBit: number,
-  stepIndex: number,
-): number {
-  const raw =
-    version * 31 + (skipPregame ? 17 : 0) + playModeBit * 13 + stepIndex * 7;
-  return (raw ^ 0xa5) & CHECKSUM_MASK;
+function normalizeCode(raw: string): string {
+  return raw.trim().toUpperCase();
 }
 
-function toBase36(value: number): string {
-  let n = value;
-  if (n === 0) return "0".repeat(SAVE_CODE_LENGTH);
+function isValidCodeFormat(code: string): boolean {
+  return new RegExp(`^[A-Z]{${SAVE_CODE_LENGTH}}$`).test(code);
+}
+
+function readCodeIndex(): string[] {
+  try {
+    const raw = localStorage.getItem(INDEX_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((entry): entry is string => typeof entry === "string" && isValidCodeFormat(entry));
+  } catch {
+    return [];
+  }
+}
+
+function writeCodeIndex(codes: string[]): void {
+  try {
+    localStorage.setItem(INDEX_KEY, JSON.stringify(codes));
+  } catch {
+    /* private browsing / quota */
+  }
+}
+
+function rememberCode(code: string): void {
+  const codes = readCodeIndex();
+  if (!codes.includes(code)) {
+    writeCodeIndex([...codes, code]);
+  }
+}
+
+function randomCode(): string {
+  const bytes = new Uint8Array(SAVE_CODE_LENGTH);
+  crypto.getRandomValues(bytes);
   let out = "";
-  while (n > 0) {
-    out = CHARSET[n % 36] + out;
-    n = Math.floor(n / 36);
+  for (const byte of bytes) {
+    out += CHARSET[byte % CHARSET.length];
   }
-  return out.padStart(SAVE_CODE_LENGTH, "0");
+  return out;
 }
 
-function fromBase36(code: string): number | null {
-  let value = 0;
-  for (const ch of code) {
-    const idx = CHARSET.indexOf(ch);
-    if (idx < 0) return null;
-    value = value * 36 + idx;
+/** Generate a random unique 4-letter code not already used in localStorage. */
+export function generateUniqueSaveCode(): string | null {
+  const existing = new Set(readCodeIndex());
+  for (let attempt = 0; attempt < 64; attempt++) {
+    const code = randomCode();
+    if (existing.has(code)) continue;
+    try {
+      if (localStorage.getItem(storageKey(code)) !== null) continue;
+    } catch {
+      return null;
+    }
+    return code;
   }
-  return value;
+  return null;
 }
 
-/** Encode play prefs + current walkthrough step into a 6-character save code. */
-export function encodeSaveCode(state: SaveCodeState): string | null {
-  const ids = walkthroughStepIds();
-  const stepIndex = ids.indexOf(state.stepId);
-  if (stepIndex < 0 || stepIndex > STEP_MASK) return null;
-
-  const playModeBit = state.playMode === "completionist" ? 1 : 0;
-  const checksum = computeChecksum(
-    SAVE_CODE_VERSION,
-    state.skipPregame,
-    playModeBit,
-    stepIndex,
+function isValidState(value: unknown): value is SaveCodeState {
+  if (!value || typeof value !== "object") return false;
+  const state = value as Partial<SaveCodeState>;
+  return (
+    typeof state.skipPregame === "boolean" &&
+    (state.playMode === "storyline" || state.playMode === "completionist") &&
+    typeof state.stepId === "string" &&
+    state.stepId.length > 0
   );
-
-  const packed =
-    ((SAVE_CODE_VERSION & VERSION_MASK) << VERSION_SHIFT) |
-    ((state.skipPregame ? 1 : 0) << SKIP_SHIFT) |
-    (playModeBit << MODE_SHIFT) |
-    ((stepIndex & STEP_MASK) << STEP_SHIFT) |
-    (checksum & CHECKSUM_MASK);
-
-  return toBase36(packed);
 }
 
-/** Decode a 6-character save code back into walkthrough progress. */
-export function decodeSaveCode(raw: string): DecodeSaveCodeResult {
-  const code = raw.trim().toUpperCase();
+/**
+ * Create a new 4-letter save code and store guide progress under it in localStorage.
+ */
+export function createSaveCode(state: SaveCodeState): string | null {
+  const code = generateUniqueSaveCode();
+  if (!code) return null;
+
+  try {
+    localStorage.setItem(
+      storageKey(code),
+      JSON.stringify({
+        skipPregame: state.skipPregame,
+        playMode: state.playMode,
+        stepId: state.stepId,
+        savedAt: new Date().toISOString(),
+      }),
+    );
+    rememberCode(code);
+    return code;
+  } catch {
+    return null;
+  }
+}
+
+/** Load guide progress previously stored under a 4-letter save code. */
+export function loadSaveCode(raw: string): LoadSaveCodeResult {
+  const code = normalizeCode(raw);
   if (code.length !== SAVE_CODE_LENGTH) {
-    return { ok: false, error: "Save codes are exactly 6 characters." };
+    return { ok: false, error: "Save codes are exactly 4 letters." };
   }
-  if (!/^[0-9A-Z]{6}$/.test(code)) {
+  if (!isValidCodeFormat(code)) {
     return { ok: false, error: "Invalid or unrecognized save code." };
   }
 
-  const packed = fromBase36(code);
-  if (packed === null) {
+  try {
+    const rawValue = localStorage.getItem(storageKey(code));
+    if (!rawValue) {
+      return { ok: false, error: "No save found for that code on this device." };
+    }
+    const parsed = JSON.parse(rawValue) as unknown;
+    if (!isValidState(parsed)) {
+      return { ok: false, error: "Invalid or unrecognized save code." };
+    }
+    return {
+      ok: true,
+      state: {
+        skipPregame: parsed.skipPregame,
+        playMode: parsed.playMode,
+        stepId: parsed.stepId,
+      },
+    };
+  } catch {
     return { ok: false, error: "Invalid or unrecognized save code." };
   }
-
-  const version = (packed >> VERSION_SHIFT) & VERSION_MASK;
-  const skipPregame = ((packed >> SKIP_SHIFT) & 1) === 1;
-  const playModeBit = (packed >> MODE_SHIFT) & 1;
-  const stepIndex = (packed >> STEP_SHIFT) & STEP_MASK;
-  const checksum = packed & CHECKSUM_MASK;
-
-  if (version !== SAVE_CODE_VERSION) {
-    return { ok: false, error: "Invalid or unrecognized save code." };
-  }
-
-  const expected = computeChecksum(version, skipPregame, playModeBit, stepIndex);
-  if (checksum !== expected) {
-    return { ok: false, error: "Invalid or unrecognized save code." };
-  }
-
-  const ids = walkthroughStepIds();
-  const stepId = ids[stepIndex];
-  if (!stepId) {
-    return { ok: false, error: "Invalid or unrecognized save code." };
-  }
-
-  return {
-    ok: true,
-    state: {
-      skipPregame,
-      playMode: playModeBit === 1 ? "completionist" : "storyline",
-      stepId,
-    },
-  };
 }
