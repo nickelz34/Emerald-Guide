@@ -317,6 +317,13 @@ export const AREA_NOTE_LABELS: Record<string, string[]> = {
   "fiery-path": ["Fiery Path"],
   "safari-zone": ["Safari Zone"],
   "sealed-chamber": ["Sealed Chamber approach"],
+  "jagged-pass": ["Jagged Pass"],
+  "meteor-falls": ["Meteor Falls"],
+  "new-mauville": ["New Mauville"],
+  "abandoned-ship": ["Abandoned Ship"],
+  "shoal-cave": ["Shoal Cave"],
+  "magma-hideout": ["Magma Hideout"],
+  "seafloor-cavern": ["Seafloor Cavern"],
 };
 
 /** Marker id → position on the full Hoenn map (from pret tile coords). */

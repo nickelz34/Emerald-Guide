@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.13.4",
+    date: "2026-07-13",
+    summary: "Encounter coverage polish — dungeon AREA_DATA, interior step fixes, unified exempt list.",
+    sections: [
+      {
+        heading: "Encounter panel (#43 complete)",
+        items: [
+          "AREA_DATA for Jagged Pass, Meteor Falls, New Mauville, Abandoned Ship, Shoal Cave, Safari Zone, Magma Hideout, and Seafloor Cavern (live wild tables + tips).",
+          "ENCOUNTER_EXEMPT_STEPS — single source for gyms, contests, Aqua Hideout, Scorched Slab, and other no-wild steps.",
+          "Fixed mt-chimney-2 → Jagged Pass; mauville-3 → New Mauville; route-114-* → Meteor Falls.",
+          "Victory Road step 1 linked to interior area map; map note labels for all dungeon slugs.",
+          "verify-encounter-coverage parses exempt/dungeon lists from areaData.ts (no drift).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.13.3",
     date: "2026-07-13",
     summary: "Encounter panel coverage — dungeon wild tables, gym step fixes, and interior map links.",
