@@ -341,8 +341,8 @@ export function StepBrowser({
                             <span className="step-optional-badge">Optional</span>
                           ) : null}
                           {reached ? (
-                            <span className="step-reached-badge" aria-label="Reached">
-                              Reached
+                            <span className="step-reached-badge" aria-label="Complete">
+                              Complete
                             </span>
                           ) : null}
                         </span>

@@ -31,7 +31,7 @@ export const CHANGELOG: ChangelogRelease[] = [
           "Save progress button on each walkthrough step generates a 6-character alphanumeric code (play mode, pregame preference, and exact step).",
           "Continue with save code on the setup screen restores preferences and jumps back to where you left off.",
           "Current step also persists in the browser so a refresh keeps your place without re-entering a code.",
-          "Steps before your current place show a Reached marker in the step list.",
+          "Steps before your current place show a Complete marker in the step list.",
         ],
       },
       {
