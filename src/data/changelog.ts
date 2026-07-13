@@ -20,6 +20,29 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.9",
+    date: "2026-07-13",
+    summary: "Ch. 2 Breeding expanded to six visual events — detailed prose, sprite charts, no What to do lists.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "Chapter 2 grows from four events to six: Day Care & Eggs, Egg groups, Incense babies, Nature/IVs/abilities, Egg moves, and Hatching/resources.",
+          "Every breeding event drops the What to do checklist — story paragraphs, visual BreedingChart panels, tips, and the compatibility lookup carry the detail.",
+          "New BreedingChart component shows parent × parent → offspring rows with Emerald sprites and bag icons (Everstone, Sea/Lax Incense, Poké Ball), plus egg-group sprite grids for all fifteen groups.",
+          "Prose covers compatibility rules, incense exceptions, Everstone nature pass, IV inheritance, egg-move fathers, Flame Body not helping in Gen III, Lavaridge Wynaut Egg, Desert Underpass Ditto, and Steven's Johto starter gift.",
+        ],
+      },
+      {
+        heading: "Breeding charts & data",
+        items: [
+          "Chart data lives in breedingDayCareChart.ts, breedingEggGroupsChart.ts, breedingIncenseChart.ts, breedingInheritanceChart.ts, breedingEggMovesChart.ts, and breedingHatchingChart.ts.",
+          "Breeding chapter content moved to pregameBreedingChapter.ts for maintainability alongside the evolution split.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.8",
     date: "2026-07-13",
     summary: "Ch. 1 evolution events match the stone chart style — full sprite rows, item icons, no What to do lists.",

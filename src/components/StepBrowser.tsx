@@ -9,8 +9,10 @@ import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { getGymForWalkthroughStep } from "../data/gymData";
 import { BreedingLookup } from "./BreedingLookup";
+import { BreedingChart } from "./BreedingChart";
 import { EvolutionChart } from "./EvolutionChart";
 import { PREGAME_EVOLUTION_CHARTS } from "../data/evolutionCharts";
+import { PREGAME_BREEDING_CHARTS } from "../data/breedingCharts";
 import {
   filterWalkthroughSteps,
   walkthroughMatchFieldLabel,
@@ -109,6 +111,7 @@ export function StepBrowser({
   const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
   const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
   const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
+  const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
 
   const select = (id: string) => {
     setInternalId(id);
@@ -366,6 +369,7 @@ export function StepBrowser({
 
           {showBreedingLookup && <BreedingLookup />}
           {evolutionChart && <EvolutionChart chart={evolutionChart} />}
+          {breedingChart && <BreedingChart chart={breedingChart} />}
 
           <StepDetails details={current.step.details} />
 
