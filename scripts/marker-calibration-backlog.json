@@ -1,0 +1,53 @@
+{
+  "description": "Walkthrough map markers flagged by audit-walkthrough-markers.mjs (tile distance from nearest pokeemerald entity).",
+  "workflow": [
+    "node scripts/audit-walkthrough-markers.mjs",
+    "Adjust scripts/marker-tiles.json",
+    "node scripts/patch-marker-map-pos.mjs (or npm run gen:map-crops with .calib)",
+    "Sync labels in src/data/mapAnnotations.ts if needed"
+  ],
+  "flagged": [
+    {
+      "areaId": "route-104",
+      "markerId": "r104-berry",
+      "tiles": [8, 19],
+      "pokeemerald": "Route104 White Herb florist NPC @ (8,19)",
+      "status": "ok — audit should treat florist NPCs as berry targets"
+    },
+    {
+      "areaId": "petalburg",
+      "markerId": "pet-woods",
+      "tiles": [0, 15],
+      "pokeemerald": "West map connection to Route 104 (not an interior warp)",
+      "status": "ok — city edge exit marker"
+    },
+    {
+      "areaId": "dewford",
+      "markerId": "dew-dock",
+      "tiles": [12, 8],
+      "pokeemerald": "Mr. Briney boat @ (12,8); Briney NPC @ (12,9)",
+      "status": "fixed"
+    },
+    {
+      "areaId": "lavaridge",
+      "markerId": "lav-springs",
+      "tiles": [5, 4],
+      "pokeemerald": "Hot springs old women @ (4,4) and (5,4)",
+      "status": "ok — outdoor POI, not a building warp"
+    },
+    {
+      "areaId": "fallarbor",
+      "markerId": "fall-meteor",
+      "tiles": [6, 17],
+      "pokeemerald": "Cozmo house warp @ (6,17)",
+      "status": "ok"
+    },
+    {
+      "areaId": "pacifidlog",
+      "markerId": "pac-surf",
+      "tiles": [8, 20],
+      "pokeemerald": "Town surf encounters — no dedicated warp; PC @ (8,15)",
+      "status": "review — may nudge toward open water tiles"
+    }
+  ]
+}
