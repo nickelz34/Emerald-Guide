@@ -12,6 +12,7 @@ import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
 import { MatchCallRematchPanel } from "./MatchCallRematchPanel";
+import { MatchCallSchedulePanel } from "./MatchCallSchedulePanel";
 import { getGymForWalkthroughStep } from "../data/gymData";
 import { getRivalForWalkthroughStep } from "../data/rivalData";
 import { BreedingLookup } from "./BreedingLookup";
@@ -405,6 +406,7 @@ export function StepBrowser({
           {showMatchCallRematch && (
             <section className="reference-embed" aria-label="Match Call rematches">
               <MatchCallRematchPanel />
+              <MatchCallSchedulePanel className="match-call-schedule--stacked" />
             </section>
           )}
 

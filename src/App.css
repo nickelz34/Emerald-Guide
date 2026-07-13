@@ -3753,6 +3753,69 @@
   color: var(--text-muted, #9aa8bc);
 }
 
+.match-call-schedule--stacked {
+  margin-top: 1.25rem;
+}
+
+.match-call-schedule__rules {
+  margin: 0 0 1rem;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted, #9aa8bc);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.match-call-schedule__rules strong {
+  color: var(--text, #e8edf4);
+}
+
+.match-call-schedule__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.match-call-schedule__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.match-call-schedule__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.match-call-schedule__table th,
+.match-call-schedule__table td {
+  padding: 0.4rem 0.55rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+}
+
+.match-call-schedule__table th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.match-call-schedule__badge {
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(213, 164, 77, 0.2);
+  color: #e8c878;
+}
+
 .encounter-panel__loading {
   margin: 0.5rem 0;
   font-size: 0.85rem;
