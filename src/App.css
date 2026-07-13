@@ -3950,25 +3950,22 @@
   max-width: 100%;
 }
 
-.breed-chart__gender,
-.breed-chart__gender-spacer {
+.breed-chart__gender {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
+  transform: translateX(-50%);
+  z-index: 1;
   display: grid;
   place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-bottom: 0.1rem;
-  flex-shrink: 0;
-}
-
-.breed-chart__gender {
-  font-size: 0.95rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 700;
   line-height: 1;
-  border-radius: 4px;
-}
-
-.breed-chart__gender-spacer {
-  visibility: hidden;
+  border-radius: 5px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
 .breed-chart__gender--female {
@@ -3982,12 +3979,17 @@
 }
 
 .breed-chart__sprite-stage {
+  position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   width: 64px;
   height: 128px;
   flex-shrink: 0;
+}
+
+.breed-chart__mon--compact .breed-chart__sprite-stage .breed-chart__gender {
+  bottom: 64px;
 }
 
 .breed-chart__mon--compact .breed-chart__sprite-stage {
@@ -4052,20 +4054,8 @@
   width: 72px;
 }
 
-.breed-chart__arrow-item-slot {
-  display: grid;
-  place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-bottom: 0.1rem;
-}
-
-.breed-chart__arrow-item-slot .breed-chart__arrow-item {
-  width: 20px;
-  height: 20px;
-}
-
 .breed-chart__arrow-stage {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -4073,6 +4063,26 @@
   gap: 0.15rem;
   width: 64px;
   height: 128px;
+}
+
+.breed-chart__arrow-item-slot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.breed-chart__arrow-item-slot .breed-chart__arrow-item {
+  width: 22px;
+  height: 22px;
 }
 
 .breed-chart__arrow-egg {
@@ -4189,6 +4199,13 @@
 
   .breed-chart__sprite-stage {
     height: 96px;
+  }
+
+  .breed-chart__gender {
+    bottom: 48px;
+    width: 1.35rem;
+    height: 1.35rem;
+    font-size: 1.05rem;
   }
 
   .breed-chart__arrow-stage {

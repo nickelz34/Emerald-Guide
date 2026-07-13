@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.13",
+    date: "2026-07-13",
+    summary: "Breeding chart gender symbols are larger and sit above each Pokémon sprite.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "♀ / ♂ badges are slightly larger and overlay the sprite stage just above each Pokémon's head instead of sitting in a separate row.",
+          "Held-item icons on breeding arrows use the same top-of-stage overlay so columns stay aligned.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.12",
     date: "2026-07-13",
     summary: "Ch. 2 breeding charts — larger egg sprites and a full alignment/layout pass.",
