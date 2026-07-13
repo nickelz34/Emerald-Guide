@@ -11,6 +11,7 @@ import { RivalGuidePanelForStep } from "./RivalGuidePanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
+import { MatchCallRematchPanel } from "./MatchCallRematchPanel";
 import { getGymForWalkthroughStep } from "../data/gymData";
 import { getRivalForWalkthroughStep } from "../data/rivalData";
 import { BreedingLookup } from "./BreedingLookup";
@@ -118,6 +119,7 @@ export function StepBrowser({
   const showHmTable = current?.step.id === "rustboro-1";
   const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
   const showScottChecklist = current?.step.id === "battle-frontier-2";
+  const showMatchCallRematch = current?.step.id === "postgame-hoenn-6";
   const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
   const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
   const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
@@ -397,6 +399,12 @@ export function StepBrowser({
           {showScottChecklist && (
             <section className="reference-embed" aria-label="Scott sightings">
               <ScottSightingsPanel />
+            </section>
+          )}
+
+          {showMatchCallRematch && (
+            <section className="reference-embed" aria-label="Match Call rematches">
+              <MatchCallRematchPanel />
             </section>
           )}
 

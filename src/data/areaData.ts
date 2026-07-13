@@ -471,10 +471,98 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "trick-8": ["route-110"],
   "battle-frontier": ["battle-frontier"],
   "mirage-island": ["pacifidlog"],
+  "route-103-2": ["route-103"],
+  "rustboro-3": ["rustboro"],
+  "route-110-3": ["route-110"],
+  "route-119-3": ["route-119"],
+  "route-102-1": ["route-102"],
+  "route-105-1": ["route-105"],
+  "route-106-1": ["route-106"],
+  "route-107-1": ["route-107"],
+  "route-108-1": ["route-108"],
+  "route-109-1": ["route-109"],
+  "route-111-1": ["route-111"],
+  "route-112-1": ["route-112"],
+  "route-114-1": ["route-114"],
+  "route-115-1": ["route-115"],
+  "route-117-1": ["route-117"],
+  "route-118-1": ["route-118"],
+  "route-122-1": ["route-122"],
+  "route-123-1": ["route-123"],
+  "route-124-1": ["route-124"],
+  "route-125-1": ["route-125"],
+  "route-126-1": ["route-126"],
+  "route-127-1": ["route-127"],
+  "route-128-1": ["route-128"],
+  "route-129-1": ["route-129"],
+  "route-130-1": ["route-130"],
+  "route-131-1": ["route-131"],
+  "route-132-1": ["route-132"],
+  "route-133-1": ["route-133"],
+  "route-134-1": ["route-134"],
+  "slateport-1": ["slateport"],
+  "mauville-1": ["mauville"],
+  "lavaridge-1": ["lavaridge"],
+  "fallarbor-1": ["fallarbor"],
+  "fortree-1": ["fortree"],
+  "verdanturf-1": ["verdanturf"],
+  "postgame-hoenn-6": ["route-110", "route-103"],
 };
 
+const TOWN_AREA_PREFIXES = [
+  "littleroot",
+  "oldale",
+  "petalburg",
+  "rustboro",
+  "dewford",
+  "slateport",
+  "mauville",
+  "lavaridge",
+  "fallarbor",
+  "fortree",
+  "lilycove",
+  "mossdeep",
+  "sootopolis",
+  "pacifidlog",
+  "ever-grande",
+  "battle-frontier",
+  "verdanturf",
+] as const;
+
+const DUNGEON_AREA_PREFIXES = [
+  "granite-cave",
+  "petalburg-woods",
+  "rusturf-tunnel",
+  "mt-pyre",
+  "victory-road",
+  "sky-pillar",
+  "sealed-chamber",
+  "safari-zone",
+  "abandoned-ship",
+  "shoal-cave",
+  "magma-hideout",
+  "seafloor-cavern",
+] as const;
+
+/** Infer an encounter area slug from a walkthrough step id when not explicitly mapped. */
+export function inferAreaIdFromStepId(stepId: string): string | undefined {
+  const routeMatch = stepId.match(/^(route-\d+)-\d+$/);
+  if (routeMatch) return routeMatch[1];
+
+  for (const prefix of TOWN_AREA_PREFIXES) {
+    if (stepId.startsWith(`${prefix}-`)) return prefix;
+  }
+  for (const prefix of DUNGEON_AREA_PREFIXES) {
+    if (stepId.startsWith(`${prefix}-`)) return prefix;
+  }
+  return undefined;
+}
+
 export function getAreasForStep(stepId: string): string[] {
-  return STEP_AREA_MAP[stepId] ?? [];
+  const mapped = STEP_AREA_MAP[stepId];
+  if (mapped?.length) return mapped;
+  const inferred = inferAreaIdFromStepId(stepId);
+  return inferred ? [inferred] : [];
 }
 
 export function getAreaData(areaId: string): AreaExtras | undefined {
@@ -613,12 +701,12 @@ export function encountersFromWildData(wildList: WildPokemon[], areaId: string):
   });
 }
 
-/** Curated encounters first; otherwise pokeemerald wild data. */
+/** pokeemerald wild data first; curated tables are fallback only. */
 export async function loadRouteEncounters(areaId: string): Promise<PokemonEncounter[]> {
-  const curated = getAreaData(areaId)?.encounters ?? [];
-  if (curated.length > 0) return curated;
   const wild = await loadWildPokedex();
-  return encountersFromWildData(wild, areaId);
+  const fromWild = encountersFromWildData(wild, areaId);
+  if (fromWild.length > 0) return fromWild;
+  return getAreaData(areaId)?.encounters ?? [];
 }
 
 /** Tips, secrets, and hidden-item notes for the route detail panel. */
