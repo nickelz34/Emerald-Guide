@@ -55,6 +55,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "trick-5": "route110-trickhousepuzzle6",
   "trick-6": "route110-trickhousepuzzle6",
   "trick-7": "route110-trickhousepuzzle7",
+  "trick-8": "route110-trickhousepuzzle8",
 
   // Mauville / New Mauville
   "mauville-2": "mauvillecity-gym",
@@ -77,6 +78,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "contests-lilycove-4": "contesthall",
   "contests-lilycove-5": "contesthall",
   "contests-postgame-1": "contesthall",
+  "contests-postgame-blend": "contesthall",
   "contests-postgame-2": "contesthall",
 
   // Fiery Path & Scorched Slab
@@ -128,6 +130,9 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "postgame-hoenn-1": "mossdeepcity-stevenshouse",
   "postgame-hoenn-4": "littleroottown-professorbirchslab",
   "postgame-hoenn-7": "meteorfalls-1f-1r",
+
+  // Postgame event islands
+  "postgame-events-3": "navelrock-top",
 
   "victory-road-1": "victoryroad-1f",
 
@@ -210,7 +215,8 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "safarizone-southeast",
     "safarizone-southwest",
   ],
-  "postgame-hoenn-3": ["artisancave-1f", "artisancave-b1f"],
+  // Artisan Cave — Battle Frontier side content
+  "battle-frontier-5": ["artisancave-1f", "artisancave-b1f"],
   "seafloor-cavern-1": ["underwater-route127", "underwater-route128"],
 };
 

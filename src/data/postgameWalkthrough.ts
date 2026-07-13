@@ -2,7 +2,7 @@ import type { GuideSection } from "../types";
 
 export const postgameOpeningChapter: GuideSection = {
   id: "postgame-opening",
-  title: "Ch. 45 \u2014 Post-Game Opening",
+  title: "Ch. 45 \u2014 Postgame: Opening",
   description: "S.S. Ticket, the Eon roamer, and the National Dex.",
   steps: [
     {
@@ -48,7 +48,9 @@ export const postgameOpeningChapter: GuideSection = {
         "Mean Look, Shadow Tag, or a Master Ball are the reliable ways to finish the chase.",
       ],
       secrets: [
-        "The other Eon can still appear in Battle Frontier trainer teams, but you cannot catch both on one cartridge.",
+        "The other Eon can still appear in Battle Frontier trainer teams, but you cannot catch both as roamers on one cartridge.",
+        "Southern Island (Eon Ticket) lets you catch the non-roamer Eon holding Soul Dew \u2014 see Postgame: Mystery Gift & Event Islands.",
+        "Event-only mythicals such as Deoxys (AuroraTicket / Birth Island) and Jirachi (Colosseum bonus disc or Pok\u00e9mon Channel) are covered in the event-islands chapter; they are not wild encounters in a normal cartridge playthrough.",
       ],
       tags: ["post-game", "latias", "latios", "roamer", "littleroot"],
     },
@@ -81,8 +83,9 @@ export const postgameOpeningChapter: GuideSection = {
 
 export const postgameFrontierChapter: GuideSection = {
   id: "battle-frontier",
-  title: "Ch. 46 \u2014 Battle Frontier",
-  description: "Sail on the S.S. Tidal, earn BP, and challenge the seven Frontier Brains.",
+  title: "Ch. 46 \u2014 Postgame: Battle Frontier",
+  description:
+    "Sail on the S.S. Tidal, earn BP, clear side catches, and challenge the seven Frontier Brains.",
   steps: [
     {
       id: "battle-frontier-1",
@@ -135,10 +138,10 @@ export const postgameFrontierChapter: GuideSection = {
       id: "battle-frontier-3",
       title: "Seven facilities & Frontier Brains",
       location: "Battle Frontier",
-      summary: "Silver and Gold Symbols from each Brain; Lansat and Starf Berries from Brandon and Noland.",
+      summary: "Silver and Gold Symbols from each Brain; Lansat and Starf Berries from Scott\u2019s house.",
       story: [
         "Each facility is a different exam. Battle Tower (Anabel) is classic seven-trainer climbs with a Brain at the end. Battle Dome (Tucker) runs a sixteen-trainer single-elimination bracket. Battle Factory (Noland) rents random teams every three wins. Battle Palace (Spenser) lets AI choose moves by nature. Battle Arena (Greta) judges style over raw damage. Battle Pike (Lucy) is a luck-and-poison gauntlet of rooms. Battle Pyramid (Brandon) sends you through shifting floors with item limits and wild encounters.",
-        "Beat a Brain once to earn that facility\u2019s Silver Symbol (10 BP); beat the same Brain again for the Gold Symbol (another 10 BP). Brains only battle in 3-vs-3 Single mode. Collect all seven Silver Symbols and Scott awards a Lansat Berry; all seven Gold Symbols earn a Starf Berry from Scott\u2019s house. Collecting every Gold Symbol is Emerald\u2019s long-term Frontier endgame.",
+        "Beat a Brain once to earn that facility\u2019s Silver Symbol (10 BP); beat the same Brain again for the Gold Symbol (another 10 BP). Brains only battle in 3-vs-3 Single mode. Collect all seven Silver Symbols and Scott awards a Lansat Berry; all seven Gold Symbols earn a Starf Berry from Scott\u2019s house. Collecting every Gold Symbol is Emerald\u2019s long-term Frontier endgame and one of the four Trainer Card stars.",
       ],
       details: [
         "Battle Tower \u2014 Anabel: seven trainers, then the Brain; repeat the full streak for Gold.",
@@ -164,7 +167,7 @@ export const postgameFrontierChapter: GuideSection = {
       location: "Battle Frontier \u2014 Exchange Service Corner",
       summary: "Spend BP on TMs, held items, vitamins, and tutor moves.",
       story: [
-        "Battle Points pile up whether you are chasing symbols or grinding shorter streaks. The Exchange Service Corner on the Frontier sells competitive staples: Choice Band, Choice Specs, Leftovers duplicates, Quick Claw, Scope Lens, and vitamins for EV polishing. Tutors nearby teach powerful moves for BP \u2014 including Swagger, Seismic Toss, Mimic, Metronome, Sleep Talk, and other options depending on which tutor you speak to.",
+        "Battle Points pile up whether you are chasing symbols or grinding shorter streaks. The Exchange Service Corner on the Frontier sells competitive staples: Choice Band, Choice Specs, Leftovers duplicates, Quick Claw, Scope Lens, and vitamins for EV polishing. Tutors nearby teach powerful moves for BP \u2014 including Softboiled, Body Slam, elemental punches, and other options depending on which tutor you speak to.",
         "Because Scott\u2019s house bonus only pays once, steady BP income comes from repeating facilities you are comfortable with. Many players farm Battle Dome or Battle Factory once teams are tuned, then blow the balance on TMs and held items before attempting Gold Symbols on harder Brains.",
       ],
       details: [
@@ -181,14 +184,62 @@ export const postgameFrontierChapter: GuideSection = {
       ],
       tags: ["post-game", "battle-frontier", "battle-points", "tutors"],
     },
+    {
+      id: "battle-frontier-5",
+      title: "Sudowoodo & Artisan Cave",
+      location: "Battle Frontier \u2014 SE grounds & Artisan Cave",
+      summary: "Water the strange tree for Sudowoodo, then Surf to Artisan Cave for wild Smeargle.",
+      story: [
+        "Southeast of the facilities, past the Battle Palace area, an old woman frets over a motionless tree. Use the Wailmer Pail (from the Pretty Petal Flower Shop on Route 104) on it to force a battle with Sudowoodo at level 40 \u2014 Emerald\u2019s only in-game catch for the species without Colosseum. Save before you water it; there is one per save file.",
+        "After Sudowoodo is caught or defeated, Surf the newly opened water path, take the waterfall stretch, and enter Artisan Cave to the west. The two-floor cave is packed with wild Smeargle (the only Gen III wild source without Colosseum), a Rare Candy, and a convenient shortcut that exits beside the Battle Tower.",
+      ],
+      details: [
+        "Bring the Wailmer Pail from Route 104\u2019s Pretty Petal Flower Shop if you skipped it earlier.",
+        "Use the Wailmer Pail on the strange tree southeast of the Frontier for Sudowoodo (level 40).",
+        "Surf past the cleared path, continue west, and enter Artisan Cave.",
+        "Catch Smeargle on both floors; grab the Rare Candy; exit beside the Battle Tower if you want a shortcut.",
+      ],
+      tips: [
+        "Rock / Water / Fighting / Steel coverage makes the Sudowoodo fight quick \u2014 False Swipe helps for a clean catch.",
+        "Artisan Cave Smeargle only know Sketch at catch; plan breeding or Sketch setups later.",
+      ],
+      secrets: [
+        "There is no legendary in Artisan Cave despite long-tail rumors \u2014 only Smeargle.",
+      ],
+      tags: ["post-game", "battle-frontier", "sudowoodo", "artisan-cave", "smeargle"],
+    },
+    {
+      id: "battle-frontier-6",
+      title: "Meowth trade & BP betting",
+      location: "Battle Frontier \u2014 houses near Tower & Pyramid",
+      summary: "Trade Skitty for Meowth, then bet BP with the Hiker after three Silver Symbols.",
+      story: [
+        "In a house near the Battle Tower, a trainer offers an in-game trade: your Skitty for their Meowth (nickname Meowow regionally). Meowth is otherwise a FireRed/LeafGreen Kanto catch, so the trade is a handy National Dex filler if you lack those games \u2014 Skitty is rarer in FRLG, so weigh the swap carefully.",
+        "Once you have earned any three Silver Symbols, visit the house under the Battle Pyramid. A Hiker offers daily BP bets on a rotating Frontier challenge (Tower Multi, Dome Double, and so on). Stake 5, 10, or 15 BP; win the requested facility mode that day and he pays double. The challenge rotates with the RTC clock, so a live battery matters.",
+      ],
+      details: [
+        "Trade Skitty for Meowth in the house near the Battle Tower.",
+        "Earn any three Silver Symbols from Frontier Brains.",
+        "Talk to the Hiker in the house under the Battle Pyramid to bet 5, 10, or 15 BP.",
+        "Clear his requested facility mode that day to receive double BP.",
+      ],
+      tips: [
+        "Do not bet your last BP before a Gold Symbol run you cannot afford to restart.",
+      ],
+      secrets: [
+        "The Hiker\u2019s board only opens after three Silver Symbols \u2014 Silver Shields and Tower ribbons are separate Scott rewards.",
+      ],
+      tags: ["post-game", "battle-frontier", "meowth", "battle-points"],
+    },
   ],
 };
 
 
 export const postgameHoennChapter: GuideSection = {
   id: "postgame-hoenn",
-  title: "Ch. 47 \u2014 Post-Game Hoenn",
-  description: "Beldum, Underpass fossils, Trainer Hill, Safari expansion, and Steven\u2019s rematch.",
+  title: "Ch. 47 \u2014 Postgame: Hoenn",
+  description:
+    "Beldum, Underpass fossils, Trainer Hill, Safari expansion, rematches, outbreaks, diplomas, and Steven\u2019s rematch.",
   steps: [
     {
       id: "postgame-hoenn-1",
@@ -305,25 +356,27 @@ export const postgameHoennChapter: GuideSection = {
     },
     {
       id: "postgame-hoenn-6",
-      title: "Rematches, Trick House 8, Altering Cave",
-      location: "Hoenn \u2014 trainers, Route 110, Route 103",
-      summary: "Match Call rematches, the final Trick House prize, and Altering Cave swarms.",
+      title: "Match Call rematches",
+      location: "Hoenn \u2014 Pok\u00e9Nav Match Call",
+      summary: "Gym Leader tiers, Wattson\u2019s New Mauville lock, and scaled trainer rematches.",
       story: [
-        "The Pok\u00e9Nav Match Call list grows throughout the story. Trainers you defeat auto-register after you earn the Balance Badge from Norman, and their rematch teams scale up over time \u2014 gym leaders join the rotation after the Hall of Fame.",
-        "On Route 110, the Trick House finally opens its eighth puzzle after you become Champion, paying out a rare shard reward at the end. Meanwhile, Altering Cave on Route 103 begins rotating special swarms (watch TV in Lilycove or your house for announcements) if you are hunting niche species for the National Dex.",
+        "Route trainers auto-register for Match Call after the Balance Badge. After the Hall of Fame, Gym Leaders and the Elite Four join the list. A flashing Pok\u00e9 Ball icon means they are ready \u2014 call from the Pok\u00e9Nav; you cannot force a rematch before the icon appears. Rematch teams hit harder each cycle and are the best money/experience loop outside the Frontier.",
+        "Gym Leaders use four rematch tiers. Every leader\u2019s tier N team must be beaten before any leader offers tier N+1. After the Elite Four, every 60 wild encounters, 20 trainer battles, or 20 Battle Frontier battles rolls a 31% chance to unlock a Gym rematch. Wattson refuses rematches until you finish his New Mauville errand (Surf into the underground plant on Route 110) \u2014 that lock also stalls later tiers for everyone. Elite Four and Wallace rematches stay available but do not scale their teams.",
       ],
       details: [
-        "Use Match Call to rematch registered trainers across Hoenn.",
-        "Clear Trick House puzzle 8 on Route 110 (unlocks after becoming Champion).",
-        "Visit Altering Cave on Route 103 during announced swarm events.",
+        "Watch for flashing Pok\u00e9 Ball icons on Match Call entries.",
+        "Clear Wattson\u2019s New Mauville side quest before chasing Gym rematch tiers.",
+        "Beat every Gym Leader\u2019s current rematch tier before the next tier unlocks.",
+        "Use the rematch and schedule panels on this step for per-trainer timing.",
       ],
       tips: [
-        "Rematch teams scale sharply \u2014 heal and swap leads before accepting calls.",
+        "Stand on a trainer\u2019s map section for a guaranteed rematch offer when they are ready.",
+        "Lightning Rod on the lead slightly increases off-route rematch call frequency.",
       ],
       secrets: [
-        "Trick House puzzle 8 stays locked until you clear the Pokémon League.",
+        "Wally rematches at Victory Road near the exit; Steven\u2019s Meteor Falls fight is one-time and separate from Match Call.",
       ],
-      tags: ["post-game", "rematch", "trick-house", "altering-cave"],
+      tags: ["post-game", "rematch", "match-call", "wattson"],
     },
     {
       id: "postgame-hoenn-7",
@@ -346,6 +399,182 @@ export const postgameHoennChapter: GuideSection = {
         "Steven\u2019s rematch team is separate from his Champion fight in the League \u2014 levels and movesets are higher here.",
       ],
       tags: ["post-game", "steven", "meteor-falls", "optional"],
+    },
+    {
+      id: "postgame-hoenn-8",
+      title: "Mass outbreaks & Altering Cave",
+      location: "Hoenn TV & Route 103",
+      summary: "Post-HoF swarm TV news (one natural outbreak per save) and Zubat-only Altering Cave.",
+      story: [
+        "After the Hall of Fame, finishing ordinary wild or trainer battles (not Safari, Frontier, or link) has roughly a 0.5% chance to schedule a mass outbreak. The next day a TV news report announces the swarm; watch it to activate the outbreak, which then lasts until the end of the following day and replaces half of that route\u2019s wild rolls with the swarm species. Emerald can only generate one natural outbreak per save without record mixing \u2014 mix with another cartridge to unlock further swarm generations, including species such as Surskit that Emerald does not roll on its own.",
+        "Altering Cave also opens on Route 103 after the championship. In released Emerald it forever contains only wild Zubat; the Wonder Spot Johto fauna event that would have changed the table was never distributed. Use Safari expansion and Artisan Cave for those species instead.",
+      ],
+      details: [
+        "Battle on routes after HoF until a swarm is queued (rare ~0.5% roll).",
+        "Watch the TV outbreak report the next day to activate it.",
+        "Hunt while the swarm is live (ends at the close of the following day).",
+        "Visit Altering Cave on Route 103 only if you want Zubat \u2014 no event fauna in stock Emerald.",
+      ],
+      tips: [
+        "A working RTC battery is required for TV days and outbreak duration.",
+        "Record mix to import foreign outbreaks and to regenerate after your one natural swarm.",
+      ],
+      secrets: [
+        "Altering Cave\u2019s unused table listed Mareep, Aipom, Pineco, Shuckle, Teddiursa, Houndour, Stantler, and Smeargle.",
+      ],
+      tags: ["post-game", "outbreak", "altering-cave", "tv"],
+    },
+    {
+      id: "postgame-hoenn-9",
+      title: "Diplomas & Trainer Card stars",
+      location: "Lilycove Cove Lily Motel & region milestones",
+      summary: "Game Freak diplomas plus the four Trainer Card star conditions.",
+      story: [
+        "On the upper floor of the Cove Lily Motel in Lilycove, Game Freak staff congratulate completionists. The Game Designer awards the Pok\u00e9 Diploma when your Hoenn Pok\u00e9dex is finished (Jirachi and Deoxys are not required). Return again after finishing the National Dex for the National Diploma recognition on the same visit path.",
+        "Emerald\u2019s Trainer Card can earn four stars: (1) enter the Hall of Fame, (2) complete the Hoenn Dex excluding Jirachi and Deoxys, (3) hang all five Master Rank contest paintings in Lilycove Museum (win Master with a high score \u2014 about 800 points triggers the artist), and (4) collect all seven Gold Frontier Symbols. Five museum paintings also earn a Glass Ornament from the curator for your Secret Base.",
+      ],
+      details: [
+        "Visit Game Freak on Cove Lily Motel 2F for the Hoenn Pok\u00e9 Diploma.",
+        "Return after National Dex completion for the National Diploma acknowledgment.",
+        "Earn Trainer Card stars: HoF, Hoenn Dex, five museum paintings, seven Gold Symbols.",
+        "Win Master contests at ~800+ points so the artist offers museum paintings; claim the Glass Ornament at five paintings.",
+      ],
+      tips: [
+        "Johto starters from Birch and Frontier Gold Symbols are the usual bottlenecks for stars 2 and 4.",
+      ],
+      secrets: [
+        "Museum paintings are separate from the twenty contest ribbons \u2014 you need a high-scoring Master win per category, not merely a Master Ribbon.",
+      ],
+      tags: ["post-game", "diploma", "trainer-card", "lilycove"],
+    },
+  ],
+};
+
+
+/** Mystery Gift / distribution islands \u2014 capstone after cartridge post-game chapters. */
+export const postgameEventsChapter: GuideSection = {
+  id: "postgame-events",
+  title: "Ch. 49 \u2014 Postgame: Mystery Gift & Event Islands",
+  description:
+    "Enable Mystery Gift, then chase Eon Ticket, MysticTicket, AuroraTicket, and Old Sea Map destinations.",
+  steps: [
+    {
+      id: "postgame-events-1",
+      title: "Enable Mystery Gift",
+      location: "Any Pok\u00e9 Mart \u2014 then title / main menu",
+      summary: "Unlock Mystery Gift with the mart questionnaire Easy Chat phrase, then receive Wonder Cards at a Pok\u00e9mon Center.",
+      story: [
+        "Official Nintendo Wonder Spot distributions for English Emerald have ended, but the cartridge still contains the full Mystery Gift pipeline. To turn the option on, talk to the questionnaire girl in any Pok\u00e9 Mart basement and answer Easy Chat questions until you can enter the phrase LINK TOGETHER WITH ALL (the standard English Emerald unlock string).",
+        "After you save and reset, Mystery Gift appears on the title-screen / continue menu. Connecting at a Wonder Spot (or injecting a Wonder Card with modern tools) queues a delivery: speak to the delivery person upstairs in a Pok\u00e9mon Center (2F) to receive the ticket item. Only MysticTicket and AuroraTicket use this path on international Emerald \u2014 the Eon Ticket and Old Sea Map follow different rules covered in the next steps.",
+      ],
+      details: [
+        "Talk to the Pok\u00e9 Mart questionnaire attendant.",
+        "Enter Easy Chat phrase LINK TOGETHER WITH ALL when prompted.",
+        "Save, soft-reset, and open Mystery Gift from the title / main menu.",
+        "Receive Wonder Cards historically via Nintendo Wonder Spot (wireless); claim delivered items from the Pok\u00e9mon Center 2F delivery person.",
+      ],
+      tips: [
+        "You still need the S.S. Ticket (Postgame: Opening) before Lilycove Harbor will accept event tickets for island voyages.",
+      ],
+      secrets: [
+        "Altering Cave on Route 103 was coded for Wonder Spot Johto fauna, but that Mystery Gift was never held \u2014 the cave stays Zubat-only in released Emerald.",
+        "Direct mythicals such as Jirachi (Colosseum bonus disc / Pok\u00e9mon Channel) and Celebi were separate promotions, not Lilycove ferry tickets.",
+      ],
+      tags: ["post-game", "mystery-gift", "events"],
+    },
+    {
+      id: "postgame-events-2",
+      title: "Eon Ticket \u2014 Southern Island",
+      location: "Pok\u00e9mon Center Record Corner \u2192 Lilycove Harbor \u2192 Southern Island",
+      summary: "Record-mix the Eon Ticket onto international Emerald, then catch the non-roamer Latias or Latios with Soul Dew.",
+      story: [
+        "The Eon Ticket opens Southern Island so you can catch whichever Eon Pok\u00e9mon you did not choose as the post-Hall of Fame roamer. On international Emerald this ticket is not a Wonder Spot Mystery Gift \u2014 Emerald lacks Mystery Event, so the only legitimate path is mixing records at a Pok\u00e9mon Center with a Ruby or Sapphire (or Emerald) that holds an original e-Card / event Eon Ticket. Tickets received only by mixing cannot be shared further (original holders can redistribute up to 30 times).",
+        "After a successful mix the Eon Ticket appears in your Key Items pocket. With it and the S.S. Ticket in your bag, speak to the sailor at Lilycove Harbor and choose Southern Island on the S.S. Tidal. Inside, a static Latias or Latios (level 50) waits holding Soul Dew \u2014 the only legitimate Gen III source of that item. Emerald lets you return to the island later with the ticket still in inventory (Ruby/Sapphire locked you out after leaving).",
+      ],
+      details: [
+        "Mix records with a game that has an original (not mix-only) Eon Ticket \u2014 the only path on international Emerald.",
+        "Confirm the Eon Ticket is in your Key Items pocket after the mix.",
+        "Sail from Lilycove Harbor to Southern Island (requires S.S. Ticket).",
+        "Catch the non-roamer Latias or Latios at level 50 holding Soul Dew.",
+      ],
+      tips: [
+        "Save before the encounter \u2014 only one island Eon appears per save file.",
+        "Mean Look / trapping still helps if you want a non-Master Ball catch.",
+      ],
+      secrets: [
+        "Soul Dew boosts Latias/Latios Special Attack and Special Defense in Gen III \u2014 it is banned in the Battle Frontier along with the Eon pair.",
+      ],
+      tags: ["post-game", "eon-ticket", "southern-island", "latias", "latios", "events"],
+    },
+    {
+      id: "postgame-events-3",
+      title: "MysticTicket \u2014 Navel Rock",
+      location: "Lilycove Harbor \u2192 Navel Rock",
+      summary: "Board with the MysticTicket for level-70 Lugia and Ho-Oh.",
+      story: [
+        "The MysticTicket was distributed via Mystery Gift at Nintendo events (Pok\u00e9mon Centers, Rocks America, and similar Wonder Spots). Once the Wonder Card is claimed and the ticket sits in your Key Items pocket, show it at Lilycove Harbor \u2014 you must already own the S.S. Ticket. The sailor will offer Navel Rock as a destination on the S.S. Tidal.",
+        "Navel Rock is a tall Sevii Island cavern. Take the upward stairs for Ho-Oh (level 70) on the summit and the downward path for Lugia (level 70) in the depths. Use the Itemfinder near the top for Sacred Ash. Both legendaries are among the highest-level static encounters in Emerald, so bring Ultra Balls, status, and a sturdy lead.",
+      ],
+      details: [
+        "Obtain MysticTicket via Mystery Gift Wonder Card (historical Nintendo events).",
+        "Board the S.S. Tidal from Lilycove Harbor with both the S.S. Ticket and MysticTicket.",
+        "Climb to Navel Rock Top for Ho-Oh (level 70); descend for Lugia (level 70).",
+        "Search the summit with the Itemfinder for Sacred Ash.",
+      ],
+      tips: [
+        "Stock Full Restores and status moves before the climb \u2014 both birds hit hard at level 70.",
+        "Save on the exterior before either fight if you prefer not to re-sail after a KO.",
+      ],
+      secrets: [
+        "Navel Rock never appears on the Pok\u00e9Nav map in Emerald until you have visited it.",
+      ],
+      tags: ["post-game", "mystic-ticket", "navel-rock", "lugia", "ho-oh", "events"],
+    },
+    {
+      id: "postgame-events-4",
+      title: "AuroraTicket \u2014 Birth Island",
+      location: "Lilycove Harbor \u2192 Birth Island",
+      summary: "Solve the triangle puzzle for level-30 Deoxys (Speed Forme after capture in Emerald).",
+      story: [
+        "The AuroraTicket unlocks Birth Island the same way the MysticTicket unlocks Navel Rock: receive it through Mystery Gift, then sail from Lilycove Harbor with your S.S. Ticket. Japanese Emerald cartridges were historically excluded from AuroraTicket distributions, while other language Emeralds and FireRed/LeafGreen could receive it.",
+        "Birth Island itself is nearly empty rock around a black stone triangle. Speak to the triangle, then walk the shortest possible path to its new position; repeat until the stone glows red hot. Deoxys then appears at level 30. Catch carefully \u2014 it is fragile compared with Navel Rock\u2019s birds. After the battle, Emerald converts the caught Deoxys to Speed Forme for that cartridge (stats follow the destination game\u2019s form rules in Gen III link battles).",
+      ],
+      details: [
+        "Obtain AuroraTicket via Mystery Gift Wonder Card.",
+        "Sail from Lilycove Harbor to Birth Island.",
+        "Interact with the triangle and approach via the shortest path until it turns red.",
+        "Catch Deoxys at level 30; it becomes Speed Forme on Emerald after capture.",
+      ],
+      tips: [
+        "If Deoxys faints, re-enter the Hall of Fame and return \u2014 it can respawn after another champion clear.",
+        "False Swipe and a status condition make the level-30 catch reliable.",
+      ],
+      secrets: [
+        "You cannot change Deoxys\u2019s form on a single Gen III cart \u2014 trading it into FireRed or LeafGreen changes the displayed forme while it is on that cartridge.",
+      ],
+      tags: ["post-game", "aurora-ticket", "birth-island", "deoxys", "events"],
+    },
+    {
+      id: "postgame-events-5",
+      title: "Old Sea Map \u2014 Faraway Island",
+      location: "Lilycove Harbor \u2192 Faraway Island",
+      summary: "Japan/Taiwan Emerald distributions only: find Mew on Faraway Island.",
+      story: [
+        "The Old Sea Map was distributed only for Japanese (and later Taiwanese) Emerald at Pok\u00e9mon Festa / Pok\u00e9Park events. It was never released for English, European, or other international Emerald cartridges. Those players received Mew through other promotions instead of this ferry ticket.",
+        "If the Old Sea Map is present in the Key Items pocket (legitimately on a JP/TW save, or injected into an international ROM), Lilycove Harbor adds Faraway Island to the S.S. Tidal destinations. Explore the island forest to encounter Mew at level 30. International carts still contain the maps and scripts \u2014 only the official Wonder Card distribution was region-locked.",
+      ],
+      details: [
+        "Old Sea Map: Japan Pok\u00e9mon Festa / Pok\u00e9Park 2005 and Taiwan Pok\u00e9Park 2006 Emerald distributions only.",
+        "Board from Lilycove Harbor with the S.S. Ticket and Old Sea Map.",
+        "Find and catch Mew at level 30 on Faraway Island.",
+      ],
+      tips: [
+        "Treat this step as historical / regional documentation if you play an English cart without the map.",
+      ],
+      secrets: [
+        "Faraway Island encounter data is excluded from the guide\u2019s normal wild-dex sweep because the island is event-gated.",
+      ],
+      tags: ["post-game", "old-sea-map", "faraway-island", "mew", "events"],
     },
   ],
 };

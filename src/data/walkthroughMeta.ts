@@ -7,6 +7,7 @@ const POSTGAME_CHAPTER_IDS = new Set([
   "battle-frontier",
   "postgame-hoenn",
   "contests-postgame",
+  "postgame-events",
 ]);
 
 /** Entire chapter is optional side content in the main story band. */
@@ -43,6 +44,7 @@ const OPTIONAL_STEP_IDS = new Set([
   "trick-5",
   "trick-6",
   "trick-7",
+  "trick-8",
 ]);
 
 /** Story-critical steps that must never be marked optional. */
