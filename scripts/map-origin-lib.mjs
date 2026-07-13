@@ -117,10 +117,10 @@ export function buildManifestFromMapCrops(root) {
   const bounds = parseAreaMapBounds(cropsSrc);
   const maps = [];
   for (const [areaId, b] of Object.entries(bounds)) {
-    const mapId = AREA_TO_MAP_ID[areaId];
-    if (!mapId) continue;
+    const mapId = AREA_TO_MAP_ID[areaId] ?? `MAP_${areaId.replace(/-/g, "_").toUpperCase()}`;
     maps.push({
       id: mapId,
+      name: mapIdToDir(mapId),
       gx: (b.x / 100) * W_TILES,
       gy: (b.y / 100) * H_TILES,
       w: (b.w / 100) * W_TILES,
