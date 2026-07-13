@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { WalkthroughPlayMode } from "../types";
 import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
-import { decodeSaveCode } from "../lib/saveCode";
+import { SAVE_CODE_LENGTH, loadSaveCode } from "../lib/saveCode";
 
 interface WalkthroughSetupProps {
   preferences: WalkthroughPreferences;
@@ -31,7 +31,7 @@ export function WalkthroughSetup({
 
   function handleContinueFromSave(e: React.FormEvent) {
     e.preventDefault();
-    const result = decodeSaveCode(saveCode);
+    const result = loadSaveCode(saveCode);
     if (!result.ok) {
       setSaveError(result.error);
       return;
@@ -136,7 +136,7 @@ export function WalkthroughSetup({
           <fieldset className="walkthrough-setup__fieldset">
             <legend className="walkthrough-setup__legend">Continue with save code</legend>
             <p className="walkthrough-setup__hint walkthrough-setup__hint--block">
-              Enter a 6-character code from a previous save to pick up exactly where you left off.
+              Enter a 4-letter save code from this browser to pick up exactly where you left off.
             </p>
             <div className="walkthrough-setup__save-row">
               <input
@@ -144,17 +144,26 @@ export function WalkthroughSetup({
                 className="walkthrough-setup__save-input"
                 value={saveCode}
                 onChange={(e) => {
-                  setSaveCode(e.target.value.toUpperCase().replace(/[^0-9A-Z]/gi, "").slice(0, 6));
+                  setSaveCode(
+                    e.target.value
+                      .toUpperCase()
+                      .replace(/[^A-Z]/gi, "")
+                      .slice(0, SAVE_CODE_LENGTH),
+                  );
                   setSaveError(null);
                 }}
-                placeholder="ABC123"
-                maxLength={6}
+                placeholder="ABCD"
+                maxLength={SAVE_CODE_LENGTH}
                 autoComplete="off"
                 spellCheck={false}
                 aria-invalid={saveError ? true : undefined}
                 aria-describedby={saveError ? "walkthrough-save-error" : undefined}
               />
-              <button type="submit" className="walkthrough-setup__continue" disabled={saveCode.length !== 6}>
+              <button
+                type="submit"
+                className="walkthrough-setup__continue"
+                disabled={saveCode.length !== SAVE_CODE_LENGTH}
+              >
                 Continue
               </button>
             </div>

@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.16.0",
+    date: "2026-07-13",
+    summary:
+      "Save codes are now random 4-letter keys stored in this browser’s localStorage.",
+    sections: [
+      {
+        heading: "Save progress",
+        items: [
+          "Save progress generates a unique 4-letter code (A–Z) and stores your walkthrough prefs + current step under that code in localStorage.",
+          "Continue with save code looks up that key on this device — codes are not portable across browsers or machines.",
+          "Previous 6-character packed codes are no longer used.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.15.2",
     date: "2026-07-13",
     summary: "Fix walkthrough map images staying blank after a page refresh.",
