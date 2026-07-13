@@ -471,7 +471,7 @@ export const AREA_MARKER_MAP_POS: Record<string, Record<string, { x: number; y: 
     "r119-north": { x: 39.9375, y: 18.4073 },
     "r119-institute": { x: 35.8125, y: 8.4856 },
     "r119-rival": { x: 35.784, y: 6.117 },
-    "r119-fly": { x: 35.8125, y: 8.4856 },
+    "r119-fly": { x: 35.784, y: 6.117 },
     "r119-bridge1": { x: 36.0625, y: 2.2193 },
     "r119-kecleon": { x: 38.9375, y: 1.6971 },
     "r119-grass": { x: 36.5625, y: 32.2454 },
