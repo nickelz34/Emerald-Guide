@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.15.2",
+    date: "2026-07-13",
+    summary: "Fix walkthrough map images staying blank after a page refresh.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Refreshing on a step with a map crop no longer leaves the image invisible until you leave and return — cached images that load before React effects are detected correctly.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.15.1",
     date: "2026-07-13",
     summary: "Keep the chapter list scrolled to your current walkthrough step after refresh.",

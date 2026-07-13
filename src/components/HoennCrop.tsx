@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, type CSSProperties, type KeyboardEvent, type MouseEvent } from "react";
+import { useMemo, useState, useLayoutEffect, useRef, type CSSProperties, type KeyboardEvent, type MouseEvent } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { HOENN_MAP_W, HOENN_MAP_H, type MapCrop } from "../data/mapCrops";
 import { hoennCropImagePath } from "../data/hoennCropImages";
@@ -37,6 +37,7 @@ export function HoennCrop({
 }: HoennCropProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
+  const cropImgRef = useRef<HTMLImageElement>(null);
 
   const points = useMemo(() => getCropMapPoints(crop, areaId), [crop, areaId]);
   const activePoint = points.find((p) => p.id === activeId) ?? null;
@@ -61,8 +62,18 @@ export function HoennCrop({
   const cropImageSrc = cropImagePath ? assetUrl(cropImagePath) : null;
   const [mapReady, setMapReady] = useState(!cropImageSrc);
 
-  useEffect(() => {
-    setMapReady(!cropImageSrc);
+  // Cached images can fire onLoad before this effect; re-check img.complete so
+  // refresh on a walkthrough step doesn't leave the crop stuck at opacity 0.
+  useLayoutEffect(() => {
+    if (!cropImageSrc) {
+      setMapReady(true);
+      return;
+    }
+    setMapReady(false);
+    const img = cropImgRef.current;
+    if (img?.complete && img.naturalWidth > 0) {
+      setMapReady(true);
+    }
   }, [cropImageSrc]);
 
   const frameStyle: CSSProperties = cropImageSrc
@@ -235,6 +246,7 @@ export function HoennCrop({
     >
       {cropImageSrc && (
         <img
+          ref={cropImgRef}
           src={cropImageSrc}
           alt=""
           className="hoenn-crop__image"
