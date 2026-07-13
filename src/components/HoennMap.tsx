@@ -250,11 +250,13 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
   const closeGymModal = useCallback(() => {
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalGym(null);
+    setSelectedId(null);
   }, []);
 
   const closeMartModal = useCallback(() => {
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalMart(null);
+    setSelectedId(null);
   }, []);
 
   useEffect(() => {
