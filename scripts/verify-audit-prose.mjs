@@ -33,6 +33,9 @@ const FORBIDDEN = [
   { re: /sell you the Super Rod/i, why: "Super Rod is a free gift" },
   { re: /Steven gives HM05 Flash/i, why: "Hiker on 1F gives Flash" },
   { re: /Includes Map, Condition, and Match Call/i, why: "Match Call added later" },
+  { re: /Ruby\/Sapphire exclusive counterpart is Plusle/i, why: "Both Plusle and Minun in Emerald" },
+  { re: /get scope from Steven in Fortree/i, why: "Devon Scope on Route 120" },
+  { re: /later gives you HM07 Waterfall outside Sootopolis Gym after the weather crisis/i, why: "HM07 not tied to contest wins in same sentence" },
 ];
 
 /** Patterns that must appear (correct replacements). */
@@ -45,6 +48,9 @@ const REQUIRED = [
   { file: "src/data/keyItems.ts", re: /exp-share/i, why: "Exp. Share key item entry" },
   { file: "src/data/hmUnlock.ts", re: /route-119-3/i, why: "Fly HM tied to rival step" },
   { file: "src/data/postgameWalkthrough.ts", re: /become Champion/i, why: "Trick House 8 Champion gate" },
+  { file: "src/data/walkthrough.ts", re: /Meditite/i, why: "Brawly party includes Meditite" },
+  { file: "src/data/walkthrough.ts", re: /Claydol.*Xatu/i, why: "Tate & Liza full party" },
+  { file: "src/data/areaData.ts", re: /both Plusle and Minun appear in Emerald/i, why: "Route 110 encounter note" },
 ];
 
 const errors = [];
