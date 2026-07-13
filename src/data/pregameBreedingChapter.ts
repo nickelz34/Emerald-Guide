@@ -22,6 +22,7 @@ export const pregameBreedingChapter: GuideSection = {
       details: [],
       tips: [
         "The Day Care Man's dialogue — and later your PokéNav Plus — reports how well the pair gets along. Friendlier couples produce Eggs faster on each 256-step check.",
+        "An Egg's nature is fixed when the Day Care Man offers it — not when it hatches. Use an Everstone on a parent before pickup to pass that nature down.",
         "Take parents back before leaving incompatible pairs for long stretches; you pay a small fee per level gained when you collect them.",
       ],
       tags: ["pregame", "breeding", "daycare", "eggs"],

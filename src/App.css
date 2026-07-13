@@ -3554,6 +3554,151 @@
   background: rgba(224, 85, 59, 0.06);
 }
 
+.rival-guide-embed {
+  border-color: rgba(77, 144, 213, 0.35);
+  background: rgba(77, 144, 213, 0.07);
+}
+
+.rival-guide__intro,
+.rival-guide__note {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted, #9aa8bc);
+  line-height: 1.45;
+}
+
+.rival-guide__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.rival-guide__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.rival-guide__field select {
+  min-width: 11rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border, #2a3344);
+  background: var(--bg-elevated, #1a2233);
+  color: var(--text, #e8edf5);
+  color-scheme: dark;
+}
+
+.rival-guide__party {
+  margin-top: 0.5rem;
+}
+
+.rival-guide__detail-btn {
+  margin-top: 0.75rem;
+}
+
+.reference-embed {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(120, 160, 120, 0.3);
+  border-radius: 12px;
+  background: rgba(80, 120, 80, 0.06);
+}
+
+.reference-table__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.reference-table__lead {
+  margin: 0 0 0.85rem;
+  font-size: 0.88rem;
+  color: var(--text-muted, #9aa8bc);
+  line-height: 1.45;
+}
+
+.reference-table__scroll {
+  overflow-x: auto;
+}
+
+.reference-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.reference-table th,
+.reference-table td {
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  vertical-align: top;
+}
+
+.reference-table th {
+  font-weight: 600;
+  color: var(--text-muted, #9aa8bc);
+  white-space: nowrap;
+}
+
+.reference-table__row--active td {
+  background: rgba(120, 200, 120, 0.1);
+}
+
+.scott-sightings__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scott-sightings__item {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.88rem;
+}
+
+.scott-sightings__num {
+  flex-shrink: 0;
+  width: 1.5rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.scott-sightings__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.6rem;
+}
+
+.scott-sightings__timing {
+  flex-basis: 100%;
+  color: var(--text-muted, #9aa8bc);
+  font-size: 0.82rem;
+}
+
+.scott-sightings__tag {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted, #9aa8bc);
+}
+
+.scott-sightings__tag--mandatory {
+  background: rgba(224, 85, 59, 0.2);
+  color: #f0a090;
+}
+
+.scott-sightings__footer {
+  margin: 0.85rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
 .breeding-lookup {
   margin: 1.25rem 0;
   padding: 1rem 1.1rem;

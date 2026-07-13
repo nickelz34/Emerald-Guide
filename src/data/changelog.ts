@@ -20,6 +20,37 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.12.1",
+    date: "2026-07-13",
+    summary:
+      "Audit backlog: rival battle panels, HM/key-item references, Scott checklist, and prose fixes.",
+    sections: [
+      {
+        heading: "Walkthrough UI",
+        items: [
+          "RivalGuidePanel on all five rival steps — pick player gender and starter for accurate pokeemerald party data with full battle modal.",
+          "HM unlock table on Rustboro (first HM); key-items table on Devon Corp / PokéNav step.",
+          "Scott sightings checklist on Battle Frontier step 2 with corrected 1–4 BP bonus (not 64).",
+        ],
+      },
+      {
+        heading: "Walkthrough prose",
+        items: [
+          "Old Rod (Dewford), Good Rod (Route 118), Itemfinder (Slateport market), Coin Case (Mauville Game Corner).",
+          "HM02 Fly from Weather Institute bed (not rival); Match Call explained at PokéNav gift.",
+          "Egg nature timing note in pregame breeding; Game Corner TM list in Mauville secrets.",
+        ],
+      },
+      {
+        heading: "Data fixes",
+        items: [
+          "Scott BP payout corrected across postgame, areaData, and new scottSightings.ts (13 locations).",
+          "hmUnlock.ts and keyItems.ts central reference data for future steps.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.15",
     date: "2026-07-13",
     summary: "Breeding lookup Parent A/B dropdowns use readable dark-theme colors on desktop.",

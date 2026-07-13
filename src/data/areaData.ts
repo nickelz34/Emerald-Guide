@@ -413,7 +413,7 @@ export const AREA_DATA: Record<string, AreaExtras> = {
     screenshot: "battle_frontier_e.png",
     secrets: [
       "Scott calls on the PokéNav after the National Dex upgrade, then meets you aboard the S.S. Tidal and at the Battle Frontier entrance gate.",
-      "First visit to Scott's house between the Dome and Tower awards up to 64 bonus BP (one per prior Scott sighting).",
+      "First visit to Scott's house between the Dome and Tower awards 1–4 bonus BP total (based on how many of the 13 main-game sightings you found).",
     ],
     encounters: [],
   },

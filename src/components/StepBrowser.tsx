@@ -7,7 +7,12 @@ import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
+import { RivalGuidePanelForStep } from "./RivalGuidePanel";
+import { HmUnlockTable } from "./HmUnlockTable";
+import { KeyItemsTable } from "./KeyItemsTable";
+import { ScottSightingsPanel } from "./ScottSightingsPanel";
 import { getGymForWalkthroughStep } from "../data/gymData";
+import { getRivalForWalkthroughStep } from "../data/rivalData";
 import { BreedingLookup } from "./BreedingLookup";
 import { BreedingChart } from "./BreedingChart";
 import { EvolutionChart } from "./EvolutionChart";
@@ -109,6 +114,10 @@ export function StepBrowser({
   const currentIndex = Math.max(0, flat.findIndex((f) => f.step.id === currentId));
   const current = flat[currentIndex] ?? flat[0];
   const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
+  const rivalForStep = current ? getRivalForWalkthroughStep(current.step.id) : undefined;
+  const showHmTable = current?.step.id === "rustboro-1";
+  const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
+  const showScottChecklist = current?.step.id === "battle-frontier-2";
   const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
   const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
   const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
@@ -364,6 +373,30 @@ export function StepBrowser({
           {gymForStep && (
             <section className="gym-guide-embed" aria-label="Gym guide">
               <GymGuidePanel gym={gymForStep} showWalkthroughText={false} />
+            </section>
+          )}
+
+          {rivalForStep && (
+            <section className="gym-guide-embed rival-guide-embed" aria-label="Rival battle guide">
+              <RivalGuidePanelForStep stepId={current.step.id} />
+            </section>
+          )}
+
+          {showHmTable && (
+            <section className="reference-embed" aria-label="HM reference">
+              <HmUnlockTable highlightStepId={current.step.id} />
+            </section>
+          )}
+
+          {showKeyItemsTable && (
+            <section className="reference-embed" aria-label="Key items reference">
+              <KeyItemsTable highlightStepId={current.step.id} />
+            </section>
+          )}
+
+          {showScottChecklist && (
+            <section className="reference-embed" aria-label="Scott sightings">
+              <ScottSightingsPanel />
             </section>
           )}
 
