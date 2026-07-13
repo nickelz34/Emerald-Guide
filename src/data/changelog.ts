@@ -20,6 +20,33 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.10",
+    date: "2026-07-13",
+    summary: "Ch. 2 breeding accuracy pass — egg sprites, mobile gender badges, and verified Gen III mechanics.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "Breeding charts now show the in-game Egg sprite on arrows (and as a party Egg tile) instead of a text-only \"Egg\" label.",
+          "Gender symbols (♀ / ♂) render as fixed badges above sprites so they stay aligned on mobile.",
+          "Corrected cross-group example: Marill + Psyduck (Water 1), not Mudkip + Zigzagoon.",
+          "Everstone nature pass is Emerald-accurate — mother or Ditto only, 50% chance.",
+          "Abilities in Gen III are random slots, not inherited from the female.",
+          "Flame Body and Magma Armor do halve egg cycles in Emerald; Slugma/Camerupt chart row added.",
+          "Father passes compatible TMs/HMs (Gen III); Light Ball → Volt Tackle Pichu documented.",
+          "Egg-move chart fixes male/female roles; cross-species example uses Zigzagoon + Linoone (Field).",
+          "Added Nidorina/Nidoqueen breeding exception, 256-step Egg checks, level-5 hatchlings, and corrected story gift locations (Beldum, Johto starters).",
+        ],
+      },
+      {
+        heading: "Sprites",
+        items: [
+          "Added public/sprites/pokemon/egg.png (Emerald egg sprite from pret/pokeemerald).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.9",
     date: "2026-07-13",
     summary: "Ch. 2 Breeding expanded to six visual events — detailed prose, sprite charts, no What to do lists.",

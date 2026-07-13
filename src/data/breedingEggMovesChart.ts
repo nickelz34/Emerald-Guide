@@ -1,60 +1,68 @@
 import type { BreedingChartSpec } from "./breedingChartTypes";
 
-/** Ch. 2 Event 5 — egg moves from the male parent. */
+/** Ch. 2 Event 5 — egg moves, TMs, and HMs from the father. */
 export const EGG_MOVES_BREEDING_CHART: BreedingChartSpec = {
-  title: "Egg move inheritance",
-  lead: "If the father knows a move the child can learn as an egg move, the hatchling can be born with that move. The mother only needs to be compatible for an Egg.",
-  ariaLabel: "Egg move breeding chart",
+  title: "Moves the father passes down",
+  lead: "In Gen III the father passes egg moves plus any compatible TM or HM moves it knows. Level-up moves on the father's list also pass if they appear on the child's egg-move list.",
+  ariaLabel: "Egg move and TM breeding chart",
   groups: [
     {
-      name: "Male passes egg moves to the same species",
+      name: "Egg moves — same species",
       type: "pairs",
       pairs: [
         {
-          parentA: { name: "Swampert", dex: 260, subtitle: "♀" },
-          parentB: { name: "Mudkip", dex: 258, subtitle: "♂ · Ancient Power" },
+          parentA: { name: "Mudkip", dex: 258, gender: "female" },
+          parentB: { name: "Swampert", dex: 260, gender: "male", subtitle: "Ancient Power" },
           methodLabel: "Egg",
           offspring: [{ name: "Mudkip", dex: 258, subtitle: "born with Ancient Power" }],
-          note: "Teach or level the father so it knows the egg move before you leave the pair at the Day Care.",
+          note: "The male parent must know the move before you leave the pair at the Day Care.",
         },
         {
-          parentA: { name: "Gardevoir", dex: 282, subtitle: "♀" },
-          parentB: { name: "Ralts", dex: 280, subtitle: "♂ · Mean Look" },
+          parentA: { name: "Kirlia", dex: 281, gender: "female" },
+          parentB: { name: "Gardevoir", dex: 282, gender: "male", subtitle: "Mean Look" },
           methodLabel: "Egg",
           offspring: [{ name: "Ralts", dex: 280, subtitle: "born with Mean Look" }],
         },
       ],
     },
     {
-      name: "Cross-species egg moves need shared egg groups",
+      name: "Cross-species — shared egg group required",
       type: "pairs",
       pairs: [
         {
-          parentA: { name: "Marshtomp", dex: 259, subtitle: "♀" },
-          parentB: { name: "Slaking", dex: 289, subtitle: "♂ · Body Slam" },
+          parentA: { name: "Zigzagoon", dex: 263, gender: "female" },
+          parentB: { name: "Linoone", dex: 264, gender: "male", subtitle: "Body Slam" },
           methodLabel: "Egg",
-          offspring: [{ name: "Mudkip", dex: 258, subtitle: "can inherit Body Slam" }],
-          note: "Field-group fathers can pass compatible egg moves onto other Field babies when the move is on both egg lists.",
+          offspring: [{ name: "Zigzagoon", dex: 263, subtitle: "born with Body Slam" }],
+          note: "Both Field group — the move must be on the child's egg-move list.",
         },
         {
-          parentA: { name: "Skarmory", dex: 227, subtitle: "♀" },
-          parentB: { name: "Skarmory", dex: 227, subtitle: "♂ · Whirlwind" },
+          parentA: { name: "Skarmory", dex: 227, gender: "female" },
+          parentB: { name: "Skarmory", dex: 227, gender: "male", subtitle: "Whirlwind" },
           methodLabel: "Egg",
           offspring: [{ name: "Skarmory", dex: 227, subtitle: "born with Whirlwind" }],
-          note: "Classic Gen III example — Whirlwind is a common egg-move breeding target on Skarmory lines.",
         },
       ],
     },
     {
-      name: "TM moves do not become egg moves",
+      name: "Compatible TMs & HMs pass from the father",
       type: "pairs",
       pairs: [
         {
-          parentA: { name: "Blaziken", dex: 257, subtitle: "♀" },
-          parentB: { name: "Torchic", dex: 255, subtitle: "♂ · Brick Break (TM)" },
+          parentA: { name: "Pikachu", dex: 25, gender: "female" },
+          parentB: { name: "Pikachu", dex: 25, gender: "male", subtitle: "Thunderbolt (TM)" },
           methodLabel: "Egg",
-          offspring: [{ name: "Torchic", dex: 255 }],
-          note: "Only moves on the child's egg-move list count — TMs alone will not pass unless the move is also a natural or bred egg move.",
+          offspring: [{ name: "Pichu", dex: 172, subtitle: "born with Thunderbolt" }],
+          note: "Prior to Gen VI, fathers pass TM/HM moves the child can learn by machine in that game.",
+        },
+        {
+          parentA: { name: "Pikachu", dex: 25, gender: "female" },
+          parentB: { name: "Pikachu", dex: 25, gender: "male", subtitle: "Light Ball held" },
+          itemIconName: "Item",
+          itemIconPath: "sprites/items/icons/item.png",
+          methodLabel: "Egg",
+          offspring: [{ name: "Pichu", dex: 172, subtitle: "born with Volt Tackle" }],
+          note: "Emerald-only: either parent holding a Light Ball can produce a Pichu that knows Volt Tackle.",
         },
       ],
     },

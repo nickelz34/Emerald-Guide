@@ -71,6 +71,11 @@ const POKEMON_SLUG_ALIASES: Record<string, string> = {
   deoxys: "deoxys-normal",
 };
 
+/** In-game Egg sprite (party / Day Care). */
+export function eggSpriteUrl(): string {
+  return assetUrl("sprites/pokemon/egg.png");
+}
+
 /**
  * In-game Pokémon Emerald front sprite for a National-dex number (#1–386).
  * Bundled locally — no CDN fetch. Returns undefined outside Gen 3 (e.g. glitch slot).

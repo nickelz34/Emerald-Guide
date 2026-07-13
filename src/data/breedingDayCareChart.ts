@@ -3,7 +3,7 @@ import type { BreedingChartSpec } from "./breedingChartTypes";
 /** Ch. 2 Event 1 — Day Care flow and offspring rules. */
 export const DAY_CARE_BREEDING_CHART: BreedingChartSpec = {
   title: "Day Care breeding flow",
-  lead: "Leave two compatible Pokémon at Route 117, walk until the Day Care Man has an Egg, then hatch it in your party.",
+  lead: "Leave two compatible Pokémon at Route 117. After every 256 steps the game may roll for an Egg; the Day Care Man holds it outside until you pick it up.",
   ariaLabel: "Day Care breeding flow chart",
   groups: [
     {
@@ -11,18 +11,18 @@ export const DAY_CARE_BREEDING_CHART: BreedingChartSpec = {
       type: "pairs",
       pairs: [
         {
-          parentA: { name: "Mudkip", dex: 258, subtitle: "♀" },
-          parentB: { name: "Mudkip", dex: 258, subtitle: "♂" },
+          parentA: { name: "Mudkip", dex: 258, gender: "female" },
+          parentB: { name: "Mudkip", dex: 258, gender: "male" },
           methodLabel: "Egg",
           offspring: [{ name: "Mudkip", dex: 258 }],
-          note: "Both parents share an egg group and opposite genders — the Egg hatches as the female's family.",
+          note: "Opposite genders in a shared egg group produce an Egg. The hatchling matches the female's evolutionary line (level 5 in Gen III).",
         },
         {
-          parentA: { name: "Marill", dex: 183, subtitle: "♀" },
-          parentB: { name: "Azumarill", dex: 184, subtitle: "♂" },
+          parentA: { name: "Marill", dex: 183, gender: "female" },
+          parentB: { name: "Azumarill", dex: 184, gender: "male" },
           methodLabel: "Egg",
           offspring: [{ name: "Marill", dex: 183 }],
-          note: "Cross-species within the same line still hatches the female parent's base form unless incense applies.",
+          note: "Cross-species within the same line still hatches the female parent's base form unless incense applies (Event 3).",
         },
       ],
     },
@@ -37,7 +37,7 @@ export const DAY_CARE_BREEDING_CHART: BreedingChartSpec = {
           parentB: { name: "Absol", dex: 359, subtitle: "any gender" },
           methodLabel: "Egg",
           offspring: [{ name: "Absol", dex: 359 }],
-          note: "Ditto copies the other parent's species. Genderless Pokémon (e.g. Voltorb) also breed only with Ditto.",
+          note: "Ditto copies the other parent's species. Genderless species (Voltorb, Magnemite, Beldum, etc.) also breed only with Ditto.",
         },
         {
           parentA: { name: "Ditto", dex: 132 },
@@ -52,15 +52,15 @@ export const DAY_CARE_BREEDING_CHART: BreedingChartSpec = {
       type: "pairs",
       pairs: [
         {
-          parentA: { name: "Mudkip", dex: 258, subtitle: "♀ · Water 1" },
-          parentB: { name: "Zigzagoon", dex: 263, subtitle: "♂ · Field" },
+          parentA: { name: "Marill", dex: 183, gender: "female", subtitle: "Water 1" },
+          parentB: { name: "Psyduck", dex: 54, gender: "male", subtitle: "Water 1" },
           methodLabel: "Egg",
-          offspring: [{ name: "Mudkip", dex: 258 }],
-          note: "Mudkip (Water 1 + Monster) and Zigzagoon (Field) share Field — valid if genders differ.",
+          offspring: [{ name: "Marill", dex: 183 }],
+          note: "Marill (Water 1 + Fairy) and Psyduck (Water 1 + Field) share Water 1 — a valid cross-species pair.",
         },
         {
-          parentA: { name: "Treecko", dex: 252, subtitle: "♀ · Grass" },
-          parentB: { name: "Mudkip", dex: 258, subtitle: "♂ · Water 1" },
+          parentA: { name: "Treecko", dex: 252, gender: "female", subtitle: "Grass" },
+          parentB: { name: "Mudkip", dex: 258, gender: "male", subtitle: "Water 1" },
           methodLabel: "✕",
           offspring: [],
           note: "No shared egg group — the Day Care couple will not produce an Egg.",
