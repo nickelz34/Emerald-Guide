@@ -3607,12 +3607,30 @@
 .breeding-lookup__field select {
   font: inherit;
   font-size: 0.95rem;
-  color: inherit;
+  font-weight: 600;
+  color: var(--text);
   width: 100%;
   padding: 0.45rem 0.55rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  background-color: var(--bg-elevated);
+  color-scheme: dark;
+  cursor: pointer;
+}
+
+.breeding-lookup__field select:hover,
+.breeding-lookup__field select:focus {
+  border-color: rgba(77, 144, 213, 0.55);
+}
+
+.breeding-lookup__field select:focus {
+  outline: 2px solid rgba(77, 144, 213, 0.35);
+  outline-offset: 1px;
+}
+
+.breeding-lookup__field select option {
+  background-color: var(--bg-elevated);
+  color: var(--text);
 }
 
 .breeding-lookup__times {

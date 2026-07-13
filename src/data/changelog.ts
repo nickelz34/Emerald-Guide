@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.15",
+    date: "2026-07-13",
+    summary: "Breeding lookup Parent A/B dropdowns use readable dark-theme colors on desktop.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "Parent A and Parent B species menus now use --text on --bg-elevated with color-scheme: dark so the open option list matches the site theme and stays readable on desktop.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.14",
     date: "2026-07-13",
     summary: "Breeding lookup tool redesign — aligned parent columns and richer compatibility details.",
