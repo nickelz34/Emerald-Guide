@@ -5,9 +5,19 @@ import { HoennMap } from "./components/HoennMap";
 import { StepBrowser } from "./components/StepBrowser";
 import { Pokedex } from "./components/Pokedex";
 import { MapModal } from "./components/MapModal";
+import { WalkthroughSetup } from "./components/WalkthroughSetup";
 import { LightboxProvider } from "./components/ImageLightbox";
 import { preloadHoennOverworldMap } from "./lib/preloadMapImages";
 import { useViewMode } from "./hooks/useViewMode";
+import {
+  getWalkthroughStartStepId,
+  useWalkthroughPreferences,
+  type WalkthroughPreferences,
+} from "./hooks/useWalkthroughPreferences";
+import {
+  filterWalkthroughSections,
+  resolveVisibleStepId,
+} from "./lib/filterWalkthroughSections";
 import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
 import "./App.css";
@@ -20,12 +30,41 @@ export default function App() {
   const [nav, setNav] = useState<NavKey>("walkthrough");
   const [activeStepId, setActiveStepId] = useState<string | undefined>();
   const [mapOpen, setMapOpen] = useState(false);
+  const [walkthroughPrefs, setWalkthroughPrefs] = useWalkthroughPreferences();
+  const [showSetup, setShowSetup] = useState(false);
 
   const category: GuideCategory = nav === "map" ? "walkthrough" : nav;
+
+  const walkthroughSections = useMemo(
+    () => filterWalkthroughSections(guideData.walkthrough, walkthroughPrefs),
+    [walkthroughPrefs],
+  );
+
+  const sections = category === "walkthrough" ? walkthroughSections : guideData[category];
+
   const categoryStepIds = useMemo(
     () => new Set(getFlatSteps(category).map((s) => s.id)),
     [category],
   );
+
+  const visibleStepIds = useMemo(
+    () => new Set(walkthroughSections.flatMap((section) => section.steps.map((step) => step.id))),
+    [walkthroughSections],
+  );
+
+  useEffect(() => {
+    if (nav !== "walkthrough") return;
+    if (!walkthroughPrefs.setupComplete) {
+      setShowSetup(true);
+      return;
+    }
+    setShowSetup(false);
+  }, [nav, walkthroughPrefs.setupComplete]);
+
+  useEffect(() => {
+    if (category !== "walkthrough") return;
+    setActiveStepId((current) => resolveVisibleStepId(walkthroughSections, current));
+  }, [category, walkthroughSections]);
 
   const handleSelect = (key: NavKey) => {
     setNav(key);
@@ -37,10 +76,24 @@ export default function App() {
   };
 
   const handleMapRegion = (region: MapRegion) => {
-    const stepId = region.stepIds.find((id) => categoryStepIds.has(id)) ?? region.stepIds[0];
+    const stepId =
+      region.stepIds.find((id) => visibleStepIds.has(id) && categoryStepIds.has(id)) ??
+      region.stepIds.find((id) => categoryStepIds.has(id)) ??
+      region.stepIds[0];
     setActiveStepId(stepId);
     setNav("walkthrough");
     setMapOpen(false);
+  };
+
+  const handleSetupContinue = (next: WalkthroughPreferences) => {
+    setWalkthroughPrefs(next);
+    setActiveStepId((current) =>
+      resolveVisibleStepId(
+        filterWalkthroughSections(guideData.walkthrough, next),
+        current ?? getWalkthroughStartStepId(next),
+      ),
+    );
+    setShowSetup(false);
   };
 
   useEffect(() => {
@@ -76,15 +129,22 @@ export default function App() {
               <HoennMap activeStepId={activeStepId} onSelectRegion={handleMapRegion} />
             ) : nav === "pokedex" ? (
               <Pokedex />
+            ) : showSetup ? (
+              <WalkthroughSetup
+                preferences={walkthroughPrefs}
+                onContinue={handleSetupContinue}
+              />
             ) : (
               <StepBrowser
-                key={category}
+                key={`${category}-${walkthroughPrefs.playMode}-${walkthroughPrefs.skipPregame}`}
                 category={category}
-                sections={guideData[category]}
+                sections={sections}
                 activeStepId={activeStepId}
                 onActiveStepChange={setActiveStepId}
                 onShowOnMap={handleShowOnMap}
                 viewMode={viewMode}
+                walkthroughPrefs={walkthroughPrefs}
+                onOpenGuideSettings={() => setShowSetup(true)}
               />
             )}
           </main>

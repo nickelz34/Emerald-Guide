@@ -24,6 +24,7 @@ import {
   filterWalkthroughSteps,
   walkthroughMatchFieldLabel,
 } from "../data/walkthroughSearch";
+import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -32,6 +33,8 @@ interface StepBrowserProps {
   activeStepId?: string;
   onActiveStepChange?: (stepId: string) => void;
   viewMode?: LayoutViewMode;
+  walkthroughPrefs?: WalkthroughPreferences;
+  onOpenGuideSettings?: () => void;
 }
 
 interface FlatStep {
@@ -87,6 +90,8 @@ export function StepBrowser({
   activeStepId,
   onActiveStepChange,
   viewMode = "desktop",
+  walkthroughPrefs,
+  onOpenGuideSettings,
 }: StepBrowserProps) {
   const mobileNav = useMobileGuideNav(viewMode);
   const flat = useMemo<FlatStep[]>(
@@ -269,6 +274,17 @@ export function StepBrowser({
           <span className="step-rail__toggle-caret" aria-hidden="true">▾</span>
         </button>
         <div className="step-rail__panel">
+        {category === "walkthrough" && walkthroughPrefs && onOpenGuideSettings ? (
+          <div className="step-rail__guide-settings">
+            <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenGuideSettings}>
+              Guide settings
+            </button>
+            <span className="step-rail__mode-label">
+              {walkthroughPrefs.playMode === "storyline" ? "Storyline" : "Completionist"}
+              {walkthroughPrefs.skipPregame ? " · No pregame" : ""}
+            </span>
+          </div>
+        ) : null}
         <input
           type="search"
           className="step-rail__filter"
@@ -283,7 +299,10 @@ export function StepBrowser({
         ) : null}
         <nav className="step-rail__nav">
           {searchGroups.map(({ section, visible }) => (
-              <div key={section.id} className="step-rail__group">
+              <div
+                key={section.id}
+                className={`step-rail__group${section.optional ? " step-rail__group--optional" : ""}`}
+              >
                 <p className="step-rail__group-title">{section.title}</p>
                 {visible.map(({ step: s, hit }) => {
                   const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
@@ -297,7 +316,12 @@ export function StepBrowser({
                     >
                       <span className="step-rail__num">{eventNum}</span>
                       <span className="step-rail__item-body">
-                        <span className="step-rail__label">{s.title}</span>
+                        <span className="step-rail__label-row">
+                          <span className="step-rail__label">{s.title}</span>
+                          {s.optional ? (
+                            <span className="step-optional-badge">Optional</span>
+                          ) : null}
+                        </span>
                         {hit && (
                           <span className="step-rail__match">
                             <span className="step-rail__match-field">{walkthroughMatchFieldLabel(hit.field)}</span>
@@ -359,7 +383,12 @@ export function StepBrowser({
             {current.sectionTitle}
             {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
           </span>
-          <h2 className="step-card__title">{current.step.title}</h2>
+          <h2 className="step-card__title">
+            {current.step.title}
+            {current.step.optional ? (
+              <span className="step-optional-badge step-optional-badge--title">Optional</span>
+            ) : null}
+          </h2>
           {current.step.location && <p className="step-card__location">{current.step.location}</p>}
           <p className="step-card__summary">{current.step.summary}</p>
 

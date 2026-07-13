@@ -48,7 +48,6 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "granite-cave-2": "granitecave-1f",
 
   // Trick House
-  "route-110-1": "route110-trickhousepuzzle1",
   "trick-1": "route110-trickhousepuzzle1",
   "trick-2": "route110-trickhousepuzzle2",
   "trick-3": "route110-trickhousepuzzle3",
@@ -60,6 +59,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   // Mauville / New Mauville
   "mauville-2": "mauvillecity-gym",
   "mauville-3": "newmauville-inside",
+  "mauville-4": "newmauville-inside",
 
   // Gym battles — single-floor interiors
   "rustboro-2": "rustborocity-gym",
@@ -227,6 +227,7 @@ export const CHAPTER_AREA_MAP: Record<string, string> = {
   "shoal-cave": "shoalcave-lowtideentranceroom",
   "sealed-chamber": "underwater-route126",
   "safari-zone": "safarizone-north",
+  "trick-house": "route110-trickhousepuzzle1",
   "battle-frontier": "battlefrontier-battlepyramidlobby",
 };
 
