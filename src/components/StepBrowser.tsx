@@ -434,7 +434,7 @@ export function StepBrowser({
                 <code className="step-stage__save-code-value">{saveCode}</code>
                 <span className="step-stage__save-code-hint">
                   {copyStatus === "copied"
-                    ? "Copied to clipboard — keep this code to continue later on this browser"
+                    ? "Copied to clipboard — keep this code to continue later on in this browser"
                     : copyStatus === "failed"
                       ? "Copy manually — clipboard unavailable"
                       : "Enter this code on Guide settings later on this browser"}
