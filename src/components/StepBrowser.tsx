@@ -25,6 +25,7 @@ import {
   walkthroughMatchFieldLabel,
 } from "../data/walkthroughSearch";
 import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
+import { encodeSaveCode } from "../lib/saveCode";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -45,7 +46,6 @@ interface FlatStep {
 
 const SWIPE_MIN_PX = 56;
 const SWIPE_MAX_VERTICAL_RATIO = 0.85;
-const SWIPE_INTRO_KEY = "emerald-guide-swipe-intro-dismissed";
 
 /** Mobile layout toggle or a touch-first device (phone/tablet). */
 function useMobileGuideNav(viewMode: LayoutViewMode): boolean {
@@ -107,13 +107,8 @@ export function StepBrowser({
   );
   const [filter, setFilter] = useState("");
   const [railOpen, setRailOpen] = useState(false);
-  const [swipeIntroDismissed, setSwipeIntroDismissed] = useState(() => {
-    try {
-      return sessionStorage.getItem(SWIPE_INTRO_KEY) === "1";
-    } catch {
-      return false;
-    }
-  });
+  const [saveCode, setSaveCode] = useState<string | null>(null);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const stageRef = useRef<HTMLDivElement>(null);
   const swipeRef = useRef<{ x: number; y: number } | null>(null);
 
@@ -130,19 +125,48 @@ export function StepBrowser({
   const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
   const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
 
-  const select = (id: string) => {
-    setInternalId(id);
-    onActiveStepChange?.(id);
-    setRailOpen(false);
-  };
+  const flatIndexById = useMemo(() => {
+    const map = new Map<string, number>();
+    flat.forEach((entry, index) => map.set(entry.step.id, index));
+    return map;
+  }, [flat]);
+
+  const select = useCallback(
+    (id: string) => {
+      setInternalId(id);
+      onActiveStepChange?.(id);
+      setRailOpen(false);
+      setSaveCode(null);
+      setCopyStatus("idle");
+    },
+    [onActiveStepChange],
+  );
 
   const goNext = useCallback(() => {
     if (currentIndex < flat.length - 1) select(flat[currentIndex + 1].step.id);
-  }, [currentIndex, flat]);
+  }, [currentIndex, flat, select]);
 
   const goPrev = useCallback(() => {
     if (currentIndex > 0) select(flat[currentIndex - 1].step.id);
-  }, [currentIndex, flat]);
+  }, [currentIndex, flat, select]);
+
+  const handleSaveProgress = useCallback(async () => {
+    if (!walkthroughPrefs || !current?.step.id) return;
+    const code = encodeSaveCode({
+      skipPregame: walkthroughPrefs.skipPregame,
+      playMode: walkthroughPrefs.playMode,
+      stepId: current.step.id,
+    });
+    if (!code) return;
+    setSaveCode(code);
+    setCopyStatus("idle");
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("failed");
+    }
+  }, [walkthroughPrefs, current?.step.id]);
 
   useEffect(() => {
     if (activeStepId) setInternalId(activeStepId);
@@ -165,15 +189,6 @@ export function StepBrowser({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [goNext, goPrev]);
-
-  const dismissSwipeIntro = useCallback(() => {
-    setSwipeIntroDismissed(true);
-    try {
-      sessionStorage.setItem(SWIPE_INTRO_KEY, "1");
-    } catch {
-      /* private browsing */
-    }
-  }, []);
 
   // Capture-phase listeners so swipes register across the full step card, not only
   // above screenshot galleries (bubbling handlers miss touches on nested widgets).
@@ -199,7 +214,6 @@ export function StepBrowser({
       swipeRef.current = null;
       if (Math.abs(dx) < SWIPE_MIN_PX) return;
       if (Math.abs(dy) > Math.abs(dx) * SWIPE_MAX_VERTICAL_RATIO) return;
-      dismissSwipeIntro();
       if (dx < 0) goNext();
       else goPrev();
     };
@@ -216,7 +230,7 @@ export function StepBrowser({
       el.removeEventListener("touchend", onEnd, { capture: true });
       el.removeEventListener("touchcancel", onCancel, { capture: true });
     };
-  }, [mobileNav, goNext, goPrev, dismissSwipeIntro]);
+  }, [mobileNav, goNext, goPrev]);
 
   const didMountScroll = useRef(false);
   useEffect(() => {
@@ -307,11 +321,16 @@ export function StepBrowser({
                 {visible.map(({ step: s, hit }) => {
                   const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
                   const active = s.id === currentId;
+                  const stepFlatIndex = flatIndexById.get(s.id) ?? -1;
+                  const reached =
+                    category === "walkthrough" && stepFlatIndex >= 0 && stepFlatIndex < currentIndex;
                   return (
                     <button
                       key={s.id}
                       type="button"
-                      className={`step-rail__item ${active ? "step-rail__item--active" : ""}`}
+                      className={`step-rail__item ${active ? "step-rail__item--active" : ""}${
+                        reached ? " step-rail__item--reached" : ""
+                      }`}
                       onClick={() => select(s.id)}
                     >
                       <span className="step-rail__num">{eventNum}</span>
@@ -320,6 +339,11 @@ export function StepBrowser({
                           <span className="step-rail__label">{s.title}</span>
                           {s.optional ? (
                             <span className="step-optional-badge">Optional</span>
+                          ) : null}
+                          {reached ? (
+                            <span className="step-reached-badge" aria-label="Reached">
+                              Reached
+                            </span>
                           ) : null}
                         </span>
                         {hit && (
@@ -347,36 +371,41 @@ export function StepBrowser({
         </div>
 
         {mobileNav && (
-          <>
-            {!swipeIntroDismissed && (
-              <div className="step-swipe-intro" role="status">
-                <div className="step-swipe-intro__body">
-                  <strong>Swipe to navigate</strong>
-                  <p>
-                    Swipe <strong>left</strong> for the next step and <strong>right</strong> to go
-                    back. You can swipe anywhere on the guide except maps and screenshots.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="step-swipe-intro__dismiss"
-                  onClick={dismissSwipeIntro}
-                >
-                  Got it
-                </button>
-              </div>
-            )}
-            <p className="step-swipe-banner" role="note">
-              <span className="step-swipe-banner__arrow" aria-hidden="true">
-                ←
-              </span>
-              Swipe left or right to move through the guide
-              <span className="step-swipe-banner__arrow" aria-hidden="true">
-                →
-              </span>
-            </p>
-          </>
+          <p className="step-swipe-banner" role="note">
+            <span className="step-swipe-banner__arrow" aria-hidden="true">
+              ←
+            </span>
+            Swipe left or right to move through the guide
+            <span className="step-swipe-banner__arrow" aria-hidden="true">
+              →
+            </span>
+          </p>
         )}
+
+        {category === "walkthrough" && walkthroughPrefs ? (
+          <div className="step-stage__save">
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => void handleSaveProgress()}
+            >
+              Save progress
+            </button>
+            {saveCode ? (
+              <div className="step-stage__save-code" role="status">
+                <span className="step-stage__save-code-label">Your save code</span>
+                <code className="step-stage__save-code-value">{saveCode}</code>
+                <span className="step-stage__save-code-hint">
+                  {copyStatus === "copied"
+                    ? "Copied to clipboard"
+                    : copyStatus === "failed"
+                      ? "Copy manually — clipboard unavailable"
+                      : "Enter this on Guide settings to continue later"}
+                </span>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
         <article className="step-card">
           <span className="step-card__crumb">

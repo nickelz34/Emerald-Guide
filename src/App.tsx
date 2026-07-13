@@ -28,16 +28,23 @@ export type NavKey = GuideCategory | "map";
 export default function App() {
   const [viewMode, setViewMode] = useViewMode();
   const [nav, setNav] = useState<NavKey>("walkthrough");
-  const [activeStepId, setActiveStepId] = useState<string | undefined>();
-  const [mapOpen, setMapOpen] = useState(false);
   const [walkthroughPrefs, setWalkthroughPrefs] = useWalkthroughPreferences();
+  const [activeStepId, setActiveStepId] = useState<string | undefined>(
+    () => walkthroughPrefs.activeStepId,
+  );
+  const [mapOpen, setMapOpen] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
 
   const category: GuideCategory = nav === "map" ? "walkthrough" : nav;
 
   const walkthroughSections = useMemo(
-    () => filterWalkthroughSections(guideData.walkthrough, walkthroughPrefs),
-    [walkthroughPrefs],
+    () =>
+      filterWalkthroughSections(guideData.walkthrough, {
+        setupComplete: walkthroughPrefs.setupComplete,
+        skipPregame: walkthroughPrefs.skipPregame,
+        playMode: walkthroughPrefs.playMode,
+      }),
+    [walkthroughPrefs.setupComplete, walkthroughPrefs.skipPregame, walkthroughPrefs.playMode],
   );
 
   const sections = category === "walkthrough" ? walkthroughSections : guideData[category];
@@ -66,6 +73,14 @@ export default function App() {
     setActiveStepId((current) => resolveVisibleStepId(walkthroughSections, current));
   }, [category, walkthroughSections]);
 
+  useEffect(() => {
+    if (category !== "walkthrough") return;
+    if (!activeStepId) return;
+    setWalkthroughPrefs((prev) =>
+      prev.activeStepId === activeStepId ? prev : { ...prev, activeStepId },
+    );
+  }, [category, activeStepId, setWalkthroughPrefs]);
+
   const handleSelect = (key: NavKey) => {
     setNav(key);
   };
@@ -86,13 +101,23 @@ export default function App() {
   };
 
   const handleSetupContinue = (next: WalkthroughPreferences) => {
-    setWalkthroughPrefs(next);
-    setActiveStepId((current) =>
-      resolveVisibleStepId(
-        filterWalkthroughSections(guideData.walkthrough, next),
-        current ?? getWalkthroughStartStepId(next),
-      ),
+    const sectionsForPrefs = filterWalkthroughSections(guideData.walkthrough, next);
+    const stepId = resolveVisibleStepId(
+      sectionsForPrefs,
+      next.activeStepId ?? getWalkthroughStartStepId(next),
     );
+    setWalkthroughPrefs({ ...next, activeStepId: stepId });
+    setActiveStepId(stepId);
+    setShowSetup(false);
+  };
+
+  const handleContinueFromSave = (next: WalkthroughPreferences, stepId: string) => {
+    const resolved = resolveVisibleStepId(
+      filterWalkthroughSections(guideData.walkthrough, next),
+      stepId,
+    );
+    setWalkthroughPrefs({ ...next, activeStepId: resolved });
+    setActiveStepId(resolved);
     setShowSetup(false);
   };
 
@@ -133,6 +158,7 @@ export default function App() {
               <WalkthroughSetup
                 preferences={walkthroughPrefs}
                 onContinue={handleSetupContinue}
+                onContinueFromSave={handleContinueFromSave}
               />
             ) : (
               <StepBrowser

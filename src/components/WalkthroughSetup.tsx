@@ -1,15 +1,23 @@
 import { useState } from "react";
 import type { WalkthroughPlayMode } from "../types";
 import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
+import { decodeSaveCode } from "../lib/saveCode";
 
 interface WalkthroughSetupProps {
   preferences: WalkthroughPreferences;
   onContinue: (next: WalkthroughPreferences) => void;
+  onContinueFromSave: (next: WalkthroughPreferences, stepId: string) => void;
 }
 
-export function WalkthroughSetup({ preferences, onContinue }: WalkthroughSetupProps) {
+export function WalkthroughSetup({
+  preferences,
+  onContinue,
+  onContinueFromSave,
+}: WalkthroughSetupProps) {
   const [skipPregame, setSkipPregame] = useState(preferences.skipPregame);
   const [playMode, setPlayMode] = useState<WalkthroughPlayMode>(preferences.playMode);
+  const [saveCode, setSaveCode] = useState("");
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -17,7 +25,27 @@ export function WalkthroughSetup({ preferences, onContinue }: WalkthroughSetupPr
       setupComplete: true,
       skipPregame,
       playMode,
+      activeStepId: preferences.activeStepId,
     });
+  }
+
+  function handleContinueFromSave(e: React.FormEvent) {
+    e.preventDefault();
+    const result = decodeSaveCode(saveCode);
+    if (!result.ok) {
+      setSaveError(result.error);
+      return;
+    }
+    setSaveError(null);
+    onContinueFromSave(
+      {
+        setupComplete: true,
+        skipPregame: result.state.skipPregame,
+        playMode: result.state.playMode,
+        activeStepId: result.state.stepId,
+      },
+      result.state.stepId,
+    );
   }
 
   return (
@@ -98,6 +126,44 @@ export function WalkthroughSetup({ preferences, onContinue }: WalkthroughSetupPr
           <button type="submit" className="walkthrough-setup__continue">
             Start walkthrough
           </button>
+        </form>
+
+        <div className="walkthrough-setup__divider" role="separator">
+          <span>or</span>
+        </div>
+
+        <form className="walkthrough-setup__save-form" onSubmit={handleContinueFromSave}>
+          <fieldset className="walkthrough-setup__fieldset">
+            <legend className="walkthrough-setup__legend">Continue with save code</legend>
+            <p className="walkthrough-setup__hint walkthrough-setup__hint--block">
+              Enter a 6-character code from a previous save to pick up exactly where you left off.
+            </p>
+            <div className="walkthrough-setup__save-row">
+              <input
+                type="text"
+                className="walkthrough-setup__save-input"
+                value={saveCode}
+                onChange={(e) => {
+                  setSaveCode(e.target.value.toUpperCase().replace(/[^0-9A-Z]/gi, "").slice(0, 6));
+                  setSaveError(null);
+                }}
+                placeholder="ABC123"
+                maxLength={6}
+                autoComplete="off"
+                spellCheck={false}
+                aria-invalid={saveError ? true : undefined}
+                aria-describedby={saveError ? "walkthrough-save-error" : undefined}
+              />
+              <button type="submit" className="walkthrough-setup__continue" disabled={saveCode.length !== 6}>
+                Continue
+              </button>
+            </div>
+            {saveError ? (
+              <p id="walkthrough-save-error" className="walkthrough-setup__save-error" role="alert">
+                {saveError}
+              </p>
+            ) : null}
+          </fieldset>
         </form>
       </div>
     </div>
