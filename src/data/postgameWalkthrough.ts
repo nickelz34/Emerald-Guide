@@ -112,22 +112,22 @@ export const postgameFrontierChapter: GuideSection = {
       id: "battle-frontier-2",
       title: "Frontier Pass & Scott\u2019s house",
       location: "Battle Frontier \u2014 entrance & Scott\u2019s house",
-      summary: "Register at the gate; visit Scott\u2019s house for up to 64 bonus BP.",
+      summary: "Register at the gate; visit Scott\u2019s house for 1\u20134 bonus BP.",
       story: [
         "Past the entrance, the Battle Frontier spreads into seven facilities, each with its own rules and a Frontier Brain waiting at the end of a streak. Your Frontier Pass records symbols and Battle Points (BP), the currency for the shops and move tutors scattered across the park.",
-        "Scott\u2019s house sits between the Battle Dome and Battle Tower. On your first visit he tallies every time he spotted you during the main game and pays one BP per sighting, up to 64 bonus BP total. That lump sum jump-starts shopping, but only once \u2014 so spend or save it deliberately. While you are here, note the rules board: most cover legendaries and mythicals are banned from every facility, so plan teams without Mewtwo, the weather trio, Eon roamers, and similar restricted species.",
+        "Scott\u2019s house sits between the Battle Dome and Battle Tower. On your first visit he tallies every Scott conversation you had during the main game and awards 1, 2, 3, or 4 BP total depending on how many of the 13 sightings you found \u2014 use the checklist on this step. That lump sum jump-starts shopping, but only once, so spend or save it deliberately. While you are here, note the rules board: most cover legendaries and mythicals are banned from every facility, so plan teams without Mewtwo, the weather trio, Eon roamers, and similar restricted species.",
       ],
       details: [
         "Use the Frontier Pass to enter each facility at the front desks.",
         "Visit Scott\u2019s house between the Dome and Tower on your first Frontier trip.",
-        "Receive up to 64 bonus BP (one BP per prior Scott sighting in the story).",
+        "Receive 1\u20134 bonus BP on first visit (based on total Scott sightings: 5\u21921, 6\u20138\u21922, 9\u201312\u21923, all 13\u21924).",
         "Banned Pok\u00e9mon include Mewtwo, Mew, Ho-Oh, Lugia, Celebi, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Latias, Latios, and the Regi trio.",
       ],
       tips: [
         "Open Level facilities use your highest-level Pok\u00e9mon (auto-capped at 100); Level 50 modes cap at 50.",
       ],
       secrets: [
-        "Scott\u2019s 64 BP bonus is a one-time payout \u2014 it does not repeat on later visits.",
+        "Scott\u2019s BP bonus is a one-time payout \u2014 it does not repeat on later visits.",
       ],
       tags: ["post-game", "battle-frontier", "scott", "battle-points"],
     },

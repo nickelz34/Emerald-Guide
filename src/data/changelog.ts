@@ -20,6 +20,108 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.13.0",
+    date: "2026-07-13",
+    summary:
+      "Merge audit + backlog: Match Call rematch browser, rival map pins, wild encounters on all walkthrough steps, and unified v1.12 fixes.",
+    sections: [
+      {
+        heading: "Walkthrough UI",
+        items: [
+          "MatchCallRematchPanel on post-game Hoenn step 6 — browse all ~78 PokéNav rematch trainers with full battle modals.",
+          "RivalGuidePanel, HM/key-item tables, and Scott checklist from v1.12.1 retained.",
+          "Step encounter panels now load pokeemerald wild_encounters.json for any mapped or inferred route/town.",
+        ],
+      },
+      {
+        heading: "Map pins & crops",
+        items: [
+          "Rival battle pins added for Rustboro (Pokémon School), Route 119 (north of Weather Institute), and Lilycove (Department Store).",
+          "Map crop captions updated for rustboro-3 rival step and new lilycove-1 crop.",
+        ],
+      },
+      {
+        heading: "Data & tooling",
+        items: [
+          "inferAreaIdFromStepId() expands encounter coverage to rival steps and route/town prefixes.",
+          "verify-hidden-items.mjs falls back to pokeemerald raw map data when .calib/manifest.json is absent.",
+          "build_all_postgame.py Scott BP text corrected to 1–4 BP (not 64).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.12.1",
+    date: "2026-07-13",
+    summary:
+      "Audit backlog: rival battle panels, HM/key-item references, Scott checklist, and prose fixes.",
+    sections: [
+      {
+        heading: "Walkthrough UI",
+        items: [
+          "RivalGuidePanel on all five rival steps — pick player gender and starter for accurate pokeemerald party data with full battle modal.",
+          "HM unlock table on Rustboro (first HM); key-items table on Devon Corp / PokéNav step.",
+          "Scott sightings checklist on Battle Frontier step 2 with corrected 1–4 BP bonus (not 64).",
+        ],
+      },
+      {
+        heading: "Walkthrough prose",
+        items: [
+          "Old Rod (Dewford), Good Rod (Route 118), Itemfinder (Slateport market), Coin Case (Mauville Game Corner).",
+          "HM02 Fly from Weather Institute bed (not rival); Match Call explained at PokéNav gift.",
+          "Egg nature timing note in pregame breeding; Game Corner TM list in Mauville secrets.",
+        ],
+      },
+      {
+        heading: "Data fixes",
+        items: [
+          "Scott BP payout corrected across postgame, areaData, and new scottSightings.ts (13 locations).",
+          "hmUnlock.ts and keyItems.ts central reference data for future steps.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.12.0",
+    date: "2026-07-13",
+    summary:
+      "Comprehensive walkthrough accuracy pass from the full 52-chapter audit — story, gyms, breeding, and wild encounters.",
+    sections: [
+      {
+        heading: "Walkthrough — story & gyms",
+        items: [
+          "Oldale researcher blocks Route 102 (not Route 103); Route 103 rival return now requires Birch's lab visit and rival Poké Ball gift.",
+          "Ralts described as Psychic-only (Gen III); Route 110 drops phantom Duskull, fixes rival location, and corrects Wattson's party (Voltorb/Electrike/Magneton/Manectric).",
+          "Go-Goggles come from your rival after Flannery (not the Lavaridge Mart); Flannery gym uses spin tiles; Route 117 removes Roselia.",
+          "Mt. Pyre: Team Aqua steals the Blue Orb; elders give the Magma Emblem. Magma Hideout awakens Groudon with the Red Orb.",
+          "Sootopolis crisis directed by Wallace (not Steven); Juan is Gym Leader 8 (Kingdra ace); Wallace gives HM07 Waterfall outside the gym.",
+          "Sky Pillar removes Dragon Ascent (Gen VI); Abandoned Ship TM13 Snatch (not TM49). Safari Zone uses Bait/Rocks; Johto bike areas unlock post-Champion.",
+          "Trick House TM list, Trick House/Safari/contest Juan–Wallace roles, and other P1 step-level corrections across the story chapters.",
+        ],
+      },
+      {
+        heading: "Pregame — breeding & evolution",
+        items: [
+          "Eggs go to party (not Bag); Soothe Bell free on first Glass Workshop talk; Wynaut from Lavaridge old woman.",
+          "Flame Body/Magma Armor hatch helpers: Slugma (Route 113/Fiery Path) and Numel (Route 112/113); Zigzagoon ability note fixed for Emerald.",
+          "Egg group chart: Ralts in Amorphous/Human-Like, Lunatone in Mineral, Skitty in Field, Beldum in Undiscovered.",
+        ],
+      },
+      {
+        heading: "Route encounter panels",
+        items: [
+          "Route detail encounter tables now prefer pokeemerald wild_encounters.json data over stale curated tables in areaData.ts.",
+        ],
+      },
+      {
+        heading: "Gym data",
+        items: [
+          "Sootopolis gym panel uses Juan (TRAINER_JUAN_1) with accurate Kingdra team instead of Wallace/Milotic.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.15",
     date: "2026-07-13",
     summary: "Breeding lookup Parent A/B dropdowns use readable dark-theme colors on desktop.",

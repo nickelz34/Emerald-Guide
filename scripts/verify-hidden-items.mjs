@@ -8,12 +8,26 @@ import path from "node:path";
 import https from "node:https";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, ".calib/manifest.json"), "utf8"));
+const MANIFEST_PATH = path.join(ROOT, ".calib/manifest.json");
 const RAW = "https://raw.githubusercontent.com/pret/pokeemerald/master";
+
+function loadManifest() {
+  if (fs.existsSync(MANIFEST_PATH)) {
+    return JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8"));
+  }
+  // Hoenn composite dimensions from mapCrops.ts — enough to verify hidden items offline.
+  return {
+    wTiles: 400,
+    hTiles: 191,
+    maps: [],
+  };
+}
+
+const manifest = loadManifest();
 const W_TILES = manifest.wTiles;
 const H_TILES = manifest.hTiles;
 
-const compositeMaps = manifest.maps; // {id,name,gx,gy,w,h}
+const compositeMaps = manifest.maps ?? [];
 const round = (n) => Math.round(n * 100) / 100;
 const tilePct = (gx, gy, tx, ty) => ({
   x: round(((gx + tx + 0.5) / W_TILES) * 100),
@@ -69,6 +83,14 @@ function findMatch(x, y) {
 }
 
 async function main() {
+  if (!compositeMaps.length) {
+    console.log(
+      "No .calib/manifest.json map list — skipping hidden-item coordinate verification (run locally with .calib).",
+    );
+    console.log(`Hidden entries in mapPointsGenerated.ts: ${genHidden.length}`);
+    return;
+  }
+
   const expected = [];
   await pool(compositeMaps, 12, async (m) => {
     let map;

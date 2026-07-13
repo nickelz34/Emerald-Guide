@@ -49,18 +49,48 @@ export function EncounterTable({
   const [timeFilter, setTimeFilter] = useState<TimeSlot | "all">("all");
   const [methodFilter, setMethodFilter] = useState<EncounterMethod | "all">("all");
   const [search, setSearch] = useState("");
+  const [encountersByArea, setEncountersByArea] = useState<Record<string, PokemonEncounter[]>>({});
+  const [encLoading, setEncLoading] = useState(false);
+
+  useEffect(() => {
+    if (areaIds.length === 0) {
+      setEncountersByArea({});
+      return;
+    }
+    let alive = true;
+    setEncLoading(true);
+    Promise.all(
+      areaIds.map(async (id) => {
+        const encounters = await loadRouteEncounters(id);
+        return [id, encounters] as const;
+      }),
+    )
+      .then((pairs) => {
+        if (!alive) return;
+        setEncountersByArea(Object.fromEntries(pairs));
+      })
+      .catch(() => alive && setEncountersByArea({}))
+      .finally(() => alive && setEncLoading(false));
+    return () => {
+      alive = false;
+    };
+  }, [areaIds]);
 
   const areas = useMemo(
-    () => areaIds.map((id) => ({ id, data: getAreaData(id) })).filter((a) => a.data),
-    [areaIds],
+    () =>
+      areaIds.map((id) => ({
+        id,
+        data: getAreaData(id),
+        encounters: encountersByArea[id] ?? [],
+      })),
+    [areaIds, encountersByArea],
   );
 
   const allEncounters = useMemo(() => {
     const rows: { areaId: string; areaName: string; enc: PokemonEncounter }[] = [];
-    for (const { id, data } of areas) {
-      if (!data) continue;
+    for (const { id, encounters } of areas) {
       const label = id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-      for (const enc of data.encounters) {
+      for (const enc of encounters) {
         rows.push({ areaId: id, areaName: label, enc });
       }
     }
@@ -83,21 +113,24 @@ export function EncounterTable({
     return [...set];
   }, [allEncounters]);
 
-  if (areas.length === 0) return null;
+  if (areaIds.length === 0) return null;
 
   const hasEncounters = allEncounters.length > 0;
+  const hasAreaExtras = areas.some(({ data }) => data && (showScreenshots || showAreaSecrets));
+
+  if (!hasEncounters && !hasAreaExtras && !encLoading) return null;
 
   return (
     <div className={`encounter-panel ${compact ? "encounter-panel--compact" : ""}`}>
       {areas.map(({ id, data }) => {
-        if (!data) return null;
         const label = id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
         const mapShot = getAreaDisplayMap(id, label);
-        const extras = showAreaSecrets ? getSecretsExtrasForArea(id) : [];
+        const extras = showAreaSecrets && data ? getSecretsExtrasForArea(id) : [];
+        if (!data && !showScreenshots && extras.length === 0) return null;
         return (
           <div key={id} className="area-block">
             {areas.length > 1 && <h4 className="area-block__title">{label}</h4>}
-            {showScreenshots && mapShot && (
+            {showScreenshots && data && mapShot && (
               mapShot.areaMapId ? (
                 <AreaMapView areaMapId={mapShot.areaMapId} caption={mapShot.caption} showLegend />
               ) : mapShot.crop ? (
@@ -117,6 +150,10 @@ export function EncounterTable({
           </div>
         );
       })}
+
+      {encLoading && !hasEncounters && (
+        <p className="encounter-panel__loading">Loading wild encounter data…</p>
+      )}
 
       {hasEncounters && (
         <>

@@ -185,6 +185,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
       { id: "rust-devon", type: "building", label: "Devon Corp", detail: "Big multi-story building (NW). Letter, PokéNav, Exp. Share.", x: 28.8, y: 25.8 },
       { id: "rust-gym", type: "building", label: "Rustboro Gym", detail: "Roxanne — badge #1.", x: 68.8, y: 32.5 },
       { id: "rust-school", type: "building", label: "Trainer's School", x: 68.8, y: 57.5 },
+      { id: "rust-rival", type: "trainer", label: "Rival battle", detail: "Rival Battle #2 — near the Pokémon School after your first badge.", x: 71.3, y: 60.8 },
       { id: "rust-center", type: "building", label: "Pokémon Center", x: 41.3, y: 64.2 },
       { id: "rust-mart", type: "building", label: "Poké Mart", x: 41.3, y: 75.8 },
       { id: "rust-cut", type: "npc", label: "Cutter's House", detail: "Small house west of the center.", x: 23.8, y: 64.2 },
@@ -390,6 +391,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     markers: [
       { id: "r119-north", type: "poi", label: "North exit", x: 98.8, y: 50.4 },
       { id: "r119-institute", type: "building", label: "Weather Institute", detail: "Team Aqua event and Castform gift.", x: 16.3, y: 23.2 },
+      { id: "r119-rival", type: "trainer", label: "Rival battle", detail: "Rival Battle #4 — just north of the Weather Institute.", x: 18.8, y: 16.5 },
       { id: "r119-fly", type: "item", label: "HM02 Fly", detail: "Gift after Weather Institute event.", x: 16.3, y: 23.2 },
       { id: "r119-bridge1", type: "poi", label: "Acro Bike bridge", detail: "Narrow white bridge near the north river.", x: 21.3, y: 6.1 },
       { id: "r119-kecleon", type: "wild", label: "Kecleon", detail: "Invisible encounter — north section (fixed location, not the grass table).", x: 78.8, y: 4.6 },
@@ -469,6 +471,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
     title: "Lilycove City",
     markers: [
       { id: "lily-dept", type: "building", label: "Department Store", detail: "Large white building (NW). TMs, stones, items.", x: 34.4, y: 16.3 },
+      { id: "lily-rival", type: "trainer", label: "Rival battle", detail: "Rival Battle #5 — outside the Department Store.", x: 38.1, y: 22.5 },
       { id: "lily-pc", type: "building", label: "Pokémon Center", x: 30.6, y: 36.3 },
       { id: "lily-contest", type: "building", label: "Contest Hall / Museum", x: 29.4, y: 61.3 },
       { id: "lily-motel", type: "building", label: "Cove Lily Motel", x: 46.9, y: 61.3 },

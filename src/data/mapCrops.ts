@@ -38,7 +38,7 @@ export const EVENT_MAP_CROP: Record<string, EventMapCrop> = {
   "petalburg-2": { crop: { x: 8.5, y: 62.6632, w: 6.75, h: 6.2663 }, caption: "Route 102 — Wally's catching tutorial", areaId: "route-102" },
   "petalburg-3": { crop: { x: 4.75, y: 60.0522, w: 4.25, h: 8.8773 }, caption: "Petalburg City — stock up", areaId: "petalburg" },
   "route-104-3": { crop: { x: 0, y: 46.9974, w: 5.25, h: 21.9321 }, caption: "Route 104 — beach and flowers", areaId: "route-104" },
-  "rustboro-3": { crop: { x: 0, y: 31.3316, w: 5.25, h: 16.7102 }, caption: "Rustboro City — the Devon theft", areaId: "rustboro" },
+  "rustboro-3": { crop: { x: 0, y: 31.3316, w: 5.25, h: 16.7102 }, caption: "Rustboro City — Rival Battle #2", areaId: "rustboro" },
   "route-116-1": { crop: { x: 4.75, y: 31.3316, w: 13, h: 6.2663 }, caption: "Route 116 — chasing the thief", areaId: "route-116" },
   "route-116-2": { crop: { x: 4.75, y: 31.3316, w: 13, h: 6.2663 }, caption: "Route 116 — route items", areaId: "route-116" },
   "dewford-1": { crop: { x: 7.25, y: 93.9948, w: 3, h: 6.0052 }, caption: "Dewford Town", areaId: "dewford" },
@@ -61,6 +61,7 @@ export const EVENT_MAP_CROP: Record<string, EventMapCrop> = {
   "route-119-3": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — Rival Battle #4", areaId: "route-119" },
   "fortree-1": { crop: { x: 39.75, y: 0, w: 5.5, h: 5.7441 }, caption: "Fortree City — the treetop town", areaId: "fortree" },
   "route-120-1": { crop: { x: 44.75, y: 0, w: 5.5, h: 26.6319 }, caption: "Route 120 — Steven & the Devon Scope", areaId: "route-120" },
+  "lilycove-1": { crop: { x: 59.75, y: 17.7546, w: 10.5, h: 11.4883 }, caption: "Lilycove City — Rival Battle #5", areaId: "lilycove" },
   "lilycove-3": { crop: { x: 52.25, y: 25.5875, w: 5.5, h: 11.4883 }, caption: "Route 122 — south toward Mt. Pyre", areaId: "route-122" },
   "mossdeep-3": { crop: { x: 79.75, y: 25.5875, w: 10.5, h: 11.4883 }, caption: "Mossdeep City — Super Rod fishing", areaId: "mossdeep" },
   "sootopolis-2": { crop: { x: 59.75, y: 67.3629, w: 3, h: 11.4883 }, caption: "Pacifidlog Town — toward the Sky Pillar", areaId: "pacifidlog" },
@@ -385,6 +386,7 @@ export const AREA_MARKER_MAP_POS: Record<string, Record<string, { x: number; y: 
     "rust-center": { x: 2.0625, y: 41.906 },
     "rust-mart": { x: 2.0625, y: 43.7337 },
     "rust-cut": { x: 1.1875, y: 41.906 },
+    "rust-rival": { x: 3.743, y: 41.487 },
   },
   "route-116": {
     "r116-rustboro": { x: 5.0625, y: 34.5953 },
@@ -468,6 +470,7 @@ export const AREA_MARKER_MAP_POS: Record<string, Record<string, { x: number; y: 
   "route-119": {
     "r119-north": { x: 39.9375, y: 18.4073 },
     "r119-institute": { x: 35.8125, y: 8.4856 },
+    "r119-rival": { x: 35.784, y: 6.117 },
     "r119-fly": { x: 35.8125, y: 8.4856 },
     "r119-bridge1": { x: 36.0625, y: 2.2193 },
     "r119-kecleon": { x: 38.9375, y: 1.6971 },
@@ -501,6 +504,7 @@ export const AREA_MARKER_MAP_POS: Record<string, Record<string, { x: number; y: 
   },
   "lilycove": {
     "lily-dept": { x: 63.4375, y: 19.9739 },
+    "lily-rival": { x: 63.7505, y: 20.3394 },
     "lily-pc": { x: 63.0625, y: 22.0627 },
     "lily-contest": { x: 62.9375, y: 24.6737 },
     "lily-motel": { x: 64.6875, y: 24.6737 },
