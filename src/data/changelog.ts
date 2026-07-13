@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.11",
+    date: "2026-07-13",
+    summary: "Breeding chart egg sprites are larger on desktop for easier visibility.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Breeding",
+        items: [
+          "Egg sprites on breeding arrows and party Egg tiles now render at 64×128px on desktop (native 2:1 aspect), up from 32×48px.",
+          "Mobile egg sprites scale to 48×96px so they stay readable without crowding narrow layouts.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.10",
     date: "2026-07-13",
     summary: "Ch. 2 breeding accuracy pass — egg sprites, mobile gender badges, and verified Gen III mechanics.",

@@ -59,8 +59,8 @@ function MonSprite({ mon }: { mon: BreedingMonRef }) {
           className={`breed-chart__mon-sprite${isEgg ? " breed-chart__mon-sprite--egg" : ""}`}
           src={src}
           alt={mon.name}
-          width={isEgg ? 32 : 64}
-          height={isEgg ? 48 : 64}
+          width={64}
+          height={isEgg ? 128 : 64}
           loading="lazy"
           decoding="async"
           draggable={false}
@@ -90,7 +90,7 @@ function PairArrow({ edge }: { edge: BreedingPairEdge }) {
         <img className="breed-chart__arrow-item" src={itemSrc} alt="" width={24} height={24} draggable={false} />
       )}
       {eggSrc && (
-        <img className="breed-chart__arrow-egg" src={eggSrc} alt="" width={32} height={48} draggable={false} />
+        <img className="breed-chart__arrow-egg" src={eggSrc} alt="" width={64} height={128} draggable={false} />
       )}
       {edge.methodLabel && edge.methodLabel !== "Egg" && (
         <span className="breed-chart__method">{edge.methodLabel}</span>

@@ -3902,8 +3902,8 @@
 
 .breed-chart__arrow-egg {
   image-rendering: pixelated;
-  width: 32px;
-  height: 48px;
+  width: 64px;
+  height: 128px;
   object-fit: contain;
 }
 
@@ -3993,8 +3993,8 @@
 }
 
 .breed-chart__mon-sprite--egg {
-  width: 32px;
-  height: 48px;
+  width: 64px;
+  height: 128px;
 }
 
 .breed-chart__mon-fallback {
@@ -4026,7 +4026,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  min-width: 2.5rem;
+  min-width: 4rem;
 }
 
 .breed-chart__arrow--blocked .breed-chart__arrow-mark {
@@ -4116,8 +4116,13 @@
   }
 
   .breed-chart__arrow-egg {
-    width: 28px;
-    height: 42px;
+    width: 48px;
+    height: 96px;
+  }
+
+  .breed-chart__mon-sprite--egg {
+    width: 48px;
+    height: 96px;
   }
 
   .breed-chart__mon-sprite,
