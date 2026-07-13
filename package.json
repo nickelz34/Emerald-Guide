@@ -27,6 +27,7 @@
     "verify:map-pins": "node scripts/verify-map-pins.mjs",
     "verify:audit-prose": "node scripts/verify-audit-prose.mjs",
     "gen:town-pin": "node scripts/gen-town-pin.mjs",
+    "gen:match-call-schedule": "node scripts/extract-match-call-schedule.mjs",
     "audit:markers": "node scripts/audit-walkthrough-markers.mjs",
     "audit:trainers": "node scripts/audit-trainers.mjs",
     "verify:area-items": "node scripts/verify-area-items.mjs",
