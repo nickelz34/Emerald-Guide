@@ -54,15 +54,25 @@ export interface GuideStep {
   secrets?: string[];
   tags?: string[];
   mapRegion?: string;
+  /** True when this event is not required to finish the main story. */
+  optional?: boolean;
 }
 
 export type ViewMode = "list" | "map" | "guided";
+
+export type WalkthroughBand = "pregame" | "story" | "postgame";
+
+export type WalkthroughPlayMode = "storyline" | "completionist";
 
 export interface GuideSection {
   id: string;
   title: string;
   description: string;
   steps: GuideStep[];
+  /** True when every event in this chapter is optional for the main story. */
+  optional?: boolean;
+  /** Which part of the guide this chapter belongs to. */
+  band?: WalkthroughBand;
 }
 
 export interface GuideData {

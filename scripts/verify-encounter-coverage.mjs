@@ -65,7 +65,7 @@ function isWalkthroughStepId(id) {
   ) {
     return false;
   }
-  return /-\d+$/.test(id) || /^(postgame|pregame|battle-frontier|trick|mirage)-/.test(id);
+  return /-\d+$/.test(id) || /^(postgame|pregame|battle-frontier|trick-\d|mirage)-/.test(id);
 }
 
 function inferAreaId(stepId) {

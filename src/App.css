@@ -8284,3 +8284,144 @@
     font-size: 0.72rem;
   }
 }
+
+/* Walkthrough setup screen */
+.walkthrough-setup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 1.5rem;
+}
+
+.walkthrough-setup__card {
+  width: min(100%, 42rem);
+  padding: 1.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 18, 28, 0.92);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.walkthrough-setup__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.45rem;
+}
+
+.walkthrough-setup__lead {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted, #9aa8bc);
+  line-height: 1.5;
+}
+
+.walkthrough-setup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.walkthrough-setup__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.walkthrough-setup__legend {
+  margin-bottom: 0.65rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.walkthrough-setup__checkbox,
+.walkthrough-setup__mode {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.walkthrough-setup__mode--active {
+  border-color: rgba(96, 165, 250, 0.55);
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.walkthrough-setup__modes {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.walkthrough-setup__hint {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--text-muted, #9aa8bc);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.walkthrough-setup__continue {
+  align-self: flex-start;
+  padding: 0.65rem 1.25rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.walkthrough-setup__continue:hover {
+  filter: brightness(1.08);
+}
+
+.step-rail__guide-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.step-rail__mode-label {
+  font-size: 0.78rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.btn--sm {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
+}
+
+.step-rail__group--optional .step-rail__group-title {
+  color: var(--text-muted, #9aa8bc);
+}
+
+.step-rail__label-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.step-optional-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted, #9aa8bc);
+  flex-shrink: 0;
+}
+
+.step-optional-badge--title {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  font-size: 0.72rem;
+}

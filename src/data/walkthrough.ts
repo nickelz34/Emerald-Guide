@@ -1,4 +1,5 @@
 import type { GuideSection } from "../types";
+import { applyWalkthroughMetadata } from "./walkthroughMeta";
 import {
   postgameOpeningChapter,
   postgameFrontierChapter,
@@ -271,7 +272,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "route-102-2",
-        title: "Catch a Ralts (rare)",
+        title: "Catch a Ralts (optional, rare)",
         location: "Route 102",
         summary: "Ralts appears at just 4% — it becomes Gardevoir, a top-tier special attacker.",
         story: [
@@ -287,7 +288,7 @@ const storyChapters: GuideSection[] = [
         secrets: [
           "Gardevoir learns Psychic and eventually Calm Mind — a Ralts caught here can carry your team all the way to the Champion.",
         ],
-        tags: ["ralts", "rare", "route-102"],
+        tags: ["ralts", "rare", "route-102", "optional"],
       },
       {
         id: "route-102-3",
@@ -808,32 +809,43 @@ const storyChapters: GuideSection[] = [
         ],
         tags: ["route", "slateport"],
       },
+      {
+        id: "slateport-4",
+        title: "Secret Base setup (optional)",
+        location: "Slateport City",
+        summary: "Learn Secret Power and carve out your own hideout.",
+        story: [
+          "North of the market, a man in a house teaches TM43 Secret Power — the move that opens secret bases in trees, bushes, and cracked cave walls across Hoenn. Once you have it, scout Route 110, Route 111, or Granite Cave for a spot you like and decorate it with goods from the Pretty Petal shop and Slateport market.",
+          "Secret bases are pure side content: no story gates, but a fun place to show off trophies and berries as you travel.",
+        ],
+        details: [
+          "Talk to the man in the house north of Slateport's market for TM43 Secret Power.",
+          "Use Secret Power on a tree, bush, or cracked wall to open your base.",
+          "Buy decorations from the Pretty Petal shop (Route 104) and Slateport market.",
+        ],
+        tags: ["optional", "secret-base", "slateport"],
+      },
+      {
+        id: "slateport-5",
+        title: "Slateport Battle Tent (optional)",
+        location: "Slateport City",
+        summary: "Frontier-style practice battles on the south boardwalk.",
+        story: [
+          "Slateport's Battle Tent on the south boardwalk offers the same optional Frontier-style gauntlet as Verdanturf and Fallarbor. It's a good place to test your team after the Oceanic Museum before pushing north on Route 110.",
+        ],
+        details: [
+          "Enter the Battle Tent on Slateport's south side near the harbor.",
+          "Register three Pokémon and battle through the practice gauntlet.",
+        ],
+        tags: ["optional", "battle-tent", "slateport"],
+      },
     ],
   },
   {
     id: "route-110",
     title: "Ch. 15 — Route 110",
-    description: "The Trick House, Cycling Road, and another rival battle.",
+    description: "Cycling Road, a rival battle, and the Trick House side chapter.",
     steps: [
-      {
-        id: "route-110-1",
-        title: "The Trick House",
-        location: "Route 110",
-        summary: "Mr. Trick's hidden house holds a series of puzzle rooms with prizes.",
-        story: [
-          "Tucked beside Route 110 is one of Emerald's most charming diversions: the Trick House, home to the eccentric Trick Master, who builds elaborate puzzle rooms and then hides himself away, daring passing trainers to find him. His entrance is concealed somewhere near the house — a little hunting reveals it — and the first puzzle is open to you right now.",
-          "The Trick House is a gift that keeps giving: every time you earn a new badge and pass back through, a fresh room unlocks with its own trainers, a hidden scroll to read, and a TM or item as your reward. Make a habit of revisiting it, and you'll quietly stockpile some of the game's best TMs.",
-        ],
-        details: [
-          "Find the Trick Master's hidden entrance and solve puzzle #1 now.",
-          "Return after each badge to unlock new puzzle rooms and TM/item rewards.",
-          "Each room hides a scroll; reading it opens the exit.",
-        ],
-        secrets: [
-          "Each Trick House room hands out a TM — over the game you can collect prizes like TM31 Brick Break, TM32 Double Team, TM12 Taunt, and TM34 Shock Wave just for solving puzzles.",
-        ],
-        tags: ["trick-house", "route-110"],
-      },
       {
         id: "route-110-2",
         title: "Cycling Road & wild Pokémon",
@@ -841,7 +853,7 @@ const storyChapters: GuideSection[] = [
         summary: "Electric Pokémon roam the grass beneath Cycling Road.",
         story: [
           "The grass flanking the elevated Cycling Road crackles with new faces. Electrike sparks about (later a fast, fierce Manectric), gluttonous Gulpin waddle through the weeds, Oddish and Wingull turn up in the patches, and Plusle and Minun cheer each other on in Emerald's version of the route.",
-          "The Cycling Road overhead is a one-way rush toward Slateport for now; its ramps demand the Mach Bike you'll pick up in Mauville, so file it away as another reason to return once you're on two wheels.",
+          "The Cycling Road overhead is a one-way rush toward Slateport for now; its ramps demand the Mach Bike you'll pick up in Mauville, so file it away as another reason to return once you're on two wheels. Tucked beside the route is the Trick House — see the optional Trick House chapter right after this one for puzzle-by-puzzle rewards.",
         ],
         details: [
           "Catch Electrike (→ Manectric), Gulpin, Oddish, Wingull, Plusle, and Minun in the grass.",
@@ -914,22 +926,40 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "mauville-3",
-        title: "New Mauville side-quest (optional)",
+        title: "New Mauville request (optional)",
         location: "Mauville City",
-        summary: "Wattson later asks you to fix the New Mauville generator for TM24 Thunderbolt.",
+        summary: "Wattson asks you to fix the New Mauville generator — unlocks after Surf.",
         story: [
           "Once you've beaten him, talk to Wattson again and he'll fret about New Mauville — an underground power plant off Route 110 whose generator has gone haywire. It's an optional errand, but a lucrative one: the facility hides TM24 Thunderbolt and a Thunderstone among its Voltorb and Magnemite.",
           "You can't reach it until you have Surf, so tuck this away for the mid-game. When you finally clear it out, you'll walk away with one of the best Electric TMs in the game and a stone to evolve Pikachu or Eelektross-tier catches.",
         ],
         details: [
           "After the badge, talk to Wattson again to start the New Mauville errand.",
-          "New Mauville (reached by Surf on Route 110) hides TM24 Thunderbolt and a Thunderstone.",
-          "You can return for this once you have Surf.",
+          "You need Surf to reach the entrance on Route 110.",
+          "See the next optional event for the interior walkthrough.",
         ],
         secrets: [
           "New Mauville also hides an Ultra Ball, Escape Ropes, and a Full Heal — a worthwhile detour once Surf is in hand.",
         ],
         tags: ["optional", "new-mauville", "mauville"],
+      },
+      {
+        id: "mauville-4",
+        title: "Clear New Mauville (optional)",
+        location: "New Mauville",
+        summary: "Shut down the runaway generator and collect TM24 Thunderbolt.",
+        story: [
+          "Surf to the hidden entrance on Route 110 and descend into New Mauville — a maze of Voltorb and Magnemite patrolling between generator rooms. The facility's switches control which doors open; hunt down every switch to reach the generator room at the back.",
+          "Flip the final switch to shut the generator down, then claim TM24 Thunderbolt from the reward chest. A Thunderstone sits nearby for evolution plans, and the whole facility is worth sweeping once for items before you leave.",
+        ],
+        details: [
+          "Surf on Route 110 to reach the New Mauville entrance.",
+          "Battle or avoid Voltorb and Magnemite while flipping switches to open doors.",
+          "Shut down the generator for TM24 Thunderbolt and a Thunderstone.",
+          "Grab the Ultra Ball, Escape Ropes, and Full Heal while you're inside.",
+        ],
+        tips: ["Ground-types are immune to Electric — bring one if Voltorb Self-Destruct gets scary."],
+        tags: ["optional", "new-mauville", "mauville", "tm"],
       },
     ],
   },
@@ -976,6 +1006,21 @@ const storyChapters: GuideSection[] = [
         ],
         tips: ["Strength opens boulder puzzles in caves like Victory Road — keep it on an HM carrier."],
         tags: ["hm", "strength", "verdanturf", "route-117"],
+      },
+      {
+        id: "verdanturf-3",
+        title: "Verdanturf Battle Tent (optional)",
+        location: "Verdanturf Town",
+        summary: "Frontier-style practice battles — not Pokémon Contests.",
+        story: [
+          "Verdanturf's Battle Tent on the north side offers optional practice battles in Emerald's Frontier format. Register three Pokémon, pick a rental or use your own team, and fight through a short gauntlet for experience and bragging rights — no badges or story progress, just a good warm-up before Mt. Chimney.",
+        ],
+        details: [
+          "Enter the Battle Tent on the north side of Verdanturf Town.",
+          "Choose your team (rentals or your own party) and battle through the gauntlet.",
+          "All contest ranks are in Lilycove only — Battle Tents are practice battles.",
+        ],
+        tags: ["optional", "battle-tent", "verdanturf"],
       },
     ],
   },
@@ -1162,6 +1207,21 @@ const storyChapters: GuideSection[] = [
           "Heart Scales are found on Luvdisc (Super Rod) and in hidden underwater spots — grab them whenever you can for the Move Maniac.",
         ],
         tags: ["move-maniac", "fallarbor"],
+      },
+      {
+        id: "fallarbor-3",
+        title: "Fallarbor Battle Tent (optional)",
+        location: "Fallarbor Town",
+        summary: "Another Frontier-style practice tent while the story pulls you toward Meteor Falls.",
+        story: [
+          "Fallarbor's Battle Tent works like Verdanturf's — optional practice battles with rental or personal teams. It's a good place to test type coverage before the Mt. Chimney showdown, and the Move Maniac next door can recover forgotten contest moves if you're prepping ribbons later.",
+        ],
+        details: [
+          "Enter the Battle Tent in Fallarbor Town.",
+          "Register three Pokémon and battle through the gauntlet.",
+          "Contests are only in Lilycove — this is battle practice only.",
+        ],
+        tags: ["optional", "battle-tent", "fallarbor"],
       },
     ],
   },
@@ -1522,7 +1582,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "fortree-3",
-        title: "Hidden Power & the treehouse",
+        title: "Hidden Power treehouse (optional)",
         location: "Fortree City",
         summary: "A treehouse puzzle north of the gym rewards TM10 Hidden Power.",
         story: [
@@ -1607,7 +1667,7 @@ const storyChapters: GuideSection[] = [
     steps: [
       {
         id: "safari-zone-1",
-        title: "Cross Route 121 to the Safari Zone",
+        title: "Cross Route 121 to the Safari Zone (optional)",
         location: "Route 121",
         summary: "The tree-lined route east of Fortree leads to the Safari Zone gate.",
         story: [
@@ -1620,11 +1680,11 @@ const storyChapters: GuideSection[] = [
           "Enter the Safari Zone gatehouse on the route's north side.",
         ],
         tips: ["Route 121 continues east to Lilycove City — you can return to the Safari Zone any time."],
-        tags: ["route", "safari-zone"],
+        tags: ["route", "safari-zone", "optional"],
       },
       {
         id: "safari-zone-2",
-        title: "Inside the preserve",
+        title: "Inside the preserve (optional)",
         location: "Safari Zone",
         summary: "Pay the entry fee for 30 Safari Balls and 500 steps to catch exclusive Pokémon.",
         story: [
@@ -1640,11 +1700,11 @@ const storyChapters: GuideSection[] = [
         secrets: [
           "A Nugget and other valuables are hidden in the grass — walk carefully to trigger the hidden-item beeps before your steps run out.",
         ],
-        tags: ["safari-zone", "catching"],
+        tags: ["safari-zone", "catching", "optional"],
       },
       {
         id: "safari-zone-3",
-        title: "The bike-only expansion areas",
+        title: "The bike-only expansion areas (optional)",
         location: "Safari Zone (northern extension)",
         summary: "Emerald adds Acro/Mach Bike areas with Johto Pokémon — unlocked after the Hall of Fame.",
         story: [
@@ -1964,7 +2024,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "pacifidlog-2",
-        title: "Pacifidlog Town",
+        title: "Pacifidlog Town & Mirage Island (optional)",
         location: "Pacifidlog Town",
         summary: "A friendship-TM gift, the Corsola raft, and the fabled Mirage Island.",
         story: [
@@ -1979,7 +2039,7 @@ const storyChapters: GuideSection[] = [
         secrets: [
           "Mirage Island's appearance is tied to a random daily value versus your party's personality values — checking daily is the only way to catch it visible.",
         ],
-        tags: ["pacifidlog", "tm", "mirage-island"],
+        tags: ["pacifidlog", "tm", "mirage-island", "optional"],
       },
       {
         id: "pacifidlog-3",
@@ -2042,7 +2102,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sky-pillar-3",
-        title: "Catch Rayquaza",
+        title: "Catch Rayquaza (optional)",
         location: "Sky Pillar (summit)",
         summary: "Lv 70 — return after the story cutscene to catch the sky dragon.",
         story: [
@@ -2059,7 +2119,7 @@ const storyChapters: GuideSection[] = [
         secrets: [
           "Rayquaza is level 70 — save before the battle; Outrage and Hyper Beam hit extremely hard.",
         ],
-        tags: ["rayquaza", "lv70", "sky-pillar"],
+        tags: ["rayquaza", "lv70", "sky-pillar", "optional"],
       },
     ],
   },
@@ -2103,7 +2163,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sootopolis-gym-3",
-        title: "Kyogre & Groudon",
+        title: "Kyogre & Groudon (optional)",
         location: "Marine Cave & Terra Cave",
         summary: "Lv 70 each — roaming caves unlock after the Rain Badge.",
         story: [
@@ -2116,7 +2176,7 @@ const storyChapters: GuideSection[] = [
           "Talk to residents in Sootopolis for location hints.",
           "Each is level 70 — save before battling.",
         ],
-        tags: ["kyogre", "groudon", "lv70", "roaming-cave", "sootopolis-gym"],
+        tags: ["kyogre", "groudon", "lv70", "roaming-cave", "sootopolis-gym", "optional"],
       },
     ],
   },
@@ -2127,7 +2187,7 @@ const storyChapters: GuideSection[] = [
     steps: [
       {
         id: "abandoned-ship-1",
-        title: "Board the wreck on Route 108",
+        title: "Board the wreck on Route 108 (optional)",
         location: "Route 108 — Abandoned Ship",
         summary: "Surf to the half-sunk ship between Dewford and Slateport.",
         story: [
@@ -2144,7 +2204,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "abandoned-ship-2",
-        title: "The Storage Key & the Scanner",
+        title: "The Storage Key & the Scanner (optional)",
         location: "Abandoned Ship (underwater)",
         summary: "Dive to find the Storage Key, claim the Scanner, and trade it in Slateport.",
         story: [
@@ -2170,7 +2230,7 @@ const storyChapters: GuideSection[] = [
     steps: [
       {
         id: "shoal-cave-1",
-        title: "Mind the tides",
+        title: "Mind the tides (optional)",
         location: "Route 125 — Shoal Cave",
         summary: "Shoal Cave's layout changes with the real-time tide.",
         story: [
@@ -2187,7 +2247,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "shoal-cave-2",
-        title: "Shoal Salt, Shells & the Focus Band",
+        title: "Shoal Salt, Shells & the Focus Band (optional)",
         location: "Shoal Cave",
         summary: "Collect four Shoal Salt and four Shoal Shells for a Shell Bell.",
         story: [
@@ -2208,12 +2268,12 @@ const storyChapters: GuideSection[] = [
   },
   {
     id: "sealed-chamber",
-    title: "Ch. 42 — Sealed Chamber & Regis",
+    title: "Ch. 42 — Sealed Chamber & Regis (Optional)",
     description: "Optional legendary golems puzzle (needs Dive, Dig, Braille).",
     steps: [
       {
         id: "sealed-chamber-1",
-        title: "Open the Sealed Chamber",
+        title: "Open the Sealed Chamber (optional)",
         location: "Route 134 (Dive)",
         summary: "Dive on Route 134 and read the Braille to unlock the chamber.",
         story: [
@@ -2229,7 +2289,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sealed-chamber-2",
-        title: "Party trick & the Regi trio",
+        title: "Party trick & the Regi trio (optional)",
         location: "Sealed Chamber",
         summary: "Place Relicanth first and Wailord last to open the Regi tombs.",
         story: [
@@ -2249,7 +2309,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sealed-chamber-3",
-        title: "Catch Regirock",
+        title: "Catch Regirock (optional)",
         location: "Desert Ruins (Route 111)",
         summary: "Lv 40 — stand on the center panel and use Strength to open the tomb.",
         story: [
@@ -2267,7 +2327,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sealed-chamber-4",
-        title: "Catch Regice",
+        title: "Catch Regice (optional)",
         location: "Island Cave (Route 105)",
         summary: "Lv 40 — walk clockwise along the walls without touching them.",
         story: [
@@ -2284,7 +2344,7 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "sealed-chamber-5",
-        title: "Catch Registeel",
+        title: "Catch Registeel (optional)",
         location: "Ancient Tomb (Route 120)",
         summary: "Lv 40 — follow the Braille movement pattern on the center panel.",
         story: [
@@ -2407,15 +2467,125 @@ const storyChapters: GuideSection[] = [
   },
 ];
 
+const trickHouseChapter: GuideSection = {
+  id: "trick-house",
+  title: "Ch. 16 — The Trick House (Optional)",
+  description:
+    "Optional puzzle rooms on Route 110 — one unlocks after each badge through the sixth.",
+  steps: [
+    {
+      id: "trick-1",
+      title: "Trick House puzzle #1 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Available on your first visit — reward TM31 Brick Break.",
+      story: [
+        "Find the Trick Master's hidden entrance beside Route 110 (look for the small tree west of the Cycling Road entrance). Puzzle #1 is open immediately: battle the trainers inside, locate the hidden scroll, read it to open the exit, and claim TM31 Brick Break from the Trick Master.",
+      ],
+      details: [
+        "Find the concealed Trick House entrance on Route 110.",
+        "Battle trainers, find the scroll, and read it to unlock the exit.",
+        "Receive TM31 Brick Break from the Trick Master.",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-2",
+      title: "Trick House puzzle #2 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after 1 badge — reward Rare Candy.",
+      story: [
+        "Return after earning your first badge (Knuckle Badge from Brawly). Puzzle #2 opens with a new layout and tougher School Kids — solve the room the same way (scroll → exit) for a Rare Candy.",
+      ],
+      details: [
+        "Requires 1 badge (Knuckle Badge).",
+        "Find the scroll and clear the trainers for a Rare Candy.",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-3",
+      title: "Trick House puzzle #3 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after 2 badges — reward TM12 Taunt.",
+      story: [
+        "With two badges in hand, puzzle #3 unlocks. Camper and Picnicker trainers guard the scroll — read it and exit to earn TM12 Taunt.",
+      ],
+      details: [
+        "Requires 2 badges (Knuckle + Dynamo).",
+        "Clear the room for TM12 Taunt.",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-4",
+      title: "Trick House puzzle #4 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after 3 badges — reward TM30 Shadow Ball.",
+      story: [
+        "After your third badge (Wattson), puzzle #4 opens with Battle Girls and Black Belts. Shadow Ball is one of the strongest Ghost moves in the game — worth the revisit.",
+      ],
+      details: [
+        "Requires 3 badges.",
+        "Solve the room for TM30 Shadow Ball.",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-5",
+      title: "Trick House puzzle #5 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after 4 badges — reward TM44 Rest.",
+      story: [
+        "Four badges unlock puzzle #5. The layout adds more trainers — work through to the scroll and collect TM44 Rest.",
+      ],
+      details: [
+        "Requires 4 badges.",
+        "Clear the room for TM44 Rest.",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-6",
+      title: "Trick House puzzle #6 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after 5 badges — reward TM41 Torment.",
+      story: [
+        "After Norman's badge, puzzle #6 opens with Pokémon Rangers and a Bird Keeper. TM41 Torment is the prize — useful for stalling opponents in the Battle Frontier.",
+      ],
+      details: [
+        "Requires 5 badges (Rainbow Badge).",
+        "Clear the room for TM41 Torment.",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+    {
+      id: "trick-7",
+      title: "Trick House puzzle #7 (optional)",
+      location: "Route 110 — Trick House",
+      summary: "Unlocks after 6 badges — reward TM26 Earthquake.",
+      story: [
+        "Winona's Feather Badge unlocks the seventh puzzle — a gauntlet of Psychics and Hex Maniacs. TM26 Earthquake is the reward, one of the best physical Ground moves in the game.",
+        "Puzzle #8 stays locked until you become Champion — see the post-game Hoenn chapter.",
+      ],
+      details: [
+        "Requires 6 badges (Feather Badge).",
+        "Clear the room for TM26 Earthquake.",
+        "Puzzle #8 unlocks after the Hall of Fame (post-game).",
+      ],
+      tags: ["optional", "trick-house", "route-110"],
+    },
+  ],
+};
+
 const contestPrepChapter: GuideSection = {
   id: "contest-prep",
-  title: "Ch. 18 — Contest Preparation",
+  title: "Ch. 18 — Contest Preparation (Optional)",
   description:
     "Learn how Pokémon Contests work in Emerald and start growing berries for Pokéblocks.",
   steps: [
     {
       id: "contest-prep-1",
-      title: "How contests work in Emerald",
+      title: "How contests work in Emerald (optional)",
       location: "Hoenn region",
       summary:
         "In Emerald, every contest rank is held at the Lilycove Contest Hall — other towns have Battle Tents instead.",
@@ -2438,7 +2608,7 @@ const contestPrepChapter: GuideSection = {
     },
     {
       id: "contest-prep-2",
-      title: "Berries, flavors & natures",
+      title: "Berries, flavors & natures (optional)",
       location: "Route 104 / Route 117",
       summary: "Plant berries and match flavors to the contest type you want to win.",
       story: [
@@ -2464,7 +2634,7 @@ const contestPrepChapter: GuideSection = {
     },
     {
       id: "contest-prep-3",
-      title: "Choose & train a contest Pokémon",
+      title: "Choose & train a contest Pokémon (optional)",
       location: "Your party",
       summary: "Pick a species with strong contest moves and start planning combinations.",
       story: [
@@ -2489,13 +2659,13 @@ const contestPrepChapter: GuideSection = {
 
 const contestsLilycoveChapter: GuideSection = {
   id: "contests-lilycove",
-  title: "Ch. 33 — Pokémon Contests at Lilycove",
+  title: "Ch. 33 — Pokémon Contests at Lilycove (Optional)",
   description:
     "Register, blend Pokéblocks, and climb every contest rank in Hoenn's only Contest Hall.",
   steps: [
     {
       id: "contests-lilycove-1",
-      title: "Contest Pass & registration",
+      title: "Contest Pass & registration (optional)",
       location: "Lilycove City — Contest Hall",
       summary:
         "Get the Contest Pass and Pokéblock Case from the reception desk; register your Pokémon.",
@@ -2517,7 +2687,7 @@ const contestsLilycoveChapter: GuideSection = {
     },
     {
       id: "contests-lilycove-2",
-      title: "Berry Blender mastery",
+      title: "Berry Blender mastery (optional)",
       location: "Lilycove Contest Hall — Berry Blender",
       summary:
         "Blend high-Level, low-Feel Pokéblocks by hitting A when the pointer crosses your marker.",
@@ -2543,7 +2713,7 @@ const contestsLilycoveChapter: GuideSection = {
     },
     {
       id: "contests-lilycove-3",
-      title: "Condition, sheen & scarves",
+      title: "Condition, sheen & scarves (optional)",
       location: "Lilycove / Slateport City",
       summary: "Max condition on the Pokénav and collect scarves from the Pokémon Fan Club.",
       story: [
@@ -2565,7 +2735,7 @@ const contestsLilycoveChapter: GuideSection = {
     },
     {
       id: "contests-lilycove-4",
-      title: "Normal through Hyper rank",
+      title: "Normal through Hyper rank (optional)",
       location: "Lilycove Contest Hall",
       summary: "Win each rank in one category before moving up; appeals matter more each tier.",
       story: [
@@ -2590,7 +2760,7 @@ const contestsLilycoveChapter: GuideSection = {
     },
     {
       id: "contests-lilycove-5",
-      title: "Master rank & Wallace",
+      title: "Master rank & Wallace (optional)",
       location: "Lilycove Contest Hall",
       summary: "Take Master rank for the toughest AI and meet Hoenn's Contest Master — Wallace.",
       story: [
@@ -2681,6 +2851,7 @@ const built: GuideSection[] = [
   pregameBreedingChapter,
   ...storyChapters,
 ];
+insertAfter(built, "route-110", trickHouseChapter);
 insertAfter(built, "route-117", contestPrepChapter);
 insertAfter(built, "lilycove", contestsLilycoveChapter);
 insertAfter(built, "league", postgameOpeningChapter);
@@ -2688,5 +2859,6 @@ insertAfter(built, "postgame-opening", postgameFrontierChapter);
 insertAfter(built, "battle-frontier", postgameHoennChapter);
 insertAfter(built, "postgame-hoenn", contestPostGameChapter);
 renumberChapters(built);
+applyWalkthroughMetadata(built);
 
 export const walkthrough = built;
