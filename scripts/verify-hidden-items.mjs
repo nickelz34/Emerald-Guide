@@ -1,33 +1,25 @@
 /**
  * Verify every overworld (composite) hidden_item from pokeemerald is present
  * in src/data/mapPointsGenerated.ts, matched by composite coordinates.
+ *
+ * Uses .calib/manifest.json when present; otherwise rebuilds origins from
+ * committed src/data/mapCrops.ts via scripts/map-origin-lib.mjs.
+ *
  * Run: node scripts/verify-hidden-items.mjs
  */
 import fs from "node:fs";
 import path from "node:path";
 import https from "node:https";
+import { loadManifest } from "./map-origin-lib.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const MANIFEST_PATH = path.join(ROOT, ".calib/manifest.json");
 const RAW = "https://raw.githubusercontent.com/pret/pokeemerald/master";
 
-function loadManifest() {
-  if (fs.existsSync(MANIFEST_PATH)) {
-    return JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8"));
-  }
-  // Hoenn composite dimensions from mapCrops.ts — enough to verify hidden items offline.
-  return {
-    wTiles: 400,
-    hTiles: 191,
-    maps: [],
-  };
-}
-
-const manifest = loadManifest();
+const manifest = loadManifest(ROOT);
 const W_TILES = manifest.wTiles;
 const H_TILES = manifest.hTiles;
-
 const compositeMaps = manifest.maps ?? [];
+
 const round = (n) => Math.round(n * 100) / 100;
 const tilePct = (gx, gy, tx, ty) => ({
   x: round(((gx + tx + 0.5) / W_TILES) * 100),
@@ -84,30 +76,47 @@ function findMatch(x, y) {
 
 async function main() {
   if (!compositeMaps.length) {
-    console.log(
-      "No .calib/manifest.json map list — skipping hidden-item coordinate verification (run locally with .calib).",
-    );
-    console.log(`Hidden entries in mapPointsGenerated.ts: ${genHidden.length}`);
-    return;
+    console.error("No composite map origins — cannot verify hidden items.");
+    process.exit(1);
   }
 
+  const usingCalib = fs.existsSync(path.join(ROOT, ".calib/manifest.json"));
+  console.log(
+    `Manifest: ${compositeMaps.length} maps from ${usingCalib ? ".calib/manifest.json" : "mapCrops.ts fallback"} (${W_TILES}×${H_TILES} tiles)`,
+  );
+
   const expected = [];
+  const fetchFailures = [];
   await pool(compositeMaps, 12, async (m) => {
+    const folder = m.name ?? m.id?.replace(/^MAP_/, "").replace(/_/g, "");
+    if (!folder) return;
     let map;
     try {
-      map = await fetchJson(`${RAW}/data/maps/${m.name}/map.json`);
-    } catch {
+      map = await fetchJson(`${RAW}/data/maps/${folder}/map.json`);
+    } catch (e) {
+      fetchFailures.push({ map: folder, error: e.message });
       return;
     }
     const hidden = (map.bg_events ?? []).filter((b) => b.type === "hidden_item");
     for (const h of hidden) {
       const pos = tilePct(m.gx, m.gy, h.x, h.y);
-      expected.push({ map: m.name, item: h.item, tx: h.x, ty: h.y, ...pos });
+      expected.push({ map: folder, item: h.item, tx: h.x, ty: h.y, ...pos });
     }
   });
 
+  if (fetchFailures.length) {
+    console.warn(`\nWarning: ${fetchFailures.length} map.json fetch failures (network or 404)`);
+    for (const f of fetchFailures.slice(0, 5)) console.warn(`  ${f.map}: ${f.error}`);
+    if (fetchFailures.length > 5) console.warn(`  … and ${fetchFailures.length - 5} more`);
+  }
+
   console.log(`Composite hidden items in pokeemerald: ${expected.length}`);
   console.log(`Hidden entries in mapPointsGenerated.ts: ${genHidden.length}`);
+
+  if (!expected.length) {
+    console.error("\nNo expected hidden items resolved — check network or manifest map names.");
+    process.exit(1);
+  }
 
   const missing = [];
   const matchedIds = new Set();
@@ -132,6 +141,8 @@ async function main() {
   }
   if (!missing.length && !orphans.length) {
     console.log(`\nAll overworld hidden items are present and aligned.`);
+  } else {
+    process.exit(1);
   }
 }
 
