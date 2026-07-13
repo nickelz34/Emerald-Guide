@@ -182,7 +182,7 @@ export const EGG_GROUPS_BREEDING_CHART: BreedingChartSpec = {
         { name: "Lunatone", dex: 337 },
       ],
       gridNote:
-        "Legendaries, most baby Pokémon, and several single-stage species are Undiscovered. Breed the evolved line instead (e.g. Pikachu, not Pichu).",
+        "Legendaries, most baby Pokémon, and several single-stage species are Undiscovered. Breed the evolved line instead (e.g. Pikachu, not Pichu). Nidorina and Nidoqueen are a special case — they cannot breed even though Nidoran♀ can.",
     },
   ],
 };

@@ -1,9 +1,14 @@
 /** One Pokémon shown in a breeding chart (sprite + label). */
 export interface BreedingMonRef {
   name: string;
-  dex: number;
-  /** Short role label, e.g. "♀ parent" or "♂ father". */
+  /** National dex # for emeraldSpriteUrl; omit when kind is \"egg\". */
+  dex?: number;
+  /** ♀ / ♂ badge — separate from subtitle so mobile layout stays aligned. */
+  gender?: "female" | "male";
+  /** Extra line under the name (egg group, move, step count, etc.). */
   subtitle?: string;
+  /** Render the Emerald Egg sprite instead of a Pokémon. */
+  kind?: "pokemon" | "egg";
 }
 
 /** Parent pair → Egg → offspring row. */
@@ -21,6 +26,8 @@ export interface BreedingPairEdge {
 export interface BreedingGridSpecies {
   name: string;
   dex: number;
+  gender?: "female" | "male";
+  subtitle?: string;
 }
 
 export interface BreedingChartGroup {

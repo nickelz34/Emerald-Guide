@@ -13,7 +13,7 @@ export const INCENSE_BREEDING_CHART: BreedingChartSpec = {
       headerIconPath: "sprites/items/icons/sea_incense.png",
       pairs: [
         {
-          parentA: { name: "Marill", dex: 183, subtitle: "♀ + Sea Incense" },
+          parentA: { name: "Marill", dex: 183, gender: "female", subtitle: "Sea Incense" },
           parentB: { name: "Ditto", dex: 132 },
           itemIconName: "Sea Incense",
           itemIconPath: "sprites/items/icons/sea_incense.png",
@@ -22,7 +22,7 @@ export const INCENSE_BREEDING_CHART: BreedingChartSpec = {
           note: "Sea Incense is sold in Slateport's market and held on either parent.",
         },
         {
-          parentA: { name: "Marill", dex: 183, subtitle: "♀ · no incense" },
+          parentA: { name: "Marill", dex: 183, gender: "female", subtitle: "no incense" },
           parentB: { name: "Ditto", dex: 132 },
           methodLabel: "Egg",
           offspring: [{ name: "Marill", dex: 183 }],
@@ -37,7 +37,7 @@ export const INCENSE_BREEDING_CHART: BreedingChartSpec = {
       headerIconPath: "sprites/items/icons/lax_incense.png",
       pairs: [
         {
-          parentA: { name: "Wobbuffet", dex: 202, subtitle: "♀ + Lax Incense" },
+          parentA: { name: "Wobbuffet", dex: 202, gender: "female", subtitle: "Lax Incense" },
           parentB: { name: "Ditto", dex: 132 },
           itemIconName: "Lax Incense",
           itemIconPath: "sprites/items/icons/lax_incense.png",
@@ -46,7 +46,7 @@ export const INCENSE_BREEDING_CHART: BreedingChartSpec = {
           note: "Lax Incense is sold in Slateport's market. Wynaut itself is Undiscovered — breed Wobbuffet instead.",
         },
         {
-          parentA: { name: "Wobbuffet", dex: 202, subtitle: "♀ · no incense" },
+          parentA: { name: "Wobbuffet", dex: 202, gender: "female", subtitle: "no incense" },
           parentB: { name: "Ditto", dex: 132 },
           methodLabel: "Egg",
           offspring: [{ name: "Wobbuffet", dex: 202 }],
@@ -58,14 +58,14 @@ export const INCENSE_BREEDING_CHART: BreedingChartSpec = {
       type: "pairs",
       pairs: [
         {
-          parentA: { name: "Pikachu", dex: 25, subtitle: "♀" },
+          parentA: { name: "Pikachu", dex: 25, gender: "female" },
           parentB: { name: "Ditto", dex: 132 },
           methodLabel: "Egg",
           offspring: [{ name: "Pichu", dex: 172 }],
           note: "Pichu, Cleffa, Igglybuff, Togepi, and Azurill (with incense) are the main baby forms in Emerald.",
         },
         {
-          parentA: { name: "Clefairy", dex: 35, subtitle: "♀" },
+          parentA: { name: "Clefairy", dex: 35, gender: "female" },
           parentB: { name: "Ditto", dex: 132 },
           methodLabel: "Egg",
           offspring: [{ name: "Cleffa", dex: 173 }],

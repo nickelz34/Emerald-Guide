@@ -4,7 +4,7 @@ import type {
   BreedingPairEdge,
 } from "../data/breedingChartTypes";
 import { itemIconUrl } from "../data/evolutionCharts";
-import { emeraldSpriteUrl } from "../data/species";
+import { eggSpriteUrl, emeraldSpriteUrl } from "../data/species";
 import { getItemBagIcon } from "../data/itemIconsGenerated";
 import { assetUrl } from "../lib/assetUrl";
 
@@ -40,17 +40,27 @@ function ItemIcon({
   );
 }
 
-function MonSprite({ mon }: { mon: BreedingMonRef }) {
-  const src = mon.dex > 0 ? emeraldSpriteUrl(mon.dex) : undefined;
+function GenderBadge({ gender }: { gender: "female" | "male" }) {
   return (
-    <span className="breed-chart__mon">
+    <span className={`breed-chart__gender breed-chart__gender--${gender}`} aria-hidden="true">
+      {gender === "female" ? "♀" : "♂"}
+    </span>
+  );
+}
+
+function MonSprite({ mon }: { mon: BreedingMonRef }) {
+  const isEgg = mon.kind === "egg";
+  const src = isEgg ? eggSpriteUrl() : mon.dex != null && mon.dex > 0 ? emeraldSpriteUrl(mon.dex) : undefined;
+  return (
+    <span className={`breed-chart__mon${isEgg ? " breed-chart__mon--egg" : ""}`}>
+      {mon.gender && <GenderBadge gender={mon.gender} />}
       {src ? (
         <img
-          className="breed-chart__mon-sprite"
+          className={`breed-chart__mon-sprite${isEgg ? " breed-chart__mon-sprite--egg" : ""}`}
           src={src}
           alt={mon.name}
-          width={64}
-          height={64}
+          width={isEgg ? 32 : 64}
+          height={isEgg ? 48 : 64}
           loading="lazy"
           decoding="async"
           draggable={false}
@@ -69,6 +79,8 @@ function MonSprite({ mon }: { mon: BreedingMonRef }) {
 function PairArrow({ edge }: { edge: BreedingPairEdge }) {
   const itemSrc = resolveItemSrc(edge.itemIconName, edge.itemIconPath);
   const blocked = edge.offspring.length === 0;
+  const showEgg = edge.methodLabel === "Egg" && !blocked;
+  const eggSrc = showEgg ? eggSpriteUrl() : undefined;
   return (
     <span
       className={`breed-chart__arrow${blocked ? " breed-chart__arrow--blocked" : ""}`}
@@ -77,7 +89,12 @@ function PairArrow({ edge }: { edge: BreedingPairEdge }) {
       {itemSrc && (
         <img className="breed-chart__arrow-item" src={itemSrc} alt="" width={24} height={24} draggable={false} />
       )}
-      {edge.methodLabel && <span className="breed-chart__method">{edge.methodLabel}</span>}
+      {eggSrc && (
+        <img className="breed-chart__arrow-egg" src={eggSrc} alt="" width={32} height={48} draggable={false} />
+      )}
+      {edge.methodLabel && edge.methodLabel !== "Egg" && (
+        <span className="breed-chart__method">{edge.methodLabel}</span>
+      )}
       <span className="breed-chart__arrow-mark">{blocked ? "✕" : "→"}</span>
     </span>
   );
@@ -100,7 +117,7 @@ function PairRow({ edge, groupKey }: { edge: BreedingPairEdge; groupKey: string 
       <PairArrow edge={edge} />
       <div className="breed-chart__offspring">
         {edge.offspring.map((mon) => (
-          <MonSprite key={`${mon.dex}-${mon.name}-${mon.subtitle ?? ""}`} mon={mon} />
+          <MonSprite key={`${mon.dex}-${mon.name}-${mon.subtitle ?? ""}-${mon.gender ?? ""}`} mon={mon} />
         ))}
       </div>
       {edge.note && <p className="breed-chart__note">{edge.note}</p>}
