@@ -52,7 +52,7 @@ export const pregameEvolutionChapter: GuideSection = {
         "Some Pokémon evolve only when traded — a few must also hold a specific item during the trade.",
       story: [
         "Some Pokémon evolve only when traded over a link cable (or emulator link). Four lines evolve on a plain trade with no held item; others must hold a specific item during the trade. The evolution finishes on the receiving side when the trade completes — then you can trade them back to your original save.",
-        "Held-item trade pieces include Metal Coat, Dragon Scale, King’s Rock, and the Deep Sea Tooth / Deep Sea Scale pair from the Abandoned Ship Scanner quest. Take any Everstone off before trading, or the evolution will not happen. The chart below lists every Emerald trade evolution.",
+        "Held-item trade pieces include Metal Coat, Dragon Scale, King's Rock, and the Deep Sea Tooth / Deep Sea Scale pair from the Abandoned Ship Scanner quest. Take any Everstone off before trading, or the evolution will not happen. The chart below lists every Emerald trade evolution.",
       ],
       details: [],
       tips: [
