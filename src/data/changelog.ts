@@ -20,6 +20,63 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.7",
+    date: "2026-07-12",
+    summary: "Emerald evolution accuracy pass: friendship list, Porygon2 trade, and Tyrogue’s unique branch.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Verified Emerald friendship evolutions in Event 4 story: threshold ~220, Soothe Bell, and the complete set (Pichu → Pikachu then Thunder Stone for Raichu, Cleffa, Igglybuff, Togepi, Azurill, plus Golbat / Chansey / Eevee) with the chart keeping the full list.",
+          "Event 3 tips now call out Porygon + Up-Grade → Porygon2 on trade.",
+          "Event 5 story and tips cover Tyrogue’s Attack/Defense split at Lv 20 into Hitmonlee, Hitmonchan, or Hitmontop.",
+        ],
+      },
+      {
+        heading: "Sprites & evolution charts",
+        items: [
+          "Synced the Up-Grade bag icon (public/sprites/items/icons/up_grade.png) and registered it in itemIconsGenerated for the Porygon2 trade chart.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.11.6",
+    date: "2026-07-12",
+    summary: "Visual evolution charts for all Ch. 1 steps; What to do lists removed; trade-item bag icons synced.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Every Ch. 1 Pregame: Evolution step (Events 1–5) shows a visual EvolutionChart — basics, stones, trade (with held items), friendship/taming, and unique methods (Nincada/Shedinja, Feebas Beauty, etc.).",
+          "Events 1 and 3–5 no longer show a What to do checklist — story text, the charts above, and tips cover the method details (Event 2 was already cleared).",
+          "Trading, friendship, and unique-evolution story blurbs are shorter so they explain the method without re-listing every species the charts already show.",
+          "Tips now call out Everstone-on-trade, Abandoned Ship Deep Sea items, canceling friendship evolutions, Route 119 Feebas tiles, and Beauty-friendly natures where those lines left the old checklists.",
+        ],
+      },
+      {
+        heading: "Sprites & evolution charts",
+        items: [
+          "Synced bag icons for Metal Coat, Dragon Scale, King’s Rock, Deep Sea Tooth, Deep Sea Scale, and Soothe Bell under public/sprites/items/icons/.",
+          "Evolution chart itemIconName / itemIconPath values now match itemIconsGenerated keys and PNG filenames (Metal Coat, Dragon Scale, King’s Rock → king_s_rock.png, Deep Sea Tooth/Scale → deep_sea_tooth.png / deep_sea_scale.png, Soothe Bell).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.11.5",
+    date: "2026-07-12",
+    summary: "Evolution stones step drops the redundant What to do checklist.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Ch. 1 Event 2 no longer shows a What to do list — story text, the stone chart, and tips cover that information.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.11.4",
     date: "2026-07-12",
     summary: "Stone evolution chart layout fills the step width on desktop.",

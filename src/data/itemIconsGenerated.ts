@@ -216,6 +216,7 @@ export const ITEM_BAG_ICONS: Record<string, ItemBagIcon> = {
   "Tropical Plant": { spriteSheet: "sprites/items/icons/tropical_plant.png", spriteWidth: 24, spriteHeight: 24 },
   "Tv": { spriteSheet: "sprites/items/icons/tv.png", spriteWidth: 24, spriteHeight: 24 },
   "Ultra Ball": { spriteSheet: "sprites/items/icons/ultra_ball.png", spriteWidth: 24, spriteHeight: 24 },
+  "Up-Grade": { spriteSheet: "sprites/items/icons/up_grade.png", spriteWidth: 24, spriteHeight: 24 },
   "Wailmer Doll": { spriteSheet: "sprites/items/icons/wailmer_doll.png", spriteWidth: 24, spriteHeight: 24 },
   "Wailmer Pail": { spriteSheet: "sprites/items/icons/wailmer_pail.png", spriteWidth: 24, spriteHeight: 24 },
   "Water Cushion": { spriteSheet: "sprites/items/icons/water_cushion.png", spriteWidth: 24, spriteHeight: 24 },

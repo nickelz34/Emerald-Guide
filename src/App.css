@@ -3677,7 +3677,7 @@
   color: var(--text-muted, #9aa8bc);
 }
 
-.stone-evo {
+.evo-chart {
   margin: 1.25rem 0;
   padding: 1rem 1.1rem;
   border: 1px solid rgba(244, 210, 60, 0.35);
@@ -3685,31 +3685,31 @@
   background: rgba(244, 210, 60, 0.06);
 }
 
-.stone-evo__title {
+.evo-chart__title {
   margin: 0 0 0.35rem;
   font-size: 1.05rem;
 }
 
-.stone-evo__lead {
+.evo-chart__lead {
   margin: 0 0 1rem;
   font-size: 0.9rem;
   color: var(--text-muted, #9aa8bc);
 }
 
-.stone-evo__groups {
+.evo-chart__groups {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.stone-evo__group {
+.evo-chart__group {
   padding: 0.85rem 1rem;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.18);
 }
 
-.stone-evo__group-head {
+.evo-chart__group-head {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3717,29 +3717,29 @@
   margin-bottom: 0.75rem;
 }
 
-.stone-evo__stone-icon {
+.evo-chart__item-icon {
   image-rendering: pixelated;
   flex-shrink: 0;
   width: 24px;
   height: 24px;
 }
 
-.stone-evo__group-name {
+.evo-chart__group-name {
   margin: 0;
   font-size: 0.98rem;
   font-weight: 700;
 }
 
-.stone-evo__list {
+.evo-chart__list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 0.55rem;
 }
 
-.stone-evo__row {
+.evo-chart__row {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -3751,7 +3751,11 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.stone-evo__mon {
+.evo-chart__row--blocked {
+  opacity: 0.92;
+}
+
+.evo-chart__mon {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -3760,14 +3764,14 @@
   width: 100%;
 }
 
-.stone-evo__mon-sprite {
+.evo-chart__mon-sprite {
   width: 64px;
   height: 64px;
   object-fit: contain;
   image-rendering: pixelated;
 }
 
-.stone-evo__mon-fallback {
+.evo-chart__mon-fallback {
   width: 64px;
   height: 64px;
   display: grid;
@@ -3776,41 +3780,72 @@
   color: var(--text-muted, #9aa8bc);
 }
 
-.stone-evo__mon-name {
+.evo-chart__mon-name {
   font-size: 0.75rem;
   font-weight: 600;
   text-align: center;
   line-height: 1.2;
 }
 
-.stone-evo__arrow {
+.evo-chart__arrow {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.12rem;
   padding: 0 0.25rem;
   color: var(--text-muted, #9aa8bc);
 }
 
-.stone-evo__arrow-stone {
+.evo-chart__arrow-item {
   image-rendering: pixelated;
   width: 20px;
   height: 20px;
 }
 
-.stone-evo__arrow-mark {
+.evo-chart__method {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 4.5rem;
+}
+
+.evo-chart__arrow-mark {
   font-size: 1rem;
   font-weight: 700;
   line-height: 1;
 }
 
+.evo-chart__result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.evo-chart__also {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.evo-chart__also-plus {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted, #9aa8bc);
+}
+
 @media (max-width: 520px) {
-  .stone-evo__list {
+  .evo-chart__list {
     grid-template-columns: 1fr;
   }
 
-  .stone-evo__mon-sprite,
-  .stone-evo__mon-fallback {
+  .evo-chart__mon-sprite,
+  .evo-chart__mon-fallback {
     width: 48px;
     height: 48px;
   }

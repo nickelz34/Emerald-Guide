@@ -9,7 +9,8 @@ import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { getGymForWalkthroughStep } from "../data/gymData";
 import { BreedingLookup } from "./BreedingLookup";
-import { StoneEvolutionsPanel } from "./StoneEvolutionsPanel";
+import { EvolutionChart } from "./EvolutionChart";
+import { PREGAME_EVOLUTION_CHARTS } from "../data/evolutionCharts";
 import {
   filterWalkthroughSteps,
   walkthroughMatchFieldLabel,
@@ -107,7 +108,7 @@ export function StepBrowser({
   const current = flat[currentIndex] ?? flat[0];
   const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
   const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
-  const showStoneEvolutions = current?.step.id === "pregame-evolution-2";
+  const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
 
   const select = (id: string) => {
     setInternalId(id);
@@ -364,7 +365,7 @@ export function StepBrowser({
           )}
 
           {showBreedingLookup && <BreedingLookup />}
-          {showStoneEvolutions && <StoneEvolutionsPanel />}
+          {evolutionChart && <EvolutionChart chart={evolutionChart} />}
 
           <StepDetails details={current.step.details} />
 
