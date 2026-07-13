@@ -20,6 +20,29 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.15.0",
+    date: "2026-07-13",
+    summary:
+      "Walkthrough save codes — save your place with a portable 6-character code and continue later.",
+    sections: [
+      {
+        heading: "Save progress",
+        items: [
+          "Save progress button on each walkthrough step generates a 6-character alphanumeric code (play mode, pregame preference, and exact step).",
+          "Continue with save code on the setup screen restores preferences and jumps back to where you left off.",
+          "Current step also persists in the browser so a refresh keeps your place without re-entering a code.",
+          "Steps before your current place show a Reached marker in the step list.",
+        ],
+      },
+      {
+        heading: "Guide polish",
+        items: [
+          "Removed the dismissible green swipe intro popup — the permanent swipe banner already covers the same guidance.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.14.0",
     date: "2026-07-13",
     summary:
