@@ -20,6 +20,95 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.11.4",
+    date: "2026-07-12",
+    summary: "Stone evolution chart layout fills the step width on desktop.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Evolution rows now sit in a responsive grid with balanced from → stone → to columns, so desktop no longer leaves a large empty strip on the right.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.11.3",
+    date: "2026-07-12",
+    summary: "Evolution stones prose no longer duplicates the sprite chart.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Removed the long stone-by-stone species list from Ch. 1 Event 2 story text; the stone evolution chart now carries a short summary and the full visual list.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.11.2",
+    date: "2026-07-12",
+    summary: "Pregame Evolution and Breeding steps no longer show unrelated route maps.",
+    sections: [
+      {
+        heading: "Walkthrough — pregame",
+        items: [
+          "Removed map crops and area-linked encounter/secret side panels from Pregame Evolution and Breeding steps — those chapters are mechanics reference, not location guides.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.11.1",
+    date: "2026-07-12",
+    summary: "Evolution Stones step shows in-game stone and Pokémon sprites for every Emerald stone evolution.",
+    sections: [
+      {
+        heading: "Walkthrough — Pregame: Evolution",
+        items: [
+          "Ch. 1 Event 2 (Evolution stones) now includes a visual stone chart: each Fire, Water, Thunder, Leaf, Moon, and Sun Stone row shows the bag-item sprite plus Emerald front sprites for every from → to evolution (including both Gloom branches and all three stone Eeveelutions).",
+          "Added the missing Sun Stone bag icon so Sun Stone evolutions render with the authentic item graphic.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.11.0",
+    date: "2026-07-12",
+    summary:
+      "Pregame Evolution & Breeding chapters, Pokédex evolution methods and egg groups, and Feebas → Milotic coverage.",
+    sections: [
+      {
+        heading: "Walkthrough — pregame",
+        items: [
+          "New Ch. 1 Pregame: Evolution covers how evolution works and Everstone/B-cancel prevention, Evolution stones, trading evolutions, friendship (taming) evolutions, and unique cases (Wurmple, Shedinja, Feebas/Milotic, Gardevoir-only Kirlia).",
+          "New Ch. 2 Pregame: Breeding covers Day Care eggs, egg-group compatibility, Gen 3 inheritance (Everstone natures, three parent IVs, egg moves), and hatching tips — story chapters renumber so Littleroot starts at Ch. 3.",
+          "Route 117 Day Care and Contest Preparation now point back to the Breeding chapter for full rules; Contest Prep also documents Beauty Pokéblocks for Milotic.",
+        ],
+      },
+      {
+        heading: "Pokédex — evolution & breeding",
+        items: [
+          "Species data now includes Emerald-filtered evolution methods (branching lines like Wurmple, Eevee, Clamperl, Nincada/Shedinja) and egg groups from the offline sync.",
+          "Pokédex detail shows each evolution edge with its method, plus egg groups on the species panel.",
+          "Breeding compatibility lookup on the Pregame Breeding “Compatibility & egg groups” step — pick two species to see if they can produce an Egg and what generally hatches (including Ditto and incense babies).",
+        ],
+      },
+      {
+        heading: "Route 119 — Feebas",
+        items: [
+          "Walkthrough, area secrets, encounter table, and map pin explain Dewford-trend fishing tiles (six moving water tiles; any rod; not surf) and the Beauty 170+ path to Milotic.",
+        ],
+      },
+      {
+        heading: "Maps — pregame steps",
+        items: [
+          "Pregame Evolution and Breeding steps open focused Hoenn map crops (Day Care, Lilycove stones, Route 113 Soothe Bell, Abandoned Ship waters, Route 119 Feebas zone, Lavaridge Wynaut Egg).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.10.77",
     date: "2026-07-12",
     summary: "Pokédex card names no longer collide with dex numbers on iOS.",

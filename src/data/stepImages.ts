@@ -92,6 +92,9 @@ export function getAreaDisplayMap(areaId: string, caption?: string): StepScreens
 
 /** Primary map view for a walkthrough or guide step. */
 export function getStepImages(stepId: string): StepScreenshot[] {
+  // Pregame reference chapters are mechanics text — no route maps.
+  if (stepId.startsWith("pregame-")) return [];
+
   const areaMaps = areaMapShots(stepId);
   if (areaMaps.length > 0) {
     return areaMaps.map(({ areaMapId, caption }) => ({

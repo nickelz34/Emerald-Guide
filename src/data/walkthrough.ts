@@ -4,6 +4,10 @@ import {
   postgameFrontierChapter,
   postgameHoennChapter,
 } from "./postgameWalkthrough";
+import {
+  pregameEvolutionChapter,
+  pregameBreedingChapter,
+} from "./pregameWalkthrough";
 
 /**
  * Story walkthrough, organized so each map / route / town is its own chapter.
@@ -941,6 +945,9 @@ const storyChapters: GuideSection[] = [
           "Leave the Day Care two compatible Pokémon to breed for eggs.",
           "Catch Marill, Oddish, Roselia, and Illumise/Volbeat here.",
         ],
+        tips: [
+          "For full Day Care rules — egg groups, Everstone natures, IVs, and incense babies — see Pregame: Breeding at the start of this guide.",
+        ],
         secrets: [
           "Breeding at the Day Care can pass down egg moves and pick your Pokémon's nature (with an Everstone) — the foundation of any competitive team.",
         ],
@@ -1416,16 +1423,23 @@ const storyChapters: GuideSection[] = [
         story: [
           "Route 119 is a rain-soaked jungle gauntlet — tall grass, log bridges that need the Acro Bike to hop, and trainers lurking at every turn. Hidden Rare Candies and TMs reward thorough exploration, and the grass itself is worth farming.",
           "Tropius drifts through at a rare 5%, Zigzagoon and Oddish are common, and invisible Kecleon pepper the route — you'll need the Devon Scope from Steven to spot them. For now, push through toward the Weather Institute rising above the canopy.",
+          "The rivers hide Emerald's rarest fish: Feebas. Only six water tiles on the route can produce it, and which six are active depends on Dewford Town's trendy phrase — when the trend changes, the tiles reshuffle. Fish every reachable water square with any rod, or visit Dewford's trendy phrase guy to force a new set. Feebas itself is weak; raise its Beauty to 170 with Dry Pokéblocks (Contest Preparation) and level it up for Milotic.",
         ],
         details: [
           "The Acro Bike is needed to hop the log bridges.",
           "Catch Tropius (5%), Zigzagoon, Oddish, and the invisible Kecleon (later with Devon Scope).",
           "Hidden Rare Candy and TMs dot the route.",
+          "Feebas: fish all water tiles — only six trend tiles work; tiles move when Dewford's trendy phrase changes.",
+          "Milotic: Beauty 170+, then level-up (see Pregame: Evolution — Unique evolutions).",
         ],
         secrets: [
           "A hidden Rare Candy sits on this route — and Tropius, if you catch one, is a solid Grass/Flying HM carrier that learns Fly.",
+          "Leaf Stone pickup on this route — useful for Gloom, Nuzleaf, and other Leaf Stone evolutions.",
         ],
-        tags: ["route", "tropius", "route-119"],
+        tips: [
+          "Trendy phrase tip: talk to the boy in Dewford who sets the town trend, then return to Route 119 if your current six tiles are exhausted.",
+        ],
+        tags: ["route", "tropius", "route-119", "feebas", "milotic"],
       },
       {
         id: "route-119-2",
@@ -2423,7 +2437,8 @@ const contestPrepChapter: GuideSection = {
       story: [
         "Pokéblocks are the heart of contest prep. Blend berries at a Berry Blender to create them, then feed blocks to your Pokémon to raise the condition stat that matches your target contest. Each berry has a flavor tied to a contest type: Spicy raises Cool, Dry raises Beauty, Sweet raises Cute, Bitter raises Smart, and Sour raises Tough.",
         "You already picked up the Wailmer Pail on Route 104 — use it on any soft soil patch, plant a berry, and water it every stage for a larger harvest. Route 117 outside Mauville has several plots; the Pretty Petal Flower Shop on Route 104 sells berries and explains planting. Check a berry's tag in the Bag to see its flavor and color before you blend.",
-        "Nature matters as much as berries. A Pokémon's nature speeds or slows how fast each condition grows — for example, Adamant boosts Cool but lowers Beauty, while Modest boosts Beauty but lowers Cool. Breed or catch a Pokémon whose nature favours your target category, or hold an Everstone at the Day Care on Route 117 to pass a nature down.",
+        "Nature matters as much as berries. A Pokémon's nature speeds or slows how fast each condition grows — for example, Adamant boosts Cool but lowers Beauty, while Modest boosts Beauty but lowers Cool. Breed or catch a Pokémon whose nature favours your target category, or hold an Everstone at the Day Care on Route 117 to pass a nature down. Full breeding rules — including Everstone natures and IVs — are in Pregame: Breeding at the start of this guide.",
+        "Beauty specialists matter beyond ribbons: Feebas needs Beauty 170 or higher to evolve into Milotic when it levels up. Dry Pokéblocks, a Beauty-friendly nature (Modest is a classic pick), and careful sheen management are the same tools you use for Beauty contests.",
       ],
       details: [
         "Spicy berries → Cool · Dry → Beauty · Sweet → Cute · Bitter → Smart · Sour → Tough.",
@@ -2431,12 +2446,14 @@ const contestPrepChapter: GuideSection = {
         "Route 117 and Route 104 are your earliest reliable berry farms.",
         "Check Pokénav → Condition (after you have the Pokénav) to see a radar chart of your Pokémon's contest stats.",
         "Match nature to your contest type — neutral natures grow all stats evenly but slower for specialists.",
+        "Feebas → Milotic: raise Beauty to 170+ with Dry Pokéblocks, then level up (see Pregame: Evolution — Unique evolutions).",
       ],
       secrets: [
         "Secondary conditions also add points: Beauty contests also score Cool and Cute, Cool contests score Beauty and Tough, and so on — feeding a few blocks of those flavors can help at the margins.",
         "Sheen (shown as stars on the Pokénav sprite) caps at 255 from Pokéblock feel. Once sheen is maxed, that Pokémon cannot eat more blocks — plan feeds carefully.",
+        "Feebas Beauty is a contest condition, not friendship — Soothe Bell will not produce Milotic.",
       ],
-      tags: ["berries", "pokeblocks", "contests"],
+      tags: ["berries", "pokeblocks", "contests", "feebas", "milotic"],
     },
     {
       id: "contest-prep-3",
@@ -2652,7 +2669,11 @@ function renumberChapters(chapters: GuideSection[]) {
   });
 }
 
-const built: GuideSection[] = [...storyChapters];
+const built: GuideSection[] = [
+  pregameEvolutionChapter,
+  pregameBreedingChapter,
+  ...storyChapters,
+];
 insertAfter(built, "route-117", contestPrepChapter);
 insertAfter(built, "lilycove", contestsLilycoveChapter);
 insertAfter(built, "league", postgameOpeningChapter);

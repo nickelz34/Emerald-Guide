@@ -176,6 +176,7 @@ export const ITEM_BAG_ICONS: Record<string, ItemBagIcon> = {
   "Star Piece": { spriteSheet: "sprites/items/icons/star_piece.png", spriteWidth: 24, spriteHeight: 24 },
   "Stardust": { spriteSheet: "sprites/items/icons/stardust.png", spriteWidth: 24, spriteHeight: 24 },
   "Storage Key": { spriteSheet: "sprites/items/icons/storage_key.png", spriteWidth: 24, spriteHeight: 24 },
+  "Sun Stone": { spriteSheet: "sprites/items/icons/sun_stone.png", spriteWidth: 24, spriteHeight: 24 },
   "Super Potion": { spriteSheet: "sprites/items/icons/super_potion.png", spriteWidth: 24, spriteHeight: 24 },
   "Super Repel": { spriteSheet: "sprites/items/icons/super_repel.png", spriteWidth: 24, spriteHeight: 24 },
   "Surf Mat": { spriteSheet: "sprites/items/icons/surf_mat.png", spriteWidth: 24, spriteHeight: 24 },

@@ -11,6 +11,13 @@ export interface StatLine {
   value: number;
 }
 
+/** One directed evolution edge with Emerald-accurate method text. */
+export interface EvolutionMethod {
+  from: string;
+  to: string;
+  method: string;
+}
+
 export interface SpeciesInfo {
   slug: string;
   dexNumber?: number;
@@ -25,7 +32,17 @@ export interface SpeciesInfo {
   weightKg?: number;
   genus?: string;
   flavor?: string;
+  /** Display names in chain order (may omit alternate branches — prefer evolutionMethods). */
   evolution: string[];
+  /** All Gen-3-reachable evolution edges from this species' family. */
+  evolutionMethods?: EvolutionMethod[];
+  /** Egg group display names (e.g. "Field", "Water 1"). */
+  eggGroups?: string[];
+  /**
+   * PokéAPI gender_rate: -1 genderless, 0 always ♂, 8 always ♀,
+   * otherwise eighths female (1–7).
+   */
+  genderRate?: number;
 }
 
 export const TYPE_COLORS: Record<string, string> = {

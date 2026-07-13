@@ -3,199 +3,6 @@
 import type { SpeciesInfo } from "./species";
 
 export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
-  "charmander": {
-    "slug": "charmander",
-    "dexNumber": 4,
-    "types": [
-      "Fire"
-    ],
-    "abilities": [
-      "Blaze"
-    ],
-    "hiddenAbility": "Solar Power",
-    "baseExp": 62,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 39
-      },
-      {
-        "label": "Attack",
-        "value": 52
-      },
-      {
-        "label": "Defense",
-        "value": 43
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 65
-      }
-    ],
-    "total": 309,
-    "heightM": 0.6,
-    "weightKg": 8.5,
-    "genus": "Lizard Pokémon",
-    "flavor": "The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when CHARMANDER is happy, and blazes when it is enraged.",
-    "evolution": [
-      "Charmander",
-      "Charmeleon",
-      "Charizard"
-    ]
-  },
-  "charizard": {
-    "slug": "charizard",
-    "dexNumber": 6,
-    "types": [
-      "Fire",
-      "Flying"
-    ],
-    "abilities": [
-      "Blaze"
-    ],
-    "hiddenAbility": "Solar Power",
-    "baseExp": 240,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 78
-      },
-      {
-        "label": "Attack",
-        "value": 84
-      },
-      {
-        "label": "Defense",
-        "value": 78
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 109
-      },
-      {
-        "label": "Sp. Def",
-        "value": 85
-      },
-      {
-        "label": "Speed",
-        "value": 100
-      }
-    ],
-    "total": 534,
-    "heightM": 1.7,
-    "weightKg": 90.5,
-    "genus": "Flame Pokémon",
-    "flavor": "A CHARIZARD flies about in search of strong opponents. It breathes intense flames that can melt any material. However, it will never torch a weaker foe.",
-    "evolution": [
-      "Charmander",
-      "Charmeleon",
-      "Charizard"
-    ]
-  },
-  "wartortle": {
-    "slug": "wartortle",
-    "dexNumber": 8,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Torrent"
-    ],
-    "hiddenAbility": "Rain Dish",
-    "baseExp": 142,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 59
-      },
-      {
-        "label": "Attack",
-        "value": 63
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 58
-      }
-    ],
-    "total": 405,
-    "heightM": 1,
-    "weightKg": 22.5,
-    "genus": "Turtle Pokémon",
-    "flavor": "Its large tail is covered with rich, thick fur that deepens in color with age. The scratches on its shell are evidence of this POKéMON’s toughness in battle.",
-    "evolution": [
-      "Squirtle",
-      "Wartortle",
-      "Blastoise"
-    ]
-  },
-  "squirtle": {
-    "slug": "squirtle",
-    "dexNumber": 7,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Torrent"
-    ],
-    "hiddenAbility": "Rain Dish",
-    "baseExp": 63,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 44
-      },
-      {
-        "label": "Attack",
-        "value": 48
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 64
-      },
-      {
-        "label": "Speed",
-        "value": 43
-      }
-    ],
-    "total": 314,
-    "heightM": 0.5,
-    "weightKg": 9,
-    "genus": "Tiny Turtle Pokémon",
-    "flavor": "Its shell is not just for protection. Its rounded shape and the grooves on its surface minimize resistance in water, enabling SQUIRTLE to swim at high speeds.",
-    "evolution": [
-      "Squirtle",
-      "Wartortle",
-      "Blastoise"
-    ]
-  },
   "ivysaur": {
     "slug": "ivysaur",
     "dexNumber": 2,
@@ -243,56 +50,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Bulbasaur",
       "Ivysaur",
       "Venusaur"
-    ]
-  },
-  "venusaur": {
-    "slug": "venusaur",
-    "dexNumber": 3,
-    "types": [
-      "Grass",
-      "Poison"
     ],
-    "abilities": [
-      "Overgrow"
-    ],
-    "hiddenAbility": "Chlorophyll",
-    "baseExp": 236,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 80
+        "from": "Bulbasaur",
+        "to": "Ivysaur",
+        "method": "Level 16"
       },
       {
-        "label": "Attack",
-        "value": 82
-      },
-      {
-        "label": "Defense",
-        "value": 83
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 100
-      },
-      {
-        "label": "Speed",
-        "value": 80
+        "from": "Ivysaur",
+        "to": "Venusaur",
+        "method": "Level 32"
       }
     ],
-    "total": 525,
-    "heightM": 2,
-    "weightKg": 100,
-    "genus": "Seed Pokémon",
-    "flavor": "VENUSAUR’s flower is said to take on vivid colors if it gets plenty of nutrition and sunlight. The flower’s aroma soothes the emotions of people.",
-    "evolution": [
-      "Bulbasaur",
-      "Ivysaur",
-      "Venusaur"
-    ]
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 1
   },
   "bulbasaur": {
     "slug": "bulbasaur",
@@ -341,7 +116,90 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Bulbasaur",
       "Ivysaur",
       "Venusaur"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bulbasaur",
+        "to": "Ivysaur",
+        "method": "Level 16"
+      },
+      {
+        "from": "Ivysaur",
+        "to": "Venusaur",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 1
+  },
+  "venusaur": {
+    "slug": "venusaur",
+    "dexNumber": 3,
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Overgrow"
+    ],
+    "hiddenAbility": "Chlorophyll",
+    "baseExp": 236,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 82
+      },
+      {
+        "label": "Defense",
+        "value": 83
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 525,
+    "heightM": 2,
+    "weightKg": 100,
+    "genus": "Seed Pokémon",
+    "flavor": "VENUSAUR’s flower is said to take on vivid colors if it gets plenty of nutrition and sunlight. The flower’s aroma soothes the emotions of people.",
+    "evolution": [
+      "Bulbasaur",
+      "Ivysaur",
+      "Venusaur"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bulbasaur",
+        "to": "Ivysaur",
+        "method": "Level 16"
+      },
+      {
+        "from": "Ivysaur",
+        "to": "Venusaur",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 1
   },
   "charmeleon": {
     "slug": "charmeleon",
@@ -389,155 +247,28 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Charmander",
       "Charmeleon",
       "Charizard"
-    ]
-  },
-  "metapod": {
-    "slug": "metapod",
-    "dexNumber": 11,
-    "types": [
-      "Bug"
     ],
-    "abilities": [
-      "Shed Skin"
-    ],
-    "baseExp": 72,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 50
+        "from": "Charmander",
+        "to": "Charmeleon",
+        "method": "Level 16"
       },
       {
-        "label": "Attack",
-        "value": 20
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 25
-      },
-      {
-        "label": "Sp. Def",
-        "value": 25
-      },
-      {
-        "label": "Speed",
-        "value": 30
+        "from": "Charmeleon",
+        "to": "Charizard",
+        "method": "Level 36"
       }
     ],
-    "total": 205,
-    "heightM": 0.7,
-    "weightKg": 9.9,
-    "genus": "Cocoon Pokémon",
-    "flavor": "Its shell is as hard as an iron slab. A METAPOD does not move very much because it is preparing its soft innards for evolution inside the shell.",
-    "evolution": [
-      "Caterpie",
-      "Metapod",
-      "Butterfree"
-    ]
+    "eggGroups": [
+      "Monster",
+      "Dragon"
+    ],
+    "genderRate": 1
   },
-  "butterfree": {
-    "slug": "butterfree",
-    "dexNumber": 12,
-    "types": [
-      "Bug",
-      "Flying"
-    ],
-    "abilities": [
-      "Compound Eyes"
-    ],
-    "hiddenAbility": "Tinted Lens",
-    "baseExp": 178,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 45
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 90
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 395,
-    "heightM": 1.1,
-    "weightKg": 32,
-    "genus": "Butterfly Pokémon",
-    "flavor": "It has a superior ability to search for delicious honey from flowers. It can seek, extract, and carry honey from flowers blooming over six miles away.",
-    "evolution": [
-      "Caterpie",
-      "Metapod",
-      "Butterfree"
-    ]
-  },
-  "caterpie": {
-    "slug": "caterpie",
-    "dexNumber": 10,
-    "types": [
-      "Bug"
-    ],
-    "abilities": [
-      "Shield Dust"
-    ],
-    "hiddenAbility": "Run Away",
-    "baseExp": 39,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 30
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 20
-      },
-      {
-        "label": "Sp. Def",
-        "value": 20
-      },
-      {
-        "label": "Speed",
-        "value": 45
-      }
-    ],
-    "total": 195,
-    "heightM": 0.3,
-    "weightKg": 2.9,
-    "genus": "Worm Pokémon",
-    "flavor": "Its voracious appetite compels it to devour leaves bigger than itself without hesitation. It releases a terribly strong odor from its antennae.",
-    "evolution": [
-      "Caterpie",
-      "Metapod",
-      "Butterfree"
-    ]
-  },
-  "blastoise": {
-    "slug": "blastoise",
-    "dexNumber": 9,
+  "squirtle": {
+    "slug": "squirtle",
+    "dexNumber": 7,
     "types": [
       "Water"
     ],
@@ -545,72 +276,154 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Torrent"
     ],
     "hiddenAbility": "Rain Dish",
-    "baseExp": 239,
+    "baseExp": 63,
     "stats": [
       {
         "label": "HP",
-        "value": 79
+        "value": 44
       },
       {
         "label": "Attack",
-        "value": 83
+        "value": 48
       },
       {
         "label": "Defense",
-        "value": 100
+        "value": 65
       },
       {
         "label": "Sp. Atk",
-        "value": 85
+        "value": 50
       },
       {
         "label": "Sp. Def",
-        "value": 105
+        "value": 64
       },
       {
         "label": "Speed",
-        "value": 78
+        "value": 43
       }
     ],
-    "total": 530,
-    "heightM": 1.6,
-    "weightKg": 85.5,
-    "genus": "Shellfish Pokémon",
-    "flavor": "The waterspouts that protrude from its shell are highly accurate. Their bullets of water can precisely nail tin cans from a distance of over 160 feet.",
+    "total": 314,
+    "heightM": 0.5,
+    "weightKg": 9,
+    "genus": "Tiny Turtle Pokémon",
+    "flavor": "Its shell is not just for protection. Its rounded shape and the grooves on its surface minimize resistance in water, enabling SQUIRTLE to swim at high speeds.",
     "evolution": [
       "Squirtle",
       "Wartortle",
       "Blastoise"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Squirtle",
+        "to": "Wartortle",
+        "method": "Level 16"
+      },
+      {
+        "from": "Wartortle",
+        "to": "Blastoise",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
   },
-  "beedrill": {
-    "slug": "beedrill",
-    "dexNumber": 15,
+  "charizard": {
+    "slug": "charizard",
+    "dexNumber": 6,
     "types": [
-      "Bug",
-      "Poison"
+      "Fire",
+      "Flying"
     ],
     "abilities": [
-      "Swarm"
+      "Blaze"
     ],
-    "hiddenAbility": "Sniper",
-    "baseExp": 178,
+    "hiddenAbility": "Solar Power",
+    "baseExp": 240,
     "stats": [
       {
         "label": "HP",
-        "value": 65
+        "value": 78
       },
       {
         "label": "Attack",
-        "value": 90
+        "value": 84
       },
       {
         "label": "Defense",
-        "value": 40
+        "value": 78
       },
       {
         "label": "Sp. Atk",
-        "value": 45
+        "value": 109
+      },
+      {
+        "label": "Sp. Def",
+        "value": 85
+      },
+      {
+        "label": "Speed",
+        "value": 100
+      }
+    ],
+    "total": 534,
+    "heightM": 1.7,
+    "weightKg": 90.5,
+    "genus": "Flame Pokémon",
+    "flavor": "A CHARIZARD flies about in search of strong opponents. It breathes intense flames that can melt any material. However, it will never torch a weaker foe.",
+    "evolution": [
+      "Charmander",
+      "Charmeleon",
+      "Charizard"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Charmander",
+        "to": "Charmeleon",
+        "method": "Level 16"
+      },
+      {
+        "from": "Charmeleon",
+        "to": "Charizard",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Dragon"
+    ],
+    "genderRate": 1
+  },
+  "wartortle": {
+    "slug": "wartortle",
+    "dexNumber": 8,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent"
+    ],
+    "hiddenAbility": "Rain Dish",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 59
+      },
+      {
+        "label": "Attack",
+        "value": 63
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
       },
       {
         "label": "Sp. Def",
@@ -618,19 +431,101 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 75
+        "value": 58
       }
     ],
-    "total": 395,
+    "total": 405,
     "heightM": 1,
-    "weightKg": 29.5,
-    "genus": "Poison Bee Pokémon",
-    "flavor": "A BEEDRILL is extremely territorial. For safety reasons, no one should  ever approach its nest. If angered, they will attack in a swarm.",
+    "weightKg": 22.5,
+    "genus": "Turtle Pokémon",
+    "flavor": "Its large tail is covered with rich, thick fur that deepens in color with age. The scratches on its shell are evidence of this POKéMON’s toughness in battle.",
     "evolution": [
-      "Weedle",
-      "Kakuna",
-      "Beedrill"
-    ]
+      "Squirtle",
+      "Wartortle",
+      "Blastoise"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Squirtle",
+        "to": "Wartortle",
+        "method": "Level 16"
+      },
+      {
+        "from": "Wartortle",
+        "to": "Blastoise",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
+  },
+  "charmander": {
+    "slug": "charmander",
+    "dexNumber": 4,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze"
+    ],
+    "hiddenAbility": "Solar Power",
+    "baseExp": 62,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 39
+      },
+      {
+        "label": "Attack",
+        "value": 52
+      },
+      {
+        "label": "Defense",
+        "value": 43
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 309,
+    "heightM": 0.6,
+    "weightKg": 8.5,
+    "genus": "Lizard Pokémon",
+    "flavor": "The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when CHARMANDER is happy, and blazes when it is enraged.",
+    "evolution": [
+      "Charmander",
+      "Charmeleon",
+      "Charizard"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Charmander",
+        "to": "Charmeleon",
+        "method": "Level 16"
+      },
+      {
+        "from": "Charmeleon",
+        "to": "Charizard",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Dragon"
+    ],
+    "genderRate": 1
   },
   "weedle": {
     "slug": "weedle",
@@ -679,7 +574,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Weedle",
       "Kakuna",
       "Beedrill"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Weedle",
+        "to": "Kakuna",
+        "method": "Level 7"
+      },
+      {
+        "from": "Kakuna",
+        "to": "Beedrill",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "kakuna": {
     "slug": "kakuna",
@@ -727,7 +638,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Weedle",
       "Kakuna",
       "Beedrill"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Weedle",
+        "to": "Kakuna",
+        "method": "Level 7"
+      },
+      {
+        "from": "Kakuna",
+        "to": "Beedrill",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "pidgey": {
     "slug": "pidgey",
@@ -777,57 +704,404 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Pidgey",
       "Pidgeotto",
       "Pidgeot"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pidgey",
+        "to": "Pidgeotto",
+        "method": "Level 18"
+      },
+      {
+        "from": "Pidgeotto",
+        "to": "Pidgeot",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
-  "pidgeot": {
-    "slug": "pidgeot",
-    "dexNumber": 18,
+  "beedrill": {
+    "slug": "beedrill",
+    "dexNumber": 15,
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Swarm"
+    ],
+    "hiddenAbility": "Sniper",
+    "baseExp": 178,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 40
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 75
+      }
+    ],
+    "total": 395,
+    "heightM": 1,
+    "weightKg": 29.5,
+    "genus": "Poison Bee Pokémon",
+    "flavor": "A BEEDRILL is extremely territorial. For safety reasons, no one should  ever approach its nest. If angered, they will attack in a swarm.",
+    "evolution": [
+      "Weedle",
+      "Kakuna",
+      "Beedrill"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Weedle",
+        "to": "Kakuna",
+        "method": "Level 7"
+      },
+      {
+        "from": "Kakuna",
+        "to": "Beedrill",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "metapod": {
+    "slug": "metapod",
+    "dexNumber": 11,
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "baseExp": 72,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 20
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 25
+      },
+      {
+        "label": "Sp. Def",
+        "value": 25
+      },
+      {
+        "label": "Speed",
+        "value": 30
+      }
+    ],
+    "total": 205,
+    "heightM": 0.7,
+    "weightKg": 9.9,
+    "genus": "Cocoon Pokémon",
+    "flavor": "Its shell is as hard as an iron slab. A METAPOD does not move very much because it is preparing its soft innards for evolution inside the shell.",
+    "evolution": [
+      "Caterpie",
+      "Metapod",
+      "Butterfree"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Caterpie",
+        "to": "Metapod",
+        "method": "Level 7"
+      },
+      {
+        "from": "Metapod",
+        "to": "Butterfree",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "caterpie": {
+    "slug": "caterpie",
+    "dexNumber": 10,
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shield Dust"
+    ],
+    "hiddenAbility": "Run Away",
+    "baseExp": 39,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 30
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 20
+      },
+      {
+        "label": "Sp. Def",
+        "value": 20
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 195,
+    "heightM": 0.3,
+    "weightKg": 2.9,
+    "genus": "Worm Pokémon",
+    "flavor": "Its voracious appetite compels it to devour leaves bigger than itself without hesitation. It releases a terribly strong odor from its antennae.",
+    "evolution": [
+      "Caterpie",
+      "Metapod",
+      "Butterfree"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Caterpie",
+        "to": "Metapod",
+        "method": "Level 7"
+      },
+      {
+        "from": "Metapod",
+        "to": "Butterfree",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "butterfree": {
+    "slug": "butterfree",
+    "dexNumber": 12,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Compound Eyes"
+    ],
+    "hiddenAbility": "Tinted Lens",
+    "baseExp": 178,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 90
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 395,
+    "heightM": 1.1,
+    "weightKg": 32,
+    "genus": "Butterfly Pokémon",
+    "flavor": "It has a superior ability to search for delicious honey from flowers. It can seek, extract, and carry honey from flowers blooming over six miles away.",
+    "evolution": [
+      "Caterpie",
+      "Metapod",
+      "Butterfree"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Caterpie",
+        "to": "Metapod",
+        "method": "Level 7"
+      },
+      {
+        "from": "Metapod",
+        "to": "Butterfree",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "blastoise": {
+    "slug": "blastoise",
+    "dexNumber": 9,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent"
+    ],
+    "hiddenAbility": "Rain Dish",
+    "baseExp": 239,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 79
+      },
+      {
+        "label": "Attack",
+        "value": 83
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 105
+      },
+      {
+        "label": "Speed",
+        "value": 78
+      }
+    ],
+    "total": 530,
+    "heightM": 1.6,
+    "weightKg": 85.5,
+    "genus": "Shellfish Pokémon",
+    "flavor": "The waterspouts that protrude from its shell are highly accurate. Their bullets of water can precisely nail tin cans from a distance of over 160 feet.",
+    "evolution": [
+      "Squirtle",
+      "Wartortle",
+      "Blastoise"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Squirtle",
+        "to": "Wartortle",
+        "method": "Level 16"
+      },
+      {
+        "from": "Wartortle",
+        "to": "Blastoise",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
+  },
+  "spearow": {
+    "slug": "spearow",
+    "dexNumber": 21,
     "types": [
       "Normal",
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
-      "Tangled Feet"
+      "Keen Eye"
     ],
-    "hiddenAbility": "Big Pecks",
-    "baseExp": 216,
+    "hiddenAbility": "Sniper",
+    "baseExp": 52,
     "stats": [
       {
         "label": "HP",
-        "value": 83
+        "value": 40
       },
       {
         "label": "Attack",
-        "value": 80
+        "value": 60
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 30
       },
       {
         "label": "Sp. Atk",
-        "value": 70
+        "value": 31
       },
       {
         "label": "Sp. Def",
-        "value": 70
+        "value": 31
       },
       {
         "label": "Speed",
-        "value": 101
+        "value": 70
       }
     ],
-    "total": 479,
-    "heightM": 1.5,
-    "weightKg": 39.5,
-    "genus": "Bird Pokémon",
-    "flavor": "This POKéMON has gorgeous, glossy feathers. Many TRAINERS are so captivated by the beautiful feathers on its head that they choose PIDGEOT as their POKéMON.",
+    "total": 262,
+    "heightM": 0.3,
+    "weightKg": 2,
+    "genus": "Tiny Bird Pokémon",
+    "flavor": "Its loud cry can be heard over half a mile away. If its high, keening cry is heard echoing all around, it is a sign that they are warning each other of danger.",
     "evolution": [
-      "Pidgey",
-      "Pidgeotto",
-      "Pidgeot"
-    ]
+      "Spearow",
+      "Fearow"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Spearow",
+        "to": "Fearow",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "pidgeotto": {
     "slug": "pidgeotto",
@@ -877,151 +1151,89 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Pidgey",
       "Pidgeotto",
       "Pidgeot"
-    ]
-  },
-  "arbok": {
-    "slug": "arbok",
-    "dexNumber": 24,
-    "types": [
-      "Poison"
     ],
-    "abilities": [
-      "Intimidate",
-      "Shed Skin"
-    ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 157,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
+        "from": "Pidgey",
+        "to": "Pidgeotto",
+        "method": "Level 18"
       },
       {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 69
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 79
-      },
-      {
-        "label": "Speed",
-        "value": 80
+        "from": "Pidgeotto",
+        "to": "Pidgeot",
+        "method": "Level 36"
       }
     ],
-    "total": 448,
-    "heightM": 3.5,
-    "weightKg": 65,
-    "genus": "Cobra Pokémon",
-    "flavor": "This POKéMON has a terrifically strong constricting power. It can even flatten steel oil drums. Once it wraps its body around its foe, escaping is impossible.",
-    "evolution": [
-      "Ekans",
-      "Arbok"
-    ]
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
-  "ekans": {
-    "slug": "ekans",
-    "dexNumber": 23,
-    "types": [
-      "Poison"
-    ],
-    "abilities": [
-      "Intimidate",
-      "Shed Skin"
-    ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 58,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 35
-      },
-      {
-        "label": "Attack",
-        "value": 60
-      },
-      {
-        "label": "Defense",
-        "value": 44
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 54
-      },
-      {
-        "label": "Speed",
-        "value": 55
-      }
-    ],
-    "total": 288,
-    "heightM": 2,
-    "weightKg": 6.9,
-    "genus": "Snake Pokémon",
-    "flavor": "An EKANS curls itself up in a spiral while it rests. This position allows it to quickly respond to an enemy from any direction with a threat from its upraised head.",
-    "evolution": [
-      "Ekans",
-      "Arbok"
-    ]
-  },
-  "spearow": {
-    "slug": "spearow",
-    "dexNumber": 21,
+  "pidgeot": {
+    "slug": "pidgeot",
+    "dexNumber": 18,
     "types": [
       "Normal",
       "Flying"
     ],
     "abilities": [
-      "Keen Eye"
+      "Keen Eye",
+      "Tangled Feet"
     ],
-    "hiddenAbility": "Sniper",
-    "baseExp": 52,
+    "hiddenAbility": "Big Pecks",
+    "baseExp": 216,
     "stats": [
       {
         "label": "HP",
-        "value": 40
+        "value": 83
       },
       {
         "label": "Attack",
-        "value": 60
+        "value": 80
       },
       {
         "label": "Defense",
-        "value": 30
+        "value": 75
       },
       {
         "label": "Sp. Atk",
-        "value": 31
+        "value": 70
       },
       {
         "label": "Sp. Def",
-        "value": 31
+        "value": 70
       },
       {
         "label": "Speed",
-        "value": 70
+        "value": 101
       }
     ],
-    "total": 262,
-    "heightM": 0.3,
-    "weightKg": 2,
-    "genus": "Tiny Bird Pokémon",
-    "flavor": "Its loud cry can be heard over half a mile away. If its high, keening cry is heard echoing all around, it is a sign that they are warning each other of danger.",
+    "total": 479,
+    "heightM": 1.5,
+    "weightKg": 39.5,
+    "genus": "Bird Pokémon",
+    "flavor": "This POKéMON has gorgeous, glossy feathers. Many TRAINERS are so captivated by the beautiful feathers on its head that they choose PIDGEOT as their POKéMON.",
     "evolution": [
-      "Spearow",
-      "Fearow"
-    ]
+      "Pidgey",
+      "Pidgeotto",
+      "Pidgeot"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pidgey",
+        "to": "Pidgeotto",
+        "method": "Level 18"
+      },
+      {
+        "from": "Pidgeotto",
+        "to": "Pidgeot",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "fearow": {
     "slug": "fearow",
@@ -1069,55 +1281,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Spearow",
       "Fearow"
-    ]
-  },
-  "raticate": {
-    "slug": "raticate",
-    "dexNumber": 20,
-    "types": [
-      "Normal"
     ],
-    "abilities": [
-      "Run Away",
-      "Guts"
-    ],
-    "hiddenAbility": "Hustle",
-    "baseExp": 145,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 81
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 97
+        "from": "Spearow",
+        "to": "Fearow",
+        "method": "Level 20"
       }
     ],
-    "total": 413,
-    "heightM": 0.7,
-    "weightKg": 18.5,
-    "genus": "Mouse Pokémon",
-    "flavor": "A RATICATE’s sturdy fangs grow steadily. To keep them ground down, it gnaws on rocks and logs. It may even chew on the walls of houses.",
-    "evolution": [
-      "Rattata",
-      "Raticate"
-    ]
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "rattata": {
     "slug": "rattata",
@@ -1165,70 +1340,31 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Rattata",
       "Raticate"
-    ]
-  },
-  "nidoqueen": {
-    "slug": "nidoqueen",
-    "dexNumber": 31,
-    "types": [
-      "Poison",
-      "Ground"
     ],
-    "abilities": [
-      "Poison Point",
-      "Rivalry"
-    ],
-    "hiddenAbility": "Sheer Force",
-    "baseExp": 227,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 90
-      },
-      {
-        "label": "Attack",
-        "value": 92
-      },
-      {
-        "label": "Defense",
-        "value": 87
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 75
-      },
-      {
-        "label": "Sp. Def",
-        "value": 85
-      },
-      {
-        "label": "Speed",
-        "value": 76
+        "from": "Rattata",
+        "to": "Raticate",
+        "method": "Level 20"
       }
     ],
-    "total": 505,
-    "heightM": 1.3,
-    "weightKg": 60,
-    "genus": "Drill Pokémon",
-    "flavor": "It is adept at sending foes flying with harsh tackles using its tough, scaly body. This POKéMON is at its strongest when it is defending its young.",
-    "evolution": [
-      "Nidoran F",
-      "Nidorina",
-      "Nidoqueen"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "nidoran-f": {
-    "slug": "nidoran-f",
-    "dexNumber": 29,
+  "raticate": {
+    "slug": "raticate",
+    "dexNumber": 20,
     "types": [
-      "Poison"
+      "Normal"
     ],
     "abilities": [
-      "Poison Point",
-      "Rivalry"
+      "Run Away",
+      "Guts"
     ],
     "hiddenAbility": "Hustle",
-    "baseExp": 55,
+    "baseExp": 145,
     "stats": [
       {
         "label": "HP",
@@ -1236,84 +1372,165 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 47
+        "value": 81
       },
       {
         "label": "Defense",
-        "value": 52
+        "value": 60
       },
       {
         "label": "Sp. Atk",
-        "value": 40
+        "value": 50
       },
       {
         "label": "Sp. Def",
-        "value": 40
-      },
-      {
-        "label": "Speed",
-        "value": 41
-      }
-    ],
-    "total": 275,
-    "heightM": 0.4,
-    "weightKg": 7,
-    "genus": "Poison Pin Pokémon",
-    "flavor": "Its highly toxic barbs are thought to have developed as protection for this small- bodied POKéMON. When enraged, it releases a horrible toxin from its horn.",
-    "evolution": [
-      "Nidoran F",
-      "Nidorina",
-      "Nidoqueen"
-    ]
-  },
-  "nidorina": {
-    "slug": "nidorina",
-    "dexNumber": 30,
-    "types": [
-      "Poison"
-    ],
-    "abilities": [
-      "Poison Point",
-      "Rivalry"
-    ],
-    "hiddenAbility": "Hustle",
-    "baseExp": 128,
-    "stats": [
-      {
-        "label": "HP",
         "value": 70
       },
       {
+        "label": "Speed",
+        "value": 97
+      }
+    ],
+    "total": 413,
+    "heightM": 0.7,
+    "weightKg": 18.5,
+    "genus": "Mouse Pokémon",
+    "flavor": "A RATICATE’s sturdy fangs grow steadily. To keep them ground down, it gnaws on rocks and logs. It may even chew on the walls of houses.",
+    "evolution": [
+      "Rattata",
+      "Raticate"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Rattata",
+        "to": "Raticate",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "arbok": {
+    "slug": "arbok",
+    "dexNumber": 24,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Shed Skin"
+    ],
+    "hiddenAbility": "Unnerve",
+    "baseExp": 157,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
         "label": "Attack",
-        "value": 62
+        "value": 95
       },
       {
         "label": "Defense",
-        "value": 67
+        "value": 69
       },
       {
         "label": "Sp. Atk",
-        "value": 55
+        "value": 65
       },
       {
         "label": "Sp. Def",
-        "value": 55
+        "value": 79
       },
       {
         "label": "Speed",
-        "value": 56
+        "value": 80
       }
     ],
-    "total": 365,
-    "heightM": 0.8,
-    "weightKg": 20,
-    "genus": "Poison Pin Pokémon",
-    "flavor": "When it is with its friends or family, its barbs are tucked away to prevent injury. It appears to become nervous if separated from the others.",
+    "total": 448,
+    "heightM": 3.5,
+    "weightKg": 65,
+    "genus": "Cobra Pokémon",
+    "flavor": "This POKéMON has a terrifically strong constricting power. It can even flatten steel oil drums. Once it wraps its body around its foe, escaping is impossible.",
     "evolution": [
-      "Nidoran F",
-      "Nidorina",
-      "Nidoqueen"
-    ]
+      "Ekans",
+      "Arbok"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ekans",
+        "to": "Arbok",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Dragon"
+    ],
+    "genderRate": 4
+  },
+  "ekans": {
+    "slug": "ekans",
+    "dexNumber": 23,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Shed Skin"
+    ],
+    "hiddenAbility": "Unnerve",
+    "baseExp": 58,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 35
+      },
+      {
+        "label": "Attack",
+        "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 44
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 54
+      },
+      {
+        "label": "Speed",
+        "value": 55
+      }
+    ],
+    "total": 288,
+    "heightM": 2,
+    "weightKg": 6.9,
+    "genus": "Snake Pokémon",
+    "flavor": "An EKANS curls itself up in a spiral while it rests. This position allows it to quickly respond to an enemy from any direction with a threat from its upraised head.",
+    "evolution": [
+      "Ekans",
+      "Arbok"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ekans",
+        "to": "Arbok",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "nidoran-m": {
     "slug": "nidoran-m",
@@ -1359,152 +1576,27 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Poison Pin Pokémon",
     "flavor": "The male NIDORAN has developed muscles that freely move its ears in any direction. Even the slightest sound does not escape this POKéMON’s notice.",
     "evolution": [
-      "Nidoran M",
+      "Nidoran♂",
       "Nidorino",
       "Nidoking"
-    ]
-  },
-  "sandslash": {
-    "slug": "sandslash",
-    "dexNumber": 28,
-    "types": [
-      "Ground"
     ],
-    "abilities": [
-      "Sand Veil"
-    ],
-    "hiddenAbility": "Sand Rush",
-    "baseExp": 158,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 75
+        "from": "Nidoran♂",
+        "to": "Nidorino",
+        "method": "Level 16"
       },
       {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 110
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 45
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 65
+        "from": "Nidorino",
+        "to": "Nidoking",
+        "method": "Moon Stone"
       }
     ],
-    "total": 450,
-    "heightM": 1,
-    "weightKg": 29.5,
-    "genus": "Mouse Pokémon",
-    "flavor": "It curls up in a ball to protect itself from enemy attacks. It also curls up to prevent heatstroke during the daytime when temperatures rise sharply.",
-    "evolution": [
-      "Sandshrew",
-      "Sandslash"
-    ]
-  },
-  "sandshrew": {
-    "slug": "sandshrew",
-    "dexNumber": 27,
-    "types": [
-      "Ground"
+    "eggGroups": [
+      "Monster",
+      "Field"
     ],
-    "abilities": [
-      "Sand Veil"
-    ],
-    "hiddenAbility": "Sand Rush",
-    "baseExp": 60,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 75
-      },
-      {
-        "label": "Defense",
-        "value": 85
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 20
-      },
-      {
-        "label": "Sp. Def",
-        "value": 30
-      },
-      {
-        "label": "Speed",
-        "value": 40
-      }
-    ],
-    "total": 300,
-    "heightM": 0.6,
-    "weightKg": 12,
-    "genus": "Mouse Pokémon",
-    "flavor": "When it curls up in a ball, it can make any attack bounce off harmlessly. Its hide has turned tough and solid as a result of living in the desert.",
-    "evolution": [
-      "Sandshrew",
-      "Sandslash"
-    ]
-  },
-  "raichu": {
-    "slug": "raichu",
-    "dexNumber": 26,
-    "types": [
-      "Electric"
-    ],
-    "abilities": [
-      "Static"
-    ],
-    "hiddenAbility": "Lightning Rod",
-    "baseExp": 218,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 90
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 90
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 110
-      }
-    ],
-    "total": 485,
-    "heightM": 0.8,
-    "weightKg": 30,
-    "genus": "Mouse Pokémon",
-    "flavor": "If it stores too much electricity, its behavior turns aggressive. To avoid this, it occasionally discharges excess energy and calms itself down.",
-    "evolution": [
-      "Pichu",
-      "Pikachu",
-      "Raichu"
-    ]
+    "genderRate": 0
   },
   "pikachu": {
     "slug": "pikachu",
@@ -1552,11 +1644,159 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Pichu",
       "Pikachu",
       "Raichu"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pichu",
+        "to": "Pikachu",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Pikachu",
+        "to": "Raichu",
+        "method": "Thunder Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Fairy"
+    ],
+    "genderRate": 4
   },
-  "nidoking": {
-    "slug": "nidoking",
-    "dexNumber": 34,
+  "nidoran-f": {
+    "slug": "nidoran-f",
+    "dexNumber": 29,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry"
+    ],
+    "hiddenAbility": "Hustle",
+    "baseExp": 55,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 47
+      },
+      {
+        "label": "Defense",
+        "value": 52
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 40
+      },
+      {
+        "label": "Speed",
+        "value": 41
+      }
+    ],
+    "total": 275,
+    "heightM": 0.4,
+    "weightKg": 7,
+    "genus": "Poison Pin Pokémon",
+    "flavor": "Its highly toxic barbs are thought to have developed as protection for this small- bodied POKéMON. When enraged, it releases a horrible toxin from its horn.",
+    "evolution": [
+      "Nidoran♀",
+      "Nidorina",
+      "Nidoqueen"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nidoran♀",
+        "to": "Nidorina",
+        "method": "Level 16"
+      },
+      {
+        "from": "Nidorina",
+        "to": "Nidoqueen",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 8
+  },
+  "nidorina": {
+    "slug": "nidorina",
+    "dexNumber": 30,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry"
+    ],
+    "hiddenAbility": "Hustle",
+    "baseExp": 128,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 62
+      },
+      {
+        "label": "Defense",
+        "value": 67
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 56
+      }
+    ],
+    "total": 365,
+    "heightM": 0.8,
+    "weightKg": 20,
+    "genus": "Poison Pin Pokémon",
+    "flavor": "When it is with its friends or family, its barbs are tucked away to prevent injury. It appears to become nervous if separated from the others.",
+    "evolution": [
+      "Nidoran♀",
+      "Nidorina",
+      "Nidoqueen"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nidoran♀",
+        "to": "Nidorina",
+        "method": "Level 16"
+      },
+      {
+        "from": "Nidorina",
+        "to": "Nidoqueen",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 8
+  },
+  "nidoqueen": {
+    "slug": "nidoqueen",
+    "dexNumber": 31,
     "types": [
       "Poison",
       "Ground"
@@ -1570,39 +1810,236 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "stats": [
       {
         "label": "HP",
-        "value": 81
+        "value": 90
       },
       {
         "label": "Attack",
-        "value": 102
+        "value": 92
       },
       {
         "label": "Defense",
-        "value": 77
+        "value": 87
       },
       {
         "label": "Sp. Atk",
-        "value": 85
-      },
-      {
-        "label": "Sp. Def",
         "value": 75
       },
       {
-        "label": "Speed",
+        "label": "Sp. Def",
         "value": 85
+      },
+      {
+        "label": "Speed",
+        "value": 76
       }
     ],
     "total": 505,
-    "heightM": 1.4,
-    "weightKg": 62,
+    "heightM": 1.3,
+    "weightKg": 60,
     "genus": "Drill Pokémon",
-    "flavor": "A NIDOKING’s thick tail packs enormously destructive power capable of toppling a metal transmission tower. Once it goes on a rampage, there is no stopping it.",
+    "flavor": "It is adept at sending foes flying with harsh tackles using its tough, scaly body. This POKéMON is at its strongest when it is defending its young.",
     "evolution": [
-      "Nidoran M",
-      "Nidorino",
-      "Nidoking"
-    ]
+      "Nidoran♀",
+      "Nidorina",
+      "Nidoqueen"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nidoran♀",
+        "to": "Nidorina",
+        "method": "Level 16"
+      },
+      {
+        "from": "Nidorina",
+        "to": "Nidoqueen",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 8
+  },
+  "sandslash": {
+    "slug": "sandslash",
+    "dexNumber": 28,
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil"
+    ],
+    "hiddenAbility": "Sand Rush",
+    "baseExp": 158,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 75
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 110
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 450,
+    "heightM": 1,
+    "weightKg": 29.5,
+    "genus": "Mouse Pokémon",
+    "flavor": "It curls up in a ball to protect itself from enemy attacks. It also curls up to prevent heatstroke during the daytime when temperatures rise sharply.",
+    "evolution": [
+      "Sandshrew",
+      "Sandslash"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Sandshrew",
+        "to": "Sandslash",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "sandshrew": {
+    "slug": "sandshrew",
+    "dexNumber": 27,
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil"
+    ],
+    "hiddenAbility": "Sand Rush",
+    "baseExp": 60,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 75
+      },
+      {
+        "label": "Defense",
+        "value": 85
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 20
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 300,
+    "heightM": 0.6,
+    "weightKg": 12,
+    "genus": "Mouse Pokémon",
+    "flavor": "When it curls up in a ball, it can make any attack bounce off harmlessly. Its hide has turned tough and solid as a result of living in the desert.",
+    "evolution": [
+      "Sandshrew",
+      "Sandslash"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Sandshrew",
+        "to": "Sandslash",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "raichu": {
+    "slug": "raichu",
+    "dexNumber": 26,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static"
+    ],
+    "hiddenAbility": "Lightning Rod",
+    "baseExp": 218,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 90
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 110
+      }
+    ],
+    "total": 485,
+    "heightM": 0.8,
+    "weightKg": 30,
+    "genus": "Mouse Pokémon",
+    "flavor": "If it stores too much electricity, its behavior turns aggressive. To avoid this, it occasionally discharges excess energy and calms itself down.",
+    "evolution": [
+      "Pichu",
+      "Pikachu",
+      "Raichu"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pichu",
+        "to": "Pikachu",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Pikachu",
+        "to": "Raichu",
+        "method": "Thunder Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Fairy"
+    ],
+    "genderRate": 4
   },
   "nidorino": {
     "slug": "nidorino",
@@ -1648,10 +2085,27 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Poison Pin Pokémon",
     "flavor": "Its horn is harder than a diamond. If it senses a hostile presence, all the barbs on its back bristle up at once, and it challenges the foe with all its might.",
     "evolution": [
-      "Nidoran M",
+      "Nidoran♂",
       "Nidorino",
       "Nidoking"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nidoran♂",
+        "to": "Nidorino",
+        "method": "Level 16"
+      },
+      {
+        "from": "Nidorino",
+        "to": "Nidoking",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 0
   },
   "wigglytuff": {
     "slug": "wigglytuff",
@@ -1701,54 +2155,90 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Igglybuff",
       "Jigglypuff",
       "Wigglytuff"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Igglybuff",
+        "to": "Jigglypuff",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Jigglypuff",
+        "to": "Wigglytuff",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 6
   },
-  "ninetales": {
-    "slug": "ninetales",
-    "dexNumber": 38,
+  "nidoking": {
+    "slug": "nidoking",
+    "dexNumber": 34,
     "types": [
-      "Fire"
+      "Poison",
+      "Ground"
     ],
     "abilities": [
-      "Flash Fire"
+      "Poison Point",
+      "Rivalry"
     ],
-    "hiddenAbility": "Drought",
-    "baseExp": 177,
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 227,
     "stats": [
       {
         "label": "HP",
-        "value": 73
-      },
-      {
-        "label": "Attack",
-        "value": 76
-      },
-      {
-        "label": "Defense",
-        "value": 75
-      },
-      {
-        "label": "Sp. Atk",
         "value": 81
       },
       {
+        "label": "Attack",
+        "value": 102
+      },
+      {
+        "label": "Defense",
+        "value": 77
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
         "label": "Sp. Def",
-        "value": 100
+        "value": 75
       },
       {
         "label": "Speed",
-        "value": 100
+        "value": 85
       }
     ],
     "total": 505,
-    "heightM": 1.1,
-    "weightKg": 19.9,
-    "genus": "Fox Pokémon",
-    "flavor": "It has long been said that each of the nine tails embody an enchanted power. A long-lived NINETALES will have fur that shines like gold.",
+    "heightM": 1.4,
+    "weightKg": 62,
+    "genus": "Drill Pokémon",
+    "flavor": "A NIDOKING’s thick tail packs enormously destructive power capable of toppling a metal transmission tower. Once it goes on a rampage, there is no stopping it.",
     "evolution": [
-      "Vulpix",
-      "Ninetales"
-    ]
+      "Nidoran♂",
+      "Nidorino",
+      "Nidoking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nidoran♂",
+        "to": "Nidorino",
+        "method": "Level 16"
+      },
+      {
+        "from": "Nidorino",
+        "to": "Nidoking",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 0
   },
   "vulpix": {
     "slug": "vulpix",
@@ -1795,7 +2285,206 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Vulpix",
       "Ninetales"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Vulpix",
+        "to": "Ninetales",
+        "method": "Fire Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 6
+  },
+  "ninetales": {
+    "slug": "ninetales",
+    "dexNumber": 38,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire"
+    ],
+    "hiddenAbility": "Drought",
+    "baseExp": 177,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 73
+      },
+      {
+        "label": "Attack",
+        "value": 76
+      },
+      {
+        "label": "Defense",
+        "value": 75
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 81
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
+        "value": 100
+      }
+    ],
+    "total": 505,
+    "heightM": 1.1,
+    "weightKg": 19.9,
+    "genus": "Fox Pokémon",
+    "flavor": "It has long been said that each of the nine tails embody an enchanted power. A long-lived NINETALES will have fur that shines like gold.",
+    "evolution": [
+      "Vulpix",
+      "Ninetales"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Vulpix",
+        "to": "Ninetales",
+        "method": "Fire Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 6
+  },
+  "clefable": {
+    "slug": "clefable",
+    "dexNumber": 36,
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Magic Guard"
+    ],
+    "hiddenAbility": "Unaware",
+    "baseExp": 217,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 95
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 73
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 95
+      },
+      {
+        "label": "Sp. Def",
+        "value": 90
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 483,
+    "heightM": 1.3,
+    "weightKg": 40,
+    "genus": "Fairy Pokémon",
+    "flavor": "A CLEFABLE uses its wings to skip lightly  as if it were flying. Its bouncy step lets it even walk on water. On quiet, moonlit nights, it strolls on lakes.",
+    "evolution": [
+      "Cleffa",
+      "Clefairy",
+      "Clefable"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cleffa",
+        "to": "Clefairy",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Clefairy",
+        "to": "Clefable",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 6
+  },
+  "clefairy": {
+    "slug": "clefairy",
+    "dexNumber": 35,
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Magic Guard"
+    ],
+    "hiddenAbility": "Friend Guard",
+    "baseExp": 113,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 48
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 323,
+    "heightM": 0.6,
+    "weightKg": 7.5,
+    "genus": "Fairy Pokémon",
+    "flavor": "On every night of a full moon, they come out to play. When dawn arrives, the tired CLEFAIRY go to sleep nestled up against each other in deep and quiet mountains.",
+    "evolution": [
+      "Cleffa",
+      "Clefairy",
+      "Clefable"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cleffa",
+        "to": "Clefairy",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Clefairy",
+        "to": "Clefable",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 6
   },
   "jigglypuff": {
     "slug": "jigglypuff",
@@ -1845,105 +2534,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Igglybuff",
       "Jigglypuff",
       "Wigglytuff"
-    ]
-  },
-  "clefairy": {
-    "slug": "clefairy",
-    "dexNumber": 35,
-    "types": [
-      "Fairy"
     ],
-    "abilities": [
-      "Cute Charm",
-      "Magic Guard"
-    ],
-    "hiddenAbility": "Friend Guard",
-    "baseExp": 113,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 70
+        "from": "Igglybuff",
+        "to": "Jigglypuff",
+        "method": "Level-up · friendship"
       },
       {
-        "label": "Attack",
-        "value": 45
-      },
-      {
-        "label": "Defense",
-        "value": 48
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 35
+        "from": "Jigglypuff",
+        "to": "Wigglytuff",
+        "method": "Moon Stone"
       }
     ],
-    "total": 323,
-    "heightM": 0.6,
-    "weightKg": 7.5,
-    "genus": "Fairy Pokémon",
-    "flavor": "On every night of a full moon, they come out to play. When dawn arrives, the tired CLEFAIRY go to sleep nestled up against each other in deep and quiet mountains.",
-    "evolution": [
-      "Cleffa",
-      "Clefairy",
-      "Clefable"
-    ]
-  },
-  "clefable": {
-    "slug": "clefable",
-    "dexNumber": 36,
-    "types": [
+    "eggGroups": [
       "Fairy"
     ],
-    "abilities": [
-      "Cute Charm",
-      "Magic Guard"
-    ],
-    "hiddenAbility": "Unaware",
-    "baseExp": 217,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 95
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 73
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 95
-      },
-      {
-        "label": "Sp. Def",
-        "value": 90
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 483,
-    "heightM": 1.3,
-    "weightKg": 40,
-    "genus": "Fairy Pokémon",
-    "flavor": "A CLEFABLE uses its wings to skip lightly  as if it were flying. Its bouncy step lets it even walk on water. On quiet, moonlit nights, it strolls on lakes.",
-    "evolution": [
-      "Cleffa",
-      "Clefairy",
-      "Clefable"
-    ]
+    "genderRate": 6
   },
   "venonat": {
     "slug": "venonat",
@@ -1992,252 +2599,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Venonat",
       "Venomoth"
-    ]
-  },
-  "gloom": {
-    "slug": "gloom",
-    "dexNumber": 44,
-    "types": [
-      "Grass",
-      "Poison"
     ],
-    "abilities": [
-      "Chlorophyll"
-    ],
-    "hiddenAbility": "Stench",
-    "baseExp": 138,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 85
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 40
+        "from": "Venonat",
+        "to": "Venomoth",
+        "method": "Level 31"
       }
     ],
-    "total": 395,
-    "heightM": 0.8,
-    "weightKg": 8.6,
-    "genus": "Weed Pokémon",
-    "flavor": "A horribly noxious honey drools from its mouth. One whiff of the honey can result in memory loss. Some fans are said to enjoy this overwhelming stink, however.",
-    "evolution": [
-      "Oddish",
-      "Gloom",
-      "Vileplume"
-    ]
-  },
-  "oddish": {
-    "slug": "oddish",
-    "dexNumber": 43,
-    "types": [
-      "Grass",
-      "Poison"
+    "eggGroups": [
+      "Bug"
     ],
-    "abilities": [
-      "Chlorophyll"
-    ],
-    "hiddenAbility": "Run Away",
-    "baseExp": 64,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 50
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 75
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 30
-      }
-    ],
-    "total": 320,
-    "heightM": 0.5,
-    "weightKg": 5.4,
-    "genus": "Weed Pokémon",
-    "flavor": "This POKéMON grows by absorbing moonlight. During the daytime, it buries itself in the ground, leaving only its leaves exposed to avoid detection by its enemies.",
-    "evolution": [
-      "Oddish",
-      "Gloom",
-      "Vileplume"
-    ]
-  },
-  "vileplume": {
-    "slug": "vileplume",
-    "dexNumber": 45,
-    "types": [
-      "Grass",
-      "Poison"
-    ],
-    "abilities": [
-      "Chlorophyll"
-    ],
-    "hiddenAbility": "Effect Spore",
-    "baseExp": 221,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 75
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 85
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 110
-      },
-      {
-        "label": "Sp. Def",
-        "value": 90
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 490,
-    "heightM": 1.2,
-    "weightKg": 18.6,
-    "genus": "Flower Pokémon",
-    "flavor": "In seasons when it produces more pollen, the air around a VILEPLUME turns yellow with the powder as it walks. The pollen is highly toxic and causes paralysis.",
-    "evolution": [
-      "Oddish",
-      "Gloom",
-      "Vileplume"
-    ]
-  },
-  "zubat": {
-    "slug": "zubat",
-    "dexNumber": 41,
-    "types": [
-      "Poison",
-      "Flying"
-    ],
-    "abilities": [
-      "Inner Focus"
-    ],
-    "hiddenAbility": "Infiltrator",
-    "baseExp": 49,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 40
-      },
-      {
-        "label": "Attack",
-        "value": 45
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 30
-      },
-      {
-        "label": "Sp. Def",
-        "value": 40
-      },
-      {
-        "label": "Speed",
-        "value": 55
-      }
-    ],
-    "total": 245,
-    "heightM": 0.8,
-    "weightKg": 7.5,
-    "genus": "Bat Pokémon",
-    "flavor": "While living in pitch-black caverns, their eyes gradually grew shut and deprived them of vision. They use ultrasonic waves to detect obstacles.",
-    "evolution": [
-      "Zubat",
-      "Golbat",
-      "Crobat"
-    ]
-  },
-  "golbat": {
-    "slug": "golbat",
-    "dexNumber": 42,
-    "types": [
-      "Poison",
-      "Flying"
-    ],
-    "abilities": [
-      "Inner Focus"
-    ],
-    "hiddenAbility": "Infiltrator",
-    "baseExp": 159,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 75
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 90
-      }
-    ],
-    "total": 455,
-    "heightM": 1.6,
-    "weightKg": 55,
-    "genus": "Bat Pokémon",
-    "flavor": "Its fangs easily puncture even thick animal hide. It loves to feast on the blood of people and POKéMON. It flits about in darkness and strikes from behind.",
-    "evolution": [
-      "Zubat",
-      "Golbat",
-      "Crobat"
-    ]
+    "genderRate": 4
   },
   "parasect": {
     "slug": "parasect",
@@ -2286,7 +2659,232 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Paras",
       "Parasect"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Paras",
+        "to": "Parasect",
+        "method": "Level 24"
+      }
+    ],
+    "eggGroups": [
+      "Bug",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "vileplume": {
+    "slug": "vileplume",
+    "dexNumber": 45,
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hiddenAbility": "Effect Spore",
+    "baseExp": 221,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 75
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 85
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 110
+      },
+      {
+        "label": "Sp. Def",
+        "value": 90
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 490,
+    "heightM": 1.2,
+    "weightKg": 18.6,
+    "genus": "Flower Pokémon",
+    "flavor": "In seasons when it produces more pollen, the air around a VILEPLUME turns yellow with the powder as it walks. The pollen is highly toxic and causes paralysis.",
+    "evolution": [
+      "Oddish",
+      "Gloom",
+      "Vileplume",
+      "Bellossom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Oddish",
+        "to": "Gloom",
+        "method": "Level 21"
+      },
+      {
+        "from": "Gloom",
+        "to": "Vileplume",
+        "method": "Leaf Stone"
+      },
+      {
+        "from": "Gloom",
+        "to": "Bellossom",
+        "method": "Sun Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "oddish": {
+    "slug": "oddish",
+    "dexNumber": 43,
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hiddenAbility": "Run Away",
+    "baseExp": 64,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 50
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 75
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 30
+      }
+    ],
+    "total": 320,
+    "heightM": 0.5,
+    "weightKg": 5.4,
+    "genus": "Weed Pokémon",
+    "flavor": "This POKéMON grows by absorbing moonlight. During the daytime, it buries itself in the ground, leaving only its leaves exposed to avoid detection by its enemies.",
+    "evolution": [
+      "Oddish",
+      "Gloom",
+      "Vileplume",
+      "Bellossom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Oddish",
+        "to": "Gloom",
+        "method": "Level 21"
+      },
+      {
+        "from": "Gloom",
+        "to": "Vileplume",
+        "method": "Leaf Stone"
+      },
+      {
+        "from": "Gloom",
+        "to": "Bellossom",
+        "method": "Sun Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "gloom": {
+    "slug": "gloom",
+    "dexNumber": 44,
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hiddenAbility": "Stench",
+    "baseExp": 138,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 395,
+    "heightM": 0.8,
+    "weightKg": 8.6,
+    "genus": "Weed Pokémon",
+    "flavor": "A horribly noxious honey drools from its mouth. One whiff of the honey can result in memory loss. Some fans are said to enjoy this overwhelming stink, however.",
+    "evolution": [
+      "Oddish",
+      "Gloom",
+      "Vileplume",
+      "Bellossom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Oddish",
+        "to": "Gloom",
+        "method": "Level 21"
+      },
+      {
+        "from": "Gloom",
+        "to": "Vileplume",
+        "method": "Leaf Stone"
+      },
+      {
+        "from": "Gloom",
+        "to": "Bellossom",
+        "method": "Sun Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "paras": {
     "slug": "paras",
@@ -2335,7 +2933,149 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Paras",
       "Parasect"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Paras",
+        "to": "Parasect",
+        "method": "Level 24"
+      }
+    ],
+    "eggGroups": [
+      "Bug",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "zubat": {
+    "slug": "zubat",
+    "dexNumber": 41,
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "abilities": [
+      "Inner Focus"
+    ],
+    "hiddenAbility": "Infiltrator",
+    "baseExp": 49,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 30
+      },
+      {
+        "label": "Sp. Def",
+        "value": 40
+      },
+      {
+        "label": "Speed",
+        "value": 55
+      }
+    ],
+    "total": 245,
+    "heightM": 0.8,
+    "weightKg": 7.5,
+    "genus": "Bat Pokémon",
+    "flavor": "While living in pitch-black caverns, their eyes gradually grew shut and deprived them of vision. They use ultrasonic waves to detect obstacles.",
+    "evolution": [
+      "Zubat",
+      "Golbat",
+      "Crobat"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Zubat",
+        "to": "Golbat",
+        "method": "Level 22"
+      },
+      {
+        "from": "Golbat",
+        "to": "Crobat",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
+  },
+  "golbat": {
+    "slug": "golbat",
+    "dexNumber": 42,
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "abilities": [
+      "Inner Focus"
+    ],
+    "hiddenAbility": "Infiltrator",
+    "baseExp": 159,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 75
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 455,
+    "heightM": 1.6,
+    "weightKg": 55,
+    "genus": "Bat Pokémon",
+    "flavor": "Its fangs easily puncture even thick animal hide. It loves to feast on the blood of people and POKéMON. It flits about in darkness and strikes from behind.",
+    "evolution": [
+      "Zubat",
+      "Golbat",
+      "Crobat"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Zubat",
+        "to": "Golbat",
+        "method": "Level 22"
+      },
+      {
+        "from": "Golbat",
+        "to": "Crobat",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "venomoth": {
     "slug": "venomoth",
@@ -2384,103 +3124,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Venonat",
       "Venomoth"
-    ]
-  },
-  "diglett": {
-    "slug": "diglett",
-    "dexNumber": 50,
-    "types": [
-      "Ground"
     ],
-    "abilities": [
-      "Sand Veil",
-      "Arena Trap"
-    ],
-    "hiddenAbility": "Sand Force",
-    "baseExp": 53,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 10
-      },
-      {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 25
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
-        "value": 95
+        "from": "Venonat",
+        "to": "Venomoth",
+        "method": "Level 31"
       }
     ],
-    "total": 265,
-    "heightM": 0.2,
-    "weightKg": 0.8,
-    "genus": "Mole Pokémon",
-    "flavor": "DIGLETT are raised in most farms. The reason is simple--wherever they burrow, the soil is left perfectly tilled for growing delicious crops.",
-    "evolution": [
-      "Diglett",
-      "Dugtrio"
-    ]
-  },
-  "dugtrio": {
-    "slug": "dugtrio",
-    "dexNumber": 51,
-    "types": [
-      "Ground"
+    "eggGroups": [
+      "Bug"
     ],
-    "abilities": [
-      "Sand Veil",
-      "Arena Trap"
-    ],
-    "hiddenAbility": "Sand Force",
-    "baseExp": 149,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 35
-      },
-      {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 120
-      }
-    ],
-    "total": 425,
-    "heightM": 0.7,
-    "weightKg": 33.3,
-    "genus": "Mole Pokémon",
-    "flavor": "Because the triplets originally split from one body, they think exactly alike. They work cooperatively to burrow endlessly through the ground.",
-    "evolution": [
-      "Diglett",
-      "Dugtrio"
-    ]
+    "genderRate": 4
   },
   "psyduck": {
     "slug": "psyduck",
@@ -2528,7 +3183,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Psyduck",
       "Golduck"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Psyduck",
+        "to": "Golduck",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "golduck": {
     "slug": "golduck",
@@ -2576,7 +3243,196 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Psyduck",
       "Golduck"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Psyduck",
+        "to": "Golduck",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "diglett": {
+    "slug": "diglett",
+    "dexNumber": 50,
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Arena Trap"
+    ],
+    "hiddenAbility": "Sand Force",
+    "baseExp": 53,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 10
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 25
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 45
+      },
+      {
+        "label": "Speed",
+        "value": 95
+      }
+    ],
+    "total": 265,
+    "heightM": 0.2,
+    "weightKg": 0.8,
+    "genus": "Mole Pokémon",
+    "flavor": "DIGLETT are raised in most farms. The reason is simple--wherever they burrow, the soil is left perfectly tilled for growing delicious crops.",
+    "evolution": [
+      "Diglett",
+      "Dugtrio"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Diglett",
+        "to": "Dugtrio",
+        "method": "Level 26"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "dugtrio": {
+    "slug": "dugtrio",
+    "dexNumber": 51,
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Arena Trap"
+    ],
+    "hiddenAbility": "Sand Force",
+    "baseExp": 149,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 35
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 120
+      }
+    ],
+    "total": 425,
+    "heightM": 0.7,
+    "weightKg": 33.3,
+    "genus": "Mole Pokémon",
+    "flavor": "Because the triplets originally split from one body, they think exactly alike. They work cooperatively to burrow endlessly through the ground.",
+    "evolution": [
+      "Diglett",
+      "Dugtrio"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Diglett",
+        "to": "Dugtrio",
+        "method": "Level 26"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "mankey": {
+    "slug": "mankey",
+    "dexNumber": 56,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Vital Spirit",
+      "Anger Point"
+    ],
+    "hiddenAbility": "Defiant",
+    "baseExp": 61,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 45
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 305,
+    "heightM": 0.5,
+    "weightKg": 28,
+    "genus": "Pig Monkey Pokémon",
+    "flavor": "When it starts shaking and its nasal breathing turns rough, it’s a sure sign of anger. However, since this happens instantly, there is no time to flee.",
+    "evolution": [
+      "Mankey",
+      "Primeape"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mankey",
+        "to": "Primeape",
+        "method": "Level 28"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "persian": {
     "slug": "persian",
@@ -2624,7 +3480,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Meowth",
       "Persian"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Meowth",
+        "to": "Persian",
+        "method": "Level 28"
+      },
+      {
+        "from": "Meowth",
+        "to": "Persian",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "meowth": {
     "slug": "meowth",
@@ -2672,154 +3544,141 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Meowth",
       "Persian"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Meowth",
+        "to": "Persian",
+        "method": "Level 28"
+      },
+      {
+        "from": "Meowth",
+        "to": "Persian",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "mankey": {
-    "slug": "mankey",
-    "dexNumber": 56,
+  "growlithe": {
+    "slug": "growlithe",
+    "dexNumber": 58,
     "types": [
-      "Fighting"
+      "Fire"
     ],
     "abilities": [
-      "Vital Spirit",
-      "Anger Point"
+      "Intimidate",
+      "Flash Fire"
     ],
-    "hiddenAbility": "Defiant",
-    "baseExp": 61,
+    "hiddenAbility": "Justified",
+    "baseExp": 70,
     "stats": [
       {
         "label": "HP",
-        "value": 40
+        "value": 55
       },
       {
         "label": "Attack",
-        "value": 80
+        "value": 70
       },
       {
         "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
         "value": 45
       },
       {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 305,
-    "heightM": 0.5,
-    "weightKg": 28,
-    "genus": "Pig Monkey Pokémon",
-    "flavor": "When it starts shaking and its nasal breathing turns rough, it’s a sure sign of anger. However, since this happens instantly, there is no time to flee.",
-    "evolution": [
-      "Mankey",
-      "Primeape",
-      "Annihilape"
-    ]
-  },
-  "primeape": {
-    "slug": "primeape",
-    "dexNumber": 57,
-    "types": [
-      "Fighting"
-    ],
-    "abilities": [
-      "Vital Spirit",
-      "Anger Point"
-    ],
-    "hiddenAbility": "Defiant",
-    "baseExp": 159,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 105
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 70
       },
       {
         "label": "Sp. Def",
-        "value": 70
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 350,
+    "heightM": 0.7,
+    "weightKg": 19,
+    "genus": "Puppy Pokémon",
+    "flavor": "Its superb sense of smell ensures that this POKéMON won’t forget any scent, no matter what. It uses its sense of smell to detect the emotions of others.",
+    "evolution": [
+      "Growlithe",
+      "Arcanine"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Growlithe",
+        "to": "Arcanine",
+        "method": "Fire Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 2
+  },
+  "arcanine": {
+    "slug": "arcanine",
+    "dexNumber": 59,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Flash Fire"
+    ],
+    "hiddenAbility": "Justified",
+    "baseExp": 194,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 110
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
       },
       {
         "label": "Speed",
         "value": 95
       }
     ],
-    "total": 455,
-    "heightM": 1,
-    "weightKg": 32,
-    "genus": "Pig Monkey Pokémon",
-    "flavor": "When it becomes furious, its blood circulation becomes more robust, and its muscles are made stronger. But it also becomes much less intelligent.",
+    "total": 555,
+    "heightM": 1.9,
+    "weightKg": 155,
+    "genus": "Legendary Pokémon",
+    "flavor": "This fleet-footed POKéMON is said to run over 6,200 miles in a single day and night. The fire that blazes wildly within its body is its source of power.",
     "evolution": [
-      "Mankey",
-      "Primeape",
-      "Annihilape"
-    ]
-  },
-  "poliwag": {
-    "slug": "poliwag",
-    "dexNumber": 60,
-    "types": [
-      "Water"
+      "Growlithe",
+      "Arcanine"
     ],
-    "abilities": [
-      "Water Absorb",
-      "Damp"
-    ],
-    "hiddenAbility": "Swift Swim",
-    "baseExp": 60,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 40
-      },
-      {
-        "label": "Attack",
-        "value": 50
-      },
-      {
-        "label": "Defense",
-        "value": 40
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 40
-      },
-      {
-        "label": "Speed",
-        "value": 90
+        "from": "Growlithe",
+        "to": "Arcanine",
+        "method": "Fire Stone"
       }
     ],
-    "total": 300,
-    "heightM": 0.6,
-    "weightKg": 12.4,
-    "genus": "Tadpole Pokémon",
-    "flavor": "It is possible to see this POKéMON’s spiral innards right through its thin skin. However, the skin is also very flexible. Even sharp fangs bounce right off it.",
-    "evolution": [
-      "Poliwag",
-      "Poliwhirl",
-      "Poliwrath"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 2
   },
   "poliwhirl": {
     "slug": "poliwhirl",
@@ -2867,8 +3726,30 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Poliwag",
       "Poliwhirl",
-      "Poliwrath"
-    ]
+      "Poliwrath",
+      "Politoed"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Poliwag",
+        "to": "Poliwhirl",
+        "method": "Level 25"
+      },
+      {
+        "from": "Poliwhirl",
+        "to": "Poliwrath",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Poliwhirl",
+        "to": "Politoed",
+        "method": "Trade + Kings Rock"
+      }
+    ],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "poliwrath": {
     "slug": "poliwrath",
@@ -2917,37 +3798,59 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Poliwag",
       "Poliwhirl",
-      "Poliwrath"
-    ]
+      "Poliwrath",
+      "Politoed"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Poliwag",
+        "to": "Poliwhirl",
+        "method": "Level 25"
+      },
+      {
+        "from": "Poliwhirl",
+        "to": "Poliwrath",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Poliwhirl",
+        "to": "Politoed",
+        "method": "Trade + Kings Rock"
+      }
+    ],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
-  "kadabra": {
-    "slug": "kadabra",
-    "dexNumber": 64,
+  "primeape": {
+    "slug": "primeape",
+    "dexNumber": 57,
     "types": [
-      "Psychic"
+      "Fighting"
     ],
     "abilities": [
-      "Synchronize",
-      "Inner Focus"
+      "Vital Spirit",
+      "Anger Point"
     ],
-    "hiddenAbility": "Magic Guard",
-    "baseExp": 140,
+    "hiddenAbility": "Defiant",
+    "baseExp": 159,
     "stats": [
       {
         "label": "HP",
-        "value": 40
+        "value": 65
       },
       {
         "label": "Attack",
-        "value": 35
+        "value": 105
       },
       {
         "label": "Defense",
-        "value": 30
+        "value": 60
       },
       {
         "label": "Sp. Atk",
-        "value": 120
+        "value": 60
       },
       {
         "label": "Sp. Def",
@@ -2955,19 +3858,100 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 105
+        "value": 95
       }
     ],
-    "total": 400,
-    "heightM": 1.3,
-    "weightKg": 56.5,
-    "genus": "Psi Pokémon",
-    "flavor": "It is rumored that a boy with psychic abilities suddenly transformed into KADABRA while he was assisting research into extrasensory powers.",
+    "total": 455,
+    "heightM": 1,
+    "weightKg": 32,
+    "genus": "Pig Monkey Pokémon",
+    "flavor": "When it becomes furious, its blood circulation becomes more robust, and its muscles are made stronger. But it also becomes much less intelligent.",
     "evolution": [
-      "Abra",
-      "Kadabra",
-      "Alakazam"
-    ]
+      "Mankey",
+      "Primeape"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mankey",
+        "to": "Primeape",
+        "method": "Level 28"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "poliwag": {
+    "slug": "poliwag",
+    "dexNumber": 60,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Damp"
+    ],
+    "hiddenAbility": "Swift Swim",
+    "baseExp": 60,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 50
+      },
+      {
+        "label": "Defense",
+        "value": 40
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 40
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 300,
+    "heightM": 0.6,
+    "weightKg": 12.4,
+    "genus": "Tadpole Pokémon",
+    "flavor": "It is possible to see this POKéMON’s spiral innards right through its thin skin. However, the skin is also very flexible. Even sharp fangs bounce right off it.",
+    "evolution": [
+      "Poliwag",
+      "Poliwhirl",
+      "Poliwrath",
+      "Politoed"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Poliwag",
+        "to": "Poliwhirl",
+        "method": "Level 25"
+      },
+      {
+        "from": "Poliwhirl",
+        "to": "Poliwrath",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Poliwhirl",
+        "to": "Politoed",
+        "method": "Trade + Kings Rock"
+      }
+    ],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "abra": {
     "slug": "abra",
@@ -3016,107 +4000,27 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Abra",
       "Kadabra",
       "Alakazam"
-    ]
-  },
-  "arcanine": {
-    "slug": "arcanine",
-    "dexNumber": 59,
-    "types": [
-      "Fire"
     ],
-    "abilities": [
-      "Intimidate",
-      "Flash Fire"
-    ],
-    "hiddenAbility": "Justified",
-    "baseExp": 194,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 90
+        "from": "Abra",
+        "to": "Kadabra",
+        "method": "Level 16"
       },
       {
-        "label": "Attack",
-        "value": 110
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 95
+        "from": "Kadabra",
+        "to": "Alakazam",
+        "method": "Trade"
       }
     ],
-    "total": 555,
-    "heightM": 1.9,
-    "weightKg": 155,
-    "genus": "Legendary Pokémon",
-    "flavor": "This fleet-footed POKéMON is said to run over 6,200 miles in a single day and night. The fire that blazes wildly within its body is its source of power.",
-    "evolution": [
-      "Growlithe",
-      "Arcanine"
-    ]
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
   },
-  "growlithe": {
-    "slug": "growlithe",
-    "dexNumber": 58,
-    "types": [
-      "Fire"
-    ],
-    "abilities": [
-      "Intimidate",
-      "Flash Fire"
-    ],
-    "hiddenAbility": "Justified",
-    "baseExp": 70,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 45
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 350,
-    "heightM": 0.7,
-    "weightKg": 19,
-    "genus": "Puppy Pokémon",
-    "flavor": "Its superb sense of smell ensures that this POKéMON won’t forget any scent, no matter what. It uses its sense of smell to detect the emotions of others.",
-    "evolution": [
-      "Growlithe",
-      "Arcanine"
-    ]
-  },
-  "alakazam": {
-    "slug": "alakazam",
-    "dexNumber": 65,
+  "kadabra": {
+    "slug": "kadabra",
+    "dexNumber": 64,
     "types": [
       "Psychic"
     ],
@@ -3125,141 +4029,59 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Inner Focus"
     ],
     "hiddenAbility": "Magic Guard",
-    "baseExp": 225,
+    "baseExp": 140,
     "stats": [
       {
         "label": "HP",
-        "value": 55
+        "value": 40
       },
       {
         "label": "Attack",
-        "value": 50
+        "value": 35
       },
       {
         "label": "Defense",
-        "value": 45
+        "value": 30
       },
       {
         "label": "Sp. Atk",
-        "value": 135
+        "value": 120
       },
       {
         "label": "Sp. Def",
-        "value": 95
+        "value": 70
       },
       {
         "label": "Speed",
-        "value": 120
+        "value": 105
       }
     ],
-    "total": 500,
-    "heightM": 1.5,
-    "weightKg": 48,
+    "total": 400,
+    "heightM": 1.3,
+    "weightKg": 56.5,
     "genus": "Psi Pokémon",
-    "flavor": "While it has strong psychic abilities and high intelligence, an ALAKAZAM’s muscles are very weak. It uses psychic power to move its body.",
+    "flavor": "It is rumored that a boy with psychic abilities suddenly transformed into KADABRA while he was assisting research into extrasensory powers.",
     "evolution": [
       "Abra",
       "Kadabra",
       "Alakazam"
-    ]
-  },
-  "machop": {
-    "slug": "machop",
-    "dexNumber": 66,
-    "types": [
-      "Fighting"
     ],
-    "abilities": [
-      "Guts",
-      "No Guard"
-    ],
-    "hiddenAbility": "Steadfast",
-    "baseExp": 61,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 70
+        "from": "Abra",
+        "to": "Kadabra",
+        "method": "Level 16"
       },
       {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 35
+        "from": "Kadabra",
+        "to": "Alakazam",
+        "method": "Trade"
       }
     ],
-    "total": 305,
-    "heightM": 0.8,
-    "weightKg": 19.5,
-    "genus": "Superpower Pokémon",
-    "flavor": "It continually undertakes strenuous training to master all forms of martial arts. Its strength lets it easily hoist a sumo wrestler onto its shoulders.",
-    "evolution": [
-      "Machop",
-      "Machoke",
-      "Machamp"
-    ]
-  },
-  "machamp": {
-    "slug": "machamp",
-    "dexNumber": 68,
-    "types": [
-      "Fighting"
+    "eggGroups": [
+      "Human-Like"
     ],
-    "abilities": [
-      "Guts",
-      "No Guard"
-    ],
-    "hiddenAbility": "Steadfast",
-    "baseExp": 227,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 90
-      },
-      {
-        "label": "Attack",
-        "value": 130
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 85
-      },
-      {
-        "label": "Speed",
-        "value": 55
-      }
-    ],
-    "total": 505,
-    "heightM": 1.6,
-    "weightKg": 130,
-    "genus": "Superpower Pokémon",
-    "flavor": "It is impossible to defend against punches and chops doled out by its four arms. Its fighting spirit flares up when it faces a tough opponent.",
-    "evolution": [
-      "Machop",
-      "Machoke",
-      "Machamp"
-    ]
+    "genderRate": 2
   },
   "tentacool": {
     "slug": "tentacool",
@@ -3308,56 +4130,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Tentacool",
       "Tentacruel"
-    ]
-  },
-  "machoke": {
-    "slug": "machoke",
-    "dexNumber": 67,
-    "types": [
-      "Fighting"
     ],
-    "abilities": [
-      "Guts",
-      "No Guard"
-    ],
-    "hiddenAbility": "Steadfast",
-    "baseExp": 142,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 45
+        "from": "Tentacool",
+        "to": "Tentacruel",
+        "method": "Level 30"
       }
     ],
-    "total": 405,
-    "heightM": 1.5,
-    "weightKg": 70.5,
-    "genus": "Superpower Pokémon",
-    "flavor": "A belt is worn by a MACHOKE to keep its overwhelming power under control. Because it is so dangerous, no one has ever removed the belt.",
-    "evolution": [
-      "Machop",
-      "Machoke",
-      "Machamp"
-    ]
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 4
   },
   "weepinbell": {
     "slug": "weepinbell",
@@ -3406,56 +4190,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Bellsprout",
       "Weepinbell",
       "Victreebel"
-    ]
-  },
-  "bellsprout": {
-    "slug": "bellsprout",
-    "dexNumber": 69,
-    "types": [
-      "Grass",
-      "Poison"
     ],
-    "abilities": [
-      "Chlorophyll"
-    ],
-    "hiddenAbility": "Gluttony",
-    "baseExp": 60,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 50
+        "from": "Bellsprout",
+        "to": "Weepinbell",
+        "method": "Level 21"
       },
       {
-        "label": "Attack",
-        "value": 75
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 30
-      },
-      {
-        "label": "Speed",
-        "value": 40
+        "from": "Weepinbell",
+        "to": "Victreebel",
+        "method": "Leaf Stone"
       }
     ],
-    "total": 300,
-    "heightM": 0.7,
-    "weightKg": 4,
-    "genus": "Flower Pokémon",
-    "flavor": "A BELLSPROUT’s thin and flexible body lets it bend and sway to avoid any attack, however strong it may be. From its mouth, it leaks a fluid that melts even iron.",
-    "evolution": [
-      "Bellsprout",
-      "Weepinbell",
-      "Victreebel"
-    ]
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "victreebel": {
     "slug": "victreebel",
@@ -3504,7 +4255,348 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Bellsprout",
       "Weepinbell",
       "Victreebel"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bellsprout",
+        "to": "Weepinbell",
+        "method": "Level 21"
+      },
+      {
+        "from": "Weepinbell",
+        "to": "Victreebel",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "bellsprout": {
+    "slug": "bellsprout",
+    "dexNumber": 69,
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hiddenAbility": "Gluttony",
+    "baseExp": 60,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 75
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 300,
+    "heightM": 0.7,
+    "weightKg": 4,
+    "genus": "Flower Pokémon",
+    "flavor": "A BELLSPROUT’s thin and flexible body lets it bend and sway to avoid any attack, however strong it may be. From its mouth, it leaks a fluid that melts even iron.",
+    "evolution": [
+      "Bellsprout",
+      "Weepinbell",
+      "Victreebel"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bellsprout",
+        "to": "Weepinbell",
+        "method": "Level 21"
+      },
+      {
+        "from": "Weepinbell",
+        "to": "Victreebel",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "alakazam": {
+    "slug": "alakazam",
+    "dexNumber": 65,
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Inner Focus"
+    ],
+    "hiddenAbility": "Magic Guard",
+    "baseExp": 225,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 50
+      },
+      {
+        "label": "Defense",
+        "value": 45
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 135
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 120
+      }
+    ],
+    "total": 500,
+    "heightM": 1.5,
+    "weightKg": 48,
+    "genus": "Psi Pokémon",
+    "flavor": "While it has strong psychic abilities and high intelligence, an ALAKAZAM’s muscles are very weak. It uses psychic power to move its body.",
+    "evolution": [
+      "Abra",
+      "Kadabra",
+      "Alakazam"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Abra",
+        "to": "Kadabra",
+        "method": "Level 16"
+      },
+      {
+        "from": "Kadabra",
+        "to": "Alakazam",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
+  },
+  "machoke": {
+    "slug": "machoke",
+    "dexNumber": 67,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "No Guard"
+    ],
+    "hiddenAbility": "Steadfast",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 405,
+    "heightM": 1.5,
+    "weightKg": 70.5,
+    "genus": "Superpower Pokémon",
+    "flavor": "A belt is worn by a MACHOKE to keep its overwhelming power under control. Because it is so dangerous, no one has ever removed the belt.",
+    "evolution": [
+      "Machop",
+      "Machoke",
+      "Machamp"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Machop",
+        "to": "Machoke",
+        "method": "Level 28"
+      },
+      {
+        "from": "Machoke",
+        "to": "Machamp",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
+  },
+  "machamp": {
+    "slug": "machamp",
+    "dexNumber": 68,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "No Guard"
+    ],
+    "hiddenAbility": "Steadfast",
+    "baseExp": 227,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 130
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 85
+      },
+      {
+        "label": "Speed",
+        "value": 55
+      }
+    ],
+    "total": 505,
+    "heightM": 1.6,
+    "weightKg": 130,
+    "genus": "Superpower Pokémon",
+    "flavor": "It is impossible to defend against punches and chops doled out by its four arms. Its fighting spirit flares up when it faces a tough opponent.",
+    "evolution": [
+      "Machop",
+      "Machoke",
+      "Machamp"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Machop",
+        "to": "Machoke",
+        "method": "Level 28"
+      },
+      {
+        "from": "Machoke",
+        "to": "Machamp",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
+  },
+  "machop": {
+    "slug": "machop",
+    "dexNumber": 66,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "No Guard"
+    ],
+    "hiddenAbility": "Steadfast",
+    "baseExp": 61,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 305,
+    "heightM": 0.8,
+    "weightKg": 19.5,
+    "genus": "Superpower Pokémon",
+    "flavor": "It continually undertakes strenuous training to master all forms of martial arts. Its strength lets it easily hoist a sumo wrestler onto its shoulders.",
+    "evolution": [
+      "Machop",
+      "Machoke",
+      "Machamp"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Machop",
+        "to": "Machoke",
+        "method": "Level 28"
+      },
+      {
+        "from": "Machoke",
+        "to": "Machamp",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
   },
   "tentacruel": {
     "slug": "tentacruel",
@@ -3553,155 +4645,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Tentacool",
       "Tentacruel"
-    ]
-  },
-  "slowpoke": {
-    "slug": "slowpoke",
-    "dexNumber": 79,
-    "types": [
-      "Water",
-      "Psychic"
     ],
-    "abilities": [
-      "Oblivious",
-      "Own Tempo"
-    ],
-    "hiddenAbility": "Regenerator",
-    "baseExp": 63,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 90
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 40
-      },
-      {
-        "label": "Speed",
-        "value": 15
+        "from": "Tentacool",
+        "to": "Tentacruel",
+        "method": "Level 30"
       }
     ],
-    "total": 315,
-    "heightM": 1.2,
-    "weightKg": 36,
-    "genus": "Dopey Pokémon",
-    "flavor": "It catches prey by dipping its tail in water at the side of a river. But it often forgets what it is doing and spends entire days just loafing at water’s edge.",
-    "evolution": [
-      "Slowpoke",
-      "Slowbro"
-    ]
-  },
-  "slowbro": {
-    "slug": "slowbro",
-    "dexNumber": 80,
-    "types": [
-      "Water",
-      "Psychic"
+    "eggGroups": [
+      "Water 3"
     ],
-    "abilities": [
-      "Oblivious",
-      "Own Tempo"
-    ],
-    "hiddenAbility": "Regenerator",
-    "baseExp": 172,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 95
-      },
-      {
-        "label": "Attack",
-        "value": 75
-      },
-      {
-        "label": "Defense",
-        "value": 110
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 30
-      }
-    ],
-    "total": 490,
-    "heightM": 1.6,
-    "weightKg": 78.5,
-    "genus": "Hermit Crab Pokémon",
-    "flavor": "Its tail has a SHELLDER firmly attached with a bite. As a result, the tail can’t be used for fishing anymore. This forces it to reluctantly swim and catch prey.",
-    "evolution": [
-      "Slowpoke",
-      "Slowbro"
-    ]
-  },
-  "golem": {
-    "slug": "golem",
-    "dexNumber": 76,
-    "types": [
-      "Rock",
-      "Ground"
-    ],
-    "abilities": [
-      "Rock Head",
-      "Sturdy"
-    ],
-    "hiddenAbility": "Sand Veil",
-    "baseExp": 223,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 120
-      },
-      {
-        "label": "Defense",
-        "value": 130
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 55
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 45
-      }
-    ],
-    "total": 495,
-    "heightM": 1.4,
-    "weightKg": 300,
-    "genus": "Megaton Pokémon",
-    "flavor": "It is said to live in volcanic craters on mountain peaks. Once a year, it sheds its hide and grows larger. The shed hide crumbles and returns to the soil.",
-    "evolution": [
-      "Geodude",
-      "Graveler",
-      "Golem"
-    ]
+    "genderRate": 4
   },
   "graveler": {
     "slug": "graveler",
@@ -3751,7 +4706,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Geodude",
       "Graveler",
       "Golem"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Geodude",
+        "to": "Graveler",
+        "method": "Level 25"
+      },
+      {
+        "from": "Graveler",
+        "to": "Golem",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": 4
   },
   "geodude": {
     "slug": "geodude",
@@ -3801,7 +4772,89 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Geodude",
       "Graveler",
       "Golem"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Geodude",
+        "to": "Graveler",
+        "method": "Level 25"
+      },
+      {
+        "from": "Graveler",
+        "to": "Golem",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": 4
+  },
+  "golem": {
+    "slug": "golem",
+    "dexNumber": 76,
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sturdy"
+    ],
+    "hiddenAbility": "Sand Veil",
+    "baseExp": 223,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 120
+      },
+      {
+        "label": "Defense",
+        "value": 130
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 495,
+    "heightM": 1.4,
+    "weightKg": 300,
+    "genus": "Megaton Pokémon",
+    "flavor": "It is said to live in volcanic craters on mountain peaks. Once a year, it sheds its hide and grows larger. The shed hide crumbles and returns to the soil.",
+    "evolution": [
+      "Geodude",
+      "Graveler",
+      "Golem"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Geodude",
+        "to": "Graveler",
+        "method": "Level 25"
+      },
+      {
+        "from": "Graveler",
+        "to": "Golem",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": 4
   },
   "rapidash": {
     "slug": "rapidash",
@@ -3849,7 +4902,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Ponyta",
       "Rapidash"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ponyta",
+        "to": "Rapidash",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "ponyta": {
     "slug": "ponyta",
@@ -3897,181 +4961,44 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Ponyta",
       "Rapidash"
-    ]
-  },
-  "magneton": {
-    "slug": "magneton",
-    "dexNumber": 82,
-    "types": [
-      "Electric",
-      "Steel"
     ],
-    "abilities": [
-      "Magnet Pull",
-      "Sturdy"
-    ],
-    "hiddenAbility": "Analytic",
-    "baseExp": 163,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 60
-      },
-      {
-        "label": "Defense",
-        "value": 95
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 120
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 70
+        "from": "Ponyta",
+        "to": "Rapidash",
+        "method": "Level 40"
       }
     ],
-    "total": 465,
-    "heightM": 1,
-    "weightKg": 60,
-    "genus": "Magnet Pokémon",
-    "flavor": "It is actually three MAGNEMITE linked by magnetism. It generates powerful radio waves that raise temperatures by 3.6 degrees F within a 3,300-foot radius.",
-    "evolution": [
-      "Magnemite",
-      "Magneton",
-      "Magnezone"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "magnemite": {
-    "slug": "magnemite",
-    "dexNumber": 81,
+  "slowpoke": {
+    "slug": "slowpoke",
+    "dexNumber": 79,
     "types": [
-      "Electric",
-      "Steel"
+      "Water",
+      "Psychic"
     ],
     "abilities": [
-      "Magnet Pull",
-      "Sturdy"
+      "Oblivious",
+      "Own Tempo"
     ],
-    "hiddenAbility": "Analytic",
-    "baseExp": 65,
+    "hiddenAbility": "Regenerator",
+    "baseExp": 63,
     "stats": [
       {
         "label": "HP",
-        "value": 25
-      },
-      {
-        "label": "Attack",
-        "value": 35
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 95
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 45
-      }
-    ],
-    "total": 325,
-    "heightM": 0.3,
-    "weightKg": 6,
-    "genus": "Magnet Pokémon",
-    "flavor": "The units at its sides are extremely powerful magnets. They generate enough magnetism to draw in iron objects from over 300 feet away.",
-    "evolution": [
-      "Magnemite",
-      "Magneton",
-      "Magnezone"
-    ]
-  },
-  "farfetchd": {
-    "slug": "farfetchd",
-    "dexNumber": 83,
-    "types": [
-      "Normal",
-      "Flying"
-    ],
-    "abilities": [
-      "Keen Eye",
-      "Inner Focus"
-    ],
-    "hiddenAbility": "Defiant",
-    "baseExp": 132,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 52
-      },
-      {
-        "label": "Attack",
         "value": 90
       },
       {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 58
-      },
-      {
-        "label": "Sp. Def",
-        "value": 62
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 377,
-    "heightM": 0.8,
-    "weightKg": 15,
-    "genus": "Wild Duck Pokémon",
-    "flavor": "It is always seen with a stick from a plant. Apparently, there are good sticks and bad sticks. This POKéMON occasionally fights with others over choice sticks.",
-    "evolution": [
-      "Farfetchd",
-      "Sirfetchd"
-    ]
-  },
-  "grimer": {
-    "slug": "grimer",
-    "dexNumber": 88,
-    "types": [
-      "Poison"
-    ],
-    "abilities": [
-      "Stench",
-      "Sticky Hold"
-    ],
-    "hiddenAbility": "Poison Touch",
-    "baseExp": 65,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
         "label": "Attack",
-        "value": 80
+        "value": 65
       },
       {
         "label": "Defense",
-        "value": 50
+        "value": 65
       },
       {
         "label": "Sp. Atk",
@@ -4079,168 +5006,107 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Def",
-        "value": 50
+        "value": 40
       },
       {
         "label": "Speed",
-        "value": 25
+        "value": 15
       }
     ],
-    "total": 325,
-    "heightM": 0.9,
-    "weightKg": 30,
-    "genus": "Sludge Pokémon",
-    "flavor": "Born from polluted sludge in the sea, GRIMER’s favorite food is anything filthy. They feed on wastewater pumped out from factories.",
+    "total": 315,
+    "heightM": 1.2,
+    "weightKg": 36,
+    "genus": "Dopey Pokémon",
+    "flavor": "It catches prey by dipping its tail in water at the side of a river. But it often forgets what it is doing and spends entire days just loafing at water’s edge.",
     "evolution": [
-      "Grimer",
-      "Muk"
-    ]
-  },
-  "seel": {
-    "slug": "seel",
-    "dexNumber": 86,
-    "types": [
-      "Water"
+      "Slowpoke",
+      "Slowbro",
+      "Slowking"
     ],
-    "abilities": [
-      "Thick Fat",
-      "Hydration"
-    ],
-    "hiddenAbility": "Ice Body",
-    "baseExp": 65,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 65
+        "from": "Slowpoke",
+        "to": "Slowbro",
+        "method": "Level 37"
       },
       {
-        "label": "Attack",
-        "value": 45
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 45
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 45
+        "from": "Slowpoke",
+        "to": "Slowking",
+        "method": "Trade + Kings Rock"
       }
     ],
-    "total": 325,
-    "heightM": 1.1,
-    "weightKg": 90,
-    "genus": "Sea Lion Pokémon",
-    "flavor": "SEEL hunt for prey in frigid, ice-covered seas. When it needs to breathe, it punches a hole through the ice with the sharply protruding section of its head.",
-    "evolution": [
-      "Seel",
-      "Dewgong"
-    ]
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 4
   },
-  "dewgong": {
-    "slug": "dewgong",
-    "dexNumber": 87,
+  "slowbro": {
+    "slug": "slowbro",
+    "dexNumber": 80,
     "types": [
       "Water",
-      "Ice"
+      "Psychic"
     ],
     "abilities": [
-      "Thick Fat",
-      "Hydration"
+      "Oblivious",
+      "Own Tempo"
     ],
-    "hiddenAbility": "Ice Body",
-    "baseExp": 166,
+    "hiddenAbility": "Regenerator",
+    "baseExp": 172,
     "stats": [
       {
         "label": "HP",
-        "value": 90
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
         "value": 95
       },
       {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 475,
-    "heightM": 1.7,
-    "weightKg": 120,
-    "genus": "Sea Lion Pokémon",
-    "flavor": "It loves to snooze on bitterly cold ice. The sight of this POKéMON sleeping on a glacier was mistakenly thought to be a mermaid by a mariner long ago.",
-    "evolution": [
-      "Seel",
-      "Dewgong"
-    ]
-  },
-  "dodrio": {
-    "slug": "dodrio",
-    "dexNumber": 85,
-    "types": [
-      "Normal",
-      "Flying"
-    ],
-    "abilities": [
-      "Run Away",
-      "Early Bird"
-    ],
-    "hiddenAbility": "Tangled Feet",
-    "baseExp": 165,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
         "label": "Attack",
-        "value": 110
+        "value": 75
       },
       {
         "label": "Defense",
-        "value": 70
+        "value": 110
       },
       {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 100
       },
       {
         "label": "Sp. Def",
-        "value": 60
+        "value": 80
       },
       {
         "label": "Speed",
-        "value": 110
+        "value": 30
       }
     ],
-    "total": 470,
-    "heightM": 1.8,
-    "weightKg": 85.2,
-    "genus": "Triple Bird Pokémon",
-    "flavor": "A peculiar POKéMON species with three heads. It vigorously races across grassy plains even in arid seasons with little rainfall.",
+    "total": 490,
+    "heightM": 1.6,
+    "weightKg": 78.5,
+    "genus": "Hermit Crab Pokémon",
+    "flavor": "Its tail has a SHELLDER firmly attached with a bite. As a result, the tail can’t be used for fishing anymore. This forces it to reluctantly swim and catch prey.",
     "evolution": [
-      "Doduo",
-      "Dodrio"
-    ]
+      "Slowpoke",
+      "Slowbro",
+      "Slowking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Slowpoke",
+        "to": "Slowbro",
+        "method": "Level 37"
+      },
+      {
+        "from": "Slowpoke",
+        "to": "Slowking",
+        "method": "Trade + Kings Rock"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "doduo": {
     "slug": "doduo",
@@ -4289,11 +5155,377 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Doduo",
       "Dodrio"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Doduo",
+        "to": "Dodrio",
+        "method": "Level 31"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
-  "muk": {
-    "slug": "muk",
-    "dexNumber": 89,
+  "dodrio": {
+    "slug": "dodrio",
+    "dexNumber": 85,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Run Away",
+      "Early Bird"
+    ],
+    "hiddenAbility": "Tangled Feet",
+    "baseExp": 165,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 110
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 110
+      }
+    ],
+    "total": 470,
+    "heightM": 1.8,
+    "weightKg": 85.2,
+    "genus": "Triple Bird Pokémon",
+    "flavor": "A peculiar POKéMON species with three heads. It vigorously races across grassy plains even in arid seasons with little rainfall.",
+    "evolution": [
+      "Doduo",
+      "Dodrio"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Doduo",
+        "to": "Dodrio",
+        "method": "Level 31"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
+  },
+  "magnemite": {
+    "slug": "magnemite",
+    "dexNumber": 81,
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "abilities": [
+      "Magnet Pull",
+      "Sturdy"
+    ],
+    "hiddenAbility": "Analytic",
+    "baseExp": 65,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 25
+      },
+      {
+        "label": "Attack",
+        "value": 35
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 95
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 325,
+    "heightM": 0.3,
+    "weightKg": 6,
+    "genus": "Magnet Pokémon",
+    "flavor": "The units at its sides are extremely powerful magnets. They generate enough magnetism to draw in iron objects from over 300 feet away.",
+    "evolution": [
+      "Magnemite",
+      "Magneton"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Magnemite",
+        "to": "Magneton",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "seel": {
+    "slug": "seel",
+    "dexNumber": 86,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Hydration"
+    ],
+    "hiddenAbility": "Ice Body",
+    "baseExp": 65,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 325,
+    "heightM": 1.1,
+    "weightKg": 90,
+    "genus": "Sea Lion Pokémon",
+    "flavor": "SEEL hunt for prey in frigid, ice-covered seas. When it needs to breathe, it punches a hole through the ice with the sharply protruding section of its head.",
+    "evolution": [
+      "Seel",
+      "Dewgong"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Seel",
+        "to": "Dewgong",
+        "method": "Level 34"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "dewgong": {
+    "slug": "dewgong",
+    "dexNumber": 87,
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Hydration"
+    ],
+    "hiddenAbility": "Ice Body",
+    "baseExp": 166,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 475,
+    "heightM": 1.7,
+    "weightKg": 120,
+    "genus": "Sea Lion Pokémon",
+    "flavor": "It loves to snooze on bitterly cold ice. The sight of this POKéMON sleeping on a glacier was mistakenly thought to be a mermaid by a mariner long ago.",
+    "evolution": [
+      "Seel",
+      "Dewgong"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Seel",
+        "to": "Dewgong",
+        "method": "Level 34"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "magneton": {
+    "slug": "magneton",
+    "dexNumber": 82,
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "abilities": [
+      "Magnet Pull",
+      "Sturdy"
+    ],
+    "hiddenAbility": "Analytic",
+    "baseExp": 163,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 95
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 120
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 465,
+    "heightM": 1,
+    "weightKg": 60,
+    "genus": "Magnet Pokémon",
+    "flavor": "It is actually three MAGNEMITE linked by magnetism. It generates powerful radio waves that raise temperatures by 3.6 degrees F within a 3,300-foot radius.",
+    "evolution": [
+      "Magnemite",
+      "Magneton"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Magnemite",
+        "to": "Magneton",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "farfetchd": {
+    "slug": "farfetchd",
+    "dexNumber": 83,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Inner Focus"
+    ],
+    "hiddenAbility": "Defiant",
+    "baseExp": 132,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 52
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 58
+      },
+      {
+        "label": "Sp. Def",
+        "value": 62
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 377,
+    "heightM": 0.8,
+    "weightKg": 15,
+    "genus": "Wild Duck Pokémon",
+    "flavor": "It is always seen with a stick from a plant. Apparently, there are good sticks and bad sticks. This POKéMON occasionally fights with others over choice sticks.",
+    "evolution": [
+      "Farfetch'd"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Flying",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "grimer": {
+    "slug": "grimer",
+    "dexNumber": 88,
     "types": [
       "Poison"
     ],
@@ -4302,139 +5534,53 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Sticky Hold"
     ],
     "hiddenAbility": "Poison Touch",
-    "baseExp": 175,
+    "baseExp": 65,
     "stats": [
       {
         "label": "HP",
-        "value": 105
+        "value": 80
       },
       {
         "label": "Attack",
-        "value": 105
+        "value": 80
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 50
       },
       {
         "label": "Sp. Atk",
-        "value": 65
+        "value": 40
       },
       {
         "label": "Sp. Def",
-        "value": 100
+        "value": 50
       },
       {
         "label": "Speed",
-        "value": 50
+        "value": 25
       }
     ],
-    "total": 500,
-    "heightM": 1.2,
+    "total": 325,
+    "heightM": 0.9,
     "weightKg": 30,
     "genus": "Sludge Pokémon",
-    "flavor": "It prefers warm and humid habitats. In the summertime, the toxic substances in its body intensify, making MUK reek like putrid kitchen garbage.",
+    "flavor": "Born from polluted sludge in the sea, GRIMER’s favorite food is anything filthy. They feed on wastewater pumped out from factories.",
     "evolution": [
       "Grimer",
       "Muk"
-    ]
-  },
-  "shellder": {
-    "slug": "shellder",
-    "dexNumber": 90,
-    "types": [
-      "Water"
     ],
-    "abilities": [
-      "Shell Armor",
-      "Skill Link"
-    ],
-    "hiddenAbility": "Overcoat",
-    "baseExp": 61,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 30
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 45
-      },
-      {
-        "label": "Sp. Def",
-        "value": 25
-      },
-      {
-        "label": "Speed",
-        "value": 40
+        "from": "Grimer",
+        "to": "Muk",
+        "method": "Level 38"
       }
     ],
-    "total": 305,
-    "heightM": 0.3,
-    "weightKg": 4,
-    "genus": "Bivalve Pokémon",
-    "flavor": "At night, it burrows a hole in the seafloor with its broad tongue to make a place to sleep. While asleep, it closes its shell, but leaves its tongue hanging out.",
-    "evolution": [
-      "Shellder",
-      "Cloyster"
-    ]
-  },
-  "cloyster": {
-    "slug": "cloyster",
-    "dexNumber": 91,
-    "types": [
-      "Water",
-      "Ice"
+    "eggGroups": [
+      "Amorphous"
     ],
-    "abilities": [
-      "Shell Armor",
-      "Skill Link"
-    ],
-    "hiddenAbility": "Overcoat",
-    "baseExp": 184,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 180
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 85
-      },
-      {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 525,
-    "heightM": 1.5,
-    "weightKg": 132.5,
-    "genus": "Bivalve Pokémon",
-    "flavor": "It swims in the sea by swallowing water, then jetting it out toward the rear. The CLOYSTER shoots spikes from its shell using the same system.",
-    "evolution": [
-      "Shellder",
-      "Cloyster"
-    ]
+    "genderRate": 4
   },
   "onix": {
     "slug": "onix",
@@ -4483,7 +5629,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Onix",
       "Steelix"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Onix",
+        "to": "Steelix",
+        "method": "Trade + Metal Coat"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": 4
   },
   "drowzee": {
     "slug": "drowzee",
@@ -4531,103 +5688,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Drowzee",
       "Hypno"
-    ]
-  },
-  "gengar": {
-    "slug": "gengar",
-    "dexNumber": 94,
-    "types": [
-      "Ghost",
-      "Poison"
     ],
-    "abilities": [
-      "Cursed Body"
-    ],
-    "baseExp": 225,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 130
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 110
+        "from": "Drowzee",
+        "to": "Hypno",
+        "method": "Level 26"
       }
     ],
-    "total": 500,
-    "heightM": 1.5,
-    "weightKg": 40.5,
-    "genus": "Shadow Pokémon",
-    "flavor": "Deep in the night, your shadow cast by a streetlight may suddenly overtake you. It is actually a GENGAR running past you, pretending to be your shadow.",
-    "evolution": [
-      "Gastly",
-      "Haunter",
-      "Gengar"
-    ]
-  },
-  "gastly": {
-    "slug": "gastly",
-    "dexNumber": 92,
-    "types": [
-      "Ghost",
-      "Poison"
+    "eggGroups": [
+      "Human-Like"
     ],
-    "abilities": [
-      "Levitate"
-    ],
-    "baseExp": 62,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 30
-      },
-      {
-        "label": "Attack",
-        "value": 35
-      },
-      {
-        "label": "Defense",
-        "value": 30
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 80
-      }
-    ],
-    "total": 310,
-    "heightM": 1.3,
-    "weightKg": 0.1,
-    "genus": "Gas Pokémon",
-    "flavor": "When exposed to a strong wind, a GASTLY’s gaseous body quickly dwindles away. They cluster under the eaves of houses to escape the ravages of wind.",
-    "evolution": [
-      "Gastly",
-      "Haunter",
-      "Gengar"
-    ]
+    "genderRate": 4
   },
   "haunter": {
     "slug": "haunter",
@@ -4675,7 +5747,329 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Gastly",
       "Haunter",
       "Gengar"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Gastly",
+        "to": "Haunter",
+        "method": "Level 25"
+      },
+      {
+        "from": "Haunter",
+        "to": "Gengar",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "gengar": {
+    "slug": "gengar",
+    "dexNumber": 94,
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "abilities": [
+      "Cursed Body"
+    ],
+    "baseExp": 225,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 130
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 110
+      }
+    ],
+    "total": 500,
+    "heightM": 1.5,
+    "weightKg": 40.5,
+    "genus": "Shadow Pokémon",
+    "flavor": "Deep in the night, your shadow cast by a streetlight may suddenly overtake you. It is actually a GENGAR running past you, pretending to be your shadow.",
+    "evolution": [
+      "Gastly",
+      "Haunter",
+      "Gengar"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Gastly",
+        "to": "Haunter",
+        "method": "Level 25"
+      },
+      {
+        "from": "Haunter",
+        "to": "Gengar",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "gastly": {
+    "slug": "gastly",
+    "dexNumber": 92,
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "baseExp": 62,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 30
+      },
+      {
+        "label": "Attack",
+        "value": 35
+      },
+      {
+        "label": "Defense",
+        "value": 30
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 310,
+    "heightM": 1.3,
+    "weightKg": 0.1,
+    "genus": "Gas Pokémon",
+    "flavor": "When exposed to a strong wind, a GASTLY’s gaseous body quickly dwindles away. They cluster under the eaves of houses to escape the ravages of wind.",
+    "evolution": [
+      "Gastly",
+      "Haunter",
+      "Gengar"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Gastly",
+        "to": "Haunter",
+        "method": "Level 25"
+      },
+      {
+        "from": "Haunter",
+        "to": "Gengar",
+        "method": "Trade"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "muk": {
+    "slug": "muk",
+    "dexNumber": 89,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Stench",
+      "Sticky Hold"
+    ],
+    "hiddenAbility": "Poison Touch",
+    "baseExp": 175,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 105
+      },
+      {
+        "label": "Attack",
+        "value": 105
+      },
+      {
+        "label": "Defense",
+        "value": 75
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 500,
+    "heightM": 1.2,
+    "weightKg": 30,
+    "genus": "Sludge Pokémon",
+    "flavor": "It prefers warm and humid habitats. In the summertime, the toxic substances in its body intensify, making MUK reek like putrid kitchen garbage.",
+    "evolution": [
+      "Grimer",
+      "Muk"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Grimer",
+        "to": "Muk",
+        "method": "Level 38"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "cloyster": {
+    "slug": "cloyster",
+    "dexNumber": 91,
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "abilities": [
+      "Shell Armor",
+      "Skill Link"
+    ],
+    "hiddenAbility": "Overcoat",
+    "baseExp": 184,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 95
+      },
+      {
+        "label": "Defense",
+        "value": 180
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 45
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 525,
+    "heightM": 1.5,
+    "weightKg": 132.5,
+    "genus": "Bivalve Pokémon",
+    "flavor": "It swims in the sea by swallowing water, then jetting it out toward the rear. The CLOYSTER shoots spikes from its shell using the same system.",
+    "evolution": [
+      "Shellder",
+      "Cloyster"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Shellder",
+        "to": "Cloyster",
+        "method": "Water Stone"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 4
+  },
+  "shellder": {
+    "slug": "shellder",
+    "dexNumber": 90,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Shell Armor",
+      "Skill Link"
+    ],
+    "hiddenAbility": "Overcoat",
+    "baseExp": 61,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 30
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 25
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 305,
+    "heightM": 0.3,
+    "weightKg": 4,
+    "genus": "Bivalve Pokémon",
+    "flavor": "At night, it burrows a hole in the seafloor with its broad tongue to make a place to sleep. While asleep, it closes its shell, but leaves its tongue hanging out.",
+    "evolution": [
+      "Shellder",
+      "Cloyster"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Shellder",
+        "to": "Cloyster",
+        "method": "Water Stone"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 4
   },
   "hypno": {
     "slug": "hypno",
@@ -4723,55 +6117,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Drowzee",
       "Hypno"
-    ]
-  },
-  "voltorb": {
-    "slug": "voltorb",
-    "dexNumber": 100,
-    "types": [
-      "Electric"
     ],
-    "abilities": [
-      "Soundproof",
-      "Static"
-    ],
-    "hiddenAbility": "Aftermath",
-    "baseExp": 66,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 40
-      },
-      {
-        "label": "Attack",
-        "value": 30
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 55
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 100
+        "from": "Drowzee",
+        "to": "Hypno",
+        "method": "Level 26"
       }
     ],
-    "total": 330,
-    "heightM": 0.5,
-    "weightKg": 10.4,
-    "genus": "Ball Pokémon",
-    "flavor": "It bears an uncanny and unexplained resemblance to a POKé BALL. Because it explodes at the slightest shock, even veteran TRAINERS treat it with caution.",
-    "evolution": [
-      "Voltorb",
-      "Electrode"
-    ]
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
   "electrode": {
     "slug": "electrode",
@@ -4819,151 +6176,87 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Voltorb",
       "Electrode"
-    ]
-  },
-  "exeggutor": {
-    "slug": "exeggutor",
-    "dexNumber": 103,
-    "types": [
-      "Grass",
-      "Psychic"
     ],
-    "abilities": [
-      "Chlorophyll"
-    ],
-    "hiddenAbility": "Harvest",
-    "baseExp": 186,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 95
+        "from": "Voltorb",
+        "to": "Electrode",
+        "method": "Level 30"
       },
       {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 85
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 125
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 55
+        "from": "Voltorb",
+        "to": "Electrode",
+        "method": "Leaf Stone"
       }
     ],
-    "total": 530,
-    "heightM": 2,
-    "weightKg": 120,
-    "genus": "Coconut Pokémon",
-    "flavor": "Originally from the tropics, EXEGGUTOR’s heads grow larger from exposure to strong sunlight. It is said that when the heads fall, they group to form an EXEGGCUTE.",
-    "evolution": [
-      "Exeggcute",
-      "Exeggutor"
-    ]
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
   },
-  "exeggcute": {
-    "slug": "exeggcute",
-    "dexNumber": 102,
+  "voltorb": {
+    "slug": "voltorb",
+    "dexNumber": 100,
     "types": [
-      "Grass",
-      "Psychic"
+      "Electric"
     ],
     "abilities": [
-      "Chlorophyll"
+      "Soundproof",
+      "Static"
     ],
-    "hiddenAbility": "Harvest",
-    "baseExp": 65,
+    "hiddenAbility": "Aftermath",
+    "baseExp": 66,
     "stats": [
       {
         "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
         "value": 40
       },
       {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
-        "value": 40
-      }
-    ],
-    "total": 325,
-    "heightM": 0.4,
-    "weightKg": 2.5,
-    "genus": "Egg Pokémon",
-    "flavor": "It consists of six eggs that care for each other. The eggs attract each other and spin around. When cracks increasingly appear, it is close to evolution.",
-    "evolution": [
-      "Exeggcute",
-      "Exeggutor"
-    ]
-  },
-  "krabby": {
-    "slug": "krabby",
-    "dexNumber": 98,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Hyper Cutter",
-      "Shell Armor"
-    ],
-    "hiddenAbility": "Sheer Force",
-    "baseExp": 65,
-    "stats": [
-      {
-        "label": "HP",
+        "label": "Attack",
         "value": 30
       },
       {
-        "label": "Attack",
-        "value": 105
-      },
-      {
         "label": "Defense",
-        "value": 90
+        "value": 50
       },
       {
         "label": "Sp. Atk",
-        "value": 25
+        "value": 55
       },
       {
         "label": "Sp. Def",
-        "value": 25
+        "value": 55
       },
       {
         "label": "Speed",
-        "value": 50
+        "value": 100
       }
     ],
-    "total": 325,
-    "heightM": 0.4,
-    "weightKg": 6.5,
-    "genus": "River Crab Pokémon",
-    "flavor": "KRABBY live in holes dug into beaches. On sandy shores with little in the way of food, they can be seen squabbling with each other over territory.",
+    "total": 330,
+    "heightM": 0.5,
+    "weightKg": 10.4,
+    "genus": "Ball Pokémon",
+    "flavor": "It bears an uncanny and unexplained resemblance to a POKé BALL. Because it explodes at the slightest shock, even veteran TRAINERS treat it with caution.",
     "evolution": [
-      "Krabby",
-      "Kingler"
-    ]
+      "Voltorb",
+      "Electrode"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Voltorb",
+        "to": "Electrode",
+        "method": "Level 30"
+      },
+      {
+        "from": "Voltorb",
+        "to": "Electrode",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
   },
   "kingler": {
     "slug": "kingler",
@@ -5011,7 +6304,195 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Krabby",
       "Kingler"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Krabby",
+        "to": "Kingler",
+        "method": "Level 28"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 4
+  },
+  "krabby": {
+    "slug": "krabby",
+    "dexNumber": 98,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor"
+    ],
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 65,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 30
+      },
+      {
+        "label": "Attack",
+        "value": 105
+      },
+      {
+        "label": "Defense",
+        "value": 90
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 25
+      },
+      {
+        "label": "Sp. Def",
+        "value": 25
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 325,
+    "heightM": 0.4,
+    "weightKg": 6.5,
+    "genus": "River Crab Pokémon",
+    "flavor": "KRABBY live in holes dug into beaches. On sandy shores with little in the way of food, they can be seen squabbling with each other over territory.",
+    "evolution": [
+      "Krabby",
+      "Kingler"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Krabby",
+        "to": "Kingler",
+        "method": "Level 28"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 4
+  },
+  "exeggcute": {
+    "slug": "exeggcute",
+    "dexNumber": 102,
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hiddenAbility": "Harvest",
+    "baseExp": 65,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 40
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 45
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 325,
+    "heightM": 0.4,
+    "weightKg": 2.5,
+    "genus": "Egg Pokémon",
+    "flavor": "It consists of six eggs that care for each other. The eggs attract each other and spin around. When cracks increasingly appear, it is close to evolution.",
+    "evolution": [
+      "Exeggcute",
+      "Exeggutor"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Exeggcute",
+        "to": "Exeggutor",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "exeggutor": {
+    "slug": "exeggutor",
+    "dexNumber": 103,
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hiddenAbility": "Harvest",
+    "baseExp": 186,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 95
+      },
+      {
+        "label": "Attack",
+        "value": 95
+      },
+      {
+        "label": "Defense",
+        "value": 85
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 125
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 55
+      }
+    ],
+    "total": 530,
+    "heightM": 2,
+    "weightKg": 120,
+    "genus": "Coconut Pokémon",
+    "flavor": "Originally from the tropics, EXEGGUTOR’s heads grow larger from exposure to strong sunlight. It is said that when the heads fall, they group to form an EXEGGCUTE.",
+    "evolution": [
+      "Exeggcute",
+      "Exeggutor"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Exeggcute",
+        "to": "Exeggutor",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "cubone": {
     "slug": "cubone",
@@ -5059,7 +6540,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Cubone",
       "Marowak"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cubone",
+        "to": "Marowak",
+        "method": "Level 28"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
   },
   "marowak": {
     "slug": "marowak",
@@ -5107,55 +6599,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Cubone",
       "Marowak"
-    ]
-  },
-  "hitmonchan": {
-    "slug": "hitmonchan",
-    "dexNumber": 107,
-    "types": [
-      "Fighting"
     ],
-    "abilities": [
-      "Keen Eye",
-      "Iron Fist"
-    ],
-    "hiddenAbility": "Inner Focus",
-    "baseExp": 159,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 105
-      },
-      {
-        "label": "Defense",
-        "value": 79
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 110
-      },
-      {
-        "label": "Speed",
-        "value": 76
+        "from": "Cubone",
+        "to": "Marowak",
+        "method": "Level 28"
       }
     ],
-    "total": 455,
-    "heightM": 1.4,
-    "weightKg": 50.2,
-    "genus": "Punching Pokémon",
-    "flavor": "A HITMONCHAN is said to possess the spirit of a boxer who aimed to become the world champion. Having an indomitable spirit means that it will never give up.",
-    "evolution": [
-      "Tyrogue",
-      "Hitmonlee"
-    ]
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
   },
   "hitmonlee": {
     "slug": "hitmonlee",
@@ -5202,152 +6657,102 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Its legs freely stretch and contract. Using these springlike limbs, it bowls over foes with devastating kicks. After battle, it rubs down its tired legs.",
     "evolution": [
       "Tyrogue",
-      "Hitmonlee"
-    ]
-  },
-  "lickitung": {
-    "slug": "lickitung",
-    "dexNumber": 108,
-    "types": [
-      "Normal"
+      "Hitmonlee",
+      "Hitmonchan",
+      "Hitmontop"
     ],
-    "abilities": [
-      "Own Tempo",
-      "Oblivious"
-    ],
-    "hiddenAbility": "Cloud Nine",
-    "baseExp": 77,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 90
+        "from": "Tyrogue",
+        "to": "Hitmonlee",
+        "method": "Level 20 · Attack > Defense"
       },
       {
-        "label": "Attack",
-        "value": 55
+        "from": "Tyrogue",
+        "to": "Hitmonchan",
+        "method": "Level 20 · Attack < Defense"
       },
       {
-        "label": "Defense",
-        "value": 75
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 30
+        "from": "Tyrogue",
+        "to": "Hitmontop",
+        "method": "Level 20 · Attack = Defense"
       }
     ],
-    "total": 385,
-    "heightM": 1.2,
-    "weightKg": 65.5,
-    "genus": "Licking Pokémon",
-    "flavor": "Whenever it sees something unfamiliar, it always licks the object because it memorizes things by texture and taste. It is somewhat put off by sour things.",
-    "evolution": [
-      "Lickitung",
-      "Lickilicky"
-    ]
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 0
   },
-  "weezing": {
-    "slug": "weezing",
-    "dexNumber": 110,
+  "hitmonchan": {
+    "slug": "hitmonchan",
+    "dexNumber": 107,
     "types": [
-      "Poison"
+      "Fighting"
     ],
     "abilities": [
-      "Levitate",
-      "Neutralizing Gas"
+      "Keen Eye",
+      "Iron Fist"
     ],
-    "hiddenAbility": "Stench",
-    "baseExp": 172,
+    "hiddenAbility": "Inner Focus",
+    "baseExp": 159,
     "stats": [
       {
         "label": "HP",
-        "value": 65
+        "value": 50
       },
       {
         "label": "Attack",
-        "value": 90
+        "value": 105
       },
       {
         "label": "Defense",
-        "value": 120
+        "value": 79
       },
       {
         "label": "Sp. Atk",
-        "value": 85
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 490,
-    "heightM": 1.2,
-    "weightKg": 9.5,
-    "genus": "Poison Gas Pokémon",
-    "flavor": "By diluting its toxic gases with a special process, the highest grade of perfume can be extracted. To WEEZING, gases emanating from garbage are the ultimate feast.",
-    "evolution": [
-      "Koffing",
-      "Weezing"
-    ]
-  },
-  "koffing": {
-    "slug": "koffing",
-    "dexNumber": 109,
-    "types": [
-      "Poison"
-    ],
-    "abilities": [
-      "Levitate",
-      "Neutralizing Gas"
-    ],
-    "hiddenAbility": "Stench",
-    "baseExp": 68,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 40
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 95
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
         "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 110
+      },
+      {
+        "label": "Speed",
+        "value": 76
       }
     ],
-    "total": 340,
-    "heightM": 0.6,
-    "weightKg": 1,
-    "genus": "Poison Gas Pokémon",
-    "flavor": "Getting up close to a KOFFING will give you a chance to observe, through its thin skin, the toxic gases swirling inside. It blows up at the slightest stimulation.",
+    "total": 455,
+    "heightM": 1.4,
+    "weightKg": 50.2,
+    "genus": "Punching Pokémon",
+    "flavor": "A HITMONCHAN is said to possess the spirit of a boxer who aimed to become the world champion. Having an indomitable spirit means that it will never give up.",
     "evolution": [
-      "Koffing",
-      "Weezing"
-    ]
+      "Tyrogue",
+      "Hitmonlee",
+      "Hitmonchan",
+      "Hitmontop"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Tyrogue",
+        "to": "Hitmonlee",
+        "method": "Level 20 · Attack > Defense"
+      },
+      {
+        "from": "Tyrogue",
+        "to": "Hitmonchan",
+        "method": "Level 20 · Attack < Defense"
+      },
+      {
+        "from": "Tyrogue",
+        "to": "Hitmontop",
+        "method": "Level 20 · Attack = Defense"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 0
   },
   "rhyhorn": {
     "slug": "rhyhorn",
@@ -5395,9 +6800,20 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Once it starts running, it doesn’t stop. Its tiny brain makes it so stupid that it can’t remember why it started running in the first place.",
     "evolution": [
       "Rhyhorn",
-      "Rhydon",
-      "Rhyperior"
-    ]
+      "Rhydon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Rhyhorn",
+        "to": "Rhydon",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "rhydon": {
     "slug": "rhydon",
@@ -5445,9 +6861,190 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Its horn, which rotates like a drill, destroys tall buildings with one strike. It stands on its hind legs, and its brain is well developed.",
     "evolution": [
       "Rhyhorn",
-      "Rhydon",
-      "Rhyperior"
-    ]
+      "Rhydon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Rhyhorn",
+        "to": "Rhydon",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "lickitung": {
+    "slug": "lickitung",
+    "dexNumber": 108,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Own Tempo",
+      "Oblivious"
+    ],
+    "hiddenAbility": "Cloud Nine",
+    "baseExp": 77,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 75
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 30
+      }
+    ],
+    "total": 385,
+    "heightM": 1.2,
+    "weightKg": 65.5,
+    "genus": "Licking Pokémon",
+    "flavor": "Whenever it sees something unfamiliar, it always licks the object because it memorizes things by texture and taste. It is somewhat put off by sour things.",
+    "evolution": [
+      "Lickitung"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
+  },
+  "weezing": {
+    "slug": "weezing",
+    "dexNumber": 110,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate",
+      "Neutralizing Gas"
+    ],
+    "hiddenAbility": "Stench",
+    "baseExp": 172,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 120
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 490,
+    "heightM": 1.2,
+    "weightKg": 9.5,
+    "genus": "Poison Gas Pokémon",
+    "flavor": "By diluting its toxic gases with a special process, the highest grade of perfume can be extracted. To WEEZING, gases emanating from garbage are the ultimate feast.",
+    "evolution": [
+      "Koffing",
+      "Weezing"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Koffing",
+        "to": "Weezing",
+        "method": "Level 35"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "koffing": {
+    "slug": "koffing",
+    "dexNumber": 109,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate",
+      "Neutralizing Gas"
+    ],
+    "hiddenAbility": "Stench",
+    "baseExp": 68,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 95
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 45
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 340,
+    "heightM": 0.6,
+    "weightKg": 1,
+    "genus": "Poison Gas Pokémon",
+    "flavor": "Getting up close to a KOFFING will give you a chance to observe, through its thin skin, the toxic gases swirling inside. It blows up at the slightest stimulation.",
+    "evolution": [
+      "Koffing",
+      "Weezing"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Koffing",
+        "to": "Weezing",
+        "method": "Level 35"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
   "horsea": {
     "slug": "horsea",
@@ -5496,7 +7093,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Horsea",
       "Seadra",
       "Kingdra"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Horsea",
+        "to": "Seadra",
+        "method": "Level 32"
+      },
+      {
+        "from": "Seadra",
+        "to": "Kingdra",
+        "method": "Trade + Dragon Scale"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "seadra": {
     "slug": "seadra",
@@ -5545,247 +7159,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Horsea",
       "Seadra",
       "Kingdra"
-    ]
-  },
-  "seaking": {
-    "slug": "seaking",
-    "dexNumber": 119,
-    "types": [
-      "Water"
     ],
-    "abilities": [
-      "Swift Swim",
-      "Water Veil"
-    ],
-    "hiddenAbility": "Lightning Rod",
-    "baseExp": 158,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 80
+        "from": "Horsea",
+        "to": "Seadra",
+        "method": "Level 32"
       },
       {
-        "label": "Attack",
-        "value": 92
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 68
+        "from": "Seadra",
+        "to": "Kingdra",
+        "method": "Trade + Dragon Scale"
       }
     ],
-    "total": 450,
-    "heightM": 1.3,
-    "weightKg": 39,
-    "genus": "Goldfish Pokémon",
-    "flavor": "It punches holes in boulders on stream­ beds. This is a clever innovation that prevents its eggs from being attacked or washed away by the current.",
-    "evolution": [
-      "Goldeen",
-      "Seaking"
-    ]
-  },
-  "goldeen": {
-    "slug": "goldeen",
-    "dexNumber": 118,
-    "types": [
-      "Water"
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
     ],
-    "abilities": [
-      "Swift Swim",
-      "Water Veil"
-    ],
-    "hiddenAbility": "Lightning Rod",
-    "baseExp": 64,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 67
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 63
-      }
-    ],
-    "total": 320,
-    "heightM": 0.6,
-    "weightKg": 15,
-    "genus": "Goldfish Pokémon",
-    "flavor": "In the springtime, schools of GOLDEEN can be seen swimming up falls and rivers. It metes out staggering damage with its single horn.",
-    "evolution": [
-      "Goldeen",
-      "Seaking"
-    ]
-  },
-  "chansey": {
-    "slug": "chansey",
-    "dexNumber": 113,
-    "types": [
-      "Normal"
-    ],
-    "abilities": [
-      "Natural Cure",
-      "Serene Grace"
-    ],
-    "hiddenAbility": "Healer",
-    "baseExp": 395,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 250
-      },
-      {
-        "label": "Attack",
-        "value": 5
-      },
-      {
-        "label": "Defense",
-        "value": 5
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 105
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 450,
-    "heightM": 1.1,
-    "weightKg": 34.6,
-    "genus": "Egg Pokémon",
-    "flavor": "CHANSEY lay nutritionally excellent eggs every day. The eggs are so delicious, they are eagerly devoured by even those people who have lost their appetite.",
-    "evolution": [
-      "Happiny",
-      "Chansey",
-      "Blissey"
-    ]
-  },
-  "tangela": {
-    "slug": "tangela",
-    "dexNumber": 114,
-    "types": [
-      "Grass"
-    ],
-    "abilities": [
-      "Chlorophyll",
-      "Leaf Guard"
-    ],
-    "hiddenAbility": "Regenerator",
-    "baseExp": 87,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 115
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 40
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 435,
-    "heightM": 1,
-    "weightKg": 35,
-    "genus": "Vine Pokémon",
-    "flavor": "Its vines snap off easily and painlessly if they are grabbed, allowing it to make a quick getaway. The lost vines are replaced by new growth the very next day.",
-    "evolution": [
-      "Tangela",
-      "Tangrowth"
-    ]
-  },
-  "kangaskhan": {
-    "slug": "kangaskhan",
-    "dexNumber": 115,
-    "types": [
-      "Normal"
-    ],
-    "abilities": [
-      "Early Bird",
-      "Scrappy"
-    ],
-    "hiddenAbility": "Inner Focus",
-    "baseExp": 172,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 105
-      },
-      {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 90
-      }
-    ],
-    "total": 490,
-    "heightM": 2.2,
-    "weightKg": 80,
-    "genus": "Parent Pokémon",
-    "flavor": "If you come across a young KANGASKHAN playing by itself, never try to catch it. The baby’s parent is sure to be in the area, and it will become violently enraged.",
-    "evolution": [
-      "Kangaskhan"
-    ]
+    "genderRate": 4
   },
   "staryu": {
     "slug": "staryu",
@@ -5833,7 +7224,299 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Staryu",
       "Starmie"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Staryu",
+        "to": "Starmie",
+        "method": "Water Stone"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": -1
+  },
+  "tangela": {
+    "slug": "tangela",
+    "dexNumber": 114,
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard"
+    ],
+    "hiddenAbility": "Regenerator",
+    "baseExp": 87,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 115
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 40
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 435,
+    "heightM": 1,
+    "weightKg": 35,
+    "genus": "Vine Pokémon",
+    "flavor": "Its vines snap off easily and painlessly if they are grabbed, allowing it to make a quick getaway. The lost vines are replaced by new growth the very next day.",
+    "evolution": [
+      "Tangela"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "seaking": {
+    "slug": "seaking",
+    "dexNumber": 119,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil"
+    ],
+    "hiddenAbility": "Lightning Rod",
+    "baseExp": 158,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 92
+      },
+      {
+        "label": "Defense",
+        "value": 65
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 68
+      }
+    ],
+    "total": 450,
+    "heightM": 1.3,
+    "weightKg": 39,
+    "genus": "Goldfish Pokémon",
+    "flavor": "It punches holes in boulders on stream­ beds. This is a clever innovation that prevents its eggs from being attacked or washed away by the current.",
+    "evolution": [
+      "Goldeen",
+      "Seaking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Goldeen",
+        "to": "Seaking",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
+  },
+  "goldeen": {
+    "slug": "goldeen",
+    "dexNumber": 118,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil"
+    ],
+    "hiddenAbility": "Lightning Rod",
+    "baseExp": 64,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 67
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 63
+      }
+    ],
+    "total": 320,
+    "heightM": 0.6,
+    "weightKg": 15,
+    "genus": "Goldfish Pokémon",
+    "flavor": "In the springtime, schools of GOLDEEN can be seen swimming up falls and rivers. It metes out staggering damage with its single horn.",
+    "evolution": [
+      "Goldeen",
+      "Seaking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Goldeen",
+        "to": "Seaking",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
+  },
+  "chansey": {
+    "slug": "chansey",
+    "dexNumber": 113,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Serene Grace"
+    ],
+    "hiddenAbility": "Healer",
+    "baseExp": 395,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 250
+      },
+      {
+        "label": "Attack",
+        "value": 5
+      },
+      {
+        "label": "Defense",
+        "value": 5
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 105
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 450,
+    "heightM": 1.1,
+    "weightKg": 34.6,
+    "genus": "Egg Pokémon",
+    "flavor": "CHANSEY lay nutritionally excellent eggs every day. The eggs are so delicious, they are eagerly devoured by even those people who have lost their appetite.",
+    "evolution": [
+      "Chansey",
+      "Blissey"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chansey",
+        "to": "Blissey",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 8
+  },
+  "kangaskhan": {
+    "slug": "kangaskhan",
+    "dexNumber": 115,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Early Bird",
+      "Scrappy"
+    ],
+    "hiddenAbility": "Inner Focus",
+    "baseExp": 172,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 105
+      },
+      {
+        "label": "Attack",
+        "value": 95
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 490,
+    "heightM": 2.2,
+    "weightKg": 80,
+    "genus": "Parent Pokémon",
+    "flavor": "If you come across a young KANGASKHAN playing by itself, never try to catch it. The baby’s parent is sure to be in the area, and it will become violently enraged.",
+    "evolution": [
+      "Kangaskhan"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 8
   },
   "starmie": {
     "slug": "starmie",
@@ -5882,7 +7565,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Staryu",
       "Starmie"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Staryu",
+        "to": "Starmie",
+        "method": "Water Stone"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": -1
   },
   "pinsir": {
     "slug": "pinsir",
@@ -5929,104 +7623,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Their pincers are strong enough to shatter thick logs. Because they dislike cold, PINSIR burrow and sleep under the ground on chilly nights.",
     "evolution": [
       "Pinsir"
-    ]
-  },
-  "magmar": {
-    "slug": "magmar",
-    "dexNumber": 126,
-    "types": [
-      "Fire"
     ],
-    "abilities": [
-      "Flame Body"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug"
     ],
-    "hiddenAbility": "Vital Spirit",
-    "baseExp": 173,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 57
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 85
-      },
-      {
-        "label": "Speed",
-        "value": 93
-      }
-    ],
-    "total": 495,
-    "heightM": 1.3,
-    "weightKg": 44.5,
-    "genus": "Spitfire Pokémon",
-    "flavor": "In battle, it blows out intense flames from all over its body to intimidate its foe. These fiery bursts create heat waves that ignite grass and trees in the area.",
-    "evolution": [
-      "Magby",
-      "Magmar",
-      "Magmortar"
-    ]
-  },
-  "jynx": {
-    "slug": "jynx",
-    "dexNumber": 124,
-    "types": [
-      "Ice",
-      "Psychic"
-    ],
-    "abilities": [
-      "Oblivious",
-      "Forewarn"
-    ],
-    "hiddenAbility": "Dry Skin",
-    "baseExp": 159,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 50
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 115
-      },
-      {
-        "label": "Sp. Def",
-        "value": 95
-      },
-      {
-        "label": "Speed",
-        "value": 95
-      }
-    ],
-    "total": 455,
-    "heightM": 1.4,
-    "weightKg": 40.6,
-    "genus": "Human Shape Pokémon",
-    "flavor": "A JYNX sashays rhythmically as if it were dancing. Its motions are so bouncingly alluring, people seeing it are compelled to shake their hips without noticing.",
-    "evolution": [
-      "Smoochum",
-      "Jynx"
-    ]
+    "genderRate": 4
   },
   "scyther": {
     "slug": "scyther",
@@ -6075,7 +7677,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Scyther",
       "Scizor"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Scyther",
+        "to": "Scizor",
+        "method": "Trade + Metal Coat"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "tauros": {
     "slug": "tauros",
@@ -6122,19 +7735,26 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It is not satisfied unless it is rampaging at all times. If there is no opponent for TAUROS to battle, it will charge at thick trees and knock them down to calm itself.",
     "evolution": [
       "Tauros"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 0
   },
-  "electabuzz": {
-    "slug": "electabuzz",
-    "dexNumber": 125,
+  "jynx": {
+    "slug": "jynx",
+    "dexNumber": 124,
     "types": [
-      "Electric"
+      "Ice",
+      "Psychic"
     ],
     "abilities": [
-      "Static"
+      "Oblivious",
+      "Forewarn"
     ],
-    "hiddenAbility": "Vital Spirit",
-    "baseExp": 172,
+    "hiddenAbility": "Dry Skin",
+    "baseExp": 159,
     "stats": [
       {
         "label": "HP",
@@ -6142,35 +7762,45 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 83
+        "value": 50
       },
       {
         "label": "Defense",
-        "value": 57
+        "value": 35
       },
       {
         "label": "Sp. Atk",
-        "value": 95
+        "value": 115
       },
       {
         "label": "Sp. Def",
-        "value": 85
+        "value": 95
       },
       {
         "label": "Speed",
-        "value": 105
+        "value": 95
       }
     ],
-    "total": 490,
-    "heightM": 1.1,
-    "weightKg": 30,
-    "genus": "Electric Pokémon",
-    "flavor": "When a storm approaches, it competes with others to scale heights that are likely to be stricken by lightning. Some towns use ELECTABUZZ in place of lightning rods.",
+    "total": 455,
+    "heightM": 1.4,
+    "weightKg": 40.6,
+    "genus": "Human Shape Pokémon",
+    "flavor": "A JYNX sashays rhythmically as if it were dancing. Its motions are so bouncingly alluring, people seeing it are compelled to shake their hips without noticing.",
     "evolution": [
-      "Elekid",
-      "Electabuzz",
-      "Electivire"
-    ]
+      "Smoochum",
+      "Jynx"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Smoochum",
+        "to": "Jynx",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 8
   },
   "mr-mime": {
     "slug": "mr-mime",
@@ -6218,21 +7848,31 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A MR. MIME is a master of pantomime. It can convince others that something unseeable actually exists. Once believed, the imaginary object does become real.",
     "evolution": [
       "Mime Jr",
-      "Mr Mime",
-      "Mr Rime"
-    ]
+      "Mr. Mime"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mime Jr",
+        "to": "Mr. Mime",
+        "method": "Level-up · knowing Mimic"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
-  "jolteon": {
-    "slug": "jolteon",
-    "dexNumber": 135,
+  "electabuzz": {
+    "slug": "electabuzz",
+    "dexNumber": 125,
     "types": [
       "Electric"
     ],
     "abilities": [
-      "Volt Absorb"
+      "Static"
     ],
-    "hiddenAbility": "Quick Feet",
-    "baseExp": 184,
+    "hiddenAbility": "Vital Spirit",
+    "baseExp": 172,
     "stats": [
       {
         "label": "HP",
@@ -6240,141 +7880,57 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 65
+        "value": 83
       },
       {
         "label": "Defense",
-        "value": 60
+        "value": 57
       },
       {
         "label": "Sp. Atk",
-        "value": 110
-      },
-      {
-        "label": "Sp. Def",
         "value": 95
       },
       {
-        "label": "Speed",
-        "value": 130
-      }
-    ],
-    "total": 525,
-    "heightM": 0.8,
-    "weightKg": 24.5,
-    "genus": "Lightning Pokémon",
-    "flavor": "Its cells generate weak power that is amplified by its fur’s static electricity to drop thunderbolts. The bristling fur is made of electrically charged needles.",
-    "evolution": [
-      "Eevee",
-      "Vaporeon"
-    ]
-  },
-  "vaporeon": {
-    "slug": "vaporeon",
-    "dexNumber": 134,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Water Absorb"
-    ],
-    "hiddenAbility": "Hydration",
-    "baseExp": 184,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 130
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 110
-      },
-      {
         "label": "Sp. Def",
-        "value": 95
+        "value": 85
       },
       {
         "label": "Speed",
-        "value": 65
+        "value": 105
       }
     ],
-    "total": 525,
-    "heightM": 1,
-    "weightKg": 29,
-    "genus": "Bubble Jet Pokémon",
-    "flavor": "VAPOREON underwent a spontaneous mutation and grew fins and gills that allow them to live underwater. They have the ability to freely control water.",
+    "total": 490,
+    "heightM": 1.1,
+    "weightKg": 30,
+    "genus": "Electric Pokémon",
+    "flavor": "When a storm approaches, it competes with others to scale heights that are likely to be stricken by lightning. Some towns use ELECTABUZZ in place of lightning rods.",
     "evolution": [
-      "Eevee",
-      "Vaporeon"
-    ]
-  },
-  "eevee": {
-    "slug": "eevee",
-    "dexNumber": 133,
-    "types": [
-      "Normal"
+      "Elekid",
+      "Electabuzz"
     ],
-    "abilities": [
-      "Run Away",
-      "Adaptability"
-    ],
-    "hiddenAbility": "Anticipation",
-    "baseExp": 65,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 45
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 55
+        "from": "Elekid",
+        "to": "Electabuzz",
+        "method": "Level 30"
       }
     ],
-    "total": 325,
-    "heightM": 0.3,
-    "weightKg": 6.5,
-    "genus": "Evolution Pokémon",
-    "flavor": "An EEVEE has an unstable genetic makeup that suddenly mutates due to its environment. Radiation from various STONES causes this POKéMON to evolve.",
-    "evolution": [
-      "Eevee",
-      "Vaporeon"
-    ]
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
   },
-  "flareon": {
-    "slug": "flareon",
-    "dexNumber": 136,
+  "magmar": {
+    "slug": "magmar",
+    "dexNumber": 126,
     "types": [
       "Fire"
     ],
     "abilities": [
-      "Flash Fire"
+      "Flame Body"
     ],
-    "hiddenAbility": "Guts",
-    "baseExp": 184,
+    "hiddenAbility": "Vital Spirit",
+    "baseExp": 173,
     "stats": [
       {
         "label": "HP",
@@ -6382,82 +7938,45 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 130
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
         "value": 95
       },
       {
-        "label": "Sp. Def",
-        "value": 110
-      },
-      {
-        "label": "Speed",
-        "value": 65
-      }
-    ],
-    "total": 525,
-    "heightM": 0.9,
-    "weightKg": 25,
-    "genus": "Flame Pokémon",
-    "flavor": "FLAREON’s fluffy fur releases heat into the air so that its body does not get excessively hot. Its body temperature can rise to a maximum of 1,650 degrees F.",
-    "evolution": [
-      "Eevee",
-      "Vaporeon"
-    ]
-  },
-  "lapras": {
-    "slug": "lapras",
-    "dexNumber": 131,
-    "types": [
-      "Water",
-      "Ice"
-    ],
-    "abilities": [
-      "Water Absorb",
-      "Shell Armor"
-    ],
-    "hiddenAbility": "Hydration",
-    "baseExp": 187,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 130
-      },
-      {
-        "label": "Attack",
-        "value": 85
-      },
-      {
         "label": "Defense",
-        "value": 80
+        "value": 57
       },
       {
         "label": "Sp. Atk",
-        "value": 85
+        "value": 100
       },
       {
         "label": "Sp. Def",
-        "value": 95
+        "value": 85
       },
       {
         "label": "Speed",
-        "value": 60
+        "value": 93
       }
     ],
-    "total": 535,
-    "heightM": 2.5,
-    "weightKg": 220,
-    "genus": "Transport Pokémon",
-    "flavor": "People have driven LAPRAS almost to the point of extinction. In the evenings, it is said to sing plaintively as it seeks what few others of its kind still remain.",
+    "total": 495,
+    "heightM": 1.3,
+    "weightKg": 44.5,
+    "genus": "Spitfire Pokémon",
+    "flavor": "In battle, it blows out intense flames from all over its body to intimidate its foe. These fiery bursts create heat waves that ignite grass and trees in the area.",
     "evolution": [
-      "Lapras"
-    ]
+      "Magby",
+      "Magmar"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Magby",
+        "to": "Magmar",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
   },
   "ditto": {
     "slug": "ditto",
@@ -6503,7 +8022,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A DITTO rearranges its cell structure to transform itself. However, if it tries to change based on its memory, it will get details wrong.",
     "evolution": [
       "Ditto"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Ditto"
+    ],
+    "genderRate": -1
   },
   "magikarp": {
     "slug": "magikarp",
@@ -6550,7 +8074,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Magikarp",
       "Gyarados"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Magikarp",
+        "to": "Gyarados",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Water 2",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "gyarados": {
     "slug": "gyarados",
@@ -6598,32 +8134,208 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Magikarp",
       "Gyarados"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Magikarp",
+        "to": "Gyarados",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Water 2",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
-  "articuno": {
-    "slug": "articuno",
-    "dexNumber": 144,
+  "eevee": {
+    "slug": "eevee",
+    "dexNumber": 133,
     "types": [
-      "Ice",
-      "Flying"
+      "Normal"
     ],
     "abilities": [
-      "Pressure"
+      "Run Away",
+      "Adaptability"
     ],
-    "hiddenAbility": "Snow Cloak",
-    "baseExp": 261,
+    "hiddenAbility": "Anticipation",
+    "baseExp": 65,
     "stats": [
       {
         "label": "HP",
-        "value": 90
+        "value": 55
       },
       {
         "label": "Attack",
-        "value": 85
+        "value": 55
       },
       {
         "label": "Defense",
-        "value": 100
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 55
+      }
+    ],
+    "total": 325,
+    "heightM": 0.3,
+    "weightKg": 6.5,
+    "genus": "Evolution Pokémon",
+    "flavor": "An EEVEE has an unstable genetic makeup that suddenly mutates due to its environment. Radiation from various STONES causes this POKéMON to evolve.",
+    "evolution": [
+      "Eevee",
+      "Vaporeon",
+      "Jolteon",
+      "Flareon",
+      "Espeon",
+      "Umbreon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Eevee",
+        "to": "Vaporeon",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Jolteon",
+        "method": "Thunder Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Flareon",
+        "method": "Fire Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Espeon",
+        "method": "Level-up · friendship (day)"
+      },
+      {
+        "from": "Eevee",
+        "to": "Umbreon",
+        "method": "Level-up · friendship (night)"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
+  },
+  "vaporeon": {
+    "slug": "vaporeon",
+    "dexNumber": 134,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Absorb"
+    ],
+    "hiddenAbility": "Hydration",
+    "baseExp": 184,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 130
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 110
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 525,
+    "heightM": 1,
+    "weightKg": 29,
+    "genus": "Bubble Jet Pokémon",
+    "flavor": "VAPOREON underwent a spontaneous mutation and grew fins and gills that allow them to live underwater. They have the ability to freely control water.",
+    "evolution": [
+      "Eevee",
+      "Vaporeon",
+      "Jolteon",
+      "Flareon",
+      "Espeon",
+      "Umbreon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Eevee",
+        "to": "Vaporeon",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Jolteon",
+        "method": "Thunder Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Flareon",
+        "method": "Fire Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Espeon",
+        "method": "Level-up · friendship (day)"
+      },
+      {
+        "from": "Eevee",
+        "to": "Umbreon",
+        "method": "Level-up · friendship (night)"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
+  },
+  "flareon": {
+    "slug": "flareon",
+    "dexNumber": 136,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire"
+    ],
+    "hiddenAbility": "Guts",
+    "baseExp": 184,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 130
+      },
+      {
+        "label": "Defense",
+        "value": 60
       },
       {
         "label": "Sp. Atk",
@@ -6631,21 +8343,193 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Def",
-        "value": 125
+        "value": 110
       },
       {
         "label": "Speed",
-        "value": 85
+        "value": 65
       }
     ],
-    "total": 580,
-    "heightM": 1.7,
-    "weightKg": 55.4,
-    "genus": "Freeze Pokémon",
-    "flavor": "ARTICUNO is a legendary bird POKéMON that can control ice. The flapping of its wings chills the air. As a result, it is said that when this POKéMON flies, snow will fall.",
+    "total": 525,
+    "heightM": 0.9,
+    "weightKg": 25,
+    "genus": "Flame Pokémon",
+    "flavor": "FLAREON’s fluffy fur releases heat into the air so that its body does not get excessively hot. Its body temperature can rise to a maximum of 1,650 degrees F.",
     "evolution": [
-      "Articuno"
-    ]
+      "Eevee",
+      "Vaporeon",
+      "Jolteon",
+      "Flareon",
+      "Espeon",
+      "Umbreon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Eevee",
+        "to": "Vaporeon",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Jolteon",
+        "method": "Thunder Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Flareon",
+        "method": "Fire Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Espeon",
+        "method": "Level-up · friendship (day)"
+      },
+      {
+        "from": "Eevee",
+        "to": "Umbreon",
+        "method": "Level-up · friendship (night)"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
+  },
+  "jolteon": {
+    "slug": "jolteon",
+    "dexNumber": 135,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Volt Absorb"
+    ],
+    "hiddenAbility": "Quick Feet",
+    "baseExp": 184,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 110
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 130
+      }
+    ],
+    "total": 525,
+    "heightM": 0.8,
+    "weightKg": 24.5,
+    "genus": "Lightning Pokémon",
+    "flavor": "Its cells generate weak power that is amplified by its fur’s static electricity to drop thunderbolts. The bristling fur is made of electrically charged needles.",
+    "evolution": [
+      "Eevee",
+      "Vaporeon",
+      "Jolteon",
+      "Flareon",
+      "Espeon",
+      "Umbreon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Eevee",
+        "to": "Vaporeon",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Jolteon",
+        "method": "Thunder Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Flareon",
+        "method": "Fire Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Espeon",
+        "method": "Level-up · friendship (day)"
+      },
+      {
+        "from": "Eevee",
+        "to": "Umbreon",
+        "method": "Level-up · friendship (night)"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
+  },
+  "lapras": {
+    "slug": "lapras",
+    "dexNumber": 131,
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Shell Armor"
+    ],
+    "hiddenAbility": "Hydration",
+    "baseExp": 187,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 130
+      },
+      {
+        "label": "Attack",
+        "value": 85
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 535,
+    "heightM": 2.5,
+    "weightKg": 220,
+    "genus": "Transport Pokémon",
+    "flavor": "People have driven LAPRAS almost to the point of extinction. In the evenings, it is said to sing plaintively as it seeks what few others of its kind still remain.",
+    "evolution": [
+      "Lapras"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "kabuto": {
     "slug": "kabuto",
@@ -6694,56 +8578,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Kabuto",
       "Kabutops"
-    ]
-  },
-  "kabutops": {
-    "slug": "kabutops",
-    "dexNumber": 141,
-    "types": [
-      "Rock",
-      "Water"
     ],
-    "abilities": [
-      "Swift Swim",
-      "Battle Armor"
-    ],
-    "hiddenAbility": "Weak Armor",
-    "baseExp": 173,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 115
-      },
-      {
-        "label": "Defense",
-        "value": 105
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 80
+        "from": "Kabuto",
+        "to": "Kabutops",
+        "method": "Level 40"
       }
     ],
-    "total": 495,
-    "heightM": 1.3,
-    "weightKg": 40.5,
-    "genus": "Shellfish Pokémon",
-    "flavor": "KABUTOPS once swam underwater to hunt  for prey. It was apparently evolving from being a water dweller to living on land as evident from changes in its gills and legs.",
-    "evolution": [
-      "Kabuto",
-      "Kabutops"
-    ]
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 1
   },
   "omanyte": {
     "slug": "omanyte",
@@ -6792,7 +8639,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Omanyte",
       "Omastar"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Omanyte",
+        "to": "Omastar",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 1
   },
   "omastar": {
     "slug": "omastar",
@@ -6841,37 +8700,109 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Omanyte",
       "Omastar"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Omanyte",
+        "to": "Omastar",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 1
   },
-  "aerodactyl": {
-    "slug": "aerodactyl",
-    "dexNumber": 142,
+  "kabutops": {
+    "slug": "kabutops",
+    "dexNumber": 141,
     "types": [
       "Rock",
-      "Flying"
+      "Water"
     ],
     "abilities": [
-      "Rock Head",
-      "Pressure"
+      "Swift Swim",
+      "Battle Armor"
     ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 180,
+    "hiddenAbility": "Weak Armor",
+    "baseExp": 173,
     "stats": [
       {
         "label": "HP",
-        "value": 80
+        "value": 60
       },
       {
         "label": "Attack",
-        "value": 105
+        "value": 115
       },
       {
         "label": "Defense",
-        "value": 65
+        "value": 105
       },
       {
         "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 495,
+    "heightM": 1.3,
+    "weightKg": 40.5,
+    "genus": "Shellfish Pokémon",
+    "flavor": "KABUTOPS once swam underwater to hunt  for prey. It was apparently evolving from being a water dweller to living on land as evident from changes in its gills and legs.",
+    "evolution": [
+      "Kabuto",
+      "Kabutops"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Kabuto",
+        "to": "Kabutops",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 1
+  },
+  "porygon": {
+    "slug": "porygon",
+    "dexNumber": 137,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Trace",
+      "Download"
+    ],
+    "hiddenAbility": "Analytic",
+    "baseExp": 79,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
         "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
       },
       {
         "label": "Sp. Def",
@@ -6879,17 +8810,74 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 130
+        "value": 40
       }
     ],
-    "total": 515,
-    "heightM": 1.8,
-    "weightKg": 59,
-    "genus": "Fossil Pokémon",
-    "flavor": "AERODACTYL is a POKéMON from the age of dinosaurs. It was regenerated from DNA extracted from amber. It is imagined to have been the king of the skies.",
+    "total": 395,
+    "heightM": 0.8,
+    "weightKg": 36.5,
+    "genus": "Virtual Pokémon",
+    "flavor": "It is capable of reverting itself entirely back to program data in order to enter cyberspace. A PORYGON is copy- protected so it cannot be duplicated.",
     "evolution": [
-      "Aerodactyl"
-    ]
+      "Porygon"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "articuno": {
+    "slug": "articuno",
+    "dexNumber": 144,
+    "types": [
+      "Ice",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure"
+    ],
+    "hiddenAbility": "Snow Cloak",
+    "baseExp": 261,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 85
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 95
+      },
+      {
+        "label": "Sp. Def",
+        "value": 125
+      },
+      {
+        "label": "Speed",
+        "value": 85
+      }
+    ],
+    "total": 580,
+    "heightM": 1.7,
+    "weightKg": 55.4,
+    "genus": "Freeze Pokémon",
+    "flavor": "ARTICUNO is a legendary bird POKéMON that can control ice. The flapping of its wings chills the air. As a result, it is said that when this POKéMON flies, snow will fall.",
+    "evolution": [
+      "Articuno"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "snorlax": {
     "slug": "snorlax",
@@ -6937,36 +8925,48 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Munchlax",
       "Snorlax"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Munchlax",
+        "to": "Snorlax",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 1
   },
-  "porygon": {
-    "slug": "porygon",
-    "dexNumber": 137,
+  "aerodactyl": {
+    "slug": "aerodactyl",
+    "dexNumber": 142,
     "types": [
-      "Normal"
+      "Rock",
+      "Flying"
     ],
     "abilities": [
-      "Trace",
-      "Download"
+      "Rock Head",
+      "Pressure"
     ],
-    "hiddenAbility": "Analytic",
-    "baseExp": 79,
+    "hiddenAbility": "Unnerve",
+    "baseExp": 180,
     "stats": [
       {
         "label": "HP",
-        "value": 65
+        "value": 80
       },
       {
         "label": "Attack",
-        "value": 60
+        "value": 105
       },
       {
         "label": "Defense",
-        "value": 70
+        "value": 65
       },
       {
         "label": "Sp. Atk",
-        "value": 85
+        "value": 60
       },
       {
         "label": "Sp. Def",
@@ -6974,47 +8974,51 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 40
+        "value": 130
       }
     ],
-    "total": 395,
-    "heightM": 0.8,
-    "weightKg": 36.5,
-    "genus": "Virtual Pokémon",
-    "flavor": "It is capable of reverting itself entirely back to program data in order to enter cyberspace. A PORYGON is copy- protected so it cannot be duplicated.",
+    "total": 515,
+    "heightM": 1.8,
+    "weightKg": 59,
+    "genus": "Fossil Pokémon",
+    "flavor": "AERODACTYL is a POKéMON from the age of dinosaurs. It was regenerated from DNA extracted from amber. It is imagined to have been the king of the skies.",
     "evolution": [
-      "Porygon",
-      "Porygon2",
-      "Porygon Z"
-    ]
+      "Aerodactyl"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 1
   },
-  "mewtwo": {
-    "slug": "mewtwo",
-    "dexNumber": 150,
+  "zapdos": {
+    "slug": "zapdos",
+    "dexNumber": 145,
     "types": [
-      "Psychic"
+      "Electric",
+      "Flying"
     ],
     "abilities": [
       "Pressure"
     ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 306,
+    "hiddenAbility": "Static",
+    "baseExp": 261,
     "stats": [
       {
         "label": "HP",
-        "value": 106
-      },
-      {
-        "label": "Attack",
-        "value": 110
-      },
-      {
-        "label": "Defense",
         "value": 90
       },
       {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 85
+      },
+      {
         "label": "Sp. Atk",
-        "value": 154
+        "value": 125
       },
       {
         "label": "Sp. Def",
@@ -7022,17 +9026,22 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 130
+        "value": 100
       }
     ],
-    "total": 680,
-    "heightM": 2,
-    "weightKg": 122,
-    "genus": "Genetic Pokémon",
-    "flavor": "A POKéMON that was created by genetic manipulation. However, even though the scientific power of humans made its body, they failed to give it a warm heart.",
+    "total": 580,
+    "heightM": 1.6,
+    "weightKg": 52.6,
+    "genus": "Electric Pokémon",
+    "flavor": "ZAPDOS is a legendary bird POKéMON that has the ability to control electricity. It usually lives in thunderclouds. It gains power if it is stricken by lightning bolts.",
     "evolution": [
-      "Mewtwo"
-    ]
+      "Zapdos"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "chikorita": {
     "slug": "chikorita",
@@ -7080,7 +9089,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Chikorita",
       "Bayleef",
       "Meganium"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chikorita",
+        "to": "Bayleef",
+        "method": "Level 16"
+      },
+      {
+        "from": "Bayleef",
+        "to": "Meganium",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 1
   },
   "moltres": {
     "slug": "moltres",
@@ -7127,7 +9153,142 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "MOLTRES is a legendary bird POKéMON that can control fire. If injured, it is said to dip its body in the molten magma of a volcano to burn and heal itself.",
     "evolution": [
       "Moltres"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "dragonair": {
+    "slug": "dragonair",
+    "dexNumber": 148,
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hiddenAbility": "Marvel Scale",
+    "baseExp": 147,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 61
+      },
+      {
+        "label": "Attack",
+        "value": 84
+      },
+      {
+        "label": "Defense",
+        "value": 65
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 420,
+    "heightM": 4,
+    "weightKg": 16.5,
+    "genus": "Dragon Pokémon",
+    "flavor": "A DRAGONAIR stores an enormous amount of energy inside its body. It is said to alter the weather around it by loosing energy from the crystals on its neck and tail.",
+    "evolution": [
+      "Dratini",
+      "Dragonair",
+      "Dragonite"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Dratini",
+        "to": "Dragonair",
+        "method": "Level 30"
+      },
+      {
+        "from": "Dragonair",
+        "to": "Dragonite",
+        "method": "Level 55"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
+    ],
+    "genderRate": 4
+  },
+  "dratini": {
+    "slug": "dratini",
+    "dexNumber": 147,
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hiddenAbility": "Marvel Scale",
+    "baseExp": 60,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 41
+      },
+      {
+        "label": "Attack",
+        "value": 64
+      },
+      {
+        "label": "Defense",
+        "value": 45
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 300,
+    "heightM": 1.8,
+    "weightKg": 3.3,
+    "genus": "Dragon Pokémon",
+    "flavor": "A DRATINI continually molts and sloughs off its old skin. It does so because the life energy within its body steadily builds to reach uncontrollable levels.",
+    "evolution": [
+      "Dratini",
+      "Dragonair",
+      "Dragonite"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Dratini",
+        "to": "Dragonair",
+        "method": "Level 30"
+      },
+      {
+        "from": "Dragonair",
+        "to": "Dragonite",
+        "method": "Level 55"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "dragonite": {
     "slug": "dragonite",
@@ -7176,132 +9337,52 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Dratini",
       "Dragonair",
       "Dragonite"
-    ]
-  },
-  "dratini": {
-    "slug": "dratini",
-    "dexNumber": 147,
-    "types": [
-      "Dragon"
     ],
-    "abilities": [
-      "Shed Skin"
-    ],
-    "hiddenAbility": "Marvel Scale",
-    "baseExp": 60,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 41
+        "from": "Dratini",
+        "to": "Dragonair",
+        "method": "Level 30"
       },
       {
-        "label": "Attack",
-        "value": 64
-      },
-      {
-        "label": "Defense",
-        "value": 45
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 50
+        "from": "Dragonair",
+        "to": "Dragonite",
+        "method": "Level 55"
       }
     ],
-    "total": 300,
-    "heightM": 1.8,
-    "weightKg": 3.3,
-    "genus": "Dragon Pokémon",
-    "flavor": "A DRATINI continually molts and sloughs off its old skin. It does so because the life energy within its body steadily builds to reach uncontrollable levels.",
-    "evolution": [
-      "Dratini",
-      "Dragonair",
-      "Dragonite"
-    ]
-  },
-  "dragonair": {
-    "slug": "dragonair",
-    "dexNumber": 148,
-    "types": [
+    "eggGroups": [
+      "Water 1",
       "Dragon"
     ],
-    "abilities": [
-      "Shed Skin"
-    ],
-    "hiddenAbility": "Marvel Scale",
-    "baseExp": 147,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 61
-      },
-      {
-        "label": "Attack",
-        "value": 84
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 420,
-    "heightM": 4,
-    "weightKg": 16.5,
-    "genus": "Dragon Pokémon",
-    "flavor": "A DRAGONAIR stores an enormous amount of energy inside its body. It is said to alter the weather around it by loosing energy from the crystals on its neck and tail.",
-    "evolution": [
-      "Dratini",
-      "Dragonair",
-      "Dragonite"
-    ]
+    "genderRate": 4
   },
-  "zapdos": {
-    "slug": "zapdos",
-    "dexNumber": 145,
+  "mewtwo": {
+    "slug": "mewtwo",
+    "dexNumber": 150,
     "types": [
-      "Electric",
-      "Flying"
+      "Psychic"
     ],
     "abilities": [
       "Pressure"
     ],
-    "hiddenAbility": "Static",
-    "baseExp": 261,
+    "hiddenAbility": "Unnerve",
+    "baseExp": 306,
     "stats": [
       {
         "label": "HP",
-        "value": 90
+        "value": 106
       },
       {
         "label": "Attack",
-        "value": 90
+        "value": 110
       },
       {
         "label": "Defense",
-        "value": 85
+        "value": 90
       },
       {
         "label": "Sp. Atk",
-        "value": 125
+        "value": 154
       },
       {
         "label": "Sp. Def",
@@ -7309,17 +9390,22 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 100
+        "value": 130
       }
     ],
-    "total": 580,
-    "heightM": 1.6,
-    "weightKg": 52.6,
-    "genus": "Electric Pokémon",
-    "flavor": "ZAPDOS is a legendary bird POKéMON that has the ability to control electricity. It usually lives in thunderclouds. It gains power if it is stricken by lightning bolts.",
+    "total": 680,
+    "heightM": 2,
+    "weightKg": 122,
+    "genus": "Genetic Pokémon",
+    "flavor": "A POKéMON that was created by genetic manipulation. However, even though the scientific power of humans made its body, they failed to give it a warm heart.",
     "evolution": [
-      "Zapdos"
-    ]
+      "Mewtwo"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "mew": {
     "slug": "mew",
@@ -7364,343 +9450,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A MEW is said to possess the genes of all POKéMON. It is capable of making itself invisible at will, so it entirely avoids notice even if it approaches people.",
     "evolution": [
       "Mew"
-    ]
-  },
-  "totodile": {
-    "slug": "totodile",
-    "dexNumber": 158,
-    "types": [
-      "Water"
     ],
-    "abilities": [
-      "Torrent"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
     ],
-    "hiddenAbility": "Sheer Force",
-    "baseExp": 63,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 64
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 44
-      },
-      {
-        "label": "Sp. Def",
-        "value": 48
-      },
-      {
-        "label": "Speed",
-        "value": 43
-      }
-    ],
-    "total": 314,
-    "heightM": 0.6,
-    "weightKg": 9.5,
-    "genus": "Big Jaw Pokémon",
-    "flavor": "Despite its small body, TOTODILE’s jaws are very powerful. While it may think it is just playfully nipping, its bite has enough strength to cause serious injury.",
-    "evolution": [
-      "Totodile",
-      "Croconaw",
-      "Feraligatr"
-    ]
-  },
-  "croconaw": {
-    "slug": "croconaw",
-    "dexNumber": 159,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Torrent"
-    ],
-    "hiddenAbility": "Sheer Force",
-    "baseExp": 142,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 59
-      },
-      {
-        "label": "Sp. Def",
-        "value": 63
-      },
-      {
-        "label": "Speed",
-        "value": 58
-      }
-    ],
-    "total": 405,
-    "heightM": 1.1,
-    "weightKg": 25,
-    "genus": "Big Jaw Pokémon",
-    "flavor": "Once its jaws clamp down on its foe, it will absolutely not let go. Because the tips of its fangs are forked back like fishhooks, they become irremovably embedded.",
-    "evolution": [
-      "Totodile",
-      "Croconaw",
-      "Feraligatr"
-    ]
-  },
-  "feraligatr": {
-    "slug": "feraligatr",
-    "dexNumber": 160,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Torrent"
-    ],
-    "hiddenAbility": "Sheer Force",
-    "baseExp": 239,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 85
-      },
-      {
-        "label": "Attack",
-        "value": 105
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 79
-      },
-      {
-        "label": "Sp. Def",
-        "value": 83
-      },
-      {
-        "label": "Speed",
-        "value": 78
-      }
-    ],
-    "total": 530,
-    "heightM": 2.3,
-    "weightKg": 88.8,
-    "genus": "Big Jaw Pokémon",
-    "flavor": "It opens its huge mouth to intimidate enemies. In battle, it runs using its thick and powerful hind legs to charge the foe with incredible speed.",
-    "evolution": [
-      "Totodile",
-      "Croconaw",
-      "Feraligatr"
-    ]
-  },
-  "meganium": {
-    "slug": "meganium",
-    "dexNumber": 154,
-    "types": [
-      "Grass"
-    ],
-    "abilities": [
-      "Overgrow"
-    ],
-    "hiddenAbility": "Leaf Guard",
-    "baseExp": 236,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 82
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 83
-      },
-      {
-        "label": "Sp. Def",
-        "value": 100
-      },
-      {
-        "label": "Speed",
-        "value": 80
-      }
-    ],
-    "total": 525,
-    "heightM": 1.8,
-    "weightKg": 100.5,
-    "genus": "Herb Pokémon",
-    "flavor": "The fragrance of a MEGANIUM’s flower soothes and calms emotions. In battle, it gives off more of its becalming scent to blunt the foe’s fighting spirit.",
-    "evolution": [
-      "Chikorita",
-      "Bayleef",
-      "Meganium"
-    ]
-  },
-  "cyndaquil": {
-    "slug": "cyndaquil",
-    "dexNumber": 155,
-    "types": [
-      "Fire"
-    ],
-    "abilities": [
-      "Blaze"
-    ],
-    "hiddenAbility": "Flash Fire",
-    "baseExp": 62,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 39
-      },
-      {
-        "label": "Attack",
-        "value": 52
-      },
-      {
-        "label": "Defense",
-        "value": 43
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 65
-      }
-    ],
-    "total": 309,
-    "heightM": 0.5,
-    "weightKg": 7.9,
-    "genus": "Fire Mouse Pokémon",
-    "flavor": "It flares flames from its back to protect itself. The fire burns vigorously if the POKéMON is angry. When it is tired, it sputters with incomplete combustion.",
-    "evolution": [
-      "Cyndaquil",
-      "Quilava",
-      "Typhlosion"
-    ]
-  },
-  "typhlosion": {
-    "slug": "typhlosion",
-    "dexNumber": 157,
-    "types": [
-      "Fire"
-    ],
-    "abilities": [
-      "Blaze"
-    ],
-    "hiddenAbility": "Flash Fire",
-    "baseExp": 240,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 78
-      },
-      {
-        "label": "Attack",
-        "value": 84
-      },
-      {
-        "label": "Defense",
-        "value": 78
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 109
-      },
-      {
-        "label": "Sp. Def",
-        "value": 85
-      },
-      {
-        "label": "Speed",
-        "value": 100
-      }
-    ],
-    "total": 534,
-    "heightM": 1.7,
-    "weightKg": 79.5,
-    "genus": "Volcano Pokémon",
-    "flavor": "It can hide behind a shimmering heat haze that it creates using its intense flames. TYPHLOSION create blazing explosive blasts that burn everything to cinders.",
-    "evolution": [
-      "Cyndaquil",
-      "Quilava",
-      "Typhlosion"
-    ]
-  },
-  "quilava": {
-    "slug": "quilava",
-    "dexNumber": 156,
-    "types": [
-      "Fire"
-    ],
-    "abilities": [
-      "Blaze"
-    ],
-    "hiddenAbility": "Flash Fire",
-    "baseExp": 142,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 58
-      },
-      {
-        "label": "Attack",
-        "value": 64
-      },
-      {
-        "label": "Defense",
-        "value": 58
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 80
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 80
-      }
-    ],
-    "total": 405,
-    "heightM": 0.9,
-    "weightKg": 19,
-    "genus": "Volcano Pokémon",
-    "flavor": "It intimidates foes with intense gusts of flames and superheated air. Its quick nimbleness lets it dodge attacks even while scorching an enemy.",
-    "evolution": [
-      "Cyndaquil",
-      "Quilava",
-      "Typhlosion"
-    ]
+    "genderRate": -1
   },
   "bayleef": {
     "slug": "bayleef",
@@ -7748,118 +9503,166 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Chikorita",
       "Bayleef",
       "Meganium"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chikorita",
+        "to": "Bayleef",
+        "method": "Level 16"
+      },
+      {
+        "from": "Bayleef",
+        "to": "Meganium",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 1
   },
-  "ariados": {
-    "slug": "ariados",
-    "dexNumber": 168,
+  "meganium": {
+    "slug": "meganium",
+    "dexNumber": 154,
     "types": [
-      "Bug",
-      "Poison"
+      "Grass"
     ],
     "abilities": [
-      "Swarm",
-      "Insomnia"
+      "Overgrow"
     ],
-    "hiddenAbility": "Sniper",
-    "baseExp": 140,
+    "hiddenAbility": "Leaf Guard",
+    "baseExp": 236,
     "stats": [
       {
         "label": "HP",
-        "value": 70
+        "value": 80
       },
       {
         "label": "Attack",
-        "value": 90
+        "value": 82
       },
       {
         "label": "Defense",
-        "value": 70
+        "value": 100
       },
       {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 83
       },
       {
         "label": "Sp. Def",
-        "value": 70
+        "value": 100
       },
       {
         "label": "Speed",
-        "value": 40
+        "value": 80
       }
     ],
-    "total": 400,
+    "total": 525,
+    "heightM": 1.8,
+    "weightKg": 100.5,
+    "genus": "Herb Pokémon",
+    "flavor": "The fragrance of a MEGANIUM’s flower soothes and calms emotions. In battle, it gives off more of its becalming scent to blunt the foe’s fighting spirit.",
+    "evolution": [
+      "Chikorita",
+      "Bayleef",
+      "Meganium"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chikorita",
+        "to": "Bayleef",
+        "method": "Level 16"
+      },
+      {
+        "from": "Bayleef",
+        "to": "Meganium",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 1
+  },
+  "croconaw": {
+    "slug": "croconaw",
+    "dexNumber": 159,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent"
+    ],
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 59
+      },
+      {
+        "label": "Sp. Def",
+        "value": 63
+      },
+      {
+        "label": "Speed",
+        "value": 58
+      }
+    ],
+    "total": 405,
     "heightM": 1.1,
-    "weightKg": 33.5,
-    "genus": "Long Leg Pokémon",
-    "flavor": "Its feet are tipped with tiny hooked claws that enable it to scuttle on ceilings and vertical walls. It constricts its foe with thin and strong silk webbing.",
+    "weightKg": 25,
+    "genus": "Big Jaw Pokémon",
+    "flavor": "Once its jaws clamp down on its foe, it will absolutely not let go. Because the tips of its fangs are forked back like fishhooks, they become irremovably embedded.",
     "evolution": [
-      "Spinarak",
-      "Ariados"
-    ]
-  },
-  "spinarak": {
-    "slug": "spinarak",
-    "dexNumber": 167,
-    "types": [
-      "Bug",
-      "Poison"
+      "Totodile",
+      "Croconaw",
+      "Feraligatr"
     ],
-    "abilities": [
-      "Swarm",
-      "Insomnia"
-    ],
-    "hiddenAbility": "Sniper",
-    "baseExp": 50,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 40
+        "from": "Totodile",
+        "to": "Croconaw",
+        "method": "Level 18"
       },
       {
-        "label": "Attack",
-        "value": 60
-      },
-      {
-        "label": "Defense",
-        "value": 40
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 40
-      },
-      {
-        "label": "Speed",
-        "value": 30
+        "from": "Croconaw",
+        "to": "Feraligatr",
+        "method": "Level 30"
       }
     ],
-    "total": 250,
-    "heightM": 0.5,
-    "weightKg": 8.5,
-    "genus": "String Spit Pokémon",
-    "flavor": "The web it spins can be considered its second nervous system. It is said that a SPINARAK determines its prey by the tiny vibrations it feels through the web.",
-    "evolution": [
-      "Spinarak",
-      "Ariados"
-    ]
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
   },
-  "furret": {
-    "slug": "furret",
-    "dexNumber": 162,
+  "feraligatr": {
+    "slug": "feraligatr",
+    "dexNumber": 160,
     "types": [
-      "Normal"
+      "Water"
     ],
     "abilities": [
-      "Run Away",
-      "Keen Eye"
+      "Torrent"
     ],
-    "hiddenAbility": "Frisk",
-    "baseExp": 145,
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 239,
     "stats": [
       {
         "label": "HP",
@@ -7867,7 +9670,72 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 76
+        "value": 105
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 79
+      },
+      {
+        "label": "Sp. Def",
+        "value": 83
+      },
+      {
+        "label": "Speed",
+        "value": 78
+      }
+    ],
+    "total": 530,
+    "heightM": 2.3,
+    "weightKg": 88.8,
+    "genus": "Big Jaw Pokémon",
+    "flavor": "It opens its huge mouth to intimidate enemies. In battle, it runs using its thick and powerful hind legs to charge the foe with incredible speed.",
+    "evolution": [
+      "Totodile",
+      "Croconaw",
+      "Feraligatr"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Totodile",
+        "to": "Croconaw",
+        "method": "Level 18"
+      },
+      {
+        "from": "Croconaw",
+        "to": "Feraligatr",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
+  },
+  "totodile": {
+    "slug": "totodile",
+    "dexNumber": 158,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent"
+    ],
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 63,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 65
       },
       {
         "label": "Defense",
@@ -7875,74 +9743,251 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Atk",
-        "value": 45
+        "value": 44
       },
       {
         "label": "Sp. Def",
-        "value": 55
+        "value": 48
       },
       {
         "label": "Speed",
-        "value": 90
+        "value": 43
       }
     ],
-    "total": 415,
-    "heightM": 1.8,
-    "weightKg": 32.5,
-    "genus": "Long Body Pokémon",
-    "flavor": "A FURRET has a very slim build. When under attack, it can squirm through narrow spaces and get away. In spite of its short limbs, it is very nimble and fleet.",
+    "total": 314,
+    "heightM": 0.6,
+    "weightKg": 9.5,
+    "genus": "Big Jaw Pokémon",
+    "flavor": "Despite its small body, TOTODILE’s jaws are very powerful. While it may think it is just playfully nipping, its bite has enough strength to cause serious injury.",
     "evolution": [
-      "Sentret",
-      "Furret"
-    ]
+      "Totodile",
+      "Croconaw",
+      "Feraligatr"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Totodile",
+        "to": "Croconaw",
+        "method": "Level 18"
+      },
+      {
+        "from": "Croconaw",
+        "to": "Feraligatr",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
   },
-  "sentret": {
-    "slug": "sentret",
-    "dexNumber": 161,
+  "cyndaquil": {
+    "slug": "cyndaquil",
+    "dexNumber": 155,
     "types": [
-      "Normal"
+      "Fire"
     ],
     "abilities": [
-      "Run Away",
-      "Keen Eye"
+      "Blaze"
     ],
-    "hiddenAbility": "Frisk",
-    "baseExp": 43,
+    "hiddenAbility": "Flash Fire",
+    "baseExp": 62,
     "stats": [
       {
         "label": "HP",
-        "value": 35
+        "value": 39
       },
       {
         "label": "Attack",
-        "value": 46
+        "value": 52
       },
       {
         "label": "Defense",
-        "value": 34
+        "value": 43
       },
       {
         "label": "Sp. Atk",
-        "value": 35
+        "value": 60
       },
       {
         "label": "Sp. Def",
-        "value": 45
+        "value": 50
       },
       {
         "label": "Speed",
-        "value": 20
+        "value": 65
       }
     ],
-    "total": 215,
-    "heightM": 0.8,
-    "weightKg": 6,
-    "genus": "Scout Pokémon",
-    "flavor": "They take turns standing guard when it is time to sleep. The sentry awakens the others if it senses danger. If one becomes separated, it turns sleepless with fear.",
+    "total": 309,
+    "heightM": 0.5,
+    "weightKg": 7.9,
+    "genus": "Fire Mouse Pokémon",
+    "flavor": "It flares flames from its back to protect itself. The fire burns vigorously if the POKéMON is angry. When it is tired, it sputters with incomplete combustion.",
     "evolution": [
-      "Sentret",
-      "Furret"
-    ]
+      "Cyndaquil",
+      "Quilava",
+      "Typhlosion"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cyndaquil",
+        "to": "Quilava",
+        "method": "Level 14"
+      },
+      {
+        "from": "Cyndaquil",
+        "to": "Quilava",
+        "method": "Level 17"
+      },
+      {
+        "from": "Quilava",
+        "to": "Typhlosion",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
+  },
+  "quilava": {
+    "slug": "quilava",
+    "dexNumber": 156,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze"
+    ],
+    "hiddenAbility": "Flash Fire",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 58
+      },
+      {
+        "label": "Attack",
+        "value": 64
+      },
+      {
+        "label": "Defense",
+        "value": 58
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 80
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 405,
+    "heightM": 0.9,
+    "weightKg": 19,
+    "genus": "Volcano Pokémon",
+    "flavor": "It intimidates foes with intense gusts of flames and superheated air. Its quick nimbleness lets it dodge attacks even while scorching an enemy.",
+    "evolution": [
+      "Cyndaquil",
+      "Quilava",
+      "Typhlosion"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cyndaquil",
+        "to": "Quilava",
+        "method": "Level 14"
+      },
+      {
+        "from": "Cyndaquil",
+        "to": "Quilava",
+        "method": "Level 17"
+      },
+      {
+        "from": "Quilava",
+        "to": "Typhlosion",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
+  },
+  "typhlosion": {
+    "slug": "typhlosion",
+    "dexNumber": 157,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze"
+    ],
+    "hiddenAbility": "Flash Fire",
+    "baseExp": 240,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 78
+      },
+      {
+        "label": "Attack",
+        "value": 84
+      },
+      {
+        "label": "Defense",
+        "value": 78
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 109
+      },
+      {
+        "label": "Sp. Def",
+        "value": 85
+      },
+      {
+        "label": "Speed",
+        "value": 100
+      }
+    ],
+    "total": 534,
+    "heightM": 1.7,
+    "weightKg": 79.5,
+    "genus": "Volcano Pokémon",
+    "flavor": "It can hide behind a shimmering heat haze that it creates using its intense flames. TYPHLOSION create blazing explosive blasts that burn everything to cinders.",
+    "evolution": [
+      "Cyndaquil",
+      "Quilava",
+      "Typhlosion"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cyndaquil",
+        "to": "Quilava",
+        "method": "Level 14"
+      },
+      {
+        "from": "Cyndaquil",
+        "to": "Quilava",
+        "method": "Level 17"
+      },
+      {
+        "from": "Quilava",
+        "to": "Typhlosion",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
   },
   "ledyba": {
     "slug": "ledyba",
@@ -7991,7 +10036,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Ledyba",
       "Ledian"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ledyba",
+        "to": "Ledian",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "ledian": {
     "slug": "ledian",
@@ -8040,56 +10096,138 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Ledyba",
       "Ledian"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ledyba",
+        "to": "Ledian",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
-  "hoothoot": {
-    "slug": "hoothoot",
-    "dexNumber": 163,
+  "spinarak": {
+    "slug": "spinarak",
+    "dexNumber": 167,
     "types": [
-      "Normal",
-      "Flying"
+      "Bug",
+      "Poison"
     ],
     "abilities": [
-      "Insomnia",
-      "Keen Eye"
+      "Swarm",
+      "Insomnia"
     ],
-    "hiddenAbility": "Tinted Lens",
-    "baseExp": 52,
+    "hiddenAbility": "Sniper",
+    "baseExp": 50,
     "stats": [
       {
         "label": "HP",
-        "value": 60
+        "value": 40
       },
       {
         "label": "Attack",
-        "value": 30
+        "value": 60
       },
       {
         "label": "Defense",
-        "value": 30
+        "value": 40
       },
       {
         "label": "Sp. Atk",
-        "value": 36
+        "value": 40
       },
       {
         "label": "Sp. Def",
-        "value": 56
+        "value": 40
       },
       {
         "label": "Speed",
-        "value": 50
+        "value": 30
       }
     ],
-    "total": 262,
-    "heightM": 0.7,
-    "weightKg": 21.2,
-    "genus": "Owl Pokémon",
-    "flavor": "It has an internal organ that senses the earth’s rotation. Using this special organ, a HOOTHOOT begins hooting at precisely the same time every day.",
+    "total": 250,
+    "heightM": 0.5,
+    "weightKg": 8.5,
+    "genus": "String Spit Pokémon",
+    "flavor": "The web it spins can be considered its second nervous system. It is said that a SPINARAK determines its prey by the tiny vibrations it feels through the web.",
     "evolution": [
-      "Hoothoot",
-      "Noctowl"
-    ]
+      "Spinarak",
+      "Ariados"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Spinarak",
+        "to": "Ariados",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "ariados": {
+    "slug": "ariados",
+    "dexNumber": 168,
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Swarm",
+      "Insomnia"
+    ],
+    "hiddenAbility": "Sniper",
+    "baseExp": 140,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 400,
+    "heightM": 1.1,
+    "weightKg": 33.5,
+    "genus": "Long Leg Pokémon",
+    "flavor": "Its feet are tipped with tiny hooked claws that enable it to scuttle on ceilings and vertical walls. It constricts its foe with thin and strong silk webbing.",
+    "evolution": [
+      "Spinarak",
+      "Ariados"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Spinarak",
+        "to": "Ariados",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "noctowl": {
     "slug": "noctowl",
@@ -8138,31 +10276,162 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Hoothoot",
       "Noctowl"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Hoothoot",
+        "to": "Noctowl",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
-  "pichu": {
-    "slug": "pichu",
-    "dexNumber": 172,
+  "hoothoot": {
+    "slug": "hoothoot",
+    "dexNumber": 163,
     "types": [
-      "Electric"
+      "Normal",
+      "Flying"
     ],
     "abilities": [
-      "Static"
+      "Insomnia",
+      "Keen Eye"
     ],
-    "hiddenAbility": "Lightning Rod",
-    "baseExp": 41,
+    "hiddenAbility": "Tinted Lens",
+    "baseExp": 52,
     "stats": [
       {
         "label": "HP",
-        "value": 20
+        "value": 60
       },
       {
         "label": "Attack",
-        "value": 40
+        "value": 30
       },
       {
         "label": "Defense",
-        "value": 15
+        "value": 30
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 36
+      },
+      {
+        "label": "Sp. Def",
+        "value": 56
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 262,
+    "heightM": 0.7,
+    "weightKg": 21.2,
+    "genus": "Owl Pokémon",
+    "flavor": "It has an internal organ that senses the earth’s rotation. Using this special organ, a HOOTHOOT begins hooting at precisely the same time every day.",
+    "evolution": [
+      "Hoothoot",
+      "Noctowl"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Hoothoot",
+        "to": "Noctowl",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
+  },
+  "furret": {
+    "slug": "furret",
+    "dexNumber": 162,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Keen Eye"
+    ],
+    "hiddenAbility": "Frisk",
+    "baseExp": 145,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 85
+      },
+      {
+        "label": "Attack",
+        "value": 76
+      },
+      {
+        "label": "Defense",
+        "value": 64
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 415,
+    "heightM": 1.8,
+    "weightKg": 32.5,
+    "genus": "Long Body Pokémon",
+    "flavor": "A FURRET has a very slim build. When under attack, it can squirm through narrow spaces and get away. In spite of its short limbs, it is very nimble and fleet.",
+    "evolution": [
+      "Sentret",
+      "Furret"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Sentret",
+        "to": "Furret",
+        "method": "Level 15"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "sentret": {
+    "slug": "sentret",
+    "dexNumber": 161,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Keen Eye"
+    ],
+    "hiddenAbility": "Frisk",
+    "baseExp": 43,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 35
+      },
+      {
+        "label": "Attack",
+        "value": 46
+      },
+      {
+        "label": "Defense",
+        "value": 34
       },
       {
         "label": "Sp. Atk",
@@ -8170,23 +10439,33 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Def",
-        "value": 35
+        "value": 45
       },
       {
         "label": "Speed",
-        "value": 60
+        "value": 20
       }
     ],
-    "total": 205,
-    "heightM": 0.3,
-    "weightKg": 2,
-    "genus": "Tiny Mouse Pokémon",
-    "flavor": "It is still inept at retaining electricity. When it is startled, it discharges power accidentally. It gets better at holding power as it grows older.",
+    "total": 215,
+    "heightM": 0.8,
+    "weightKg": 6,
+    "genus": "Scout Pokémon",
+    "flavor": "They take turns standing guard when it is time to sleep. The sentry awakens the others if it senses danger. If one becomes separated, it turns sleepless with fear.",
     "evolution": [
-      "Pichu",
-      "Pikachu",
-      "Raichu"
-    ]
+      "Sentret",
+      "Furret"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Sentret",
+        "to": "Furret",
+        "method": "Level 15"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "igglybuff": {
     "slug": "igglybuff",
@@ -8236,7 +10515,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Igglybuff",
       "Jigglypuff",
       "Wigglytuff"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Igglybuff",
+        "to": "Jigglypuff",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Jigglypuff",
+        "to": "Wigglytuff",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 6
   },
   "crobat": {
     "slug": "crobat",
@@ -8285,56 +10580,143 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Zubat",
       "Golbat",
       "Crobat"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Zubat",
+        "to": "Golbat",
+        "method": "Level 22"
+      },
+      {
+        "from": "Golbat",
+        "to": "Crobat",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
-  "lanturn": {
-    "slug": "lanturn",
-    "dexNumber": 171,
+  "togepi": {
+    "slug": "togepi",
+    "dexNumber": 175,
     "types": [
-      "Water",
-      "Electric"
+      "Fairy"
     ],
     "abilities": [
-      "Volt Absorb",
-      "Illuminate"
+      "Hustle",
+      "Serene Grace"
     ],
-    "hiddenAbility": "Water Absorb",
-    "baseExp": 161,
+    "hiddenAbility": "Super Luck",
+    "baseExp": 49,
     "stats": [
       {
         "label": "HP",
-        "value": 125
+        "value": 35
       },
       {
         "label": "Attack",
-        "value": 58
+        "value": 20
       },
       {
         "label": "Defense",
-        "value": 58
+        "value": 65
       },
       {
         "label": "Sp. Atk",
-        "value": 76
+        "value": 40
       },
       {
         "label": "Sp. Def",
-        "value": 76
+        "value": 65
       },
       {
         "label": "Speed",
-        "value": 67
+        "value": 20
       }
     ],
-    "total": 460,
-    "heightM": 1.2,
-    "weightKg": 22.5,
-    "genus": "Light Pokémon",
-    "flavor": "The light-emitting orbs on its back are very bright. They are formed from a part of its dorsal fin. This POKéMON illuminates the inky darkness of deep seas.",
+    "total": 245,
+    "heightM": 0.3,
+    "weightKg": 1.5,
+    "genus": "Spike Ball Pokémon",
+    "flavor": "As its energy, it uses the feelings of compassion and pleasure exuded by people and POKéMON. It stores up happy feelings in its shell, then shares them out.",
     "evolution": [
-      "Chinchou",
-      "Lanturn"
-    ]
+      "Togepi",
+      "Togetic"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Togepi",
+        "to": "Togetic",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 1
+  },
+  "togetic": {
+    "slug": "togetic",
+    "dexNumber": 176,
+    "types": [
+      "Fairy",
+      "Flying"
+    ],
+    "abilities": [
+      "Hustle",
+      "Serene Grace"
+    ],
+    "hiddenAbility": "Super Luck",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 40
+      },
+      {
+        "label": "Defense",
+        "value": 85
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 80
+      },
+      {
+        "label": "Sp. Def",
+        "value": 105
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 405,
+    "heightM": 0.6,
+    "weightKg": 3.2,
+    "genus": "Happiness Pokémon",
+    "flavor": "It is said to be a POKéMON that brings good fortune. When it spots someone who is pure of heart, a TOGETIC appears and shares its happiness with that person.",
+    "evolution": [
+      "Togepi",
+      "Togetic"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Togepi",
+        "to": "Togetic",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Flying",
+      "Fairy"
+    ],
+    "genderRate": 1
   },
   "chinchou": {
     "slug": "chinchou",
@@ -8383,25 +10765,34 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Chinchou",
       "Lanturn"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chinchou",
+        "to": "Lanturn",
+        "method": "Level 27"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
   },
-  "togetic": {
-    "slug": "togetic",
-    "dexNumber": 176,
+  "pichu": {
+    "slug": "pichu",
+    "dexNumber": 172,
     "types": [
-      "Fairy",
-      "Flying"
+      "Electric"
     ],
     "abilities": [
-      "Hustle",
-      "Serene Grace"
+      "Static"
     ],
-    "hiddenAbility": "Super Luck",
-    "baseExp": 142,
+    "hiddenAbility": "Lightning Rod",
+    "baseExp": 41,
     "stats": [
       {
         "label": "HP",
-        "value": 55
+        "value": 20
       },
       {
         "label": "Attack",
@@ -8409,80 +10800,107 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Defense",
-        "value": 85
+        "value": 15
       },
       {
         "label": "Sp. Atk",
-        "value": 80
-      },
-      {
-        "label": "Sp. Def",
-        "value": 105
-      },
-      {
-        "label": "Speed",
-        "value": 40
-      }
-    ],
-    "total": 405,
-    "heightM": 0.6,
-    "weightKg": 3.2,
-    "genus": "Happiness Pokémon",
-    "flavor": "It is said to be a POKéMON that brings good fortune. When it spots someone who is pure of heart, a TOGETIC appears and shares its happiness with that person.",
-    "evolution": [
-      "Togepi",
-      "Togetic",
-      "Togekiss"
-    ]
-  },
-  "togepi": {
-    "slug": "togepi",
-    "dexNumber": 175,
-    "types": [
-      "Fairy"
-    ],
-    "abilities": [
-      "Hustle",
-      "Serene Grace"
-    ],
-    "hiddenAbility": "Super Luck",
-    "baseExp": 49,
-    "stats": [
-      {
-        "label": "HP",
         "value": 35
       },
       {
-        "label": "Attack",
-        "value": 20
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
         "label": "Sp. Def",
-        "value": 65
+        "value": 35
       },
       {
         "label": "Speed",
-        "value": 20
+        "value": 60
       }
     ],
-    "total": 245,
+    "total": 205,
     "heightM": 0.3,
-    "weightKg": 1.5,
-    "genus": "Spike Ball Pokémon",
-    "flavor": "As its energy, it uses the feelings of compassion and pleasure exuded by people and POKéMON. It stores up happy feelings in its shell, then shares them out.",
+    "weightKg": 2,
+    "genus": "Tiny Mouse Pokémon",
+    "flavor": "It is still inept at retaining electricity. When it is startled, it discharges power accidentally. It gets better at holding power as it grows older.",
     "evolution": [
-      "Togepi",
-      "Togetic",
-      "Togekiss"
-    ]
+      "Pichu",
+      "Pikachu",
+      "Raichu"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pichu",
+        "to": "Pikachu",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Pikachu",
+        "to": "Raichu",
+        "method": "Thunder Stone"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 4
+  },
+  "lanturn": {
+    "slug": "lanturn",
+    "dexNumber": 171,
+    "types": [
+      "Water",
+      "Electric"
+    ],
+    "abilities": [
+      "Volt Absorb",
+      "Illuminate"
+    ],
+    "hiddenAbility": "Water Absorb",
+    "baseExp": 161,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 125
+      },
+      {
+        "label": "Attack",
+        "value": 58
+      },
+      {
+        "label": "Defense",
+        "value": 58
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 76
+      },
+      {
+        "label": "Sp. Def",
+        "value": 76
+      },
+      {
+        "label": "Speed",
+        "value": 67
+      }
+    ],
+    "total": 460,
+    "heightM": 1.2,
+    "weightKg": 22.5,
+    "genus": "Light Pokémon",
+    "flavor": "The light-emitting orbs on its back are very bright. They are formed from a part of its dorsal fin. This POKéMON illuminates the inky darkness of deep seas.",
+    "evolution": [
+      "Chinchou",
+      "Lanturn"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chinchou",
+        "to": "Lanturn",
+        "method": "Level 27"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
   },
   "cleffa": {
     "slug": "cleffa",
@@ -8531,7 +10949,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Cleffa",
       "Clefairy",
       "Clefable"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cleffa",
+        "to": "Clefairy",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Clefairy",
+        "to": "Clefable",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 6
   },
   "bellossom": {
     "slug": "bellossom",
@@ -8578,26 +11012,111 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Oddish",
       "Gloom",
-      "Vileplume"
-    ]
+      "Vileplume",
+      "Bellossom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Oddish",
+        "to": "Gloom",
+        "method": "Level 21"
+      },
+      {
+        "from": "Gloom",
+        "to": "Vileplume",
+        "method": "Leaf Stone"
+      },
+      {
+        "from": "Gloom",
+        "to": "Bellossom",
+        "method": "Sun Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
   },
-  "xatu": {
-    "slug": "xatu",
-    "dexNumber": 178,
+  "mareep": {
+    "slug": "mareep",
+    "dexNumber": 179,
     "types": [
-      "Psychic",
-      "Flying"
+      "Electric"
     ],
     "abilities": [
-      "Synchronize",
-      "Early Bird"
+      "Static"
     ],
-    "hiddenAbility": "Magic Bounce",
-    "baseExp": 165,
+    "hiddenAbility": "Plus",
+    "baseExp": 56,
     "stats": [
       {
         "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 40
+      },
+      {
+        "label": "Defense",
+        "value": 40
+      },
+      {
+        "label": "Sp. Atk",
         "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 45
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 280,
+    "heightM": 0.6,
+    "weightKg": 7.8,
+    "genus": "Wool Pokémon",
+    "flavor": "Its fluffy wool rubs together and builds a static charge. The more energy is charged, the more brightly the lightbulb at the tip of its tail glows.",
+    "evolution": [
+      "Mareep",
+      "Flaaffy",
+      "Ampharos"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mareep",
+        "to": "Flaaffy",
+        "method": "Level 15"
+      },
+      {
+        "from": "Flaaffy",
+        "to": "Ampharos",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "ampharos": {
+    "slug": "ampharos",
+    "dexNumber": 181,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static"
+    ],
+    "hiddenAbility": "Plus",
+    "baseExp": 230,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
       },
       {
         "label": "Attack",
@@ -8605,79 +11124,113 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Defense",
-        "value": 70
+        "value": 85
       },
       {
         "label": "Sp. Atk",
-        "value": 95
+        "value": 115
       },
       {
         "label": "Sp. Def",
-        "value": 70
+        "value": 90
       },
       {
         "label": "Speed",
-        "value": 95
+        "value": 55
       }
     ],
-    "total": 470,
-    "heightM": 1.5,
-    "weightKg": 15,
-    "genus": "Mystic Pokémon",
-    "flavor": "It has the enigmatic power of foreseeing the future. Some people in different lands have long believed that XATU are emissaries from another world.",
+    "total": 510,
+    "heightM": 1.4,
+    "weightKg": 61.5,
+    "genus": "Light Pokémon",
+    "flavor": "It gives off so much light that it can be seen even from space. People in the old days used its light to send signals back and forth with others far away.",
     "evolution": [
-      "Natu",
-      "Xatu"
-    ]
+      "Mareep",
+      "Flaaffy",
+      "Ampharos"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mareep",
+        "to": "Flaaffy",
+        "method": "Level 15"
+      },
+      {
+        "from": "Flaaffy",
+        "to": "Ampharos",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "natu": {
-    "slug": "natu",
-    "dexNumber": 177,
+  "flaaffy": {
+    "slug": "flaaffy",
+    "dexNumber": 180,
     "types": [
-      "Psychic",
-      "Flying"
+      "Electric"
     ],
     "abilities": [
-      "Synchronize",
-      "Early Bird"
+      "Static"
     ],
-    "hiddenAbility": "Magic Bounce",
-    "baseExp": 64,
+    "hiddenAbility": "Plus",
+    "baseExp": 128,
     "stats": [
       {
         "label": "HP",
-        "value": 40
+        "value": 70
       },
       {
         "label": "Attack",
-        "value": 50
+        "value": 55
       },
       {
         "label": "Defense",
-        "value": 45
+        "value": 55
       },
       {
         "label": "Sp. Atk",
-        "value": 70
+        "value": 80
       },
       {
         "label": "Sp. Def",
-        "value": 45
+        "value": 60
       },
       {
         "label": "Speed",
-        "value": 70
+        "value": 45
       }
     ],
-    "total": 320,
-    "heightM": 0.2,
-    "weightKg": 2,
-    "genus": "Tiny Bird Pokémon",
-    "flavor": "It runs up short trees that grow on the savanna to peck at new shoots. A NATU’s eyes look as if they are always observing something.",
+    "total": 365,
+    "heightM": 0.8,
+    "weightKg": 13.3,
+    "genus": "Wool Pokémon",
+    "flavor": "Its fleece quality changes to generate strong static electricity with a small amount of wool. The bare, slick parts of its hide are shielded against electricity.",
     "evolution": [
-      "Natu",
-      "Xatu"
-    ]
+      "Mareep",
+      "Flaaffy",
+      "Ampharos"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mareep",
+        "to": "Flaaffy",
+        "method": "Level 15"
+      },
+      {
+        "from": "Flaaffy",
+        "to": "Ampharos",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "marill": {
     "slug": "marill",
@@ -8727,7 +11280,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Azurill",
       "Marill",
       "Azumarill"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Azurill",
+        "to": "Marill",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Marill",
+        "to": "Azumarill",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Fairy"
+    ],
+    "genderRate": 4
   },
   "azumarill": {
     "slug": "azumarill",
@@ -8777,248 +11347,144 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Azurill",
       "Marill",
       "Azumarill"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Azurill",
+        "to": "Marill",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Marill",
+        "to": "Azumarill",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Fairy"
+    ],
+    "genderRate": 4
   },
-  "ampharos": {
-    "slug": "ampharos",
-    "dexNumber": 181,
+  "natu": {
+    "slug": "natu",
+    "dexNumber": 177,
     "types": [
-      "Electric"
+      "Psychic",
+      "Flying"
     ],
     "abilities": [
-      "Static"
+      "Synchronize",
+      "Early Bird"
     ],
-    "hiddenAbility": "Plus",
-    "baseExp": 230,
+    "hiddenAbility": "Magic Bounce",
+    "baseExp": 64,
     "stats": [
       {
         "label": "HP",
-        "value": 90
+        "value": 40
       },
       {
         "label": "Attack",
-        "value": 75
+        "value": 50
       },
       {
         "label": "Defense",
-        "value": 85
+        "value": 45
       },
       {
         "label": "Sp. Atk",
-        "value": 115
-      },
-      {
-        "label": "Sp. Def",
-        "value": 90
-      },
-      {
-        "label": "Speed",
-        "value": 55
-      }
-    ],
-    "total": 510,
-    "heightM": 1.4,
-    "weightKg": 61.5,
-    "genus": "Light Pokémon",
-    "flavor": "It gives off so much light that it can be seen even from space. People in the old days used its light to send signals back and forth with others far away.",
-    "evolution": [
-      "Mareep",
-      "Flaaffy",
-      "Ampharos"
-    ]
-  },
-  "flaaffy": {
-    "slug": "flaaffy",
-    "dexNumber": 180,
-    "types": [
-      "Electric"
-    ],
-    "abilities": [
-      "Static"
-    ],
-    "hiddenAbility": "Plus",
-    "baseExp": 128,
-    "stats": [
-      {
-        "label": "HP",
         "value": 70
       },
       {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 80
-      },
-      {
         "label": "Sp. Def",
-        "value": 60
+        "value": 45
       },
       {
         "label": "Speed",
-        "value": 45
+        "value": 70
       }
     ],
-    "total": 365,
-    "heightM": 0.8,
-    "weightKg": 13.3,
-    "genus": "Wool Pokémon",
-    "flavor": "Its fleece quality changes to generate strong static electricity with a small amount of wool. The bare, slick parts of its hide are shielded against electricity.",
+    "total": 320,
+    "heightM": 0.2,
+    "weightKg": 2,
+    "genus": "Tiny Bird Pokémon",
+    "flavor": "It runs up short trees that grow on the savanna to peck at new shoots. A NATU’s eyes look as if they are always observing something.",
     "evolution": [
-      "Mareep",
-      "Flaaffy",
-      "Ampharos"
-    ]
+      "Natu",
+      "Xatu"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Natu",
+        "to": "Xatu",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
-  "mareep": {
-    "slug": "mareep",
-    "dexNumber": 179,
+  "xatu": {
+    "slug": "xatu",
+    "dexNumber": 178,
     "types": [
-      "Electric"
+      "Psychic",
+      "Flying"
     ],
     "abilities": [
-      "Static"
+      "Synchronize",
+      "Early Bird"
     ],
-    "hiddenAbility": "Plus",
-    "baseExp": 56,
+    "hiddenAbility": "Magic Bounce",
+    "baseExp": 165,
     "stats": [
       {
         "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 40
-      },
-      {
-        "label": "Defense",
-        "value": 40
-      },
-      {
-        "label": "Sp. Atk",
         "value": 65
       },
       {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
-        "value": 35
-      }
-    ],
-    "total": 280,
-    "heightM": 0.6,
-    "weightKg": 7.8,
-    "genus": "Wool Pokémon",
-    "flavor": "Its fluffy wool rubs together and builds a static charge. The more energy is charged, the more brightly the lightbulb at the tip of its tail glows.",
-    "evolution": [
-      "Mareep",
-      "Flaaffy",
-      "Ampharos"
-    ]
-  },
-  "aipom": {
-    "slug": "aipom",
-    "dexNumber": 190,
-    "types": [
-      "Normal"
-    ],
-    "abilities": [
-      "Run Away",
-      "Pickup"
-    ],
-    "hiddenAbility": "Skill Link",
-    "baseExp": 72,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 85
-      }
-    ],
-    "total": 360,
-    "heightM": 0.8,
-    "weightKg": 11.5,
-    "genus": "Long Tail Pokémon",
-    "flavor": "Its tail ends with a dexterous, handlike appendage. However, because it uses the tail so much, AIPOM’s real hands have become rather clumsy.",
-    "evolution": [
-      "Aipom",
-      "Ambipom"
-    ]
-  },
-  "politoed": {
-    "slug": "politoed",
-    "dexNumber": 186,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Water Absorb",
-      "Damp"
-    ],
-    "hiddenAbility": "Drizzle",
-    "baseExp": 225,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 90
-      },
-      {
         "label": "Attack",
         "value": 75
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 70
       },
       {
         "label": "Sp. Atk",
-        "value": 90
+        "value": 95
       },
       {
         "label": "Sp. Def",
-        "value": 100
+        "value": 70
       },
       {
         "label": "Speed",
-        "value": 70
+        "value": 95
       }
     ],
-    "total": 500,
-    "heightM": 1.1,
-    "weightKg": 33.9,
-    "genus": "Frog Pokémon",
-    "flavor": "The curled hair on its head proves its status as a king. It is said that the longer and curlier the hair, the more respect it earns from its peers.",
+    "total": 470,
+    "heightM": 1.5,
+    "weightKg": 15,
+    "genus": "Mystic Pokémon",
+    "flavor": "It has the enigmatic power of foreseeing the future. Some people in different lands have long believed that XATU are emissaries from another world.",
     "evolution": [
-      "Poliwag",
-      "Poliwhirl",
-      "Poliwrath"
-    ]
+      "Natu",
+      "Xatu"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Natu",
+        "to": "Xatu",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "sunflora": {
     "slug": "sunflora",
@@ -9066,7 +11532,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Sunkern",
       "Sunflora"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Sunkern",
+        "to": "Sunflora",
+        "method": "Sun Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "sunkern": {
     "slug": "sunkern",
@@ -9114,107 +11591,89 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Sunkern",
       "Sunflora"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Sunkern",
+        "to": "Sunflora",
+        "method": "Sun Stone"
+      }
+    ],
+    "eggGroups": [
+      "Grass"
+    ],
+    "genderRate": 4
   },
-  "jumpluff": {
-    "slug": "jumpluff",
-    "dexNumber": 189,
+  "politoed": {
+    "slug": "politoed",
+    "dexNumber": 186,
     "types": [
-      "Grass",
-      "Flying"
+      "Water"
     ],
     "abilities": [
-      "Chlorophyll",
-      "Leaf Guard"
+      "Water Absorb",
+      "Damp"
     ],
-    "hiddenAbility": "Infiltrator",
-    "baseExp": 207,
+    "hiddenAbility": "Drizzle",
+    "baseExp": 225,
     "stats": [
       {
         "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
         "value": 75
       },
       {
-        "label": "Attack",
-        "value": 55
+        "label": "Defense",
+        "value": 75
       },
       {
-        "label": "Defense",
+        "label": "Sp. Atk",
+        "value": 90
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
         "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 55
-      },
-      {
-        "label": "Sp. Def",
-        "value": 95
-      },
-      {
-        "label": "Speed",
-        "value": 110
       }
     ],
-    "total": 460,
-    "heightM": 0.8,
-    "weightKg": 3,
-    "genus": "Cottonweed Pokémon",
-    "flavor": "JUMPLUFF ride warm southern winds to cross the sea and fly to foreign lands. This POKéMON lands when it encounters cold air while it is floating.",
+    "total": 500,
+    "heightM": 1.1,
+    "weightKg": 33.9,
+    "genus": "Frog Pokémon",
+    "flavor": "The curled hair on its head proves its status as a king. It is said that the longer and curlier the hair, the more respect it earns from its peers.",
     "evolution": [
-      "Hoppip",
-      "Skiploom",
-      "Jumpluff"
-    ]
-  },
-  "skiploom": {
-    "slug": "skiploom",
-    "dexNumber": 188,
-    "types": [
-      "Grass",
-      "Flying"
+      "Poliwag",
+      "Poliwhirl",
+      "Poliwrath",
+      "Politoed"
     ],
-    "abilities": [
-      "Chlorophyll",
-      "Leaf Guard"
-    ],
-    "hiddenAbility": "Infiltrator",
-    "baseExp": 119,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 55
+        "from": "Poliwag",
+        "to": "Poliwhirl",
+        "method": "Level 25"
       },
       {
-        "label": "Attack",
-        "value": 45
+        "from": "Poliwhirl",
+        "to": "Poliwrath",
+        "method": "Water Stone"
       },
       {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 45
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 80
+        "from": "Poliwhirl",
+        "to": "Politoed",
+        "method": "Trade + Kings Rock"
       }
     ],
-    "total": 340,
-    "heightM": 0.6,
-    "weightKg": 1,
-    "genus": "Cottonweed Pokémon",
-    "flavor": "It blossoms when the temperature rises above 64 degrees F. Because its flower’s blooming changes with the temperature, it is sometimes used as a thermometer.",
-    "evolution": [
-      "Hoppip",
-      "Skiploom",
-      "Jumpluff"
-    ]
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "hoppip": {
     "slug": "hoppip",
@@ -9264,7 +11723,210 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Hoppip",
       "Skiploom",
       "Jumpluff"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Hoppip",
+        "to": "Skiploom",
+        "method": "Level 18"
+      },
+      {
+        "from": "Skiploom",
+        "to": "Jumpluff",
+        "method": "Level 27"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "jumpluff": {
+    "slug": "jumpluff",
+    "dexNumber": 189,
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard"
+    ],
+    "hiddenAbility": "Infiltrator",
+    "baseExp": 207,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 75
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 110
+      }
+    ],
+    "total": 460,
+    "heightM": 0.8,
+    "weightKg": 3,
+    "genus": "Cottonweed Pokémon",
+    "flavor": "JUMPLUFF ride warm southern winds to cross the sea and fly to foreign lands. This POKéMON lands when it encounters cold air while it is floating.",
+    "evolution": [
+      "Hoppip",
+      "Skiploom",
+      "Jumpluff"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Hoppip",
+        "to": "Skiploom",
+        "method": "Level 18"
+      },
+      {
+        "from": "Skiploom",
+        "to": "Jumpluff",
+        "method": "Level 27"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "skiploom": {
+    "slug": "skiploom",
+    "dexNumber": 188,
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard"
+    ],
+    "hiddenAbility": "Infiltrator",
+    "baseExp": 119,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 340,
+    "heightM": 0.6,
+    "weightKg": 1,
+    "genus": "Cottonweed Pokémon",
+    "flavor": "It blossoms when the temperature rises above 64 degrees F. Because its flower’s blooming changes with the temperature, it is sometimes used as a thermometer.",
+    "evolution": [
+      "Hoppip",
+      "Skiploom",
+      "Jumpluff"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Hoppip",
+        "to": "Skiploom",
+        "method": "Level 18"
+      },
+      {
+        "from": "Skiploom",
+        "to": "Jumpluff",
+        "method": "Level 27"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "aipom": {
+    "slug": "aipom",
+    "dexNumber": 190,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Pickup"
+    ],
+    "hiddenAbility": "Skill Link",
+    "baseExp": 72,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 85
+      }
+    ],
+    "total": 360,
+    "heightM": 0.8,
+    "weightKg": 11.5,
+    "genus": "Long Tail Pokémon",
+    "flavor": "Its tail ends with a dexterous, handlike appendage. However, because it uses the tail so much, AIPOM’s real hands have become rather clumsy.",
+    "evolution": [
+      "Aipom"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "sudowoodo": {
     "slug": "sudowoodo",
@@ -9312,7 +11974,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Bonsly",
       "Sudowoodo"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bonsly",
+        "to": "Sudowoodo",
+        "method": "Level-up · knowing Mimic"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": 4
   },
   "umbreon": {
     "slug": "umbreon",
@@ -9358,57 +12031,43 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "UMBREON evolved from exposure to the moon’s energy pulses. It lurks in darkness and waits for its foes to move. The rings on its body glow when it leaps to attack.",
     "evolution": [
       "Eevee",
-      "Vaporeon"
-    ]
-  },
-  "slowking": {
-    "slug": "slowking",
-    "dexNumber": 199,
-    "types": [
-      "Water",
-      "Psychic"
+      "Vaporeon",
+      "Jolteon",
+      "Flareon",
+      "Espeon",
+      "Umbreon"
     ],
-    "abilities": [
-      "Oblivious",
-      "Own Tempo"
-    ],
-    "hiddenAbility": "Regenerator",
-    "baseExp": 172,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 95
+        "from": "Eevee",
+        "to": "Vaporeon",
+        "method": "Water Stone"
       },
       {
-        "label": "Attack",
-        "value": 75
+        "from": "Eevee",
+        "to": "Jolteon",
+        "method": "Thunder Stone"
       },
       {
-        "label": "Defense",
-        "value": 80
+        "from": "Eevee",
+        "to": "Flareon",
+        "method": "Fire Stone"
       },
       {
-        "label": "Sp. Atk",
-        "value": 100
+        "from": "Eevee",
+        "to": "Espeon",
+        "method": "Level-up · friendship (day)"
       },
       {
-        "label": "Sp. Def",
-        "value": 110
-      },
-      {
-        "label": "Speed",
-        "value": 30
+        "from": "Eevee",
+        "to": "Umbreon",
+        "method": "Level-up · friendship (night)"
       }
     ],
-    "total": 490,
-    "heightM": 2,
-    "weightKg": 79.5,
-    "genus": "Royal Pokémon",
-    "flavor": "It undertakes research every day to solve the mysteries of the world. However, it apparently forgets everything if the SHELLDER on its head comes off.",
-    "evolution": [
-      "Slowpoke",
-      "Slowbro"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
   },
   "espeon": {
     "slug": "espeon",
@@ -9454,57 +12113,96 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "An ESPEON is extremely loyal to any TRAINER it considers to be worthy. It is said to have developed precognitive powers to protect its TRAINER from harm.",
     "evolution": [
       "Eevee",
-      "Vaporeon"
-    ]
+      "Vaporeon",
+      "Jolteon",
+      "Flareon",
+      "Espeon",
+      "Umbreon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Eevee",
+        "to": "Vaporeon",
+        "method": "Water Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Jolteon",
+        "method": "Thunder Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Flareon",
+        "method": "Fire Stone"
+      },
+      {
+        "from": "Eevee",
+        "to": "Espeon",
+        "method": "Level-up · friendship (day)"
+      },
+      {
+        "from": "Eevee",
+        "to": "Umbreon",
+        "method": "Level-up · friendship (night)"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
   },
-  "wooper": {
-    "slug": "wooper",
-    "dexNumber": 194,
+  "murkrow": {
+    "slug": "murkrow",
+    "dexNumber": 198,
     "types": [
-      "Water",
-      "Ground"
+      "Dark",
+      "Flying"
     ],
     "abilities": [
-      "Damp",
-      "Water Absorb"
+      "Insomnia",
+      "Super Luck"
     ],
-    "hiddenAbility": "Unaware",
-    "baseExp": 42,
+    "hiddenAbility": "Prankster",
+    "baseExp": 81,
     "stats": [
       {
         "label": "HP",
-        "value": 55
+        "value": 60
       },
       {
         "label": "Attack",
-        "value": 45
+        "value": 85
       },
       {
         "label": "Defense",
-        "value": 45
+        "value": 42
       },
       {
         "label": "Sp. Atk",
-        "value": 25
+        "value": 85
       },
       {
         "label": "Sp. Def",
-        "value": 25
+        "value": 42
       },
       {
         "label": "Speed",
-        "value": 15
+        "value": 91
       }
     ],
-    "total": 210,
-    "heightM": 0.4,
-    "weightKg": 8.5,
-    "genus": "Water Fish Pokémon",
-    "flavor": "WOOPER usually live in water but come out onto land seeking food occasionally. On land, they coat their bodies with a gooey, toxic film.",
+    "total": 405,
+    "heightM": 0.5,
+    "weightKg": 2.1,
+    "genus": "Darkness Pokémon",
+    "flavor": "MURKROW were feared as the alleged bearers of ill fortune. It shows strong interest in anything that sparkles. It will even try to steal rings from women.",
     "evolution": [
-      "Wooper",
-      "Quagsire"
-    ]
+      "Murkrow"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "quagsire": {
     "slug": "quagsire",
@@ -9553,7 +12251,80 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Wooper",
       "Quagsire"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wooper",
+        "to": "Quagsire",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "wooper": {
+    "slug": "wooper",
+    "dexNumber": 194,
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Damp",
+      "Water Absorb"
+    ],
+    "hiddenAbility": "Unaware",
+    "baseExp": 42,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 45
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 25
+      },
+      {
+        "label": "Sp. Def",
+        "value": 25
+      },
+      {
+        "label": "Speed",
+        "value": 15
+      }
+    ],
+    "total": 210,
+    "heightM": 0.4,
+    "weightKg": 8.5,
+    "genus": "Water Fish Pokémon",
+    "flavor": "WOOPER usually live in water but come out onto land seeking food occasionally. On land, they coat their bodies with a gooey, toxic film.",
+    "evolution": [
+      "Wooper",
+      "Quagsire"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wooper",
+        "to": "Quagsire",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "yanma": {
     "slug": "yanma",
@@ -9600,58 +12371,80 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Clear Wing Pokémon",
     "flavor": "It can see 360 degrees without moving its eyes. It is a great flier capable of making sudden stops and turning midair to quickly chase down targeted prey.",
     "evolution": [
-      "Yanma",
-      "Yanmega"
-    ]
+      "Yanma"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
-  "murkrow": {
-    "slug": "murkrow",
-    "dexNumber": 198,
+  "slowking": {
+    "slug": "slowking",
+    "dexNumber": 199,
     "types": [
-      "Dark",
-      "Flying"
+      "Water",
+      "Psychic"
     ],
     "abilities": [
-      "Insomnia",
-      "Super Luck"
+      "Oblivious",
+      "Own Tempo"
     ],
-    "hiddenAbility": "Prankster",
-    "baseExp": 81,
+    "hiddenAbility": "Regenerator",
+    "baseExp": 172,
     "stats": [
       {
         "label": "HP",
-        "value": 60
+        "value": 95
       },
       {
         "label": "Attack",
-        "value": 85
+        "value": 75
       },
       {
         "label": "Defense",
-        "value": 42
+        "value": 80
       },
       {
         "label": "Sp. Atk",
-        "value": 85
+        "value": 100
       },
       {
         "label": "Sp. Def",
-        "value": 42
+        "value": 110
       },
       {
         "label": "Speed",
-        "value": 91
+        "value": 30
       }
     ],
-    "total": 405,
-    "heightM": 0.5,
-    "weightKg": 2.1,
-    "genus": "Darkness Pokémon",
-    "flavor": "MURKROW were feared as the alleged bearers of ill fortune. It shows strong interest in anything that sparkles. It will even try to steal rings from women.",
+    "total": 490,
+    "heightM": 2,
+    "weightKg": 79.5,
+    "genus": "Royal Pokémon",
+    "flavor": "It undertakes research every day to solve the mysteries of the world. However, it apparently forgets everything if the SHELLDER on its head comes off.",
     "evolution": [
-      "Murkrow",
-      "Honchkrow"
-    ]
+      "Slowpoke",
+      "Slowbro",
+      "Slowking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Slowpoke",
+        "to": "Slowbro",
+        "method": "Level 37"
+      },
+      {
+        "from": "Slowpoke",
+        "to": "Slowking",
+        "method": "Trade + Kings Rock"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "misdreavus": {
     "slug": "misdreavus",
@@ -9695,9 +12488,290 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Screech Pokémon",
     "flavor": "A MISDREAVUS frightens people with a creepy, sobbing cry. It apparently uses its red spheres to absorb the fear of foes as its nutrition.",
     "evolution": [
-      "Misdreavus",
-      "Mismagius"
-    ]
+      "Misdreavus"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "unown": {
+    "slug": "unown",
+    "dexNumber": 201,
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "baseExp": 118,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 48
+      },
+      {
+        "label": "Attack",
+        "value": 72
+      },
+      {
+        "label": "Defense",
+        "value": 48
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 72
+      },
+      {
+        "label": "Sp. Def",
+        "value": 48
+      },
+      {
+        "label": "Speed",
+        "value": 48
+      }
+    ],
+    "total": 336,
+    "heightM": 0.5,
+    "weightKg": 5,
+    "genus": "Symbol Pokémon",
+    "flavor": "This POKéMON is shaped like ancient text characters. Although research is ongoing, it is a mystery as to which came first, the ancient writings or the various UNOWN.",
+    "evolution": [
+      "Unown"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "wobbuffet": {
+    "slug": "wobbuffet",
+    "dexNumber": 202,
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Shadow Tag"
+    ],
+    "hiddenAbility": "Telepathy",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 190
+      },
+      {
+        "label": "Attack",
+        "value": 33
+      },
+      {
+        "label": "Defense",
+        "value": 58
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 33
+      },
+      {
+        "label": "Sp. Def",
+        "value": 58
+      },
+      {
+        "label": "Speed",
+        "value": 33
+      }
+    ],
+    "total": 405,
+    "heightM": 1.3,
+    "weightKg": 28.5,
+    "genus": "Patient Pokémon",
+    "flavor": "Usually docile, a WOBBUFFET strikes back ferociously if its black tail is attacked. It makes its lair in caves where it waits for nightfall.",
+    "evolution": [
+      "Wynaut",
+      "Wobbuffet"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wynaut",
+        "to": "Wobbuffet",
+        "method": "Level 15"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "forretress": {
+    "slug": "forretress",
+    "dexNumber": 205,
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "abilities": [
+      "Sturdy"
+    ],
+    "hiddenAbility": "Overcoat",
+    "baseExp": 163,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 75
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 140
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 465,
+    "heightM": 1.2,
+    "weightKg": 125.8,
+    "genus": "Bagworm Pokémon",
+    "flavor": "It keeps itself inside its steel shell. The shell is opened when it is catching prey, but it is so quick that the shell’s inside cannot be seen.",
+    "evolution": [
+      "Pineco",
+      "Forretress"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pineco",
+        "to": "Forretress",
+        "method": "Level 31"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "pineco": {
+    "slug": "pineco",
+    "dexNumber": 204,
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Sturdy"
+    ],
+    "hiddenAbility": "Overcoat",
+    "baseExp": 58,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 90
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 15
+      }
+    ],
+    "total": 290,
+    "heightM": 0.6,
+    "weightKg": 7.2,
+    "genus": "Bagworm Pokémon",
+    "flavor": "A PINECO hangs from a tree branch and waits for prey. While eating, if it is disturbed by someone shaking its tree, it falls on the ground and suddenly explodes.",
+    "evolution": [
+      "Pineco",
+      "Forretress"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Pineco",
+        "to": "Forretress",
+        "method": "Level 31"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "dunsparce": {
+    "slug": "dunsparce",
+    "dexNumber": 206,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Serene Grace",
+      "Run Away"
+    ],
+    "hiddenAbility": "Rattled",
+    "baseExp": 145,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 100
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 415,
+    "heightM": 1.5,
+    "weightKg": 14,
+    "genus": "Land Snake Pokémon",
+    "flavor": "Its drill-tipped tail is used to burrow into the ground backwards. This POKéMON is known to make its nest in complex shapes deep under the ground.",
+    "evolution": [
+      "Dunsparce"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "steelix": {
     "slug": "steelix",
@@ -9746,197 +12820,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Onix",
       "Steelix"
-    ]
-  },
-  "wobbuffet": {
-    "slug": "wobbuffet",
-    "dexNumber": 202,
-    "types": [
-      "Psychic"
     ],
-    "abilities": [
-      "Shadow Tag"
-    ],
-    "hiddenAbility": "Telepathy",
-    "baseExp": 142,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 190
-      },
-      {
-        "label": "Attack",
-        "value": 33
-      },
-      {
-        "label": "Defense",
-        "value": 58
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 33
-      },
-      {
-        "label": "Sp. Def",
-        "value": 58
-      },
-      {
-        "label": "Speed",
-        "value": 33
+        "from": "Onix",
+        "to": "Steelix",
+        "method": "Trade + Metal Coat"
       }
     ],
-    "total": 405,
-    "heightM": 1.3,
-    "weightKg": 28.5,
-    "genus": "Patient Pokémon",
-    "flavor": "Usually docile, a WOBBUFFET strikes back ferociously if its black tail is attacked. It makes its lair in caves where it waits for nightfall.",
-    "evolution": [
-      "Wynaut",
-      "Wobbuffet"
-    ]
-  },
-  "dunsparce": {
-    "slug": "dunsparce",
-    "dexNumber": 206,
-    "types": [
-      "Normal"
+    "eggGroups": [
+      "Mineral"
     ],
-    "abilities": [
-      "Serene Grace",
-      "Run Away"
-    ],
-    "hiddenAbility": "Rattled",
-    "baseExp": 145,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 100
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 65
-      },
-      {
-        "label": "Speed",
-        "value": 45
-      }
-    ],
-    "total": 415,
-    "heightM": 1.5,
-    "weightKg": 14,
-    "genus": "Land Snake Pokémon",
-    "flavor": "Its drill-tipped tail is used to burrow into the ground backwards. This POKéMON is known to make its nest in complex shapes deep under the ground.",
-    "evolution": [
-      "Dunsparce",
-      "Dudunsparce"
-    ]
-  },
-  "pineco": {
-    "slug": "pineco",
-    "dexNumber": 204,
-    "types": [
-      "Bug"
-    ],
-    "abilities": [
-      "Sturdy"
-    ],
-    "hiddenAbility": "Overcoat",
-    "baseExp": 58,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 90
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 15
-      }
-    ],
-    "total": 290,
-    "heightM": 0.6,
-    "weightKg": 7.2,
-    "genus": "Bagworm Pokémon",
-    "flavor": "A PINECO hangs from a tree branch and waits for prey. While eating, if it is disturbed by someone shaking its tree, it falls on the ground and suddenly explodes.",
-    "evolution": [
-      "Pineco",
-      "Forretress"
-    ]
-  },
-  "forretress": {
-    "slug": "forretress",
-    "dexNumber": 205,
-    "types": [
-      "Bug",
-      "Steel"
-    ],
-    "abilities": [
-      "Sturdy"
-    ],
-    "hiddenAbility": "Overcoat",
-    "baseExp": 163,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 75
-      },
-      {
-        "label": "Attack",
-        "value": 90
-      },
-      {
-        "label": "Defense",
-        "value": 140
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 40
-      }
-    ],
-    "total": 465,
-    "heightM": 1.2,
-    "weightKg": 125.8,
-    "genus": "Bagworm Pokémon",
-    "flavor": "It keeps itself inside its steel shell. The shell is opened when it is catching prey, but it is so quick that the shell’s inside cannot be seen.",
-    "evolution": [
-      "Pineco",
-      "Forretress"
-    ]
+    "genderRate": 4
   },
   "girafarig": {
     "slug": "girafarig",
@@ -9983,9 +12878,13 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Long Neck Pokémon",
     "flavor": "A GIRAFARIG is an herbivore--it eats grass and tree shoots. While it is eating, its tail makes chewing and swallowing motions as if it were also eating.",
     "evolution": [
-      "Girafarig",
-      "Farigiraf"
-    ]
+      "Girafarig"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "gligar": {
     "slug": "gligar",
@@ -10032,54 +12931,13 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Fly Scorpion Pokémon",
     "flavor": "It glides without making a single sound. It grasps the face of its foe using its hind and large front claws, then stabs with its poison barb.",
     "evolution": [
-      "Gligar",
-      "Gliscor"
-    ]
-  },
-  "unown": {
-    "slug": "unown",
-    "dexNumber": 201,
-    "types": [
-      "Psychic"
+      "Gligar"
     ],
-    "abilities": [
-      "Levitate"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug"
     ],
-    "baseExp": 118,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 48
-      },
-      {
-        "label": "Attack",
-        "value": 72
-      },
-      {
-        "label": "Defense",
-        "value": 48
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 72
-      },
-      {
-        "label": "Sp. Def",
-        "value": 48
-      },
-      {
-        "label": "Speed",
-        "value": 48
-      }
-    ],
-    "total": 336,
-    "heightM": 0.5,
-    "weightKg": 5,
-    "genus": "Symbol Pokémon",
-    "flavor": "This POKéMON is shaped like ancient text characters. Although research is ongoing, it is a mystery as to which came first, the ancient writings or the various UNOWN.",
-    "evolution": [
-      "Unown"
-    ]
+    "genderRate": 4
   },
   "scizor": {
     "slug": "scizor",
@@ -10128,200 +12986,71 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Scyther",
       "Scizor"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Scyther",
+        "to": "Scizor",
+        "method": "Trade + Metal Coat"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
-  "heracross": {
-    "slug": "heracross",
-    "dexNumber": 214,
+  "qwilfish": {
+    "slug": "qwilfish",
+    "dexNumber": 211,
     "types": [
-      "Bug",
-      "Fighting"
+      "Water",
+      "Poison"
     ],
     "abilities": [
-      "Swarm",
-      "Guts"
+      "Poison Point",
+      "Swift Swim"
     ],
-    "hiddenAbility": "Moxie",
-    "baseExp": 175,
+    "hiddenAbility": "Intimidate",
+    "baseExp": 88,
     "stats": [
       {
         "label": "HP",
-        "value": 80
+        "value": 65
       },
       {
         "label": "Attack",
-        "value": 125
+        "value": 95
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 85
       },
       {
         "label": "Sp. Atk",
-        "value": 40
+        "value": 55
       },
       {
         "label": "Sp. Def",
-        "value": 95
+        "value": 55
       },
       {
         "label": "Speed",
         "value": 85
       }
     ],
-    "total": 500,
-    "heightM": 1.5,
-    "weightKg": 54,
-    "genus": "Single Horn Pokémon",
-    "flavor": "They gather in forests seeking the sweet sap of trees. It is completely clad in a steel-hard shell. It is proud of its horn, which it uses to fling foes.",
+    "total": 440,
+    "heightM": 0.5,
+    "weightKg": 3.9,
+    "genus": "Balloon Pokémon",
+    "flavor": "A QWILFISH uses the pressure of water it swallows to shoot toxic quills all at once from all over its body. It finds swimming to be somewhat challenging.",
     "evolution": [
-      "Heracross"
-    ]
-  },
-  "shuckle": {
-    "slug": "shuckle",
-    "dexNumber": 213,
-    "types": [
-      "Bug",
-      "Rock"
+      "Qwilfish"
     ],
-    "abilities": [
-      "Sturdy",
-      "Gluttony"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Water 2"
     ],
-    "hiddenAbility": "Contrary",
-    "baseExp": 177,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 20
-      },
-      {
-        "label": "Attack",
-        "value": 10
-      },
-      {
-        "label": "Defense",
-        "value": 230
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 10
-      },
-      {
-        "label": "Sp. Def",
-        "value": 230
-      },
-      {
-        "label": "Speed",
-        "value": 5
-      }
-    ],
-    "total": 505,
-    "heightM": 0.6,
-    "weightKg": 20.5,
-    "genus": "Mold Pokémon",
-    "flavor": "A SHUCKLE hides under rocks, keeping its body concealed inside its shell while eating stored berries. The berries mix with its body fluids to become a juice.",
-    "evolution": [
-      "Shuckle"
-    ]
-  },
-  "sneasel": {
-    "slug": "sneasel",
-    "dexNumber": 215,
-    "types": [
-      "Dark",
-      "Ice"
-    ],
-    "abilities": [
-      "Inner Focus",
-      "Keen Eye"
-    ],
-    "hiddenAbility": "Pickpocket",
-    "baseExp": 86,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 55
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 115
-      }
-    ],
-    "total": 430,
-    "heightM": 0.9,
-    "weightKg": 28,
-    "genus": "Sharp Claw Pokémon",
-    "flavor": "A SNEASEL scales trees by punching its hooked claws into the bark. It seeks out unguarded nests and steals eggs for food while the parents are away.",
-    "evolution": [
-      "Sneasel",
-      "Weavile"
-    ]
-  },
-  "granbull": {
-    "slug": "granbull",
-    "dexNumber": 210,
-    "types": [
-      "Fairy"
-    ],
-    "abilities": [
-      "Intimidate",
-      "Quick Feet"
-    ],
-    "hiddenAbility": "Rattled",
-    "baseExp": 158,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 90
-      },
-      {
-        "label": "Attack",
-        "value": 120
-      },
-      {
-        "label": "Defense",
-        "value": 75
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 45
-      }
-    ],
-    "total": 450,
-    "heightM": 1.4,
-    "weightKg": 48.7,
-    "genus": "Fairy Pokémon",
-    "flavor": "It has a particularly well-developed lower jaw. The huge fangs are heavy, causing it to tilt its head. Unless it is startled, it will not try to bite.",
-    "evolution": [
-      "Snubbull",
-      "Granbull"
-    ]
+    "genderRate": 4
   },
   "snubbull": {
     "slug": "snubbull",
@@ -10369,7 +13098,185 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Snubbull",
       "Granbull"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Snubbull",
+        "to": "Granbull",
+        "method": "Level 23"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Fairy"
+    ],
+    "genderRate": 6
+  },
+  "granbull": {
+    "slug": "granbull",
+    "dexNumber": 210,
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Quick Feet"
+    ],
+    "hiddenAbility": "Rattled",
+    "baseExp": 158,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 120
+      },
+      {
+        "label": "Defense",
+        "value": 75
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 450,
+    "heightM": 1.4,
+    "weightKg": 48.7,
+    "genus": "Fairy Pokémon",
+    "flavor": "It has a particularly well-developed lower jaw. The huge fangs are heavy, causing it to tilt its head. Unless it is startled, it will not try to bite.",
+    "evolution": [
+      "Snubbull",
+      "Granbull"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Snubbull",
+        "to": "Granbull",
+        "method": "Level 23"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Fairy"
+    ],
+    "genderRate": 6
+  },
+  "shuckle": {
+    "slug": "shuckle",
+    "dexNumber": 213,
+    "types": [
+      "Bug",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Gluttony"
+    ],
+    "hiddenAbility": "Contrary",
+    "baseExp": 177,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 20
+      },
+      {
+        "label": "Attack",
+        "value": 10
+      },
+      {
+        "label": "Defense",
+        "value": 230
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 10
+      },
+      {
+        "label": "Sp. Def",
+        "value": 230
+      },
+      {
+        "label": "Speed",
+        "value": 5
+      }
+    ],
+    "total": 505,
+    "heightM": 0.6,
+    "weightKg": 20.5,
+    "genus": "Mold Pokémon",
+    "flavor": "A SHUCKLE hides under rocks, keeping its body concealed inside its shell while eating stored berries. The berries mix with its body fluids to become a juice.",
+    "evolution": [
+      "Shuckle"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "heracross": {
+    "slug": "heracross",
+    "dexNumber": 214,
+    "types": [
+      "Bug",
+      "Fighting"
+    ],
+    "abilities": [
+      "Swarm",
+      "Guts"
+    ],
+    "hiddenAbility": "Moxie",
+    "baseExp": 175,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 125
+      },
+      {
+        "label": "Defense",
+        "value": 75
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 85
+      }
+    ],
+    "total": 500,
+    "heightM": 1.5,
+    "weightKg": 54,
+    "genus": "Single Horn Pokémon",
+    "flavor": "They gather in forests seeking the sweet sap of trees. It is completely clad in a steel-hard shell. It is proud of its horn, which it uses to fling foes.",
+    "evolution": [
+      "Heracross"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "teddiursa": {
     "slug": "teddiursa",
@@ -10416,27 +13323,37 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It licks its palms that are sweetened by being soaked in honey. A TEDDIURSA makes its own honey by blending fruits and pollen collected by BEEDRILL.",
     "evolution": [
       "Teddiursa",
-      "Ursaring",
-      "Ursaluna"
-    ]
+      "Ursaring"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Teddiursa",
+        "to": "Ursaring",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "qwilfish": {
-    "slug": "qwilfish",
-    "dexNumber": 211,
+  "sneasel": {
+    "slug": "sneasel",
+    "dexNumber": 215,
     "types": [
-      "Water",
-      "Poison"
+      "Dark",
+      "Ice"
     ],
     "abilities": [
-      "Poison Point",
-      "Swift Swim"
+      "Inner Focus",
+      "Keen Eye"
     ],
-    "hiddenAbility": "Intimidate",
-    "baseExp": 88,
+    "hiddenAbility": "Pickpocket",
+    "baseExp": 86,
     "stats": [
       {
         "label": "HP",
-        "value": 65
+        "value": 55
       },
       {
         "label": "Attack",
@@ -10444,30 +13361,34 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Defense",
-        "value": 85
+        "value": 55
       },
       {
         "label": "Sp. Atk",
-        "value": 55
+        "value": 35
       },
       {
         "label": "Sp. Def",
-        "value": 55
+        "value": 75
       },
       {
         "label": "Speed",
-        "value": 85
+        "value": 115
       }
     ],
-    "total": 440,
-    "heightM": 0.5,
-    "weightKg": 3.9,
-    "genus": "Balloon Pokémon",
-    "flavor": "A QWILFISH uses the pressure of water it swallows to shoot toxic quills all at once from all over its body. It finds swimming to be somewhat challenging.",
+    "total": 430,
+    "heightM": 0.9,
+    "weightKg": 28,
+    "genus": "Sharp Claw Pokémon",
+    "flavor": "A SNEASEL scales trees by punching its hooked claws into the bark. It seeks out unguarded nests and steals eggs for food while the parents are away.",
     "evolution": [
-      "Qwilfish",
-      "Overqwil"
-    ]
+      "Sneasel"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "ursaring": {
     "slug": "ursaring",
@@ -10514,9 +13435,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "In forests, it is said that there are many streams and towering trees where an URSARING gathers food. It walks through its forest collecting food every day.",
     "evolution": [
       "Teddiursa",
-      "Ursaring",
-      "Ursaluna"
-    ]
+      "Ursaring"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Teddiursa",
+        "to": "Ursaring",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "octillery": {
     "slug": "octillery",
@@ -10564,7 +13495,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Remoraid",
       "Octillery"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Remoraid",
+        "to": "Octillery",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 2"
+    ],
+    "genderRate": 4
   },
   "remoraid": {
     "slug": "remoraid",
@@ -10612,28 +13555,101 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Remoraid",
       "Octillery"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Remoraid",
+        "to": "Octillery",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 2"
+    ],
+    "genderRate": 4
   },
-  "slugma": {
-    "slug": "slugma",
-    "dexNumber": 218,
+  "piloswine": {
+    "slug": "piloswine",
+    "dexNumber": 221,
     "types": [
-      "Fire"
+      "Ice",
+      "Ground"
     ],
     "abilities": [
-      "Magma Armor",
-      "Flame Body"
+      "Oblivious",
+      "Snow Cloak"
     ],
-    "hiddenAbility": "Weak Armor",
+    "hiddenAbility": "Thick Fat",
+    "baseExp": 158,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 100
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 450,
+    "heightM": 1.1,
+    "weightKg": 55.8,
+    "genus": "Swine Pokémon",
+    "flavor": "A PILOSWINE is covered by a thick coat of long hair for enduring freezing cold. It uses its tusks to dig up food that has been buried under ice.",
+    "evolution": [
+      "Swinub",
+      "Piloswine"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Swinub",
+        "to": "Piloswine",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "swinub": {
+    "slug": "swinub",
+    "dexNumber": 220,
+    "types": [
+      "Ice",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Snow Cloak"
+    ],
+    "hiddenAbility": "Thick Fat",
     "baseExp": 50,
     "stats": [
       {
         "label": "HP",
-        "value": 40
+        "value": 50
       },
       {
         "label": "Attack",
-        "value": 40
+        "value": 50
       },
       {
         "label": "Defense",
@@ -10641,26 +13657,91 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Atk",
-        "value": 70
+        "value": 30
       },
       {
         "label": "Sp. Def",
-        "value": 40
+        "value": 30
       },
       {
         "label": "Speed",
-        "value": 20
+        "value": 50
       }
     ],
     "total": 250,
-    "heightM": 0.7,
-    "weightKg": 35,
-    "genus": "Lava Pokémon",
-    "flavor": "It is a species of POKéMON that lives in volcanic areas. If its body cools, its skin hardens and immobilizes it. To avoid that, it sleeps near magma.",
+    "heightM": 0.4,
+    "weightKg": 6.5,
+    "genus": "Pig Pokémon",
+    "flavor": "It roots for food by rubbing its snout against the ground. Its favorite food is a mushroom that grows under dried grass. It occasionally roots out hot springs.",
     "evolution": [
-      "Slugma",
-      "Magcargo"
-    ]
+      "Swinub",
+      "Piloswine"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Swinub",
+        "to": "Piloswine",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "corsola": {
+    "slug": "corsola",
+    "dexNumber": 222,
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "abilities": [
+      "Hustle",
+      "Natural Cure"
+    ],
+    "hiddenAbility": "Regenerator",
+    "baseExp": 144,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 95
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 410,
+    "heightM": 0.6,
+    "weightKg": 5,
+    "genus": "Coral Pokémon",
+    "flavor": "CORSOLA live in warm southern seas. If the sea becomes polluted, the beautiful coral stalks become discolored and crumble away in tatters.",
+    "evolution": [
+      "Corsola"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 6
   },
   "magcargo": {
     "slug": "magcargo",
@@ -10709,128 +13790,39 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Slugma",
       "Magcargo"
-    ]
-  },
-  "corsola": {
-    "slug": "corsola",
-    "dexNumber": 222,
-    "types": [
-      "Water",
-      "Rock"
     ],
-    "abilities": [
-      "Hustle",
-      "Natural Cure"
-    ],
-    "hiddenAbility": "Regenerator",
-    "baseExp": 144,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 95
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 95
-      },
-      {
-        "label": "Speed",
-        "value": 35
+        "from": "Slugma",
+        "to": "Magcargo",
+        "method": "Level 38"
       }
     ],
-    "total": 410,
-    "heightM": 0.6,
-    "weightKg": 5,
-    "genus": "Coral Pokémon",
-    "flavor": "CORSOLA live in warm southern seas. If the sea becomes polluted, the beautiful coral stalks become discolored and crumble away in tatters.",
-    "evolution": [
-      "Corsola",
-      "Cursola"
-    ]
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
-  "piloswine": {
-    "slug": "piloswine",
-    "dexNumber": 221,
+  "slugma": {
+    "slug": "slugma",
+    "dexNumber": 218,
     "types": [
-      "Ice",
-      "Ground"
+      "Fire"
     ],
     "abilities": [
-      "Oblivious",
-      "Snow Cloak"
+      "Magma Armor",
+      "Flame Body"
     ],
-    "hiddenAbility": "Thick Fat",
-    "baseExp": 158,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 100
-      },
-      {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 450,
-    "heightM": 1.1,
-    "weightKg": 55.8,
-    "genus": "Swine Pokémon",
-    "flavor": "A PILOSWINE is covered by a thick coat of long hair for enduring freezing cold. It uses its tusks to dig up food that has been buried under ice.",
-    "evolution": [
-      "Swinub",
-      "Piloswine",
-      "Mamoswine"
-    ]
-  },
-  "swinub": {
-    "slug": "swinub",
-    "dexNumber": 220,
-    "types": [
-      "Ice",
-      "Ground"
-    ],
-    "abilities": [
-      "Oblivious",
-      "Snow Cloak"
-    ],
-    "hiddenAbility": "Thick Fat",
+    "hiddenAbility": "Weak Armor",
     "baseExp": 50,
     "stats": [
       {
         "label": "HP",
-        "value": 50
+        "value": 40
       },
       {
         "label": "Attack",
-        "value": 50
+        "value": 40
       },
       {
         "label": "Defense",
@@ -10838,27 +13830,37 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Atk",
-        "value": 30
+        "value": 70
       },
       {
         "label": "Sp. Def",
-        "value": 30
+        "value": 40
       },
       {
         "label": "Speed",
-        "value": 50
+        "value": 20
       }
     ],
     "total": 250,
-    "heightM": 0.4,
-    "weightKg": 6.5,
-    "genus": "Pig Pokémon",
-    "flavor": "It roots for food by rubbing its snout against the ground. Its favorite food is a mushroom that grows under dried grass. It occasionally roots out hot springs.",
+    "heightM": 0.7,
+    "weightKg": 35,
+    "genus": "Lava Pokémon",
+    "flavor": "It is a species of POKéMON that lives in volcanic areas. If its body cools, its skin hardens and immobilizes it. To avoid that, it sleeps near magma.",
     "evolution": [
-      "Swinub",
-      "Piloswine",
-      "Mamoswine"
-    ]
+      "Slugma",
+      "Magcargo"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Slugma",
+        "to": "Magcargo",
+        "method": "Level 38"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
   "kingdra": {
     "slug": "kingdra",
@@ -10908,54 +13910,131 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Horsea",
       "Seadra",
       "Kingdra"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Horsea",
+        "to": "Seadra",
+        "method": "Level 32"
+      },
+      {
+        "from": "Seadra",
+        "to": "Kingdra",
+        "method": "Trade + Dragon Scale"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
-  "donphan": {
-    "slug": "donphan",
-    "dexNumber": 232,
+  "delibird": {
+    "slug": "delibird",
+    "dexNumber": 225,
     "types": [
-      "Ground"
+      "Ice",
+      "Flying"
     ],
     "abilities": [
-      "Sturdy"
+      "Vital Spirit",
+      "Hustle"
     ],
-    "hiddenAbility": "Sand Veil",
-    "baseExp": 175,
+    "hiddenAbility": "Insomnia",
+    "baseExp": 116,
     "stats": [
       {
         "label": "HP",
-        "value": 90
+        "value": 45
       },
       {
         "label": "Attack",
-        "value": 120
+        "value": 55
       },
       {
         "label": "Defense",
-        "value": 120
+        "value": 45
       },
       {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 65
       },
       {
         "label": "Sp. Def",
-        "value": 60
+        "value": 45
       },
       {
         "label": "Speed",
-        "value": 50
+        "value": 75
       }
     ],
-    "total": 500,
-    "heightM": 1.1,
-    "weightKg": 120,
-    "genus": "Armor Pokémon",
-    "flavor": "A DONPHAN is so strong it can easily haul a dump truck. Its hide has toughened to a rock-hard state. An ordinary sort of attack won’t even leave a scratch.",
+    "total": 330,
+    "heightM": 0.9,
+    "weightKg": 16,
+    "genus": "Delivery Pokémon",
+    "flavor": "It carries food bundled up in its tail. There was a famous explorer who managed to scale Mt. Everest thanks to a DELIBIRD sharing its food.",
     "evolution": [
-      "Phanpy",
-      "Donphan"
-    ]
+      "Delibird"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "mantine": {
+    "slug": "mantine",
+    "dexNumber": 226,
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Absorb"
+    ],
+    "hiddenAbility": "Water Veil",
+    "baseExp": 170,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 85
+      },
+      {
+        "label": "Attack",
+        "value": 40
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 80
+      },
+      {
+        "label": "Sp. Def",
+        "value": 140
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 485,
+    "heightM": 2.1,
+    "weightKg": 220,
+    "genus": "Kite Pokémon",
+    "flavor": "On sunny days, schools of MANTINE can be seen elegantly leaping over the waves. It is not bothered by the REMORAID that hitches rides.",
+    "evolution": [
+      "Mantine"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "phanpy": {
     "slug": "phanpy",
@@ -11002,56 +14081,129 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Phanpy",
       "Donphan"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Phanpy",
+        "to": "Donphan",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "houndour": {
-    "slug": "houndour",
-    "dexNumber": 228,
+  "donphan": {
+    "slug": "donphan",
+    "dexNumber": 232,
     "types": [
-      "Dark",
-      "Fire"
+      "Ground"
     ],
     "abilities": [
-      "Early Bird",
-      "Flash Fire"
+      "Sturdy"
     ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 66,
+    "hiddenAbility": "Sand Veil",
+    "baseExp": 175,
     "stats": [
       {
         "label": "HP",
-        "value": 45
+        "value": 90
       },
       {
         "label": "Attack",
-        "value": 60
+        "value": 120
       },
       {
         "label": "Defense",
-        "value": 30
+        "value": 120
       },
       {
         "label": "Sp. Atk",
-        "value": 80
+        "value": 60
       },
       {
         "label": "Sp. Def",
-        "value": 50
+        "value": 60
       },
       {
         "label": "Speed",
-        "value": 65
+        "value": 50
       }
     ],
-    "total": 330,
-    "heightM": 0.6,
-    "weightKg": 10.8,
-    "genus": "Dark Pokémon",
-    "flavor": "HOUNDOUR communicate with each other using a variety of cries to corner their prey. This POKéMON’s remarkable teamwork is simply unparalleled.",
+    "total": 500,
+    "heightM": 1.1,
+    "weightKg": 120,
+    "genus": "Armor Pokémon",
+    "flavor": "A DONPHAN is so strong it can easily haul a dump truck. Its hide has toughened to a rock-hard state. An ordinary sort of attack won’t even leave a scratch.",
     "evolution": [
-      "Houndour",
-      "Houndoom"
-    ]
+      "Phanpy",
+      "Donphan"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Phanpy",
+        "to": "Donphan",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "skarmory": {
+    "slug": "skarmory",
+    "dexNumber": 227,
+    "types": [
+      "Steel",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Sturdy"
+    ],
+    "hiddenAbility": "Weak Armor",
+    "baseExp": 163,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 140
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 465,
+    "heightM": 1.7,
+    "weightKg": 50.5,
+    "genus": "Armor Bird Pokémon",
+    "flavor": "A POKéMON that has a body and wings of steel. People in the past used feathers fallen from SKARMORY to make swords and knives.",
+    "evolution": [
+      "Skarmory"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "houndoom": {
     "slug": "houndoom",
@@ -11100,309 +14252,32 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Houndour",
       "Houndoom"
-    ]
-  },
-  "mantine": {
-    "slug": "mantine",
-    "dexNumber": 226,
-    "types": [
-      "Water",
-      "Flying"
     ],
-    "abilities": [
-      "Swift Swim",
-      "Water Absorb"
-    ],
-    "hiddenAbility": "Water Veil",
-    "baseExp": 170,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 85
-      },
-      {
-        "label": "Attack",
-        "value": 40
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 80
-      },
-      {
-        "label": "Sp. Def",
-        "value": 140
-      },
-      {
-        "label": "Speed",
-        "value": 70
+        "from": "Houndour",
+        "to": "Houndoom",
+        "method": "Level 24"
       }
     ],
-    "total": 485,
-    "heightM": 2.1,
-    "weightKg": 220,
-    "genus": "Kite Pokémon",
-    "flavor": "On sunny days, schools of MANTINE can be seen elegantly leaping over the waves. It is not bothered by the REMORAID that hitches rides.",
-    "evolution": [
-      "Mantyke",
-      "Mantine"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "skarmory": {
-    "slug": "skarmory",
-    "dexNumber": 227,
+  "houndour": {
+    "slug": "houndour",
+    "dexNumber": 228,
     "types": [
-      "Steel",
-      "Flying"
-    ],
-    "abilities": [
-      "Keen Eye",
-      "Sturdy"
-    ],
-    "hiddenAbility": "Weak Armor",
-    "baseExp": 163,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 140
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 465,
-    "heightM": 1.7,
-    "weightKg": 50.5,
-    "genus": "Armor Bird Pokémon",
-    "flavor": "A POKéMON that has a body and wings of steel. People in the past used feathers fallen from SKARMORY to make swords and knives.",
-    "evolution": [
-      "Skarmory"
-    ]
-  },
-  "delibird": {
-    "slug": "delibird",
-    "dexNumber": 225,
-    "types": [
-      "Ice",
-      "Flying"
-    ],
-    "abilities": [
-      "Vital Spirit",
-      "Hustle"
-    ],
-    "hiddenAbility": "Insomnia",
-    "baseExp": 116,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 45
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
-        "value": 75
-      }
-    ],
-    "total": 330,
-    "heightM": 0.9,
-    "weightKg": 16,
-    "genus": "Delivery Pokémon",
-    "flavor": "It carries food bundled up in its tail. There was a famous explorer who managed to scale Mt. Everest thanks to a DELIBIRD sharing its food.",
-    "evolution": [
-      "Delibird"
-    ]
-  },
-  "porygon2": {
-    "slug": "porygon2",
-    "dexNumber": 233,
-    "types": [
-      "Normal"
-    ],
-    "abilities": [
-      "Trace",
-      "Download"
-    ],
-    "hiddenAbility": "Analytic",
-    "baseExp": 180,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 85
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 90
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 105
-      },
-      {
-        "label": "Sp. Def",
-        "value": 95
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 515,
-    "heightM": 0.6,
-    "weightKg": 32.5,
-    "genus": "Virtual Pokémon",
-    "flavor": "It was created by humans using the power of science. It has been given artificial intelligence that enables it to learn new gestures and emotions on its own.",
-    "evolution": [
-      "Porygon",
-      "Porygon2",
-      "Porygon Z"
-    ]
-  },
-  "tyrogue": {
-    "slug": "tyrogue",
-    "dexNumber": 236,
-    "types": [
-      "Fighting"
-    ],
-    "abilities": [
-      "Guts",
-      "Steadfast"
-    ],
-    "hiddenAbility": "Vital Spirit",
-    "baseExp": 42,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 35
-      },
-      {
-        "label": "Attack",
-        "value": 35
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 35
-      }
-    ],
-    "total": 210,
-    "heightM": 0.7,
-    "weightKg": 21,
-    "genus": "Scuffle Pokémon",
-    "flavor": "TYROGUE become stressed out if they do not get to train every day. When raising this POKéMON, the TRAINER must establish a regular training schedule.",
-    "evolution": [
-      "Tyrogue",
-      "Hitmonlee"
-    ]
-  },
-  "elekid": {
-    "slug": "elekid",
-    "dexNumber": 239,
-    "types": [
-      "Electric"
-    ],
-    "abilities": [
-      "Static"
-    ],
-    "hiddenAbility": "Vital Spirit",
-    "baseExp": 72,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 63
-      },
-      {
-        "label": "Defense",
-        "value": 37
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 95
-      }
-    ],
-    "total": 360,
-    "heightM": 0.6,
-    "weightKg": 23.5,
-    "genus": "Electric Pokémon",
-    "flavor": "If it touches metal and discharges the electricity it has stored in its body, an ELEKID begins swinging its arms in circles to recharge itself.",
-    "evolution": [
-      "Elekid",
-      "Electabuzz",
-      "Electivire"
-    ]
-  },
-  "magby": {
-    "slug": "magby",
-    "dexNumber": 240,
-    "types": [
+      "Dark",
       "Fire"
     ],
     "abilities": [
-      "Flame Body"
+      "Early Bird",
+      "Flash Fire"
     ],
-    "hiddenAbility": "Vital Spirit",
-    "baseExp": 73,
+    "hiddenAbility": "Unnerve",
+    "baseExp": 66,
     "stats": [
       {
         "label": "HP",
@@ -11410,83 +14285,45 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 75
+        "value": 60
       },
       {
         "label": "Defense",
-        "value": 37
+        "value": 30
       },
       {
         "label": "Sp. Atk",
-        "value": 70
+        "value": 80
       },
       {
         "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 83
-      }
-    ],
-    "total": 365,
-    "heightM": 0.7,
-    "weightKg": 21.4,
-    "genus": "Live Coal Pokémon",
-    "flavor": "If a MAGBY is spouting yellow flames from its mouth, it is in good health. When it is fatigued, black smoke will be mixed in with the flames.",
-    "evolution": [
-      "Magby",
-      "Magmar",
-      "Magmortar"
-    ]
-  },
-  "hitmontop": {
-    "slug": "hitmontop",
-    "dexNumber": 237,
-    "types": [
-      "Fighting"
-    ],
-    "abilities": [
-      "Intimidate",
-      "Technician"
-    ],
-    "hiddenAbility": "Steadfast",
-    "baseExp": 159,
-    "stats": [
-      {
-        "label": "HP",
         "value": 50
       },
       {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 95
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 35
-      },
-      {
-        "label": "Sp. Def",
-        "value": 110
-      },
-      {
         "label": "Speed",
-        "value": 70
+        "value": 65
       }
     ],
-    "total": 455,
-    "heightM": 1.4,
-    "weightKg": 48,
-    "genus": "Handstand Pokémon",
-    "flavor": "Its technique of kicking while spinning is a remarkable mix of both offense and defense. HITMONTOP travel faster spinning than they do walking.",
+    "total": 330,
+    "heightM": 0.6,
+    "weightKg": 10.8,
+    "genus": "Dark Pokémon",
+    "flavor": "HOUNDOUR communicate with each other using a variety of cries to corner their prey. This POKéMON’s remarkable teamwork is simply unparalleled.",
     "evolution": [
-      "Tyrogue",
-      "Hitmonlee"
-    ]
+      "Houndour",
+      "Houndoom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Houndour",
+        "to": "Houndoom",
+        "method": "Level 24"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "smeargle": {
     "slug": "smeargle",
@@ -11533,7 +14370,193 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A SMEARGLE marks its territory using a fluid that leaks out from the tip of its tail. About 5,000 different marks left by this POKéMON have been found.",
     "evolution": [
       "Smeargle"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "tyrogue": {
+    "slug": "tyrogue",
+    "dexNumber": 236,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "Steadfast"
+    ],
+    "hiddenAbility": "Vital Spirit",
+    "baseExp": 42,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 35
+      },
+      {
+        "label": "Attack",
+        "value": 35
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 210,
+    "heightM": 0.7,
+    "weightKg": 21,
+    "genus": "Scuffle Pokémon",
+    "flavor": "TYROGUE become stressed out if they do not get to train every day. When raising this POKéMON, the TRAINER must establish a regular training schedule.",
+    "evolution": [
+      "Tyrogue",
+      "Hitmonlee",
+      "Hitmonchan",
+      "Hitmontop"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Tyrogue",
+        "to": "Hitmonlee",
+        "method": "Level 20 · Attack > Defense"
+      },
+      {
+        "from": "Tyrogue",
+        "to": "Hitmonchan",
+        "method": "Level 20 · Attack < Defense"
+      },
+      {
+        "from": "Tyrogue",
+        "to": "Hitmontop",
+        "method": "Level 20 · Attack = Defense"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 0
+  },
+  "porygon2": {
+    "slug": "porygon2",
+    "dexNumber": 233,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Trace",
+      "Download"
+    ],
+    "hiddenAbility": "Analytic",
+    "baseExp": 180,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 85
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 90
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 105
+      },
+      {
+        "label": "Sp. Def",
+        "value": 95
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 515,
+    "heightM": 0.6,
+    "weightKg": 32.5,
+    "genus": "Virtual Pokémon",
+    "flavor": "It was created by humans using the power of science. It has been given artificial intelligence that enables it to learn new gestures and emotions on its own.",
+    "evolution": [
+      "Porygon2"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "magby": {
+    "slug": "magby",
+    "dexNumber": 240,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flame Body"
+    ],
+    "hiddenAbility": "Vital Spirit",
+    "baseExp": 73,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 75
+      },
+      {
+        "label": "Defense",
+        "value": 37
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 83
+      }
+    ],
+    "total": 365,
+    "heightM": 0.7,
+    "weightKg": 21.4,
+    "genus": "Live Coal Pokémon",
+    "flavor": "If a MAGBY is spouting yellow flames from its mouth, it is in good health. When it is fatigued, black smoke will be mixed in with the flames.",
+    "evolution": [
+      "Magby",
+      "Magmar"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Magby",
+        "to": "Magmar",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 2
   },
   "smoochum": {
     "slug": "smoochum",
@@ -11582,7 +14605,76 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Smoochum",
       "Jynx"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Smoochum",
+        "to": "Jynx",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 8
+  },
+  "elekid": {
+    "slug": "elekid",
+    "dexNumber": 239,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static"
+    ],
+    "hiddenAbility": "Vital Spirit",
+    "baseExp": 72,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 63
+      },
+      {
+        "label": "Defense",
+        "value": 37
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 95
+      }
+    ],
+    "total": 360,
+    "heightM": 0.6,
+    "weightKg": 23.5,
+    "genus": "Electric Pokémon",
+    "flavor": "If it touches metal and discharges the electricity it has stored in its body, an ELEKID begins swinging its arms in circles to recharge itself.",
+    "evolution": [
+      "Elekid",
+      "Electabuzz"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Elekid",
+        "to": "Electabuzz",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 2
   },
   "stantler": {
     "slug": "stantler",
@@ -11628,9 +14720,84 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Big Horn Pokémon",
     "flavor": "STANTLER’s magnificent antlers were once traded at high prices as works of art. As a result, this POKéMON was hunted close to extinction.",
     "evolution": [
-      "Stantler",
-      "Wyrdeer"
-    ]
+      "Stantler"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "hitmontop": {
+    "slug": "hitmontop",
+    "dexNumber": 237,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Technician"
+    ],
+    "hiddenAbility": "Steadfast",
+    "baseExp": 159,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 95
+      },
+      {
+        "label": "Defense",
+        "value": 95
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 110
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 455,
+    "heightM": 1.4,
+    "weightKg": 48,
+    "genus": "Handstand Pokémon",
+    "flavor": "Its technique of kicking while spinning is a remarkable mix of both offense and defense. HITMONTOP travel faster spinning than they do walking.",
+    "evolution": [
+      "Tyrogue",
+      "Hitmonlee",
+      "Hitmonchan",
+      "Hitmontop"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Tyrogue",
+        "to": "Hitmonlee",
+        "method": "Level 20 · Attack > Defense"
+      },
+      {
+        "from": "Tyrogue",
+        "to": "Hitmonchan",
+        "method": "Level 20 · Attack < Defense"
+      },
+      {
+        "from": "Tyrogue",
+        "to": "Hitmontop",
+        "method": "Level 20 · Attack = Defense"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 0
   },
   "entei": {
     "slug": "entei",
@@ -11676,7 +14843,63 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "ENTEI embodies the passion of magma. It is thought to have been born in the eruption of a volcano. It blasts fire that consumes all that it touches.",
     "evolution": [
       "Entei"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "raikou": {
+    "slug": "raikou",
+    "dexNumber": 243,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Pressure"
+    ],
+    "hiddenAbility": "Inner Focus",
+    "baseExp": 261,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 90
+      },
+      {
+        "label": "Attack",
+        "value": 85
+      },
+      {
+        "label": "Defense",
+        "value": 75
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 115
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
+        "value": 115
+      }
+    ],
+    "total": 580,
+    "heightM": 1.9,
+    "weightKg": 178,
+    "genus": "Thunder Pokémon",
+    "flavor": "RAIKOU embodies the speed of lightning. Its roars send shock waves shuddering through the air and ground as if lightning bolts were crashing down.",
+    "evolution": [
+      "Raikou"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "blissey": {
     "slug": "blissey",
@@ -11722,23 +14945,32 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "genus": "Happiness Pokémon",
     "flavor": "If it senses sadness with its fluffy fur, a BLISSEY will rush over to the sad person, however far away, to share an egg of happiness that brings a smile to any face.",
     "evolution": [
-      "Happiny",
       "Chansey",
       "Blissey"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chansey",
+        "to": "Blissey",
+        "method": "Level-up · friendship"
+      }
+    ],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 8
   },
-  "tyranitar": {
-    "slug": "tyranitar",
-    "dexNumber": 248,
+  "suicune": {
+    "slug": "suicune",
+    "dexNumber": 245,
     "types": [
-      "Rock",
-      "Dark"
+      "Water"
     ],
     "abilities": [
-      "Sand Stream"
+      "Pressure"
     ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 270,
+    "hiddenAbility": "Inner Focus",
+    "baseExp": 261,
     "stats": [
       {
         "label": "HP",
@@ -11746,83 +14978,38 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 134
+        "value": 75
       },
       {
         "label": "Defense",
-        "value": 110
+        "value": 115
       },
       {
         "label": "Sp. Atk",
-        "value": 95
+        "value": 90
       },
       {
         "label": "Sp. Def",
-        "value": 100
+        "value": 115
       },
       {
         "label": "Speed",
-        "value": 61
+        "value": 85
       }
     ],
-    "total": 600,
+    "total": 580,
     "heightM": 2,
-    "weightKg": 202,
-    "genus": "Armor Pokémon",
-    "flavor": "A TYRANITAR is so overwhelmingly powerful, it can bring down a whole mountain to make its nest. It roams in mountains seeking new opponents to fight.",
+    "weightKg": 187,
+    "genus": "Aurora Pokémon",
+    "flavor": "SUICUNE embodies the compassion of a pure spring of water. It runs across the land with gliding elegance. It has the power to purify dirty water.",
     "evolution": [
-      "Larvitar",
-      "Pupitar",
-      "Tyranitar"
-    ]
-  },
-  "pupitar": {
-    "slug": "pupitar",
-    "dexNumber": 247,
-    "types": [
-      "Rock",
-      "Ground"
+      "Suicune"
     ],
-    "abilities": [
-      "Shed Skin"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
     ],
-    "baseExp": 144,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 84
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 51
-      }
-    ],
-    "total": 410,
-    "heightM": 1.2,
-    "weightKg": 152,
-    "genus": "Hard Shell Pokémon",
-    "flavor": "A PUPITAR creates a gas inside its body that it ejects under compression to propel itself like a jet. Its body can withstand a collision with solid steel.",
-    "evolution": [
-      "Larvitar",
-      "Pupitar",
-      "Tyranitar"
-    ]
+    "genderRate": -1
   },
   "larvitar": {
     "slug": "larvitar",
@@ -11871,53 +15058,87 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Larvitar",
       "Pupitar",
       "Tyranitar"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Larvitar",
+        "to": "Pupitar",
+        "method": "Level 30"
+      },
+      {
+        "from": "Pupitar",
+        "to": "Tyranitar",
+        "method": "Level 55"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
   },
-  "raikou": {
-    "slug": "raikou",
-    "dexNumber": 243,
+  "pupitar": {
+    "slug": "pupitar",
+    "dexNumber": 247,
     "types": [
-      "Electric"
+      "Rock",
+      "Ground"
     ],
     "abilities": [
-      "Pressure"
+      "Shed Skin"
     ],
-    "hiddenAbility": "Inner Focus",
-    "baseExp": 261,
+    "baseExp": 144,
     "stats": [
       {
         "label": "HP",
-        "value": 90
+        "value": 70
       },
       {
         "label": "Attack",
-        "value": 85
+        "value": 84
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 70
       },
       {
         "label": "Sp. Atk",
-        "value": 115
+        "value": 65
       },
       {
         "label": "Sp. Def",
-        "value": 100
+        "value": 70
       },
       {
         "label": "Speed",
-        "value": 115
+        "value": 51
       }
     ],
-    "total": 580,
-    "heightM": 1.9,
-    "weightKg": 178,
-    "genus": "Thunder Pokémon",
-    "flavor": "RAIKOU embodies the speed of lightning. Its roars send shock waves shuddering through the air and ground as if lightning bolts were crashing down.",
+    "total": 410,
+    "heightM": 1.2,
+    "weightKg": 152,
+    "genus": "Hard Shell Pokémon",
+    "flavor": "A PUPITAR creates a gas inside its body that it ejects under compression to propel itself like a jet. Its body can withstand a collision with solid steel.",
     "evolution": [
-      "Raikou"
-    ]
+      "Larvitar",
+      "Pupitar",
+      "Tyranitar"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Larvitar",
+        "to": "Pupitar",
+        "method": "Level 30"
+      },
+      {
+        "from": "Pupitar",
+        "to": "Tyranitar",
+        "method": "Level 55"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
   },
   "miltank": {
     "slug": "miltank",
@@ -11964,19 +15185,25 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It gives over five gallons of milk daily. Its sweet milk is enjoyed by children and grown-ups alike. People who can’t drink milk turn it into yogurt and eat it instead.",
     "evolution": [
       "Miltank"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 8
   },
-  "suicune": {
-    "slug": "suicune",
-    "dexNumber": 245,
+  "tyranitar": {
+    "slug": "tyranitar",
+    "dexNumber": 248,
     "types": [
-      "Water"
+      "Rock",
+      "Dark"
     ],
     "abilities": [
-      "Pressure"
+      "Sand Stream"
     ],
-    "hiddenAbility": "Inner Focus",
-    "baseExp": 261,
+    "hiddenAbility": "Unnerve",
+    "baseExp": 270,
     "stats": [
       {
         "label": "HP",
@@ -11984,37 +15211,106 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 75
+        "value": 134
       },
       {
         "label": "Defense",
-        "value": 115
+        "value": 110
       },
       {
         "label": "Sp. Atk",
-        "value": 90
+        "value": 95
       },
       {
         "label": "Sp. Def",
-        "value": 115
+        "value": 100
       },
       {
         "label": "Speed",
-        "value": 85
+        "value": 61
       }
     ],
-    "total": 580,
+    "total": 600,
     "heightM": 2,
-    "weightKg": 187,
-    "genus": "Aurora Pokémon",
-    "flavor": "SUICUNE embodies the compassion of a pure spring of water. It runs across the land with gliding elegance. It has the power to purify dirty water.",
+    "weightKg": 202,
+    "genus": "Armor Pokémon",
+    "flavor": "A TYRANITAR is so overwhelmingly powerful, it can bring down a whole mountain to make its nest. It roams in mountains seeking new opponents to fight.",
     "evolution": [
-      "Suicune"
-    ]
+      "Larvitar",
+      "Pupitar",
+      "Tyranitar"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Larvitar",
+        "to": "Pupitar",
+        "method": "Level 30"
+      },
+      {
+        "from": "Pupitar",
+        "to": "Tyranitar",
+        "method": "Level 55"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
   },
-  "sceptile": {
-    "slug": "sceptile",
-    "dexNumber": 254,
+  "celebi": {
+    "slug": "celebi",
+    "dexNumber": 251,
+    "types": [
+      "Psychic",
+      "Grass"
+    ],
+    "abilities": [
+      "Natural Cure"
+    ],
+    "baseExp": 270,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 100
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
+        "value": 100
+      }
+    ],
+    "total": 600,
+    "heightM": 0.6,
+    "weightKg": 5,
+    "genus": "Time Travel Pokémon",
+    "flavor": "This POKéMON came from the future by crossing over time. It is thought that so long as CELEBI appears, a bright and shining future awaits us.",
+    "evolution": [
+      "Celebi"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "grovyle": {
+    "slug": "grovyle",
+    "dexNumber": 253,
     "types": [
       "Grass"
     ],
@@ -12022,43 +15318,60 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Overgrow"
     ],
     "hiddenAbility": "Unburden",
-    "baseExp": 239,
+    "baseExp": 142,
     "stats": [
       {
         "label": "HP",
-        "value": 70
+        "value": 50
       },
       {
         "label": "Attack",
-        "value": 85
-      },
-      {
-        "label": "Defense",
         "value": 65
       },
       {
-        "label": "Sp. Atk",
-        "value": 105
+        "label": "Defense",
+        "value": 45
       },
       {
-        "label": "Sp. Def",
+        "label": "Sp. Atk",
         "value": 85
       },
       {
+        "label": "Sp. Def",
+        "value": 65
+      },
+      {
         "label": "Speed",
-        "value": 120
+        "value": 95
       }
     ],
-    "total": 530,
-    "heightM": 1.7,
-    "weightKg": 52.2,
-    "genus": "Forest Pokémon",
-    "flavor": "In the jungle, its power is without equal. This POKéMON carefully grows trees and plants. It regulates its body temperature by basking in sunlight.",
+    "total": 405,
+    "heightM": 0.9,
+    "weightKg": 21.6,
+    "genus": "Wood Gecko Pokémon",
+    "flavor": "Leaves grow out of this POKéMON’s body. They help obscure a GROVYLE from the eyes of its enemies while it is in a thickly overgrown forest.",
     "evolution": [
       "Treecko",
       "Grovyle",
       "Sceptile"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Treecko",
+        "to": "Grovyle",
+        "method": "Level 16"
+      },
+      {
+        "from": "Grovyle",
+        "to": "Sceptile",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Dragon"
+    ],
+    "genderRate": 1
   },
   "treecko": {
     "slug": "treecko",
@@ -12106,7 +15419,76 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Treecko",
       "Grovyle",
       "Sceptile"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Treecko",
+        "to": "Grovyle",
+        "method": "Level 16"
+      },
+      {
+        "from": "Grovyle",
+        "to": "Sceptile",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Dragon"
+    ],
+    "genderRate": 1
+  },
+  "ho-oh": {
+    "slug": "ho-oh",
+    "dexNumber": 250,
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure"
+    ],
+    "hiddenAbility": "Regenerator",
+    "baseExp": 306,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 106
+      },
+      {
+        "label": "Attack",
+        "value": 130
+      },
+      {
+        "label": "Defense",
+        "value": 90
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 110
+      },
+      {
+        "label": "Sp. Def",
+        "value": 154
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 680,
+    "heightM": 3.8,
+    "weightKg": 199,
+    "genus": "Rainbow Pokémon",
+    "flavor": "Its feathers--which glow in seven colors depending on the angle at which they are struck by light--are thought to bring joy. It is said to live at the foot of a rainbow.",
+    "evolution": [
+      "Ho-Oh"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "torchic": {
     "slug": "torchic",
@@ -12154,7 +15536,23 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Torchic",
       "Combusken",
       "Blaziken"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Torchic",
+        "to": "Combusken",
+        "method": "Level 16"
+      },
+      {
+        "from": "Combusken",
+        "to": "Blaziken",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
   },
   "combusken": {
     "slug": "combusken",
@@ -12203,57 +15601,27 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Torchic",
       "Combusken",
       "Blaziken"
-    ]
-  },
-  "celebi": {
-    "slug": "celebi",
-    "dexNumber": 251,
-    "types": [
-      "Psychic",
-      "Grass"
     ],
-    "abilities": [
-      "Natural Cure"
-    ],
-    "baseExp": 270,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 100
+        "from": "Torchic",
+        "to": "Combusken",
+        "method": "Level 16"
       },
       {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 100
-      },
-      {
-        "label": "Speed",
-        "value": 100
+        "from": "Combusken",
+        "to": "Blaziken",
+        "method": "Level 36"
       }
     ],
-    "total": 600,
-    "heightM": 0.6,
-    "weightKg": 5,
-    "genus": "Time Travel Pokémon",
-    "flavor": "This POKéMON came from the future by crossing over time. It is thought that so long as CELEBI appears, a bright and shining future awaits us.",
-    "evolution": [
-      "Celebi"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
   },
-  "grovyle": {
-    "slug": "grovyle",
-    "dexNumber": 253,
+  "sceptile": {
+    "slug": "sceptile",
+    "dexNumber": 254,
     "types": [
       "Grass"
     ],
@@ -12261,43 +15629,60 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Overgrow"
     ],
     "hiddenAbility": "Unburden",
-    "baseExp": 142,
+    "baseExp": 239,
     "stats": [
       {
         "label": "HP",
-        "value": 50
+        "value": 70
       },
       {
         "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 45
-      },
-      {
-        "label": "Sp. Atk",
         "value": 85
       },
       {
-        "label": "Sp. Def",
+        "label": "Defense",
         "value": 65
       },
       {
+        "label": "Sp. Atk",
+        "value": 105
+      },
+      {
+        "label": "Sp. Def",
+        "value": 85
+      },
+      {
         "label": "Speed",
-        "value": 95
+        "value": 120
       }
     ],
-    "total": 405,
-    "heightM": 0.9,
-    "weightKg": 21.6,
-    "genus": "Wood Gecko Pokémon",
-    "flavor": "Leaves grow out of this POKéMON’s body. They help obscure a GROVYLE from the eyes of its enemies while it is in a thickly overgrown forest.",
+    "total": 530,
+    "heightM": 1.7,
+    "weightKg": 52.2,
+    "genus": "Forest Pokémon",
+    "flavor": "In the jungle, its power is without equal. This POKéMON carefully grows trees and plants. It regulates its body temperature by basking in sunlight.",
     "evolution": [
       "Treecko",
       "Grovyle",
       "Sceptile"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Treecko",
+        "to": "Grovyle",
+        "method": "Level 16"
+      },
+      {
+        "from": "Grovyle",
+        "to": "Sceptile",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Dragon"
+    ],
+    "genderRate": 1
   },
   "lugia": {
     "slug": "lugia",
@@ -12344,102 +15729,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "LUGIA is so powerful even a light fluttering of its wings can blow apart houses. As a result, it chooses to live out of sight deep under the sea.",
     "evolution": [
       "Lugia"
-    ]
-  },
-  "ho-oh": {
-    "slug": "ho-oh",
-    "dexNumber": 250,
-    "types": [
-      "Fire",
-      "Flying"
     ],
-    "abilities": [
-      "Pressure"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
     ],
-    "hiddenAbility": "Regenerator",
-    "baseExp": 306,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 106
-      },
-      {
-        "label": "Attack",
-        "value": 130
-      },
-      {
-        "label": "Defense",
-        "value": 90
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 110
-      },
-      {
-        "label": "Sp. Def",
-        "value": 154
-      },
-      {
-        "label": "Speed",
-        "value": 90
-      }
-    ],
-    "total": 680,
-    "heightM": 3.8,
-    "weightKg": 199,
-    "genus": "Rainbow Pokémon",
-    "flavor": "Its feathers--which glow in seven colors depending on the angle at which they are struck by light--are thought to bring joy. It is said to live at the foot of a rainbow.",
-    "evolution": [
-      "Ho Oh"
-    ]
-  },
-  "poochyena": {
-    "slug": "poochyena",
-    "dexNumber": 261,
-    "types": [
-      "Dark"
-    ],
-    "abilities": [
-      "Run Away",
-      "Quick Feet"
-    ],
-    "hiddenAbility": "Rattled",
-    "baseExp": 56,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 35
-      },
-      {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 30
-      },
-      {
-        "label": "Sp. Def",
-        "value": 30
-      },
-      {
-        "label": "Speed",
-        "value": 35
-      }
-    ],
-    "total": 220,
-    "heightM": 0.5,
-    "weightKg": 13.6,
-    "genus": "Bite Pokémon",
-    "flavor": "It savagely threatens foes with bared fangs. It chases after fleeing targets tenaciously. It turns tail and runs, however, if the foe strikes back.",
-    "evolution": [
-      "Poochyena",
-      "Mightyena"
-    ]
+    "genderRate": -1
   },
   "zigzagoon": {
     "slug": "zigzagoon",
@@ -12486,9 +15781,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Rubbing its nose against the ground, it always wanders about back and forth in search of something. It is distinguished by the zigzag footprints it leaves.",
     "evolution": [
       "Zigzagoon",
-      "Linoone",
-      "Obstagoon"
-    ]
+      "Linoone"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Zigzagoon",
+        "to": "Linoone",
+        "method": "Level 20"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "linoone": {
     "slug": "linoone",
@@ -12535,155 +15840,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It is exceedingly fast if it only has to run in a straight line. When it spots pond- dwelling prey underwater, it quickly leaps in and catches it with its sharp claws.",
     "evolution": [
       "Zigzagoon",
-      "Linoone",
-      "Obstagoon"
-    ]
-  },
-  "blaziken": {
-    "slug": "blaziken",
-    "dexNumber": 257,
-    "types": [
-      "Fire",
-      "Fighting"
+      "Linoone"
     ],
-    "abilities": [
-      "Blaze"
-    ],
-    "hiddenAbility": "Speed Boost",
-    "baseExp": 239,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 120
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 110
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 80
+        "from": "Zigzagoon",
+        "to": "Linoone",
+        "method": "Level 20"
       }
     ],
-    "total": 530,
-    "heightM": 1.9,
-    "weightKg": 52,
-    "genus": "Blaze Pokémon",
-    "flavor": "It learns martial arts that use punches and kicks. Every several years, its old feathers burn off, and new, supple feathers grow back in their place.",
-    "evolution": [
-      "Torchic",
-      "Combusken",
-      "Blaziken"
-    ]
-  },
-  "mudkip": {
-    "slug": "mudkip",
-    "dexNumber": 258,
-    "types": [
-      "Water"
+    "eggGroups": [
+      "Field"
     ],
-    "abilities": [
-      "Torrent"
-    ],
-    "hiddenAbility": "Damp",
-    "baseExp": 62,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 40
-      }
-    ],
-    "total": 310,
-    "heightM": 0.4,
-    "weightKg": 7.6,
-    "genus": "Mud Fish Pokémon",
-    "flavor": "On land, it can powerfully lift large boulders by planting its four feet and heaving. It sleeps by burying itself in soil at the water’s edge.",
-    "evolution": [
-      "Mudkip",
-      "Marshtomp",
-      "Swampert"
-    ]
-  },
-  "marshtomp": {
-    "slug": "marshtomp",
-    "dexNumber": 259,
-    "types": [
-      "Water",
-      "Ground"
-    ],
-    "abilities": [
-      "Torrent"
-    ],
-    "hiddenAbility": "Damp",
-    "baseExp": 142,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 85
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 405,
-    "heightM": 0.7,
-    "weightKg": 28,
-    "genus": "Mud Fish Pokémon",
-    "flavor": "Its toughened hind legs enable it to stand upright. Because it weakens if its skin dries out, it replenishes fluids by playing in mud.",
-    "evolution": [
-      "Mudkip",
-      "Marshtomp",
-      "Swampert"
-    ]
+    "genderRate": 4
   },
   "swampert": {
     "slug": "swampert",
@@ -12732,7 +15901,149 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Mudkip",
       "Marshtomp",
       "Swampert"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mudkip",
+        "to": "Marshtomp",
+        "method": "Level 16"
+      },
+      {
+        "from": "Marshtomp",
+        "to": "Swampert",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
+  },
+  "marshtomp": {
+    "slug": "marshtomp",
+    "dexNumber": 259,
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Torrent"
+    ],
+    "hiddenAbility": "Damp",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 85
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 405,
+    "heightM": 0.7,
+    "weightKg": 28,
+    "genus": "Mud Fish Pokémon",
+    "flavor": "Its toughened hind legs enable it to stand upright. Because it weakens if its skin dries out, it replenishes fluids by playing in mud.",
+    "evolution": [
+      "Mudkip",
+      "Marshtomp",
+      "Swampert"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mudkip",
+        "to": "Marshtomp",
+        "method": "Level 16"
+      },
+      {
+        "from": "Marshtomp",
+        "to": "Swampert",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
+  },
+  "poochyena": {
+    "slug": "poochyena",
+    "dexNumber": 261,
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Run Away",
+      "Quick Feet"
+    ],
+    "hiddenAbility": "Rattled",
+    "baseExp": 56,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 35
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 30
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 220,
+    "heightM": 0.5,
+    "weightKg": 13.6,
+    "genus": "Bite Pokémon",
+    "flavor": "It savagely threatens foes with bared fangs. It chases after fleeing targets tenaciously. It turns tail and runs, however, if the foe strikes back.",
+    "evolution": [
+      "Poochyena",
+      "Mightyena"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Poochyena",
+        "to": "Mightyena",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "mightyena": {
     "slug": "mightyena",
@@ -12780,7 +16091,148 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Poochyena",
       "Mightyena"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Poochyena",
+        "to": "Mightyena",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "mudkip": {
+    "slug": "mudkip",
+    "dexNumber": 258,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent"
+    ],
+    "hiddenAbility": "Damp",
+    "baseExp": 62,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 310,
+    "heightM": 0.4,
+    "weightKg": 7.6,
+    "genus": "Mud Fish Pokémon",
+    "flavor": "On land, it can powerfully lift large boulders by planting its four feet and heaving. It sleeps by burying itself in soil at the water’s edge.",
+    "evolution": [
+      "Mudkip",
+      "Marshtomp",
+      "Swampert"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Mudkip",
+        "to": "Marshtomp",
+        "method": "Level 16"
+      },
+      {
+        "from": "Marshtomp",
+        "to": "Swampert",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Water 1"
+    ],
+    "genderRate": 1
+  },
+  "blaziken": {
+    "slug": "blaziken",
+    "dexNumber": 257,
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze"
+    ],
+    "hiddenAbility": "Speed Boost",
+    "baseExp": 239,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 120
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 110
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 530,
+    "heightM": 1.9,
+    "weightKg": 52,
+    "genus": "Blaze Pokémon",
+    "flavor": "It learns martial arts that use punches and kicks. Every several years, its old feathers burn off, and new, supple feathers grow back in their place.",
+    "evolution": [
+      "Torchic",
+      "Combusken",
+      "Blaziken"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Torchic",
+        "to": "Combusken",
+        "method": "Level 16"
+      },
+      {
+        "from": "Combusken",
+        "to": "Blaziken",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 1
   },
   "cascoon": {
     "slug": "cascoon",
@@ -12826,8 +16278,111 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Wurmple",
       "Silcoon",
-      "Beautifly"
-    ]
+      "Beautifly",
+      "Cascoon",
+      "Dustox"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wurmple",
+        "to": "Silcoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Silcoon",
+        "to": "Beautifly",
+        "method": "Level 10"
+      },
+      {
+        "from": "Wurmple",
+        "to": "Cascoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Cascoon",
+        "to": "Dustox",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "silcoon": {
+    "slug": "silcoon",
+    "dexNumber": 266,
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "baseExp": 72,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 50
+      },
+      {
+        "label": "Attack",
+        "value": 35
+      },
+      {
+        "label": "Defense",
+        "value": 55
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 25
+      },
+      {
+        "label": "Sp. Def",
+        "value": 25
+      },
+      {
+        "label": "Speed",
+        "value": 15
+      }
+    ],
+    "total": 205,
+    "heightM": 0.6,
+    "weightKg": 10,
+    "genus": "Cocoon Pokémon",
+    "flavor": "It prepares for evolution using the energy it stored while it was a WURMPLE. It keeps watch over the surroundings with its two eyes.",
+    "evolution": [
+      "Wurmple",
+      "Silcoon",
+      "Beautifly",
+      "Cascoon",
+      "Dustox"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wurmple",
+        "to": "Silcoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Silcoon",
+        "to": "Beautifly",
+        "method": "Level 10"
+      },
+      {
+        "from": "Wurmple",
+        "to": "Cascoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Cascoon",
+        "to": "Dustox",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "wurmple": {
     "slug": "wurmple",
@@ -12874,57 +16429,36 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Wurmple",
       "Silcoon",
-      "Beautifly"
-    ]
-  },
-  "dustox": {
-    "slug": "dustox",
-    "dexNumber": 269,
-    "types": [
-      "Bug",
-      "Poison"
+      "Beautifly",
+      "Cascoon",
+      "Dustox"
     ],
-    "abilities": [
-      "Shield Dust"
-    ],
-    "hiddenAbility": "Compound Eyes",
-    "baseExp": 173,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
+        "from": "Wurmple",
+        "to": "Silcoon",
+        "method": "Level 7"
       },
       {
-        "label": "Attack",
-        "value": 50
+        "from": "Silcoon",
+        "to": "Beautifly",
+        "method": "Level 10"
       },
       {
-        "label": "Defense",
-        "value": 70
+        "from": "Wurmple",
+        "to": "Cascoon",
+        "method": "Level 7"
       },
       {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 90
-      },
-      {
-        "label": "Speed",
-        "value": 65
+        "from": "Cascoon",
+        "to": "Dustox",
+        "method": "Level 10"
       }
     ],
-    "total": 385,
-    "heightM": 1.2,
-    "weightKg": 31.6,
-    "genus": "Poison Moth Pokémon",
-    "flavor": "It is a nocturnal POKéMON that flies from fields and mountains to the attraction of streetlights at night. It looses highly toxic powder from its wings.",
-    "evolution": [
-      "Wurmple",
-      "Silcoon",
-      "Beautifly"
-    ]
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "beautifly": {
     "slug": "beautifly",
@@ -12972,22 +16506,49 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Wurmple",
       "Silcoon",
-      "Beautifly"
-    ]
+      "Beautifly",
+      "Cascoon",
+      "Dustox"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wurmple",
+        "to": "Silcoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Silcoon",
+        "to": "Beautifly",
+        "method": "Level 10"
+      },
+      {
+        "from": "Wurmple",
+        "to": "Cascoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Cascoon",
+        "to": "Dustox",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
-  "lombre": {
-    "slug": "lombre",
-    "dexNumber": 271,
+  "dustox": {
+    "slug": "dustox",
+    "dexNumber": 269,
     "types": [
-      "Water",
-      "Grass"
+      "Bug",
+      "Poison"
     ],
     "abilities": [
-      "Swift Swim",
-      "Rain Dish"
+      "Shield Dust"
     ],
-    "hiddenAbility": "Own Tempo",
-    "baseExp": 119,
+    "hiddenAbility": "Compound Eyes",
+    "baseExp": 173,
     "stats": [
       {
         "label": "HP",
@@ -12999,81 +16560,59 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Defense",
-        "value": 50
+        "value": 70
       },
       {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 50
       },
       {
         "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 340,
-    "heightM": 1.2,
-    "weightKg": 32.5,
-    "genus": "Jolly Pokémon",
-    "flavor": "In the evening, it takes great delight in popping out of rivers and startling people. It feeds on aquatic moss that grows on rocks in the riverbed.",
-    "evolution": [
-      "Lotad",
-      "Lombre",
-      "Ludicolo"
-    ]
-  },
-  "ludicolo": {
-    "slug": "ludicolo",
-    "dexNumber": 272,
-    "types": [
-      "Water",
-      "Grass"
-    ],
-    "abilities": [
-      "Swift Swim",
-      "Rain Dish"
-    ],
-    "hiddenAbility": "Own Tempo",
-    "baseExp": 216,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
         "value": 90
       },
       {
-        "label": "Sp. Def",
-        "value": 100
-      },
-      {
         "label": "Speed",
-        "value": 70
+        "value": 65
       }
     ],
-    "total": 480,
-    "heightM": 1.5,
-    "weightKg": 55,
-    "genus": "Carefree Pokémon",
-    "flavor": "When it hears festive music, all the cells in its body become stimulated, and it begins moving in rhythm. It does not quail even when it faces a tough opponent.",
+    "total": 385,
+    "heightM": 1.2,
+    "weightKg": 31.6,
+    "genus": "Poison Moth Pokémon",
+    "flavor": "It is a nocturnal POKéMON that flies from fields and mountains to the attraction of streetlights at night. It looses highly toxic powder from its wings.",
     "evolution": [
-      "Lotad",
-      "Lombre",
-      "Ludicolo"
-    ]
+      "Wurmple",
+      "Silcoon",
+      "Beautifly",
+      "Cascoon",
+      "Dustox"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wurmple",
+        "to": "Silcoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Silcoon",
+        "to": "Beautifly",
+        "method": "Level 10"
+      },
+      {
+        "from": "Wurmple",
+        "to": "Cascoon",
+        "method": "Level 7"
+      },
+      {
+        "from": "Cascoon",
+        "to": "Dustox",
+        "method": "Level 10"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "lotad": {
     "slug": "lotad",
@@ -13123,104 +16662,158 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Lotad",
       "Lombre",
       "Ludicolo"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Lotad",
+        "to": "Lombre",
+        "method": "Level 14"
+      },
+      {
+        "from": "Lombre",
+        "to": "Ludicolo",
+        "method": "Water Stone"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Grass"
+    ],
+    "genderRate": 4
   },
-  "silcoon": {
-    "slug": "silcoon",
-    "dexNumber": 266,
+  "ludicolo": {
+    "slug": "ludicolo",
+    "dexNumber": 272,
     "types": [
-      "Bug"
+      "Water",
+      "Grass"
     ],
     "abilities": [
-      "Shed Skin"
+      "Swift Swim",
+      "Rain Dish"
     ],
-    "baseExp": 72,
+    "hiddenAbility": "Own Tempo",
+    "baseExp": 216,
     "stats": [
       {
         "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 90
+      },
+      {
+        "label": "Sp. Def",
+        "value": 100
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 480,
+    "heightM": 1.5,
+    "weightKg": 55,
+    "genus": "Carefree Pokémon",
+    "flavor": "When it hears festive music, all the cells in its body become stimulated, and it begins moving in rhythm. It does not quail even when it faces a tough opponent.",
+    "evolution": [
+      "Lotad",
+      "Lombre",
+      "Ludicolo"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Lotad",
+        "to": "Lombre",
+        "method": "Level 14"
+      },
+      {
+        "from": "Lombre",
+        "to": "Ludicolo",
+        "method": "Water Stone"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "lombre": {
+    "slug": "lombre",
+    "dexNumber": 271,
+    "types": [
+      "Water",
+      "Grass"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rain Dish"
+    ],
+    "hiddenAbility": "Own Tempo",
+    "baseExp": 119,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
         "value": 50
       },
       {
-        "label": "Attack",
-        "value": 35
-      },
-      {
         "label": "Defense",
-        "value": 55
+        "value": 50
       },
       {
         "label": "Sp. Atk",
-        "value": 25
+        "value": 60
       },
       {
         "label": "Sp. Def",
-        "value": 25
+        "value": 70
       },
       {
         "label": "Speed",
-        "value": 15
+        "value": 50
       }
     ],
-    "total": 205,
-    "heightM": 0.6,
-    "weightKg": 10,
-    "genus": "Cocoon Pokémon",
-    "flavor": "It prepares for evolution using the energy it stored while it was a WURMPLE. It keeps watch over the surroundings with its two eyes.",
+    "total": 340,
+    "heightM": 1.2,
+    "weightKg": 32.5,
+    "genus": "Jolly Pokémon",
+    "flavor": "In the evening, it takes great delight in popping out of rivers and startling people. It feeds on aquatic moss that grows on rocks in the riverbed.",
     "evolution": [
-      "Wurmple",
-      "Silcoon",
-      "Beautifly"
-    ]
-  },
-  "ralts": {
-    "slug": "ralts",
-    "dexNumber": 280,
-    "types": [
-      "Psychic",
-      "Fairy"
+      "Lotad",
+      "Lombre",
+      "Ludicolo"
     ],
-    "abilities": [
-      "Synchronize",
-      "Trace"
-    ],
-    "hiddenAbility": "Telepathy",
-    "baseExp": 40,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 28
+        "from": "Lotad",
+        "to": "Lombre",
+        "method": "Level 14"
       },
       {
-        "label": "Attack",
-        "value": 25
-      },
-      {
-        "label": "Defense",
-        "value": 25
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 45
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 40
+        "from": "Lombre",
+        "to": "Ludicolo",
+        "method": "Water Stone"
       }
     ],
-    "total": 198,
-    "heightM": 0.4,
-    "weightKg": 6.6,
-    "genus": "Feeling Pokémon",
-    "flavor": "A RALTS has the power to sense the emotions of people and POKéMON with the horns on its head. It takes cover if it senses any hostility.",
-    "evolution": [
-      "Ralts",
-      "Kirlia",
-      "Gardevoir"
-    ]
+    "eggGroups": [
+      "Water 1",
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "seedot": {
     "slug": "seedot",
@@ -13269,7 +16862,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Seedot",
       "Nuzleaf",
       "Shiftry"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Seedot",
+        "to": "Nuzleaf",
+        "method": "Level 14"
+      },
+      {
+        "from": "Nuzleaf",
+        "to": "Shiftry",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "nuzleaf": {
     "slug": "nuzleaf",
@@ -13319,7 +16929,264 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Seedot",
       "Nuzleaf",
       "Shiftry"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Seedot",
+        "to": "Nuzleaf",
+        "method": "Level 14"
+      },
+      {
+        "from": "Nuzleaf",
+        "to": "Shiftry",
+        "method": "Leaf Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "pelipper": {
+    "slug": "pelipper",
+    "dexNumber": 279,
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Drizzle"
+    ],
+    "hiddenAbility": "Rain Dish",
+    "baseExp": 154,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 50
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 95
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 440,
+    "heightM": 1.2,
+    "weightKg": 28,
+    "genus": "Water Bird Pokémon",
+    "flavor": "It skims the tops of waves as it flies. When it spots prey, it uses its large beak to scoop up the victim with water. It protects its eggs in its beak.",
+    "evolution": [
+      "Wingull",
+      "Pelipper"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wingull",
+        "to": "Pelipper",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Flying"
+    ],
+    "genderRate": 4
+  },
+  "wingull": {
+    "slug": "wingull",
+    "dexNumber": 278,
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Hydration"
+    ],
+    "hiddenAbility": "Rain Dish",
+    "baseExp": 54,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 30
+      },
+      {
+        "label": "Defense",
+        "value": 30
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 85
+      }
+    ],
+    "total": 270,
+    "heightM": 0.6,
+    "weightKg": 9.5,
+    "genus": "Seagull Pokémon",
+    "flavor": "It makes its nest on a sheer cliff at the edge of the sea. It has trouble keeping its wings flapping in flight. Instead, it soars on updrafts.",
+    "evolution": [
+      "Wingull",
+      "Pelipper"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wingull",
+        "to": "Pelipper",
+        "method": "Level 25"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Flying"
+    ],
+    "genderRate": 4
+  },
+  "swellow": {
+    "slug": "swellow",
+    "dexNumber": 277,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Guts"
+    ],
+    "hiddenAbility": "Scrappy",
+    "baseExp": 159,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 85
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 75
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 125
+      }
+    ],
+    "total": 455,
+    "heightM": 0.7,
+    "weightKg": 19.8,
+    "genus": "Swallow Pokémon",
+    "flavor": "A SWELLOW dives upon prey from far above. It never misses its targets. It takes to the skies in search of lands with a warm climate.",
+    "evolution": [
+      "Taillow",
+      "Swellow"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Taillow",
+        "to": "Swellow",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
+  },
+  "taillow": {
+    "slug": "taillow",
+    "dexNumber": 276,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Guts"
+    ],
+    "hiddenAbility": "Scrappy",
+    "baseExp": 54,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 55
+      },
+      {
+        "label": "Defense",
+        "value": 30
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 30
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 85
+      }
+    ],
+    "total": 270,
+    "heightM": 0.3,
+    "weightKg": 2.3,
+    "genus": "Tiny Swallow Pokémon",
+    "flavor": "Although it is small, it is very courageous. It will take on a larger SKARMORY on an equal footing. However, its will weakens if it becomes hungry.",
+    "evolution": [
+      "Taillow",
+      "Swellow"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Taillow",
+        "to": "Swellow",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Flying"
+    ],
+    "genderRate": 4
   },
   "shiftry": {
     "slug": "shiftry",
@@ -13369,205 +17236,28 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Seedot",
       "Nuzleaf",
       "Shiftry"
-    ]
-  },
-  "taillow": {
-    "slug": "taillow",
-    "dexNumber": 276,
-    "types": [
-      "Normal",
-      "Flying"
     ],
-    "abilities": [
-      "Guts"
-    ],
-    "hiddenAbility": "Scrappy",
-    "baseExp": 54,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 40
+        "from": "Seedot",
+        "to": "Nuzleaf",
+        "method": "Level 14"
       },
       {
-        "label": "Attack",
-        "value": 55
-      },
-      {
-        "label": "Defense",
-        "value": 30
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 30
-      },
-      {
-        "label": "Sp. Def",
-        "value": 30
-      },
-      {
-        "label": "Speed",
-        "value": 85
+        "from": "Nuzleaf",
+        "to": "Shiftry",
+        "method": "Leaf Stone"
       }
     ],
-    "total": 270,
-    "heightM": 0.3,
-    "weightKg": 2.3,
-    "genus": "Tiny Swallow Pokémon",
-    "flavor": "Although it is small, it is very courageous. It will take on a larger SKARMORY on an equal footing. However, its will weakens if it becomes hungry.",
-    "evolution": [
-      "Taillow",
-      "Swellow"
-    ]
+    "eggGroups": [
+      "Field",
+      "Grass"
+    ],
+    "genderRate": 4
   },
-  "swellow": {
-    "slug": "swellow",
-    "dexNumber": 277,
-    "types": [
-      "Normal",
-      "Flying"
-    ],
-    "abilities": [
-      "Guts"
-    ],
-    "hiddenAbility": "Scrappy",
-    "baseExp": 159,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 85
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 75
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 125
-      }
-    ],
-    "total": 455,
-    "heightM": 0.7,
-    "weightKg": 19.8,
-    "genus": "Swallow Pokémon",
-    "flavor": "A SWELLOW dives upon prey from far above. It never misses its targets. It takes to the skies in search of lands with a warm climate.",
-    "evolution": [
-      "Taillow",
-      "Swellow"
-    ]
-  },
-  "wingull": {
-    "slug": "wingull",
-    "dexNumber": 278,
-    "types": [
-      "Water",
-      "Flying"
-    ],
-    "abilities": [
-      "Keen Eye",
-      "Hydration"
-    ],
-    "hiddenAbility": "Rain Dish",
-    "baseExp": 54,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 40
-      },
-      {
-        "label": "Attack",
-        "value": 30
-      },
-      {
-        "label": "Defense",
-        "value": 30
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 55
-      },
-      {
-        "label": "Sp. Def",
-        "value": 30
-      },
-      {
-        "label": "Speed",
-        "value": 85
-      }
-    ],
-    "total": 270,
-    "heightM": 0.6,
-    "weightKg": 9.5,
-    "genus": "Seagull Pokémon",
-    "flavor": "It makes its nest on a sheer cliff at the edge of the sea. It has trouble keeping its wings flapping in flight. Instead, it soars on updrafts.",
-    "evolution": [
-      "Wingull",
-      "Pelipper"
-    ]
-  },
-  "pelipper": {
-    "slug": "pelipper",
-    "dexNumber": 279,
-    "types": [
-      "Water",
-      "Flying"
-    ],
-    "abilities": [
-      "Keen Eye",
-      "Drizzle"
-    ],
-    "hiddenAbility": "Rain Dish",
-    "baseExp": 154,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 50
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 95
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 65
-      }
-    ],
-    "total": 440,
-    "heightM": 1.2,
-    "weightKg": 28,
-    "genus": "Water Bird Pokémon",
-    "flavor": "It skims the tops of waves as it flies. When it spots prey, it uses its large beak to scoop up the victim with water. It protects its eggs in its beak.",
-    "evolution": [
-      "Wingull",
-      "Pelipper"
-    ]
-  },
-  "gardevoir": {
-    "slug": "gardevoir",
-    "dexNumber": 282,
+  "ralts": {
+    "slug": "ralts",
+    "dexNumber": 280,
     "types": [
       "Psychic",
       "Fairy"
@@ -13577,43 +17267,427 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Trace"
     ],
     "hiddenAbility": "Telepathy",
-    "baseExp": 233,
+    "baseExp": 40,
     "stats": [
       {
         "label": "HP",
-        "value": 68
+        "value": 28
       },
       {
         "label": "Attack",
-        "value": 65
+        "value": 25
       },
       {
         "label": "Defense",
-        "value": 65
+        "value": 25
       },
       {
         "label": "Sp. Atk",
-        "value": 125
+        "value": 45
       },
       {
         "label": "Sp. Def",
-        "value": 115
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 198,
+    "heightM": 0.4,
+    "weightKg": 6.6,
+    "genus": "Feeling Pokémon",
+    "flavor": "A RALTS has the power to sense the emotions of people and POKéMON with the horns on its head. It takes cover if it senses any hostility.",
+    "evolution": [
+      "Ralts",
+      "Kirlia",
+      "Gardevoir"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ralts",
+        "to": "Kirlia",
+        "method": "Level 20"
+      },
+      {
+        "from": "Kirlia",
+        "to": "Gardevoir",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like",
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "shroomish": {
+    "slug": "shroomish",
+    "dexNumber": 285,
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Poison Heal"
+    ],
+    "hiddenAbility": "Quick Feet",
+    "baseExp": 59,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 40
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 295,
+    "heightM": 0.4,
+    "weightKg": 4.5,
+    "genus": "Mushroom Pokémon",
+    "flavor": "It loves to eat damp, composted soil in forests. If you enter a forest after a long rain, you can see many SHROOMISH feasting on composted soil.",
+    "evolution": [
+      "Shroomish",
+      "Breloom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Shroomish",
+        "to": "Breloom",
+        "method": "Level 23"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Grass"
+    ],
+    "genderRate": 4
+  },
+  "slakoth": {
+    "slug": "slakoth",
+    "dexNumber": 287,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Truant"
+    ],
+    "baseExp": 56,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 35
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 30
+      }
+    ],
+    "total": 280,
+    "heightM": 0.8,
+    "weightKg": 24,
+    "genus": "Slacker Pokémon",
+    "flavor": "It sleeps virtually all day and night long. It doesn’t change its nest its entire life, but it sometimes travels great distances by swimming in rivers.",
+    "evolution": [
+      "Slakoth",
+      "Vigoroth",
+      "Slaking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Slakoth",
+        "to": "Vigoroth",
+        "method": "Level 18"
+      },
+      {
+        "from": "Vigoroth",
+        "to": "Slaking",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "vigoroth": {
+    "slug": "vigoroth",
+    "dexNumber": 288,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Vital Spirit"
+    ],
+    "baseExp": 154,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 440,
+    "heightM": 1.4,
+    "weightKg": 46.5,
+    "genus": "Wild Monkey Pokémon",
+    "flavor": "It can’t keep still because its blood boils with energy. It runs through the fields and mountains all day to calm itself. If it doesn’t, it can’t sleep at night.",
+    "evolution": [
+      "Slakoth",
+      "Vigoroth",
+      "Slaking"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Slakoth",
+        "to": "Vigoroth",
+        "method": "Level 18"
+      },
+      {
+        "from": "Vigoroth",
+        "to": "Slaking",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "masquerain": {
+    "slug": "masquerain",
+    "dexNumber": 284,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Intimidate"
+    ],
+    "hiddenAbility": "Unnerve",
+    "baseExp": 159,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 62
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 82
       },
       {
         "label": "Speed",
         "value": 80
       }
     ],
-    "total": 518,
-    "heightM": 1.6,
-    "weightKg": 48.4,
-    "genus": "Embrace Pokémon",
-    "flavor": "It apparently does not feel the pull of gravity because it supports itself with psychic power. It will give its life to protect its TRAINER.",
+    "total": 454,
+    "heightM": 0.8,
+    "weightKg": 3.6,
+    "genus": "Eyeball Pokémon",
+    "flavor": "It intimidates foes with the large eyelike patterns on its antennae. Because it can’t fly if its wings get wet, it shelters itself from rain under large trees and eaves.",
     "evolution": [
-      "Ralts",
-      "Kirlia",
-      "Gardevoir"
-    ]
+      "Surskit",
+      "Masquerain"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Surskit",
+        "to": "Masquerain",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "surskit": {
+    "slug": "surskit",
+    "dexNumber": 283,
+    "types": [
+      "Bug",
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim"
+    ],
+    "hiddenAbility": "Rain Dish",
+    "baseExp": 54,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 40
+      },
+      {
+        "label": "Attack",
+        "value": 30
+      },
+      {
+        "label": "Defense",
+        "value": 32
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 52
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 269,
+    "heightM": 0.5,
+    "weightKg": 1.7,
+    "genus": "Pond Skater Pokémon",
+    "flavor": "They gather on puddles after evening downpours, gliding across the surface of water as if sliding. It secretes honey with a sweet aroma from its head.",
+    "evolution": [
+      "Surskit",
+      "Masquerain"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Surskit",
+        "to": "Masquerain",
+        "method": "Level 22"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "breloom": {
+    "slug": "breloom",
+    "dexNumber": 286,
+    "types": [
+      "Grass",
+      "Fighting"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Poison Heal"
+    ],
+    "hiddenAbility": "Technician",
+    "baseExp": 161,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 130
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 460,
+    "heightM": 1.2,
+    "weightKg": 39.2,
+    "genus": "Mushroom Pokémon",
+    "flavor": "It scatters spores from holes in the cap on its head. It loves warm and humid climates. It feeds on trees and plants in fields and forests.",
+    "evolution": [
+      "Shroomish",
+      "Breloom"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Shroomish",
+        "to": "Breloom",
+        "method": "Level 23"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "kirlia": {
     "slug": "kirlia",
@@ -13663,390 +17737,154 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Ralts",
       "Kirlia",
       "Gardevoir"
-    ]
-  },
-  "breloom": {
-    "slug": "breloom",
-    "dexNumber": 286,
-    "types": [
-      "Grass",
-      "Fighting"
     ],
-    "abilities": [
-      "Effect Spore",
-      "Poison Heal"
-    ],
-    "hiddenAbility": "Technician",
-    "baseExp": 161,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
+        "from": "Ralts",
+        "to": "Kirlia",
+        "method": "Level 20"
       },
       {
-        "label": "Attack",
-        "value": 130
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 70
+        "from": "Kirlia",
+        "to": "Gardevoir",
+        "method": "Level 30"
       }
     ],
-    "total": 460,
-    "heightM": 1.2,
-    "weightKg": 39.2,
-    "genus": "Mushroom Pokémon",
-    "flavor": "It scatters spores from holes in the cap on its head. It loves warm and humid climates. It feeds on trees and plants in fields and forests.",
-    "evolution": [
-      "Shroomish",
-      "Breloom"
-    ]
+    "eggGroups": [
+      "Human-Like",
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
-  "masquerain": {
-    "slug": "masquerain",
-    "dexNumber": 284,
+  "gardevoir": {
+    "slug": "gardevoir",
+    "dexNumber": 282,
     "types": [
-      "Bug",
-      "Flying"
+      "Psychic",
+      "Fairy"
     ],
     "abilities": [
-      "Intimidate"
+      "Synchronize",
+      "Trace"
     ],
-    "hiddenAbility": "Unnerve",
-    "baseExp": 159,
+    "hiddenAbility": "Telepathy",
+    "baseExp": 233,
     "stats": [
       {
         "label": "HP",
-        "value": 70
+        "value": 68
       },
       {
         "label": "Attack",
-        "value": 60
+        "value": 65
       },
       {
         "label": "Defense",
-        "value": 62
+        "value": 65
       },
       {
         "label": "Sp. Atk",
-        "value": 100
+        "value": 125
       },
       {
         "label": "Sp. Def",
-        "value": 82
+        "value": 115
       },
       {
         "label": "Speed",
         "value": 80
       }
     ],
-    "total": 454,
-    "heightM": 0.8,
-    "weightKg": 3.6,
-    "genus": "Eyeball Pokémon",
-    "flavor": "It intimidates foes with the large eyelike patterns on its antennae. Because it can’t fly if its wings get wet, it shelters itself from rain under large trees and eaves.",
+    "total": 518,
+    "heightM": 1.6,
+    "weightKg": 48.4,
+    "genus": "Embrace Pokémon",
+    "flavor": "It apparently does not feel the pull of gravity because it supports itself with psychic power. It will give its life to protect its TRAINER.",
     "evolution": [
-      "Surskit",
-      "Masquerain"
-    ]
+      "Ralts",
+      "Kirlia",
+      "Gardevoir"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Ralts",
+        "to": "Kirlia",
+        "method": "Level 20"
+      },
+      {
+        "from": "Kirlia",
+        "to": "Gardevoir",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like",
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
-  "slakoth": {
-    "slug": "slakoth",
-    "dexNumber": 287,
+  "slaking": {
+    "slug": "slaking",
+    "dexNumber": 289,
     "types": [
       "Normal"
     ],
     "abilities": [
       "Truant"
     ],
-    "baseExp": 56,
+    "baseExp": 252,
     "stats": [
       {
         "label": "HP",
-        "value": 60
+        "value": 150
       },
       {
         "label": "Attack",
-        "value": 60
+        "value": 160
       },
       {
         "label": "Defense",
-        "value": 60
+        "value": 100
       },
       {
         "label": "Sp. Atk",
-        "value": 35
+        "value": 95
       },
       {
         "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 30
-      }
-    ],
-    "total": 280,
-    "heightM": 0.8,
-    "weightKg": 24,
-    "genus": "Slacker Pokémon",
-    "flavor": "It sleeps virtually all day and night long. It doesn’t change its nest its entire life, but it sometimes travels great distances by swimming in rivers.",
-    "evolution": [
-      "Slakoth",
-      "Vigoroth",
-      "Slaking"
-    ]
-  },
-  "vigoroth": {
-    "slug": "vigoroth",
-    "dexNumber": 288,
-    "types": [
-      "Normal"
-    ],
-    "abilities": [
-      "Vital Spirit"
-    ],
-    "baseExp": 154,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 55
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 90
-      }
-    ],
-    "total": 440,
-    "heightM": 1.4,
-    "weightKg": 46.5,
-    "genus": "Wild Monkey Pokémon",
-    "flavor": "It can’t keep still because its blood boils with energy. It runs through the fields and mountains all day to calm itself. If it doesn’t, it can’t sleep at night.",
-    "evolution": [
-      "Slakoth",
-      "Vigoroth",
-      "Slaking"
-    ]
-  },
-  "surskit": {
-    "slug": "surskit",
-    "dexNumber": 283,
-    "types": [
-      "Bug",
-      "Water"
-    ],
-    "abilities": [
-      "Swift Swim"
-    ],
-    "hiddenAbility": "Rain Dish",
-    "baseExp": 54,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 40
-      },
-      {
-        "label": "Attack",
-        "value": 30
-      },
-      {
-        "label": "Defense",
-        "value": 32
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 52
-      },
-      {
-        "label": "Speed",
         "value": 65
-      }
-    ],
-    "total": 269,
-    "heightM": 0.5,
-    "weightKg": 1.7,
-    "genus": "Pond Skater Pokémon",
-    "flavor": "They gather on puddles after evening downpours, gliding across the surface of water as if sliding. It secretes honey with a sweet aroma from its head.",
-    "evolution": [
-      "Surskit",
-      "Masquerain"
-    ]
-  },
-  "shroomish": {
-    "slug": "shroomish",
-    "dexNumber": 285,
-    "types": [
-      "Grass"
-    ],
-    "abilities": [
-      "Effect Spore",
-      "Poison Heal"
-    ],
-    "hiddenAbility": "Quick Feet",
-    "baseExp": 59,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 40
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
       },
       {
         "label": "Speed",
-        "value": 35
+        "value": 100
       }
     ],
-    "total": 295,
-    "heightM": 0.4,
-    "weightKg": 4.5,
-    "genus": "Mushroom Pokémon",
-    "flavor": "It loves to eat damp, composted soil in forests. If you enter a forest after a long rain, you can see many SHROOMISH feasting on composted soil.",
+    "total": 670,
+    "heightM": 2,
+    "weightKg": 130.5,
+    "genus": "Lazy Pokémon",
+    "flavor": "Hordes of SLAKING gather around trees when fruits come into season. They wait around patiently for ripened fruits to fall out of the trees.",
     "evolution": [
-      "Shroomish",
-      "Breloom"
-    ]
-  },
-  "loudred": {
-    "slug": "loudred",
-    "dexNumber": 294,
-    "types": [
-      "Normal"
+      "Slakoth",
+      "Vigoroth",
+      "Slaking"
     ],
-    "abilities": [
-      "Soundproof"
-    ],
-    "hiddenAbility": "Scrappy",
-    "baseExp": 126,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 84
+        "from": "Slakoth",
+        "to": "Vigoroth",
+        "method": "Level 18"
       },
       {
-        "label": "Attack",
-        "value": 71
-      },
-      {
-        "label": "Defense",
-        "value": 43
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 71
-      },
-      {
-        "label": "Sp. Def",
-        "value": 43
-      },
-      {
-        "label": "Speed",
-        "value": 48
+        "from": "Vigoroth",
+        "to": "Slaking",
+        "method": "Level 36"
       }
     ],
-    "total": 360,
-    "heightM": 1,
-    "weightKg": 40.5,
-    "genus": "Big Voice Pokémon",
-    "flavor": "It positions the round speakers on its head to assail foes with ultrasonic waves at massive volume. It builds power by stomping the ground.",
-    "evolution": [
-      "Whismur",
-      "Loudred",
-      "Exploud"
-    ]
-  },
-  "exploud": {
-    "slug": "exploud",
-    "dexNumber": 295,
-    "types": [
-      "Normal"
+    "eggGroups": [
+      "Field"
     ],
-    "abilities": [
-      "Soundproof"
-    ],
-    "hiddenAbility": "Scrappy",
-    "baseExp": 221,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 104
-      },
-      {
-        "label": "Attack",
-        "value": 91
-      },
-      {
-        "label": "Defense",
-        "value": 63
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 91
-      },
-      {
-        "label": "Sp. Def",
-        "value": 73
-      },
-      {
-        "label": "Speed",
-        "value": 68
-      }
-    ],
-    "total": 490,
-    "heightM": 1.5,
-    "weightKg": 84,
-    "genus": "Loud Noise Pokémon",
-    "flavor": "It has sound-generating organs all over its body. It communicates with others by adjusting the tone and volume of the cries it emits.",
-    "evolution": [
-      "Whismur",
-      "Loudred",
-      "Exploud"
-    ]
+    "genderRate": 4
   },
   "whismur": {
     "slug": "whismur",
@@ -14094,149 +17932,154 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Whismur",
       "Loudred",
       "Exploud"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Whismur",
+        "to": "Loudred",
+        "method": "Level 20"
+      },
+      {
+        "from": "Loudred",
+        "to": "Exploud",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "slaking": {
-    "slug": "slaking",
-    "dexNumber": 289,
+  "loudred": {
+    "slug": "loudred",
+    "dexNumber": 294,
     "types": [
       "Normal"
     ],
     "abilities": [
-      "Truant"
+      "Soundproof"
     ],
-    "baseExp": 252,
+    "hiddenAbility": "Scrappy",
+    "baseExp": 126,
     "stats": [
       {
         "label": "HP",
-        "value": 150
+        "value": 84
       },
       {
         "label": "Attack",
-        "value": 160
+        "value": 71
       },
       {
         "label": "Defense",
-        "value": 100
+        "value": 43
       },
       {
         "label": "Sp. Atk",
-        "value": 95
+        "value": 71
       },
       {
         "label": "Sp. Def",
-        "value": 65
+        "value": 43
       },
       {
         "label": "Speed",
-        "value": 100
+        "value": 48
       }
     ],
-    "total": 670,
-    "heightM": 2,
-    "weightKg": 130.5,
-    "genus": "Lazy Pokémon",
-    "flavor": "Hordes of SLAKING gather around trees when fruits come into season. They wait around patiently for ripened fruits to fall out of the trees.",
+    "total": 360,
+    "heightM": 1,
+    "weightKg": 40.5,
+    "genus": "Big Voice Pokémon",
+    "flavor": "It positions the round speakers on its head to assail foes with ultrasonic waves at massive volume. It builds power by stomping the ground.",
     "evolution": [
-      "Slakoth",
-      "Vigoroth",
-      "Slaking"
-    ]
+      "Whismur",
+      "Loudred",
+      "Exploud"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Whismur",
+        "to": "Loudred",
+        "method": "Level 20"
+      },
+      {
+        "from": "Loudred",
+        "to": "Exploud",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "shedinja": {
-    "slug": "shedinja",
-    "dexNumber": 292,
+  "exploud": {
+    "slug": "exploud",
+    "dexNumber": 295,
     "types": [
-      "Bug",
-      "Ghost"
+      "Normal"
     ],
     "abilities": [
-      "Wonder Guard"
+      "Soundproof"
     ],
-    "baseExp": 83,
+    "hiddenAbility": "Scrappy",
+    "baseExp": 221,
     "stats": [
       {
         "label": "HP",
-        "value": 1
+        "value": 104
       },
       {
         "label": "Attack",
-        "value": 90
+        "value": 91
       },
       {
         "label": "Defense",
-        "value": 45
+        "value": 63
       },
       {
         "label": "Sp. Atk",
-        "value": 30
+        "value": 91
       },
       {
         "label": "Sp. Def",
-        "value": 30
+        "value": 73
       },
       {
         "label": "Speed",
-        "value": 40
+        "value": 68
       }
     ],
-    "total": 236,
-    "heightM": 0.8,
-    "weightKg": 1.2,
-    "genus": "Shed Pokémon",
-    "flavor": "A peculiar POKéMON that floats in air even though its wings remain completely still. The inside of its body is hollow and utterly dark.",
+    "total": 490,
+    "heightM": 1.5,
+    "weightKg": 84,
+    "genus": "Loud Noise Pokémon",
+    "flavor": "It has sound-generating organs all over its body. It communicates with others by adjusting the tone and volume of the cries it emits.",
     "evolution": [
-      "Nincada",
-      "Ninjask"
-    ]
-  },
-  "ninjask": {
-    "slug": "ninjask",
-    "dexNumber": 291,
-    "types": [
-      "Bug",
-      "Flying"
+      "Whismur",
+      "Loudred",
+      "Exploud"
     ],
-    "abilities": [
-      "Speed Boost"
-    ],
-    "hiddenAbility": "Infiltrator",
-    "baseExp": 160,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 61
+        "from": "Whismur",
+        "to": "Loudred",
+        "method": "Level 20"
       },
       {
-        "label": "Attack",
-        "value": 90
-      },
-      {
-        "label": "Defense",
-        "value": 45
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 160
+        "from": "Loudred",
+        "to": "Exploud",
+        "method": "Level 40"
       }
     ],
-    "total": 456,
-    "heightM": 0.8,
-    "weightKg": 12,
-    "genus": "Ninja Pokémon",
-    "flavor": "Because it darts about vigorously at high speed, it is very difficult to see. Hearing its distinctive cries for too long induces a headache.",
-    "evolution": [
-      "Nincada",
-      "Ninjask"
-    ]
+    "eggGroups": [
+      "Monster",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "nincada": {
     "slug": "nincada",
@@ -14283,8 +18126,154 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It makes its nest at the roots of a mighty tree. Using its whiskerlike antennae, it probes its surroundings in the pitch-black darkness of soil.",
     "evolution": [
       "Nincada",
-      "Ninjask"
-    ]
+      "Ninjask",
+      "Shedinja"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nincada",
+        "to": "Ninjask",
+        "method": "Level 20"
+      },
+      {
+        "from": "Nincada",
+        "to": "Shedinja",
+        "method": "Empty party slot + Poké Ball when Nincada evolves into Ninjask"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
+  },
+  "shedinja": {
+    "slug": "shedinja",
+    "dexNumber": 292,
+    "types": [
+      "Bug",
+      "Ghost"
+    ],
+    "abilities": [
+      "Wonder Guard"
+    ],
+    "baseExp": 83,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 1
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 45
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 30
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 236,
+    "heightM": 0.8,
+    "weightKg": 1.2,
+    "genus": "Shed Pokémon",
+    "flavor": "A peculiar POKéMON that floats in air even though its wings remain completely still. The inside of its body is hollow and utterly dark.",
+    "evolution": [
+      "Nincada",
+      "Ninjask",
+      "Shedinja"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nincada",
+        "to": "Ninjask",
+        "method": "Level 20"
+      },
+      {
+        "from": "Nincada",
+        "to": "Shedinja",
+        "method": "Empty party slot + Poké Ball when Nincada evolves into Ninjask"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "ninjask": {
+    "slug": "ninjask",
+    "dexNumber": 291,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Speed Boost"
+    ],
+    "hiddenAbility": "Infiltrator",
+    "baseExp": 160,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 61
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 45
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 160
+      }
+    ],
+    "total": 456,
+    "heightM": 0.8,
+    "weightKg": 12,
+    "genus": "Ninja Pokémon",
+    "flavor": "Because it darts about vigorously at high speed, it is very difficult to see. Hearing its distinctive cries for too long induces a headache.",
+    "evolution": [
+      "Nincada",
+      "Ninjask",
+      "Shedinja"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Nincada",
+        "to": "Ninjask",
+        "method": "Level 20"
+      },
+      {
+        "from": "Nincada",
+        "to": "Shedinja",
+        "method": "Empty party slot + Poké Ball when Nincada evolves into Ninjask"
+      }
+    ],
+    "eggGroups": [
+      "Bug"
+    ],
+    "genderRate": 4
   },
   "makuhita": {
     "slug": "makuhita",
@@ -14332,103 +18321,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Makuhita",
       "Hariyama"
-    ]
-  },
-  "hariyama": {
-    "slug": "hariyama",
-    "dexNumber": 297,
-    "types": [
-      "Fighting"
     ],
-    "abilities": [
-      "Thick Fat",
-      "Guts"
-    ],
-    "hiddenAbility": "Sheer Force",
-    "baseExp": 166,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 144
-      },
-      {
-        "label": "Attack",
-        "value": 120
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 50
+        "from": "Makuhita",
+        "to": "Hariyama",
+        "method": "Level 24"
       }
     ],
-    "total": 474,
-    "heightM": 2.3,
-    "weightKg": 253.8,
-    "genus": "Arm Thrust Pokémon",
-    "flavor": "It has the habit of challenging others without hesitation to tests of strength. It’s been known to stand on train tracks and stop trains using forearm thrusts.",
-    "evolution": [
-      "Makuhita",
-      "Hariyama"
-    ]
-  },
-  "delcatty": {
-    "slug": "delcatty",
-    "dexNumber": 301,
-    "types": [
-      "Normal"
+    "eggGroups": [
+      "Human-Like"
     ],
-    "abilities": [
-      "Cute Charm",
-      "Normalize"
-    ],
-    "hiddenAbility": "Wonder Skin",
-    "baseExp": 140,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 65
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 55
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 90
-      }
-    ],
-    "total": 400,
-    "heightM": 1.1,
-    "weightKg": 32.6,
-    "genus": "Prim Pokémon",
-    "flavor": "Rather than keeping a permanent lair, it habitually seeks comfortable spots and sleeps there. It is nocturnal and becomes active at dusk.",
-    "evolution": [
-      "Skitty",
-      "Delcatty"
-    ]
+    "genderRate": 2
   },
   "azurill": {
     "slug": "azurill",
@@ -14478,55 +18382,142 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Azurill",
       "Marill",
       "Azumarill"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Azurill",
+        "to": "Marill",
+        "method": "Level-up · friendship"
+      },
+      {
+        "from": "Marill",
+        "to": "Azumarill",
+        "method": "Level 18"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 6
   },
-  "sableye": {
-    "slug": "sableye",
-    "dexNumber": 302,
+  "hariyama": {
+    "slug": "hariyama",
+    "dexNumber": 297,
     "types": [
-      "Dark",
-      "Ghost"
+      "Fighting"
     ],
     "abilities": [
-      "Keen Eye",
-      "Stall"
+      "Thick Fat",
+      "Guts"
     ],
-    "hiddenAbility": "Prankster",
-    "baseExp": 133,
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 166,
     "stats": [
       {
         "label": "HP",
-        "value": 50
+        "value": 144
       },
       {
         "label": "Attack",
-        "value": 75
+        "value": 120
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 60
       },
       {
         "label": "Sp. Atk",
-        "value": 65
+        "value": 40
       },
       {
         "label": "Sp. Def",
-        "value": 65
+        "value": 60
       },
       {
         "label": "Speed",
         "value": 50
       }
     ],
-    "total": 380,
-    "heightM": 0.5,
-    "weightKg": 11,
-    "genus": "Darkness Pokémon",
-    "flavor": "It digs branching holes in caves using its sharp claws in search of food--raw gems. A SABLEYE lurks in darkness and is seen only rarely.",
+    "total": 474,
+    "heightM": 2.3,
+    "weightKg": 253.8,
+    "genus": "Arm Thrust Pokémon",
+    "flavor": "It has the habit of challenging others without hesitation to tests of strength. It’s been known to stand on train tracks and stop trains using forearm thrusts.",
     "evolution": [
-      "Sableye"
-    ]
+      "Makuhita",
+      "Hariyama"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Makuhita",
+        "to": "Hariyama",
+        "method": "Level 24"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 2
+  },
+  "delcatty": {
+    "slug": "delcatty",
+    "dexNumber": 301,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Normalize"
+    ],
+    "hiddenAbility": "Wonder Skin",
+    "baseExp": 140,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 65
+      },
+      {
+        "label": "Defense",
+        "value": 65
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 400,
+    "heightM": 1.1,
+    "weightKg": 32.6,
+    "genus": "Prim Pokémon",
+    "flavor": "Rather than keeping a permanent lair, it habitually seeks comfortable spots and sleeps there. It is nocturnal and becomes active at dusk.",
+    "evolution": [
+      "Skitty",
+      "Delcatty"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Skitty",
+        "to": "Delcatty",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Fairy"
+    ],
+    "genderRate": 6
   },
   "skitty": {
     "slug": "skitty",
@@ -14574,7 +18565,71 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Skitty",
       "Delcatty"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Skitty",
+        "to": "Delcatty",
+        "method": "Moon Stone"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Fairy"
+    ],
+    "genderRate": 6
+  },
+  "nosepass": {
+    "slug": "nosepass",
+    "dexNumber": 299,
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Magnet Pull"
+    ],
+    "hiddenAbility": "Sand Force",
+    "baseExp": 75,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 30
+      },
+      {
+        "label": "Attack",
+        "value": 45
+      },
+      {
+        "label": "Defense",
+        "value": 135
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 45
+      },
+      {
+        "label": "Sp. Def",
+        "value": 90
+      },
+      {
+        "label": "Speed",
+        "value": 30
+      }
+    ],
+    "total": 375,
+    "heightM": 1,
+    "weightKg": 97,
+    "genus": "Compass Pokémon",
+    "flavor": "Its body emits a powerful magnetism. It feeds on prey that is pulled in by the force. Its magnetism is stronger in cold seasons.",
+    "evolution": [
+      "Nosepass"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": 4
   },
   "aron": {
     "slug": "aron",
@@ -14624,55 +18679,76 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Aron",
       "Lairon",
       "Aggron"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Aron",
+        "to": "Lairon",
+        "method": "Level 32"
+      },
+      {
+        "from": "Lairon",
+        "to": "Aggron",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
   },
-  "nosepass": {
-    "slug": "nosepass",
-    "dexNumber": 299,
+  "sableye": {
+    "slug": "sableye",
+    "dexNumber": 302,
     "types": [
-      "Rock"
+      "Dark",
+      "Ghost"
     ],
     "abilities": [
-      "Sturdy",
-      "Magnet Pull"
+      "Keen Eye",
+      "Stall"
     ],
-    "hiddenAbility": "Sand Force",
-    "baseExp": 75,
+    "hiddenAbility": "Prankster",
+    "baseExp": 133,
     "stats": [
       {
         "label": "HP",
-        "value": 30
+        "value": 50
       },
       {
         "label": "Attack",
-        "value": 45
+        "value": 75
       },
       {
         "label": "Defense",
-        "value": 135
+        "value": 75
       },
       {
         "label": "Sp. Atk",
-        "value": 45
+        "value": 65
       },
       {
         "label": "Sp. Def",
-        "value": 90
+        "value": 65
       },
       {
         "label": "Speed",
-        "value": 30
+        "value": 50
       }
     ],
-    "total": 375,
-    "heightM": 1,
-    "weightKg": 97,
-    "genus": "Compass Pokémon",
-    "flavor": "Its body emits a powerful magnetism. It feeds on prey that is pulled in by the force. Its magnetism is stronger in cold seasons.",
+    "total": 380,
+    "heightM": 0.5,
+    "weightKg": 11,
+    "genus": "Darkness Pokémon",
+    "flavor": "It digs branching holes in caves using its sharp claws in search of food--raw gems. A SABLEYE lurks in darkness and is seen only rarely.",
     "evolution": [
-      "Nosepass",
-      "Probopass"
-    ]
+      "Sableye"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
   "mawile": {
     "slug": "mawile",
@@ -14720,103 +18796,13 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Its giant jaws are actually steel horns that transformed. It fools foes into complacency with its adorable gestures, then chomps them with its huge jaws.",
     "evolution": [
       "Mawile"
-    ]
-  },
-  "aggron": {
-    "slug": "aggron",
-    "dexNumber": 306,
-    "types": [
-      "Steel",
-      "Rock"
     ],
-    "abilities": [
-      "Sturdy",
-      "Rock Head"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field",
+      "Fairy"
     ],
-    "hiddenAbility": "Heavy Metal",
-    "baseExp": 239,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 110
-      },
-      {
-        "label": "Defense",
-        "value": 180
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 530,
-    "heightM": 2.1,
-    "weightKg": 360,
-    "genus": "Iron Armor Pokémon",
-    "flavor": "Its iron horns grow longer a little at a time. They are used to determine the AGGRON’s age. The gouges in its armor are worn with pride as mementos from battles.",
-    "evolution": [
-      "Aron",
-      "Lairon",
-      "Aggron"
-    ]
-  },
-  "plusle": {
-    "slug": "plusle",
-    "dexNumber": 311,
-    "types": [
-      "Electric"
-    ],
-    "abilities": [
-      "Plus"
-    ],
-    "hiddenAbility": "Lightning Rod",
-    "baseExp": 142,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 50
-      },
-      {
-        "label": "Defense",
-        "value": 40
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 85
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 95
-      }
-    ],
-    "total": 405,
-    "heightM": 0.4,
-    "weightKg": 4.2,
-    "genus": "Cheering Pokémon",
-    "flavor": "It has the trait of cheering on its fellow POKéMON. By shorting out the electricity it releases from its paws, it creates pom-poms for cheering.",
-    "evolution": [
-      "Plusle"
-    ]
+    "genderRate": 4
   },
   "lairon": {
     "slug": "lairon",
@@ -14866,7 +18852,74 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Aron",
       "Lairon",
       "Aggron"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Aron",
+        "to": "Lairon",
+        "method": "Level 32"
+      },
+      {
+        "from": "Lairon",
+        "to": "Aggron",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
+  },
+  "plusle": {
+    "slug": "plusle",
+    "dexNumber": 311,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Plus"
+    ],
+    "hiddenAbility": "Lightning Rod",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 50
+      },
+      {
+        "label": "Defense",
+        "value": 40
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 95
+      }
+    ],
+    "total": 405,
+    "heightM": 0.4,
+    "weightKg": 4.2,
+    "genus": "Cheering Pokémon",
+    "flavor": "It has the trait of cheering on its fellow POKéMON. By shorting out the electricity it releases from its paws, it creates pom-poms for cheering.",
+    "evolution": [
+      "Plusle"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 4
   },
   "manectric": {
     "slug": "manectric",
@@ -14914,7 +18967,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Electrike",
       "Manectric"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Electrike",
+        "to": "Manectric",
+        "method": "Level 26"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "electrike": {
     "slug": "electrike",
@@ -14962,7 +19026,135 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Electrike",
       "Manectric"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Electrike",
+        "to": "Manectric",
+        "method": "Level 26"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "aggron": {
+    "slug": "aggron",
+    "dexNumber": 306,
+    "types": [
+      "Steel",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Rock Head"
+    ],
+    "hiddenAbility": "Heavy Metal",
+    "baseExp": 239,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 110
+      },
+      {
+        "label": "Defense",
+        "value": 180
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 530,
+    "heightM": 2.1,
+    "weightKg": 360,
+    "genus": "Iron Armor Pokémon",
+    "flavor": "Its iron horns grow longer a little at a time. They are used to determine the AGGRON’s age. The gouges in its armor are worn with pride as mementos from battles.",
+    "evolution": [
+      "Aron",
+      "Lairon",
+      "Aggron"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Aron",
+        "to": "Lairon",
+        "method": "Level 32"
+      },
+      {
+        "from": "Lairon",
+        "to": "Aggron",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Monster"
+    ],
+    "genderRate": 4
+  },
+  "minun": {
+    "slug": "minun",
+    "dexNumber": 312,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Minus"
+    ],
+    "hiddenAbility": "Volt Absorb",
+    "baseExp": 142,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 40
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 75
+      },
+      {
+        "label": "Sp. Def",
+        "value": 85
+      },
+      {
+        "label": "Speed",
+        "value": 95
+      }
+    ],
+    "total": 405,
+    "heightM": 0.4,
+    "weightKg": 4.2,
+    "genus": "Cheering Pokémon",
+    "flavor": "At a meeting of POKéMON academics, it was announced that simultaneous exposure to electricity from a PLUSLE and MINUN will promote circulation and boost vitality.",
+    "evolution": [
+      "Minun"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Fairy"
+    ],
+    "genderRate": 4
   },
   "medicham": {
     "slug": "medicham",
@@ -15010,7 +19202,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Meditite",
       "Medicham"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Meditite",
+        "to": "Medicham",
+        "method": "Level 37"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
   "meditite": {
     "slug": "meditite",
@@ -15058,35 +19261,47 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Meditite",
       "Medicham"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Meditite",
+        "to": "Medicham",
+        "method": "Level 37"
+      }
+    ],
+    "eggGroups": [
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
-  "minun": {
-    "slug": "minun",
-    "dexNumber": 312,
+  "volbeat": {
+    "slug": "volbeat",
+    "dexNumber": 313,
     "types": [
-      "Electric"
+      "Bug"
     ],
     "abilities": [
-      "Minus"
+      "Illuminate",
+      "Swarm"
     ],
-    "hiddenAbility": "Volt Absorb",
-    "baseExp": 142,
+    "hiddenAbility": "Prankster",
+    "baseExp": 151,
     "stats": [
       {
         "label": "HP",
-        "value": 60
+        "value": 65
       },
       {
         "label": "Attack",
-        "value": 40
+        "value": 73
       },
       {
         "label": "Defense",
-        "value": 50
+        "value": 75
       },
       {
         "label": "Sp. Atk",
-        "value": 75
+        "value": 47
       },
       {
         "label": "Sp. Def",
@@ -15094,113 +19309,76 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Speed",
-        "value": 95
+        "value": 85
       }
     ],
-    "total": 405,
-    "heightM": 0.4,
-    "weightKg": 4.2,
-    "genus": "Cheering Pokémon",
-    "flavor": "At a meeting of POKéMON academics, it was announced that simultaneous exposure to electricity from a PLUSLE and MINUN will promote circulation and boost vitality.",
+    "total": 430,
+    "heightM": 0.7,
+    "weightKg": 17.7,
+    "genus": "Firefly Pokémon",
+    "flavor": "With their taillights lit, VOLBEAT fly in a swarm, drawing geometric designs in the night sky. They move their nests if their pond water becomes dirty.",
     "evolution": [
-      "Minun"
-    ]
+      "Volbeat"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug",
+      "Human-Like"
+    ],
+    "genderRate": 0
   },
-  "carvanha": {
-    "slug": "carvanha",
-    "dexNumber": 318,
+  "illumise": {
+    "slug": "illumise",
+    "dexNumber": 314,
     "types": [
-      "Water",
-      "Dark"
+      "Bug"
     ],
     "abilities": [
-      "Rough Skin"
+      "Oblivious",
+      "Tinted Lens"
     ],
-    "hiddenAbility": "Speed Boost",
-    "baseExp": 61,
+    "hiddenAbility": "Prankster",
+    "baseExp": 151,
     "stats": [
       {
         "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 90
-      },
-      {
-        "label": "Defense",
-        "value": 20
-      },
-      {
-        "label": "Sp. Atk",
         "value": 65
       },
       {
-        "label": "Sp. Def",
-        "value": 20
-      },
-      {
-        "label": "Speed",
-        "value": 65
-      }
-    ],
-    "total": 305,
-    "heightM": 0.8,
-    "weightKg": 20.8,
-    "genus": "Savage Pokémon",
-    "flavor": "CARVANHA attack ships in swarms, making them sink. Although it is said to be a very vicious POKéMON, it timidly flees as soon as it finds itself alone.",
-    "evolution": [
-      "Carvanha",
-      "Sharpedo"
-    ]
-  },
-  "sharpedo": {
-    "slug": "sharpedo",
-    "dexNumber": 319,
-    "types": [
-      "Water",
-      "Dark"
-    ],
-    "abilities": [
-      "Rough Skin"
-    ],
-    "hiddenAbility": "Speed Boost",
-    "baseExp": 161,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
         "label": "Attack",
-        "value": 120
+        "value": 47
       },
       {
         "label": "Defense",
-        "value": 40
+        "value": 75
       },
       {
         "label": "Sp. Atk",
-        "value": 95
+        "value": 73
       },
       {
         "label": "Sp. Def",
-        "value": 40
+        "value": 85
       },
       {
         "label": "Speed",
-        "value": 95
+        "value": 85
       }
     ],
-    "total": 460,
-    "heightM": 1.8,
-    "weightKg": 88.8,
-    "genus": "Brutal Pokémon",
-    "flavor": "The vicious and sly gangster of the sea. Its skin is specially textured to minimize drag in water. Its speed tops out at over 75 miles per hour.",
+    "total": 430,
+    "heightM": 0.6,
+    "weightKg": 17.7,
+    "genus": "Firefly Pokémon",
+    "flavor": "A nocturnal POKéMON that becomes active upon nightfall. It leads a VOLBEAT swarm to draw patterns in the night sky. Over 200 different patterns have been confirmed.",
     "evolution": [
-      "Carvanha",
-      "Sharpedo"
-    ]
+      "Illumise"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Bug",
+      "Human-Like"
+    ],
+    "genderRate": 8
   },
   "roselia": {
     "slug": "roselia",
@@ -15248,105 +19426,20 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A ROSELIA that drinks nutritionally rich springwater blooms with lovely flowers. The fragrance of its flowers has the effect of making its foes careless.",
     "evolution": [
       "Budew",
-      "Roselia",
-      "Roserade"
-    ]
-  },
-  "wailmer": {
-    "slug": "wailmer",
-    "dexNumber": 320,
-    "types": [
-      "Water"
+      "Roselia"
     ],
-    "abilities": [
-      "Water Veil",
-      "Oblivious"
-    ],
-    "hiddenAbility": "Pressure",
-    "baseExp": 80,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 130
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 60
+        "from": "Budew",
+        "to": "Roselia",
+        "method": "Level-up · friendship (day)"
       }
     ],
-    "total": 400,
-    "heightM": 2,
-    "weightKg": 130,
-    "genus": "Ball Whale Pokémon",
-    "flavor": "While this POKéMON usually lives in the sea, it can survive on land, although not too long. It loses vitality if its body becomes dried out.",
-    "evolution": [
-      "Wailmer",
-      "Wailord"
-    ]
-  },
-  "swalot": {
-    "slug": "swalot",
-    "dexNumber": 317,
-    "types": [
-      "Poison"
+    "eggGroups": [
+      "Fairy",
+      "Grass"
     ],
-    "abilities": [
-      "Liquid Ooze",
-      "Sticky Hold"
-    ],
-    "hiddenAbility": "Gluttony",
-    "baseExp": 163,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 100
-      },
-      {
-        "label": "Attack",
-        "value": 73
-      },
-      {
-        "label": "Defense",
-        "value": 83
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 73
-      },
-      {
-        "label": "Sp. Def",
-        "value": 83
-      },
-      {
-        "label": "Speed",
-        "value": 55
-      }
-    ],
-    "total": 467,
-    "heightM": 1.7,
-    "weightKg": 80,
-    "genus": "Poison Bag Pokémon",
-    "flavor": "Its powerful stomach acid is capable of digesting almost anything. The one thing in the whole world a SWALOT can’t digest is its own stomach.",
-    "evolution": [
-      "Gulpin",
-      "Swalot"
-    ]
+    "genderRate": 4
   },
   "gulpin": {
     "slug": "gulpin",
@@ -15394,71 +19487,35 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Gulpin",
       "Swalot"
-    ]
-  },
-  "illumise": {
-    "slug": "illumise",
-    "dexNumber": 314,
-    "types": [
-      "Bug"
     ],
-    "abilities": [
-      "Oblivious",
-      "Tinted Lens"
-    ],
-    "hiddenAbility": "Prankster",
-    "baseExp": 151,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 47
-      },
-      {
-        "label": "Defense",
-        "value": 75
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 73
-      },
-      {
-        "label": "Sp. Def",
-        "value": 85
-      },
-      {
-        "label": "Speed",
-        "value": 85
+        "from": "Gulpin",
+        "to": "Swalot",
+        "method": "Level 26"
       }
     ],
-    "total": 430,
-    "heightM": 0.6,
-    "weightKg": 17.7,
-    "genus": "Firefly Pokémon",
-    "flavor": "A nocturnal POKéMON that becomes active upon nightfall. It leads a VOLBEAT swarm to draw patterns in the night sky. Over 200 different patterns have been confirmed.",
-    "evolution": [
-      "Illumise"
-    ]
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
-  "volbeat": {
-    "slug": "volbeat",
-    "dexNumber": 313,
+  "swalot": {
+    "slug": "swalot",
+    "dexNumber": 317,
     "types": [
-      "Bug"
+      "Poison"
     ],
     "abilities": [
-      "Illuminate",
-      "Swarm"
+      "Liquid Ooze",
+      "Sticky Hold"
     ],
-    "hiddenAbility": "Prankster",
-    "baseExp": 151,
+    "hiddenAbility": "Gluttony",
+    "baseExp": 163,
     "stats": [
       {
         "label": "HP",
-        "value": 65
+        "value": 100
       },
       {
         "label": "Attack",
@@ -15466,29 +19523,219 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Defense",
-        "value": 75
+        "value": 83
       },
       {
         "label": "Sp. Atk",
-        "value": 47
+        "value": 73
       },
       {
         "label": "Sp. Def",
-        "value": 85
+        "value": 83
       },
       {
         "label": "Speed",
-        "value": 85
+        "value": 55
       }
     ],
-    "total": 430,
-    "heightM": 0.7,
-    "weightKg": 17.7,
-    "genus": "Firefly Pokémon",
-    "flavor": "With their taillights lit, VOLBEAT fly in a swarm, drawing geometric designs in the night sky. They move their nests if their pond water becomes dirty.",
+    "total": 467,
+    "heightM": 1.7,
+    "weightKg": 80,
+    "genus": "Poison Bag Pokémon",
+    "flavor": "Its powerful stomach acid is capable of digesting almost anything. The one thing in the whole world a SWALOT can’t digest is its own stomach.",
     "evolution": [
-      "Volbeat"
-    ]
+      "Gulpin",
+      "Swalot"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Gulpin",
+        "to": "Swalot",
+        "method": "Level 26"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "carvanha": {
+    "slug": "carvanha",
+    "dexNumber": 318,
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "abilities": [
+      "Rough Skin"
+    ],
+    "hiddenAbility": "Speed Boost",
+    "baseExp": 61,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 20
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 65
+      },
+      {
+        "label": "Sp. Def",
+        "value": 20
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 305,
+    "heightM": 0.8,
+    "weightKg": 20.8,
+    "genus": "Savage Pokémon",
+    "flavor": "CARVANHA attack ships in swarms, making them sink. Although it is said to be a very vicious POKéMON, it timidly flees as soon as it finds itself alone.",
+    "evolution": [
+      "Carvanha",
+      "Sharpedo"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Carvanha",
+        "to": "Sharpedo",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
+  },
+  "sharpedo": {
+    "slug": "sharpedo",
+    "dexNumber": 319,
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "abilities": [
+      "Rough Skin"
+    ],
+    "hiddenAbility": "Speed Boost",
+    "baseExp": 161,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 120
+      },
+      {
+        "label": "Defense",
+        "value": 40
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 95
+      },
+      {
+        "label": "Sp. Def",
+        "value": 40
+      },
+      {
+        "label": "Speed",
+        "value": 95
+      }
+    ],
+    "total": 460,
+    "heightM": 1.8,
+    "weightKg": 88.8,
+    "genus": "Brutal Pokémon",
+    "flavor": "The vicious and sly gangster of the sea. Its skin is specially textured to minimize drag in water. Its speed tops out at over 75 miles per hour.",
+    "evolution": [
+      "Carvanha",
+      "Sharpedo"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Carvanha",
+        "to": "Sharpedo",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
+  },
+  "wailmer": {
+    "slug": "wailmer",
+    "dexNumber": 320,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Veil",
+      "Oblivious"
+    ],
+    "hiddenAbility": "Pressure",
+    "baseExp": 80,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 130
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 35
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 400,
+    "heightM": 2,
+    "weightKg": 130,
+    "genus": "Ball Whale Pokémon",
+    "flavor": "While this POKéMON usually lives in the sea, it can survive on land, although not too long. It loses vitality if its body becomes dried out.",
+    "evolution": [
+      "Wailmer",
+      "Wailord"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wailmer",
+        "to": "Wailord",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Field",
+      "Water 2"
+    ],
+    "genderRate": 4
   },
   "wailord": {
     "slug": "wailord",
@@ -15536,55 +19783,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Wailmer",
       "Wailord"
-    ]
-  },
-  "spoink": {
-    "slug": "spoink",
-    "dexNumber": 325,
-    "types": [
-      "Psychic"
     ],
-    "abilities": [
-      "Thick Fat",
-      "Own Tempo"
-    ],
-    "hiddenAbility": "Gluttony",
-    "baseExp": 66,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 60
-      },
-      {
-        "label": "Attack",
-        "value": 25
-      },
-      {
-        "label": "Defense",
-        "value": 35
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 60
+        "from": "Wailmer",
+        "to": "Wailord",
+        "method": "Level 40"
       }
     ],
-    "total": 330,
-    "heightM": 0.7,
-    "weightKg": 30.6,
-    "genus": "Bounce Pokémon",
-    "flavor": "A POKéMON that manipulates psychic power at will. It doesn’t stop bouncing even when it is asleep. It loves eating mushrooms that grow underground.",
-    "evolution": [
-      "Spoink",
-      "Grumpig"
-    ]
+    "eggGroups": [
+      "Field",
+      "Water 2"
+    ],
+    "genderRate": 4
   },
   "grumpig": {
     "slug": "grumpig",
@@ -15632,70 +19843,31 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Spoink",
       "Grumpig"
-    ]
-  },
-  "camerupt": {
-    "slug": "camerupt",
-    "dexNumber": 323,
-    "types": [
-      "Fire",
-      "Ground"
     ],
-    "abilities": [
-      "Magma Armor",
-      "Solid Rock"
-    ],
-    "hiddenAbility": "Anger Point",
-    "baseExp": 161,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 105
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 40
+        "from": "Spoink",
+        "to": "Grumpig",
+        "method": "Level 32"
       }
     ],
-    "total": 460,
-    "heightM": 1.9,
-    "weightKg": 220,
-    "genus": "Eruption Pokémon",
-    "flavor": "A POKéMON that lives in the crater of a volcano. Every 10 years, the volcanoes on its back erupt violently. Research is under way on the cause of eruption.",
-    "evolution": [
-      "Numel",
-      "Camerupt"
-    ]
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "numel": {
-    "slug": "numel",
-    "dexNumber": 322,
+  "spoink": {
+    "slug": "spoink",
+    "dexNumber": 325,
     "types": [
-      "Fire",
-      "Ground"
+      "Psychic"
     ],
     "abilities": [
-      "Oblivious",
-      "Simple"
+      "Thick Fat",
+      "Own Tempo"
     ],
-    "hiddenAbility": "Own Tempo",
-    "baseExp": 61,
+    "hiddenAbility": "Gluttony",
+    "baseExp": 66,
     "stats": [
       {
         "label": "HP",
@@ -15703,81 +19875,98 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Attack",
-        "value": 60
+        "value": 25
       },
       {
         "label": "Defense",
-        "value": 40
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 65
-      },
-      {
-        "label": "Sp. Def",
-        "value": 45
-      },
-      {
-        "label": "Speed",
         "value": 35
-      }
-    ],
-    "total": 305,
-    "heightM": 0.7,
-    "weightKg": 24,
-    "genus": "Numb Pokémon",
-    "flavor": "A NUMEL stores boiling magma in the hump on its back. It is a hardy POKéMON that can transport a 220-pound load. It has served humans at work since long ago.",
-    "evolution": [
-      "Numel",
-      "Camerupt"
-    ]
-  },
-  "torkoal": {
-    "slug": "torkoal",
-    "dexNumber": 324,
-    "types": [
-      "Fire"
-    ],
-    "abilities": [
-      "White Smoke",
-      "Drought"
-    ],
-    "hiddenAbility": "Shell Armor",
-    "baseExp": 165,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 85
-      },
-      {
-        "label": "Defense",
-        "value": 140
       },
       {
         "label": "Sp. Atk",
-        "value": 85
-      },
-      {
-        "label": "Sp. Def",
         "value": 70
       },
       {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
         "label": "Speed",
-        "value": 20
+        "value": 60
       }
     ],
-    "total": 470,
-    "heightM": 0.5,
-    "weightKg": 80.4,
-    "genus": "Coal Pokémon",
-    "flavor": "It battles using energy it gets from burning coal. When loosing smoke from its nostrils, it lets off a sound that is similar to a locomotive’s horn.",
+    "total": 330,
+    "heightM": 0.7,
+    "weightKg": 30.6,
+    "genus": "Bounce Pokémon",
+    "flavor": "A POKéMON that manipulates psychic power at will. It doesn’t stop bouncing even when it is asleep. It loves eating mushrooms that grow underground.",
     "evolution": [
-      "Torkoal"
-    ]
+      "Spoink",
+      "Grumpig"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Spoink",
+        "to": "Grumpig",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "spinda": {
+    "slug": "spinda",
+    "dexNumber": 327,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Own Tempo",
+      "Tangled Feet"
+    ],
+    "hiddenAbility": "Contrary",
+    "baseExp": 126,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 360,
+    "heightM": 1.1,
+    "weightKg": 5,
+    "genus": "Spot Panda Pokémon",
+    "flavor": "It is distinguished by a pattern of spots that is always different. Its unsteady, tottering walk has the effect of fouling its foe’s aim.",
+    "evolution": [
+      "Spinda"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field",
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
   "trapinch": {
     "slug": "trapinch",
@@ -15826,20 +20015,90 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Trapinch",
       "Vibrava",
       "Flygon"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Trapinch",
+        "to": "Vibrava",
+        "method": "Level 35"
+      },
+      {
+        "from": "Vibrava",
+        "to": "Flygon",
+        "method": "Level 45"
+      }
+    ],
+    "eggGroups": [
+      "Bug",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
-  "spinda": {
-    "slug": "spinda",
-    "dexNumber": 327,
+  "torkoal": {
+    "slug": "torkoal",
+    "dexNumber": 324,
     "types": [
-      "Normal"
+      "Fire"
     ],
     "abilities": [
-      "Own Tempo",
-      "Tangled Feet"
+      "White Smoke",
+      "Drought"
     ],
-    "hiddenAbility": "Contrary",
-    "baseExp": 126,
+    "hiddenAbility": "Shell Armor",
+    "baseExp": 165,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 85
+      },
+      {
+        "label": "Defense",
+        "value": 140
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 85
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 20
+      }
+    ],
+    "total": 470,
+    "heightM": 0.5,
+    "weightKg": 80.4,
+    "genus": "Coal Pokémon",
+    "flavor": "It battles using energy it gets from burning coal. When loosing smoke from its nostrils, it lets off a sound that is similar to a locomotive’s horn.",
+    "evolution": [
+      "Torkoal"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "numel": {
+    "slug": "numel",
+    "dexNumber": 322,
+    "types": [
+      "Fire",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Simple"
+    ],
+    "hiddenAbility": "Own Tempo",
+    "baseExp": 61,
     "stats": [
       {
         "label": "HP",
@@ -15851,29 +20110,101 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Defense",
-        "value": 60
+        "value": 40
       },
       {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 65
       },
       {
         "label": "Sp. Def",
-        "value": 60
+        "value": 45
       },
       {
         "label": "Speed",
-        "value": 60
+        "value": 35
       }
     ],
-    "total": 360,
-    "heightM": 1.1,
-    "weightKg": 5,
-    "genus": "Spot Panda Pokémon",
-    "flavor": "It is distinguished by a pattern of spots that is always different. Its unsteady, tottering walk has the effect of fouling its foe’s aim.",
+    "total": 305,
+    "heightM": 0.7,
+    "weightKg": 24,
+    "genus": "Numb Pokémon",
+    "flavor": "A NUMEL stores boiling magma in the hump on its back. It is a hardy POKéMON that can transport a 220-pound load. It has served humans at work since long ago.",
     "evolution": [
-      "Spinda"
-    ]
+      "Numel",
+      "Camerupt"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Numel",
+        "to": "Camerupt",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
+  },
+  "camerupt": {
+    "slug": "camerupt",
+    "dexNumber": 323,
+    "types": [
+      "Fire",
+      "Ground"
+    ],
+    "abilities": [
+      "Magma Armor",
+      "Solid Rock"
+    ],
+    "hiddenAbility": "Anger Point",
+    "baseExp": 161,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 105
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 40
+      }
+    ],
+    "total": 460,
+    "heightM": 1.9,
+    "weightKg": 220,
+    "genus": "Eruption Pokémon",
+    "flavor": "A POKéMON that lives in the crater of a volcano. Every 10 years, the volcanoes on its back erupt violently. Research is under way on the cause of eruption.",
+    "evolution": [
+      "Numel",
+      "Camerupt"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Numel",
+        "to": "Camerupt",
+        "method": "Level 33"
+      }
+    ],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "vibrava": {
     "slug": "vibrava",
@@ -15921,101 +20252,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Trapinch",
       "Vibrava",
       "Flygon"
-    ]
-  },
-  "flygon": {
-    "slug": "flygon",
-    "dexNumber": 330,
-    "types": [
-      "Ground",
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Trapinch",
+        "to": "Vibrava",
+        "method": "Level 35"
+      },
+      {
+        "from": "Vibrava",
+        "to": "Flygon",
+        "method": "Level 45"
+      }
+    ],
+    "eggGroups": [
+      "Bug",
       "Dragon"
     ],
-    "abilities": [
-      "Levitate"
-    ],
-    "baseExp": 234,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 80
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 100
-      }
-    ],
-    "total": 520,
-    "heightM": 2,
-    "weightKg": 82,
-    "genus": "Mystic Pokémon",
-    "flavor": "The flapping of its wings sounds like singing. To prevent detection by enemies, it hides itself by flapping up a cloud of desert sand.",
-    "evolution": [
-      "Trapinch",
-      "Vibrava",
-      "Flygon"
-    ]
-  },
-  "seviper": {
-    "slug": "seviper",
-    "dexNumber": 336,
-    "types": [
-      "Poison"
-    ],
-    "abilities": [
-      "Shed Skin"
-    ],
-    "hiddenAbility": "Infiltrator",
-    "baseExp": 160,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 73
-      },
-      {
-        "label": "Attack",
-        "value": 100
-      },
-      {
-        "label": "Defense",
-        "value": 60
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 60
-      },
-      {
-        "label": "Speed",
-        "value": 65
-      }
-    ],
-    "total": 458,
-    "heightM": 2.7,
-    "weightKg": 52.5,
-    "genus": "Fang Snake Pokémon",
-    "flavor": "SEVIPER and ZANGOOSE are eternal rivals. It counters a ZANGOOSE’s dazzling agility with its swordlike tail, which also oozes a horrible poison.",
-    "evolution": [
-      "Seviper"
-    ]
+    "genderRate": 4
   },
   "swablu": {
     "slug": "swablu",
@@ -16063,7 +20317,19 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Swablu",
       "Altaria"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Swablu",
+        "to": "Altaria",
+        "method": "Level 35"
+      }
+    ],
+    "eggGroups": [
+      "Flying",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "altaria": {
     "slug": "altaria",
@@ -16111,54 +20377,187 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Swablu",
       "Altaria"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Swablu",
+        "to": "Altaria",
+        "method": "Level 35"
+      }
+    ],
+    "eggGroups": [
+      "Flying",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
-  "cacnea": {
-    "slug": "cacnea",
-    "dexNumber": 331,
+  "flygon": {
+    "slug": "flygon",
+    "dexNumber": 330,
     "types": [
-      "Grass"
+      "Ground",
+      "Dragon"
     ],
     "abilities": [
-      "Sand Veil"
+      "Levitate"
     ],
-    "hiddenAbility": "Water Absorb",
-    "baseExp": 67,
+    "baseExp": 234,
     "stats": [
       {
         "label": "HP",
-        "value": 50
+        "value": 80
       },
       {
         "label": "Attack",
-        "value": 85
+        "value": 100
       },
       {
         "label": "Defense",
-        "value": 40
+        "value": 80
       },
       {
         "label": "Sp. Atk",
-        "value": 85
+        "value": 80
       },
       {
         "label": "Sp. Def",
-        "value": 40
+        "value": 80
       },
       {
         "label": "Speed",
-        "value": 35
+        "value": 100
       }
     ],
-    "total": 335,
-    "heightM": 0.4,
-    "weightKg": 51.3,
-    "genus": "Cactus Pokémon",
-    "flavor": "CACNEA live in deserts with virtually no rainfall. It battles by swinging its thick, spiked arms. Once a year, a yellow flower blooms.",
+    "total": 520,
+    "heightM": 2,
+    "weightKg": 82,
+    "genus": "Mystic Pokémon",
+    "flavor": "The flapping of its wings sounds like singing. To prevent detection by enemies, it hides itself by flapping up a cloud of desert sand.",
     "evolution": [
-      "Cacnea",
-      "Cacturne"
-    ]
+      "Trapinch",
+      "Vibrava",
+      "Flygon"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Trapinch",
+        "to": "Vibrava",
+        "method": "Level 35"
+      },
+      {
+        "from": "Vibrava",
+        "to": "Flygon",
+        "method": "Level 45"
+      }
+    ],
+    "eggGroups": [
+      "Bug",
+      "Dragon"
+    ],
+    "genderRate": 4
+  },
+  "seviper": {
+    "slug": "seviper",
+    "dexNumber": 336,
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hiddenAbility": "Infiltrator",
+    "baseExp": 160,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 73
+      },
+      {
+        "label": "Attack",
+        "value": 100
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 65
+      }
+    ],
+    "total": 458,
+    "heightM": 2.7,
+    "weightKg": 52.5,
+    "genus": "Fang Snake Pokémon",
+    "flavor": "SEVIPER and ZANGOOSE are eternal rivals. It counters a ZANGOOSE’s dazzling agility with its swordlike tail, which also oozes a horrible poison.",
+    "evolution": [
+      "Seviper"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field",
+      "Dragon"
+    ],
+    "genderRate": 4
+  },
+  "zangoose": {
+    "slug": "zangoose",
+    "dexNumber": 335,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Immunity"
+    ],
+    "hiddenAbility": "Toxic Boost",
+    "baseExp": 160,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 73
+      },
+      {
+        "label": "Attack",
+        "value": 115
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 60
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 458,
+    "heightM": 1.3,
+    "weightKg": 40.3,
+    "genus": "Cat Ferret Pokémon",
+    "flavor": "When it battles, it stands on its hind legs and attacks with its sharply clawed forelegs. Its fur bristles if it encounters any SEVIPER.",
+    "evolution": [
+      "Zangoose"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
+    ],
+    "genderRate": 4
   },
   "cacturne": {
     "slug": "cacturne",
@@ -16206,53 +20605,78 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Cacnea",
       "Cacturne"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cacnea",
+        "to": "Cacturne",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Grass",
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
-  "zangoose": {
-    "slug": "zangoose",
-    "dexNumber": 335,
+  "cacnea": {
+    "slug": "cacnea",
+    "dexNumber": 331,
     "types": [
-      "Normal"
+      "Grass"
     ],
     "abilities": [
-      "Immunity"
+      "Sand Veil"
     ],
-    "hiddenAbility": "Toxic Boost",
-    "baseExp": 160,
+    "hiddenAbility": "Water Absorb",
+    "baseExp": 67,
     "stats": [
       {
         "label": "HP",
-        "value": 73
+        "value": 50
       },
       {
         "label": "Attack",
-        "value": 115
+        "value": 85
       },
       {
         "label": "Defense",
-        "value": 60
+        "value": 40
       },
       {
         "label": "Sp. Atk",
-        "value": 60
+        "value": 85
       },
       {
         "label": "Sp. Def",
-        "value": 60
+        "value": 40
       },
       {
         "label": "Speed",
-        "value": 90
+        "value": 35
       }
     ],
-    "total": 458,
-    "heightM": 1.3,
-    "weightKg": 40.3,
-    "genus": "Cat Ferret Pokémon",
-    "flavor": "When it battles, it stands on its hind legs and attacks with its sharply clawed forelegs. Its fur bristles if it encounters any SEVIPER.",
+    "total": 335,
+    "heightM": 0.4,
+    "weightKg": 51.3,
+    "genus": "Cactus Pokémon",
+    "flavor": "CACNEA live in deserts with virtually no rainfall. It battles by swinging its thick, spiked arms. Once a year, a yellow flower blooms.",
     "evolution": [
-      "Zangoose"
-    ]
+      "Cacnea",
+      "Cacturne"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Cacnea",
+        "to": "Cacturne",
+        "method": "Level 32"
+      }
+    ],
+    "eggGroups": [
+      "Grass",
+      "Human-Like"
+    ],
+    "genderRate": 4
   },
   "claydol": {
     "slug": "claydol",
@@ -16299,7 +20723,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Baltoy",
       "Claydol"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Baltoy",
+        "to": "Claydol",
+        "method": "Level 36"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
   },
   "baltoy": {
     "slug": "baltoy",
@@ -16346,153 +20781,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Baltoy",
       "Claydol"
-    ]
-  },
-  "corphish": {
-    "slug": "corphish",
-    "dexNumber": 341,
-    "types": [
-      "Water"
     ],
-    "abilities": [
-      "Hyper Cutter",
-      "Shell Armor"
-    ],
-    "hiddenAbility": "Adaptability",
-    "baseExp": 62,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 43
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 65
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 35
-      },
-      {
-        "label": "Speed",
-        "value": 35
+        "from": "Baltoy",
+        "to": "Claydol",
+        "method": "Level 36"
       }
     ],
-    "total": 308,
-    "heightM": 0.6,
-    "weightKg": 11.5,
-    "genus": "Ruffian Pokémon",
-    "flavor": "Once it grips prey with its large pincers, it will never let go, no matter what. It is a hardy POKéMON that can thrive in any environment.",
-    "evolution": [
-      "Corphish",
-      "Crawdaunt"
-    ]
-  },
-  "crawdaunt": {
-    "slug": "crawdaunt",
-    "dexNumber": 342,
-    "types": [
-      "Water",
-      "Dark"
+    "eggGroups": [
+      "Mineral"
     ],
-    "abilities": [
-      "Hyper Cutter",
-      "Shell Armor"
-    ],
-    "hiddenAbility": "Adaptability",
-    "baseExp": 164,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 63
-      },
-      {
-        "label": "Attack",
-        "value": 120
-      },
-      {
-        "label": "Defense",
-        "value": 85
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 90
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 55
-      }
-    ],
-    "total": 468,
-    "heightM": 1.1,
-    "weightKg": 32.8,
-    "genus": "Rogue Pokémon",
-    "flavor": "A brutish POKéMON that loves to battle. A veteran CRAWDAUNT that has prevailed in hundreds of battles has giant pincers marked with countless scars.",
-    "evolution": [
-      "Corphish",
-      "Crawdaunt"
-    ]
-  },
-  "whiscash": {
-    "slug": "whiscash",
-    "dexNumber": 340,
-    "types": [
-      "Water",
-      "Ground"
-    ],
-    "abilities": [
-      "Oblivious",
-      "Anticipation"
-    ],
-    "hiddenAbility": "Hydration",
-    "baseExp": 164,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 110
-      },
-      {
-        "label": "Attack",
-        "value": 78
-      },
-      {
-        "label": "Defense",
-        "value": 73
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 76
-      },
-      {
-        "label": "Sp. Def",
-        "value": 71
-      },
-      {
-        "label": "Speed",
-        "value": 60
-      }
-    ],
-    "total": 468,
-    "heightM": 0.9,
-    "weightKg": 23.6,
-    "genus": "Whiskers Pokémon",
-    "flavor": "Mysteriously, it can foretell earthquakes. In the daytime, it sleeps in mud at the bottom of a pond. When it awakens, it continually feeds throughout the night.",
-    "evolution": [
-      "Barboach",
-      "Whiscash"
-    ]
+    "genderRate": -1
   },
   "barboach": {
     "slug": "barboach",
@@ -16541,27 +20841,160 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Barboach",
       "Whiscash"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Barboach",
+        "to": "Whiscash",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
   },
-  "solrock": {
-    "slug": "solrock",
-    "dexNumber": 338,
+  "whiscash": {
+    "slug": "whiscash",
+    "dexNumber": 340,
     "types": [
-      "Rock",
-      "Psychic"
+      "Water",
+      "Ground"
     ],
     "abilities": [
-      "Levitate"
+      "Oblivious",
+      "Anticipation"
     ],
-    "baseExp": 161,
+    "hiddenAbility": "Hydration",
+    "baseExp": 164,
     "stats": [
       {
         "label": "HP",
-        "value": 90
+        "value": 110
       },
       {
         "label": "Attack",
-        "value": 95
+        "value": 78
+      },
+      {
+        "label": "Defense",
+        "value": 73
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 76
+      },
+      {
+        "label": "Sp. Def",
+        "value": 71
+      },
+      {
+        "label": "Speed",
+        "value": 60
+      }
+    ],
+    "total": 468,
+    "heightM": 0.9,
+    "weightKg": 23.6,
+    "genus": "Whiskers Pokémon",
+    "flavor": "Mysteriously, it can foretell earthquakes. In the daytime, it sleeps in mud at the bottom of a pond. When it awakens, it continually feeds throughout the night.",
+    "evolution": [
+      "Barboach",
+      "Whiscash"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Barboach",
+        "to": "Whiscash",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 4
+  },
+  "corphish": {
+    "slug": "corphish",
+    "dexNumber": 341,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor"
+    ],
+    "hiddenAbility": "Adaptability",
+    "baseExp": 62,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 43
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 65
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 50
+      },
+      {
+        "label": "Sp. Def",
+        "value": 35
+      },
+      {
+        "label": "Speed",
+        "value": 35
+      }
+    ],
+    "total": 308,
+    "heightM": 0.6,
+    "weightKg": 11.5,
+    "genus": "Ruffian Pokémon",
+    "flavor": "Once it grips prey with its large pincers, it will never let go, no matter what. It is a hardy POKéMON that can thrive in any environment.",
+    "evolution": [
+      "Corphish",
+      "Crawdaunt"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Corphish",
+        "to": "Crawdaunt",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 4
+  },
+  "crawdaunt": {
+    "slug": "crawdaunt",
+    "dexNumber": 342,
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor"
+    ],
+    "hiddenAbility": "Adaptability",
+    "baseExp": 164,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 63
+      },
+      {
+        "label": "Attack",
+        "value": 120
       },
       {
         "label": "Defense",
@@ -16569,25 +21002,38 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Atk",
-        "value": 55
+        "value": 90
       },
       {
         "label": "Sp. Def",
-        "value": 65
+        "value": 55
       },
       {
         "label": "Speed",
-        "value": 70
+        "value": 55
       }
     ],
-    "total": 460,
-    "heightM": 1.2,
-    "weightKg": 154,
-    "genus": "Meteorite Pokémon",
-    "flavor": "Solar energy is the source of this  POKéMON’s power. On sunny days, groups of SOLROCK line up facing the sun and absorb its light.",
+    "total": 468,
+    "heightM": 1.1,
+    "weightKg": 32.8,
+    "genus": "Rogue Pokémon",
+    "flavor": "A brutish POKéMON that loves to battle. A veteran CRAWDAUNT that has prevailed in hundreds of battles has giant pincers marked with countless scars.",
     "evolution": [
-      "Solrock"
-    ]
+      "Corphish",
+      "Crawdaunt"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Corphish",
+        "to": "Crawdaunt",
+        "method": "Level 30"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Water 3"
+    ],
+    "genderRate": 4
   },
   "lunatone": {
     "slug": "lunatone",
@@ -16633,247 +21079,63 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It becomes very active on the night of a full moon. This POKéMON was first discovered 40 years ago at the site of a meteor strike.",
     "evolution": [
       "Lunatone"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
   },
-  "feebas": {
-    "slug": "feebas",
-    "dexNumber": 349,
+  "solrock": {
+    "slug": "solrock",
+    "dexNumber": 338,
     "types": [
-      "Water"
+      "Rock",
+      "Psychic"
     ],
     "abilities": [
-      "Swift Swim",
-      "Oblivious"
+      "Levitate"
     ],
-    "hiddenAbility": "Adaptability",
-    "baseExp": 40,
+    "baseExp": 161,
     "stats": [
       {
         "label": "HP",
-        "value": 20
+        "value": 90
       },
       {
         "label": "Attack",
-        "value": 15
+        "value": 95
       },
       {
         "label": "Defense",
-        "value": 20
+        "value": 85
       },
       {
         "label": "Sp. Atk",
-        "value": 10
-      },
-      {
-        "label": "Sp. Def",
         "value": 55
       },
       {
-        "label": "Speed",
-        "value": 80
-      }
-    ],
-    "total": 200,
-    "heightM": 0.6,
-    "weightKg": 7.4,
-    "genus": "Fish Pokémon",
-    "flavor": "FEEBAS live in ponds that are heavily infested with weeds. Because of its hopelessly shabby appearance, it seems as if few TRAINERS raise it.",
-    "evolution": [
-      "Feebas",
-      "Milotic"
-    ]
-  },
-  "milotic": {
-    "slug": "milotic",
-    "dexNumber": 350,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Marvel Scale",
-      "Competitive"
-    ],
-    "hiddenAbility": "Cute Charm",
-    "baseExp": 189,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 95
-      },
-      {
-        "label": "Attack",
-        "value": 60
-      },
-      {
-        "label": "Defense",
-        "value": 79
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
         "label": "Sp. Def",
-        "value": 125
+        "value": 65
       },
       {
         "label": "Speed",
-        "value": 81
-      }
-    ],
-    "total": 540,
-    "heightM": 6.2,
-    "weightKg": 162,
-    "genus": "Tender Pokémon",
-    "flavor": "It is said to live at the bottom of large lakes. Considered to be the most beautiful of all POKéMON, it has been depicted in paintings and statues.",
-    "evolution": [
-      "Feebas",
-      "Milotic"
-    ]
-  },
-  "armaldo": {
-    "slug": "armaldo",
-    "dexNumber": 348,
-    "types": [
-      "Rock",
-      "Bug"
-    ],
-    "abilities": [
-      "Battle Armor"
-    ],
-    "hiddenAbility": "Swift Swim",
-    "baseExp": 173,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 75
-      },
-      {
-        "label": "Attack",
-        "value": 125
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
         "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 45
       }
     ],
-    "total": 495,
-    "heightM": 1.5,
-    "weightKg": 68.2,
-    "genus": "Plate Pokémon",
-    "flavor": "ARMALDO usually lives on land. However, when it hunts for prey, it dives beneath the ocean. It swims around using its two large wings.",
+    "total": 460,
+    "heightM": 1.2,
+    "weightKg": 154,
+    "genus": "Meteorite Pokémon",
+    "flavor": "Solar energy is the source of this  POKéMON’s power. On sunny days, groups of SOLROCK line up facing the sun and absorb its light.",
     "evolution": [
-      "Anorith",
-      "Armaldo"
-    ]
-  },
-  "anorith": {
-    "slug": "anorith",
-    "dexNumber": 347,
-    "types": [
-      "Rock",
-      "Bug"
+      "Solrock"
     ],
-    "abilities": [
-      "Battle Armor"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Mineral"
     ],
-    "hiddenAbility": "Swift Swim",
-    "baseExp": 71,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 45
-      },
-      {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 40
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 75
-      }
-    ],
-    "total": 355,
-    "heightM": 0.7,
-    "weightKg": 12.5,
-    "genus": "Old Shrimp Pokémon",
-    "flavor": "It was resurrected from a fossil using the power of science. It swims by undulating the eight wings at its sides. They were feet that adapted to life in the sea.",
-    "evolution": [
-      "Anorith",
-      "Armaldo"
-    ]
-  },
-  "cradily": {
-    "slug": "cradily",
-    "dexNumber": 346,
-    "types": [
-      "Rock",
-      "Grass"
-    ],
-    "abilities": [
-      "Suction Cups"
-    ],
-    "hiddenAbility": "Storm Drain",
-    "baseExp": 173,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 86
-      },
-      {
-        "label": "Attack",
-        "value": 81
-      },
-      {
-        "label": "Defense",
-        "value": 97
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 81
-      },
-      {
-        "label": "Sp. Def",
-        "value": 107
-      },
-      {
-        "label": "Speed",
-        "value": 43
-      }
-    ],
-    "total": 495,
-    "heightM": 1.5,
-    "weightKg": 60.4,
-    "genus": "Barnacle Pokémon",
-    "flavor": "It drags its heavy body along the seafloor. It makes its nest in the shallows of warm seas. CRADILY can be seen on beaches when the tide goes out.",
-    "evolution": [
-      "Lileep",
-      "Cradily"
-    ]
+    "genderRate": -1
   },
   "lileep": {
     "slug": "lileep",
@@ -16921,7 +21183,366 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Lileep",
       "Cradily"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Lileep",
+        "to": "Cradily",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 1
+  },
+  "cradily": {
+    "slug": "cradily",
+    "dexNumber": 346,
+    "types": [
+      "Rock",
+      "Grass"
+    ],
+    "abilities": [
+      "Suction Cups"
+    ],
+    "hiddenAbility": "Storm Drain",
+    "baseExp": 173,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 86
+      },
+      {
+        "label": "Attack",
+        "value": 81
+      },
+      {
+        "label": "Defense",
+        "value": 97
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 81
+      },
+      {
+        "label": "Sp. Def",
+        "value": 107
+      },
+      {
+        "label": "Speed",
+        "value": 43
+      }
+    ],
+    "total": 495,
+    "heightM": 1.5,
+    "weightKg": 60.4,
+    "genus": "Barnacle Pokémon",
+    "flavor": "It drags its heavy body along the seafloor. It makes its nest in the shallows of warm seas. CRADILY can be seen on beaches when the tide goes out.",
+    "evolution": [
+      "Lileep",
+      "Cradily"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Lileep",
+        "to": "Cradily",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 1
+  },
+  "anorith": {
+    "slug": "anorith",
+    "dexNumber": 347,
+    "types": [
+      "Rock",
+      "Bug"
+    ],
+    "abilities": [
+      "Battle Armor"
+    ],
+    "hiddenAbility": "Swift Swim",
+    "baseExp": 71,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 95
+      },
+      {
+        "label": "Defense",
+        "value": 50
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 75
+      }
+    ],
+    "total": 355,
+    "heightM": 0.7,
+    "weightKg": 12.5,
+    "genus": "Old Shrimp Pokémon",
+    "flavor": "It was resurrected from a fossil using the power of science. It swims by undulating the eight wings at its sides. They were feet that adapted to life in the sea.",
+    "evolution": [
+      "Anorith",
+      "Armaldo"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Anorith",
+        "to": "Armaldo",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 1
+  },
+  "armaldo": {
+    "slug": "armaldo",
+    "dexNumber": 348,
+    "types": [
+      "Rock",
+      "Bug"
+    ],
+    "abilities": [
+      "Battle Armor"
+    ],
+    "hiddenAbility": "Swift Swim",
+    "baseExp": 173,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 75
+      },
+      {
+        "label": "Attack",
+        "value": 125
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 45
+      }
+    ],
+    "total": 495,
+    "heightM": 1.5,
+    "weightKg": 68.2,
+    "genus": "Plate Pokémon",
+    "flavor": "ARMALDO usually lives on land. However, when it hunts for prey, it dives beneath the ocean. It swims around using its two large wings.",
+    "evolution": [
+      "Anorith",
+      "Armaldo"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Anorith",
+        "to": "Armaldo",
+        "method": "Level 40"
+      }
+    ],
+    "eggGroups": [
+      "Water 3"
+    ],
+    "genderRate": 1
+  },
+  "castform": {
+    "slug": "castform",
+    "dexNumber": 351,
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Forecast"
+    ],
+    "baseExp": 147,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 70
+      },
+      {
+        "label": "Attack",
+        "value": 70
+      },
+      {
+        "label": "Defense",
+        "value": 70
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 70
+      },
+      {
+        "label": "Sp. Def",
+        "value": 70
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 420,
+    "heightM": 0.3,
+    "weightKg": 0.8,
+    "genus": "Weather Pokémon",
+    "flavor": "It alters its form depending on the weather. Changes in the climate such as the temperature and humidity appear to affect its cellular structure.",
+    "evolution": [
+      "Castform"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Fairy",
+      "Amorphous"
+    ],
+    "genderRate": 4
+  },
+  "milotic": {
+    "slug": "milotic",
+    "dexNumber": 350,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Marvel Scale",
+      "Competitive"
+    ],
+    "hiddenAbility": "Cute Charm",
+    "baseExp": 189,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 95
+      },
+      {
+        "label": "Attack",
+        "value": 60
+      },
+      {
+        "label": "Defense",
+        "value": 79
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 125
+      },
+      {
+        "label": "Speed",
+        "value": 81
+      }
+    ],
+    "total": 540,
+    "heightM": 6.2,
+    "weightKg": 162,
+    "genus": "Tender Pokémon",
+    "flavor": "It is said to live at the bottom of large lakes. Considered to be the most beautiful of all POKéMON, it has been depicted in paintings and statues.",
+    "evolution": [
+      "Feebas",
+      "Milotic"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Feebas",
+        "to": "Milotic",
+        "method": "Level-up · Beauty 170+"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
+    ],
+    "genderRate": 4
+  },
+  "feebas": {
+    "slug": "feebas",
+    "dexNumber": 349,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Oblivious"
+    ],
+    "hiddenAbility": "Adaptability",
+    "baseExp": 40,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 20
+      },
+      {
+        "label": "Attack",
+        "value": 15
+      },
+      {
+        "label": "Defense",
+        "value": 20
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 10
+      },
+      {
+        "label": "Sp. Def",
+        "value": 55
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 200,
+    "heightM": 0.6,
+    "weightKg": 7.4,
+    "genus": "Fish Pokémon",
+    "flavor": "FEEBAS live in ponds that are heavily infested with weeds. Because of its hopelessly shabby appearance, it seems as if few TRAINERS raise it.",
+    "evolution": [
+      "Feebas",
+      "Milotic"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Feebas",
+        "to": "Milotic",
+        "method": "Level-up · Beauty 170+"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "kecleon": {
     "slug": "kecleon",
@@ -16967,52 +21588,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A POKéMON that has the ability to alter its body colors to match its surroundings. A KECLEON reverts to its original colors if it is startled.",
     "evolution": [
       "Kecleon"
-    ]
-  },
-  "castform": {
-    "slug": "castform",
-    "dexNumber": 351,
-    "types": [
-      "Normal"
     ],
-    "abilities": [
-      "Forecast"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
     ],
-    "baseExp": 147,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 70
-      },
-      {
-        "label": "Attack",
-        "value": 70
-      },
-      {
-        "label": "Defense",
-        "value": 70
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 70
-      },
-      {
-        "label": "Sp. Def",
-        "value": 70
-      },
-      {
-        "label": "Speed",
-        "value": 70
-      }
-    ],
-    "total": 420,
-    "heightM": 0.3,
-    "weightKg": 0.8,
-    "genus": "Weather Pokémon",
-    "flavor": "It alters its form depending on the weather. Changes in the climate such as the temperature and humidity appear to affect its cellular structure.",
-    "evolution": [
-      "Castform"
-    ]
+    "genderRate": 4
   },
   "wynaut": {
     "slug": "wynaut",
@@ -17059,55 +21640,76 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Wynaut",
       "Wobbuffet"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Wynaut",
+        "to": "Wobbuffet",
+        "method": "Level 15"
+      }
+    ],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 4
   },
-  "tropius": {
-    "slug": "tropius",
-    "dexNumber": 357,
+  "duskull": {
+    "slug": "duskull",
+    "dexNumber": 355,
     "types": [
-      "Grass",
-      "Flying"
+      "Ghost"
     ],
     "abilities": [
-      "Chlorophyll",
-      "Solar Power"
+      "Levitate"
     ],
-    "hiddenAbility": "Harvest",
-    "baseExp": 161,
+    "hiddenAbility": "Frisk",
+    "baseExp": 59,
     "stats": [
       {
         "label": "HP",
-        "value": 99
+        "value": 20
       },
       {
         "label": "Attack",
-        "value": 68
+        "value": 40
       },
       {
         "label": "Defense",
-        "value": 83
+        "value": 90
       },
       {
         "label": "Sp. Atk",
-        "value": 72
+        "value": 30
       },
       {
         "label": "Sp. Def",
-        "value": 87
+        "value": 90
       },
       {
         "label": "Speed",
-        "value": 51
+        "value": 25
       }
     ],
-    "total": 460,
-    "heightM": 2,
-    "weightKg": 100,
-    "genus": "Fruit Pokémon",
-    "flavor": "It flies by flapping its broad leaves. The bunch of fruit that grows around its neck is deliciously sweet. In the spring, it scatters pollen from its neck.",
+    "total": 295,
+    "heightM": 0.8,
+    "weightKg": 15,
+    "genus": "Requiem Pokémon",
+    "flavor": "A glare from its single scarlet eye makes even burly grown-ups freeze in utter fear. It is a nocturnal POKéMON that roams about under the cloak of darkness.",
     "evolution": [
-      "Tropius"
-    ]
+      "Duskull",
+      "Dusclops"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Duskull",
+        "to": "Dusclops",
+        "method": "Level 37"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
   "banette": {
     "slug": "banette",
@@ -17155,7 +21757,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Shuppet",
       "Banette"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Shuppet",
+        "to": "Banette",
+        "method": "Level 37"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
   "shuppet": {
     "slug": "shuppet",
@@ -17203,7 +21816,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Shuppet",
       "Banette"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Shuppet",
+        "to": "Banette",
+        "method": "Level 37"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
   "dusclops": {
     "slug": "dusclops",
@@ -17249,57 +21873,73 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It is thought that its body is hollow with only a spectral ball of fire burning inside. However, no one has been able to confirm this theory as fact.",
     "evolution": [
       "Duskull",
-      "Dusclops",
-      "Dusknoir"
-    ]
+      "Dusclops"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Duskull",
+        "to": "Dusclops",
+        "method": "Level 37"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
-  "duskull": {
-    "slug": "duskull",
-    "dexNumber": 355,
+  "tropius": {
+    "slug": "tropius",
+    "dexNumber": 357,
     "types": [
-      "Ghost"
+      "Grass",
+      "Flying"
     ],
     "abilities": [
-      "Levitate"
+      "Chlorophyll",
+      "Solar Power"
     ],
-    "hiddenAbility": "Frisk",
-    "baseExp": 59,
+    "hiddenAbility": "Harvest",
+    "baseExp": 161,
     "stats": [
       {
         "label": "HP",
-        "value": 20
+        "value": 99
       },
       {
         "label": "Attack",
-        "value": 40
+        "value": 68
       },
       {
         "label": "Defense",
-        "value": 90
+        "value": 83
       },
       {
         "label": "Sp. Atk",
-        "value": 30
+        "value": 72
       },
       {
         "label": "Sp. Def",
-        "value": 90
+        "value": 87
       },
       {
         "label": "Speed",
-        "value": 25
+        "value": 51
       }
     ],
-    "total": 295,
-    "heightM": 0.8,
-    "weightKg": 15,
-    "genus": "Requiem Pokémon",
-    "flavor": "A glare from its single scarlet eye makes even burly grown-ups freeze in utter fear. It is a nocturnal POKéMON that roams about under the cloak of darkness.",
+    "total": 460,
+    "heightM": 2,
+    "weightKg": 100,
+    "genus": "Fruit Pokémon",
+    "flavor": "It flies by flapping its broad leaves. The bunch of fruit that grows around its neck is deliciously sweet. In the spring, it scatters pollen from its neck.",
     "evolution": [
-      "Duskull",
-      "Dusclops",
-      "Dusknoir"
-    ]
+      "Tropius"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Monster",
+      "Grass"
+    ],
+    "genderRate": 4
   },
   "chimecho": {
     "slug": "chimecho",
@@ -17345,7 +21985,18 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "evolution": [
       "Chingling",
       "Chimecho"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Chingling",
+        "to": "Chimecho",
+        "method": "Level-up · friendship (night)"
+      }
+    ],
+    "eggGroups": [
+      "Amorphous"
+    ],
+    "genderRate": 4
   },
   "absol": {
     "slug": "absol",
@@ -17392,244 +22043,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "It sharply senses even subtle changes in the sky and the land to predict natural disasters. It is a long-lived POKéMON that has a life-span of 100 years.",
     "evolution": [
       "Absol"
-    ]
-  },
-  "glalie": {
-    "slug": "glalie",
-    "dexNumber": 362,
-    "types": [
-      "Ice"
     ],
-    "abilities": [
-      "Inner Focus",
-      "Ice Body"
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Field"
     ],
-    "hiddenAbility": "Moody",
-    "baseExp": 168,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 80
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 80
-      }
-    ],
-    "total": 480,
-    "heightM": 1.5,
-    "weightKg": 256.5,
-    "genus": "Face Pokémon",
-    "flavor": "A GLALIE has the power to instantaneously freeze moisture in the atmosphere. A dazzling cloud of diamondlike ice crystals forms around its body.",
-    "evolution": [
-      "Snorunt",
-      "Glalie"
-    ]
-  },
-  "clamperl": {
-    "slug": "clamperl",
-    "dexNumber": 366,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Shell Armor"
-    ],
-    "hiddenAbility": "Rattled",
-    "baseExp": 69,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 35
-      },
-      {
-        "label": "Attack",
-        "value": 64
-      },
-      {
-        "label": "Defense",
-        "value": 85
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 74
-      },
-      {
-        "label": "Sp. Def",
-        "value": 55
-      },
-      {
-        "label": "Speed",
-        "value": 32
-      }
-    ],
-    "total": 345,
-    "heightM": 0.4,
-    "weightKg": 52.5,
-    "genus": "Bivalve Pokémon",
-    "flavor": "A CLAMPERL slams its shell closed on prey to prevent escape. The pearl it creates upon evolution is said to be infused with a mysterious energy.",
-    "evolution": [
-      "Clamperl",
-      "Huntail"
-    ]
-  },
-  "gorebyss": {
-    "slug": "gorebyss",
-    "dexNumber": 368,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Swift Swim"
-    ],
-    "hiddenAbility": "Hydration",
-    "baseExp": 170,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 84
-      },
-      {
-        "label": "Defense",
-        "value": 105
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 114
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 52
-      }
-    ],
-    "total": 485,
-    "heightM": 1.8,
-    "weightKg": 22.6,
-    "genus": "South Sea Pokémon",
-    "flavor": "A GOREBYSS siphons the body fluids of prey through its thin, tubular mouth. Its light pink body color turns vivid when it finishes feeding.",
-    "evolution": [
-      "Clamperl",
-      "Huntail"
-    ]
-  },
-  "huntail": {
-    "slug": "huntail",
-    "dexNumber": 367,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      "Swift Swim"
-    ],
-    "hiddenAbility": "Water Veil",
-    "baseExp": 170,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 55
-      },
-      {
-        "label": "Attack",
-        "value": 104
-      },
-      {
-        "label": "Defense",
-        "value": 105
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 94
-      },
-      {
-        "label": "Sp. Def",
-        "value": 75
-      },
-      {
-        "label": "Speed",
-        "value": 52
-      }
-    ],
-    "total": 485,
-    "heightM": 1.7,
-    "weightKg": 27,
-    "genus": "Deep Sea Pokémon",
-    "flavor": "To withstand the crushing pressure of water deep under the sea, its spine is very thick and sturdy. Its tail, which is shaped like a small fish, has eyes that light up.",
-    "evolution": [
-      "Clamperl",
-      "Huntail"
-    ]
-  },
-  "snorunt": {
-    "slug": "snorunt",
-    "dexNumber": 361,
-    "types": [
-      "Ice"
-    ],
-    "abilities": [
-      "Inner Focus",
-      "Ice Body"
-    ],
-    "hiddenAbility": "Moody",
-    "baseExp": 60,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 50
-      },
-      {
-        "label": "Attack",
-        "value": 50
-      },
-      {
-        "label": "Defense",
-        "value": 50
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 50
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 300,
-    "heightM": 0.7,
-    "weightKg": 16.8,
-    "genus": "Snow Hat Pokémon",
-    "flavor": "They tend to move about in groups of around five SNORUNT. In snowy regions, it is said that when they are seen late at night, snowfall will arrive by morning.",
-    "evolution": [
-      "Snorunt",
-      "Glalie"
-    ]
+    "genderRate": 4
   },
   "sealeo": {
     "slug": "sealeo",
@@ -17679,7 +22098,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Spheal",
       "Sealeo",
       "Walrein"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Spheal",
+        "to": "Sealeo",
+        "method": "Level 32"
+      },
+      {
+        "from": "Sealeo",
+        "to": "Walrein",
+        "method": "Level 44"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "walrein": {
     "slug": "walrein",
@@ -17729,7 +22165,24 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Spheal",
       "Sealeo",
       "Walrein"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Spheal",
+        "to": "Sealeo",
+        "method": "Level 32"
+      },
+      {
+        "from": "Sealeo",
+        "to": "Walrein",
+        "method": "Level 44"
+      }
+    ],
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
   },
   "spheal": {
     "slug": "spheal",
@@ -17779,136 +22232,57 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Spheal",
       "Sealeo",
       "Walrein"
-    ]
-  },
-  "salamence": {
-    "slug": "salamence",
-    "dexNumber": 373,
-    "types": [
-      "Dragon",
-      "Flying"
     ],
-    "abilities": [
-      "Intimidate"
-    ],
-    "hiddenAbility": "Moxie",
-    "baseExp": 270,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 95
+        "from": "Spheal",
+        "to": "Sealeo",
+        "method": "Level 32"
       },
       {
-        "label": "Attack",
-        "value": 135
-      },
-      {
-        "label": "Defense",
-        "value": 80
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 110
-      },
-      {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
-        "label": "Speed",
-        "value": 100
+        "from": "Sealeo",
+        "to": "Walrein",
+        "method": "Level 44"
       }
     ],
-    "total": 600,
-    "heightM": 1.5,
-    "weightKg": 102.6,
-    "genus": "Dragon Pokémon",
-    "flavor": "After many long years, its cellular structure underwent a sudden mutation to grow wings. When angered, it loses all thought and rampages out of control.",
-    "evolution": [
-      "Bagon",
-      "Shelgon",
-      "Salamence"
-    ]
+    "eggGroups": [
+      "Water 1",
+      "Field"
+    ],
+    "genderRate": 4
   },
-  "shelgon": {
-    "slug": "shelgon",
-    "dexNumber": 372,
+  "snorunt": {
+    "slug": "snorunt",
+    "dexNumber": 361,
     "types": [
-      "Dragon"
+      "Ice"
     ],
     "abilities": [
-      "Rock Head"
+      "Inner Focus",
+      "Ice Body"
     ],
-    "hiddenAbility": "Overcoat",
-    "baseExp": 147,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 65
-      },
-      {
-        "label": "Attack",
-        "value": 95
-      },
-      {
-        "label": "Defense",
-        "value": 100
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 60
-      },
-      {
-        "label": "Sp. Def",
-        "value": 50
-      },
-      {
-        "label": "Speed",
-        "value": 50
-      }
-    ],
-    "total": 420,
-    "heightM": 1.1,
-    "weightKg": 110.5,
-    "genus": "Endurance Pokémon",
-    "flavor": "It hardly eats while it awaits evolution. It becomes hardier by enduring hunger. Its shell peels off the instant it begins to evolve.",
-    "evolution": [
-      "Bagon",
-      "Shelgon",
-      "Salamence"
-    ]
-  },
-  "bagon": {
-    "slug": "bagon",
-    "dexNumber": 371,
-    "types": [
-      "Dragon"
-    ],
-    "abilities": [
-      "Rock Head"
-    ],
-    "hiddenAbility": "Sheer Force",
+    "hiddenAbility": "Moody",
     "baseExp": 60,
     "stats": [
       {
         "label": "HP",
-        "value": 45
+        "value": 50
       },
       {
         "label": "Attack",
-        "value": 75
+        "value": 50
       },
       {
         "label": "Defense",
-        "value": 60
+        "value": 50
       },
       {
         "label": "Sp. Atk",
-        "value": 40
+        "value": 50
       },
       {
         "label": "Sp. Def",
-        "value": 30
+        "value": 50
       },
       {
         "label": "Speed",
@@ -17916,113 +22290,278 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       }
     ],
     "total": 300,
-    "heightM": 0.6,
-    "weightKg": 42.1,
-    "genus": "Rock Head Pokémon",
-    "flavor": "Although it is small, this POKéMON is very powerful because its body is a bundle of muscles. It launches head-butts with its ironlike skull.",
+    "heightM": 0.7,
+    "weightKg": 16.8,
+    "genus": "Snow Hat Pokémon",
+    "flavor": "They tend to move about in groups of around five SNORUNT. In snowy regions, it is said that when they are seen late at night, snowfall will arrive by morning.",
     "evolution": [
-      "Bagon",
-      "Shelgon",
-      "Salamence"
-    ]
+      "Snorunt",
+      "Glalie"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Snorunt",
+        "to": "Glalie",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Mineral"
+    ],
+    "genderRate": 4
   },
-  "metang": {
-    "slug": "metang",
-    "dexNumber": 375,
+  "glalie": {
+    "slug": "glalie",
+    "dexNumber": 362,
     "types": [
-      "Steel",
-      "Psychic"
+      "Ice"
     ],
     "abilities": [
-      "Clear Body"
+      "Inner Focus",
+      "Ice Body"
     ],
-    "hiddenAbility": "Light Metal",
-    "baseExp": 147,
+    "hiddenAbility": "Moody",
+    "baseExp": 168,
     "stats": [
       {
         "label": "HP",
-        "value": 60
+        "value": 80
       },
       {
         "label": "Attack",
-        "value": 75
+        "value": 80
       },
       {
         "label": "Defense",
-        "value": 100
+        "value": 80
       },
       {
         "label": "Sp. Atk",
+        "value": 80
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 80
+      }
+    ],
+    "total": 480,
+    "heightM": 1.5,
+    "weightKg": 256.5,
+    "genus": "Face Pokémon",
+    "flavor": "A GLALIE has the power to instantaneously freeze moisture in the atmosphere. A dazzling cloud of diamondlike ice crystals forms around its body.",
+    "evolution": [
+      "Snorunt",
+      "Glalie"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Snorunt",
+        "to": "Glalie",
+        "method": "Level 42"
+      }
+    ],
+    "eggGroups": [
+      "Fairy",
+      "Mineral"
+    ],
+    "genderRate": 4
+  },
+  "clamperl": {
+    "slug": "clamperl",
+    "dexNumber": 366,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Shell Armor"
+    ],
+    "hiddenAbility": "Rattled",
+    "baseExp": 69,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 35
+      },
+      {
+        "label": "Attack",
+        "value": 64
+      },
+      {
+        "label": "Defense",
+        "value": 85
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 74
+      },
+      {
+        "label": "Sp. Def",
         "value": 55
       },
       {
-        "label": "Sp. Def",
-        "value": 80
-      },
-      {
         "label": "Speed",
-        "value": 50
+        "value": 32
       }
     ],
-    "total": 420,
-    "heightM": 1.2,
-    "weightKg": 202.5,
-    "genus": "Iron Claw Pokémon",
-    "flavor": "The claws tipping its arms pack the destructive power to tear through thick iron sheets as if they were silk. It flies at over 60 miles per hour.",
+    "total": 345,
+    "heightM": 0.4,
+    "weightKg": 52.5,
+    "genus": "Bivalve Pokémon",
+    "flavor": "A CLAMPERL slams its shell closed on prey to prevent escape. The pearl it creates upon evolution is said to be infused with a mysterious energy.",
     "evolution": [
-      "Beldum",
-      "Metang",
-      "Metagross"
-    ]
+      "Clamperl",
+      "Huntail",
+      "Gorebyss"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Clamperl",
+        "to": "Huntail",
+        "method": "Trade + Deep Sea Tooth"
+      },
+      {
+        "from": "Clamperl",
+        "to": "Gorebyss",
+        "method": "Trade + Deep Sea Scale"
+      }
+    ],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
-  "metagross": {
-    "slug": "metagross",
-    "dexNumber": 376,
+  "gorebyss": {
+    "slug": "gorebyss",
+    "dexNumber": 368,
     "types": [
-      "Steel",
-      "Psychic"
+      "Water"
     ],
     "abilities": [
-      "Clear Body"
+      "Swift Swim"
     ],
-    "hiddenAbility": "Light Metal",
-    "baseExp": 270,
+    "hiddenAbility": "Hydration",
+    "baseExp": 170,
     "stats": [
       {
         "label": "HP",
-        "value": 80
+        "value": 55
       },
       {
         "label": "Attack",
-        "value": 135
+        "value": 84
       },
       {
         "label": "Defense",
-        "value": 130
+        "value": 105
       },
       {
         "label": "Sp. Atk",
-        "value": 95
+        "value": 114
       },
       {
         "label": "Sp. Def",
-        "value": 90
+        "value": 75
       },
       {
         "label": "Speed",
-        "value": 70
+        "value": 52
       }
     ],
-    "total": 600,
-    "heightM": 1.6,
-    "weightKg": 550,
-    "genus": "Iron Leg Pokémon",
-    "flavor": "METAGROSS has four brains that are joined by a complex neural network. As a result of integration, this POKéMON is smarter than a supercomputer.",
+    "total": 485,
+    "heightM": 1.8,
+    "weightKg": 22.6,
+    "genus": "South Sea Pokémon",
+    "flavor": "A GOREBYSS siphons the body fluids of prey through its thin, tubular mouth. Its light pink body color turns vivid when it finishes feeding.",
     "evolution": [
-      "Beldum",
-      "Metang",
-      "Metagross"
-    ]
+      "Clamperl",
+      "Huntail",
+      "Gorebyss"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Clamperl",
+        "to": "Huntail",
+        "method": "Trade + Deep Sea Tooth"
+      },
+      {
+        "from": "Clamperl",
+        "to": "Gorebyss",
+        "method": "Trade + Deep Sea Scale"
+      }
+    ],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
+  },
+  "huntail": {
+    "slug": "huntail",
+    "dexNumber": 367,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim"
+    ],
+    "hiddenAbility": "Water Veil",
+    "baseExp": 170,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 55
+      },
+      {
+        "label": "Attack",
+        "value": 104
+      },
+      {
+        "label": "Defense",
+        "value": 105
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 94
+      },
+      {
+        "label": "Sp. Def",
+        "value": 75
+      },
+      {
+        "label": "Speed",
+        "value": 52
+      }
+    ],
+    "total": 485,
+    "heightM": 1.7,
+    "weightKg": 27,
+    "genus": "Deep Sea Pokémon",
+    "flavor": "To withstand the crushing pressure of water deep under the sea, its spine is very thick and sturdy. Its tail, which is shaped like a small fish, has eyes that light up.",
+    "evolution": [
+      "Clamperl",
+      "Huntail",
+      "Gorebyss"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Clamperl",
+        "to": "Huntail",
+        "method": "Trade + Deep Sea Tooth"
+      },
+      {
+        "from": "Clamperl",
+        "to": "Gorebyss",
+        "method": "Trade + Deep Sea Scale"
+      }
+    ],
+    "eggGroups": [
+      "Water 1"
+    ],
+    "genderRate": 4
   },
   "beldum": {
     "slug": "beldum",
@@ -18071,7 +22610,281 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       "Beldum",
       "Metang",
       "Metagross"
-    ]
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Beldum",
+        "to": "Metang",
+        "method": "Level 20"
+      },
+      {
+        "from": "Metang",
+        "to": "Metagross",
+        "method": "Level 45"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "metagross": {
+    "slug": "metagross",
+    "dexNumber": 376,
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Clear Body"
+    ],
+    "hiddenAbility": "Light Metal",
+    "baseExp": 270,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 135
+      },
+      {
+        "label": "Defense",
+        "value": 130
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 95
+      },
+      {
+        "label": "Sp. Def",
+        "value": 90
+      },
+      {
+        "label": "Speed",
+        "value": 70
+      }
+    ],
+    "total": 600,
+    "heightM": 1.6,
+    "weightKg": 550,
+    "genus": "Iron Leg Pokémon",
+    "flavor": "METAGROSS has four brains that are joined by a complex neural network. As a result of integration, this POKéMON is smarter than a supercomputer.",
+    "evolution": [
+      "Beldum",
+      "Metang",
+      "Metagross"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Beldum",
+        "to": "Metang",
+        "method": "Level 20"
+      },
+      {
+        "from": "Metang",
+        "to": "Metagross",
+        "method": "Level 45"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "metang": {
+    "slug": "metang",
+    "dexNumber": 375,
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Clear Body"
+    ],
+    "hiddenAbility": "Light Metal",
+    "baseExp": 147,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 60
+      },
+      {
+        "label": "Attack",
+        "value": 75
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 55
+      },
+      {
+        "label": "Sp. Def",
+        "value": 80
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 420,
+    "heightM": 1.2,
+    "weightKg": 202.5,
+    "genus": "Iron Claw Pokémon",
+    "flavor": "The claws tipping its arms pack the destructive power to tear through thick iron sheets as if they were silk. It flies at over 60 miles per hour.",
+    "evolution": [
+      "Beldum",
+      "Metang",
+      "Metagross"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Beldum",
+        "to": "Metang",
+        "method": "Level 20"
+      },
+      {
+        "from": "Metang",
+        "to": "Metagross",
+        "method": "Level 45"
+      }
+    ],
+    "eggGroups": [
+      "Mineral"
+    ],
+    "genderRate": -1
+  },
+  "shelgon": {
+    "slug": "shelgon",
+    "dexNumber": 372,
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rock Head"
+    ],
+    "hiddenAbility": "Overcoat",
+    "baseExp": 147,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 65
+      },
+      {
+        "label": "Attack",
+        "value": 95
+      },
+      {
+        "label": "Defense",
+        "value": 100
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 60
+      },
+      {
+        "label": "Sp. Def",
+        "value": 50
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 420,
+    "heightM": 1.1,
+    "weightKg": 110.5,
+    "genus": "Endurance Pokémon",
+    "flavor": "It hardly eats while it awaits evolution. It becomes hardier by enduring hunger. Its shell peels off the instant it begins to evolve.",
+    "evolution": [
+      "Bagon",
+      "Shelgon",
+      "Salamence"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bagon",
+        "to": "Shelgon",
+        "method": "Level 30"
+      },
+      {
+        "from": "Shelgon",
+        "to": "Salamence",
+        "method": "Level 50"
+      }
+    ],
+    "eggGroups": [
+      "Dragon"
+    ],
+    "genderRate": 4
+  },
+  "bagon": {
+    "slug": "bagon",
+    "dexNumber": 371,
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rock Head"
+    ],
+    "hiddenAbility": "Sheer Force",
+    "baseExp": 60,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 45
+      },
+      {
+        "label": "Attack",
+        "value": 75
+      },
+      {
+        "label": "Defense",
+        "value": 60
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 40
+      },
+      {
+        "label": "Sp. Def",
+        "value": 30
+      },
+      {
+        "label": "Speed",
+        "value": 50
+      }
+    ],
+    "total": 300,
+    "heightM": 0.6,
+    "weightKg": 42.1,
+    "genus": "Rock Head Pokémon",
+    "flavor": "Although it is small, this POKéMON is very powerful because its body is a bundle of muscles. It launches head-butts with its ironlike skull.",
+    "evolution": [
+      "Bagon",
+      "Shelgon",
+      "Salamence"
+    ],
+    "evolutionMethods": [
+      {
+        "from": "Bagon",
+        "to": "Shelgon",
+        "method": "Level 30"
+      },
+      {
+        "from": "Shelgon",
+        "to": "Salamence",
+        "method": "Level 50"
+      }
+    ],
+    "eggGroups": [
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "luvdisc": {
     "slug": "luvdisc",
@@ -18117,7 +22930,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "LUVDISC make the branches of CORSOLA their nests. There is a custom from long ago of giving a LUVDISC as a gift to express one’s feelings of love.",
     "evolution": [
       "Luvdisc"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Water 2"
+    ],
+    "genderRate": 6
   },
   "relicanth": {
     "slug": "relicanth",
@@ -18165,119 +22983,34 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A POKéMON that was once believed to have been extinct. The species has not changed its form for 100 million years. It walks on the seafloor using its pectoral fins.",
     "evolution": [
       "Relicanth"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Water 1",
+      "Water 2"
+    ],
+    "genderRate": 1
   },
-  "latias": {
-    "slug": "latias",
-    "dexNumber": 380,
-    "types": [
-      "Dragon",
-      "Psychic"
-    ],
-    "abilities": [
-      "Levitate"
-    ],
-    "baseExp": 270,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 80
-      },
-      {
-        "label": "Attack",
-        "value": 80
-      },
-      {
-        "label": "Defense",
-        "value": 90
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 110
-      },
-      {
-        "label": "Sp. Def",
-        "value": 130
-      },
-      {
-        "label": "Speed",
-        "value": 110
-      }
-    ],
-    "total": 600,
-    "heightM": 1.4,
-    "weightKg": 40,
-    "genus": "Eon Pokémon",
-    "flavor": "They make a small herd of only several members. They rarely make contact with people or other POKéMON. They disappear if they sense enemies.",
-    "evolution": [
-      "Latias"
-    ]
-  },
-  "rayquaza": {
-    "slug": "rayquaza",
-    "dexNumber": 384,
+  "salamence": {
+    "slug": "salamence",
+    "dexNumber": 373,
     "types": [
       "Dragon",
       "Flying"
     ],
     "abilities": [
-      "Air Lock"
+      "Intimidate"
     ],
-    "baseExp": 306,
-    "stats": [
-      {
-        "label": "HP",
-        "value": 105
-      },
-      {
-        "label": "Attack",
-        "value": 150
-      },
-      {
-        "label": "Defense",
-        "value": 90
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 150
-      },
-      {
-        "label": "Sp. Def",
-        "value": 90
-      },
-      {
-        "label": "Speed",
-        "value": 95
-      }
-    ],
-    "total": 680,
-    "heightM": 7,
-    "weightKg": 206.5,
-    "genus": "Sky High Pokémon",
-    "flavor": "A POKéMON that flies endlessly in the ozone layer. It is said it would descend to the ground if KYOGRE and GROUDON were to fight.",
-    "evolution": [
-      "Rayquaza"
-    ]
-  },
-  "latios": {
-    "slug": "latios",
-    "dexNumber": 381,
-    "types": [
-      "Dragon",
-      "Psychic"
-    ],
-    "abilities": [
-      "Levitate"
-    ],
+    "hiddenAbility": "Moxie",
     "baseExp": 270,
     "stats": [
       {
         "label": "HP",
-        "value": 80
+        "value": 95
       },
       {
         "label": "Attack",
-        "value": 90
+        "value": 135
       },
       {
         "label": "Defense",
@@ -18285,70 +23018,43 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
       },
       {
         "label": "Sp. Atk",
-        "value": 130
+        "value": 110
       },
       {
         "label": "Sp. Def",
-        "value": 110
+        "value": 80
       },
       {
         "label": "Speed",
-        "value": 110
+        "value": 100
       }
     ],
     "total": 600,
-    "heightM": 2,
-    "weightKg": 60,
-    "genus": "Eon Pokémon",
-    "flavor": "Even in hiding, it can detect the locations of others and sense their emotions since it has telepathy. Its intelligence allows it to understand human languages.",
+    "heightM": 1.5,
+    "weightKg": 102.6,
+    "genus": "Dragon Pokémon",
+    "flavor": "After many long years, its cellular structure underwent a sudden mutation to grow wings. When angered, it loses all thought and rampages out of control.",
     "evolution": [
-      "Latios"
-    ]
-  },
-  "groudon": {
-    "slug": "groudon",
-    "dexNumber": 383,
-    "types": [
-      "Ground"
+      "Bagon",
+      "Shelgon",
+      "Salamence"
     ],
-    "abilities": [
-      "Drought"
-    ],
-    "baseExp": 302,
-    "stats": [
+    "evolutionMethods": [
       {
-        "label": "HP",
-        "value": 100
+        "from": "Bagon",
+        "to": "Shelgon",
+        "method": "Level 30"
       },
       {
-        "label": "Attack",
-        "value": 150
-      },
-      {
-        "label": "Defense",
-        "value": 140
-      },
-      {
-        "label": "Sp. Atk",
-        "value": 100
-      },
-      {
-        "label": "Sp. Def",
-        "value": 90
-      },
-      {
-        "label": "Speed",
-        "value": 90
+        "from": "Shelgon",
+        "to": "Salamence",
+        "method": "Level 50"
       }
     ],
-    "total": 670,
-    "heightM": 3.5,
-    "weightKg": 950,
-    "genus": "Continent Pokémon",
-    "flavor": "GROUDON has appeared in mythology as the creator of the land. It sleeps in magma underground and is said to make volcanoes erupt on awakening.",
-    "evolution": [
-      "Groudon"
-    ]
+    "eggGroups": [
+      "Dragon"
+    ],
+    "genderRate": 4
   },
   "kyogre": {
     "slug": "kyogre",
@@ -18393,7 +23099,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "KYOGRE has appeared in mythology as the creator of the sea. After long years of feuding with GROUDON, it took to sleep at the bottom of the sea.",
     "evolution": [
       "Kyogre"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "regice": {
     "slug": "regice",
@@ -18439,7 +23150,164 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Its entire body is made of Antarctic ice. After extensive studies, researchers believe the ice was formed during an ice age.",
     "evolution": [
       "Regice"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "rayquaza": {
+    "slug": "rayquaza",
+    "dexNumber": 384,
+    "types": [
+      "Dragon",
+      "Flying"
+    ],
+    "abilities": [
+      "Air Lock"
+    ],
+    "baseExp": 306,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 105
+      },
+      {
+        "label": "Attack",
+        "value": 150
+      },
+      {
+        "label": "Defense",
+        "value": 90
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 150
+      },
+      {
+        "label": "Sp. Def",
+        "value": 90
+      },
+      {
+        "label": "Speed",
+        "value": 95
+      }
+    ],
+    "total": 680,
+    "heightM": 7,
+    "weightKg": 206.5,
+    "genus": "Sky High Pokémon",
+    "flavor": "A POKéMON that flies endlessly in the ozone layer. It is said it would descend to the ground if KYOGRE and GROUDON were to fight.",
+    "evolution": [
+      "Rayquaza"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "latias": {
+    "slug": "latias",
+    "dexNumber": 380,
+    "types": [
+      "Dragon",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "baseExp": 270,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 80
+      },
+      {
+        "label": "Defense",
+        "value": 90
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 110
+      },
+      {
+        "label": "Sp. Def",
+        "value": 130
+      },
+      {
+        "label": "Speed",
+        "value": 110
+      }
+    ],
+    "total": 600,
+    "heightM": 1.4,
+    "weightKg": 40,
+    "genus": "Eon Pokémon",
+    "flavor": "They make a small herd of only several members. They rarely make contact with people or other POKéMON. They disappear if they sense enemies.",
+    "evolution": [
+      "Latias"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 8
+  },
+  "groudon": {
+    "slug": "groudon",
+    "dexNumber": 383,
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Drought"
+    ],
+    "baseExp": 302,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 100
+      },
+      {
+        "label": "Attack",
+        "value": 150
+      },
+      {
+        "label": "Defense",
+        "value": 140
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 100
+      },
+      {
+        "label": "Sp. Def",
+        "value": 90
+      },
+      {
+        "label": "Speed",
+        "value": 90
+      }
+    ],
+    "total": 670,
+    "heightM": 3.5,
+    "weightKg": 950,
+    "genus": "Continent Pokémon",
+    "flavor": "GROUDON has appeared in mythology as the creator of the land. It sleeps in magma underground and is said to make volcanoes erupt on awakening.",
+    "evolution": [
+      "Groudon"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "registeel": {
     "slug": "registeel",
@@ -18485,7 +23353,63 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "Its body is harder than any other kind of metal. The body metal is composed of a mysterious substance. Not only is it hard, it shrinks and stretches flexibly.",
     "evolution": [
       "Registeel"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
+  },
+  "latios": {
+    "slug": "latios",
+    "dexNumber": 381,
+    "types": [
+      "Dragon",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "baseExp": 270,
+    "stats": [
+      {
+        "label": "HP",
+        "value": 80
+      },
+      {
+        "label": "Attack",
+        "value": 90
+      },
+      {
+        "label": "Defense",
+        "value": 80
+      },
+      {
+        "label": "Sp. Atk",
+        "value": 130
+      },
+      {
+        "label": "Sp. Def",
+        "value": 110
+      },
+      {
+        "label": "Speed",
+        "value": 110
+      }
+    ],
+    "total": 600,
+    "heightM": 2,
+    "weightKg": 60,
+    "genus": "Eon Pokémon",
+    "flavor": "Even in hiding, it can detect the locations of others and sense their emotions since it has telepathy. Its intelligence allows it to understand human languages.",
+    "evolution": [
+      "Latios"
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": 0
   },
   "regirock": {
     "slug": "regirock",
@@ -18531,7 +23455,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A POKéMON that is made entirely of rocks and boulders. If parts of its body chip off in battle, REGIROCK repairs itself by adding new rocks.",
     "evolution": [
       "Regirock"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "deoxys": {
     "slug": "deoxys",
@@ -18576,7 +23505,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "A POKéMON that mutated from an extraterrestrial virus exposed to a laser beam. Its body is configured for superior agility and speed.",
     "evolution": [
       "Deoxys"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   },
   "jirachi": {
     "slug": "jirachi",
@@ -18622,7 +23556,12 @@ export const SPECIES_BY_SLUG: Record<string, SpeciesInfo> = {
     "flavor": "JIRACHI is said to make wishes come true. While it sleeps, a tough crystalline shell envelops the body to protect it from enemies.",
     "evolution": [
       "Jirachi"
-    ]
+    ],
+    "evolutionMethods": [],
+    "eggGroups": [
+      "Undiscovered"
+    ],
+    "genderRate": -1
   }
 };
 

@@ -401,6 +401,15 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
         x: 31.3,
         y: 88.2,
       },
+      {
+        id: "r119-feebas",
+        type: "wild",
+        label: "Feebas fishing (trend tiles)",
+        detail:
+          "Only six water tiles on Route 119 can yield Feebas (any rod). Which six are active depends on Dewford's trendy phrase — they reshuffle when the trend changes. Not every water tile works; surf encounters never include Feebas.",
+        x: 48,
+        y: 55,
+      },
       { id: "r119-south", type: "poi", label: "South exit", x: 51.3, y: 99.6 },
     ],
   },

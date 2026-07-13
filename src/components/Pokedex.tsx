@@ -177,13 +177,34 @@ export function SpeciesPanel({ slug, name, nationalNumber }: { slug: string; nam
                 </span>
               </div>
             )}
-            {info.evolution.length > 1 && (
+            {info.eggGroups && info.eggGroups.length > 0 && (
               <div className="poke-stat">
-                <span className="poke-stat__label">Evolution line</span>
-                <span className="poke-stat__value">{info.evolution.join(" → ")}</span>
+                <span className="poke-stat__label">Egg groups</span>
+                <span className="poke-stat__value">{info.eggGroups.join(", ")}</span>
               </div>
             )}
           </div>
+
+          {((info.evolutionMethods && info.evolutionMethods.length > 0) ||
+            info.evolution.length > 1) && (
+            <>
+              <h3 className="poke-detail__section">Evolution (Emerald)</h3>
+              {info.evolutionMethods && info.evolutionMethods.length > 0 ? (
+                <ul className="evo-methods">
+                  {info.evolutionMethods.map((edge) => (
+                    <li key={`${edge.from}-${edge.to}-${edge.method}`}>
+                      <span className="evo-methods__pair">
+                        {edge.from} → {edge.to}
+                      </span>
+                      <span className="evo-methods__method">{edge.method}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="poke-detail__note">{info.evolution.join(" → ")}</p>
+              )}
+            </>
+          )}
 
           <h3 className="poke-detail__section">Base stats</h3>
           <StatBars stats={info.stats} total={info.total} />

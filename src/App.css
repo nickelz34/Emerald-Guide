@@ -3554,6 +3554,268 @@
   background: rgba(224, 85, 59, 0.06);
 }
 
+.breeding-lookup {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(77, 144, 213, 0.35);
+  border-radius: 12px;
+  background: rgba(77, 144, 213, 0.07);
+}
+
+.breeding-lookup__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.breeding-lookup__lead {
+  margin: 0 0 0.85rem;
+  font-size: 0.9rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.breeding-lookup__pickers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1rem;
+}
+
+.breeding-lookup__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 140px;
+  min-width: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.breeding-lookup__field select {
+  font: inherit;
+  font-size: 0.95rem;
+  color: inherit;
+  padding: 0.45rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.breeding-lookup__times {
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-bottom: 0.35rem;
+}
+
+.breeding-lookup__sprites {
+  display: flex;
+  gap: 1rem;
+  margin: 0.75rem 0 0.5rem;
+  image-rendering: pixelated;
+}
+
+.breeding-lookup__result {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breeding-lookup__result--ok {
+  background: rgba(99, 187, 91, 0.12);
+  border-color: rgba(99, 187, 91, 0.35);
+}
+
+.breeding-lookup__result--no {
+  background: rgba(224, 85, 59, 0.1);
+  border-color: rgba(224, 85, 59, 0.3);
+}
+
+.breeding-lookup__summary {
+  margin: 0 0 0.4rem;
+  font-weight: 650;
+}
+
+.breeding-lookup__offspring {
+  margin: 0 0 0.4rem;
+  font-size: 0.92rem;
+}
+
+.breeding-lookup__result ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 0.88rem;
+}
+
+.evo-methods {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-width: 560px;
+}
+
+.evo-methods li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  align-items: baseline;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.evo-methods__pair {
+  font-weight: 650;
+  font-size: 0.92rem;
+}
+
+.evo-methods__method {
+  font-size: 0.85rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.stone-evo {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(244, 210, 60, 0.35);
+  border-radius: 12px;
+  background: rgba(244, 210, 60, 0.06);
+}
+
+.stone-evo__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.stone-evo__lead {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.stone-evo__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stone-evo__group {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.stone-evo__group-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.stone-evo__stone-icon {
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.stone-evo__group-name {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.stone-evo__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.55rem;
+}
+
+.stone-evo__row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 0.35rem 0.5rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stone-evo__mon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.stone-evo__mon-sprite {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.stone-evo__mon-fallback {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.stone-evo__mon-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.stone-evo__arrow {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0 0.25rem;
+  color: var(--text-muted, #9aa8bc);
+}
+
+.stone-evo__arrow-stone {
+  image-rendering: pixelated;
+  width: 20px;
+  height: 20px;
+}
+
+.stone-evo__arrow-mark {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+@media (max-width: 520px) {
+  .stone-evo__list {
+    grid-template-columns: 1fr;
+  }
+
+  .stone-evo__mon-sprite,
+  .stone-evo__mon-fallback {
+    width: 48px;
+    height: 48px;
+  }
+}
+
 .gym-guide__meta {
   margin: 0 0 0.65rem;
   font-size: 0.88rem;

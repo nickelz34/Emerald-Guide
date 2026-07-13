@@ -146,11 +146,14 @@ export const AREA_DATA: Record<string, AreaExtras> = {
     tips: [
       "Need Acro Bike to cross log bridges — get it in Mauville.",
       "Castform is a gift, not a wild encounter — from Weather Institute director.",
+      "Feebas only appears on six fishing tiles that move with the trendy phrase in Dewford — not on every water square.",
     ],
     secrets: [
       "Weather Institute: HM02 Fly on the top-floor bed after Aqua battle.",
       "Soft Soil patch for berries behind the institute.",
       "Rare Candy on the route (hidden) — check Bulbapedia for exact tile if hunting 100%.",
+      "Feebas: six random water tiles among Route 119's fishable water yield Feebas on any rod; the set reshuffles when Dewford's trendy phrase changes. Fish every water tile systematically, or change the trend in Dewford and try a new set.",
+      "Feebas evolves into Milotic at Beauty 170+ on level-up (Dry Pokéblocks) — see Pregame: Evolution and Contest Preparation.",
     ],
     encounters: [
       { name: "Oddish", level: "18–22", time: "any", method: "grass", rate: "30%" },
@@ -158,6 +161,14 @@ export const AREA_DATA: Record<string, AreaExtras> = {
       { name: "Tropius", level: "18–22", time: "any", method: "grass", rate: "5%", notes: "Rare — grass on back" },
       { name: "Kecleon", level: "18–22", time: "any", method: "grass", rate: "5%", notes: "Invisible — use Devon Scope" },
       { name: "Castform", level: "—", time: "any", method: "grass", notes: "Gift from Weather Institute, not wild" },
+      {
+        name: "Feebas",
+        level: "20–25",
+        time: "any",
+        method: "old-rod",
+        rate: "special tiles",
+        notes: "Only on 6 Dewford-trend water tiles — any rod; not on surf",
+      },
     ],
   },
   "fiery-path": {
