@@ -48,30 +48,57 @@ function GenderBadge({ gender }: { gender: "female" | "male" }) {
   );
 }
 
-function MonSprite({ mon }: { mon: BreedingMonRef }) {
+function GenderSlot({ gender }: { gender?: "female" | "male" }) {
+  if (gender) return <GenderBadge gender={gender} />;
+  return <span className="breed-chart__gender-spacer" aria-hidden="true" />;
+}
+
+function MonSprite({
+  mon,
+  className,
+  compact,
+}: {
+  mon: BreedingMonRef;
+  className?: string;
+  /** Shorter sprite stage for egg-group grids. */
+  compact?: boolean;
+}) {
   const isEgg = mon.kind === "egg";
   const src = isEgg ? eggSpriteUrl() : mon.dex != null && mon.dex > 0 ? emeraldSpriteUrl(mon.dex) : undefined;
   return (
-    <span className={`breed-chart__mon${isEgg ? " breed-chart__mon--egg" : ""}`}>
-      {mon.gender && <GenderBadge gender={mon.gender} />}
-      {src ? (
-        <img
-          className={`breed-chart__mon-sprite${isEgg ? " breed-chart__mon-sprite--egg" : ""}`}
-          src={src}
-          alt={mon.name}
-          width={64}
-          height={isEgg ? 128 : 64}
-          loading="lazy"
-          decoding="async"
-          draggable={false}
-        />
-      ) : (
-        <span className="breed-chart__mon-fallback" aria-hidden="true">
-          ?
-        </span>
-      )}
-      <span className="breed-chart__mon-name">{mon.name}</span>
-      {mon.subtitle && <span className="breed-chart__mon-sub">{mon.subtitle}</span>}
+    <span
+      className={[
+        "breed-chart__mon",
+        isEgg ? "breed-chart__mon--egg" : "",
+        compact ? "breed-chart__mon--compact" : "",
+        className ?? "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {!compact && <GenderSlot gender={mon.gender} />}
+      <span className="breed-chart__sprite-stage">
+        {src ? (
+          <img
+            className={`breed-chart__mon-sprite${isEgg ? " breed-chart__mon-sprite--egg" : ""}`}
+            src={src}
+            alt={mon.name}
+            width={64}
+            height={isEgg ? 128 : 64}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
+        ) : (
+          <span className="breed-chart__mon-fallback" aria-hidden="true">
+            ?
+          </span>
+        )}
+      </span>
+      <span className="breed-chart__mon-labels">
+        <span className="breed-chart__mon-name">{mon.name}</span>
+        {mon.subtitle && <span className="breed-chart__mon-sub">{mon.subtitle}</span>}
+      </span>
     </span>
   );
 }
@@ -83,19 +110,27 @@ function PairArrow({ edge }: { edge: BreedingPairEdge }) {
   const eggSrc = showEgg ? eggSpriteUrl() : undefined;
   return (
     <span
-      className={`breed-chart__arrow${blocked ? " breed-chart__arrow--blocked" : ""}`}
+      className={`breed-chart__arrow-col${blocked ? " breed-chart__arrow-col--blocked" : ""}`}
       aria-hidden="true"
     >
-      {itemSrc && (
-        <img className="breed-chart__arrow-item" src={itemSrc} alt="" width={24} height={24} draggable={false} />
+      {itemSrc ? (
+        <span className="breed-chart__arrow-item-slot">
+          <img className="breed-chart__arrow-item" src={itemSrc} alt="" width={24} height={24} draggable={false} />
+        </span>
+      ) : (
+        <span className="breed-chart__gender-spacer" />
       )}
-      {eggSrc && (
-        <img className="breed-chart__arrow-egg" src={eggSrc} alt="" width={64} height={128} draggable={false} />
-      )}
-      {edge.methodLabel && edge.methodLabel !== "Egg" && (
-        <span className="breed-chart__method">{edge.methodLabel}</span>
-      )}
-      <span className="breed-chart__arrow-mark">{blocked ? "✕" : "→"}</span>
+      <span className="breed-chart__arrow-stage">
+        {eggSrc && (
+          <img className="breed-chart__arrow-egg" src={eggSrc} alt="" width={64} height={128} draggable={false} />
+        )}
+        {edge.methodLabel && edge.methodLabel !== "Egg" && (
+          <span className="breed-chart__method">{edge.methodLabel}</span>
+        )}
+      </span>
+      <span className="breed-chart__mon-labels">
+        <span className="breed-chart__arrow-mark">{blocked ? "✕" : "→"}</span>
+      </span>
     </span>
   );
 }
@@ -107,13 +142,11 @@ function PairRow({ edge, groupKey }: { edge: BreedingPairEdge; groupKey: string 
       key={`${groupKey}-${edge.parentA.name}-${edge.parentB.name}-${edge.methodLabel ?? ""}`}
       className={`breed-chart__row${blocked ? " breed-chart__row--blocked" : ""}`}
     >
-      <div className="breed-chart__parents">
-        <MonSprite mon={edge.parentA} />
-        <span className="breed-chart__times" aria-hidden="true">
-          ×
-        </span>
-        <MonSprite mon={edge.parentB} />
-      </div>
+      <MonSprite mon={edge.parentA} className="breed-chart__parent-a" />
+      <span className="breed-chart__times" aria-hidden="true">
+        ×
+      </span>
+      <MonSprite mon={edge.parentB} className="breed-chart__parent-b" />
       <PairArrow edge={edge} />
       <div className="breed-chart__offspring">
         {edge.offspring.map((mon) => (
@@ -153,7 +186,7 @@ export function BreedingChart({ chart }: { chart: BreedingChartSpec }) {
                 <ul className="breed-chart__grid">
                   {group.grid.map((mon) => (
                     <li key={`${group.name}-${mon.dex}-${mon.name}`} className="breed-chart__grid-cell">
-                      <MonSprite mon={mon} />
+                      <MonSprite mon={mon} compact />
                     </li>
                   ))}
                 </ul>

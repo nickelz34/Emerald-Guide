@@ -3900,23 +3900,75 @@
   height: 24px;
 }
 
-.breed-chart__arrow-egg {
-  image-rendering: pixelated;
-  width: 64px;
-  height: 128px;
-  object-fit: contain;
+.breed-chart__group-name {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
 }
 
-.breed-chart__gender {
+.breed-chart__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+}
+
+.breed-chart__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  justify-items: center;
+  gap: 0.35rem 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.breed-chart__row--blocked {
+  opacity: 0.88;
+}
+
+.breed-chart__times {
+  align-self: end;
+  margin-bottom: 2.85rem;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted, #9aa8bc);
+  line-height: 1;
+}
+
+.breed-chart__mon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  width: 88px;
+  max-width: 100%;
+}
+
+.breed-chart__gender,
+.breed-chart__gender-spacer {
   display: grid;
   place-items: center;
   width: 1.25rem;
   height: 1.25rem;
+  margin-bottom: 0.1rem;
+  flex-shrink: 0;
+}
+
+.breed-chart__gender {
   font-size: 0.95rem;
   font-weight: 700;
   line-height: 1;
   border-radius: 4px;
-  margin-bottom: 0.1rem;
+}
+
+.breed-chart__gender-spacer {
+  visibility: hidden;
 }
 
 .breed-chart__gender--female {
@@ -3929,60 +3981,17 @@
   background: rgba(110, 181, 247, 0.15);
 }
 
-.breed-chart__group-name {
-  margin: 0;
-  font-size: 0.98rem;
-  font-weight: 700;
-}
-
-.breed-chart__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 0.85rem;
-}
-
-.breed-chart__row {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 0.5rem 0.65rem;
-  padding: 0.65rem 0.5rem;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.breed-chart__row--blocked {
-  opacity: 0.88;
-}
-
-.breed-chart__parents {
+.breed-chart__sprite-stage {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
+  width: 64px;
+  height: 128px;
+  flex-shrink: 0;
 }
 
-.breed-chart__times {
-  flex-shrink: 0;
-  align-self: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-muted, #9aa8bc);
-  line-height: 1;
-  padding-bottom: 2.75rem;
-}
-
-.breed-chart__mon {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-  width: 80px;
-  flex-shrink: 0;
+.breed-chart__mon--compact .breed-chart__sprite-stage {
+  height: 64px;
 }
 
 .breed-chart__mon-sprite {
@@ -4006,6 +4015,20 @@
   opacity: 0.5;
 }
 
+.breed-chart__mon-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.1rem;
+  width: 100%;
+  min-height: 2.75rem;
+}
+
+.breed-chart__mon-labels--spacer {
+  visibility: hidden;
+}
+
 .breed-chart__mon-name {
   font-size: 0.75rem;
   font-weight: 600;
@@ -4021,15 +4044,45 @@
   line-height: 1.2;
 }
 
-.breed-chart__arrow {
-  display: inline-flex;
+.breed-chart__arrow-col {
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  min-width: 4rem;
+  width: 72px;
 }
 
-.breed-chart__arrow--blocked .breed-chart__arrow-mark {
+.breed-chart__arrow-item-slot {
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-bottom: 0.1rem;
+}
+
+.breed-chart__arrow-item-slot .breed-chart__arrow-item {
+  width: 20px;
+  height: 20px;
+}
+
+.breed-chart__arrow-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.15rem;
+  width: 64px;
+  height: 128px;
+}
+
+.breed-chart__arrow-egg {
+  image-rendering: pixelated;
+  width: 64px;
+  height: 128px;
+  object-fit: contain;
+}
+
+.breed-chart__arrow-col--blocked .breed-chart__arrow-mark {
   color: #e0553b;
 }
 
@@ -4040,6 +4093,8 @@
   text-transform: uppercase;
   color: var(--text-muted, #9aa8bc);
   text-align: center;
+  line-height: 1.2;
+  max-width: 4.5rem;
 }
 
 .breed-chart__arrow-mark {
@@ -4051,9 +4106,10 @@
 .breed-chart__offspring {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   gap: 0.35rem;
+  width: 100%;
 }
 
 .breed-chart__note {
@@ -4086,42 +4142,56 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-@media (max-width: 640px) {
-  .breed-chart__list {
-    grid-template-columns: 1fr;
-  }
+.breed-chart__grid-cell .breed-chart__mon {
+  width: 100%;
+}
 
+@media (max-width: 720px) {
   .breed-chart__row {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 0.65rem;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas:
+      "parent-a times parent-b"
+      "arrow arrow arrow"
+      "offspring offspring offspring"
+      "note note note";
+    gap: 0.5rem 0.35rem;
   }
 
-  .breed-chart__parents {
-    width: 100%;
-    justify-content: space-evenly;
-    gap: 0.35rem;
+  .breed-chart__parent-a {
+    grid-area: parent-a;
   }
 
   .breed-chart__times {
-    padding-bottom: 2.25rem;
+    grid-area: times;
+    margin-bottom: 2.85rem;
+  }
+
+  .breed-chart__parent-b {
+    grid-area: parent-b;
+  }
+
+  .breed-chart__arrow-col {
+    grid-area: arrow;
+    width: 100%;
+  }
+
+  .breed-chart__offspring {
+    grid-area: offspring;
+  }
+
+  .breed-chart__note {
+    grid-area: note;
   }
 
   .breed-chart__mon {
-    width: 72px;
+    width: 76px;
   }
 
-  .breed-chart__arrow {
-    margin: 0 auto;
-  }
-
-  .breed-chart__arrow-egg {
-    width: 48px;
+  .breed-chart__sprite-stage {
     height: 96px;
   }
 
-  .breed-chart__mon-sprite--egg {
-    width: 48px;
+  .breed-chart__arrow-stage {
     height: 96px;
   }
 
@@ -4131,8 +4201,22 @@
     height: 48px;
   }
 
+  .breed-chart__mon-sprite--egg {
+    width: 48px;
+    height: 96px;
+  }
+
+  .breed-chart__arrow-egg {
+    width: 48px;
+    height: 96px;
+  }
+
+  .breed-chart__mon--compact .breed-chart__sprite-stage {
+    height: 48px;
+  }
+
   .breed-chart__grid {
-    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
   }
 }
 
