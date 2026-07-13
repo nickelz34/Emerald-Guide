@@ -67,6 +67,17 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "petalburg-gym-1": "petalburgcity-gym",
   "fortree-2": "fortreecity-gym",
   "mossdeep-1": "mossdeepcity-gym",
+  "lavaridge-2": "lavaridgetown-gym-1f",
+  "sootopolis-gym-1": "sootopoliscity-gym-1f",
+
+  // Lilycove contests
+  "contests-lilycove-1": "contesthall",
+  "contests-lilycove-2": "contesthall",
+  "contests-lilycove-3": "contesthall",
+  "contests-lilycove-4": "contesthall",
+  "contests-lilycove-5": "contesthall",
+  "contests-postgame-1": "contesthall",
+  "contests-postgame-2": "contesthall",
 
   // Fiery Path & Scorched Slab
   "route-112-2": "fierypath",
@@ -165,6 +176,28 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   "shoal-cave-2": ["shoalcave-lowtideiceroom"],
   "trick-8": ["route110-trickhousepuzzle8", "route110-trickhouseend"],
   "battle-frontier-1": ["sstidallowerdeck"],
+  // Battle Pyramid — Brandon's facility (battle-frontier-3 overview step)
+  "battle-frontier-3": [
+    "battlefrontier-battlepyramidlobby",
+    "battlefrontier-battlepyramidfloor",
+    "battlefrontier-battlepyramidtop",
+    "battlepyramidsquare01",
+    "battlepyramidsquare02",
+    "battlepyramidsquare03",
+    "battlepyramidsquare04",
+    "battlepyramidsquare05",
+    "battlepyramidsquare06",
+    "battlepyramidsquare07",
+    "battlepyramidsquare08",
+    "battlepyramidsquare09",
+    "battlepyramidsquare10",
+    "battlepyramidsquare11",
+    "battlepyramidsquare12",
+    "battlepyramidsquare13",
+    "battlepyramidsquare14",
+    "battlepyramidsquare15",
+    "battlepyramidsquare16",
+  ],
   // Multi-floor gym interiors
   "lavaridge-2": ["lavaridgetown-gym-1f", "lavaridgetown-gym-b1f"],
   "sootopolis-gym-2": ["sootopoliscity-gym-1f", "sootopoliscity-gym-b1f"],
@@ -175,6 +208,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "safarizone-southeast",
     "safarizone-southwest",
   ],
+  "postgame-hoenn-3": ["artisancave-1f", "artisancave-b1f"],
   "seafloor-cavern-1": ["underwater-route127", "underwater-route128"],
 };
 

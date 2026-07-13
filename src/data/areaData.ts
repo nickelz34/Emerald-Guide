@@ -508,6 +508,28 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "fortree-1": ["fortree"],
   "verdanturf-1": ["verdanturf"],
   "postgame-hoenn-6": ["route-110", "route-103"],
+
+  // Dungeons — explicit maps (inference fixed, but multi-area steps listed for clarity)
+  "granite-cave-1": ["granite-cave"],
+  "granite-cave-3": ["granite-cave"],
+  "petalburg-woods-2": ["petalburg-woods"],
+  "petalburg-woods-3": ["petalburg-woods"],
+  "rusturf-tunnel-2": ["rusturf-tunnel"],
+  "magma-hideout-1": ["magma-hideout"],
+  "magma-hideout-2": ["magma-hideout"],
+  "mt-pyre-2": ["mt-pyre"],
+  "victory-road-1": ["victory-road"],
+  "sky-pillar-2": ["sky-pillar"],
+  "seafloor-cavern-1": ["underwater-route127", "underwater-route128", "seafloor-cavern"],
+  "seafloor-cavern-2": ["seafloor-cavern"],
+  "sealed-chamber-1": ["underwater-route124", "underwater-route126", "sealed-chamber"],
+  "abandoned-ship-1": ["abandoned-ship"],
+  "abandoned-ship-2": ["abandoned-ship"],
+  "shoal-cave-1": ["shoal-cave"],
+  "shoal-cave-2": ["shoal-cave"],
+  "safari-zone-1": ["safari-zone"],
+  "safari-zone-2": ["safari-zone"],
+  "safari-zone-3": ["safari-zone"],
 };
 
 const TOWN_AREA_PREFIXES = [
@@ -551,13 +573,24 @@ export function inferAreaIdFromStepId(stepId: string): string | undefined {
   const routeMatch = stepId.match(/^(route-\d+)-\d+$/);
   if (routeMatch) return routeMatch[1];
 
+  // Gym interiors have no wild encounters — omit the panel rather than show town grass.
+  if (/-gym-\d+$/.test(stepId)) return undefined;
+
+  // Dungeon prefixes before town prefixes (petalburg-woods before petalburg).
+  const sortedDungeons = [...DUNGEON_AREA_PREFIXES].sort((a, b) => b.length - a.length);
+  for (const prefix of sortedDungeons) {
+    if (stepId.startsWith(`${prefix}-`)) return prefix;
+  }
   for (const prefix of TOWN_AREA_PREFIXES) {
     if (stepId.startsWith(`${prefix}-`)) return prefix;
   }
-  for (const prefix of DUNGEON_AREA_PREFIXES) {
-    if (stepId.startsWith(`${prefix}-`)) return prefix;
-  }
   return undefined;
+}
+
+/** Whether a pokeemerald wild location row belongs to a guide area slug. */
+export function wildLocationMatchesArea(locId: string, locAreaId: string | undefined, areaId: string): boolean {
+  if (locAreaId === areaId || locId === areaId) return true;
+  return locId.startsWith(`${areaId}-`);
 }
 
 export function getAreasForStep(stepId: string): string[] {
@@ -684,7 +717,7 @@ export function encountersFromWildData(wildList: WildPokemon[], areaId: string):
   const rows: PokemonEncounter[] = [];
   for (const mon of wildList) {
     for (const loc of mon.locations) {
-      if (loc.id !== areaId && loc.areaId !== areaId) continue;
+      if (!wildLocationMatchesArea(loc.id, loc.areaId, areaId)) continue;
       for (const row of loc.rows) {
         rows.push({
           name: mon.name,

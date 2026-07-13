@@ -39,6 +39,18 @@ const ENCOUNTER_EXEMPT = new Set([
   "pregame-breeding-1",
   "pregame-breeding-2",
   "pregame-breeding-3",
+  "petalburg-gym-1",
+  "petalburg-gym-2",
+  "petalburg-gym-3",
+  "sootopolis-gym-1",
+  "sootopolis-gym-2",
+  "sootopolis-gym-3",
+  "lavaridge-2",
+  "rustboro-2",
+  "dewford-2",
+  "fortree-2",
+  "mossdeep-1",
+  "mauville-2",
 ]);
 
 function collectStepIds(src) {
@@ -113,10 +125,12 @@ const DUNGEON = [
 function inferAreaId(stepId) {
   const routeMatch = stepId.match(/^(route-\d+)-\d+$/);
   if (routeMatch) return routeMatch[1];
-  for (const prefix of TOWN) {
+  if (/-gym-\d+$/.test(stepId)) return undefined;
+  const sortedDungeons = [...DUNGEON].sort((a, b) => b.length - a.length);
+  for (const prefix of sortedDungeons) {
     if (stepId.startsWith(`${prefix}-`)) return prefix;
   }
-  for (const prefix of DUNGEON) {
+  for (const prefix of TOWN) {
     if (stepId.startsWith(`${prefix}-`)) return prefix;
   }
   return undefined;

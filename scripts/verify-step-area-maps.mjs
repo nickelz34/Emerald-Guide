@@ -9,6 +9,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const areaMapsSrc = readFileSync(join(root, "src/data/areaMaps.ts"), "utf8");
 const stepAreaMapsSrc = readFileSync(join(root, "src/data/stepAreaMaps.ts"), "utf8");
 
+/** Event / distribution-only maps with no walkthrough step. */
+const OPTIONAL_UNLINKED = new Set(["navelrock-top"]);
+
 const mapBlockIds = [...areaMapsSrc.matchAll(/id: "([^"]+)",\r?\n\s+mapId:/g)].map((m) => m[1]);
 
 const referenced = new Set();
@@ -17,7 +20,8 @@ for (const m of stepAreaMapsSrc.matchAll(/"([a-z0-9-]+)"/g)) {
   if (mapBlockIds.includes(id)) referenced.add(id);
 }
 
-const unmapped = mapBlockIds.filter((id) => !referenced.has(id));
+const unmapped = mapBlockIds.filter((id) => !referenced.has(id) && !OPTIONAL_UNLINKED.has(id));
+const optional = mapBlockIds.filter((id) => OPTIONAL_UNLINKED.has(id));
 
 if (unmapped.length) {
   console.error(`Area maps not linked to any walkthrough step (${unmapped.length}):`);
@@ -25,4 +29,4 @@ if (unmapped.length) {
   process.exit(1);
 }
 
-console.log(`OK: all ${mapBlockIds.length} area maps are linked to walkthrough steps.`);
+console.log(`OK: all ${mapBlockIds.length - optional.length} walkthrough area maps are linked (${optional.length} optional event-only).`);
