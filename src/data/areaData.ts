@@ -138,7 +138,7 @@ export const AREA_DATA: Record<string, AreaExtras> = {
       { name: "Wingull", level: "12–14", time: "any", method: "grass", rate: "20%" },
       { name: "Electrike", level: "12–14", time: "any", method: "grass", rate: "10%" },
       { name: "Duskull", level: "12–14", time: "night", method: "grass", rate: "10%", notes: "Night only" },
-      { name: "Minun", level: "12–14", time: "any", method: "grass", rate: "5%", notes: "Rare — Ruby/Sapphire exclusive counterpart is Plusle" },
+      { name: "Minun", level: "12–14", time: "any", method: "grass", rate: "5%", notes: "Rare — both Plusle and Minun appear in Emerald" },
     ],
   },
   "route-119": {
@@ -224,7 +224,7 @@ export const AREA_DATA: Record<string, AreaExtras> = {
   },
   "route-120": {
     screenshot: "route-120.png",
-    tips: ["Kecleon invisible without Devon Scope — get scope from Steven in Fortree."],
+    tips: ["Kecleon invisible without Devon Scope — Steven gives the scope on Route 120 after the Kecleon ambush."],
     encounters: [
       { name: "Oddish", level: "20–24", time: "any", method: "grass", rate: "30%" },
       { name: "Gulpin", level: "20–24", time: "any", method: "grass", rate: "30%" },

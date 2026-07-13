@@ -666,11 +666,11 @@ const storyChapters: GuideSection[] = [
         summary: "Brawly uses Fighting-types in a dark, maze-like gym.",
         story: [
           "Brawly's Gym is pitch black — a cave-like maze where each trainer you defeat lights a little more of the path forward. You can bring Flash to see the whole floor at once, but it isn't required; just follow the pools of light from fight to fight until you reach the big, laid-back leader at the far end.",
-          "Brawly leans on a Machop and a Makuhita that likes to Bulk Up before hammering you with Vital Throw. Flying and Psychic types laugh it off, so a Taillow or that Ralts from Route 102 makes short work of him. Victory earns the Knuckle Badge and TM08 Bulk Up.",
+          "Brawly leans on Machop, Meditite, and a Makuhita ace that likes to Bulk Up before hammering you with Vital Throw. Flying and Psychic types laugh it off, so a Taillow or that Ralts from Route 102 makes short work of him. Victory earns the Knuckle Badge and TM08 Bulk Up.",
         ],
         details: [
           "The gym is dark — beat trainers to light the path (Flash helps but isn't required).",
-          "Brawly's team: Machop and Makuhita (lv 16–18); Makuhita knows Bulk Up + Vital Throw.",
+          "Brawly's team: Machop and Meditite (lv 16), Makuhita ace (lv 19) with Bulk Up + Vital Throw.",
           "Flying and Psychic types (Taillow, Ralts) dominate here.",
           "Win for the Knuckle Badge and TM08 Bulk Up.",
         ],
@@ -1814,12 +1814,12 @@ const storyChapters: GuideSection[] = [
         location: "Mossdeep City Gym",
         summary: "A double battle against twin Psychic Gym Leaders.",
         story: [
-          "Mossdeep's Gym is Hoenn's only Double Battle gym — you and two Pokémon against Tate and Liza's twin Psychic-types, Solrock and Lunatone. They set up with Calm Mind and Sunny Day, then hit from both sides with psychic and rock coverage.",
+          "Mossdeep's Gym is Hoenn's only Double Battle gym — you and two Pokémon against Tate and Liza's full squad: Claydol, Xatu, Lunatone, and Solrock. They set up with Calm Mind and Sunny Day, then hit from both sides with psychic, rock, and ground coverage.",
           "Dark, Ghost, and Bug moves hit both foes; a well-placed Earthquake tags them simultaneously. Win for the Mind Badge and TM04 Calm Mind, then turn your attention to the Space Center on the city's north side.",
         ],
         details: [
           "This is a 2-vs-2 Double Battle — bring two strong Pokémon.",
-          "Their team: Solrock and Lunatone (lv 41–42) with Calm Mind and Sunny Day.",
+          "Their team: Claydol and Xatu (lv 41), Lunatone and Solrock aces (lv 42) with Calm Mind and Sunny Day.",
           "Dark, Ghost, and Bug moves hit both; an Earthquake can tag both foes.",
           "Win for the Mind Badge and TM04 Calm Mind.",
         ],
@@ -2595,7 +2595,7 @@ const contestsLilycoveChapter: GuideSection = {
       summary: "Take Master rank for the toughest AI and meet Hoenn's Contest Master — Wallace.",
       story: [
         "Master rank is the final test. Opponents run optimized combos and maxed condition. Bring your best-blended blocks, a held scarf, and a moveset with at least one reliable two-turn combination plus a high-appeal finisher for turn five (moves like Hyper Beam or Outrage jam opponents but skip a turn — save them for the last round).",
-        "Winning Master in any category earns the Master Ribbon for that type. Wallace — Hoenn's Contest Master — appears in the audience at high ranks and later gives you HM07 Waterfall outside Sootopolis Gym after the weather crisis. In Emerald, Juan leads the Sootopolis Gym while Wallace stays the contest icon.",
+        "Winning Master in any category earns the Master Ribbon for that type. Wallace — Hoenn's Contest Master — may appear in the audience at high ranks. HM07 Waterfall is unrelated to contests: Wallace gives it outside Sootopolis Gym only after the weather crisis (see the Sootopolis Gym chapter). In Emerald, Juan leads the Sootopolis Gym while Wallace stays the contest icon.",
         "You do not need Master ribbons to finish the game, but collecting all twenty is a true post-game goal alongside the Battle Frontier.",
       ],
       details: [
@@ -2603,7 +2603,7 @@ const contestsLilycoveChapter: GuideSection = {
         "Use combo openers turns 1–4; finish with your strongest single appeal on turn 5.",
         "Equip scarf and verify condition on the Pokénav before each attempt.",
         "Win to earn the Master Ribbon for that category.",
-        "Wallace is the story's Contest Master — you will meet him again outside Sootopolis Gym for HM07 Waterfall.",
+        "Wallace is the story's Contest Master in the audience — HM07 Waterfall comes from him outside Sootopolis Gym after the Groudon/Kyogre crisis, not from contest wins.",
       ],
       tips: [
         "Beauty: Sunny Day → Overheat or Fire Blast. Tough: Harden → Tackle or Bulk Up → Brick Break. Smart: Calm Mind → Psychic on Gardevoir or Claydol.",

@@ -20,6 +20,34 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.13.2",
+    date: "2026-07-13",
+    summary: "P2 audit fixes — gym party details, stale encounter tips, and contest/HM07 wording.",
+    sections: [
+      {
+        heading: "Gym parties",
+        items: [
+          "Brawly: added Meditite to prose (Machop, Meditite, Makuhita lv 19 ace per TRAINER_BRAWLY_1).",
+          "Tate & Liza: full double-battle roster — Claydol, Xatu, Lunatone, Solrock.",
+        ],
+      },
+      {
+        heading: "Curated data & prose",
+        items: [
+          "Route 110: Plusle and Minun both appear in Emerald (removed RS version-exclusive note).",
+          "Route 120 area tip: Devon Scope obtained on Route 120, not Fortree.",
+          "Contest Master rank step: HM07 Waterfall clarified as post-crisis Sootopolis reward, not a contest prize.",
+        ],
+      },
+      {
+        heading: "Verification",
+        items: [
+          "verify:audit-prose extended with P2 regression patterns.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.13.1",
     date: "2026-07-13",
     summary:
