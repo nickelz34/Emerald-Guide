@@ -3136,13 +3136,13 @@
   font-size: 0.9rem;
 }
 
-.route-modal__enc-mon {
+.encounter-mon {
   display: flex;
   align-items: center;
   gap: 0.55rem;
 }
 
-.route-modal__enc-sprite {
+.encounter-mon__sprite {
   display: grid;
   place-items: center;
   flex: 0 0 auto;
@@ -3152,27 +3152,27 @@
   background: rgba(255, 255, 255, 0.04);
 }
 
-.route-modal__enc-sprite img {
+.encounter-mon__sprite img {
   width: 40px;
   height: 40px;
   object-fit: contain;
   image-rendering: pixelated;
 }
 
-.route-modal__enc-sprite-fallback {
+.encounter-mon__sprite-fallback {
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--muted, #9aa8bc);
 }
 
-.route-modal__enc-label {
+.encounter-mon__label {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
   min-width: 0;
 }
 
-.route-modal__enc-table .route-modal__link {
+.encounter-mon__link {
   border: none;
   background: none;
   padding: 0;
@@ -3185,14 +3185,14 @@
   text-underline-offset: 2px;
 }
 
-.route-modal__enc-table .route-modal__link:hover:not(:disabled) {
-  color: #8fdcf5;
+.encounter-mon__link:hover {
+  color: var(--emerald, #38b2ac);
 }
 
-.route-modal__enc-table .route-modal__link:disabled {
+.encounter-mon__link:disabled {
   color: inherit;
-  text-decoration: none;
   cursor: default;
+  text-decoration: none;
 }
 
 .route-modal__trainers {
@@ -6497,6 +6497,10 @@
     margin-bottom: 0.15rem;
   }
 
+  .encounter-table td[data-label="Pokémon"] .encounter-mon {
+    width: 100%;
+  }
+
   .encounter-table__empty {
     display: block;
     text-align: center;
@@ -6576,6 +6580,10 @@
 .app-shell[data-view="mobile"] .encounter-table td[data-label="Pokémon"]::before {
   width: 100%;
   margin-bottom: 0.15rem;
+}
+
+.app-shell[data-view="mobile"] .encounter-table td[data-label="Pokémon"] .encounter-mon {
+  width: 100%;
 }
 
 .app-shell[data-view="mobile"] .encounter-table__empty {
