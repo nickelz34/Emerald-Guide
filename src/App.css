@@ -2265,6 +2265,28 @@
   image-rendering: pixelated;
 }
 
+/* Invisible hit targets over baked cutscene art — legend still lists the sprite. */
+.hoenn-map__pin--baked-cutscene {
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  z-index: 3;
+}
+
+.hoenn-map__pin--baked-cutscene::before {
+  content: none;
+}
+
+.hoenn-map__pin--baked-cutscene.is-active {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
 .hoenn-map__pin--trainer,
 .hoenn-map__pin--ow-sprite {

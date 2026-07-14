@@ -555,7 +555,7 @@ export const AREA_MAPS: AreaMap[] = [
   },
   {
     // Hand-added: new-game truck intro (no collectibles, so gen-area-maps skips it).
-    // Door-open tiles; Brendan sprite marker comes from AREA_MAP_CUTSCENE_ENTITIES.
+    // Door-open cutscene with Brendan baked in; legend marker from AREA_MAP_CUTSCENE_ENTITIES.
     id: "insideoftruck",
     mapId: "MAP_INSIDE_OF_TRUCK",
     name: "Inside of Truck",
@@ -1012,8 +1012,8 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
-    // Hand-added: Route 101 has no collectibles. Tiles-only base; Birch rescue
-    // sprites (bag, Birch, Poochyena) come from AREA_MAP_CUTSCENE_ENTITIES.
+    // Hand-added: Route 101 has no collectibles. Baked Birch rescue cutscene;
+    // legend markers (bag, Birch, Poochyena) come from AREA_MAP_CUTSCENE_ENTITIES.
     id: "route101",
     mapId: "MAP_ROUTE101",
     name: "Route 101",

@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.2",
+    date: "2026-07-14",
+    summary:
+      "Restored full-size baked cutscene art for the truck and Route 101; legend keeps labeled sprites.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Inside of Truck again shows the natural door-open cutscene with Brendan at the correct size and facing.",
+          "Route 101 again shows the full Birch rescue cutscene (bag, Birch, Poochyena) painted into the map.",
+          "Legend entries still list those characters with sprite thumbnails; on-map pins are invisible hit targets so nothing doubles over the art.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.1",
     date: "2026-07-14",
     summary:

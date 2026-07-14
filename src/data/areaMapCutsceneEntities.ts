@@ -1,10 +1,11 @@
 /**
- * Hand-placed overworld-sprite markers for story cutscene area maps.
- * Base map images are tiles-only; these sprites are the interactive pins.
+ * Story cutscene markers for area maps whose art already paints the characters
+ * into the PNG. Pins are invisible hit-targets on the map; sprites still show
+ * in the lightbox legend.
  */
 import type { MapPoint } from "./mapPoints";
 
-/** MapPoint with an overworld / object-event sprite sheet. */
+/** MapPoint with an overworld / object-event sprite sheet (legend thumbnail). */
 export interface SpriteMapPoint extends MapPoint {
   spriteSheet: string;
   spriteWidth: number;
@@ -12,10 +13,19 @@ export interface SpriteMapPoint extends MapPoint {
   spriteFrame: number;
   /** Horizontal flip (Emerald east-facing frames reuse west + hFlip). */
   spriteFlipX?: boolean;
+  /**
+   * When true, the character is already drawn in the area map image — do not
+   * render a second sprite pin on the map (legend only + invisible hit target).
+   */
+  bakedInImage?: boolean;
 }
 
 export function hasOwSprite(p: MapPoint): p is SpriteMapPoint {
   return typeof (p as SpriteMapPoint).spriteSheet === "string";
+}
+
+export function isBakedCutscenePoint(p: MapPoint): boolean {
+  return hasOwSprite(p) && Boolean((p as SpriteMapPoint).bakedInImage);
 }
 
 /**
@@ -36,6 +46,7 @@ export const AREA_MAP_CUTSCENE_ENTITIES: Record<string, SpriteMapPoint[]> = {
       spriteWidth: 16,
       spriteHeight: 16,
       spriteFrame: 0,
+      bakedInImage: true,
     },
     {
       id: "r101-prof-birch",
@@ -47,9 +58,10 @@ export const AREA_MAP_CUTSCENE_ENTITIES: Record<string, SpriteMapPoint[]> = {
       spriteSheet: "sprites/trainers/prof_birch.png",
       spriteWidth: 16,
       spriteHeight: 32,
-      spriteFrame: 2, // west sheet frame; flip for east toward Poochyena
+      spriteFrame: 2,
       spriteFlipX: true,
       note: "Route 101",
+      bakedInImage: true,
     },
     {
       id: "r101-poochyena",
@@ -61,8 +73,9 @@ export const AREA_MAP_CUTSCENE_ENTITIES: Record<string, SpriteMapPoint[]> = {
       spriteSheet: "sprites/overworld/poochyena.png",
       spriteWidth: 32,
       spriteHeight: 32,
-      spriteFrame: 2, // face west toward Birch
+      spriteFrame: 2,
       note: "Route 101",
+      bakedInImage: true,
     },
   ],
   insideoftruck: [
@@ -76,9 +89,10 @@ export const AREA_MAP_CUTSCENE_ENTITIES: Record<string, SpriteMapPoint[]> = {
       spriteSheet: "sprites/trainers/brendan_walking.png",
       spriteWidth: 16,
       spriteHeight: 32,
-      spriteFrame: 2, // west sheet frame; flip for east toward the open door
+      spriteFrame: 2,
       spriteFlipX: true,
       note: "Inside of Truck",
+      bakedInImage: true,
     },
   ],
 };

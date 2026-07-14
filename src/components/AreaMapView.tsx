@@ -3,7 +3,7 @@ import { assetUrl } from "../lib/assetUrl";
 import { AREA_MAPS } from "../data/areaMaps";
 import { formatAreaMapCaption } from "../data/areaMapLabels";
 import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
-import { AREA_MAP_CUTSCENE_ENTITIES, hasOwSprite } from "../data/areaMapCutsceneEntities";
+import { AREA_MAP_CUTSCENE_ENTITIES, hasOwSprite, isBakedCutscenePoint } from "../data/areaMapCutsceneEntities";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
@@ -94,18 +94,19 @@ export function AreaMapView({
     const active = activeId === point.id;
     const trainer = isTrainerPoint(point);
     const owSprite = hasOwSprite(point);
+    const baked = isBakedCutscenePoint(point);
     return (
       <button
         key={point.id}
         type="button"
         className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
-          trainer || owSprite ? "hoenn-map__pin--ow-sprite" : ""
+          baked ? "hoenn-map__pin--baked-cutscene" : trainer || owSprite ? "hoenn-map__pin--ow-sprite" : ""
         } ${active ? "is-active" : ""}`}
         style={{
           left: `${point.x}%`,
           top: `${point.y}%`,
           ["--pin-color" as string]: cat?.color,
-          ...pinSpriteStyle(point),
+          ...(baked ? {} : pinSpriteStyle(point)),
         }}
         onPointerDown={(e) => e.stopPropagation()}
         onMouseEnter={(e) => {
@@ -127,7 +128,7 @@ export function AreaMapView({
         }}
         aria-label={point.name}
       >
-        <MapPinVisual point={point} />
+        {!baked && <MapPinVisual point={point} />}
         <span className="hoenn-map__pin-hint" aria-hidden="true">
           {trainer ? (
             <TrainerPinHint trainer={point} />
