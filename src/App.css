@@ -7408,8 +7408,23 @@
   overflow-y: visible;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 0.4rem 0.15rem;
+  padding: 0.4rem 0.15rem 0.55rem;
   scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--border) 80%, var(--text-muted)) transparent;
+}
+
+.story-progress__scroller::-webkit-scrollbar {
+  display: block;
+  height: 5px;
+}
+
+.story-progress__scroller::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--border) 70%, var(--text-muted));
+  border-radius: 999px;
+}
+
+.story-progress__scroller::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .story-progress__rail {
@@ -7418,8 +7433,8 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  width: max(100%, calc(var(--story-marker-count, 11) * 3.35rem));
-  min-width: max(100%, calc(var(--story-marker-count, 11) * 3.35rem));
+  width: max(100%, calc(var(--story-marker-count, 11) * 3.55rem));
+  min-width: max(100%, calc(var(--story-marker-count, 11) * 3.55rem));
   padding: 0.7rem 0.45rem 0.25rem;
 }
 
