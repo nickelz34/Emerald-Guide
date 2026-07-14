@@ -134,21 +134,21 @@ const storyChapters: GuideSection[] = [
         location: "Littleroot Town — Birch's Lab",
         summary: "Birch lets you keep the Pokémon and sends you to find May/Brendan on Route 103.",
         story: [
-          "Back at the lab, Birch lets you keep the Pokémon you used to save him — that's your starter for the whole game. He does not hand over a Pokédex yet, and his child does not walk in for a joint pep talk. Instead he simply tells you to go find May or Brendan on Route 103, where they'll teach you what it means to be a Pokémon Trainer.",
-          "If your partner is dinged up, stop home first — Mom will heal your party for free any time you're in Littleroot. Then head north through Route 101 toward Oldale Town and up to Route 103. Poké Balls, the Pokédex, and the Running Shoes all come after that first rival battle, when you report back here.",
+          "Back at the lab, Birch makes the rescue official: the Pokémon you used is yours to keep — your starter for the whole journey. Grateful and still a little flustered from the roadside chase, he asks you to seek out his child, May or Brendan, on Route 103. They're already out studying the local Pokémon, and Birch wants them to teach you what it means to be a trainer.",
+          "If your new partner needs a rest, stop home first — Mom will heal your party for free any time you're in Littleroot. Then take the road north through Route 101 into Oldale Town, and keep going up to Route 103 to find them.",
         ],
         details: [
           "Follow Birch back to his lab; he lets you keep your starter.",
-          "He tells you to find May/Brendan on Route 103 so they can teach you about being a trainer.",
+          "He asks you to find May/Brendan on Route 103 for trainer tips.",
           "Visit Mom at home any time for a free party heal.",
           "Head north through Route 101 to Oldale Town, then north again to Route 103.",
         ],
         tips: [
-          "You cannot catch wild Pokémon yet — Poké Marts will not sell Poké Balls until after you return from Route 103 with the Pokédex.",
-          "Stop at Mom whenever you need free healing before Oldale's Pokémon Center.",
+          "Mom in Littleroot is a free heal until you reach Oldale's Pokémon Center.",
+          "Save catching for after you report back from Route 103 — that's when Poké Marts start selling Poké Balls.",
         ],
         secrets: [
-          "Zigzagoon (Pickup) and Wurmple are excellent early partners once you have Poké Balls after the Route 103 lab visit — come back for them on Route 101.",
+          "Zigzagoon (Pickup) and Wurmple make great early partners once you have Poké Balls — circle back to Route 101 after the Route 103 lab visit.",
         ],
         tags: ["starter", "birch", "route-101"],
       },
