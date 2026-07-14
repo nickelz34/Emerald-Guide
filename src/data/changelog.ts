@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.0",
+    date: "2026-07-14",
+    summary:
+      "Cutscene maps use authentic overworld sprites as markers (Brendan, Birch, bag, Poochyena).",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Route 101 Events 1–2 pin Professor Birch, his bag, and Poochyena with their Emerald overworld sprites instead of colored dots on a baked cutscene.",
+          "Inside of Truck Event 1 pins Brendan the same way on a clean truck tilemap.",
+          "Lightbox legend shows the sprite thumbnails next to each cutscene marker name.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.21.1",
     date: "2026-07-14",
     summary:
