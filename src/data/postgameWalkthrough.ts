@@ -396,7 +396,7 @@ export const postgameHoennChapter: GuideSection = {
         "Bring Fighting, Fire, and Ground coverage for his Steel types.",
       ],
       secrets: [
-        "Steven\u2019s rematch team is separate from his Champion fight in the League \u2014 levels and movesets are higher here.",
+        "Steven\u2019s Meteor Falls team is his post-game challenge in Emerald \u2014 Wallace is the League Champion, not Steven.",
       ],
       tags: ["post-game", "steven", "meteor-falls", "optional"],
     },

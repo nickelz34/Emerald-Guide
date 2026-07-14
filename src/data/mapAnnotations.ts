@@ -35,7 +35,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
   littleroot: {
     title: "Littleroot Town",
     markers: [
-      { id: "lr-player", type: "building", label: "Your house", detail: "Top-left house — set clock; Mom gives Running Shoes.", x: 27.5, y: 42.5 },
+      { id: "lr-player", type: "building", label: "Your house", detail: "Top-left house — set clock; Mom gives Running Shoes after the Route 103 lab visit.", x: 27.5, y: 42.5 },
       { id: "lr-rival", type: "building", label: "Rival's house", detail: "Top-right house.", x: 72.5, y: 42.5 },
       { id: "lr-lab", type: "building", label: "Professor Birch's Lab", detail: "Big building with the observatory dome.", x: 37.5, y: 82.5 },
       { id: "lr-route101", type: "poi", label: "To Route 101", detail: "North exit out of town.", x: 52.5, y: 2.5 },

@@ -18,6 +18,18 @@ const FILES = [
 
 /** Patterns that must NOT appear (stale / wrong prose). */
 const FORBIDDEN = [
+  { re: /learn the ropes together/i, why: "Early lab: rival does not co-learn ropes; Birch sends you to Route 103" },
+  { re: /updates your Pokédex/i, why: "Route 103 return is first Pokédex, not an update" },
+  { re: /five more Poké Balls/i, why: "Rival's five balls are the first usable balls" },
+  { re: /Champion Steven/i, why: "Emerald League Champion is Wallace" },
+  { re: /title: "Champion Steven/i, why: "League step must be Wallace" },
+  { re: /Aqua Admin Archie/i, why: "Archie is Leader, not Admin" },
+  { re: /Devon Parcel/i, why: "Deliver Devon Goods, not a separate Parcel" },
+  { re: /Rainbow Badge/i, why: "Norman's badge is Balance Badge" },
+  { re: /TM31 Brick Break from the Trick Master/i, why: "Trick House #1 reward is Rare Candy" },
+  { re: /Team Aqua's Blue Orb theft/i, why: "Aqua steals Red Orb at Mt. Pyre" },
+  { re: /Eelektross/i, why: "Eelektross is not in Emerald" },
+  { re: /use a Fast Ball/i, why: "Fast Ball does not exist in Emerald" },
   { re: /Team Aqua \(Archie\) steals the Blue Orb/i, why: "Mt. Pyre: Aqua steals RED Orb" },
   { re: /title: "Team Aqua steals the Blue Orb"/i, why: "Mt. Pyre step title should reference Red Orb" },
   { re: /uses the Red Orb to awaken Groudon/i, why: "Magma Hideout: Groudon awakens with BLUE Orb" },
@@ -41,6 +53,11 @@ const FORBIDDEN = [
 /** Patterns that must appear (correct replacements). */
 const REQUIRED = [
   { file: "src/data/walkthrough.ts", re: /steals the Red Orb/i, why: "Mt. Pyre Aqua takes Red Orb" },
+  { file: "src/data/walkthrough.ts", re: /Champion Wallace/i, why: "Emerald League Champion is Wallace" },
+  { file: "src/data/walkthrough.ts", re: /find May\/Brendan on Route 103/i, why: "Post-starter lab points to rival on 103" },
+  { file: "src/data/walkthrough.ts", re: /Mom outside your house gives the Running Shoes/i, why: "Running Shoes after Route 103 lab" },
+  { file: "src/data/walkthrough.ts", re: /id: "aqua-hideout"/i, why: "Aqua Hideout after Magma Hideout / Slateport sub" },
+  { file: "src/data/walkthrough.ts", re: /Reward: Rare Candy/i, why: "Trick House #1 Rare Candy" },
   { file: "src/data/walkthrough.ts", re: /Blue Orb to awaken Groudon/i, why: "Magma Hideout Blue Orb" },
   { file: "src/data/walkthrough.ts", re: /Red Orb to awaken Kyogre/i, why: "Seafloor Cavern Red Orb" },
   { file: "src/data/walkthrough.ts", re: /they give you HM02 Fly/i, why: "Rival gives Fly" },
