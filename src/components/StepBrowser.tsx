@@ -254,6 +254,13 @@ export function StepBrowser({
       didMountScroll.current = true;
       return;
     }
+    // Keep the badge rail in view when changing steps — scrolling the stage
+    // to the top would push a sibling progress bar above the scrollport.
+    const progress = document.querySelector(".story-progress");
+    if (progress instanceof HTMLElement) {
+      progress.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+      return;
+    }
     stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentId]);
 
@@ -322,6 +329,13 @@ export function StepBrowser({
 
   return (
     <div className="step-browser">
+      <StoryProgressBar
+        stepIds={storyStepIds}
+        currentIndex={currentIndex}
+        progressIndex={progressIndex}
+        onSelectStep={category === "walkthrough" ? select : undefined}
+      />
+
       <aside className={`step-rail ${railOpen ? "step-rail--open" : ""}`}>
         <button
           type="button"
@@ -419,13 +433,6 @@ export function StepBrowser({
       </aside>
 
       <div className="step-stage" ref={stageRef}>
-        <StoryProgressBar
-          stepIds={storyStepIds}
-          currentIndex={currentIndex}
-          progressIndex={progressIndex}
-          onSelectStep={category === "walkthrough" ? select : undefined}
-        />
-
         {mobileNav && (
           <p className="step-swipe-banner" role="note">
             <span className="step-swipe-banner__arrow" aria-hidden="true">
