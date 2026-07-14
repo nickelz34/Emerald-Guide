@@ -31,7 +31,7 @@ function resolveIds(ids: string[]): AreaMap[] {
 /** One area map per step (most common). */
 export const STEP_AREA_MAP: Record<string, string> = {
   // Littleroot interiors
-  "littleroot-1": "littleroottown-brendanshouse-2f",
+  "littleroot-1": "insideoftruck",
   "littleroot-2": "littleroottown-mayshouse-2f",
   "littleroot-3": "littleroottown-professorbirchslab",
 

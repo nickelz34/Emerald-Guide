@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.20.1",
+    date: "2026-07-14",
+    summary:
+      "Littleroot Event 1 now shows the inside-of-truck intro cutscene (door closed) from pokeemerald.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Chapter 3 Event 1 (Moving into Littleroot) uses the MAP_INSIDE_OF_TRUCK area map with the closed rear door, matching the new-game driving cutscene.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.20.0",
     date: "2026-07-14",
     summary: "Walkthrough Wild Pokémon tables now show Emerald sprites beside each species.",

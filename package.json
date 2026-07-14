@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.20.0",
+  "version": "1.20.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "render:events": "node .calib/render-locations.mjs all && node .calib/optimize-events.mjs",
     "render:events:list": "node .calib/render-locations.mjs list",
+    "preview:chapter3-cutscenes": "node scripts/preview-chapter3-cutscenes.mjs",
     "gen:map-crops": "node scripts/gen-map-crops.mjs",
     "gen:marts": "node scripts/gen-marts.mjs",
     "gen:shop-pins": "node scripts/gen-shop-pins.mjs",
