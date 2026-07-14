@@ -8,6 +8,7 @@ import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { RivalGuidePanelForStep } from "./RivalGuidePanel";
+import { StarterChoicePanelForStep } from "./StarterChoicePanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
@@ -467,6 +468,12 @@ export function StepBrowser({
           )}
 
           <ScreenshotGallery stepId={current.step.id} compact />
+
+          {current.step.id === "route-101-2" && (
+            <section className="starter-choice-embed" aria-label="Starter comparison">
+              <StarterChoicePanelForStep stepId={current.step.id} />
+            </section>
+          )}
 
           {gymForStep && (
             <section className="gym-guide-embed" aria-label="Gym guide">

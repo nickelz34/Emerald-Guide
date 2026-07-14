@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.18.0",
+    date: "2026-07-14",
+    summary:
+      "Visual starter comparison on the Route 101 choice event — large sprites, full stats, and Emerald pick advice.",
+    sections: [
+      {
+        heading: "Starter choice (Ch. 4 Event 2)",
+        items: [
+          "New side-by-side starter panel for Treecko, Torchic, and Mudkip with large Emerald battle sprites.",
+          "Each card shows base + final evolution stats, abilities, evolution path, type matchups, early gym notes, Route 103 rival matchup, and recommended natures.",
+          "Toggle between base-form and final-evolution stat bars; quick-pick guidance for first playthrough vs offense-focused runs.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.17.0",
     date: "2026-07-14",
     summary:
