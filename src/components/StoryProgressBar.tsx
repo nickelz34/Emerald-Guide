@@ -1,4 +1,4 @@
-import { useMemo, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, type CSSProperties } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import {
   GYM_BADGE_HEIGHT,
@@ -27,40 +27,61 @@ interface StoryProgressBarProps {
 interface PlacedMilestone {
   milestone: StoryMilestone;
   stepIndex: number;
-  /** 0–100 position along the track. */
-  position: number;
   earned: boolean;
   isNext: boolean;
 }
 
-function isMilestoneEarned(kind: StoryMilestone["kind"], progressIndex: number, stepIndex: number): boolean {
+function isMilestoneEarned(
+  kind: StoryMilestone["kind"],
+  progressIndex: number,
+  stepIndex: number,
+): boolean {
   if (progressIndex < 0) return false;
   // Champion and Hall of Fame share league-3: Champ lights on arrival, HoF after you leave.
   if (kind === "champion") return progressIndex >= stepIndex;
   if (kind === "hall-of-fame") return progressIndex > stepIndex;
-  // Gym badges / Elite Four: earned once you've moved past that step.
   return progressIndex > stepIndex;
 }
 
-/** Keep markers readable when story beats sit close together. */
-function spreadPositions(positions: number[], minGap: number): number[] {
-  if (positions.length === 0) return positions;
-  const out = [...positions];
-  for (let i = 1; i < out.length; i++) {
-    if (out[i] < out[i - 1] + minGap) out[i] = out[i - 1] + minGap;
-  }
-  if (out[out.length - 1] <= 100) return out;
+/** Step index threshold used when the fill / “next” cursor reaches this milestone. */
+function milestoneReachIndex(kind: StoryMilestone["kind"], stepIndex: number): number {
+  if (kind === "hall-of-fame") return stepIndex + 1;
+  return stepIndex;
+}
 
-  out[out.length - 1] = 100;
-  for (let i = out.length - 2; i >= 0; i--) {
-    if (out[i] > out[i + 1] - minGap) out[i] = out[i + 1] - minGap;
-  }
-  if (out[0] >= 0) return out;
+/**
+ * Fill width for equal-spaced markers: interpolate between milestone slots
+ * using walkthrough step distance so the bar still shows “how far to next”.
+ */
+function fillPercentForMilestones(
+  placed: PlacedMilestone[],
+  currentIndex: number,
+): number {
+  if (placed.length === 0) return 0;
+  const last = placed.length - 1;
+  const slot = (i: number) => (placed.length === 1 ? 100 : (i / last) * 100);
 
-  const min = out[0];
-  const max = out[out.length - 1];
-  const span = Math.max(max - min, 1);
-  return out.map((p) => 2 + ((p - min) / span) * 96);
+  if (currentIndex < placed[0].stepIndex) {
+    const start = -1;
+    const end = placed[0].stepIndex;
+    const t = end <= 0 ? 1 : Math.min(1, Math.max(0, (currentIndex - start) / (end - start)));
+    return slot(0) * t;
+  }
+
+  for (let i = 0; i < placed.length; i++) {
+    const reach = milestoneReachIndex(placed[i].milestone.kind, placed[i].stepIndex);
+    if (currentIndex < reach) {
+      const prevReach =
+        i === 0 ? placed[0].stepIndex : milestoneReachIndex(placed[i - 1].milestone.kind, placed[i - 1].stepIndex);
+      const span = Math.max(reach - prevReach, 1);
+      const t = Math.min(1, Math.max(0, (currentIndex - prevReach) / span));
+      const from = i === 0 ? 0 : slot(i - 1);
+      const to = slot(i);
+      return from + (to - from) * t;
+    }
+  }
+
+  return 100;
 }
 
 function GymBadgeMarker({
@@ -134,7 +155,7 @@ function LeagueMarker({
 
 /**
  * Storyline progress rail: gym badges plus Elite Four → Champion → Hall of Fame.
- * Marker spacing follows each milestone's position in the visible walkthrough.
+ * Markers are equally spaced so icons never overlap; fill still tracks story distance.
  */
 export function StoryProgressBar({
   stepIds,
@@ -142,48 +163,38 @@ export function StoryProgressBar({
   progressIndex = -1,
   onSelectStep,
 }: StoryProgressBarProps) {
-  // Prefer furthest progress so earned badges stay lit when browsing earlier steps;
-  // fall back to the active step before any progress is recorded.
   const earnedIndex = Math.max(currentIndex, progressIndex);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   const placed = useMemo<PlacedMilestone[]>(() => {
     if (stepIds.length === 0) return [];
 
     const indexById = new Map(stepIds.map((id, index) => [id, index]));
-    const total = stepIds.length;
     const raw: PlacedMilestone[] = [];
 
     for (const milestone of STORY_MILESTONES) {
       const stepIndex = indexById.get(milestone.stepId);
       if (stepIndex == null) continue;
-
-      // Hall of Fame shares Wallace's step; nudge Champ left and HoF right so
-      // the finale reads as two distinct checkpoints.
-      let position = ((stepIndex + 1) / total) * 100;
-      if (milestone.kind === "hall-of-fame") {
-        position = Math.min(100, position + (100 / total) * 0.35);
-      } else if (milestone.kind === "champion") {
-        position = Math.max(0, position - (100 / total) * 0.15);
-      }
-
       raw.push({
         milestone,
         stepIndex,
-        position,
         earned: false,
         isNext: false,
       });
     }
 
-    raw.sort((a, b) => a.position - b.position || a.stepIndex - b.stepIndex);
-
-    const spaced = spreadPositions(
-      raw.map((entry) => entry.position),
-      Math.min(4.2, 96 / Math.max(raw.length, 1)),
+    // Keep story order; Champ before HoF even though they share a step id.
+    const kindOrder: Record<StoryMilestone["kind"], number> = {
+      badge: 0,
+      "elite-four": 1,
+      champion: 2,
+      "hall-of-fame": 3,
+    };
+    raw.sort(
+      (a, b) =>
+        a.stepIndex - b.stepIndex ||
+        kindOrder[a.milestone.kind] - kindOrder[b.milestone.kind],
     );
-    raw.forEach((entry, i) => {
-      entry.position = spaced[i] ?? entry.position;
-    });
 
     let nextAssigned = false;
     for (const entry of raw) {
@@ -197,10 +208,29 @@ export function StoryProgressBar({
     return raw;
   }, [stepIds, earnedIndex]);
 
-  const fillPercent = useMemo(() => {
-    if (stepIds.length === 0) return 0;
-    return ((currentIndex + 1) / stepIds.length) * 100;
-  }, [currentIndex, stepIds.length]);
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    const next = scroller.querySelector<HTMLElement>(".story-progress__marker.is-next");
+    const target =
+      next ?? scroller.querySelectorAll<HTMLElement>(".story-progress__marker.is-earned");
+    const focus =
+      next ??
+      (target instanceof NodeList ? target[target.length - 1] : null);
+    if (!focus) return;
+    const scrollerRect = scroller.getBoundingClientRect();
+    const focusRect = focus.getBoundingClientRect();
+    const delta =
+      focusRect.left +
+      focusRect.width / 2 -
+      (scrollerRect.left + scrollerRect.width / 2);
+    scroller.scrollBy({ left: delta, behavior: "smooth" });
+  }, [placed, currentIndex]);
+
+  const fillPercent = useMemo(
+    () => fillPercentForMilestones(placed, currentIndex),
+    [placed, currentIndex],
+  );
 
   const nextGoal = placed.find((p) => p.isNext);
   const allDone = placed.length > 0 && placed.every((p) => p.earned);
@@ -216,8 +246,15 @@ export function StoryProgressBar({
   if (placed.length === 0) {
     return (
       <div className="story-progress story-progress--plain" aria-hidden="true">
-        <div className="story-progress__track">
-          <div className="story-progress__fill" style={{ width: `${fillPercent}%` }} />
+        <div className="story-progress__scroller">
+          <div className="story-progress__rail">
+            <div className="story-progress__track">
+              <div
+                className="story-progress__fill"
+                style={{ width: `${((currentIndex + 1) / Math.max(stepIds.length, 1)) * 100}%` }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -225,76 +262,78 @@ export function StoryProgressBar({
 
   return (
     <div className="story-progress">
-      <div
-        className="story-progress__rail"
-        role="progressbar"
-        aria-valuemin={0}
-        aria-valuemax={stepIds.length}
-        aria-valuenow={currentIndex + 1}
-        aria-label="Walkthrough story progress"
-      >
-        <div className="story-progress__track">
-          <div className="story-progress__fill" style={{ width: `${fillPercent}%` }} />
+      <div className="story-progress__scroller" ref={scrollerRef}>
+          <div
+            className="story-progress__rail"
+            style={{ ["--story-marker-count"]: placed.length } as CSSProperties}
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={stepIds.length}
+            aria-valuenow={currentIndex + 1}
+            aria-label="Walkthrough story progress"
+          >
+          <div className="story-progress__track" aria-hidden="true">
+            <div className="story-progress__fill" style={{ width: `${fillPercent}%` }} />
+          </div>
+
+          <ol className="story-progress__markers">
+            {placed.map((entry) => {
+              const { milestone, earned, isNext } = entry;
+              const title = milestoneTooltip(milestone);
+              const label = earned
+                ? `${title} (reached)`
+                : isNext
+                  ? `${title} (next)`
+                  : title;
+
+              return (
+                <li
+                  key={milestone.id}
+                  className={[
+                    "story-progress__marker",
+                    earned ? "is-earned" : "is-locked",
+                    isNext ? "is-next" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
+                  {onSelectStep ? (
+                    <button
+                      type="button"
+                      className="story-progress__hit"
+                      title={label}
+                      aria-label={label}
+                      aria-current={isNext ? "step" : undefined}
+                      onClick={() => onSelectStep(milestone.stepId)}
+                    >
+                      {milestone.kind === "badge" && milestone.gym ? (
+                        <GymBadgeMarker
+                          mapPointId={milestone.gym.mapPointId}
+                          earned={earned}
+                          isNext={isNext}
+                        />
+                      ) : (
+                        <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
+                      )}
+                    </button>
+                  ) : (
+                    <span className="story-progress__hit" title={label} aria-label={label}>
+                      {milestone.kind === "badge" && milestone.gym ? (
+                        <GymBadgeMarker
+                          mapPointId={milestone.gym.mapPointId}
+                          earned={earned}
+                          isNext={isNext}
+                        />
+                      ) : (
+                        <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
+                      )}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
         </div>
-
-        <ol className="story-progress__markers">
-          {placed.map((entry) => {
-            const { milestone, position, earned, isNext } = entry;
-            const title = milestoneTooltip(milestone);
-            const label = earned
-              ? `${title} (reached)`
-              : isNext
-                ? `${title} (next)`
-                : title;
-
-            return (
-              <li
-                key={milestone.id}
-                className={[
-                  "story-progress__marker",
-                  earned ? "is-earned" : "is-locked",
-                  isNext ? "is-next" : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-                style={{ left: `${position}%` }}
-              >
-                {onSelectStep ? (
-                  <button
-                    type="button"
-                    className="story-progress__hit"
-                    title={label}
-                    aria-label={label}
-                    aria-current={isNext ? "step" : undefined}
-                    onClick={() => onSelectStep(milestone.stepId)}
-                  >
-                    {milestone.kind === "badge" && milestone.gym ? (
-                      <GymBadgeMarker
-                        mapPointId={milestone.gym.mapPointId}
-                        earned={earned}
-                        isNext={isNext}
-                      />
-                    ) : (
-                      <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
-                    )}
-                  </button>
-                ) : (
-                  <span className="story-progress__hit" title={label} aria-label={label}>
-                    {milestone.kind === "badge" && milestone.gym ? (
-                      <GymBadgeMarker
-                        mapPointId={milestone.gym.mapPointId}
-                        earned={earned}
-                        isNext={isNext}
-                      />
-                    ) : (
-                      <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
-                    )}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ol>
       </div>
 
       {statusText ? (

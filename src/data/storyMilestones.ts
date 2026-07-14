@@ -40,7 +40,7 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     id: "champion",
     kind: "champion",
     label: "Champion",
-    shortLabel: "Champ",
+    shortLabel: "C",
     stepId: "league-3",
   },
   {
