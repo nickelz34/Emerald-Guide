@@ -6,6 +6,11 @@ import {
   getGymBadgeSprite,
 } from "../data/gymBadgesGenerated";
 import {
+  LEAGUE_MILESTONE_HEIGHT,
+  LEAGUE_MILESTONE_WIDTH,
+  getLeagueMilestoneSprite,
+} from "../data/leagueMilestonesGenerated";
+import {
   STORY_MILESTONES,
   milestoneTooltip,
   type StoryMilestone,
@@ -136,19 +141,45 @@ function LeagueMarker({
   earned: boolean;
   isNext: boolean;
 }) {
+  if (
+    milestone.kind !== "elite-four" &&
+    milestone.kind !== "champion" &&
+    milestone.kind !== "hall-of-fame"
+  ) {
+    return null;
+  }
+
+  const sprite = getLeagueMilestoneSprite(milestone.kind);
   return (
     <span
       className={[
-        "story-progress__league",
-        `story-progress__league--${milestone.kind}`,
+        "story-progress__badge",
+        "story-progress__badge--league",
+        `story-progress__badge--${milestone.kind}`,
         earned ? "is-earned" : "is-locked",
         isNext ? "is-next" : "",
       ]
         .filter(Boolean)
         .join(" ")}
+      style={
+        {
+          ["--badge-frame"]: sprite.spriteFrame,
+          ["--badge-fw"]: sprite.spriteWidth,
+          ["--badge-fh"]: sprite.spriteHeight,
+        } as CSSProperties
+      }
       aria-hidden="true"
     >
-      <span className="story-progress__league-label">{milestone.shortLabel}</span>
+      <span className="story-progress__badge-frame">
+        <img
+          src={assetUrl(sprite.spriteSheet)}
+          alt=""
+          className="story-progress__badge-sprite"
+          width={LEAGUE_MILESTONE_WIDTH * 3}
+          height={LEAGUE_MILESTONE_HEIGHT}
+          draggable={false}
+        />
+      </span>
     </span>
   );
 }

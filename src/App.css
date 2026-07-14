@@ -7518,13 +7518,11 @@
   outline-offset: 2px;
 }
 
-button.story-progress__hit:hover .story-progress__badge,
-button.story-progress__hit:hover .story-progress__league {
+button.story-progress__hit:hover .story-progress__badge {
   transform: translateY(-1px) scale(1.08);
 }
 
-.story-progress__badge,
-.story-progress__league {
+.story-progress__badge {
   display: grid;
   place-items: center;
   width: 30px;
@@ -7562,8 +7560,7 @@ button.story-progress__hit:hover .story-progress__league {
   pointer-events: none;
 }
 
-.story-progress__badge.is-locked,
-.story-progress__league.is-locked {
+.story-progress__badge.is-locked {
   opacity: 0.42;
   filter: grayscale(1) brightness(0.85);
 }
@@ -7588,30 +7585,17 @@ button.story-progress__hit:hover .story-progress__league {
   animation: story-progress-glow 1.8s ease-in-out infinite;
 }
 
-.story-progress__league-label {
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.story-progress__league.is-earned {
-  opacity: 1;
-  filter: none;
+.story-progress__badge--elite-four.is-earned,
+.story-progress__badge--champion.is-earned {
   border-color: color-mix(in srgb, var(--orange) 55%, var(--border));
   background: color-mix(in srgb, var(--bg-elevated) 70%, #3a2818);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--orange) 22%, transparent),
+    0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
-.story-progress__league.is-earned .story-progress__league-label {
-  color: #f6d6a8;
-}
-
-.story-progress__league.is-next {
-  opacity: 1;
-  filter: none;
+.story-progress__badge--elite-four.is-next,
+.story-progress__badge--champion.is-next {
   border-color: var(--orange);
   box-shadow:
     0 0 0 2px color-mix(in srgb, var(--orange) 30%, transparent),
@@ -7619,21 +7603,15 @@ button.story-progress__hit:hover .story-progress__league {
   animation: story-progress-league-glow 1.8s ease-in-out infinite;
 }
 
-.story-progress__league.is-next .story-progress__league-label {
-  color: #ffd7a8;
-}
-
-.story-progress__league--hall-of-fame.is-earned {
+.story-progress__badge--hall-of-fame.is-earned {
   border-color: color-mix(in srgb, #f6e05e 55%, var(--border));
   background: color-mix(in srgb, var(--bg-elevated) 65%, #3d3414);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, #f6e05e 22%, transparent),
+    0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
-.story-progress__league--hall-of-fame.is-earned .story-progress__league-label,
-.story-progress__league--hall-of-fame.is-next .story-progress__league-label {
-  color: #ffe9a0;
-}
-
-.story-progress__league--hall-of-fame.is-next {
+.story-progress__badge--hall-of-fame.is-next {
   border-color: #f6e05e;
   box-shadow:
     0 0 0 2px color-mix(in srgb, #f6e05e 28%, transparent),
@@ -7721,18 +7699,13 @@ button.story-progress__hit:hover .story-progress__league {
   }
 }
 
-.app-shell[data-view="mobile"] .story-progress__badge,
-.app-shell[data-view="mobile"] .story-progress__league {
+.app-shell[data-view="mobile"] .story-progress__badge {
   width: 28px;
   height: 28px;
 }
 
 .app-shell[data-view="mobile"] .story-progress__badge-frame {
   transform: scale(1.3);
-}
-
-.app-shell[data-view="mobile"] .story-progress__league-label {
-  font-size: 0.5rem;
 }
 
 .app-shell[data-view="mobile"] .story-progress__marker {
@@ -7750,18 +7723,13 @@ button.story-progress__hit:hover .story-progress__league {
 }
 
 @media (max-width: 720px) {
-  .story-progress__badge,
-  .story-progress__league {
+  .story-progress__badge {
     width: 28px;
     height: 28px;
   }
 
   .story-progress__badge-frame {
     transform: scale(1.3);
-  }
-
-  .story-progress__league-label {
-    font-size: 0.5rem;
   }
 
   .story-progress__markers {
