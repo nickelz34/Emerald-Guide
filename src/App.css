@@ -2217,7 +2217,8 @@
 }
 
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
-.hoenn-map__pin--trainer {
+.hoenn-map__pin--trainer,
+.hoenn-map__pin--ow-sprite {
   width: calc(var(--trainer-fw, 16) * 1px);
   height: calc(var(--trainer-fh, 32) * 1px);
   transform: translate(
@@ -2229,7 +2230,8 @@
 }
 
 /* Small ground shadow like the in-game OAM shadow under NPCs. */
-.hoenn-map__pin--trainer::before {
+.hoenn-map__pin--trainer::before,
+.hoenn-map__pin--ow-sprite::before {
   content: "";
   position: absolute;
   left: calc(var(--trainer-fw, 16) * 0.5px);
@@ -2258,12 +2260,16 @@
   margin-left: calc(var(--trainer-frame, 0) * var(--trainer-fw, 16) * -1px);
   image-rendering: pixelated;
   pointer-events: none;
+  transform: scaleX(var(--trainer-flip, 1));
+  transform-origin: center;
   transition: transform 0.12s ease;
 }
 
 .hoenn-map__pin--trainer:hover .hoenn-map__trainer-sprite,
-.hoenn-map__pin--trainer.is-active .hoenn-map__trainer-sprite {
-  transform: scale(1.08);
+.hoenn-map__pin--trainer.is-active .hoenn-map__trainer-sprite,
+.hoenn-map__pin--ow-sprite:hover .hoenn-map__trainer-sprite,
+.hoenn-map__pin--ow-sprite.is-active .hoenn-map__trainer-sprite {
+  transform: scaleX(var(--trainer-flip, 1)) scale(1.08);
 }
 
 .hoenn-map__pin--trainer.is-active {
@@ -7344,6 +7350,22 @@
   font-size: 0.65rem;
   flex-shrink: 0;
   color: #fff;
+}
+
+.marker-index__sprite {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+.marker-index__sprite .hoenn-map__trainer-frame {
+  transform: scale(0.75);
+  transform-origin: bottom center;
 }
 
 .marker-index__btn strong {

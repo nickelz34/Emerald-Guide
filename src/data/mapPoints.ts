@@ -58,6 +58,13 @@ export interface MapPoint {
   desc?: string;
   /** Walkthrough step to jump to when the marker is opened. */
   stepId?: string;
+  /** Optional overworld / object-event sprite sheet (cutscene & NPC pins). */
+  spriteSheet?: string;
+  spriteWidth?: number;
+  spriteHeight?: number;
+  spriteFrame?: number;
+  /** Horizontal flip when the sheet only stores west-facing frames. */
+  spriteFlipX?: boolean;
 }
 
 /**

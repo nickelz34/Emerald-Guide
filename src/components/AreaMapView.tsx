@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { AREA_MAPS } from "../data/areaMaps";
 import { formatAreaMapCaption } from "../data/areaMapLabels";
 import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
+import { AREA_MAP_CUTSCENE_ENTITIES, hasOwSprite } from "../data/areaMapCutsceneEntities";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
@@ -47,17 +48,20 @@ export function AreaMapView({
       note: area.name,
     }));
     const seen = new Set<string>();
-    const sprites: TrainerPoint[] = [];
+    const sprites: MapPoint[] = [];
     for (const src of [
+      AREA_MAP_CUTSCENE_ENTITIES[area.id],
       AREA_MAP_ENTITIES[area.id],
       GYM_MAP_ENTITIES[area.id],
       AREA_TRAINERS[area.id],
     ]) {
       if (!src) continue;
       for (const p of src) {
-        const key = p.trainerId ?? `${p.script ?? p.name}-${p.x}-${p.y}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
+        const key =
+          ("trainerId" in p && p.trainerId) ||
+          `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
+        if (seen.has(String(key))) continue;
+        seen.add(String(key));
         sprites.push(p);
       }
     }
@@ -89,11 +93,14 @@ export function AreaMapView({
     const cat = POI_CATEGORIES.find((c) => c.id === point.category);
     const active = activeId === point.id;
     const trainer = isTrainerPoint(point);
+    const owSprite = hasOwSprite(point);
     return (
       <button
         key={point.id}
         type="button"
-        className={`hoenn-map__pin hoenn-map__pin--${point.category} ${active ? "is-active" : ""}`}
+        className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
+          trainer || owSprite ? "hoenn-map__pin--ow-sprite" : ""
+        } ${active ? "is-active" : ""}`}
         style={{
           left: `${point.x}%`,
           top: `${point.y}%`,
@@ -193,6 +200,7 @@ export function AreaMapView({
             {points.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = activeId === point.id;
+              const thumb = hasOwSprite(point) || isTrainerPoint(point);
               return (
                 <li key={point.id}>
                   <button
@@ -203,9 +211,19 @@ export function AreaMapView({
                       handlePinClick(point, active);
                     }}
                   >
-                    <span className="marker-index__swatch" style={{ background: cat?.color }}>
-                      {cat?.label.charAt(0)}
-                    </span>
+                    {thumb ? (
+                      <span
+                        className="marker-index__sprite"
+                        style={pinSpriteStyle(point) as CSSProperties}
+                        aria-hidden="true"
+                      >
+                        <MapPinVisual point={point} />
+                      </span>
+                    ) : (
+                      <span className="marker-index__swatch" style={{ background: cat?.color }}>
+                        {cat?.label.charAt(0)}
+                      </span>
+                    )}
                     <span>
                       <strong>{point.name}</strong>
                       {point.desc && <small>{point.desc}</small>}
