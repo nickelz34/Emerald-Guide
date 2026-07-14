@@ -308,14 +308,32 @@ export function StoryProgressBar({
           </div>
 
           <ol className="story-progress__markers">
-            {placed.map((entry) => {
+            {placed.map((entry, index) => {
               const { milestone, earned, isNext } = entry;
+              const number = index + 1;
               const title = milestoneTooltip(milestone);
               const label = earned
-                ? `${title} (reached)`
+                ? `${number}. ${title} (reached)`
                 : isNext
-                  ? `${title} (next)`
-                  : title;
+                  ? `${number}. ${title} (next)`
+                  : `${number}. ${title}`;
+
+              const icon =
+                milestone.kind === "badge" && milestone.gym ? (
+                  <GymBadgeMarker
+                    mapPointId={milestone.gym.mapPointId}
+                    earned={earned}
+                    isNext={isNext}
+                  />
+                ) : (
+                  <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
+                );
+
+              const numberEl = (
+                <span className="story-progress__num" aria-hidden="true">
+                  {number}
+                </span>
+              );
 
               return (
                 <li
@@ -337,27 +355,13 @@ export function StoryProgressBar({
                       aria-current={isNext ? "step" : undefined}
                       onClick={() => onSelectStep(milestone.stepId)}
                     >
-                      {milestone.kind === "badge" && milestone.gym ? (
-                        <GymBadgeMarker
-                          mapPointId={milestone.gym.mapPointId}
-                          earned={earned}
-                          isNext={isNext}
-                        />
-                      ) : (
-                        <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
-                      )}
+                      {numberEl}
+                      {icon}
                     </button>
                   ) : (
                     <span className="story-progress__hit" title={label} aria-label={label}>
-                      {milestone.kind === "badge" && milestone.gym ? (
-                        <GymBadgeMarker
-                          mapPointId={milestone.gym.mapPointId}
-                          earned={earned}
-                          isNext={isNext}
-                        />
-                      ) : (
-                        <LeagueMarker milestone={milestone} earned={earned} isNext={isNext} />
-                      )}
+                      {numberEl}
+                      {icon}
                     </span>
                   )}
                 </li>
