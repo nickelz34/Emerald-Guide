@@ -40,6 +40,46 @@ function timeBadgeClass(time: TimeSlot): string {
   return `encounter-time encounter-time--${time}`;
 }
 
+function EncounterMon({
+  enc,
+  dexEntry,
+  onOpen,
+}: {
+  enc: PokemonEncounter;
+  dexEntry?: DexEntry;
+  onOpen?: () => void;
+}) {
+  const sprite = dexEntry && !dexEntry.isGlitch ? emeraldSpriteUrl(dexEntry.nationalNumber) : undefined;
+  const clickable = Boolean(onOpen && dexEntry && !dexEntry.isGlitch);
+
+  return (
+    <div className="encounter-mon">
+      <span className="encounter-mon__sprite" aria-hidden="true">
+        {sprite ? (
+          <img src={sprite} alt="" loading="lazy" decoding="async" />
+        ) : (
+          <span className="encounter-mon__sprite-fallback">?</span>
+        )}
+      </span>
+      <div className="encounter-mon__label">
+        {clickable ? (
+          <button
+            type="button"
+            className="encounter-mon__link"
+            onClick={onOpen}
+            title={`View ${enc.name} stats`}
+          >
+            {enc.name}
+          </button>
+        ) : (
+          <span className="encounter-name">{enc.name}</span>
+        )}
+        {enc.notes && <span className="encounter-note">{enc.notes}</span>}
+      </div>
+    </div>
+  );
+}
+
 export function EncounterTable({
   areaIds,
   compact,
@@ -51,6 +91,8 @@ export function EncounterTable({
   const [search, setSearch] = useState("");
   const [encountersByArea, setEncountersByArea] = useState<Record<string, PokemonEncounter[]>>({});
   const [encLoading, setEncLoading] = useState(false);
+  const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
+  const [selectedPokemon, setSelectedPokemon] = useState<DexEntry | null>(null);
 
   useEffect(() => {
     if (areaIds.length === 0) {
@@ -76,6 +118,25 @@ export function EncounterTable({
     };
   }, [areaIds]);
 
+  useEffect(() => {
+    let alive = true;
+    loadAllDex()
+      .then((entries) => alive && setDexEntries(entries))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedPokemon) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedPokemon(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedPokemon]);
+
   const areas = useMemo(
     () =>
       areaIds.map((id) => ({
@@ -96,6 +157,16 @@ export function EncounterTable({
     }
     return rows;
   }, [areas]);
+
+  const dexLookup = useMemo(() => {
+    const cache = new Map<string, DexEntry | undefined>();
+    for (const { enc } of allEncounters) {
+      if (!cache.has(enc.name)) {
+        cache.set(enc.name, findDexEntryByName(dexEntries, enc.name));
+      }
+    }
+    return cache;
+  }, [allEncounters, dexEntries]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -119,6 +190,11 @@ export function EncounterTable({
   const hasAreaExtras = areas.some(({ data }) => data && (showScreenshots || showAreaSecrets));
 
   if (!hasEncounters && !hasAreaExtras && !encLoading) return null;
+
+  const openPokemon = (name: string) => {
+    const entry = findDexEntryByName(dexEntries, name);
+    if (entry && !entry.isGlitch) setSelectedPokemon(entry);
+  };
 
   return (
     <div className={`encounter-panel ${compact ? "encounter-panel--compact" : ""}`}>
@@ -217,8 +293,11 @@ export function EncounterTable({
                     <tr key={`${areaName}-${enc.name}-${enc.method}-${i}`}>
                       {areas.length > 1 && <td data-label="Area">{areaName}</td>}
                       <td data-label="Pokémon">
-                        <span className="encounter-name">{enc.name}</span>
-                        {enc.notes && <span className="encounter-note">{enc.notes}</span>}
+                        <EncounterMon
+                          enc={enc}
+                          dexEntry={dexLookup.get(enc.name)}
+                          onOpen={() => openPokemon(enc.name)}
+                        />
                       </td>
                       <td data-label="Level">{enc.level}</td>
                       <td data-label="Time">
@@ -234,10 +313,40 @@ export function EncounterTable({
           </div>
 
           <p className="encounter-legend">
-            Gen 3 times: Morning 4:00–9:59 · Day 10:00–19:59 · Night 20:00–3:59
+            Click a Pokémon name for types, abilities, and base stats. Gen 3 times: Morning
+            4:00–9:59 · Day 10:00–19:59 · Night 20:00–3:59
           </p>
         </>
       )}
+
+      {selectedPokemon &&
+        createPortal(
+          <ModalBackdrop
+            className="route-modal"
+            onClose={() => setSelectedPokemon(null)}
+            aria-labelledby="encounter-species-title"
+          >
+            <div className="route-modal__panel" onClick={(e) => e.stopPropagation()}>
+              <div className="route-modal__head">
+                <div>
+                  <h3 id="encounter-species-title">{selectedPokemon.name}</h3>
+                </div>
+                <ModalCloseButton
+                  className="route-modal__close"
+                  onClose={() => setSelectedPokemon(null)}
+                />
+              </div>
+              <div className="route-modal__body">
+                <SpeciesPanel
+                  slug={selectedPokemon.slug}
+                  name={selectedPokemon.name}
+                  nationalNumber={selectedPokemon.nationalNumber}
+                />
+              </div>
+            </div>
+          </ModalBackdrop>,
+          document.body,
+        )}
     </div>
   );
 }
@@ -269,43 +378,6 @@ interface RouteDetailModalProps {
   route: MapPoint | null;
   onClose: () => void;
   onJumpToGuide?: (point: MapPoint) => void;
-}
-
-function RouteEncounterMon({
-  enc,
-  dexEntry,
-  onOpen,
-}: {
-  enc: PokemonEncounter;
-  dexEntry?: DexEntry;
-  onOpen: () => void;
-}) {
-  const sprite = dexEntry && !dexEntry.isGlitch ? emeraldSpriteUrl(dexEntry.nationalNumber) : undefined;
-  const clickable = Boolean(dexEntry && !dexEntry.isGlitch);
-
-  return (
-    <div className="route-modal__enc-mon">
-      <span className="route-modal__enc-sprite" aria-hidden="true">
-        {sprite ? (
-          <img src={sprite} alt="" loading="lazy" decoding="async" />
-        ) : (
-          <span className="route-modal__enc-sprite-fallback">?</span>
-        )}
-      </span>
-      <div className="route-modal__enc-label">
-        <button
-          type="button"
-          className="route-modal__link"
-          onClick={onOpen}
-          disabled={!clickable}
-          title={clickable ? `View ${enc.name} stats` : undefined}
-        >
-          {enc.name}
-        </button>
-        {enc.notes && <span className="encounter-note">{enc.notes}</span>}
-      </div>
-    </div>
-  );
 }
 
 /** Full route guide — encounters, items, trainers, secrets — opened from the Hoenn map. */
@@ -472,7 +544,7 @@ export function RouteDetailModal({
                           {encounters.map((enc, i) => (
                             <tr key={`${enc.name}-${enc.method}-${enc.time}-${i}`}>
                               <td data-label="Pokémon">
-                                <RouteEncounterMon
+                                <EncounterMon
                                   enc={enc}
                                   dexEntry={dexLookup.get(enc.name)}
                                   onOpen={() => openPokemon(enc.name)}

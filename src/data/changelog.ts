@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.20.0",
+    date: "2026-07-14",
+    summary: "Walkthrough Wild Pokémon tables now show Emerald sprites beside each species.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Wild Pokémon tables on walkthrough events display each species’ in-game Emerald sprite next to its name, matching the route guide modal.",
+          "Click a Pokémon name in a walkthrough encounter table to open types, abilities, and base stats.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.19.0",
     date: "2026-07-14",
     summary:
