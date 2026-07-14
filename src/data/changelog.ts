@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.20.2",
+    date: "2026-07-14",
+    summary:
+      "Littleroot Event 1 truck map now uses the open rear door (playable start).",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Inside-of-truck area map for Moving into Littleroot switches from the closed-door driving cutscene to the open-door frame.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.20.1",
     date: "2026-07-14",
     summary:
