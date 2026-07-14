@@ -215,17 +215,17 @@ export function EncounterTable({
                 ) : (
                   filtered.map(({ areaName, enc }, i) => (
                     <tr key={`${areaName}-${enc.name}-${enc.method}-${i}`}>
-                      {areas.length > 1 && <td>{areaName}</td>}
-                      <td>
+                      {areas.length > 1 && <td data-label="Area">{areaName}</td>}
+                      <td data-label="Pokémon">
                         <span className="encounter-name">{enc.name}</span>
                         {enc.notes && <span className="encounter-note">{enc.notes}</span>}
                       </td>
-                      <td>{enc.level}</td>
-                      <td>
+                      <td data-label="Level">{enc.level}</td>
+                      <td data-label="Time">
                         <span className={timeBadgeClass(enc.time)}>{TIME_LABELS[enc.time]}</span>
                       </td>
-                      <td>{METHOD_LABELS[enc.method]}</td>
-                      <td>{enc.rate ?? "—"}</td>
+                      <td data-label="Method">{METHOD_LABELS[enc.method]}</td>
+                      <td data-label="Rate">{enc.rate ?? "—"}</td>
                     </tr>
                   ))
                 )}
@@ -471,19 +471,19 @@ export function RouteDetailModal({
                         <tbody>
                           {encounters.map((enc, i) => (
                             <tr key={`${enc.name}-${enc.method}-${enc.time}-${i}`}>
-                              <td>
+                              <td data-label="Pokémon">
                                 <RouteEncounterMon
                                   enc={enc}
                                   dexEntry={dexLookup.get(enc.name)}
                                   onOpen={() => openPokemon(enc.name)}
                                 />
                               </td>
-                              <td>{enc.level}</td>
-                              <td>
+                              <td data-label="Level">{enc.level}</td>
+                              <td data-label="Time">
                                 <span className={timeBadgeClass(enc.time)}>{TIME_LABELS[enc.time]}</span>
                               </td>
-                              <td>{METHOD_LABELS[enc.method]}</td>
-                              <td>{enc.rate ?? "—"}</td>
+                              <td data-label="Method">{METHOD_LABELS[enc.method]}</td>
+                              <td data-label="Rate">{enc.rate ?? "—"}</td>
                             </tr>
                           ))}
                         </tbody>
