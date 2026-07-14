@@ -35,6 +35,11 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "littleroot-2": "littleroottown-mayshouse-2f",
   "littleroot-3": "littleroottown-professorbirchslab",
 
+  // Route 101 — Birch rescue & starter (full route with cutscene objects)
+  "route-101-1": "route101",
+  "route-101-2": "route101",
+  "route-101-3": "littleroottown-professorbirchslab",
+
   // Petalburg Woods
   "petalburg-woods-1": "petalburgwoods",
   "petalburg-woods-2": "petalburgwoods",
@@ -142,6 +147,10 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
 /** Multiple area maps for steps that span floors or zones. */
 export const STEP_AREA_MAPS: Record<string, string[]> = {
+  // Oldale first stop — town + Center heal + Mart tutorial
+  "oldale-1": ["oldaletown", "oldaletown-pokemoncenter-1f", "oldaletown-mart"],
+  "oldale-2": ["oldaletown"],
+
   "mt-pyre-1": [
     "mtpyre-exterior",
     "mtpyre-2f",
