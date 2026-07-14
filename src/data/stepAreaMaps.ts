@@ -40,6 +40,19 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "route-101-2": "route101",
   "route-101-3": "littleroottown-professorbirchslab",
 
+  // Route 103 — rival by the water
+  "route-103-1": "route103",
+  "route-103-2": "route103",
+
+  // Route 102 — trainers / rare Ralts
+  "route-102-1": "route102",
+  "route-102-2": "route102",
+  "route-102-3": "petalburgcity",
+
+  // Petalburg — Norman meet + Wally tutorial
+  "petalburg-1": "petalburgcity-gym-entrance",
+  "petalburg-2": "route102-wally",
+
   // Petalburg Woods
   "petalburg-woods-1": "petalburgwoods",
   "petalburg-woods-2": "petalburgwoods",
@@ -150,6 +163,12 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   // Oldale first stop — town + Center heal + Mart tutorial
   "oldale-1": ["oldaletown", "oldaletown-pokemoncenter-1f", "oldaletown-mart"],
   "oldale-2": ["oldaletown"],
+
+  // Route 103 Event 3 — Pokédex/Balls in the lab, then Mom with Running Shoes
+  "route-103-3": ["littleroottown-professorbirchslab", "littleroottown"],
+
+  // Petalburg stock-up before Route 104
+  "petalburg-3": ["petalburgcity", "petalburgcity-pokemoncenter-1f", "petalburgcity-mart"],
 
   "mt-pyre-1": [
     "mtpyre-exterior",

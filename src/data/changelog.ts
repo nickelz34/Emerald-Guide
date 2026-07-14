@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.23.0",
+    date: "2026-07-14",
+    summary:
+      "Chapters 6–8 (Route 103, Route 102, Petalburg) get pokeemerald cutscene maps with story overlays; existing Hoenn crops stay below.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Chapter 6 (Route 103): rival May on the north shore for Events 1–2; Event 3 shows Birch’s Lab then Mom with the Running Shoes in Littleroot.",
+          "Chapter 7 (Route 102): full route map for trainers / rare Ralts; Event 3 opens onto Petalburg City.",
+          "Chapter 8 (Petalburg): gym entrance meet with Norman and Wally; Wally’s catching tutorial on Route 102 with Zigzagoon; Event 3 stocks up at the city, Center, and Mart.",
+          "When a step has both a cutscene area map and a Hoenn region crop, the crop now appears below the cutscene instead of being replaced.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.0",
     date: "2026-07-14",
     summary:
