@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.21.1",
+    date: "2026-07-14",
+    summary:
+      "Route 101 Birch rescue map no longer stacks markers on top of the cutscene sprites.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Removed bag and Professor Birch pins from the Route 101 area map — Birch, his bag, and Poochyena are already drawn in the cutscene image.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.21.0",
     date: "2026-07-14",
     summary:

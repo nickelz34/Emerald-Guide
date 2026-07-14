@@ -987,7 +987,8 @@ export const AREA_MAPS: AreaMap[] = [
   },
   {
     // Hand-added: Route 101 has no collectibles. Image includes Birch rescue
-    // objects (bag + Birch + Poochyena) for Events 1–2.
+    // objects (bag + Birch + Poochyena) for Events 1–2. No pins — sprites are
+    // already visible on the cutscene (same pattern as insideoftruck).
     id: "route101",
     mapId: "MAP_ROUTE101",
     name: "Route 101",
@@ -996,24 +997,7 @@ export const AREA_MAPS: AreaMap[] = [
     image: "maps/areas/route101.png",
     width: 320,
     height: 320,
-    markers: [
-      {
-        id: "r101-bag",
-        name: "Birch's Bag",
-        category: "item",
-        x: 37.5,
-        y: 72.5,
-        desc: "Open the bag to choose Treecko, Torchic, or Mudkip and rescue Professor Birch.",
-      },
-      {
-        id: "r101-birch",
-        name: "Professor Birch",
-        category: "npc",
-        x: 47.5,
-        y: 67.5,
-        desc: "Cornered by a wild Poochyena — grab a starter from his bag to help.",
-      },
-    ],
+    markers: [],
   },
   {
     id: "route110-trickhouseend",
