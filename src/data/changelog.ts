@@ -20,6 +20,28 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.19.0",
+    date: "2026-07-14",
+    summary:
+      "Story progress bar stays visible on iPhone Safari, with a clearer version bump so outdated tabs are easy to spot.",
+    sections: [
+      {
+        heading: "Mobile (iPhone)",
+        items: [
+          "Story progress bar uses a solid background and stronger sticky stacking so it does not render blank or disappear behind other chrome on iOS Safari.",
+          "Sidebar version badge now shows v1.19.0 — if your phone still says an older version, fully close the Safari tab (or clear Website Data for this site) and reopen; GitHub Pages can keep an old index for a few minutes.",
+        ],
+      },
+      {
+        heading: "Caching",
+        items: [
+          "Page meta tags ask browsers not to keep a stale copy of the shell HTML after each deploy.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.18.2",
     date: "2026-07-14",
     summary:
