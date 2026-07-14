@@ -40,7 +40,7 @@ export const MAP_REGIONS: MapRegion[] = [
   { id: "fallarbor", label: "Fallarbor", x: 38, y: 20, stepIds: ["fallarbor-1", "route-113-1", "route-114-1", "postgame-hoenn-2", "postgame-hoenn-7"] },
   { id: "lavaridge", label: "Lavaridge", x: 56.5, y: 37, stepIds: ["lavaridge-1"] },
   { id: "fortree", label: "Fortree", x: 64.5, y: 44, stepIds: ["fortree-1", "fortree-3", "route-118-1", "route-119-1", "route-120-1", "route-120-3"] },
-  { id: "lilycove", label: "Lilycove", x: 72, y: 44, stepIds: ["lilycove-1", "contests-lilycove-1", "contests-lilycove-2", "contests-lilycove-4", "contests-lilycove-5", "contests-postgame-2", "contests-postgame-blend", "mt-pyre-1", "postgame-events-1", "postgame-events-2", "postgame-events-3", "postgame-events-4", "postgame-events-5", "postgame-hoenn-9"] },
+  { id: "lilycove", label: "Lilycove", x: 72, y: 44, stepIds: ["lilycove-1", "lilycove-2", "aqua-hideout-2", "contests-lilycove-1", "contests-lilycove-2", "contests-lilycove-4", "contests-lilycove-5", "contests-postgame-2", "contests-postgame-blend", "mt-pyre-1", "postgame-events-1", "postgame-events-2", "postgame-events-3", "postgame-events-4", "postgame-events-5", "postgame-hoenn-9"] },
   { id: "mossdeep", label: "Mossdeep", x: 81, y: 41, stepIds: ["mossdeep-1", "seafloor-cavern-1", "master-ball", "postgame-hoenn-1"] },
   { id: "sootopolis", label: "Sootopolis", x: 71, y: 29, stepIds: ["sootopolis-1", "sootopolis-gym-1", "sootopolis-gym-3"] },
   { id: "sky-pillar", label: "Sky Pillar", x: 89, y: 17, stepIds: ["sky-pillar-1", "sky-pillar-2", "sky-pillar-3"] },

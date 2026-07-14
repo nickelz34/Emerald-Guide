@@ -48,10 +48,10 @@ export const KEY_ITEM_UNLOCKS: KeyItemUnlock[] = [
   {
     id: "itemfinder",
     name: "Itemfinder",
-    obtainLocation: "Slateport City — market house (Devon worker)",
-    walkthroughStepId: "slateport-1",
-    prerequisite: "Return Devon Goods to Mr. Stone",
-    note: "Beeps on hidden items you have already picked up once.",
+    obtainLocation: "Route 110 — from your rival after battle #3",
+    walkthroughStepId: "route-110-3",
+    prerequisite: "Defeat May/Brendan on Route 110",
+    note: "Use outdoors to ping for buried items.",
   },
   {
     id: "coin-case",

@@ -20,6 +20,26 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.17.0",
+    date: "2026-07-14",
+    summary:
+      "Emerald-only storyline accuracy pass — early lab / Running Shoes timing, team hideout order, and Champion Wallace.",
+    sections: [
+      {
+        heading: "Story accuracy (Emerald)",
+        items: [
+          "After the starter rescue, Birch sends you to find May/Brendan on Route 103 — no lab co-op pep talk, Pokédex, or Running Shoes yet.",
+          "Pokédex, first Poké Balls, and Running Shoes move to the post–Route 103 lab return (Mom outside your house).",
+          "Oldale no longer suggests buying Poké Balls before you can get them.",
+          "Late-game order fixed: Mt. Pyre → Magma Hideout → Slateport submarine → Aqua Hideout → Mossdeep.",
+          "League Champion is Wallace (not Steven from Ruby/Sapphire); Trick House rewards/gates corrected for Emerald.",
+          "Slateport museum delivery, Itemfinder from rival on Route 110, Seafloor Shelly, and other RS bleed-in fixes.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.16.0",
     date: "2026-07-13",
     summary:

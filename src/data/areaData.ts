@@ -99,10 +99,10 @@ export const AREA_DATA: Record<string, AreaExtras> = {
   },
   "route-116": {
     screenshot: "route-116.png",
-    tips: ["Abra teleports away turn 1 — use a Fast Ball or Mean Look/Shadow Tag."],
+    tips: ["Abra teleports away turn 1 — use Mean Look, Spore, or catch tools; Gen III has no Fast Ball."],
     secrets: [
-      "HP Up hidden in the tunnel entrance area.",
-      "Devon Goods stolen here — chase Team Magma to Rusturf Tunnel.",
+      "HP Up sits on the cliff side past Rusturf Tunnel (Rock Smash / Verdanturf approach).",
+      "Devon Goods stolen here — chase Team Aqua to Rusturf Tunnel.",
     ],
     encounters: [
       { name: "Whismur", level: "6–7", time: "any", method: "grass", rate: "40%" },
@@ -630,6 +630,10 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "rusturf-tunnel-2": ["rusturf-tunnel"],
   "magma-hideout-1": ["magma-hideout"],
   "magma-hideout-2": ["magma-hideout"],
+  "aqua-hideout-1": ["slateport"],
+  "aqua-hideout-2": ["lilycove"],
+  "lilycove-2": ["lilycove"],
+  "lilycove-3": ["mt-pyre"],
   "mt-pyre-2": ["mt-pyre"],
   "victory-road-1": ["victory-road"],
   "sky-pillar-2": ["sky-pillar"],
