@@ -5,8 +5,13 @@ export interface WalkthroughPreferences {
   setupComplete: boolean;
   skipPregame: boolean;
   playMode: WalkthroughPlayMode;
-  /** Last walkthrough step the user was on (persisted across reloads). */
+  /** Last walkthrough step the user was viewing (persisted across reloads). */
   activeStepId?: string;
+  /**
+   * Furthest story/postgame step used for Complete markers.
+   * Browsing pregame tips does not clear this.
+   */
+  progressStepId?: string;
 }
 
 const STORAGE_KEY = "emerald-guide-walkthrough-prefs";
@@ -35,6 +40,8 @@ function readStoredPreferences(): WalkthroughPreferences | null {
       playMode: parsed.playMode,
       activeStepId:
         typeof parsed.activeStepId === "string" ? parsed.activeStepId : undefined,
+      progressStepId:
+        typeof parsed.progressStepId === "string" ? parsed.progressStepId : undefined,
     };
   } catch {
     return null;

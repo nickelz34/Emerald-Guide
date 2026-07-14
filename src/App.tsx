@@ -18,6 +18,7 @@ import {
   filterWalkthroughSections,
   resolveVisibleStepId,
 } from "./lib/filterWalkthroughSections";
+import { isPregameStep, nextProgressStepId } from "./lib/walkthroughProgress";
 import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
 import "./App.css";
@@ -76,10 +77,25 @@ export default function App() {
   useEffect(() => {
     if (category !== "walkthrough") return;
     if (!activeStepId) return;
-    setWalkthroughPrefs((prev) =>
-      prev.activeStepId === activeStepId ? prev : { ...prev, activeStepId },
-    );
-  }, [category, activeStepId, setWalkthroughPrefs]);
+    setWalkthroughPrefs((prev) => {
+      const visibleProgress = prev.progressStepId
+        ? resolveVisibleStepId(walkthroughSections, prev.progressStepId)
+        : undefined;
+      const retainedProgress =
+        visibleProgress && !isPregameStep(walkthroughSections, visibleProgress)
+          ? visibleProgress
+          : undefined;
+      const progressStepId = nextProgressStepId(
+        walkthroughSections,
+        activeStepId,
+        retainedProgress,
+      );
+      if (prev.activeStepId === activeStepId && prev.progressStepId === progressStepId) {
+        return prev;
+      }
+      return { ...prev, activeStepId, progressStepId };
+    });
+  }, [category, activeStepId, walkthroughSections, setWalkthroughPrefs]);
 
   const handleSelect = (key: NavKey) => {
     setNav(key);
@@ -106,17 +122,23 @@ export default function App() {
       sectionsForPrefs,
       next.activeStepId ?? getWalkthroughStartStepId(next),
     );
-    setWalkthroughPrefs({ ...next, activeStepId: stepId });
+    const progressStepId = nextProgressStepId(
+      sectionsForPrefs,
+      stepId,
+      next.progressStepId,
+    );
+    setWalkthroughPrefs({ ...next, activeStepId: stepId, progressStepId });
     setActiveStepId(stepId);
     setShowSetup(false);
   };
 
   const handleContinueFromSave = (next: WalkthroughPreferences, stepId: string) => {
-    const resolved = resolveVisibleStepId(
-      filterWalkthroughSections(guideData.walkthrough, next),
-      stepId,
-    );
-    setWalkthroughPrefs({ ...next, activeStepId: resolved });
+    const sectionsForPrefs = filterWalkthroughSections(guideData.walkthrough, next);
+    const resolved = resolveVisibleStepId(sectionsForPrefs, stepId);
+    const progressStepId = isPregameStep(sectionsForPrefs, resolved)
+      ? undefined
+      : resolved;
+    setWalkthroughPrefs({ ...next, activeStepId: resolved, progressStepId });
     setActiveStepId(resolved);
     setShowSetup(false);
   };
