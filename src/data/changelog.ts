@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.18.1",
+    date: "2026-07-14",
+    summary: "Rewrite the post-rescue Birch lab event in standard story prose.",
+    sections: [
+      {
+        heading: "Story walkthrough",
+        items: [
+          "Route 101 Event 3 (keep your starter) now narrates Birch letting you keep the Pokémon and sending you to Route 103 — without corrective asides about what does not happen.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.18.0",
     date: "2026-07-14",
     summary:
