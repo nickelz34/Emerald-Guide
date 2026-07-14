@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.21.0",
+    date: "2026-07-14",
+    summary:
+      "Route 101 and Oldale events now use pokeemerald-accurate area maps (Birch rescue, Center, Mart).",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Route 101 Events 1–2 show the full route with Birch’s bag, Birch, and the chasing Poochyena from pokeemerald map data.",
+          "Route 101 Event 3 links to Professor Birch’s Lab after the rescue.",
+          "Oldale Event 1 includes the town overview plus Pokémon Center and Poké Mart interiors; Event 2 keeps the town crossroads map.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.20.2",
     date: "2026-07-14",
     summary:
