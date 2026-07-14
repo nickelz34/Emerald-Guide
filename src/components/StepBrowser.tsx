@@ -14,6 +14,7 @@ import { KeyItemsTable } from "./KeyItemsTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
 import { MatchCallRematchPanel } from "./MatchCallRematchPanel";
 import { MatchCallSchedulePanel } from "./MatchCallSchedulePanel";
+import { StoryProgressBar } from "./StoryProgressBar";
 import { getGymForWalkthroughStep } from "../data/gymData";
 import { getRivalForWalkthroughStep } from "../data/rivalData";
 import { BreedingLookup } from "./BreedingLookup";
@@ -78,6 +79,7 @@ function swipeShouldIgnore(target: EventTarget | null): boolean {
       "button",
       "a",
       ".step-rail",
+      ".story-progress",
       ".annotated-map__frame--zoomable",
       ".annotated-map__frame--panoramic",
       ".hoenn-map__viewport",
@@ -133,6 +135,8 @@ export function StepBrowser({
     flat.forEach((entry, index) => map.set(entry.step.id, index));
     return map;
   }, [flat]);
+
+  const storyStepIds = useMemo(() => flat.map((entry) => entry.step.id), [flat]);
 
   const select = useCallback(
     (id: string) => {
@@ -415,12 +419,12 @@ export function StepBrowser({
       </aside>
 
       <div className="step-stage" ref={stageRef}>
-        <div className="step-stage__progress">
-          <div
-            className="step-stage__progress-bar"
-            style={{ width: `${((currentIndex + 1) / flat.length) * 100}%` }}
-          />
-        </div>
+        <StoryProgressBar
+          stepIds={storyStepIds}
+          currentIndex={currentIndex}
+          progressIndex={progressIndex}
+          onSelectStep={category === "walkthrough" ? select : undefined}
+        />
 
         {mobileNav && (
           <p className="step-swipe-banner" role="note">

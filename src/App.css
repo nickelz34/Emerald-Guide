@@ -7348,18 +7348,323 @@
   scroll-margin-top: 1rem;
 }
 
-.step-stage__progress {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--bg-card);
-  overflow: hidden;
-  margin-bottom: 1.25rem;
+/* Story progress rail — gym badges + Elite Four / Champion / Hall of Fame */
+.story-progress {
+  margin-bottom: 1.15rem;
 }
 
-.step-stage__progress-bar {
+.story-progress__rail {
+  position: relative;
+  padding: 1.15rem 0.35rem 0.55rem;
+}
+
+.story-progress__track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-card) 85%, var(--border));
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+.story-progress__fill {
   height: 100%;
+  border-radius: inherit;
   background: linear-gradient(90deg, var(--emerald), var(--accent));
-  transition: width 0.3s ease;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: width 0.35s ease;
+}
+
+.story-progress--plain .story-progress__track {
+  margin: 0.35rem 0;
+}
+
+.story-progress__markers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  inset: 0 0.35rem;
+  pointer-events: none;
+}
+
+.story-progress__marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.story-progress__marker.is-next {
+  z-index: 2;
+}
+
+.story-progress__hit {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0.2rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 999px;
+  line-height: 0;
+}
+
+.story-progress__hit:focus-visible {
+  outline: 2px solid var(--emerald);
+  outline-offset: 2px;
+}
+
+button.story-progress__hit:hover .story-progress__badge,
+button.story-progress__hit:hover .story-progress__league {
+  transform: translateY(-1px) scale(1.08);
+}
+
+.story-progress__badge {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.story-progress__badge-frame {
+  display: block;
+  width: calc(var(--badge-fw, 16) * 1px);
+  height: calc(var(--badge-fh, 16) * 1px);
+  overflow: hidden;
+  position: relative;
+  transform: scale(1.35);
+  transform-origin: center;
+}
+
+.story-progress__badge-sprite {
+  display: block;
+  height: calc(var(--badge-fh, 16) * 1px);
+  width: auto;
+  max-width: none;
+  margin-left: calc(var(--badge-frame, 0) * var(--badge-fw, 16) * -1px);
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.story-progress__badge.is-locked {
+  opacity: 0.42;
+  filter: grayscale(1) brightness(0.85);
+}
+
+.story-progress__badge.is-earned {
+  opacity: 1;
+  filter: none;
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--border));
+  background: color-mix(in srgb, var(--bg-elevated) 75%, #1a3d2a);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.story-progress__badge.is-next {
+  opacity: 1;
+  filter: none;
+  border-color: var(--emerald);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--emerald) 35%, transparent),
+    0 0 14px var(--emerald-glow);
+  animation: story-progress-glow 1.8s ease-in-out infinite;
+}
+
+.story-progress__league {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 1.55rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-elevated);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease,
+    opacity 0.18s ease,
+    background 0.18s ease;
+}
+
+.story-progress__league-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.story-progress__league.is-locked {
+  opacity: 0.45;
+  filter: grayscale(0.35);
+}
+
+.story-progress__league.is-earned {
+  border-color: color-mix(in srgb, var(--orange) 55%, var(--border));
+  background: color-mix(in srgb, var(--bg-elevated) 70%, #3a2818);
+}
+
+.story-progress__league.is-earned .story-progress__league-label {
+  color: #f6d6a8;
+}
+
+.story-progress__league.is-next {
+  opacity: 1;
+  filter: none;
+  border-color: var(--orange);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--orange) 30%, transparent),
+    0 0 14px rgba(237, 137, 54, 0.28);
+  animation: story-progress-league-glow 1.8s ease-in-out infinite;
+}
+
+.story-progress__league.is-next .story-progress__league-label {
+  color: #ffd7a8;
+}
+
+.story-progress__league--hall-of-fame.is-earned {
+  border-color: color-mix(in srgb, #f6e05e 55%, var(--border));
+  background: color-mix(in srgb, var(--bg-elevated) 65%, #3d3414);
+}
+
+.story-progress__league--hall-of-fame.is-earned .story-progress__league-label,
+.story-progress__league--hall-of-fame.is-next .story-progress__league-label {
+  color: #ffe9a0;
+}
+
+.story-progress__league--hall-of-fame.is-next {
+  border-color: #f6e05e;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, #f6e05e 28%, transparent),
+    0 0 14px rgba(246, 224, 94, 0.22);
+  animation: story-progress-hof-glow 1.8s ease-in-out infinite;
+}
+
+.story-progress__status {
+  margin: 0.15rem 0.15rem 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.story-progress__marker.is-next + .story-progress__status,
+.story-progress__rail + .story-progress__status {
+  color: color-mix(in srgb, var(--text) 72%, var(--emerald));
+}
+
+@keyframes story-progress-glow {
+  0%,
+  100% {
+    filter: none;
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--emerald) 30%, transparent),
+      0 0 10px var(--emerald-glow);
+  }
+  50% {
+    filter: none;
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--emerald) 45%, transparent),
+      0 0 18px var(--emerald-glow);
+  }
+}
+
+@keyframes story-progress-league-glow {
+  0%,
+  100% {
+    filter: none;
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--orange) 28%, transparent),
+      0 0 10px rgba(237, 137, 54, 0.22);
+  }
+  50% {
+    filter: none;
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--orange) 42%, transparent),
+      0 0 18px rgba(237, 137, 54, 0.34);
+  }
+}
+
+@keyframes story-progress-hof-glow {
+  0%,
+  100% {
+    filter: none;
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, #f6e05e 24%, transparent),
+      0 0 10px rgba(246, 224, 94, 0.18);
+  }
+  50% {
+    filter: none;
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, #f6e05e 40%, transparent),
+      0 0 18px rgba(246, 224, 94, 0.3);
+  }
+}
+
+@media (max-width: 720px) {
+  .story-progress__rail {
+    padding: 1rem 0.1rem 0.4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .story-progress__markers {
+    inset: 0 0.1rem;
+    min-width: 100%;
+  }
+
+  .story-progress__badge {
+    width: 24px;
+    height: 24px;
+  }
+
+  .story-progress__badge-frame {
+    transform: scale(1.2);
+  }
+
+  .story-progress__league {
+    min-width: 1.85rem;
+    height: 1.4rem;
+    padding: 0 0.28rem;
+  }
+
+  .story-progress__league-label {
+    font-size: 0.52rem;
+  }
+
+  .story-progress__status {
+    font-size: 0.72rem;
+  }
+}
+
+.app-shell[data-view="mobile"] .story-progress__badge {
+  width: 24px;
+  height: 24px;
+}
+
+.app-shell[data-view="mobile"] .story-progress__league-label {
+  font-size: 0.52rem;
 }
 
 .step-card {
