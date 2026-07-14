@@ -7,14 +7,14 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { PNG } from "pngjs";
+import sharp from "sharp";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, "../public/sprites/gym/league-milestones.png");
 
 /** Palette keys → RGBA, chosen to match badges.png */
 const P = {
-  ".": null, // transparent
+  ".": [0, 0, 0, 0], // transparent
   K: [0, 0, 0, 255], // black outline
   D: [120, 120, 120, 255], // dark gray
   M: [176, 176, 176, 255], // mid gray
@@ -89,35 +89,34 @@ const FRAMES = {
 const ORDER = ["elite-four", "champion", "hall-of-fame"];
 const SIZE = 16;
 
-function paintFrame(png, frameIndex, rows) {
-  for (let y = 0; y < SIZE; y++) {
-    const row = rows[y];
-    if (row.length !== SIZE) {
-      throw new Error(`${ORDER[frameIndex]} row ${y} has length ${row.length}, expected ${SIZE}`);
-    }
-    for (let x = 0; x < SIZE; x++) {
-      const rgba = P[row[x]];
-      const i = (y * png.width + (frameIndex * SIZE + x)) * 4;
-      if (!rgba) {
-        png.data[i] = 0;
-        png.data[i + 1] = 0;
-        png.data[i + 2] = 0;
-        png.data[i + 3] = 0;
-      } else {
-        png.data[i] = rgba[0];
-        png.data[i + 1] = rgba[1];
-        png.data[i + 2] = rgba[2];
-        png.data[i + 3] = rgba[3];
+function buildRaw() {
+  const width = SIZE * ORDER.length;
+  const height = SIZE;
+  const data = Buffer.alloc(width * height * 4);
+  for (let frameIndex = 0; frameIndex < ORDER.length; frameIndex++) {
+    const rows = FRAMES[ORDER[frameIndex]];
+    for (let y = 0; y < SIZE; y++) {
+      const row = rows[y];
+      if (row.length !== SIZE) {
+        throw new Error(`${ORDER[frameIndex]} row ${y} has length ${row.length}, expected ${SIZE}`);
+      }
+      for (let x = 0; x < SIZE; x++) {
+        const rgba = P[row[x]];
+        if (!rgba) throw new Error(`Unknown pixel "${row[x]}" in ${ORDER[frameIndex]}`);
+        const i = (y * width + (frameIndex * SIZE + x)) * 4;
+        data[i] = rgba[0];
+        data[i + 1] = rgba[1];
+        data[i + 2] = rgba[2];
+        data[i + 3] = rgba[3];
       }
     }
   }
+  return { width, height, data };
 }
 
-const png = new PNG({ width: SIZE * ORDER.length, height: SIZE, colorType: 6 });
-for (let i = 0; i < ORDER.length; i++) {
-  paintFrame(png, i, FRAMES[ORDER[i]]);
-}
-
+const { width, height, data } = buildRaw();
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
-fs.writeFileSync(OUT, PNG.sync.write(png));
-console.log(`Wrote ${OUT} (${png.width}×${png.height})`);
+await sharp(data, { raw: { width, height, channels: 4 } })
+  .png()
+  .toFile(OUT);
+console.log(`Wrote ${OUT} (${width}×${height})`);
