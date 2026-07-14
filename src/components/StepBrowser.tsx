@@ -422,6 +422,7 @@ export function StepBrowser({
         <StoryProgressBar
           stepIds={storyStepIds}
           currentIndex={currentIndex}
+          progressIndex={progressIndex}
           onSelectStep={category === "walkthrough" ? select : undefined}
         />
 

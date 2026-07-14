@@ -7466,7 +7466,10 @@ button.story-progress__hit:hover .story-progress__league {
 }
 
 .story-progress__badge.is-earned {
+  opacity: 1;
+  filter: none;
   border-color: color-mix(in srgb, var(--accent) 65%, var(--border));
+  background: color-mix(in srgb, var(--bg-elevated) 75%, #1a3d2a);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent),
     0 2px 8px rgba(0, 0, 0, 0.35);
