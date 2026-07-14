@@ -547,17 +547,20 @@
 }
 
 .app-shell[data-view="mobile"] .step-browser > .story-progress {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 30;
   margin: 0;
-  padding: 0.45rem 0.55rem 0.35rem;
+  padding: 0.5rem 0.55rem 0.4rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
-  backdrop-filter: blur(8px);
+  /* Solid fill — translucent + backdrop-filter can render blank on some iOS builds. */
+  background: var(--bg-elevated);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   overflow: visible;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .app-shell[data-view="mobile"] .step-rail {
@@ -1184,6 +1187,7 @@
 .app-shell[data-view="desktop"] .main:has(.step-browser) .story-progress {
   grid-column: 2;
   grid-row: 2;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 6;
@@ -1191,8 +1195,7 @@
   padding: 0.45rem 0.55rem 0.35rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
-  backdrop-filter: blur(8px);
+  background: var(--bg-elevated);
 }
 
 .app-shell[data-view="desktop"] .main:has(.step-browser) .step-stage {
@@ -7718,16 +7721,19 @@ button.story-progress__hit:hover .story-progress__num {
   }
 
   .step-browser > .story-progress {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 30;
     margin: 0;
-    padding: 0.45rem 0.55rem 0.35rem;
+    padding: 0.5rem 0.55rem 0.4rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
-    backdrop-filter: blur(8px);
+    background: var(--bg-elevated);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     overflow: visible;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 }
 
