@@ -27,6 +27,7 @@ import {
 } from "../data/walkthroughSearch";
 import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
 import { createSaveCode } from "../lib/saveCode";
+import { isStepReached, stepIdForSave } from "../lib/walkthroughProgress";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -152,12 +153,21 @@ export function StepBrowser({
     if (currentIndex > 0) select(flat[currentIndex - 1].step.id);
   }, [currentIndex, flat, select]);
 
+  const progressIndex = useMemo(() => {
+    if (category !== "walkthrough") return -1;
+    const progressStepId = walkthroughPrefs?.progressStepId;
+    if (!progressStepId) return -1;
+    return flatIndexById.get(progressStepId) ?? -1;
+  }, [category, walkthroughPrefs?.progressStepId, flatIndexById]);
+
   const handleSaveProgress = useCallback(async () => {
     if (!walkthroughPrefs || !current?.step.id) return;
+    const stepId = stepIdForSave(sections, current.step.id, walkthroughPrefs.progressStepId);
+    if (!stepId) return;
     const code = createSaveCode({
       skipPregame: walkthroughPrefs.skipPregame,
       playMode: walkthroughPrefs.playMode,
-      stepId: current.step.id,
+      stepId,
     });
     if (!code) return;
     setSaveCode(code);
@@ -168,7 +178,7 @@ export function StepBrowser({
     } catch {
       setCopyStatus("failed");
     }
-  }, [walkthroughPrefs, current?.step.id]);
+  }, [walkthroughPrefs, current?.step.id, sections]);
 
   useEffect(() => {
     if (activeStepId) setInternalId(activeStepId);
@@ -360,8 +370,12 @@ export function StepBrowser({
                   const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
                   const active = s.id === currentId;
                   const stepFlatIndex = flatIndexById.get(s.id) ?? -1;
-                  const reached =
-                    category === "walkthrough" && stepFlatIndex >= 0 && stepFlatIndex < currentIndex;
+                  const reached = isStepReached({
+                    category,
+                    sectionBand: section.band,
+                    stepFlatIndex,
+                    progressIndex,
+                  });
                   return (
                     <button
                       key={s.id}

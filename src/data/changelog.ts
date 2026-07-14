@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.18.2",
+    date: "2026-07-14",
+    summary:
+      "Pregame chapters no longer show Complete markers or rewind story walkthrough progress.",
+    sections: [
+      {
+        heading: "Walkthrough progress",
+        items: [
+          "Complete markers appear only on story and postgame events — not on Pregame Evolution or Breeding tips.",
+          "Opening a pregame chapter to look something up no longer clears Complete from earlier story events; your place on the main path is remembered separately.",
+          "Saving progress while reading a pregame tip stores your story progress so a restore brings you back to the main walkthrough.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.18.1",
     date: "2026-07-14",
     summary: "Rewrite the post-rescue Birch lab event in standard story prose.",
