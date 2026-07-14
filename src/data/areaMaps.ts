@@ -555,7 +555,7 @@ export const AREA_MAPS: AreaMap[] = [
   },
   {
     // Hand-added: new-game truck intro (no collectibles, so gen-area-maps skips it).
-    // Image is door-closed cutscene with Brendan + moving-box sprites from pokeemerald.
+    // Image is door-open cutscene with Brendan + moving-box sprites from pokeemerald.
     id: "insideoftruck",
     mapId: "MAP_INSIDE_OF_TRUCK",
     name: "Inside of Truck",
