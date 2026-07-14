@@ -6421,6 +6421,172 @@
   color: var(--text-muted);
 }
 
+/*
+ * Stack encounter rows on narrow / forced-mobile layouts so the Wild Pokémon
+ * table never needs horizontal scrolling (nested step-card padding is tight).
+ */
+@media (max-width: 640px) {
+  .encounter-table-wrap {
+    overflow-x: visible;
+    border: none;
+    border-radius: 0;
+  }
+
+  .encounter-table,
+  .encounter-table tbody,
+  .encounter-table tr,
+  .encounter-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .encounter-table thead {
+    display: none;
+  }
+
+  .encounter-table tr {
+    margin-bottom: 0.65rem;
+    padding: 0.35rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+  }
+
+  .encounter-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .encounter-table tr:hover td {
+    background: transparent;
+  }
+
+  .encounter-table td {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: right;
+    white-space: normal;
+    box-sizing: border-box;
+  }
+
+  .encounter-table td:last-child {
+    border-bottom: none;
+  }
+
+  .encounter-table td::before {
+    content: attr(data-label);
+    flex: 0 0 auto;
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    text-align: left;
+  }
+
+  .encounter-table td[data-label="Pokémon"] {
+    flex-wrap: wrap;
+    text-align: left;
+  }
+
+  .encounter-table td[data-label="Pokémon"]::before {
+    width: 100%;
+    margin-bottom: 0.15rem;
+  }
+
+  .encounter-table__empty {
+    display: block;
+    text-align: center;
+  }
+
+  .encounter-table__empty::before {
+    content: none;
+  }
+}
+
+.app-shell[data-view="mobile"] .encounter-table-wrap {
+  overflow-x: visible;
+  border: none;
+  border-radius: 0;
+}
+
+.app-shell[data-view="mobile"] .encounter-table,
+.app-shell[data-view="mobile"] .encounter-table tbody,
+.app-shell[data-view="mobile"] .encounter-table tr,
+.app-shell[data-view="mobile"] .encounter-table td {
+  display: block;
+  width: 100%;
+}
+
+.app-shell[data-view="mobile"] .encounter-table thead {
+  display: none;
+}
+
+.app-shell[data-view="mobile"] .encounter-table tr {
+  margin-bottom: 0.65rem;
+  padding: 0.35rem 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+
+.app-shell[data-view="mobile"] .encounter-table tr:last-child {
+  margin-bottom: 0;
+}
+
+.app-shell[data-view="mobile"] .encounter-table tr:hover td {
+  background: transparent;
+}
+
+.app-shell[data-view="mobile"] .encounter-table td {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: right;
+  white-space: normal;
+  box-sizing: border-box;
+}
+
+.app-shell[data-view="mobile"] .encounter-table td:last-child {
+  border-bottom: none;
+}
+
+.app-shell[data-view="mobile"] .encounter-table td::before {
+  content: attr(data-label);
+  flex: 0 0 auto;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.app-shell[data-view="mobile"] .encounter-table td[data-label="Pokémon"] {
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.app-shell[data-view="mobile"] .encounter-table td[data-label="Pokémon"]::before {
+  width: 100%;
+  margin-bottom: 0.15rem;
+}
+
+.app-shell[data-view="mobile"] .encounter-table__empty {
+  display: block;
+  text-align: center;
+}
+
+.app-shell[data-view="mobile"] .encounter-table__empty::before {
+  content: none;
+}
+
 /* Lightbox maps: no frame chrome — blend into the panel */
 .annotated-map--lightbox .annotated-map__frame {
   border: none;
