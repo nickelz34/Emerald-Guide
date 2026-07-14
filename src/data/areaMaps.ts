@@ -901,6 +901,7 @@ export const AREA_MAPS: AreaMap[] = [
   },
   {
     // Hand-added: no collectibles on Oldale exterior / Center / Mart.
+    // Route exits from pokeemerald map connections (offset 0).
     id: "oldaletown",
     mapId: "MAP_OLDALE_TOWN",
     name: "Oldale Town",
@@ -909,7 +910,32 @@ export const AREA_MAPS: AreaMap[] = [
     image: "maps/areas/oldaletown.png",
     width: 320,
     height: 320,
-    markers: [],
+    markers: [
+      {
+        id: "oldale-exit-north",
+        name: "Route 103 (North)",
+        category: "entrance",
+        x: 52.5,
+        y: 2.5,
+        desc: "North exit — find your rival near the water on Route 103 (go here first).",
+      },
+      {
+        id: "oldale-exit-west",
+        name: "Route 102 (West)",
+        category: "entrance",
+        x: 2.5,
+        y: 52.5,
+        desc: "West exit — toward Petalburg City. A researcher blocks this path until after Route 103.",
+      },
+      {
+        id: "oldale-exit-south",
+        name: "Route 101 (South)",
+        category: "entrance",
+        x: 52.5,
+        y: 97.5,
+        desc: "South exit — back to Littleroot Town via Route 101.",
+      },
+    ],
   },
   {
     id: "oldaletown-mart",

@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.1",
+    date: "2026-07-14",
+    summary:
+      "Oldale Town map marks Route 103 (north), Route 102 (west), and Route 101 (south).",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Chapter 5 Event 2 (and the Oldale town map) shows entrance pins for each route exit so you can tell which way is which.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.0",
     date: "2026-07-14",
     summary:
