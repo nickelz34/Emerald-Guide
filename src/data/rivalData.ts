@@ -30,6 +30,24 @@ const RIVAL_BY_STEP = Object.fromEntries(RIVAL_BATTLES.map((r) => [r.walkthrough
   RivalBattleData
 >;
 
+/** Overworld walking sheets for May / Brendan (gym sprite table omits rivals). */
+export const RIVAL_WALKING_SPRITES = {
+  may: {
+    graphicsId: "OBJ_EVENT_GFX_RIVAL_MAY_NORMAL",
+    spriteSheet: "sprites/trainers/may_walking.png",
+    spriteWidth: 16,
+    spriteHeight: 32,
+    spriteFrame: 0,
+  },
+  brendan: {
+    graphicsId: "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    spriteSheet: "sprites/trainers/brendan_walking.png",
+    spriteWidth: 16,
+    spriteHeight: 32,
+    spriteFrame: 0,
+  },
+} as const;
+
 export function getRivalForWalkthroughStep(stepId: string): RivalBattleData | undefined {
   return RIVAL_BY_STEP[stepId];
 }
@@ -44,9 +62,18 @@ export function rivalTrainerId(
   return `TRAINER_${rival}_${locationKey}_${starter}`;
 }
 
-function withRivalSprite(point: TrainerPoint, trainerId: string): TrainerPoint {
-  const sprite = GYM_TRAINER_SPRITES[trainerId];
-  if (!sprite) return point;
+export function rivalNameForPlayer(gender: PlayerGender): "May" | "Brendan" {
+  return gender === "brendan" ? "May" : "Brendan";
+}
+
+export function rivalWalkingSprite(gender: PlayerGender) {
+  return gender === "brendan" ? RIVAL_WALKING_SPRITES.may : RIVAL_WALKING_SPRITES.brendan;
+}
+
+function withRivalSprite(point: TrainerPoint, trainerId: string, gender: PlayerGender): TrainerPoint {
+  const fromGym = GYM_TRAINER_SPRITES[trainerId];
+  const fallback = rivalWalkingSprite(gender);
+  const sprite = fromGym ?? fallback;
   return {
     ...point,
     graphicsId: sprite.graphicsId,
@@ -63,7 +90,7 @@ export function rivalTrainerPoint(
   starter: PlayerStarter,
 ): TrainerPoint {
   const trainerId = rivalTrainerId(gender, rival.locationKey, starter);
-  const rivalName = gender === "brendan" ? "May" : "Brendan";
+  const rivalName = rivalNameForPlayer(gender);
   return withRivalSprite(
     {
       id: `rival-${rival.walkthroughStepId}`,
@@ -83,5 +110,6 @@ export function rivalTrainerPoint(
       desc: rival.note,
     },
     trainerId,
+    gender,
   );
 }

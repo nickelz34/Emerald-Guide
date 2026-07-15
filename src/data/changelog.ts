@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.25.1",
+    date: "2026-07-15",
+    summary:
+      "Rival battle guides show May or Brendan’s overworld sprite under the character picker and in the party panel.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "All five RivalGuidePanel steps display the correct rival walking sprite when you pick Brendan or May.",
+          "Party/detail hero images no longer omit the rival — walking sheets fill in where gym sprite data has no entry.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.25.0",
     date: "2026-07-15",
     summary:
