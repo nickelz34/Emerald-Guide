@@ -51,7 +51,7 @@ const IMMUNE: Record<string, string[]> = {
   Ghost: ["Normal"],
 };
 
-const ALL_TYPES = Object.keys(SUPER);
+export const ALL_TYPES = Object.keys(SUPER);
 
 /** Multiplier when `atk` hits a Pokémon with the given defending type(s). */
 export function typeEffectiveness(atk: string, defendingTypes: string[]): number {

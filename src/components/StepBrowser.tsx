@@ -12,9 +12,14 @@ import { FlowerShopGuidePanelForStep } from "./FlowerShopGuidePanel";
 import { StoryTrainerGuidePanelForStep } from "./StoryTrainerGuidePanel";
 import { StarterChoicePanelForStep } from "./StarterChoicePanel";
 import { RaltsSpotlightPanelForStep } from "./RaltsSpotlightPanel";
+import { BattleBasicsPanel } from "./BattleBasicsPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { PokeBallTable } from "./PokeBallTable";
+import { NatureTable } from "./NatureTable";
+import { StatusTable } from "./StatusTable";
+import { TypeChartTable } from "./TypeChartTable";
+import { TmHmTable } from "./TmHmTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
 import { MatchCallRematchPanel } from "./MatchCallRematchPanel";
 import { MatchCallSchedulePanel } from "./MatchCallSchedulePanel";
@@ -142,6 +147,11 @@ export function StepBrowser({
   const showHmTable = current?.step.id === "rustboro-1";
   const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
   const showPokeBallTable = current?.step.id === "pregame-field-5";
+  const showBattleBasicsPanel = current?.step.id === "pregame-battles-1";
+  const showTypeChartTable = current?.step.id === "pregame-battles-3";
+  const showStatusTable = current?.step.id === "pregame-battles-6";
+  const showNatureTable = current?.step.id === "pregame-battles-7";
+  const showTmHmTable = current?.step.id === "pregame-battles-9";
   const showScottChecklist = current?.step.id === "battle-frontier-2";
   const showMatchCallRematch = current?.step.id === "postgame-hoenn-6";
   const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
@@ -615,6 +625,12 @@ export function StepBrowser({
 
           <ScreenshotGallery stepId={current.step.id} compact />
 
+          {showBattleBasicsPanel && (
+            <section className="reference-embed battle-basics-embed" aria-label="Battle types and commands">
+              <BattleBasicsPanel />
+            </section>
+          )}
+
           {current.step.id === "route-101-2" && (
             <section className="starter-choice-embed" aria-label="Starter comparison">
               <StarterChoicePanelForStep stepId={current.step.id} />
@@ -669,6 +685,30 @@ export function StepBrowser({
           {showPokeBallTable && (
             <section className="reference-embed" aria-label="Poké Ball reference">
               <PokeBallTable />
+            </section>
+          )}
+
+          {showTypeChartTable && (
+            <section className="reference-embed" aria-label="Type chart reference">
+              <TypeChartTable />
+            </section>
+          )}
+
+          {showStatusTable && (
+            <section className="reference-embed" aria-label="Status condition reference">
+              <StatusTable />
+            </section>
+          )}
+
+          {showNatureTable && (
+            <section className="reference-embed" aria-label="Nature reference">
+              <NatureTable />
+            </section>
+          )}
+
+          {showTmHmTable && (
+            <section className="reference-embed" aria-label="TM and HM reference">
+              <TmHmTable />
             </section>
           )}
 

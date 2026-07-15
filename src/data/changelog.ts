@@ -20,7 +20,7 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
-    version: "1.26.21",
+    version: "1.26.24",
     date: "2026-07-15",
     summary:
       "Trainer map pins enlarge cleanly on hover instead of looking split or cut off.",
@@ -29,6 +29,54 @@ export const CHANGELOG: ChangelogRelease[] = [
         heading: "Maps",
         items: [
           "Hover/active scale on Hoenn map and walkthrough trainer pins now grows the clipped sprite frame, not the full sheet image — so neighboring facing frames no longer peek through as a split sprite on desktop and mobile.",
+        ],
+      },
+    ],
+  },
+
+  {
+    version: "1.26.23",
+    date: "2026-07-15",
+    summary:
+      "Battles & Training Event 1 is a full battle primer with in-game cutscenes and Emerald sprites for wild, trainer, and doubles fights.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Expanded Battle types & commands with wild vs trainer rules, singles vs doubles, each menu command, switching, and blackout behavior — plus a checklist.",
+          "Event gallery shows Route 101, Wally’s Ralts catch, Rival Battle #1, and Tate & Liza’s double battle cutscenes.",
+          "New BattleBasicsPanel uses Emerald battle sprites and command cards on that step.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.22",
+    date: "2026-07-15",
+    summary:
+      "Battles & Training is now the first pregame chapter so new players learn combat basics before catching, evolution, and breeding.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Reordered pregame chapters to Battles & Training → Catching/Travel/Trading → Evolution → Breeding (Ch. 1–4).",
+          "Default walkthrough start step is now pregame-battles-1; Guide settings skip label lists Battles first.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.21",
+    date: "2026-07-15",
+    summary:
+      "New pregame Battles & Training chapter covers battle basics, types, status, all 25 natures, vitamins, and every TM and HM.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Added Ch. 1 — Pregame: Battles & Training (nine events): battle types & commands, move targeting, types & damage multipliers, strategies, battle messages, status anomalies & cures, natures, vitamins/EVs, and TMs & HMs.",
+          "Interactive reference tables: Gen III type multiplier picker, status cure list, full 25-nature table (stats + contest flavors), and TM01–TM50 / HM01–HM08 catalog with obtain locations and field badges.",
+          "Guide settings skip label and README pregame list now include Battles & Training; Breeding’s nature note points here instead of Contest Preparation.",
         ],
       },
     ],
