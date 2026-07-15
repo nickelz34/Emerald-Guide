@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.26.5",
+    "version": "1.26.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -28,6 +28,7 @@
     "gen:map-landmarks": "node scripts/gen-map-landmarks.mjs",
     "gen:hoenn-crops": "node scripts/gen-hoenn-crop-images.mjs",
     "gen:area-maps": "node scripts/gen-area-maps.mjs",
+    "gen:area-map-entrances": "node scripts/gen-area-map-entrances.mjs",
     "gen:trainers": "node scripts/gen-map-trainers.mjs",
     "sync:pokemon-sprites": "node scripts/sync-pokemon-sprites.mjs",
     "sync:gym-sprites": "node scripts/sync-gym-sprites.mjs",

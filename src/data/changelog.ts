@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.6",
+    date: "2026-07-15",
+    summary:
+      "Cave and dungeon area maps mark entrances, exits, and ladders with where each warp goes.",
+    sections: [
+      {
+        heading: "Area maps",
+        items: [
+          "Entrances pins on caves, tunnels, woods, hideouts, Victory Road, and other dungeons label the destination (e.g. Ladder to B1F, Exit to Route 106 — southeast).",
+          "Generated from pokeemerald warp_events for 48 full-layout dungeon maps (191 connectors) without overwriting hand-added cutscene maps.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.5",
     date: "2026-07-15",
     summary:
