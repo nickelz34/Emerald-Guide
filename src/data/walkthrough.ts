@@ -2946,10 +2946,10 @@ function renumberChapters(chapters: GuideSection[]) {
 }
 
 const built: GuideSection[] = [
+  pregameBattlesChapter,
   pregameFieldChapter,
   pregameEvolutionChapter,
   pregameBreedingChapter,
-  pregameBattlesChapter,
   ...storyChapters,
 ];
 insertAfter(built, "route-110", trickHouseChapter);

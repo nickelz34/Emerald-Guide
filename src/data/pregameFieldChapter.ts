@@ -1,8 +1,8 @@
 import type { GuideSection } from "../types";
 
 /**
- * First pregame reference chapter — catching, water travel, fishing, caves,
- * Poké Balls, and trading — shown before Evolution & Breeding.
+ * Pregame reference chapter — catching, water travel, fishing, caves,
+ * Poké Balls, and trading — shown after Battles & Training, before Evolution.
  */
 export const pregameFieldChapter: GuideSection = {
   id: "pregame-field",

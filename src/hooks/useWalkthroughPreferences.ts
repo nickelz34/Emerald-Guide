@@ -49,7 +49,7 @@ function readStoredPreferences(): WalkthroughPreferences | null {
 }
 
 export function getWalkthroughStartStepId(prefs: WalkthroughPreferences): string {
-  return prefs.skipPregame ? "littleroot-1" : "pregame-field-1";
+  return prefs.skipPregame ? "littleroot-1" : "pregame-battles-1";
 }
 
 export function useWalkthroughPreferences(): [

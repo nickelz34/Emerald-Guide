@@ -2,7 +2,7 @@ import type { GuideSection } from "../types";
 
 /**
  * Fourth pregame reference chapter — battles, types, status, natures, vitamins,
- * and the full TM/HM catalog — shown after Breeding, before Littleroot.
+ * and the full TM/HM catalog — first pregame chapter, before Catching/Travel.
  */
 export const pregameBattlesChapter: GuideSection = {
   id: "pregame-battles",
