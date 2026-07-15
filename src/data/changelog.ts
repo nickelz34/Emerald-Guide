@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.3",
+    date: "2026-07-15",
+    summary:
+      "Pretty Petal Flower Shop stock panel matches the dark walkthrough theme used by gym and rival guides.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "route-104-2 flower-shop gifts and décor tables no longer use a light cream panel against the dark app chrome.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.2",
     date: "2026-07-15",
     summary:
