@@ -3737,6 +3737,53 @@
     linear-gradient(180deg, rgba(21, 42, 74, 0.9), rgba(10, 22, 40, 0.55));
 }
 
+.ralts-spotlight-embed {
+  border-color: rgba(250, 113, 121, 0.4);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(250, 113, 121, 0.16), transparent 55%),
+    linear-gradient(180deg, rgba(21, 42, 74, 0.92), rgba(10, 22, 40, 0.55));
+}
+
+.ralts-spotlight__chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(250, 113, 121, 0.28);
+  background: rgba(10, 22, 40, 0.4);
+}
+
+.ralts-spotlight__chain li {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.ralts-spotlight__chain-arrow {
+  flex-direction: column;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.ralts-spotlight__chain-arrow span {
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ralts-spotlight__natures {
+  margin-bottom: 0.65rem;
+  padding-left: 1.15rem;
+}
+
 .starter-choice__intro {
   margin-bottom: 1.1rem;
 }
