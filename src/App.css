@@ -2614,6 +2614,10 @@
   height: calc(var(--trainer-fh, 32) * 1px);
   overflow: hidden;
   position: relative;
+  /* Scale the clipped frame on hover — not the sheet img — so adjacent
+     walk/facing frames stay hidden instead of peeking through as a "split" sprite. */
+  transform-origin: 50% 100%;
+  transition: transform 0.12s ease;
 }
 
 .hoenn-map__trainer-sprite {
@@ -2626,14 +2630,13 @@
   pointer-events: none;
   transform: scaleX(var(--trainer-flip, 1));
   transform-origin: center;
-  transition: transform 0.12s ease;
 }
 
-.hoenn-map__pin--trainer:hover .hoenn-map__trainer-sprite,
-.hoenn-map__pin--trainer.is-active .hoenn-map__trainer-sprite,
-.hoenn-map__pin--ow-sprite:hover .hoenn-map__trainer-sprite,
-.hoenn-map__pin--ow-sprite.is-active .hoenn-map__trainer-sprite {
-  transform: scaleX(var(--trainer-flip, 1)) scale(1.08);
+.hoenn-map__pin--trainer:hover .hoenn-map__trainer-frame,
+.hoenn-map__pin--trainer.is-active .hoenn-map__trainer-frame,
+.hoenn-map__pin--ow-sprite:hover .hoenn-map__trainer-frame,
+.hoenn-map__pin--ow-sprite.is-active .hoenn-map__trainer-frame {
+  transform: scale(1.08);
 }
 
 .hoenn-map__pin--trainer.is-active {
