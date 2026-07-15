@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.2",
+    date: "2026-07-15",
+    summary:
+      "Map legend starter faces (and other large sprites) render at the correct proportions instead of as squashed slivers.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Legend thumbs now resize the sprite frame’s layout box to fit a 40×40 slot — the previous transform:scale approach was flex-shrunk inside that slot, which squashed 64×64 battle fronts on desktop and mobile.",
+          "Ch. 4 Event 2 Choose Starter legend shows full Treecko, Torchic, and Mudkip faces again.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.1",
     date: "2026-07-15",
     summary:

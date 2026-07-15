@@ -7741,9 +7741,12 @@
 }
 
 .marker-index__sprite {
-  /* Fixed thumb slot — sprites of any sheet size (16×16 balls → 64×64 battle fronts)
-     are scaled to fit so legend rows never clip heads/feet on desktop or mobile. */
-  --legend-thumb-size: 32;
+  /* Fixed thumb slot — shrink the frame's layout size (not transform:scale) so
+     16×16 balls through 64×64 battle fronts fit without flex-squash or clipping. */
+  --legend-thumb-size: 40;
+  --legend-scale: calc(
+    var(--legend-thumb-size) / max(var(--trainer-fw, 16), var(--trainer-fh, 32))
+  );
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
@@ -7755,9 +7758,18 @@
 }
 
 .marker-index__sprite .hoenn-map__trainer-frame {
-  --legend-sprite-max: max(var(--trainer-fw, 16), var(--trainer-fh, 32));
-  transform: scale(calc(var(--legend-thumb-size) / var(--legend-sprite-max)));
-  transform-origin: bottom center;
+  flex-shrink: 0;
+  width: calc(var(--trainer-fw, 16) * var(--legend-scale) * 1px);
+  height: calc(var(--trainer-fh, 32) * var(--legend-scale) * 1px);
+  transform: none;
+}
+
+.marker-index__sprite .hoenn-map__trainer-sprite {
+  height: calc(var(--trainer-fh, 32) * var(--legend-scale) * 1px);
+  width: auto;
+  max-width: none;
+  margin-left: calc(var(--trainer-frame, 0) * var(--trainer-fw, 16) * var(--legend-scale) * -1px);
+  transform: scaleX(var(--trainer-flip, 1));
 }
 
 .marker-index__btn strong {
