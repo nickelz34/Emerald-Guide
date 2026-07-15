@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.3",
+    date: "2026-07-15",
+    summary:
+      "Guide step search stays pinned on mobile while typing or scrolling results, with a clear (×) button.",
+    sections: [
+      {
+        heading: "Mobile guide search",
+        items: [
+          "Search field stays at the top of the Steps panel while you type and while you scroll matching steps.",
+          "Clear (×) at the end of the search box wipes the query in one tap.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.2",
     date: "2026-07-14",
     summary:
