@@ -30,7 +30,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         items: [
           "Added Ch. 1 — Pregame: Catching, Travel & Trading (six events) before Evolution and Breeding.",
           "Cutscene and map stacks for grass catching (Wally), Surf/Dive, Granite Cave floors, and Pokémon Center / Birch lab trading context; fishing shows Dewford → Route 118 → Mossdeep Hoenn crops.",
-          "New Poké Ball reference table lists every Emerald Ball with Gen III catch multipliers and obtain notes.",
+          "New Poké Ball reference cards list every Emerald Ball with Gen III catch multipliers and obtain notes (wraps on narrow screens — no horizontal scroll).",
           "Trading event documents FRLG National Dex + Celio Network Machine requirements and Emerald’s post-Elite Four National Dex upgrade.",
           "Guide settings skip label and default start step now include the new field chapter.",
         ],

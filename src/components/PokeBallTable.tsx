@@ -18,45 +18,37 @@ export function PokeBallTable({ className = "" }: PokeBallTableProps) {
         Multipliers apply in Generation III’s catch formula after HP and status. Sleep and freeze
         still help every Ball; the Master Ball skips the formula entirely.
       </p>
-      <div className="reference-table__scroll">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Ball</th>
-              <th scope="col">Multiplier</th>
-              <th scope="col">Best used</th>
-              <th scope="col">Where you get it</th>
-            </tr>
-          </thead>
-          <tbody>
-            {POKE_BALL_TABLE.map((row) => {
-              const icon = row.iconName ? getItemBagIcon(row.iconName) : undefined;
-              return (
-                <tr key={row.id}>
-                  <td>
-                    <span className="poke-ball-table__name">
-                      {icon && (
-                        <img
-                          className="poke-ball-table__icon"
-                          src={assetUrl(icon.spriteSheet)}
-                          alt=""
-                          width={24}
-                          height={24}
-                          draggable={false}
-                        />
-                      )}
-                      {row.name}
-                    </span>
-                  </td>
-                  <td>{row.multiplier}</td>
-                  <td>{row.bestUsed}</td>
-                  <td>{row.obtain}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <ul className="poke-ball-table__list">
+        {POKE_BALL_TABLE.map((row) => {
+          const icon = row.iconName ? getItemBagIcon(row.iconName) : undefined;
+          return (
+            <li key={row.id} className="poke-ball-table__item">
+              <div className="poke-ball-table__heading">
+                {icon && (
+                  <img
+                    className="poke-ball-table__icon"
+                    src={assetUrl(icon.spriteSheet)}
+                    alt=""
+                    width={24}
+                    height={24}
+                    draggable={false}
+                  />
+                )}
+                <span className="poke-ball-table__name">{row.name}</span>
+                <span className="poke-ball-table__multiplier">{row.multiplier}</span>
+              </div>
+              <p className="poke-ball-table__meta">
+                <span className="poke-ball-table__label">Best used</span>
+                {row.bestUsed}
+              </p>
+              <p className="poke-ball-table__meta">
+                <span className="poke-ball-table__label">Where</span>
+                {row.obtain}
+              </p>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }
