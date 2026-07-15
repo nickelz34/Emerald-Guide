@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.23.0",
+    date: "2026-07-14",
+    summary:
+      "Elite Four and Champion pages get face-off cutscenes plus each room map in order.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "League steps stack Sidney → Phoebe, Glacia → Drake, then Wallace → Hall of Fame — each with a baked face-off above the room interior.",
+          "Trainer pins sit on each Elite Four / Champion room map with party details on tap.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.9",
     date: "2026-07-14",
     summary:

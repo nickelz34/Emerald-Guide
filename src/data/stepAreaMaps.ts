@@ -250,6 +250,24 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "sootopoliscity-gym-1f",
     "sootopoliscity-gym-b1f",
   ],
+  // Pokémon League — face-off then room for each member (top → bottom)
+  "league-1": [
+    "evergrandecity-sidneysroom-battle",
+    "evergrandecity-sidneysroom",
+    "evergrandecity-phoebesroom-battle",
+    "evergrandecity-phoebesroom",
+  ],
+  "league-2": [
+    "evergrandecity-glaciasroom-battle",
+    "evergrandecity-glaciasroom",
+    "evergrandecity-drakesroom-battle",
+    "evergrandecity-drakesroom",
+  ],
+  "league-3": [
+    "evergrandecity-championsroom-battle",
+    "evergrandecity-championsroom",
+    "evergrandecity-halloffame",
+  ],
   "postgame-hoenn-5": [
     "safarizone-northeast",
     "safarizone-northwest",
