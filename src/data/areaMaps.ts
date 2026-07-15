@@ -1188,6 +1188,18 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    // Hand-added: Team Aqua first battle face-off (Grunt + player + researcher baked in).
+    id: "petalburgwoods-aqua-battle",
+    mapId: "MAP_PETALBURG_WOODS",
+    name: "Petalburg Woods",
+    group: "Petalburg Woods",
+    floor: "Team Aqua Battle",
+    image: "maps/areas/petalburgwoods-aqua-battle.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     // Hand-added: Route 101 has no collectibles. Baked Birch rescue cutscene;
     // legend markers (bag, Birch, Poochyena) come from AREA_MAP_CUTSCENE_ENTITIES.
     // Hand-added: Birch rescue baked into the PNG; legend markers from AREA_MAP_CUTSCENE_ENTITIES.
