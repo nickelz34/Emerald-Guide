@@ -35,6 +35,21 @@ export const CHANGELOG: ChangelogRelease[] = [
     ],
   },
   {
+    version: "1.25.4",
+    date: "2026-07-15",
+    summary:
+      "Chapter 4 Event 2 shows Birch’s bag Choose Starter cutscene with clickable Treecko, Torchic, and Mudkip balls.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "route-101-2 uses the pokeemerald starter-choose screen (bag on grass + three Poké Balls) instead of reusing the Route 101 rescue map.",
+          "Clicking each ball on the cutscene marks which starter is inside: Treecko (left), Torchic (bottom), Mudkip (right).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.25.1",
     date: "2026-07-15",
     summary:

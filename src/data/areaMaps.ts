@@ -1166,6 +1166,19 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Choose Starter UI (Birch's bag + three balls). Ball labels from
+    // AREA_MAP_CUTSCENE_ENTITIES (Treecko / Torchic / Mudkip).
+    id: "route101-birch-starter-choose",
+    mapId: "MAP_ROUTE101",
+    name: "Route 101",
+    group: "Route 101",
+    floor: "Choose your starter",
+    image: "maps/areas/route101-birch-starter-choose.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     // Hand-added: Rival Battle #1 face-off (Brendan + May baked in).
     id: "route103-rival-battle",
     mapId: "MAP_ROUTE103",
