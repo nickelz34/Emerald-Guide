@@ -9,6 +9,7 @@ import {
 import { getAreasForStep } from "./areaData";
 import { getAreaIdForEncounterStep } from "./encounters";
 import { areaMapShots, INTERIOR_AREA_MAP } from "./stepAreaMaps";
+import { PREGAME_STEP_CROPS } from "./pregameStepCrops";
 
 export interface StepScreenshot {
   src: string;
@@ -92,8 +93,27 @@ export function getAreaDisplayMap(areaId: string, caption?: string): StepScreens
 
 /** Primary map view for a walkthrough or guide step. */
 export function getStepImages(stepId: string): StepScreenshot[] {
-  // Pregame reference chapters are mechanics text — no route maps.
-  if (stepId.startsWith("pregame-")) return [];
+  // Pregame: only explicit cutscenes / crop stacks — no generic Hoenn fallback.
+  if (stepId.startsWith("pregame-")) {
+    const areaMaps = areaMapShots(stepId);
+    if (areaMaps.length > 0) {
+      return areaMaps.map(({ areaMapId, caption }) => ({
+        src: "",
+        caption,
+        areaMapId,
+      }));
+    }
+    const crops = PREGAME_STEP_CROPS[stepId];
+    if (crops?.length) {
+      return crops.map((c) => ({
+        src: HOENN_MAP_SRC,
+        caption: c.caption,
+        areaId: c.areaId,
+        crop: c.crop,
+      }));
+    }
+    return [];
+  }
 
   const areaMaps = areaMapShots(stepId);
   if (areaMaps.length > 0) {

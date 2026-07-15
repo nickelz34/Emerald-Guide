@@ -14,6 +14,7 @@ import { StarterChoicePanelForStep } from "./StarterChoicePanel";
 import { RaltsSpotlightPanelForStep } from "./RaltsSpotlightPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
+import { PokeBallTable } from "./PokeBallTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
 import { MatchCallRematchPanel } from "./MatchCallRematchPanel";
 import { MatchCallSchedulePanel } from "./MatchCallSchedulePanel";
@@ -140,6 +141,7 @@ export function StepBrowser({
     : undefined;
   const showHmTable = current?.step.id === "rustboro-1";
   const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
+  const showPokeBallTable = current?.step.id === "pregame-field-5";
   const showScottChecklist = current?.step.id === "battle-frontier-2";
   const showMatchCallRematch = current?.step.id === "postgame-hoenn-6";
   const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
@@ -661,6 +663,12 @@ export function StepBrowser({
           {showKeyItemsTable && (
             <section className="reference-embed" aria-label="Key items reference">
               <KeyItemsTable highlightStepId={current.step.id} />
+            </section>
+          )}
+
+          {showPokeBallTable && (
+            <section className="reference-embed" aria-label="Poké Ball reference">
+              <PokeBallTable />
             </section>
           )}
 

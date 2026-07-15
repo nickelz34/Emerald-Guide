@@ -20,6 +20,24 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.18",
+    date: "2026-07-15",
+    summary:
+      "New first pregame chapter covering catching, Surf/Dive, fishing, caves, every Poké Ball, and FireRed/LeafGreen trading gates.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Added Ch. 1 — Pregame: Catching, Travel & Trading (six events) before Evolution and Breeding.",
+          "Cutscene and map stacks for grass catching (Wally), Surf/Dive, Granite Cave floors, and Pokémon Center / Birch lab trading context; fishing shows Dewford → Route 118 → Mossdeep Hoenn crops.",
+          "New Poké Ball reference cards list every Emerald Ball with Gen III catch multipliers and obtain notes (wraps on narrow screens — no horizontal scroll).",
+          "Trading event documents FRLG National Dex + Celio Network Machine requirements and Emerald’s post-Elite Four National Dex upgrade.",
+          "Guide settings skip label and default start step now include the new field chapter.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.17",
     date: "2026-07-15",
     summary:

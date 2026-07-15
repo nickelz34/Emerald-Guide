@@ -138,6 +138,16 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
 /** Multiple area maps for steps that span floors or zones. */
 export const STEP_AREA_MAPS: Record<string, string[]> = {
+  // Pregame field chapter — cutscene / area stacks
+  "pregame-field-1": ["route102-wally-catch"],
+  "pregame-field-2": [
+    "petalburgcity-gym-norman",
+    "underwater-route128",
+    "mossdeepcity-stevenshouse",
+  ],
+  "pregame-field-4": ["granitecave-1f", "granitecave-b1f", "granitecave-stevensroom"],
+  "pregame-field-6": ["oldaletown-pokemoncenter-1f", "littleroottown-professorbirchslab"],
+
   // Oldale first stop — town + Center heal + Mart tutorial
   "oldale-1": ["oldaletown", "oldaletown-pokemoncenter-1f", "oldaletown-mart"],
   "oldale-2": ["oldaletown"],

@@ -7,6 +7,7 @@ import {
   postgameEventsChapter,
 } from "./postgameWalkthrough";
 import {
+  pregameFieldChapter,
   pregameEvolutionChapter,
   pregameBreedingChapter,
 } from "./pregameWalkthrough";
@@ -2942,6 +2943,7 @@ function renumberChapters(chapters: GuideSection[]) {
 }
 
 const built: GuideSection[] = [
+  pregameFieldChapter,
   pregameEvolutionChapter,
   pregameBreedingChapter,
   ...storyChapters,
