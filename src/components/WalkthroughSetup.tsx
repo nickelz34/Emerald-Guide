@@ -81,7 +81,7 @@ export function WalkthroughSetup({
                 onChange={(e) => setSkipPregame(e.target.checked)}
               />
               <span>
-                <strong>Skip Catching, Evolution, Breeding &amp; Battles prep</strong>
+                <strong>Skip Battles, Catching, Evolution &amp; Breeding prep</strong>
                 <span className="walkthrough-setup__hint">
                   Jump straight to Littleroot Town and the main story.
                 </span>

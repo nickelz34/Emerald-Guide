@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.22",
+    date: "2026-07-15",
+    summary:
+      "Battles & Training is now the first pregame chapter so new players learn combat basics before catching, evolution, and breeding.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Reordered pregame chapters to Battles & Training → Catching/Travel/Trading → Evolution → Breeding (Ch. 1–4).",
+          "Default walkthrough start step is now pregame-battles-1; Guide settings skip label lists Battles first.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.21",
     date: "2026-07-15",
     summary:
@@ -28,7 +43,7 @@ export const CHANGELOG: ChangelogRelease[] = [
       {
         heading: "Pregame walkthrough",
         items: [
-          "Added Ch. 4 — Pregame: Battles & Training (nine events) after Breeding: battle types & commands, move targeting, types & damage multipliers, strategies, battle messages, status anomalies & cures, natures, vitamins/EVs, and TMs & HMs.",
+          "Added Ch. 1 — Pregame: Battles & Training (nine events): battle types & commands, move targeting, types & damage multipliers, strategies, battle messages, status anomalies & cures, natures, vitamins/EVs, and TMs & HMs.",
           "Interactive reference tables: Gen III type multiplier picker, status cure list, full 25-nature table (stats + contest flavors), and TM01–TM50 / HM01–HM08 catalog with obtain locations and field badges.",
           "Guide settings skip label and README pregame list now include Battles & Training; Breeding’s nature note points here instead of Contest Preparation.",
         ],
