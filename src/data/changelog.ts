@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.20",
+    date: "2026-07-15",
+    summary:
+      "Breeding pregame chapter spells out exactly how Eggs hatch once you pick them up — party steps, egg cycles, and Flame Body / Magma Armor.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Breeding Event 6 retitled to “Hatching Eggs once you have them,” with a step-by-step of party-only hatching, 256-step cycles, Egg status messages, the hatch cutscene, and level-5 hatchlings.",
+          "Day Care event now points readers to Event 6 for post-pickup hatching; the hatching chart no longer implies Eggs hatch from the Bag or PC.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.19",
     date: "2026-07-15",
     summary:
