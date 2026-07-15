@@ -60,9 +60,20 @@ export function WalkthroughSetup({
           to show in the walkthrough.
         </p>
 
+        {/*
+          Avoid <fieldset>/<legend> here: Safari (esp. iOS) leaves a phantom flex gap
+          above legends when they sit in a flex form. First tap collapses the gap and
+          steals the Start walkthrough press — requiring a second tap.
+        */}
         <form className="walkthrough-setup__form" onSubmit={handleSubmit}>
-          <fieldset className="walkthrough-setup__fieldset">
-            <legend className="walkthrough-setup__legend">Pregame chapters</legend>
+          <div
+            className="walkthrough-setup__section"
+            role="group"
+            aria-labelledby="walkthrough-setup-pregame"
+          >
+            <h3 id="walkthrough-setup-pregame" className="walkthrough-setup__legend">
+              Pregame chapters
+            </h3>
             <label className="walkthrough-setup__checkbox">
               <input
                 type="checkbox"
@@ -76,10 +87,16 @@ export function WalkthroughSetup({
                 </span>
               </span>
             </label>
-          </fieldset>
+          </div>
 
-          <fieldset className="walkthrough-setup__fieldset">
-            <legend className="walkthrough-setup__legend">Walkthrough mode</legend>
+          <div
+            className="walkthrough-setup__section"
+            role="group"
+            aria-labelledby="walkthrough-setup-mode"
+          >
+            <h3 id="walkthrough-setup-mode" className="walkthrough-setup__legend">
+              Walkthrough mode
+            </h3>
             <div className="walkthrough-setup__modes">
               <label
                 className={`walkthrough-setup__mode ${
@@ -122,7 +139,7 @@ export function WalkthroughSetup({
                 </span>
               </label>
             </div>
-          </fieldset>
+          </div>
 
           <button type="submit" className="walkthrough-setup__continue">
             Start walkthrough
@@ -134,8 +151,14 @@ export function WalkthroughSetup({
         </div>
 
         <form className="walkthrough-setup__save-form" onSubmit={handleContinueFromSave}>
-          <fieldset className="walkthrough-setup__fieldset">
-            <legend className="walkthrough-setup__legend">Continue with save code</legend>
+          <div
+            className="walkthrough-setup__section"
+            role="group"
+            aria-labelledby="walkthrough-setup-save"
+          >
+            <h3 id="walkthrough-setup-save" className="walkthrough-setup__legend">
+              Continue with save code
+            </h3>
             <p className="walkthrough-setup__hint walkthrough-setup__hint--block">
               Enter a 4-letter save code from this browser to pick up exactly where you left off.
             </p>
@@ -173,7 +196,7 @@ export function WalkthroughSetup({
                 {saveError}
               </p>
             ) : null}
-          </fieldset>
+          </div>
         </form>
       </div>
     </div>
