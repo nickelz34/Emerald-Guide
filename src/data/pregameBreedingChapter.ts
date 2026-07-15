@@ -75,7 +75,7 @@ export const pregameBreedingChapter: GuideSection = {
         "Pokémon Emerald adds nature inheritance: hold an Everstone on the mother (in a male–female pair) or on Ditto, and that Pokémon's nature has a 50% chance to pass to the Egg. Competitive players keep a library of Everstone Dittos — one per useful nature — because Ditto pairs with almost everything.",
         "Individual Values (IVs) are the hidden 0–31 stats rolled on each Pokémon. When an Egg is generated, Generation III copies exactly three IVs from the two parents combined and randomises the other three. The second inherited IV cannot be HP, and the third cannot be HP or Defense — so those stats are slightly harder to breed for. There is no Destiny Knot in this generation.",
         "Abilities in Generations III and IV are not inherited from parents. When a species has two possible abilities, the hatchling simply has a 50/50 chance of either slot regardless of what the parents have. Hidden Abilities do not exist in Emerald.",
-        "Natures also matter for contests: Adamant raises Cool growth, Modest raises Beauty, Calm raises Cute, and so on. Breed the nature you want before investing Pokéblocks — see Contest Preparation for the full table.",
+        "Natures also matter for contests: Adamant raises Cool growth, Modest raises Beauty, Calm raises Cute, and so on. Breed the nature you want before investing Pokéblocks — see Pregame: Battles & Training for the full nature table.",
       ],
       details: [],
       tips: [

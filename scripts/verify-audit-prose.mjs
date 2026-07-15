@@ -12,6 +12,10 @@ const FILES = [
   "src/data/postgameWalkthrough.ts",
   "src/data/pregameFieldChapter.ts",
   "src/data/pregameBreedingChapter.ts",
+  "src/data/pregameBattlesChapter.ts",
+  "src/data/natures.ts",
+  "src/data/tmHmCatalog.ts",
+  "src/data/statusConditions.ts",
   "src/data/breedingHatchingChart.ts",
   "src/data/pokeBalls.ts",
   "src/data/keyItems.ts",
@@ -52,6 +56,7 @@ const FORBIDDEN = [
   { re: /Ruby\/Sapphire exclusive counterpart is Plusle/i, why: "Both Plusle and Minun in Emerald" },
   { re: /get scope from Steven in Fortree/i, why: "Devon Scope on Route 120" },
   { re: /later gives you HM07 Waterfall outside Sootopolis Gym after the weather crisis/i, why: "HM07 not tied to contest wins in same sentence" },
+  { re: /TM13 Snatch/i, why: "Abandoned Ship TM13 is Ice Beam; Snatch is TM49" },
 ];
 
 /** Patterns that must appear (correct replacements). */
@@ -111,6 +116,41 @@ const REQUIRED = [
     file: "src/data/breedingHatchingChart.ts",
     re: /PC never hatches them/i,
     why: "Hatching chart: no Bag/PC hatch implication",
+  },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /id: "pregame-battles"/i,
+    why: "Battles pregame chapter registered",
+  },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /\+10 EV/i,
+    why: "Vitamins: Gen III +10 EV per use",
+  },
+  {
+    file: "src/data/natures.ts",
+    re: /name: "Quirky"/,
+    why: "Natures table includes all 25 (through Quirky)",
+  },
+  {
+    file: "src/data/tmHmCatalog.ts",
+    re: /id: "TM13"[\s\S]*?move: "Ice Beam"/,
+    why: "TM13 is Ice Beam",
+  },
+  {
+    file: "src/data/tmHmCatalog.ts",
+    re: /id: "TM49"[\s\S]*?move: "Snatch"/,
+    why: "TM49 is Snatch",
+  },
+  {
+    file: "src/data/tmHmCatalog.ts",
+    re: /id: "HM08"[\s\S]*?move: "Dive"/,
+    why: "HM catalog includes Dive",
+  },
+  {
+    file: "src/data/walkthrough.ts",
+    re: /TM13 Ice Beam/i,
+    why: "Abandoned Ship lists Ice Beam, not Snatch",
   },
 ];
 
