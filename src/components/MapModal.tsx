@@ -4,13 +4,12 @@ import type { MapRegion } from "../data/mapRegions";
 
 interface MapModalProps {
   open: boolean;
-  activeStepId?: string;
   categoryStepIds?: Set<string>;
   onSelectRegion: (region: MapRegion) => void;
   onClose: () => void;
 }
 
-export function MapModal({ open, activeStepId, categoryStepIds, onSelectRegion, onClose }: MapModalProps) {
+export function MapModal({ open, categoryStepIds, onSelectRegion, onClose }: MapModalProps) {
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
@@ -38,7 +37,6 @@ export function MapModal({ open, activeStepId, categoryStepIds, onSelectRegion, 
         </div>
         <HoennMap
           compact
-          activeStepId={activeStepId}
           categoryStepIds={categoryStepIds}
           onSelectRegion={(region) => {
             onSelectRegion(region);
