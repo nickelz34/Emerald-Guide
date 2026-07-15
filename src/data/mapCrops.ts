@@ -26,7 +26,7 @@ export interface EventMapCrop {
 /** Walkthrough event id -> its window into the big Hoenn map. */
 export const EVENT_MAP_CROP: Record<string, EventMapCrop> = {
   "route-101-1": { crop: { x: 14.75, y: 67.8851, w: 3, h: 6.2663 }, caption: "Route 101 — Birch's rescue", areaId: "route-101" },
-  "route-101-2": { crop: { x: 14.75, y: 67.8851, w: 3, h: 6.2663 }, caption: "Route 101 — choosing your starter", areaId: "route-101" },
+  "route-101-2": { crop: { x: 14.75, y: 67.8851, w: 3, h: 6.2663 }, caption: "Route 101 — Birch's bag starter choose", areaId: "route-101" },
   "oldale-1": { crop: { x: 14.75, y: 62.6632, w: 3, h: 6.2663 }, caption: "Oldale Town", areaId: "oldale" },
   "oldale-2": { crop: { x: 14.75, y: 62.6632, w: 3, h: 6.2663 }, caption: "Oldale Town — the crossroads", areaId: "oldale" },
   "route-103-1": { crop: { x: 14.75, y: 56.9191, w: 10.5, h: 6.7885 }, caption: "Route 103 — north shore", areaId: "route-103" },

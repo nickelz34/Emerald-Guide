@@ -37,7 +37,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
   // Route 101 — Birch rescue & starter (full route with cutscene objects)
   "route-101-1": "route101",
-  "route-101-2": "route101",
+  "route-101-2": "route101-birch-starter-choose",
   "route-101-3": "littleroottown-professorbirchslab",
 
   // Route 103 — Rival Battle #1 face-off
