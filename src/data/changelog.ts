@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.23.2",
+    date: "2026-07-15",
+    summary:
+      "Opening the Hoenn map no longer jumps to the current guide town; it restores your last view for the session.",
+    sections: [
+      {
+        heading: "Hoenn map",
+        items: [
+          "Show on Hoenn map / Map tab open at the pan and zoom you left last (same browser session).",
+          "A fresh session starts at the normal full-map framing — no auto town pop-up from the walkthrough step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.23.1",
     date: "2026-07-15",
     summary:

@@ -173,7 +173,7 @@ export default function App() {
             </div>
 
             {nav === "map" ? (
-              <HoennMap activeStepId={activeStepId} onSelectRegion={handleMapRegion} />
+              <HoennMap onSelectRegion={handleMapRegion} />
             ) : nav === "pokedex" ? (
               <Pokedex />
             ) : showSetup ? (
@@ -201,7 +201,6 @@ export default function App() {
 
       <MapModal
         open={mapOpen}
-        activeStepId={activeStepId}
         categoryStepIds={categoryStepIds}
         onSelectRegion={handleMapRegion}
         onClose={() => setMapOpen(false)}

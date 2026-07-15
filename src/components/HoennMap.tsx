@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
-import { getRegionForStep, type MapRegion } from "../data/mapRegions";
+import type { MapRegion } from "../data/mapRegions";
 import {
   ENTRANCE_STEP_IDS,
   MAP_POINTS,
@@ -83,13 +83,6 @@ function areaPoints(area: AreaMap): MapPoint[] {
   );
 }
 
-/** Region ids whose id doesn't match a map point id 1:1. */
-const REGION_POINT_ALIAS: Record<string, string> = {
-  route110: "trick-house",
-  sealed: "pacifidlog",
-  frontier: "battle-frontier",
-};
-
 /** Walkthrough step id for a map pin (hand points or linked entrances). */
 function stepIdForPoint(point: MapPoint): string | undefined {
   return point.stepId ?? ENTRANCE_STEP_IDS[point.id];
@@ -103,21 +96,6 @@ function isMapCalloutPoint(point: MapPoint): boolean {
     point.category !== "route" &&
     point.category !== "gym"
   );
-}
-
-/** Best map point to focus for a given walkthrough step. */
-function resolveFocusPoint(stepId: string): MapPoint | undefined {
-  const direct = ALL_POINTS.find((pt) => stepIdForPoint(pt) === stepId);
-  if (direct) return direct;
-  const region = getRegionForStep(stepId);
-  if (!region) return undefined;
-  const aliasId = REGION_POINT_ALIAS[region.id] ?? region.id;
-  const byId = ALL_POINTS.find((pt) => pt.id === aliasId);
-  if (byId) return byId;
-  return ALL_POINTS.find((pt) => {
-    const sid = stepIdForPoint(pt);
-    return sid !== undefined && region.stepIds.includes(sid);
-  });
 }
 
 function initialVisible(): Record<PoiCategory, boolean> {
@@ -141,15 +119,8 @@ const NARROW_VIEWPORT_MAX = 900;
 const MOBILE_DEFAULT_SCALE = 2.75;
 /** Route text labels only appear once zoomed in past this (overworld map). */
 const ROUTE_LABEL_MIN_SCALE = 3.25;
-
-interface HoennMapProps {
-  activeStepId?: string;
-  onSelectRegion: (region: MapRegion) => void;
-  /** Unused now, kept for compatibility with existing callers. */
-  categoryStepIds?: Set<string>;
-  /** Tighter layout for the walkthrough map modal (hides the index list). */
-  compact?: boolean;
-}
+/** Session-scoped overworld pan/zoom so reopenings keep your last look. */
+const HOENN_MAP_VIEW_KEY = "emerald-guide:hoenn-map-view";
 
 interface View {
   /** Zoom multiplier relative to the "fit whole map" size. */
@@ -157,6 +128,50 @@ interface View {
   /** Top-left offset of the map canvas within the viewport, in px. */
   x: number;
   y: number;
+}
+
+function readSavedHoennMapView(): View | null {
+  try {
+    const raw = sessionStorage.getItem(HOENN_MAP_VIEW_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Partial<View>;
+    if (
+      typeof parsed.scale !== "number" ||
+      typeof parsed.x !== "number" ||
+      typeof parsed.y !== "number" ||
+      !Number.isFinite(parsed.scale) ||
+      !Number.isFinite(parsed.x) ||
+      !Number.isFinite(parsed.y)
+    ) {
+      return null;
+    }
+    return {
+      scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, parsed.scale)),
+      x: parsed.x,
+      y: parsed.y,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function writeSavedHoennMapView(view: View) {
+  try {
+    sessionStorage.setItem(
+      HOENN_MAP_VIEW_KEY,
+      JSON.stringify({ scale: view.scale, x: view.x, y: view.y }),
+    );
+  } catch {
+    // Ignore private mode / quota failures.
+  }
+}
+
+interface HoennMapProps {
+  onSelectRegion: (region: MapRegion) => void;
+  /** Unused now, kept for compatibility with existing callers. */
+  categoryStepIds?: Set<string>;
+  /** Tighter layout for the walkthrough map modal (hides the index list). */
+  compact?: boolean;
 }
 
 function touchDistance(touches: TouchList) {
@@ -170,10 +185,14 @@ interface GestureEvent extends UIEvent {
   scale: number;
 }
 
-export function HoennMap({ activeStepId, onSelectRegion, compact = false }: HoennMapProps) {
+export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
-  const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
+  /** Non-null when this mount restored a prior overworld camera from the session. */
+  const restoredViewRef = useRef<View | null>(readSavedHoennMapView());
+  const [view, setView] = useState<View>(
+    () => restoredViewRef.current ?? { scale: 1, x: 0, y: 0 },
+  );
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
@@ -405,17 +424,6 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     [clamp, defaultScale],
   );
 
-  // When a step asks to be shown (e.g. "Show on Hoenn map"), pan the overworld map to
-  // the matching location. Interior area maps stay in the step gallery — not here.
-  useEffect(() => {
-    if (!activeStepId || !vp.w || !vp.h) return;
-    const target = resolveFocusPoint(activeStepId);
-    if (!target) return;
-    setCurrentAreaId(null);
-    setVisible((v) => (v[target.category] ? v : { ...v, [target.category]: true }));
-    focusPoint(target, { overworld: true });
-  }, [activeStepId, vp.w, vp.h, focusPoint]);
-
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {
       setView((prev) => {
@@ -466,13 +474,27 @@ export function HoennMap({ activeStepId, onSelectRegion, compact = false }: Hoen
     if (!vp.w || !vp.h) return;
     setView((v) => {
       const next = clamp(v);
-      // When rotating or resizing onto a phone, bump a "fit whole map" view to the mobile default zoom.
-      if (isNarrowViewport && isOverworld && v.scale === 1 && defaultScale > 1) {
+      // Fresh sessions only: bump a "fit whole map" view to the mobile default zoom.
+      // Do not override a camera restored from earlier in this browser session.
+      if (
+        !restoredViewRef.current &&
+        isNarrowViewport &&
+        isOverworld &&
+        v.scale === 1 &&
+        defaultScale > 1
+      ) {
         return clamp({ ...next, scale: defaultScale });
       }
       return next;
     });
   }, [vp.w, vp.h, clamp, isNarrowViewport, isOverworld, defaultScale]);
+
+  // Remember overworld pan/zoom for the rest of this browser session.
+  useEffect(() => {
+    if (!isOverworld || !vp.w || !vp.h) return;
+    writeSavedHoennMapView(view);
+    restoredViewRef.current = view;
+  }, [view, isOverworld, vp.w, vp.h]);
 
   // Native wheel listener so we can preventDefault (React onWheel is passive).
   useEffect(() => {
