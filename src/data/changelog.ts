@@ -20,6 +20,27 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.10",
+    date: "2026-07-15",
+    summary:
+      "Walkthrough dungeons now include previously missing interior floors (Mt. Pyre 1F, Aqua/Magma rooms, Meteor Falls, Abandoned Ship corridors, Seafloor Cavern, and more).",
+    sections: [
+      {
+        heading: "Area maps",
+        items: [
+          "Added 23 navigation interiors that had warps from already-mapped floors but no map of their own (including Mt. Pyre 1F, Aqua Hideout 1F, Magma Hideout 2F rooms, Meteor Falls side rooms + Steven's Cave, Abandoned Ship deck/corridors, Shoal Cave lower room, New Mauville Entrance, Safari Rest House, and Seafloor Cavern Entrance–Room 8).",
+          "Walkthrough step stacks updated so those rooms appear on the matching chapters; entrance pins and letter codes regenerated from pokeemerald warps.",
+        ],
+      },
+      {
+        heading: "Granite Cave",
+        items: [
+          "Steven's Room remains on granite-cave-1 and granite-cave-2 with verified Door B / Letter pins.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.9",
     date: "2026-07-15",
     summary:

@@ -76,9 +76,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "trick-7": "route110-trickhousepuzzle7",
   "trick-8": "route110-trickhousepuzzle8",
 
-  // Mauville / New Mauville
-  "mauville-3": "newmauville-inside",
-  "mauville-4": "newmauville-inside",
+  // Mauville / New Mauville (entrance + inside on mauville-3/4 stacks below)
 
   // Gym battles — Waterfall pickup keeps 1F (battle uses STEP_AREA_MAPS face-off + floors)
   "sootopolis-gym-1": "sootopoliscity-gym-1f",
@@ -97,21 +95,11 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "route-112-2": "fierypath",
   "route-120-3": "scorchedslab",
 
-  // Meteor Falls
-  "route-114-2": "meteorfalls-1f-1r",
-  "route-114-3": "meteorfalls-b1f-2r",
-
-  // Jagged Pass & Magma Hideout
+  // Jagged Pass
   "mt-chimney-2": "jaggedpass",
-  "magma-hideout-2": "magmahideout-4f",
 
-  // Team Aqua Hideout (multi-floor in STEP_AREA_MAPS)
-
-  // Mt. Pyre
-  "mt-pyre-2": "mtpyre-summit",
-
-  // Dive / Seafloor Cavern (multi-floor dive in STEP_AREA_MAPS)
-  "seafloor-cavern-2": "seafloorcavern-room9",
+  // Optional / post-game guide steps
+  "master-ball": "magmahideout-4f",
 
   // Mossdeep - Steven's house items
   "mossdeep-3": "mossdeepcity-stevenshouse",
@@ -121,9 +109,6 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
   // Sealed Chamber (underwater approach)
   "sealed-chamber-2": "underwater-route126",
-
-  // Optional / post-game guide steps
-  "master-ball": "magmahideout-4f",
 
   // Encounter guide steps
   "enc-petalburg-woods": "petalburgwoods",
@@ -141,7 +126,6 @@ export const STEP_AREA_MAP: Record<string, string> = {
   // Post-game Hoenn
   "postgame-hoenn-1": "mossdeepcity-stevenshouse",
   "postgame-hoenn-4": "littleroottown-professorbirchslab",
-  "postgame-hoenn-7": "meteorfalls-1f-1r",
 
   // Postgame event islands
   "postgame-events-3": "navelrock-top",
@@ -171,20 +155,36 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
 
   "mt-pyre-1": [
     "mtpyre-exterior",
+    "mtpyre-1f",
     "mtpyre-2f",
     "mtpyre-3f",
     "mtpyre-4f",
     "mtpyre-5f",
     "mtpyre-6f",
+    "mtpyre-summit",
   ],
+  "mt-pyre-2": ["mtpyre-summit"],
   "magma-hideout-1": [
     "magmahideout-1f",
+    "magmahideout-2f-1r",
     "magmahideout-2f-2r",
+    "magmahideout-2f-3r",
     "magmahideout-3f-1r",
     "magmahideout-3f-2r",
     "magmahideout-3f-3r",
+    "magmahideout-4f",
   ],
-  "aqua-hideout-2": ["aquahideout-b1f", "aquahideout-b2f"],
+  "magma-hideout-2": [
+    "magmahideout-1f",
+    "magmahideout-2f-1r",
+    "magmahideout-2f-2r",
+    "magmahideout-2f-3r",
+    "magmahideout-3f-1r",
+    "magmahideout-3f-2r",
+    "magmahideout-3f-3r",
+    "magmahideout-4f",
+  ],
+  "aqua-hideout-2": ["aquahideout-1f", "aquahideout-b1f", "aquahideout-b2f"],
   "granite-cave-1": [
     "granitecave-1f",
     "granitecave-stevensroom",
@@ -195,19 +195,43 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "granitecave-b2f",
     "granitecave-stevensroom",
   ],
+  "route-114-2": [
+    "meteorfalls-1f-1r",
+    "meteorfalls-1f-2r",
+    "meteorfalls-b1f-1r",
+    "meteorfalls-b1f-2r",
+  ],
+  "postgame-hoenn-7": [
+    "meteorfalls-1f-1r",
+    "meteorfalls-1f-2r",
+    "meteorfalls-b1f-1r",
+    "meteorfalls-b1f-2r",
+    "meteorfalls-stevenscave",
+  ],
+  "mauville-3": ["newmauville-entrance", "newmauville-inside"],
+  "mauville-4": ["newmauville-entrance", "newmauville-inside"],
   "victory-road-2": ["victoryroad-1f", "victoryroad-b1f", "victoryroad-b2f"],
   "sealed-chamber-1": ["underwater-route124", "underwater-route126"],
-  "safari-zone-1": ["safarizone-northwest"],
-  "safari-zone-2": ["safarizone-north"],
-  "safari-zone-3": ["safarizone-northeast", "safarizone-southeast", "safarizone-southwest"],
+  "safari-zone-1": ["safarizone-northwest", "safarizone-resthouse"],
+  "safari-zone-2": ["safarizone-north", "safarizone-resthouse"],
+  "safari-zone-3": [
+    "safarizone-northeast",
+    "safarizone-southeast",
+    "safarizone-southwest",
+    "safarizone-resthouse",
+  ],
   "abandoned-ship-1": [
+    "abandonedship-deck",
+    "abandonedship-corridors-1f",
     "abandonedship-rooms-1f",
     "abandonedship-rooms2-1f",
     "abandonedship-captainsoffice",
   ],
   "abandoned-ship-2": [
+    "abandonedship-corridors-b1f",
     "abandonedship-rooms-b1f",
     "abandonedship-rooms2-b1f",
+    "abandonedship-hiddenfloorcorridors",
     "abandonedship-hiddenfloorrooms",
     "abandonedship-room-b1f",
   ],
@@ -215,8 +239,21 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "shoalcave-lowtideentranceroom",
     "shoalcave-lowtidestairsroom",
     "shoalcave-lowtideinnerroom",
+    "shoalcave-lowtidelowerroom",
   ],
-  "shoal-cave-2": ["shoalcave-lowtideiceroom"],
+  "shoal-cave-2": ["shoalcave-lowtideiceroom", "shoalcave-lowtidelowerroom"],
+  "seafloor-cavern-2": [
+    "seafloorcavern-entrance",
+    "seafloorcavern-room1",
+    "seafloorcavern-room2",
+    "seafloorcavern-room3",
+    "seafloorcavern-room4",
+    "seafloorcavern-room5",
+    "seafloorcavern-room6",
+    "seafloorcavern-room7",
+    "seafloorcavern-room8",
+    "seafloorcavern-room9",
+  ],
   "trick-8": ["route110-trickhousepuzzle8", "route110-trickhouseend"],
   "battle-frontier-1": ["sstidallowerdeck"],
   // Battle Pyramid — Brandon's facility (battle-frontier-3 overview step)
@@ -293,6 +330,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "safarizone-north",
     "safarizone-southeast",
     "safarizone-southwest",
+    "safarizone-resthouse",
   ],
   // Artisan Cave — Battle Frontier side content
   "battle-frontier-5": ["artisancave-1f", "artisancave-b1f"],
@@ -305,11 +343,11 @@ export const CHAPTER_AREA_MAP: Record<string, string> = {
   "rusturf-tunnel": "rusturftunnel",
   "granite-cave": "granitecave-1f",
   "magma-hideout": "magmahideout-1f",
-  "aqua-hideout": "aquahideout-b1f",
+  "aqua-hideout": "aquahideout-1f",
   "mt-pyre": "mtpyre-exterior",
-  "seafloor-cavern": "seafloorcavern-room9",
+  "seafloor-cavern": "seafloorcavern-entrance",
   "victory-road": "victoryroad-1f",
-  "abandoned-ship": "abandonedship-rooms-1f",
+  "abandoned-ship": "abandonedship-deck",
   "shoal-cave": "shoalcave-lowtideentranceroom",
   "sealed-chamber": "underwater-route126",
   "safari-zone": "safarizone-north",
@@ -320,11 +358,11 @@ export const CHAPTER_AREA_MAP: Record<string, string> = {
 /** Encounter / area ids that use interior area maps instead of the Hoenn composite crop. */
 export const INTERIOR_AREA_MAP: Record<string, string> = {
   ...CHAPTER_AREA_MAP,
-  "new-mauville": "newmauville-inside",
+  "new-mauville": "newmauville-entrance",
   "scorched-slab": "scorchedslab",
   "meteor-falls": "meteorfalls-1f-1r",
   "jagged-pass": "jaggedpass",
-  "aquahideout": "aquahideout-b1f",
+  "aquahideout": "aquahideout-1f",
   "trick-house": "route110-trickhousepuzzle1",
 };
 
