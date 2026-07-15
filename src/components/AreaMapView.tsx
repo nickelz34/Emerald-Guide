@@ -73,6 +73,8 @@ export function AreaMapView({
   const aspect = area ? area.width / area.height : 1;
   const inLightbox = variant === "lightbox";
   const isWide = aspect > 1.25;
+  /** Petalburg Gym etc. — height≫width; aspect×maxH collapses to a useless strip. */
+  const isTall = aspect > 0 && aspect < 0.4;
 
   if (!area) return null;
 
@@ -159,11 +161,20 @@ export function AreaMapView({
       className="area-map-view__frame"
       style={
         inLightbox
-          ? { width: "100%", height: "100%" }
-          : {
-              aspectRatio: `${area.width} / ${area.height}`,
-              width: `min(100%, ${Math.round(aspect * maxH)}px)`,
-            }
+          ? isTall
+            ? { width: "100%" }
+            : { width: "100%", height: "100%" }
+          : isTall
+            ? {
+                width: "100%",
+                maxWidth: "100%",
+                height: maxH,
+                aspectRatio: "unset",
+              }
+            : {
+                aspectRatio: `${area.width} / ${area.height}`,
+                width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+              }
       }
       onClick={
         inLightbox
@@ -176,7 +187,13 @@ export function AreaMapView({
             : undefined
       }
     >
-      <img src={assetUrl(area.image)} alt={label} className="area-map-view__image" decoding="async" draggable={false} />
+      <img
+        src={assetUrl(area.image)}
+        alt={label}
+        className={`area-map-view__image${isTall && !inLightbox ? " area-map-view__image--tall-preview" : ""}`}
+        decoding="async"
+        draggable={false}
+      />
       {pinLayer}
     </div>
   );
@@ -241,7 +258,9 @@ export function AreaMapView({
   if (inLightbox) {
     return (
       <figure
-        className={`area-map-view area-map-view--lightbox${isWide ? " area-map-view--wide" : ""} ${className}`}
+        className={`area-map-view area-map-view--lightbox${isWide ? " area-map-view--wide" : ""}${
+          isTall ? " area-map-view--tall" : ""
+        } ${className}`}
       >
         <p className="area-map-view__lightbox-title">{label}</p>
         <div className="area-map-view__lightbox-body">

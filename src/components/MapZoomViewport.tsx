@@ -42,6 +42,8 @@ export function MapZoomViewport({
         return Number.isFinite(w) && Number.isFinite(h) && h > 0 ? w / h : undefined;
       })()
     : undefined;
+  /** Ultra-tall maps (Petalburg Gym): don't derive width from height×aspect. */
+  const isTall = cropAspectRatio !== undefined && cropAspectRatio < 0.4;
   const maxFitZoom = narrow ? 2 : 1;
   const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
     enabled,
@@ -71,11 +73,15 @@ export function MapZoomViewport({
   return (
     <div
       ref={attachViewportRef}
-      className={`map-zoom-viewport${cropFit ? " map-zoom-viewport--crop-fit" : ""} ${className}`.trim()}
+      className={`map-zoom-viewport${cropFit ? " map-zoom-viewport--crop-fit" : ""}${
+        isTall ? " map-zoom-viewport--tall" : ""
+      } ${className}`.trim()}
       style={{
         ...zoomStyle,
-        ...(cropAspect ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect } : {}),
+        // Tall maps use a fixed viewport box; locking aspectRatio collapses width to ~30px.
+        ...(cropAspect && !isTall ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect } : {}),
         ...(cropAspectRatio ? { ["--map-aspect-ratio" as string]: cropAspectRatio } : {}),
+        ...(cropAspect && isTall ? { ["--map-aspect" as string]: cropAspect } : {}),
       }}
     >
       <div className="map-zoom-viewport__canvas" style={canvasStyle}>

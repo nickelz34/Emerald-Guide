@@ -20,6 +20,125 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.23.0",
+    date: "2026-07-14",
+    summary:
+      "Elite Four and Champion pages get face-off cutscenes plus each room map in order.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "League steps stack Sidney → Phoebe, Glacia → Drake, then Wallace → Hall of Fame — each with a baked face-off above the room interior.",
+          "Trainer pins sit on each Elite Four / Champion room map with party details on tap.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.9",
+    date: "2026-07-14",
+    summary:
+      "Petalburg Gym is shown as nine room maps (Norman → entrance) instead of one tiny tower.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Gym 5 splits the Petalburg interior into separate rooms stacked top to bottom — Norman’s room, each challenge room, then the entrance — each with correctly sized trainer pins.",
+          "The Norman face-off cutscene still appears above the room maps.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.8",
+    date: "2026-07-14",
+    summary:
+      "Petalburg Gym’s tall interior map keeps a usable full-width size on mobile.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Ultra-tall area maps (Petalburg City Gym) no longer shrink to a tiny strip on mobile — they use a full-width pan/zoom viewport instead of height×aspect sizing.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.7",
+    date: "2026-07-14",
+    summary:
+      "Every Gym battle opens with a baked leader face-off cutscene above the full gym map.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Gyms 1–8 (Roxanne through Juan) each show Brendan facing the leader on the podium before the interior floor plan(s).",
+          "Existing gym maps, trainer pins, and gym guide panels are unchanged — cutscenes are added, nothing removed.",
+          "Mossdeep shows Tate & Liza together for the double battle.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.6",
+    date: "2026-07-14",
+    summary:
+      "Gym 1 (Roxanne) opens with a baked face-off cutscene on the podium.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Rustboro Gym battle step shows Brendan facing Roxanne on the leader podium above the full gym interior map.",
+          "Legend lists Roxanne and Brendan via invisible hit targets with sprite labels; junior trainers stay on the floor plan below.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.5",
+    date: "2026-07-14",
+    summary:
+      "Rival face-off cutscenes replace the Hoenn crop on those steps (no stacked map).",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Steps with a rival face-off area map show only that cutscene — the regional Hoenn crop is no longer listed underneath.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.4",
+    date: "2026-07-14",
+    summary:
+      "Every rival battle opens with a baked Brendan–May face-off cutscene.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Rival Battles #1–#5 (Route 103, Rustboro, Route 110, Route 119, Lilycove) each show Brendan and May looking at each other on the local map.",
+          "Legend pins stay as invisible hit targets with sprite labels.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.22.3",
+    date: "2026-07-14",
+    summary:
+      "Rival Battles #1 and #2 open with baked face-off cutscenes (Route 103 and Rustboro).",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Route 103 Rival Battle #1 shows Brendan and May looking at each other on the north shore.",
+          "Rustboro Rival Battle #2 shows the same face-off style near the Pokémon School.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.2",
     date: "2026-07-14",
     summary:

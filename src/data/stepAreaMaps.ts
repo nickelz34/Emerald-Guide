@@ -40,6 +40,21 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "route-101-2": "route101",
   "route-101-3": "littleroottown-professorbirchslab",
 
+  // Route 103 — Rival Battle #1 face-off
+  "route-103-2": "route103-rival-battle",
+
+  // Rustboro — Rival Battle #2 face-off near Pokémon School
+  "rustboro-3": "rustborocity-rival-battle",
+
+  // Route 110 — Rival Battle #3 face-off
+  "route-110-3": "route110-rival-battle",
+
+  // Route 119 — Rival Battle #4 face-off north of Weather Institute
+  "route-119-3": "route119-rival-battle",
+
+  // Lilycove — Rival Battle #5 face-off outside Department Store
+  "lilycove-1": "lilycovecity-rival-battle",
+
   // Petalburg Woods
   "petalburg-woods-1": "petalburgwoods",
   "petalburg-woods-2": "petalburgwoods",
@@ -63,17 +78,10 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "trick-8": "route110-trickhousepuzzle8",
 
   // Mauville / New Mauville
-  "mauville-2": "mauvillecity-gym",
   "mauville-3": "newmauville-inside",
   "mauville-4": "newmauville-inside",
 
-  // Gym battles — single-floor interiors
-  "rustboro-2": "rustborocity-gym",
-  "dewford-2": "dewfordtown-gym",
-  "petalburg-gym-1": "petalburgcity-gym",
-  "fortree-2": "fortreecity-gym",
-  "mossdeep-1": "mossdeepcity-gym",
-  "lavaridge-2": "lavaridgetown-gym-1f",
+  // Gym battles — Waterfall pickup keeps 1F (battle uses STEP_AREA_MAPS face-off + floors)
   "sootopolis-gym-1": "sootopoliscity-gym-1f",
 
   // Lilycove contests
@@ -214,9 +222,52 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "battlepyramidsquare15",
     "battlepyramidsquare16",
   ],
-  // Multi-floor gym interiors
-  "lavaridge-2": ["lavaridgetown-gym-1f", "lavaridgetown-gym-b1f"],
-  "sootopolis-gym-2": ["sootopoliscity-gym-1f", "sootopoliscity-gym-b1f"],
+  // Gym battles — face-off cutscene first, then full interior floor plan(s)
+  "rustboro-2": ["rustborocity-gym-roxanne-battle", "rustborocity-gym"],
+  "dewford-2": ["dewfordtown-gym-brawly-battle", "dewfordtown-gym"],
+  "mauville-2": ["mauvillecity-gym-wattson-battle", "mauvillecity-gym"],
+  "lavaridge-2": [
+    "lavaridgetown-gym-flannery-battle",
+    "lavaridgetown-gym-1f",
+    "lavaridgetown-gym-b1f",
+  ],
+  "petalburg-gym-1": [
+    "petalburgcity-gym-norman-battle",
+    "petalburgcity-gym-norman",
+    "petalburgcity-gym-jody",
+    "petalburgcity-gym-berke",
+    "petalburgcity-gym-parker",
+    "petalburgcity-gym-alexia",
+    "petalburgcity-gym-george",
+    "petalburgcity-gym-randall",
+    "petalburgcity-gym-mary",
+    "petalburgcity-gym-entrance",
+  ],
+  "fortree-2": ["fortreecity-gym-winona-battle", "fortreecity-gym"],
+  "mossdeep-1": ["mossdeepcity-gym-tate-liza-battle", "mossdeepcity-gym"],
+  "sootopolis-gym-2": [
+    "sootopoliscity-gym-juan-battle",
+    "sootopoliscity-gym-1f",
+    "sootopoliscity-gym-b1f",
+  ],
+  // Pokémon League — face-off then room for each member (top → bottom)
+  "league-1": [
+    "evergrandecity-sidneysroom-battle",
+    "evergrandecity-sidneysroom",
+    "evergrandecity-phoebesroom-battle",
+    "evergrandecity-phoebesroom",
+  ],
+  "league-2": [
+    "evergrandecity-glaciasroom-battle",
+    "evergrandecity-glaciasroom",
+    "evergrandecity-drakesroom-battle",
+    "evergrandecity-drakesroom",
+  ],
+  "league-3": [
+    "evergrandecity-championsroom-battle",
+    "evergrandecity-championsroom",
+    "evergrandecity-halloffame",
+  ],
   "postgame-hoenn-5": [
     "safarizone-northeast",
     "safarizone-northwest",
