@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.23",
+    date: "2026-07-15",
+    summary:
+      "Battles & Training Event 1 is a full battle primer with in-game cutscenes and Emerald sprites for wild, trainer, and doubles fights.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Expanded Battle types & commands with wild vs trainer rules, singles vs doubles, each menu command, switching, and blackout behavior — plus a checklist.",
+          "Event gallery shows Route 101, Wally’s Ralts catch, Rival Battle #1, and Tate & Liza’s double battle cutscenes.",
+          "New BattleBasicsPanel uses Emerald battle sprites and command cards on that step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.22",
     date: "2026-07-15",
     summary:
