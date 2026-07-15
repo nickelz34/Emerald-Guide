@@ -46,6 +46,8 @@ export function AreaMapView({
       x: number;
       y: number;
       desc?: string;
+      code?: string;
+      pinCode?: string;
     }): MapPoint => ({
       id: m.id,
       name: m.name,
@@ -54,6 +56,7 @@ export function AreaMapView({
       y: m.y,
       desc: m.desc ? formatItemDescription(m.desc) : m.desc,
       note: area.name,
+      pinCode: m.pinCode ?? m.code,
     });
     const items: MapPoint[] = [
       ...area.markers.map(toPoint),
@@ -115,7 +118,7 @@ export function AreaMapView({
         type="button"
         className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
           baked ? "hoenn-map__pin--baked-cutscene" : trainer || owSprite ? "hoenn-map__pin--ow-sprite" : ""
-        } ${active ? "is-active" : ""}`}
+        } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
         style={{
           left: `${point.x}%`,
           top: `${point.y}%`,

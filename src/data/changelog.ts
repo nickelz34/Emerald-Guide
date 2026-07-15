@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.7",
+    date: "2026-07-15",
+    summary:
+      "Dungeon ladders, stairs, doors, and warps share matching letter codes across floors so you can tell which connector is which.",
+    sections: [
+      {
+        heading: "Area maps",
+        items: [
+          "Same-complex connectors are labeled A, B, C… on both ends (e.g. Ladder A to B1F matches Ladder A to 1F).",
+          "Letter badges show on the map pins; tooltips note which floor the matching code appears on.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.6",
     date: "2026-07-15",
     summary:

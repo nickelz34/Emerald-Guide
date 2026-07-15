@@ -81,6 +81,7 @@ function areaPoints(area: AreaMap): MapPoint[] {
       y: m.y,
       desc: m.desc,
       note: area.name,
+      pinCode: "code" in m ? (m as { code?: string }).code : undefined,
     }),
   );
 }
@@ -833,7 +834,9 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   key={point.id}
                   role="button"
                   tabIndex={0}
-                  className={`hoenn-map__pin hoenn-map__pin--${point.category} ${active ? "is-active" : ""}`}
+                  className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
+                    point.pinCode ? "has-code" : ""
+                  } ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
                     top: `${point.y}%`,

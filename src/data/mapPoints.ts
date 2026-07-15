@@ -58,6 +58,8 @@ export interface MapPoint {
   desc?: string;
   /** Walkthrough step to jump to when the marker is opened. */
   stepId?: string;
+  /** Shared A/B/C code for dungeon connectors paired across floors. */
+  pinCode?: string;
   /** Optional overworld / object-event sprite sheet (cutscene & NPC pins). */
   spriteSheet?: string;
   spriteWidth?: number;
