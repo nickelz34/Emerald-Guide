@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.23.3",
+    date: "2026-07-15",
+    summary:
+      "Mobile guide search shows matching steps again while keeping the search field pinned.",
+    sections: [
+      {
+        heading: "Mobile guide search",
+        items: [
+          "Typing in Steps search lists matching steps again (results no longer collapse to an empty panel).",
+          "Search field, guide settings, and match count stay sticky at the top while you scroll results.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.23.2",
     date: "2026-07-15",
     summary:
