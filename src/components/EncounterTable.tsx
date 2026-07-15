@@ -32,6 +32,8 @@ interface EncounterTableProps {
   showScreenshots?: boolean;
   /** When false, area secrets are omitted (shown on the parent walkthrough step instead). */
   showAreaSecrets?: boolean;
+  /** Shown when the area has no wild encounters (instead of leaving the panel blank). */
+  emptyMessage?: string;
 }
 
 const TIME_ORDER: TimeSlot[] = ["any", "morning", "day", "night"];
@@ -85,6 +87,7 @@ export function EncounterTable({
   compact,
   showScreenshots = true,
   showAreaSecrets = true,
+  emptyMessage,
 }: EncounterTableProps) {
   const [timeFilter, setTimeFilter] = useState<TimeSlot | "all">("all");
   const [methodFilter, setMethodFilter] = useState<EncounterMethod | "all">("all");
@@ -189,7 +192,7 @@ export function EncounterTable({
   const hasEncounters = allEncounters.length > 0;
   const hasAreaExtras = areas.some(({ data }) => data && (showScreenshots || showAreaSecrets));
 
-  if (!hasEncounters && !hasAreaExtras && !encLoading) return null;
+  if (!hasEncounters && !hasAreaExtras && !encLoading && !emptyMessage) return null;
 
   const openPokemon = (name: string) => {
     const entry = findDexEntryByName(dexEntries, name);
@@ -229,6 +232,12 @@ export function EncounterTable({
 
       {encLoading && !hasEncounters && (
         <p className="encounter-panel__loading">Loading wild encounter data…</p>
+      )}
+
+      {!encLoading && !hasEncounters && emptyMessage && (
+        <p className="encounter-panel__empty" role="status">
+          {emptyMessage}
+        </p>
       )}
 
       {hasEncounters && (
@@ -362,7 +371,12 @@ export function StepEncounters({ stepId }: StepEncountersProps) {
   return (
     <div className="step-card__encounters">
       <strong>Wild Pokémon</strong>
-      <EncounterTable areaIds={areaIds} showScreenshots={false} showAreaSecrets={false} />
+      <EncounterTable
+        areaIds={areaIds}
+        showScreenshots={false}
+        showAreaSecrets={false}
+        emptyMessage="No wild Pokémon encountered in this area."
+      />
     </div>
   );
 }

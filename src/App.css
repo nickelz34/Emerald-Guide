@@ -4715,6 +4715,18 @@
   color: var(--text-muted);
 }
 
+.encounter-panel__empty {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.step-card__encounters .encounter-panel__empty {
+  margin: 0.15rem 0 0;
+}
+
 .breeding-lookup {
   margin: 1.25rem 0;
   padding: 1rem 1.1rem;
