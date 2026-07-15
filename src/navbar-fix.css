@@ -25,6 +25,14 @@
   max-width: 100%;
 }
 
+.app-shell[data-view="desktop"] .sidebar__prefs-toggle {
+  display: none;
+}
+
+.app-shell[data-view="desktop"] .sidebar__prefs-panel {
+  display: flex;
+}
+
 .app-shell[data-view="desktop"] .sidebar__prefs .view-toggle__btn {
   padding: 0.4rem 0.65rem;
   font-size: 0.78rem;

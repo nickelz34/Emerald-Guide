@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.16",
+    date: "2026-07-15",
+    summary:
+      "Mobile Menu keeps Display options collapsed by default so navigation stays clear — expand to change layout or theme.",
+    sections: [
+      {
+        heading: "Mobile navigation",
+        items: [
+          "Mobile / Desktop and Light / Dark controls sit under a Display options disclosure in the Menu (collapsed until you open it).",
+          "Desktop top bar still shows both toggles inline.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.15",
     date: "2026-07-15",
     summary:
