@@ -990,6 +990,42 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    // Hand-added: meet Norman at the gym entrance (before badge challenge).
+    id: "petalburgcity-gym-norman-intro",
+    mapId: "MAP_PETALBURG_CITY_GYM",
+    name: "Petalburg City Gym",
+    group: "Petalburg City",
+    floor: "Meet Norman",
+    image: "maps/areas/petalburgcity-gym-norman-intro.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
+    // Hand-added: Wally catching tutorial on Route 102.
+    id: "route102-wally-catch",
+    mapId: "MAP_ROUTE102",
+    name: "Route 102",
+    group: "Route 102",
+    floor: "Wally’s catching tutorial",
+    image: "maps/areas/route102-wally-catch.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
+    // Hand-added: Mr. Briney’s cottage interior with Peeko.
+    id: "route104-mrbrineyshouse",
+    mapId: "MAP_ROUTE104_MR_BRINEYS_HOUSE",
+    name: "Mr. Briney’s Cottage",
+    group: "Route 104",
+    floor: "Interior",
+    image: "maps/areas/route104-mrbrineyshouse.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     id: "oldaletown-pokemoncenter-1f",
     mapId: "MAP_OLDALE_TOWN_POKEMON_CENTER_1F",
     name: "Oldale Town Pokémon Center",

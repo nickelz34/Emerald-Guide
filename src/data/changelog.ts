@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.4",
+    date: "2026-07-15",
+    summary:
+      "Meet-Norman, Wally catch, and Mr. Briney cottage get baked cutscene maps on Ch. 8–9 events.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "petalburg-1 shows Norman at the Petalburg Gym entrance before the badge challenge.",
+          "petalburg-2 shows Wally’s Route 102 catching tutorial with Zigzagoon and Ralts.",
+          "route-104-1 shows Mr. Briney’s cottage interior with Peeko.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.3",
     date: "2026-07-15",
     summary:

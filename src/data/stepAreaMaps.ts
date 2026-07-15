@@ -162,6 +162,11 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   // Pretty Petal Flower Shop — interior then nearby soft-soil plots
   "route-104-2": ["route104-prettypetalflowershop", "route104-berry-plots"],
 
+  // Meet Norman / Wally catch / Mr. Briney
+  "petalburg-1": ["petalburgcity-gym-norman-intro"],
+  "petalburg-2": ["route102-wally-catch"],
+  "route-104-1": ["route104-mrbrineyshouse"],
+
   "mt-pyre-1": [
     "mtpyre-exterior",
     "mtpyre-2f",
