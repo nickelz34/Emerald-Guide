@@ -23,12 +23,13 @@ export const CHANGELOG: ChangelogRelease[] = [
     version: "1.26.16",
     date: "2026-07-15",
     summary:
-      "Mobile Menu no longer shows the layout or Light/Dark toggles, so navigation stays uncluttered.",
+      "Mobile Menu keeps Display options collapsed by default so navigation stays clear — expand to change layout or theme.",
     sections: [
       {
         heading: "Mobile navigation",
         items: [
-          "Mobile / Desktop and Light / Dark controls are hidden in the mobile view Menu; they remain available in the desktop top bar.",
+          "Mobile / Desktop and Light / Dark controls sit under a Display options disclosure in the Menu (collapsed until you open it).",
+          "Desktop top bar still shows both toggles inline.",
         ],
       },
     ],

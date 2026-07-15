@@ -52,11 +52,20 @@ export function Sidebar({
   onColorModeChange,
 }: SidebarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [prefsOpen, setPrefsOpen] = useState(false);
   const [changelogOpen, setChangelogOpen] = useState(false);
 
   const handleSelect = (key: NavKey) => {
     onSelect(key);
     setMenuOpen(false);
+    setPrefsOpen(false);
+  };
+
+  const handleMenuToggle = () => {
+    setMenuOpen((open) => {
+      if (open) setPrefsOpen(false);
+      return !open;
+    });
   };
 
   return (
@@ -84,7 +93,7 @@ export function Sidebar({
         className="sidebar__menu-btn"
         aria-expanded={menuOpen}
         aria-controls="main-nav"
-        onClick={() => setMenuOpen((open) => !open)}
+        onClick={handleMenuToggle}
       >
         <span className="sidebar__menu-icon" aria-hidden="true">
           {menuOpen ? "✕" : "☰"}
@@ -118,9 +127,23 @@ export function Sidebar({
         ))}
       </nav>
 
-      <div className="sidebar__prefs">
-        <ViewModeToggle mode={viewMode} onChange={onViewModeChange} />
-        <ColorModeToggle mode={colorMode} onChange={onColorModeChange} />
+      <div className={`sidebar__prefs ${prefsOpen ? "sidebar__prefs--open" : ""}`}>
+        <button
+          type="button"
+          className="sidebar__prefs-toggle"
+          aria-expanded={prefsOpen}
+          aria-controls="sidebar-display-options"
+          onClick={() => setPrefsOpen((open) => !open)}
+        >
+          <span>Display options</span>
+          <span className="sidebar__prefs-toggle-caret" aria-hidden="true">
+            {prefsOpen ? "▴" : "▾"}
+          </span>
+        </button>
+        <div id="sidebar-display-options" className="sidebar__prefs-panel">
+          <ViewModeToggle mode={viewMode} onChange={onViewModeChange} />
+          <ColorModeToggle mode={colorMode} onChange={onColorModeChange} />
+        </div>
       </div>
 
       <ChangelogModal open={changelogOpen} onClose={() => setChangelogOpen(false)} />

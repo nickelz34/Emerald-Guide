@@ -294,6 +294,17 @@
   margin-left: auto;
 }
 
+.sidebar__prefs-toggle {
+  display: none;
+}
+
+.sidebar__prefs-panel {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .sidebar__prefs .view-toggle {
   flex-shrink: 0;
 }
@@ -560,7 +571,8 @@
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
     "brand menu"
-    "nav nav";
+    "nav nav"
+    "toggle toggle";
   align-items: center;
   gap: 0;
   height: auto;
@@ -596,9 +608,69 @@
   display: flex;
 }
 
-/* Layout + theme toggles stay desktop-only — they crowd the mobile Menu. */
+/* Mobile Menu: compact “Display options” disclosure — toggles stay collapsed by default. */
 .app-shell[data-view="mobile"] .sidebar__prefs {
+  grid-area: toggle;
   display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.45rem 1rem 0.75rem;
+  background: var(--panel-tint);
+}
+
+.app-shell[data-view="mobile"] .sidebar--menu-open .sidebar__prefs {
+  display: flex;
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs-toggle:hover,
+.app-shell[data-view="mobile"] .sidebar__prefs--open .sidebar__prefs-toggle {
+  color: var(--text);
+  border-color: var(--emerald);
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs-toggle-caret {
+  color: var(--emerald);
+  font-size: 0.85rem;
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs-panel {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem;
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs--open .sidebar__prefs-panel {
+  display: flex;
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs-panel .view-toggle {
+  width: 100%;
+}
+
+.app-shell[data-view="mobile"] .sidebar__prefs-panel .view-toggle__btn {
+  flex: 1 1 0;
+  min-height: 2.5rem;
 }
 
 @media (hover: none) and (pointer: coarse) {
