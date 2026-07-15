@@ -236,7 +236,7 @@ export const AREA_DATA: Record<string, AreaExtras> = {
   "granite-cave": {
     screenshot: "granite-cave.png",
     tips: ["Flash optional but makes navigation much easier in the dark floors."],
-    secrets: ["A Hiker on 1F gives HM05 Flash — Steven deeper in the cave gives TM47 Steel Wing."],
+    secrets: ["A Hiker on 1F gives HM05 Flash — Steven in Steven's Room (off 1F) gives TM47 Steel Wing."],
     encounters: [
       { name: "Zubat", level: "6–9", time: "any", method: "cave", rate: "50%" },
       { name: "Abra", level: "7–9", time: "any", method: "cave", rate: "4%", notes: "Rare" },

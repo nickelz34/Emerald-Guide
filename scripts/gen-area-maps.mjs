@@ -10,6 +10,7 @@
  * Usage:
  *   node scripts/gen-area-maps.mjs --dry     # list scope only, no render
  *   node scripts/gen-area-maps.mjs           # render PNGs + write src/data/areaMaps.ts
+ *   node scripts/gen-area-maps.mjs --only=MapName[,MapName2...]  # render PNGs only (no areaMaps rewrite)
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -23,6 +24,11 @@ const MAPS_DIR = path.join(REPO, "data/maps");
 const manifest = loadManifest(ROOT);
 const OUT_IMG_DIR = path.join(ROOT, "public/maps/areas");
 const DRY = process.argv.includes("--dry");
+const ONLY_RAW = (process.argv.find((a) => a.startsWith("--only=")) || "").slice("--only=".length);
+const ONLY_NAMES = ONLY_RAW
+  ? ONLY_RAW.split(",").map((s) => s.trim()).filter(Boolean)
+  : [];
+const ONLY = ONLY_NAMES.length === 1 ? ONLY_NAMES[0] : ONLY_NAMES.length > 1 ? ONLY_NAMES : "";
 
 const compositeIds = new Set(manifest.maps.map((m) => m.id));
 
@@ -307,6 +313,33 @@ function groupAndFloor(mapName) {
   if (mapName === "MossdeepCity_StevensHouse") {
     return { group: "Mossdeep City", floor: "Steven's House" };
   }
+  if (mapName === "GraniteCave_StevensRoom") {
+    return { group: "Granite Cave", floor: "Steven's Room" };
+  }
+  if (mapName === "MeteorFalls_StevensCave") {
+    return { group: "Meteor Falls", floor: "Steven's Cave" };
+  }
+  if (mapName === "AbandonedShip_Corridors_1F") {
+    return { group: "Abandoned Ship", floor: "Corridors 1F" };
+  }
+  if (mapName === "AbandonedShip_Corridors_B1F") {
+    return { group: "Abandoned Ship", floor: "Corridors B1F" };
+  }
+  if (mapName === "AbandonedShip_HiddenFloorCorridors") {
+    return { group: "Abandoned Ship", floor: "Hidden Floor Corridors" };
+  }
+  if (mapName === "AbandonedShip_Deck") {
+    return { group: "Abandoned Ship", floor: "Deck" };
+  }
+  if (mapName === "ShoalCave_LowTideLowerRoom") {
+    return { group: "Shoal Cave", floor: "Low Tide Lower Room" };
+  }
+  if (mapName === "NewMauville_Entrance") {
+    return { group: "New Mauville", floor: "Entrance" };
+  }
+  if (mapName === "SafariZone_RestHouse") {
+    return { group: "Safari Zone", floor: "Rest House" };
+  }
   if (/^RustboroCity_Gym$/.test(mapName)) return { group: "Rustboro City", floor: "" };
   if (/^DewfordTown_Gym$/.test(mapName)) return { group: "Dewford Town", floor: "" };
   if (/^MauvilleCity_Gym$/.test(mapName)) return { group: "Mauville City", floor: "" };
@@ -355,6 +388,31 @@ const ALWAYS_INCLUDE = new Set([
   "MossdeepCity_Gym",
   "SootopolisCity_Gym_1F",
   "SootopolisCity_Gym_B1F",
+  // Walkthrough navigation rooms with no field pickups
+  "GraniteCave_StevensRoom",
+  "MtPyre_1F",
+  "AquaHideout_1F",
+  "MagmaHideout_2F_1R",
+  "MagmaHideout_2F_3R",
+  "MeteorFalls_1F_2R",
+  "MeteorFalls_B1F_1R",
+  "MeteorFalls_StevensCave",
+  "AbandonedShip_Corridors_1F",
+  "AbandonedShip_Corridors_B1F",
+  "AbandonedShip_Deck",
+  "AbandonedShip_HiddenFloorCorridors",
+  "ShoalCave_LowTideLowerRoom",
+  "NewMauville_Entrance",
+  "SafariZone_RestHouse",
+  "SeafloorCavern_Entrance",
+  "SeafloorCavern_Room1",
+  "SeafloorCavern_Room2",
+  "SeafloorCavern_Room3",
+  "SeafloorCavern_Room4",
+  "SeafloorCavern_Room5",
+  "SeafloorCavern_Room6",
+  "SeafloorCavern_Room7",
+  "SeafloorCavern_Room8",
 ]);
 
 // ---- collect candidate maps ----
@@ -372,6 +430,20 @@ for (const [id, m] of maps) {
 }
 
 candidates.sort((a, b) => a.m.name.localeCompare(b.m.name));
+if (ONLY_NAMES.length) {
+  const want = new Set(ONLY_NAMES);
+  const filtered = candidates.filter((c) => want.has(c.m.name));
+  const missing = ONLY_NAMES.filter((n) => !filtered.some((c) => c.m.name === n));
+  if (missing.length) {
+    console.error(`--only matched no candidate maps for: ${missing.join(", ")}`);
+    process.exit(1);
+  }
+  candidates.length = 0;
+  candidates.push(...filtered);
+  console.log(
+    `--only mode: rendering ${filtered.map((c) => c.m.name).join(", ")} without rewriting areaMaps.ts`,
+  );
+}
 
 let tItems = 0, tHidden = 0, tBerries = 0;
 for (const c of candidates) {
@@ -503,13 +575,23 @@ for (const a of areaEntries) {
 }
 lines.push("];");
 lines.push("");
-fs.writeFileSync(path.join(ROOT, "src/data/areaMaps.ts"), lines.join("\n"));
-
-console.log(`\nWrote ${areaEntries.length} area maps to src/data/areaMaps.ts`);
+if (!ONLY) {
+  fs.writeFileSync(path.join(ROOT, "src/data/areaMaps.ts"), lines.join("\n"));
+  console.log(`\nWrote ${areaEntries.length} area maps to src/data/areaMaps.ts`);
+} else {
+  console.log(`\n--only: skipped rewriting areaMaps.ts (${areaEntries.length} map rendered).`);
+  for (const a of areaEntries) {
+    console.log(
+      `  entry hint: id=${a.id} mapId=${a.mapId} ${a.width}x${a.height} image=${a.image}`,
+    );
+  }
+}
 
 // ---- palette-quantize the PNGs in place (near-lossless, much smaller) ----
 const sharp = (await import("sharp")).default;
-const pngFiles = fs.readdirSync(OUT_IMG_DIR).filter((f) => f.endsWith(".png"));
+const pngFiles = ONLY
+  ? areaEntries.map((a) => path.basename(a.image))
+  : fs.readdirSync(OUT_IMG_DIR).filter((f) => f.endsWith(".png"));
 let before = 0, after = 0;
 for (const f of pngFiles) {
   const p = path.join(OUT_IMG_DIR, f);

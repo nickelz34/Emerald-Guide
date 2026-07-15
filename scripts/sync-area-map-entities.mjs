@@ -94,6 +94,7 @@ const SCRIPT_LABELS = {
   MeteorFalls_1F_1R_EventScript_ProfCozmo: { class: "Professor", name: "Cozmo" },
   GraniteCave_1F_EventScript_Hiker: { class: "Hiker", name: "Hiker" },
   MossdeepCity_StevensHouse_EventScript_Steven: { class: "Champion", name: "Steven" },
+  GraniteCave_StevensRoom_EventScript_Steven: { class: "Champion", name: "Steven" },
 };
 
 function fetchText(url) {

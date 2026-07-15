@@ -17,6 +17,45 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-abandonedship-captainsoffice-0", name: "Door A to Deck", category: "entrance", x: 83.33, y: 92.86, desc: "Leads to Abandoned Ship Deck. Matches Door A on Deck.", code: "A", destMap: "MAP_ABANDONED_SHIP_DECK", destWarpId: "4" },
     { id: "aen-abandonedship-captainsoffice-1", name: "Door A to Deck", category: "entrance", x: 94.44, y: 92.86, desc: "Leads to Abandoned Ship Deck.", code: "A", destMap: "MAP_ABANDONED_SHIP_DECK", destWarpId: "4" },
   ],
+  "abandonedship-corridors-1f": [
+    { id: "aen-abandonedship-corridors-1f-0", name: "Stairs C to Deck", category: "entrance", x: 52.78, y: 95.83, desc: "Goes up to Abandoned Ship Deck.", code: "C", destMap: "MAP_ABANDONED_SHIP_DECK", destWarpId: "2" },
+    { id: "aen-abandonedship-corridors-1f-1", name: "Stairs C to Deck", category: "entrance", x: 47.22, y: 95.83, desc: "Goes up to Abandoned Ship Deck. Matches Stairs C on Deck.", code: "C", destMap: "MAP_ABANDONED_SHIP_DECK", destWarpId: "2" },
+    { id: "aen-abandonedship-corridors-1f-2", name: "Stairs B to Deck", category: "entrance", x: 2.78, y: 95.83, desc: "Goes up to Abandoned Ship Deck. Matches Stairs B on Deck.", code: "B", destMap: "MAP_ABANDONED_SHIP_DECK", destWarpId: "3" },
+    { id: "aen-abandonedship-corridors-1f-3", name: "Stairs B to Deck", category: "entrance", x: 8.33, y: 95.83, desc: "Goes up to Abandoned Ship Deck.", code: "B", destMap: "MAP_ABANDONED_SHIP_DECK", destWarpId: "3" },
+    { id: "aen-abandonedship-corridors-1f-4", name: "Door I to 1F", category: "entrance", x: 63.89, y: 79.17, desc: "Leads to Abandoned Ship Rooms 1F. Matches Door I on 1F.", code: "I", destMap: "MAP_ABANDONED_SHIP_ROOMS_1F", destWarpId: "0" },
+    { id: "aen-abandonedship-corridors-1f-5", name: "Door J to 1F", category: "entrance", x: 80.56, y: 79.17, desc: "Leads to Abandoned Ship Rooms 1F. Matches Door J on 1F.", code: "J", destMap: "MAP_ABANDONED_SHIP_ROOMS_1F", destWarpId: "3" },
+    { id: "aen-abandonedship-corridors-1f-6", name: "Door D to 1F", category: "entrance", x: 63.89, y: 29.17, desc: "Leads to Abandoned Ship Rooms 1F. Matches Door D on 1F.", code: "D", destMap: "MAP_ABANDONED_SHIP_ROOMS_1F", destWarpId: "2" },
+    { id: "aen-abandonedship-corridors-1f-7", name: "Door E to 1F", category: "entrance", x: 80.56, y: 29.17, desc: "Leads to Abandoned Ship Rooms 1F. Matches Door E on 1F.", code: "E", destMap: "MAP_ABANDONED_SHIP_ROOMS_1F", destWarpId: "4" },
+    { id: "aen-abandonedship-corridors-1f-8", name: "Door H to 1F", category: "entrance", x: 19.44, y: 79.17, desc: "Leads to Abandoned Ship Rooms 2 1F. Matches Door H on 1F.", code: "H", destMap: "MAP_ABANDONED_SHIP_ROOMS2_1F", destWarpId: "0" },
+    { id: "aen-abandonedship-corridors-1f-9", name: "Stairs G to B1F", category: "entrance", x: 91.67, y: 20.83, desc: "Goes down to Abandoned Ship Corridors B1F. Matches Stairs G on B1F.", code: "G", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_B1F", destWarpId: "7" },
+    { id: "aen-abandonedship-corridors-1f-10", name: "Stairs F to B1F", category: "entrance", x: 30.56, y: 20.83, desc: "Goes down to Abandoned Ship Corridors B1F. Matches Stairs F on B1F.", code: "F", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_B1F", destWarpId: "6" },
+    { id: "aen-abandonedship-corridors-1f-11", name: "Door A to 1F", category: "entrance", x: 19.44, y: 29.17, desc: "Leads to Abandoned Ship Rooms 2 1F. Matches Door A on 1F.", code: "A", destMap: "MAP_ABANDONED_SHIP_ROOMS2_1F", destWarpId: "2" },
+  ],
+  "abandonedship-corridors-b1f": [
+    { id: "aen-abandonedship-corridors-b1f-0", name: "Door H to B1F", category: "entrance", x: 50, y: 45, desc: "Leads to Abandoned Ship Rooms 2 B1F. Matches Door H on B1F.", code: "H", destMap: "MAP_ABANDONED_SHIP_ROOMS2_B1F", destWarpId: "2" },
+    { id: "aen-abandonedship-corridors-b1f-1", name: "Door D to B1F", category: "entrance", x: 26.92, y: 45, desc: "Leads to Abandoned Ship Rooms 2 B1F. Matches Door D on B1F.", code: "D", destMap: "MAP_ABANDONED_SHIP_ROOMS2_B1F", destWarpId: "0" },
+    { id: "aen-abandonedship-corridors-b1f-2", name: "Door A to B1F", category: "entrance", x: 42.31, y: 75, desc: "Leads to Abandoned Ship Rooms B1F. Matches Door A on B1F.", code: "A", destMap: "MAP_ABANDONED_SHIP_ROOMS_B1F", destWarpId: "0" },
+    { id: "aen-abandonedship-corridors-b1f-3", name: "Door B to B1F", category: "entrance", x: 65.38, y: 75, desc: "Leads to Abandoned Ship Rooms B1F. Matches Door B on B1F.", code: "B", destMap: "MAP_ABANDONED_SHIP_ROOMS_B1F", destWarpId: "1" },
+    { id: "aen-abandonedship-corridors-b1f-4", name: "Door C to B1F", category: "entrance", x: 88.46, y: 75, desc: "Leads to Abandoned Ship Rooms B1F. Matches Door C on B1F.", code: "C", destMap: "MAP_ABANDONED_SHIP_ROOMS_B1F", destWarpId: "2" },
+    { id: "aen-abandonedship-corridors-b1f-5", name: "Door E to B1F", category: "entrance", x: 88.46, y: 45, desc: "Leads to Abandoned Ship Room B1F. Matches Door E on B1F.", code: "E", destMap: "MAP_ABANDONED_SHIP_ROOM_B1F", destWarpId: "0" },
+    { id: "aen-abandonedship-corridors-b1f-6", name: "Stairs F to 1F", category: "entrance", x: 3.85, y: 25, desc: "Goes up to Abandoned Ship Corridors 1F. Matches Stairs F on 1F.", code: "F", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_1F", destWarpId: "10" },
+    { id: "aen-abandonedship-corridors-b1f-7", name: "Stairs G to 1F", category: "entrance", x: 65.38, y: 25, desc: "Goes up to Abandoned Ship Corridors 1F. Matches Stairs G on 1F.", code: "G", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_1F", destWarpId: "9" },
+  ],
+  "abandonedship-deck": [
+    { id: "aen-abandonedship-deck-0", name: "Exit to Route 108", category: "entrance", x: 58.7, y: 73.81, desc: "Leaves Abandoned Ship Deck for Route 108.", destMap: "MAP_ROUTE108", destWarpId: "0" },
+    { id: "aen-abandonedship-deck-1", name: "Exit to Route 108", category: "entrance", x: 63.04, y: 73.81, desc: "Leaves Abandoned Ship Deck for Route 108.", destMap: "MAP_ROUTE108", destWarpId: "0" },
+    { id: "aen-abandonedship-deck-2", name: "Stairs C to 1F", category: "entrance", x: 58.7, y: 45.24, desc: "Goes down to Abandoned Ship Corridors 1F. Matches Stairs C on 1F.", code: "C", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_1F", destWarpId: "1" },
+    { id: "aen-abandonedship-deck-3", name: "Stairs B to 1F", category: "entrance", x: 36.96, y: 45.24, desc: "Goes down to Abandoned Ship Corridors 1F. Matches Stairs B on 1F.", code: "B", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_1F", destWarpId: "2" },
+    { id: "aen-abandonedship-deck-4", name: "Door A to Captain's Office", category: "entrance", x: 54.35, y: 26.19, desc: "Leads to Abandoned Ship Captain's Office. Matches Door A on Captain's Office.", code: "A", destMap: "MAP_ABANDONED_SHIP_CAPTAINS_OFFICE", destWarpId: "0" },
+  ],
+  "abandonedship-hiddenfloorcorridors": [
+    { id: "aen-abandonedship-hiddenfloorcorridors-0", name: "Door D to Hidden Floor Rooms", category: "entrance", x: 26.92, y: 77.27, desc: "Leads to Abandoned Ship Hidden Floor Rooms. Matches Door D on Hidden Floor Rooms.", code: "D", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS", destWarpId: "0" },
+    { id: "aen-abandonedship-hiddenfloorcorridors-1", name: "Door E to Hidden Floor Rooms", category: "entrance", x: 50, y: 77.27, desc: "Leads to Abandoned Ship Hidden Floor Rooms. Matches Door E on Hidden Floor Rooms.", code: "E", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS", destWarpId: "2" },
+    { id: "aen-abandonedship-hiddenfloorcorridors-2", name: "Door F to Hidden Floor Rooms", category: "entrance", x: 73.08, y: 77.27, desc: "Leads to Abandoned Ship Hidden Floor Rooms. Matches Door F on Hidden Floor Rooms.", code: "F", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS", destWarpId: "4" },
+    { id: "aen-abandonedship-hiddenfloorcorridors-3", name: "Door A to Hidden Floor Rooms", category: "entrance", x: 26.92, y: 31.82, desc: "Leads to Abandoned Ship Hidden Floor Rooms. Matches Door A on Hidden Floor Rooms.", code: "A", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS", destWarpId: "6" },
+    { id: "aen-abandonedship-hiddenfloorcorridors-4", name: "Door B to Hidden Floor Rooms", category: "entrance", x: 50, y: 31.82, desc: "Leads to Abandoned Ship Hidden Floor Rooms. Matches Door B on Hidden Floor Rooms.", code: "B", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS", destWarpId: "7" },
+    { id: "aen-abandonedship-hiddenfloorcorridors-5", name: "Door C to Hidden Floor Rooms", category: "entrance", x: 73.08, y: 31.82, desc: "Leads to Abandoned Ship Hidden Floor Rooms. Matches Door C on Hidden Floor Rooms.", code: "C", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS", destWarpId: "8" },
+  ],
   "abandonedship-hiddenfloorrooms": [
     { id: "aen-abandonedship-hiddenfloorrooms-0", name: "Door D to Hidden Floor Corridors", category: "entrance", x: 14.77, y: 96.67, desc: "Leads to Abandoned Ship Hidden Floor Corridors. Matches Door D on Hidden Floor Corridors.", code: "D", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS", destWarpId: "0" },
     { id: "aen-abandonedship-hiddenfloorrooms-1", name: "Door D to Hidden Floor Corridors", category: "entrance", x: 17.05, y: 96.67, desc: "Leads to Abandoned Ship Hidden Floor Corridors.", code: "D", destMap: "MAP_ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS", destWarpId: "0" },
@@ -55,6 +94,11 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-abandonedship-rooms2-b1f-1", name: "Door D to B1F", category: "entrance", x: 30.56, y: 93.75, desc: "Leads to Abandoned Ship Corridors B1F.", code: "D", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_B1F", destWarpId: "1" },
     { id: "aen-abandonedship-rooms2-b1f-2", name: "Door H to B1F", category: "entrance", x: 75, y: 93.75, desc: "Leads to Abandoned Ship Corridors B1F. Matches Door H on B1F.", code: "H", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_B1F", destWarpId: "0" },
     { id: "aen-abandonedship-rooms2-b1f-3", name: "Door H to B1F", category: "entrance", x: 80.56, y: 93.75, desc: "Leads to Abandoned Ship Corridors B1F.", code: "H", destMap: "MAP_ABANDONED_SHIP_CORRIDORS_B1F", destWarpId: "0" },
+  ],
+  "aquahideout-1f": [
+    { id: "aen-aquahideout-1f-0", name: "Exit to Lilycove City — south", category: "entrance", x: 48.21, y: 91.67, desc: "Leaves Aqua Hideout 1F for Lilycove City (south).", destMap: "MAP_LILYCOVE_CITY", destWarpId: "6" },
+    { id: "aen-aquahideout-1f-1", name: "Exit to Lilycove City — south", category: "entrance", x: 51.79, y: 91.67, desc: "Leaves Aqua Hideout 1F for Lilycove City (south).", destMap: "MAP_LILYCOVE_CITY", destWarpId: "6" },
+    { id: "aen-aquahideout-1f-2", name: "Warp A to B1F", category: "entrance", x: 80.36, y: 5, desc: "Goes down to Aqua Hideout B1F. Matches Warp A on B1F.", code: "A", destMap: "MAP_AQUA_HIDEOUT_B1F", destWarpId: "0" },
   ],
   "aquahideout-b1f": [
     { id: "aen-aquahideout-b1f-0", name: "Warp A to 1F", category: "entrance", x: 57.84, y: 6.25, desc: "Goes up to Aqua Hideout 1F. Matches Warp A on 1F.", code: "A", destMap: "MAP_AQUA_HIDEOUT_1F", destWarpId: "2" },
@@ -129,6 +173,9 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-granitecave-b2f-3", name: "Ladder D to B1F", category: "entrance", x: 39.06, y: 13.46, desc: "Goes up to Granite Cave B1F. Matches Ladder D on B1F.", code: "D", destMap: "MAP_GRANITE_CAVE_B1F", destWarpId: "5" },
     { id: "aen-granitecave-b2f-4", name: "Ladder B to B1F", category: "entrance", x: 92.19, y: 9.62, desc: "Goes up to Granite Cave B1F. Matches Ladder B on B1F.", code: "B", destMap: "MAP_GRANITE_CAVE_B1F", destWarpId: "6" },
   ],
+  "granitecave-stevensroom": [
+    { id: "aen-granitecave-stevensroom-0", name: "Door B to 1F", category: "entrance", x: 50, y: 25, desc: "Leads to Granite Cave 1F. Matches Door B on 1F.", code: "B", destMap: "MAP_GRANITE_CAVE_1F", destWarpId: "3" },
+  ],
   "jaggedpass": [
     { id: "aen-jaggedpass-0", name: "Exit to Route 112 — south", category: "entrance", x: 48.33, y: 88.04, desc: "Leaves Jagged Pass for Route 112 (south).", destMap: "MAP_ROUTE112", destWarpId: "2" },
     { id: "aen-jaggedpass-1", name: "Exit to Route 112 — south", category: "entrance", x: 51.67, y: 88.04, desc: "Leaves Jagged Pass for Route 112 (south).", destMap: "MAP_ROUTE112", destWarpId: "3" },
@@ -142,9 +189,18 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-magmahideout-1f-2", name: "Door A to 2R", category: "entrance", x: 85.14, y: 9.21, desc: "Leads to Magma Hideout 2F 2R. Matches Door A on 2R.", code: "A", destMap: "MAP_MAGMA_HIDEOUT_2F_2R", destWarpId: "1" },
     { id: "aen-magmahideout-1f-3", name: "Door B to 3R", category: "entrance", x: 55.41, y: 59.21, desc: "Leads to Magma Hideout 2F 3R. Matches Door B on 3R.", code: "B", destMap: "MAP_MAGMA_HIDEOUT_2F_3R", destWarpId: "0" },
   ],
+  "magmahideout-2f-1r": [
+    { id: "aen-magmahideout-2f-1r-0", name: "Door D to 2R", category: "entrance", x: 34.85, y: 60.26, desc: "Leads to Magma Hideout 2F 2R. Matches Door D on 2R.", code: "D", destMap: "MAP_MAGMA_HIDEOUT_2F_2R", destWarpId: "0" },
+    { id: "aen-magmahideout-2f-1r-1", name: "Door C to 1F", category: "entrance", x: 25.76, y: 6.41, desc: "Leads to Magma Hideout 1F. Matches Door C on 1F.", code: "C", destMap: "MAP_MAGMA_HIDEOUT_1F", destWarpId: "1" },
+    { id: "aen-magmahideout-2f-1r-2", name: "Door B to 1R", category: "entrance", x: 53.03, y: 85.9, desc: "Leads to Magma Hideout 3F 1R. Matches Door B on 1R.", code: "B", destMap: "MAP_MAGMA_HIDEOUT_3F_1R", destWarpId: "2" },
+  ],
   "magmahideout-2f-2r": [
     { id: "aen-magmahideout-2f-2r-0", name: "Door D to 1R", category: "entrance", x: 21.43, y: 80.36, desc: "Leads to Magma Hideout 2F 1R. Matches Door D on 1R.", code: "D", destMap: "MAP_MAGMA_HIDEOUT_2F_1R", destWarpId: "0" },
     { id: "aen-magmahideout-2f-2r-1", name: "Door A to 1F", category: "entrance", x: 74.49, y: 16.07, desc: "Leads to Magma Hideout 1F. Matches Door A on 1F.", code: "A", destMap: "MAP_MAGMA_HIDEOUT_1F", destWarpId: "2" },
+  ],
+  "magmahideout-2f-3r": [
+    { id: "aen-magmahideout-2f-3r-0", name: "Door B to 1F", category: "entrance", x: 27.5, y: 7.89, desc: "Leads to Magma Hideout 1F. Matches Door B on 1F.", code: "B", destMap: "MAP_MAGMA_HIDEOUT_1F", destWarpId: "3" },
+    { id: "aen-magmahideout-2f-3r-1", name: "Door A to 3R", category: "entrance", x: 27.5, y: 71.05, desc: "Leads to Magma Hideout 3F 3R. Matches Door A on 3R.", code: "A", destMap: "MAP_MAGMA_HIDEOUT_3F_3R", destWarpId: "0" },
   ],
   "magmahideout-3f-1r": [
     { id: "aen-magmahideout-3f-1r-0", name: "Door A to 4F", category: "entrance", x: 26.79, y: 89.58, desc: "Leads to Magma Hideout 4F. Matches Door A on 4F.", code: "A", destMap: "MAP_MAGMA_HIDEOUT_4F", destWarpId: "0" },
@@ -170,8 +226,33 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-meteorfalls-1f-1r-4", name: "Door G to 1R", category: "entrance", x: 88.33, y: 67.86, desc: "Leads to Meteor Falls B 1F 1R. Matches Door G on 1R.", code: "G", destMap: "MAP_METEOR_FALLS_B1F_1R", destWarpId: "5" },
     { id: "aen-meteorfalls-1f-1r-5", name: "Door A to Steven's Cave", category: "entrance", x: 15, y: 5.95, desc: "Leads to Meteor Falls Steven's Cave. Matches Door A on Steven's Cave.", code: "A", destMap: "MAP_METEOR_FALLS_STEVENS_CAVE", destWarpId: "0" },
   ],
+  "meteorfalls-1f-2r": [
+    { id: "aen-meteorfalls-1f-2r-0", name: "Door B to 1R", category: "entrance", x: 35, y: 92.19, desc: "Leads to Meteor Falls 1F 1R. Matches Door B on 1R.", code: "B", destMap: "MAP_METEOR_FALLS_1F_1R", destWarpId: "2" },
+    { id: "aen-meteorfalls-1f-2r-1", name: "Door D to 1R", category: "entrance", x: 15, y: 45.31, desc: "Leads to Meteor Falls B 1F 1R. Matches Door D on 1R.", code: "D", destMap: "MAP_METEOR_FALLS_B1F_1R", destWarpId: "0" },
+    { id: "aen-meteorfalls-1f-2r-2", name: "Door E to 1R", category: "entrance", x: 25, y: 64.06, desc: "Leads to Meteor Falls B 1F 1R. Matches Door E on 1R.", code: "E", destMap: "MAP_METEOR_FALLS_B1F_1R", destWarpId: "1" },
+    { id: "aen-meteorfalls-1f-2r-3", name: "Door F to 1R", category: "entrance", x: 71.67, y: 73.44, desc: "Leads to Meteor Falls B 1F 1R. Matches Door F on 1R.", code: "F", destMap: "MAP_METEOR_FALLS_B1F_1R", destWarpId: "2" },
+  ],
+  "meteorfalls-b1f-1r": [
+    { id: "aen-meteorfalls-b1f-1r-0", name: "Door D to 2R", category: "entrance", x: 18.97, y: 17.11, desc: "Leads to Meteor Falls 1F 2R. Matches Door D on 2R.", code: "D", destMap: "MAP_METEOR_FALLS_1F_2R", destWarpId: "1" },
+    { id: "aen-meteorfalls-b1f-1r-1", name: "Door E to 2R", category: "entrance", x: 25.86, y: 30.26, desc: "Leads to Meteor Falls 1F 2R. Matches Door E on 2R.", code: "E", destMap: "MAP_METEOR_FALLS_1F_2R", destWarpId: "2" },
+    { id: "aen-meteorfalls-b1f-1r-2", name: "Door F to 2R", category: "entrance", x: 63.79, y: 40.79, desc: "Leads to Meteor Falls 1F 2R. Matches Door F on 2R.", code: "F", destMap: "MAP_METEOR_FALLS_1F_2R", destWarpId: "3" },
+    { id: "aen-meteorfalls-b1f-1r-3", name: "Door A to 2R", category: "entrance", x: 60.34, y: 9.21, desc: "Leads to Meteor Falls B 1F 2R. Matches Door A on 2R.", code: "A", destMap: "MAP_METEOR_FALLS_B1F_2R", destWarpId: "0" },
+    { id: "aen-meteorfalls-b1f-1r-4", name: "Door C to 1R", category: "entrance", x: 12.07, y: 61.84, desc: "Leads to Meteor Falls 1F 1R. Matches Door C on 1R.", code: "C", destMap: "MAP_METEOR_FALLS_1F_1R", destWarpId: "3" },
+    { id: "aen-meteorfalls-b1f-1r-5", name: "Door G to 1R", category: "entrance", x: 70.69, y: 96.05, desc: "Leads to Meteor Falls 1F 1R. Matches Door G on 1R.", code: "G", destMap: "MAP_METEOR_FALLS_1F_1R", destWarpId: "4" },
+  ],
   "meteorfalls-b1f-2r": [
     { id: "aen-meteorfalls-b1f-2r-0", name: "Door A to 1R", category: "entrance", x: 50, y: 86.11, desc: "Leads to Meteor Falls B 1F 1R. Matches Door A on 1R.", code: "A", destMap: "MAP_METEOR_FALLS_B1F_1R", destWarpId: "3" },
+  ],
+  "meteorfalls-stevenscave": [
+    { id: "aen-meteorfalls-stevenscave-0", name: "Door A to 1R", category: "entrance", x: 35, y: 92.19, desc: "Leads to Meteor Falls 1F 1R. Matches Door A on 1R.", code: "A", destMap: "MAP_METEOR_FALLS_1F_1R", destWarpId: "5" },
+  ],
+  "mtpyre-1f": [
+    { id: "aen-mtpyre-1f-0", name: "Exit to Route 122 — southeast", category: "entrance", x: 79.55, y: 97.37, desc: "Leaves Mt Pyre 1F for Route 122 (southeast).", destMap: "MAP_ROUTE122", destWarpId: "0" },
+    { id: "aen-mtpyre-1f-1", name: "Stairs B to Exterior", category: "entrance", x: 15.91, y: 34.21, desc: "Goes up to Mt Pyre Exterior. Matches Stairs B on Exterior.", code: "B", destMap: "MAP_MT_PYRE_EXTERIOR", destWarpId: "0" },
+    { id: "aen-mtpyre-1f-2", name: "Exit to Route 122 — southeast", category: "entrance", x: 84.09, y: 97.37, desc: "Leaves Mt Pyre 1F for Route 122 (southeast).", destMap: "MAP_ROUTE122", destWarpId: "0" },
+    { id: "aen-mtpyre-1f-3", name: "Stairs B to Exterior", category: "entrance", x: 20.45, y: 34.21, desc: "Goes up to Mt Pyre Exterior.", code: "B", destMap: "MAP_MT_PYRE_EXTERIOR", destWarpId: "0" },
+    { id: "aen-mtpyre-1f-4", name: "Stairs A to 2F", category: "entrance", x: 52.27, y: 7.89, desc: "Goes up to Mt Pyre 2F. Matches Stairs A on 2F.", code: "A", destMap: "MAP_MT_PYRE_2F", destWarpId: "0" },
+    { id: "aen-mtpyre-1f-5", name: "Stairs F to 2F", category: "entrance", x: 93.18, y: 50, desc: "Goes up to Mt Pyre 2F. Matches Stairs F on 2F.", code: "F", destMap: "MAP_MT_PYRE_2F", destWarpId: "4" },
   ],
   "mtpyre-2f": [
     { id: "aen-mtpyre-2f-0", name: "Stairs A to 1F", category: "entrance", x: 19.23, y: 11.54, desc: "Goes down to Mt Pyre 1F. Matches Stairs A on 1F.", code: "A", destMap: "MAP_MT_PYRE_1F", destWarpId: "4" },
@@ -220,6 +301,10 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
   "navelrock-top": [
     { id: "aen-navelrock-top-0", name: "Door B to Up 4", category: "entrance", x: 54, y: 73.21, desc: "Leads to Navel Rock Up 4. Matches Door B on Up 4.", code: "B", destMap: "MAP_NAVEL_ROCK_UP4", destWarpId: "1" },
   ],
+  "newmauville-entrance": [
+    { id: "aen-newmauville-entrance-0", name: "Exit to Route 110 — east", category: "entrance", x: 50, y: 72.22, desc: "Leaves New Mauville Entrance for Route 110 (east).", destMap: "MAP_ROUTE110", destWarpId: "0" },
+    { id: "aen-newmauville-entrance-1", name: "Door A to Inside", category: "entrance", x: 50, y: 16.67, desc: "Leads to New Mauville Inside. Matches Door A on Inside.", code: "A", destMap: "MAP_NEW_MAUVILLE_INSIDE", destWarpId: "0" },
+  ],
   "newmauville-inside": [
     { id: "aen-newmauville-inside-0", name: "Door A to Entrance", category: "entrance", x: 79.27, y: 81.71, desc: "Leads to New Mauville Entrance. Matches Door A on Entrance.", code: "A", destMap: "MAP_NEW_MAUVILLE_ENTRANCE", destWarpId: "1" },
   ],
@@ -236,11 +321,59 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-rusturftunnel-1", name: "Exit to Verdanturf Town — north", category: "entrance", x: 81.94, y: 68.75, desc: "Leaves Rusturf Tunnel for Verdanturf Town (north).", destMap: "MAP_VERDANTURF_TOWN", destWarpId: "4" },
     { id: "aen-rusturftunnel-2", name: "Exit to Route 116 — south", category: "entrance", x: 51.39, y: 85.42, desc: "Leaves Rusturf Tunnel for Route 116 (south).", destMap: "MAP_ROUTE116", destWarpId: "2" },
   ],
+  "safarizone-resthouse": [
+    { id: "aen-safarizone-resthouse-0", name: "Door A to Southwest", category: "entrance", x: 35, y: 94.44, desc: "Leads to Safari Zone Southwest. Matches Door A on Southwest.", code: "A", destMap: "MAP_SAFARI_ZONE_SOUTHWEST", destWarpId: "0" },
+    { id: "aen-safarizone-resthouse-1", name: "Door A to Southwest", category: "entrance", x: 45, y: 94.44, desc: "Leads to Safari Zone Southwest.", code: "A", destMap: "MAP_SAFARI_ZONE_SOUTHWEST", destWarpId: "0" },
+  ],
   "safarizone-southwest": [
     { id: "aen-safarizone-southwest-0", name: "Door A to Rest House", category: "entrance", x: 73.75, y: 18.75, desc: "Leads to Safari Zone Rest House. Matches Door A on Rest House.", code: "A", destMap: "MAP_SAFARI_ZONE_REST_HOUSE", destWarpId: "0" },
   ],
   "scorchedslab": [
     { id: "aen-scorchedslab-0", name: "Exit to Route 120 — south", category: "entrance", x: 50, y: 82.5, desc: "Leaves Scorched Slab for Route 120 (south).", destMap: "MAP_ROUTE120", destWarpId: "1" },
+  ],
+  "seafloorcavern-entrance": [
+    { id: "aen-seafloorcavern-entrance-0", name: "Exit to Underwater Route 128 — south", category: "entrance", x: 52.5, y: 92.5, desc: "Leaves Seafloor Cavern Entrance for Underwater Route 128 (south).", destMap: "MAP_UNDERWATER_ROUTE128", destWarpId: "0" },
+    { id: "aen-seafloorcavern-entrance-1", name: "Door A to Room 1", category: "entrance", x: 52.5, y: 7.5, desc: "Leads to Seafloor Cavern Room 1. Matches Door A on Room 1.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM1", destWarpId: "0" },
+  ],
+  "seafloorcavern-room1": [
+    { id: "aen-seafloorcavern-room1-0", name: "Door A to Entrance", category: "entrance", x: 27.5, y: 88.1, desc: "Leads to Seafloor Cavern Entrance. Matches Door A on Entrance.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ENTRANCE", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room1-1", name: "Door B to Room 5", category: "entrance", x: 87.5, y: 64.29, desc: "Leads to Seafloor Cavern Room 5. Matches Door B on Room 5.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ROOM5", destWarpId: "0" },
+    { id: "aen-seafloorcavern-room1-2", name: "Door D to Room 2", category: "entrance", x: 32.5, y: 11.9, desc: "Leads to Seafloor Cavern Room 2. Matches Door D on Room 2.", code: "D", destMap: "MAP_SEAFLOOR_CAVERN_ROOM2", destWarpId: "0" },
+  ],
+  "seafloorcavern-room2": [
+    { id: "aen-seafloorcavern-room2-0", name: "Door D to Room 1", category: "entrance", x: 58.33, y: 62.5, desc: "Leads to Seafloor Cavern Room 1. Matches Door D on Room 1.", code: "D", destMap: "MAP_SEAFLOOR_CAVERN_ROOM1", destWarpId: "2" },
+    { id: "aen-seafloorcavern-room2-1", name: "Door B to Room 4", category: "entrance", x: 25, y: 87.5, desc: "Leads to Seafloor Cavern Room 4. Matches Door B on Room 4.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ROOM4", destWarpId: "0" },
+    { id: "aen-seafloorcavern-room2-2", name: "Door C to Room 6", category: "entrance", x: 36.11, y: 12.5, desc: "Leads to Seafloor Cavern Room 6. Matches Door C on Room 6.", code: "C", destMap: "MAP_SEAFLOOR_CAVERN_ROOM6", destWarpId: "0" },
+    { id: "aen-seafloorcavern-room2-3", name: "Door A to Room 7", category: "entrance", x: 63.89, y: 12.5, desc: "Leads to Seafloor Cavern Room 7. Matches Door A on Room 7.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM7", destWarpId: "0" },
+  ],
+  "seafloorcavern-room3": [
+    { id: "aen-seafloorcavern-room3-0", name: "Door B to Room 8", category: "entrance", x: 53.13, y: 8.82, desc: "Leads to Seafloor Cavern Room 8. Matches Door B on Room 8.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ROOM8", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room3-1", name: "Door C to Room 7", category: "entrance", x: 59.38, y: 79.41, desc: "Leads to Seafloor Cavern Room 7. Matches Door C on Room 7.", code: "C", destMap: "MAP_SEAFLOOR_CAVERN_ROOM7", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room3-2", name: "Door A to Room 6", category: "entrance", x: 28.13, y: 91.18, desc: "Leads to Seafloor Cavern Room 6. Matches Door A on Room 6.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM6", destWarpId: "1" },
+  ],
+  "seafloorcavern-room4": [
+    { id: "aen-seafloorcavern-room4-0", name: "Door B to Room 2", category: "entrance", x: 75, y: 7.89, desc: "Leads to Seafloor Cavern Room 2. Matches Door B on Room 2.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ROOM2", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room4-1", name: "Door A to Room 5", category: "entrance", x: 25, y: 7.89, desc: "Leads to Seafloor Cavern Room 5. Matches Door A on Room 5.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM5", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room4-2", name: "Door C to Room 5", category: "entrance", x: 52.78, y: 55.26, desc: "Leads to Seafloor Cavern Room 5. Matches Door C on Room 5.", code: "C", destMap: "MAP_SEAFLOOR_CAVERN_ROOM5", destWarpId: "2" },
+    { id: "aen-seafloorcavern-room4-3", name: "Door D to Entrance", category: "entrance", x: 58.33, y: 81.58, desc: "Leads to Seafloor Cavern Entrance.", code: "D", destMap: "MAP_SEAFLOOR_CAVERN_ENTRANCE", destWarpId: "1" },
+  ],
+  "seafloorcavern-room5": [
+    { id: "aen-seafloorcavern-room5-0", name: "Door B to Room 1", category: "entrance", x: 22.5, y: 7.5, desc: "Leads to Seafloor Cavern Room 1. Matches Door B on Room 1.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ROOM1", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room5-1", name: "Door A to Room 4", category: "entrance", x: 77.5, y: 62.5, desc: "Leads to Seafloor Cavern Room 4. Matches Door A on Room 4.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM4", destWarpId: "1" },
+    { id: "aen-seafloorcavern-room5-2", name: "Door C to Room 4", category: "entrance", x: 37.5, y: 87.5, desc: "Leads to Seafloor Cavern Room 4. Matches Door C on Room 4.", code: "C", destMap: "MAP_SEAFLOOR_CAVERN_ROOM4", destWarpId: "2" },
+  ],
+  "seafloorcavern-room6": [
+    { id: "aen-seafloorcavern-room6-0", name: "Door C to Room 2", category: "entrance", x: 47.92, y: 93.48, desc: "Leads to Seafloor Cavern Room 2. Matches Door C on Room 2.", code: "C", destMap: "MAP_SEAFLOOR_CAVERN_ROOM2", destWarpId: "2" },
+    { id: "aen-seafloorcavern-room6-1", name: "Door A to Room 3", category: "entrance", x: 18.75, y: 6.52, desc: "Leads to Seafloor Cavern Room 3. Matches Door A on Room 3.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM3", destWarpId: "2" },
+    { id: "aen-seafloorcavern-room6-2", name: "Door B to Entrance", category: "entrance", x: 60.42, y: 36.96, desc: "Leads to Seafloor Cavern Entrance.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ENTRANCE", destWarpId: "1" },
+  ],
+  "seafloorcavern-room7": [
+    { id: "aen-seafloorcavern-room7-0", name: "Door A to Room 2", category: "entrance", x: 15.22, y: 94, desc: "Leads to Seafloor Cavern Room 2. Matches Door A on Room 2.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM2", destWarpId: "3" },
+    { id: "aen-seafloorcavern-room7-1", name: "Door C to Room 3", category: "entrance", x: 23.91, y: 6, desc: "Leads to Seafloor Cavern Room 3. Matches Door C on Room 3.", code: "C", destMap: "MAP_SEAFLOOR_CAVERN_ROOM3", destWarpId: "1" },
+  ],
+  "seafloorcavern-room8": [
+    { id: "aen-seafloorcavern-room8-0", name: "Door A to Room 9", category: "entrance", x: 50, y: 17.86, desc: "Leads to Seafloor Cavern Room 9. Matches Door A on Room 9.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM9", destWarpId: "0" },
+    { id: "aen-seafloorcavern-room8-1", name: "Door B to Room 3", category: "entrance", x: 50, y: 89.29, desc: "Leads to Seafloor Cavern Room 3. Matches Door B on Room 3.", code: "B", destMap: "MAP_SEAFLOOR_CAVERN_ROOM3", destWarpId: "0" },
   ],
   "seafloorcavern-room9": [
     { id: "aen-seafloorcavern-room9-0", name: "Door A to Room 8", category: "entrance", x: 20.37, y: 9.78, desc: "Leads to Seafloor Cavern Room 8. Matches Door A on Room 8.", code: "A", destMap: "MAP_SEAFLOOR_CAVERN_ROOM8", destWarpId: "0" },
@@ -263,6 +396,12 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-shoalcave-lowtideinnerroom-5", name: "Door G to Low Tide Lower Room", category: "entrance", x: 66.3, y: 67.11, desc: "Leads to Shoal Cave Low Tide Lower Room. Matches Door G on Low Tide Lower Room.", code: "G", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_LOWER_ROOM", destWarpId: "2" },
     { id: "aen-shoalcave-lowtideinnerroom-6", name: "Door A to Entrance Room", category: "entrance", x: 31.52, y: 88.16, desc: "Leads to Shoal Cave Low Tide Entrance Room. Matches Door A on Entrance Room.", code: "A", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM", destWarpId: "2" },
     { id: "aen-shoalcave-lowtideinnerroom-7", name: "Door B to Entrance Room", category: "entrance", x: 88.04, y: 88.16, desc: "Leads to Shoal Cave Low Tide Entrance Room. Matches Door B on Entrance Room.", code: "B", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM", destWarpId: "3" },
+  ],
+  "shoalcave-lowtidelowerroom": [
+    { id: "aen-shoalcave-lowtidelowerroom-0", name: "Door D to Low Tide Inner Room", category: "entrance", x: 24.19, y: 17.86, desc: "Leads to Shoal Cave Low Tide Inner Room. Matches Door D on Low Tide Inner Room.", code: "D", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_INNER_ROOM", destWarpId: "3" },
+    { id: "aen-shoalcave-lowtidelowerroom-1", name: "Door F to Low Tide Inner Room", category: "entrance", x: 8.06, y: 46.43, desc: "Leads to Shoal Cave Low Tide Inner Room. Matches Door F on Low Tide Inner Room.", code: "F", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_INNER_ROOM", destWarpId: "4" },
+    { id: "aen-shoalcave-lowtidelowerroom-2", name: "Door G to Low Tide Inner Room", category: "entrance", x: 62.9, y: 82.14, desc: "Leads to Shoal Cave Low Tide Inner Room. Matches Door G on Low Tide Inner Room.", code: "G", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_INNER_ROOM", destWarpId: "5" },
+    { id: "aen-shoalcave-lowtidelowerroom-3", name: "Door A to Low Tide Ice Room", category: "entrance", x: 91.94, y: 82.14, desc: "Leads to Shoal Cave Low Tide Ice Room. Matches Door A on Low Tide Ice Room.", code: "A", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_ICE_ROOM", destWarpId: "0" },
   ],
   "shoalcave-lowtidestairsroom": [
     { id: "aen-shoalcave-lowtidestairsroom-0", name: "Door H to Low Tide Inner Room", category: "entrance", x: 16.67, y: 83.33, desc: "Leads to Shoal Cave Low Tide Inner Room. Matches Door H on Low Tide Inner Room.", code: "H", destMap: "MAP_SHOAL_CAVE_LOW_TIDE_INNER_ROOM", destWarpId: "1" },
