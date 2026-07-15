@@ -9,6 +9,7 @@ import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { RivalGuidePanelForStep } from "./RivalGuidePanel";
 import { FlowerShopGuidePanelForStep } from "./FlowerShopGuidePanel";
+import { StoryTrainerGuidePanelForStep } from "./StoryTrainerGuidePanel";
 import { StarterChoicePanelForStep } from "./StarterChoicePanel";
 import { RaltsSpotlightPanelForStep } from "./RaltsSpotlightPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
@@ -19,6 +20,7 @@ import { MatchCallSchedulePanel } from "./MatchCallSchedulePanel";
 import { StoryProgressBar } from "./StoryProgressBar";
 import { getGymForWalkthroughStep } from "../data/gymData";
 import { getRivalForWalkthroughStep } from "../data/rivalData";
+import { getStoryTrainerForWalkthroughStep } from "../data/storyTrainerBattles";
 import { BreedingLookup } from "./BreedingLookup";
 import { BreedingChart } from "./BreedingChart";
 import { EvolutionChart } from "./EvolutionChart";
@@ -133,6 +135,9 @@ export function StepBrowser({
   const current = flat[currentIndex] ?? flat[0];
   const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
   const rivalForStep = current ? getRivalForWalkthroughStep(current.step.id) : undefined;
+  const storyTrainerForStep = current
+    ? getStoryTrainerForWalkthroughStep(current.step.id)
+    : undefined;
   const showHmTable = current?.step.id === "rustboro-1";
   const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
   const showScottChecklist = current?.step.id === "battle-frontier-2";
@@ -635,6 +640,15 @@ export function StepBrowser({
           {rivalForStep && (
             <section className="gym-guide-embed rival-guide-embed" aria-label="Rival battle guide">
               <RivalGuidePanelForStep stepId={current.step.id} />
+            </section>
+          )}
+
+          {storyTrainerForStep && (
+            <section
+              className="gym-guide-embed rival-guide-embed story-trainer-guide-embed"
+              aria-label="Story trainer battle guide"
+            >
+              <StoryTrainerGuidePanelForStep stepId={current.step.id} />
             </section>
           )}
 

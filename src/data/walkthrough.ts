@@ -465,11 +465,11 @@ const storyChapters: GuideSection[] = [
         summary: "A Team Aqua Grunt corners a Devon Corporation researcher — step in.",
         story: [
           "Deep in the woods you stumble onto trouble: a jittery Devon Corporation researcher backed against the trees by a Team Aqua Grunt, who's demanding the \"Devon Goods\" the man is carrying. It's your first real look at one of Hoenn's villainous teams — sea-obsessed pirates in striped bandanas — and the researcher clearly can't fight his own way out.",
-          "Step in and the Grunt turns on you instead, throwing out a Poochyena or Zubat that your team should handle without much fuss. Sent packing, he flees, and the grateful researcher presses a Great Ball into your hands before hurrying home to Rustboro. You've just been drawn into a story far bigger than a gym circuit.",
+          "Step in and the Grunt turns on you instead, sending out a Level 9 Poochyena that your team should handle without much fuss. Sent packing, he flees, and the grateful researcher presses a Great Ball into your hands before hurrying home to Rustboro. You've just been drawn into a story far bigger than a gym circuit.",
         ],
         details: [
           "A Devon researcher is ambushed by a Team Aqua Grunt after his Devon Goods.",
-          "Battle the Grunt (uses a Poochyena/Zubat) to drive him off.",
+          "Battle the Grunt — party is a single Poochyena (Lv. 9).",
           "The grateful researcher gives you a Great Ball and heads to Rustboro.",
         ],
         tags: ["team-aqua", "story", "petalburg-woods"],

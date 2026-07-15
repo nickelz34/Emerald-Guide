@@ -55,9 +55,8 @@ export const STEP_AREA_MAP: Record<string, string> = {
   // Lilycove — Rival Battle #5 face-off outside Department Store
   "lilycove-1": "lilycovecity-rival-battle",
 
-  // Petalburg Woods
+  // Petalburg Woods (Event 2 uses STEP_AREA_MAPS cutscene stack)
   "petalburg-woods-1": "petalburgwoods",
-  "petalburg-woods-2": "petalburgwoods",
   "petalburg-woods-3": "petalburgwoods",
 
   // Rusturf Tunnel (Devon Corp step has no area map)
@@ -166,6 +165,9 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   "petalburg-1": ["petalburgcity-gym-norman-intro"],
   "petalburg-2": ["route102-wally-catch"],
   "route-104-1": ["route104-mrbrineyshouse"],
+
+  // Petalburg Woods — first Team Aqua battle face-off, then full woods
+  "petalburg-woods-2": ["petalburgwoods-aqua-battle", "petalburgwoods"],
 
   "mt-pyre-1": [
     "mtpyre-exterior",

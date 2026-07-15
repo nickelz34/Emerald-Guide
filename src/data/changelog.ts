@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.5",
+    date: "2026-07-15",
+    summary:
+      "Petalburg Woods Team Aqua step gets a battle face-off cutscene and an on-page Grunt party guide.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "petalburg-woods-2 shows the Team Aqua battle crop above the full woods map.",
+          "New on-page Team Aqua Grunt battle guide with trainer sprite and Poochyena (Lv. 9) party details.",
+          "Walkthrough text corrected to match Emerald data (Poochyena Lv. 9, not Zubat).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.4",
     date: "2026-07-15",
     summary:
