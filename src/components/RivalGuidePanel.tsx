@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { assetUrl } from "../lib/assetUrl";
 import { getTrainerBattle } from "../data/trainerParties";
 import {
   getRivalForWalkthroughStep,
+  rivalNameForPlayer,
   rivalTrainerPoint,
+  rivalWalkingSprite,
   type PlayerGender,
   type PlayerStarter,
   type RivalBattleData,
@@ -16,9 +19,38 @@ const STARTERS: { id: PlayerStarter; label: string }[] = [
   { id: "TREECKO", label: "Treecko" },
 ];
 
+const GENDER_OPTIONS: { id: PlayerGender; label: string }[] = [
+  { id: "brendan", label: "Brendan (rival May)" },
+  { id: "may", label: "May (rival Brendan)" },
+];
+
 interface RivalGuidePanelProps {
   rival: RivalBattleData;
   className?: string;
+}
+
+function RivalOwSprite({
+  gender,
+  label,
+}: {
+  gender: PlayerGender;
+  label: string;
+}) {
+  const sprite = rivalWalkingSprite(gender);
+  return (
+    <div
+      className="rival-guide__ow-sprite"
+      style={{
+        ["--trainer-frame" as string]: sprite.spriteFrame,
+        ["--trainer-fw" as string]: sprite.spriteWidth,
+        ["--trainer-fh" as string]: sprite.spriteHeight,
+      }}
+      aria-hidden="true"
+      title={label}
+    >
+      <img src={assetUrl(sprite.spriteSheet)} alt="" draggable={false} />
+    </div>
+  );
 }
 
 /** Rival battle party preview — pick your starter to see May/Brendan's team from pokeemerald data. */
@@ -27,32 +59,46 @@ export function RivalGuidePanel({ rival, className = "" }: RivalGuidePanelProps)
   const [starter, setStarter] = useState<PlayerStarter>("MUDKIP");
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
 
-  const trainerId = rivalTrainerPoint(rival, gender, starter).trainerId;
-  const battle = getTrainerBattle(trainerId);
   const trainerPoint = rivalTrainerPoint(rival, gender, starter);
-  const rivalName = gender === "brendan" ? "May" : "Brendan";
+  const battle = getTrainerBattle(trainerPoint.trainerId);
+  const rivalName = rivalNameForPlayer(gender);
 
   return (
     <div className={`rival-guide gym-guide ${className}`.trim()}>
       <section className="gym-modal__section" aria-label={`Rival Battle #${rival.battleNumber}`}>
-        <h5 className="gym-modal__section-title">Rival Battle #{rival.battleNumber} — {rivalName}</h5>
+        <h5 className="gym-modal__section-title">
+          Rival Battle #{rival.battleNumber} — {rivalName}
+        </h5>
         <p className="rival-guide__intro">
           Teams depend on which starter you chose at Route 101. Pick your character and starter below
           for accurate levels and species from the game data.
         </p>
 
         <div className="rival-guide__controls">
-          <label className="rival-guide__field">
-            <span>You play as</span>
+          <div className="rival-guide__field rival-guide__field--character">
+            <label htmlFor={`rival-gender-${rival.walkthroughStepId}`}>
+              <span>You play as</span>
+            </label>
             <select
+              id={`rival-gender-${rival.walkthroughStepId}`}
               value={gender}
               onChange={(e) => setGender(e.target.value as PlayerGender)}
               aria-label="Player character"
             >
-              <option value="brendan">Brendan (rival May)</option>
-              <option value="may">May (rival Brendan)</option>
+              {GENDER_OPTIONS.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}
+                </option>
+              ))}
             </select>
-          </label>
+            <div className="rival-guide__character-preview" aria-live="polite">
+              <RivalOwSprite gender={gender} label={rivalName} />
+              <div className="rival-guide__character-meta">
+                <span className="rival-guide__character-label">Your rival</span>
+                <strong className="rival-guide__character-name">{rivalName}</strong>
+              </div>
+            </div>
+          </div>
           <label className="rival-guide__field">
             <span>Your starter</span>
             <select
@@ -83,7 +129,7 @@ export function RivalGuidePanel({ rival, className = "" }: RivalGuidePanelProps)
             </button>
           </div>
         ) : (
-          <p className="rival-guide__missing">No party data for {trainerId}.</p>
+          <p className="rival-guide__missing">No party data for {trainerPoint.trainerId}.</p>
         )}
       </section>
 
