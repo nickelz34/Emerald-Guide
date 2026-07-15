@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.9",
+    date: "2026-07-15",
+    summary:
+      "Granite Cave walkthrough now shows every floor plus Steven's Room, with corrected Letter-delivery guidance.",
+    sections: [
+      {
+        heading: "Granite Cave",
+        items: [
+          "Added Steven's Room area map (with Steven pin and Door B link back to 1F).",
+          "granite-cave-1 shows 1F + Steven's Room; granite-cave-2 shows 1F, B1F, B2F, and Steven's Room.",
+          "Walkthrough text fixed: Steven is in Steven's Room off 1F (not B1F).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.8",
     date: "2026-07-15",
     summary:

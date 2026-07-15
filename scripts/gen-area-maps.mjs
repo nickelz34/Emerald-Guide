@@ -23,6 +23,7 @@ const MAPS_DIR = path.join(REPO, "data/maps");
 const manifest = loadManifest(ROOT);
 const OUT_IMG_DIR = path.join(ROOT, "public/maps/areas");
 const DRY = process.argv.includes("--dry");
+const ONLY = (process.argv.find((a) => a.startsWith("--only=")) || "").slice("--only=".length);
 
 const compositeIds = new Set(manifest.maps.map((m) => m.id));
 
@@ -307,6 +308,9 @@ function groupAndFloor(mapName) {
   if (mapName === "MossdeepCity_StevensHouse") {
     return { group: "Mossdeep City", floor: "Steven's House" };
   }
+  if (mapName === "GraniteCave_StevensRoom") {
+    return { group: "Granite Cave", floor: "Steven's Room" };
+  }
   if (/^RustboroCity_Gym$/.test(mapName)) return { group: "Rustboro City", floor: "" };
   if (/^DewfordTown_Gym$/.test(mapName)) return { group: "Dewford Town", floor: "" };
   if (/^MauvilleCity_Gym$/.test(mapName)) return { group: "Mauville City", floor: "" };
@@ -355,6 +359,8 @@ const ALWAYS_INCLUDE = new Set([
   "MossdeepCity_Gym",
   "SootopolisCity_Gym_1F",
   "SootopolisCity_Gym_B1F",
+  // Walkthrough navigation rooms with no field pickups
+  "GraniteCave_StevensRoom",
 ]);
 
 // ---- collect candidate maps ----
@@ -372,6 +378,16 @@ for (const [id, m] of maps) {
 }
 
 candidates.sort((a, b) => a.m.name.localeCompare(b.m.name));
+if (ONLY) {
+  const filtered = candidates.filter((c) => c.m.name === ONLY);
+  if (!filtered.length) {
+    console.error(`--only=${ONLY} matched no candidate maps.`);
+    process.exit(1);
+  }
+  candidates.length = 0;
+  candidates.push(...filtered);
+  console.log(`--only mode: rendering ${ONLY} without rewriting areaMaps.ts`);
+}
 
 let tItems = 0, tHidden = 0, tBerries = 0;
 for (const c of candidates) {
@@ -503,13 +519,23 @@ for (const a of areaEntries) {
 }
 lines.push("];");
 lines.push("");
-fs.writeFileSync(path.join(ROOT, "src/data/areaMaps.ts"), lines.join("\n"));
-
-console.log(`\nWrote ${areaEntries.length} area maps to src/data/areaMaps.ts`);
+if (!ONLY) {
+  fs.writeFileSync(path.join(ROOT, "src/data/areaMaps.ts"), lines.join("\n"));
+  console.log(`\nWrote ${areaEntries.length} area maps to src/data/areaMaps.ts`);
+} else {
+  console.log(`\n--only: skipped rewriting areaMaps.ts (${areaEntries.length} map rendered).`);
+  for (const a of areaEntries) {
+    console.log(
+      `  entry hint: id=${a.id} mapId=${a.mapId} ${a.width}x${a.height} image=${a.image}`,
+    );
+  }
+}
 
 // ---- palette-quantize the PNGs in place (near-lossless, much smaller) ----
 const sharp = (await import("sharp")).default;
-const pngFiles = fs.readdirSync(OUT_IMG_DIR).filter((f) => f.endsWith(".png"));
+const pngFiles = ONLY
+  ? areaEntries.map((a) => path.basename(a.image))
+  : fs.readdirSync(OUT_IMG_DIR).filter((f) => f.endsWith(".png"));
 let before = 0, after = 0;
 for (const f of pngFiles) {
   const p = path.join(OUT_IMG_DIR, f);

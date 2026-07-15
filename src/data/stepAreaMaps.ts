@@ -63,7 +63,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "rusturf-tunnel-1": "rusturftunnel",
 
   // Granite Cave
-  "granite-cave-1": "granitecave-b1f",
+  "granite-cave-1": "granitecave-1f",
   "granite-cave-2": "granitecave-1f",
 
   // Trick House
@@ -185,7 +185,16 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "magmahideout-3f-3r",
   ],
   "aqua-hideout-2": ["aquahideout-b1f", "aquahideout-b2f"],
-  "granite-cave-2": ["granitecave-1f", "granitecave-b2f"],
+  "granite-cave-1": [
+    "granitecave-1f",
+    "granitecave-stevensroom",
+  ],
+  "granite-cave-2": [
+    "granitecave-1f",
+    "granitecave-b1f",
+    "granitecave-b2f",
+    "granitecave-stevensroom",
+  ],
   "victory-road-2": ["victoryroad-1f", "victoryroad-b1f", "victoryroad-b2f"],
   "sealed-chamber-1": ["underwater-route124", "underwater-route126"],
   "safari-zone-1": ["safarizone-northwest"],

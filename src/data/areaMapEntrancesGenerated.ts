@@ -129,6 +129,9 @@ export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]> = {
     { id: "aen-granitecave-b2f-3", name: "Ladder D to B1F", category: "entrance", x: 39.06, y: 13.46, desc: "Goes up to Granite Cave B1F. Matches Ladder D on B1F.", code: "D", destMap: "MAP_GRANITE_CAVE_B1F", destWarpId: "5" },
     { id: "aen-granitecave-b2f-4", name: "Ladder B to B1F", category: "entrance", x: 92.19, y: 9.62, desc: "Goes up to Granite Cave B1F. Matches Ladder B on B1F.", code: "B", destMap: "MAP_GRANITE_CAVE_B1F", destWarpId: "6" },
   ],
+  "granitecave-stevensroom": [
+    { id: "aen-granitecave-stevensroom-0", name: "Door B to 1F", category: "entrance", x: 50, y: 25, desc: "Leads to Granite Cave 1F. Matches Door B on 1F.", code: "B", destMap: "MAP_GRANITE_CAVE_1F", destWarpId: "3" },
+  ],
   "jaggedpass": [
     { id: "aen-jaggedpass-0", name: "Exit to Route 112 — south", category: "entrance", x: 48.33, y: 88.04, desc: "Leaves Jagged Pass for Route 112 (south).", destMap: "MAP_ROUTE112", destWarpId: "2" },
     { id: "aen-jaggedpass-1", name: "Exit to Route 112 — south", category: "entrance", x: 51.67, y: 88.04, desc: "Leaves Jagged Pass for Route 112 (south).", destMap: "MAP_ROUTE112", destWarpId: "3" },

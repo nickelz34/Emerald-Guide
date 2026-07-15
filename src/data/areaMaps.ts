@@ -553,6 +553,18 @@ export const AREA_MAPS: AreaMap[] = [
       { id: "ahi82", name: "Everstone", category: "hidden", x: 48.44, y: 44.23, desc: "A wondrous hold item that prevents evolution." },
     ],
   },
+  // Navigation room (Steven Letter) — no field pickups; included for walkthrough maps.
+  {
+    id: "granitecave-stevensroom",
+    mapId: "MAP_GRANITE_CAVE_STEVENS_ROOM",
+    name: "Granite Cave Steven's Room",
+    group: "Granite Cave",
+    floor: "Steven's Room",
+    image: "maps/areas/granitecave-stevensroom.png",
+    width: 240,
+    height: 224,
+    markers: [],
+  },
   {
     // Hand-added: new-game truck intro (no collectibles, so gen-area-maps skips it).
     // Door-open cutscene with Brendan baked in; legend marker from AREA_MAP_CUTSCENE_ENTITIES.
