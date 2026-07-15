@@ -427,6 +427,10 @@ const gfxNeeded = new Set();
 let entityId = 0;
 
 for (const { id: areaId, mapId } of areas) {
+  // Petalburg Gym room crops bake NPCs into the PNG; full-map Y% coords land wrong.
+  if (/^petalburgcity-gym(?:-|$)/.test(areaId) && !/-battle$|-intro$/.test(areaId)) {
+    continue;
+  }
   const mapDir = mapIdToFolder.get(mapId) ?? mapIdToDir(mapId);
   let map;
   try {
