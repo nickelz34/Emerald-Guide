@@ -7741,18 +7741,22 @@
 }
 
 .marker-index__sprite {
+  /* Fixed thumb slot — sprites of any sheet size (16×16 balls → 64×64 battle fronts)
+     are scaled to fit so legend rows never clip heads/feet on desktop or mobile. */
+  --legend-thumb-size: 32;
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: calc(var(--legend-thumb-size) * 1px);
+  height: calc(var(--legend-thumb-size) * 1px);
   flex-shrink: 0;
   overflow: hidden;
   image-rendering: pixelated;
 }
 
 .marker-index__sprite .hoenn-map__trainer-frame {
-  transform: scale(0.75);
+  --legend-sprite-max: max(var(--trainer-fw, 16), var(--trainer-fh, 32));
+  transform: scale(calc(var(--legend-thumb-size) / var(--legend-sprite-max)));
   transform-origin: bottom center;
 }
 
