@@ -2326,6 +2326,38 @@
   border-radius: 2px;
 }
 
+/* Letter codes pairing ladders/stairs/doors across dungeon floors. */
+.hoenn-map__pin--entrance .hoenn-map__pin-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: color-mix(in srgb, var(--pin-color, #7d8aa0) 92%, #000 8%);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  transition: transform 0.12s ease;
+}
+
+.hoenn-map__pin--entrance:hover .hoenn-map__pin-code,
+.hoenn-map__pin--entrance.is-active .hoenn-map__pin-code {
+  transform: scale(1.12);
+}
+
+.hoenn-map__pin--entrance.has-code {
+  width: auto;
+  height: auto;
+  z-index: 2;
+}
+
 /* Collectible pins: item ball, berry tree, and Itemfinder for hidden items. */
 .hoenn-map__pin--item,
 .hoenn-map__pin--berry,

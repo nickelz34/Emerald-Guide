@@ -76,6 +76,14 @@ export function MapPinVisual({ point }: MapPinVisualProps) {
     }
   }
 
+  if (point.pinCode) {
+    return (
+      <span className="hoenn-map__pin-code" aria-hidden="true">
+        {point.pinCode}
+      </span>
+    );
+  }
+
   return <span className="hoenn-map__pin-dot" />;
 }
 

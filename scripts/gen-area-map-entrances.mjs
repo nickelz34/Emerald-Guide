@@ -201,18 +201,146 @@ function cardinalFromDest(destMapId, destWarpId) {
   return "";
 }
 
-function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, tilesW, tilesH) {
+function sameComplex(fromFolder, fromMapId, destMapId) {
   const destInfo = byMapId.get(destMapId);
   const destFolder = destInfo?.folder || "";
   const fromP = parseMapConstant(fromMapId, fromFolder);
   const destP = parseMapConstant(destMapId, destFolder);
-  const same =
+  return (
     complexKeyFromFolder(fromFolder) === complexKeyFromFolder(destFolder || fromFolder) ||
-    fromP.complex === destP.complex;
+    fromP.complex === destP.complex
+  );
+}
+
+function epKey(mapId, warpIdx) {
+  return `${mapId}#${warpIdx}`;
+}
+
+/** A, B, … Z, AA, AB, … — shared across both ends of a connector. */
+function toLetterCode(i) {
+  let n = i + 1;
+  let s = "";
+  while (n > 0) {
+    n--;
+    s = String.fromCharCode(65 + (n % 26)) + s;
+    n = Math.floor(n / 26);
+  }
+  return s;
+}
+
+class UnionFind {
+  constructor() {
+    this.parent = new Map();
+  }
+  add(x) {
+    if (!this.parent.has(x)) this.parent.set(x, x);
+  }
+  find(x) {
+    this.add(x);
+    let p = this.parent.get(x);
+    if (p !== x) {
+      p = this.find(p);
+      this.parent.set(x, p);
+    }
+    return p;
+  }
+  union(a, b) {
+    const ra = this.find(a);
+    const rb = this.find(b);
+    if (ra !== rb) this.parent.set(ra, rb);
+  }
+}
+
+/**
+ * Pair same-complex warps so ladders/stairs/doors/warps share one letter on
+ * both floors (and dual doorway tiles going to the same dest share too).
+ */
+function buildConnectorCodes() {
+  /** @type {Map<string, string>} endpoint → letter */
+  const codes = new Map();
+  const byComplex = new Map();
+
+  for (const [mapId, info] of byMapId) {
+    if (!isDungeonFolder(info.folder)) continue;
+    const ck = complexKeyFromFolder(info.folder);
+    if (!byComplex.has(ck)) byComplex.set(ck, []);
+    byComplex.get(ck).push({ mapId, info });
+  }
+
+  for (const [, maps] of byComplex) {
+    const uf = new UnionFind();
+    /** @type {Map<string, { x: number, y: number, floorRank: number }[]>} */
+    const metas = new Map();
+    const siblingGroups = new Map();
+
+    for (const { mapId, info } of maps) {
+      const fromP = parseMapConstant(mapId, info.folder);
+      const warps = info.map.warp_events || [];
+      warps.forEach((w, idx) => {
+        if (!w.dest_map || w.dest_map === "MAP_NONE" || w.dest_map === "MAP_DYNAMIC") return;
+        if (!sameComplex(info.folder, mapId, w.dest_map)) return;
+        const a = epKey(mapId, idx);
+        const b = epKey(w.dest_map, w.dest_warp_id);
+        uf.union(a, b);
+        const meta = { x: w.x, y: w.y, floorRank: floorRank(fromP.floor) };
+        if (!metas.has(a)) metas.set(a, []);
+        metas.get(a).push(meta);
+        const sib = `${mapId}|${w.dest_map}|${w.dest_warp_id}`;
+        if (!siblingGroups.has(sib)) siblingGroups.set(sib, []);
+        siblingGroups.get(sib).push(a);
+      });
+    }
+
+    for (const group of siblingGroups.values()) {
+      for (let i = 1; i < group.length; i++) uf.union(group[0], group[i]);
+    }
+
+    /** @type {Map<string, { nodes: string[], points: { x: number, y: number, floorRank: number }[] }>} */
+    const comps = new Map();
+    for (const node of uf.parent.keys()) {
+      const root = uf.find(node);
+      if (!comps.has(root)) comps.set(root, { nodes: [], points: [] });
+      comps.get(root).nodes.push(node);
+      if (metas.has(node)) comps.get(root).points.push(...metas.get(node));
+    }
+
+    const ordered = [...comps.values()].sort((a, b) => {
+      const ptsA = a.points.length ? a.points : [{ x: 0, y: 0, floorRank: 0 }];
+      const ptsB = b.points.length ? b.points : [{ x: 0, y: 0, floorRank: 0 }];
+      // Prefer connectors players hit first (higher floors), then reading order.
+      const aMaxF = Math.max(...ptsA.map((m) => m.floorRank));
+      const bMaxF = Math.max(...ptsB.map((m) => m.floorRank));
+      if (aMaxF !== bMaxF) return bMaxF - aMaxF;
+      const aHigh = ptsA.filter((m) => m.floorRank === aMaxF);
+      const bHigh = ptsB.filter((m) => m.floorRank === bMaxF);
+      const aY = Math.min(...aHigh.map((m) => m.y));
+      const bY = Math.min(...bHigh.map((m) => m.y));
+      if (aY !== bY) return aY - bY;
+      return Math.min(...aHigh.map((m) => m.x)) - Math.min(...bHigh.map((m) => m.x));
+    });
+
+    ordered.forEach((comp, i) => {
+      const letter = toLetterCode(i);
+      for (const node of comp.nodes) codes.set(node, letter);
+    });
+  }
+
+  return codes;
+}
+
+const CONNECTOR_CODES = buildConnectorCodes();
+
+function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, tilesW, tilesH, fromWarpIdx) {
+  const destInfo = byMapId.get(destMapId);
+  const destFolder = destInfo?.folder || "";
+  const fromP = parseMapConstant(fromMapId, fromFolder);
+  const destP = parseMapConstant(destMapId, destFolder);
+  const same = sameComplex(fromFolder, fromMapId, destMapId);
   const kind = connectorKind(fromFolder, fromP, destP, same);
   const card =
     (sourceWarp ? sideFromSource(sourceWarp, tilesW, tilesH) : "") ||
     cardinalFromDest(destMapId, destWarpId);
+  const code = same ? CONNECTOR_CODES.get(epKey(fromMapId, fromWarpIdx)) || "" : "";
 
   if (!same) {
     const destName = destP.display.replace(/\bMap\b/g, "").trim();
@@ -220,20 +348,25 @@ function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, til
     return {
       name: card ? `Exit to ${destName} — ${card}` : `Exit to ${destName}`,
       desc: `Leaves ${fromP.display || fromP.complexDisplay} for ${destName}${where}.`,
+      code: "",
     };
   }
 
   const destShort = destP.floorDisplay || destP.roomLabel || destP.display;
   const verb = directionVerb(fromP, destP);
+  const codeBit = code ? `${code} ` : "";
+  const matchBit = code ? ` Matches ${kind} ${code} on ${destShort}.` : "";
   if (kind === "Ladder" || kind === "Stairs" || kind === "Warp") {
     return {
-      name: `${kind} to ${destShort}`,
-      desc: `${verb} ${destP.display}.`,
+      name: `${kind} ${codeBit}to ${destShort}`.replace(/\s+/g, " ").trim(),
+      desc: `${verb} ${destP.display}.${matchBit}`,
+      code,
     };
   }
   return {
-    name: `Door to ${destShort}`,
-    desc: `${verb} ${destP.display}.`,
+    name: `Door ${codeBit}to ${destShort}`.replace(/\s+/g, " ").trim(),
+    desc: `${verb} ${destP.display}.${matchBit}`,
+    code,
   };
 }
 
@@ -280,9 +413,10 @@ for (const area of areas) {
 
   const markers = [];
   let idx = 0;
-  for (const w of warps) {
+  for (let warpIdx = 0; warpIdx < warps.length; warpIdx++) {
+    const w = warps[warpIdx];
     if (!w.dest_map || w.dest_map === "MAP_NONE" || w.dest_map === "MAP_DYNAMIC") continue;
-    const { name, desc } = warpLabel(
+    const { name, desc, code } = warpLabel(
       info.folder,
       area.mapId,
       w.dest_map,
@@ -290,6 +424,7 @@ for (const area of areas) {
       w,
       tilesW,
       tilesH,
+      warpIdx,
     );
     const { x, y } = spreadXY(warps, w, idx, tilesW, tilesH);
     markers.push({
@@ -299,6 +434,7 @@ for (const area of areas) {
       x,
       y,
       desc,
+      code: code || undefined,
       destMap: w.dest_map,
       destWarpId: String(w.dest_warp_id ?? ""),
     });
@@ -317,6 +453,8 @@ lines.push('import type { AreaMapMarker } from "./areaMaps";');
 lines.push("");
 lines.push("export interface AreaEntranceMarker extends AreaMapMarker {");
 lines.push('  category: "entrance";');
+lines.push("  /** Shared A/B/C code pairing this connector with its other end. */");
+lines.push("  code?: string;");
 lines.push("  /** pokeemerald dest_map constant. */");
 lines.push("  destMap: string;");
 lines.push("  destWarpId: string;");
@@ -327,8 +465,9 @@ lines.push("export const AREA_MAP_ENTRANCES: Record<string, AreaEntranceMarker[]
 for (const id of Object.keys(byAreaId).sort()) {
   lines.push(`  ${JSON.stringify(id)}: [`);
   for (const mk of byAreaId[id]) {
+    const codePart = mk.code ? `, code: ${JSON.stringify(mk.code)}` : "";
     lines.push(
-      `    { id: ${JSON.stringify(mk.id)}, name: ${JSON.stringify(mk.name)}, category: "entrance", x: ${mk.x}, y: ${mk.y}, desc: ${JSON.stringify(mk.desc)}, destMap: ${JSON.stringify(mk.destMap)}, destWarpId: ${JSON.stringify(mk.destWarpId)} },`,
+      `    { id: ${JSON.stringify(mk.id)}, name: ${JSON.stringify(mk.name)}, category: "entrance", x: ${mk.x}, y: ${mk.y}, desc: ${JSON.stringify(mk.desc)}${codePart}, destMap: ${JSON.stringify(mk.destMap)}, destWarpId: ${JSON.stringify(mk.destWarpId)} },`,
     );
   }
   lines.push("  ],");
@@ -340,7 +479,15 @@ fs.writeFileSync(OUT, lines.join("\n"));
 console.log(`Wrote ${total} entrance markers across ${mapsWith} dungeon area maps → ${path.relative(ROOT, OUT)}`);
 
 // Preview a few labels
-for (const sample of ["granitecave-1f", "petalburgwoods", "rusturftunnel", "victoryroad-b1f", "aquahideout-b1f"]) {
+for (const sample of [
+  "granitecave-1f",
+  "granitecave-b1f",
+  "granitecave-b2f",
+  "petalburgwoods",
+  "victoryroad-1f",
+  "victoryroad-b1f",
+  "aquahideout-b1f",
+]) {
   const m = byAreaId[sample];
   if (!m) continue;
   console.log(`\n${sample}:`);
