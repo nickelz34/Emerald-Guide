@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.16",
+    date: "2026-07-15",
+    summary:
+      "Mobile Menu no longer shows the layout or Light/Dark toggles, so navigation stays uncluttered.",
+    sections: [
+      {
+        heading: "Mobile navigation",
+        items: [
+          "Mobile / Desktop and Light / Dark controls are hidden in the mobile view Menu; they remain available in the desktop top bar.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.15",
     date: "2026-07-15",
     summary:
