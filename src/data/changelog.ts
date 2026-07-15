@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.24.1",
+    date: "2026-07-15",
+    summary:
+      "Guide settings no longer leave a blank gap above Walkthrough mode that forced a second tap on Start walkthrough on mobile.",
+    sections: [
+      {
+        heading: "Mobile guide settings",
+        items: [
+          "Fixed a Safari layout quirk where Guide settings showed empty space above Walkthrough mode; the first tap on Start walkthrough collapsed the gap without submitting, so you had to tap twice.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.24.0",
     date: "2026-07-15",
     summary:
