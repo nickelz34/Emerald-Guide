@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.24",
+    date: "2026-07-15",
+    summary:
+      "Trainer map pins enlarge cleanly on hover instead of looking split or cut off.",
+    sections: [
+      {
+        heading: "Maps",
+        items: [
+          "Hover/active scale on Hoenn map and walkthrough trainer pins now grows the clipped sprite frame, not the full sheet image — so neighboring facing frames no longer peek through as a split sprite on desktop and mobile.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.23",
     date: "2026-07-15",
     summary:
