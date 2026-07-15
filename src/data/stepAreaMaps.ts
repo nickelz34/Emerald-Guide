@@ -159,6 +159,9 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   "oldale-1": ["oldaletown", "oldaletown-pokemoncenter-1f", "oldaletown-mart"],
   "oldale-2": ["oldaletown"],
 
+  // Pretty Petal Flower Shop — interior then nearby soft-soil plots
+  "route-104-2": ["route104-prettypetalflowershop", "route104-berry-plots"],
+
   "mt-pyre-1": [
     "mtpyre-exterior",
     "mtpyre-2f",

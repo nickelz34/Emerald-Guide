@@ -949,6 +949,47 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Pretty Petal Flower Shop interior (Wailmer Pail sisters).
+    id: "route104-prettypetalflowershop",
+    mapId: "MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP",
+    name: "Pretty Petal Flower Shop",
+    group: "Route 104",
+    floor: "Interior",
+    image: "maps/areas/route104-prettypetalflowershop.png",
+    width: 240,
+    height: 144,
+    markers: [],
+  },
+  {
+    // Hand-added: soft-soil berry plots west of the Pretty Petal shop.
+    id: "route104-berry-plots",
+    mapId: "MAP_ROUTE104",
+    name: "Route 104 Berry Plots",
+    group: "Route 104",
+    floor: "Soft soil (west of shop)",
+    image: "maps/areas/route104-berry-plots.png",
+    width: 240,
+    height: 160,
+    markers: [
+      {
+        id: "r104-soft-soil",
+        name: "Soft soil plots",
+        category: "berry",
+        x: 20.8,
+        y: 70,
+        desc: "Plant Oran or Pecha berries here and water them with the Wailmer Pail for free healing stock.",
+      },
+      {
+        id: "r104-flower-shop-door",
+        name: "Pretty Petal Flower Shop",
+        category: "entrance",
+        x: 36.7,
+        y: 30,
+        desc: "Shop entrance — talk to the sisters for the Wailmer Pail and a free daily berry.",
+      },
+    ],
+  },
+  {
     id: "oldaletown-pokemoncenter-1f",
     mapId: "MAP_OLDALE_TOWN_POKEMON_CENTER_1F",
     name: "Oldale Town Pokémon Center",

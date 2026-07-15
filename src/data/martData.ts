@@ -49,6 +49,10 @@ export function getMartForMapPoint(point: MapPoint): MartData | undefined {
   });
 }
 
+export function getMartById(id: string): MartData | undefined {
+  return byId.get(id);
+}
+
 export function formatMartPrice(price: number, priceUnit?: "ash"): string {
   if (price <= 0) return "Free";
   const amount = price.toLocaleString("en-US");

@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.25.0",
+    date: "2026-07-15",
+    summary:
+      "Pretty Petal Flower Shop (Ch. 9 Event 2) gets interior + berry-plot maps, Wailmer Pail details, and shop stock on the page.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "route-104-2 stacks the flower-shop interior and nearby soft-soil berry plots above the event cards.",
+          "New on-page guide covers the Wailmer Pail, free daily berry, and Dynamo Badge plant decorations — accurate to Emerald (berries aren’t sold for money).",
+          "Wailmer Pail added to the key-item unlock list.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.24.2",
     date: "2026-07-15",
     summary:
