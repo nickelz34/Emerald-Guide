@@ -252,11 +252,12 @@ class UnionFind {
 }
 
 /**
- * Pair same-complex warps so ladders/stairs/doors/warps share one letter on
- * both floors (and dual doorway tiles going to the same dest share too).
+ * Assign shared letters to reciprocal connectors (plus adjacent dual-door tiles).
+ * Letters are unique on each map, and the same letter appears on the matching
+ * warp on the other side — no transitive teleporter chaining.
  */
 function buildConnectorCodes() {
-  /** @type {Map<string, string>} endpoint → letter */
+  /** @type {Map<string, string>} source endpoint → letter */
   const codes = new Map();
   const byComplex = new Map();
 
@@ -267,11 +268,19 @@ function buildConnectorCodes() {
     byComplex.get(ck).push({ mapId, info });
   }
 
+  function edgeKey(a, b) {
+    return a < b ? `${a}||${b}` : `${b}||${a}`;
+  }
+
+  function isAdjacent(ax, ay, bx, by) {
+    return Math.abs(ax - bx) + Math.abs(ay - by) <= 1;
+  }
+
   for (const [, maps] of byComplex) {
-    const uf = new UnionFind();
-    /** @type {Map<string, { x: number, y: number, floorRank: number }[]>} */
-    const metas = new Map();
-    const siblingGroups = new Map();
+    const mapInfo = new Map(maps.map((m) => [m.mapId, m.info]));
+
+    /** @type {Map<string, { endpoints: Set<string>, sources: { ep: string, mapId: string, x: number, y: number, floorRank: number }[], maps: Set<string> }>} */
+    const edges = new Map();
 
     for (const { mapId, info } of maps) {
       const fromP = parseMapConstant(mapId, info.folder);
@@ -279,35 +288,74 @@ function buildConnectorCodes() {
       warps.forEach((w, idx) => {
         if (!w.dest_map || w.dest_map === "MAP_NONE" || w.dest_map === "MAP_DYNAMIC") return;
         if (!sameComplex(info.folder, mapId, w.dest_map)) return;
+        const destIdx = Number(w.dest_warp_id);
         const a = epKey(mapId, idx);
-        const b = epKey(w.dest_map, w.dest_warp_id);
-        uf.union(a, b);
-        const meta = { x: w.x, y: w.y, floorRank: floorRank(fromP.floor) };
-        if (!metas.has(a)) metas.set(a, []);
-        metas.get(a).push(meta);
-        const sib = `${mapId}|${w.dest_map}|${w.dest_warp_id}`;
-        if (!siblingGroups.has(sib)) siblingGroups.set(sib, []);
-        siblingGroups.get(sib).push(a);
+        const b = epKey(w.dest_map, destIdx);
+        const ek = edgeKey(a, b);
+        if (!edges.has(ek)) {
+          edges.set(ek, { endpoints: new Set(), sources: [], maps: new Set() });
+        }
+        const e = edges.get(ek);
+        e.endpoints.add(a);
+        e.endpoints.add(b);
+        e.maps.add(mapId);
+        e.maps.add(w.dest_map);
+        e.sources.push({
+          ep: a,
+          mapId,
+          x: w.x,
+          y: w.y,
+          floorRank: floorRank(fromP.floor),
+        });
       });
     }
 
-    for (const group of siblingGroups.values()) {
-      for (let i = 1; i < group.length; i++) uf.union(group[0], group[i]);
+    // Merge adjacent dual-door/stair tiles that share the same destination endpoint.
+    const edgeUf = new UnionFind();
+    for (const ek of edges.keys()) edgeUf.add(ek);
+
+    for (const { mapId, info } of maps) {
+      const warps = info.map.warp_events || [];
+      /** @type {Map<string, { idx: number, x: number, y: number, ek: string }[]>} */
+      const byDest = new Map();
+      warps.forEach((w, idx) => {
+        if (!w.dest_map || w.dest_map === "MAP_NONE" || w.dest_map === "MAP_DYNAMIC") return;
+        if (!sameComplex(info.folder, mapId, w.dest_map)) return;
+        const destIdx = Number(w.dest_warp_id);
+        const a = epKey(mapId, idx);
+        const b = epKey(w.dest_map, destIdx);
+        const ek = edgeKey(a, b);
+        const key = `${w.dest_map}#${destIdx}`;
+        if (!byDest.has(key)) byDest.set(key, []);
+        byDest.get(key).push({ idx, x: w.x, y: w.y, ek });
+      });
+      for (const group of byDest.values()) {
+        for (let i = 0; i < group.length; i++) {
+          for (let j = i + 1; j < group.length; j++) {
+            if (isAdjacent(group[i].x, group[i].y, group[j].x, group[j].y)) {
+              edgeUf.union(group[i].ek, group[j].ek);
+            }
+          }
+        }
+      }
     }
 
-    /** @type {Map<string, { nodes: string[], points: { x: number, y: number, floorRank: number }[] }>} */
+    /** @type {Map<string, { endpoints: Set<string>, sources: typeof edges extends Map<any, infer V> ? V["sources"] : never, maps: Set<string> }>} */
     const comps = new Map();
-    for (const node of uf.parent.keys()) {
-      const root = uf.find(node);
-      if (!comps.has(root)) comps.set(root, { nodes: [], points: [] });
-      comps.get(root).nodes.push(node);
-      if (metas.has(node)) comps.get(root).points.push(...metas.get(node));
+    for (const [ek, edge] of edges) {
+      const root = edgeUf.find(ek);
+      if (!comps.has(root)) {
+        comps.set(root, { endpoints: new Set(), sources: [], maps: new Set() });
+      }
+      const c = comps.get(root);
+      for (const ep of edge.endpoints) c.endpoints.add(ep);
+      for (const m of edge.maps) c.maps.add(m);
+      c.sources.push(...edge.sources);
     }
 
     const ordered = [...comps.values()].sort((a, b) => {
-      const ptsA = a.points.length ? a.points : [{ x: 0, y: 0, floorRank: 0 }];
-      const ptsB = b.points.length ? b.points : [{ x: 0, y: 0, floorRank: 0 }];
-      // Prefer connectors players hit first (higher floors), then reading order.
+      const ptsA = a.sources.length ? a.sources : [{ x: 0, y: 0, floorRank: 0 }];
+      const ptsB = b.sources.length ? b.sources : [{ x: 0, y: 0, floorRank: 0 }];
       const aMaxF = Math.max(...ptsA.map((m) => m.floorRank));
       const bMaxF = Math.max(...ptsB.map((m) => m.floorRank));
       if (aMaxF !== bMaxF) return bMaxF - aMaxF;
@@ -319,16 +367,38 @@ function buildConnectorCodes() {
       return Math.min(...aHigh.map((m) => m.x)) - Math.min(...bHigh.map((m) => m.x));
     });
 
-    ordered.forEach((comp, i) => {
-      const letter = toLetterCode(i);
-      for (const node of comp.nodes) codes.set(node, letter);
-    });
+    /** Letters already used by source warps on each map. */
+    const usedOnMap = new Map();
+    for (const mapId of mapInfo.keys()) usedOnMap.set(mapId, new Set());
+
+    for (const comp of ordered) {
+      const mapsTouched = [...new Set(comp.sources.map((s) => s.mapId))];
+      let n = 0;
+      let letter = toLetterCode(n);
+      while (mapsTouched.some((m) => usedOnMap.get(m)?.has(letter))) {
+        n++;
+        letter = toLetterCode(n);
+      }
+      for (const m of mapsTouched) usedOnMap.get(m).add(letter);
+      // Assign letter to every *source* endpoint in the component so both
+      // sides of a reciprocal pair share it. Dest-only pads aren’t pins.
+      for (const s of comp.sources) codes.set(s.ep, letter);
+    }
   }
 
   return codes;
 }
 
 const CONNECTOR_CODES = buildConnectorCodes();
+
+function isReciprocalWarp(fromMapId, fromWarpIdx, destMapId, destWarpId) {
+  const destInfo = byMapId.get(destMapId);
+  if (!destInfo) return false;
+  const warps = destInfo.map.warp_events || [];
+  const tw = warps[Number(destWarpId)];
+  if (!tw) return false;
+  return tw.dest_map === fromMapId && Number(tw.dest_warp_id) === Number(fromWarpIdx);
+}
 
 function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, tilesW, tilesH, fromWarpIdx) {
   const destInfo = byMapId.get(destMapId);
@@ -341,6 +411,7 @@ function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, til
     (sourceWarp ? sideFromSource(sourceWarp, tilesW, tilesH) : "") ||
     cardinalFromDest(destMapId, destWarpId);
   const code = same ? CONNECTOR_CODES.get(epKey(fromMapId, fromWarpIdx)) || "" : "";
+  const reciprocal = same && isReciprocalWarp(fromMapId, fromWarpIdx, destMapId, destWarpId);
 
   if (!same) {
     const destName = destP.display.replace(/\bMap\b/g, "").trim();
@@ -355,7 +426,8 @@ function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, til
   const destShort = destP.floorDisplay || destP.roomLabel || destP.display;
   const verb = directionVerb(fromP, destP);
   const codeBit = code ? `${code} ` : "";
-  const matchBit = code ? ` Matches ${kind} ${code} on ${destShort}.` : "";
+  const matchBit =
+    code && reciprocal ? ` Matches ${kind} ${code} on ${destShort}.` : "";
   if (kind === "Ladder" || kind === "Stairs" || kind === "Warp") {
     return {
       name: `${kind} ${codeBit}to ${destShort}`.replace(/\s+/g, " ").trim(),
