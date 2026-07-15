@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.15",
+    date: "2026-07-15",
+    summary:
+      "Brand mark is now a Gen III–style faceted emerald with a light shimmer in the top-left header.",
+    sections: [
+      {
+        heading: "Branding",
+        items: [
+          "Replaced the flat ◆ header icon with a Pokémon Emerald–inspired gem: hard facet cuts, black outline, Star Piece–style specular glints, and pixel sparkles.",
+          "A soft light shimmer sweeps across the stone (respects prefers-reduced-motion).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.14",
     date: "2026-07-15",
     summary:
