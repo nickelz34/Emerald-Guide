@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.5",
+    date: "2026-07-14",
+    summary:
+      "Rival face-off cutscenes replace the Hoenn crop on those steps (no stacked map).",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Steps with a rival face-off area map show only that cutscene — the regional Hoenn crop is no longer listed underneath.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.4",
     date: "2026-07-14",
     summary:
@@ -29,7 +43,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         heading: "Walkthrough",
         items: [
           "Rival Battles #1–#5 (Route 103, Rustboro, Route 110, Route 119, Lilycove) each show Brendan and May looking at each other on the local map.",
-          "Legend pins stay as invisible hit targets with sprite labels; existing Hoenn crops still appear below each cutscene.",
+          "Legend pins stay as invisible hit targets with sprite labels.",
         ],
       },
     ],
@@ -45,7 +59,6 @@ export const CHANGELOG: ChangelogRelease[] = [
         items: [
           "Route 103 Rival Battle #1 shows Brendan and May looking at each other on the north shore.",
           "Rustboro Rival Battle #2 shows the same face-off style near the Pokémon School.",
-          "Existing Hoenn crops still appear below each cutscene.",
         ],
       },
     ],

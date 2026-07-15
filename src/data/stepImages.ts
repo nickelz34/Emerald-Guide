@@ -95,27 +95,27 @@ export function getStepImages(stepId: string): StepScreenshot[] {
   // Pregame reference chapters are mechanics text — no route maps.
   if (stepId.startsWith("pregame-")) return [];
 
-  const chapter = STEP_TO_CHAPTER[stepId];
-  const outdoor = resolveOutdoorCrop(stepId, chapter);
   const areaMaps = areaMapShots(stepId);
-
-  const shots: StepScreenshot[] = areaMaps.map(({ areaMapId, caption }) => ({
-    src: "",
-    caption,
-    areaMapId,
-  }));
-
-  // Keep existing Hoenn crops below cutscene / area maps when both apply.
-  if (outdoor) {
-    shots.push({
-      src: HOENN_MAP_SRC,
-      caption: outdoor.caption,
-      areaId: outdoor.areaId,
-      crop: outdoor.crop,
-    });
+  if (areaMaps.length > 0) {
+    return areaMaps.map(({ areaMapId, caption }) => ({
+      src: "",
+      caption,
+      areaMapId,
+    }));
   }
 
-  if (shots.length > 0) return shots;
+  const chapter = STEP_TO_CHAPTER[stepId];
+  const outdoor = resolveOutdoorCrop(stepId, chapter);
+  if (outdoor) {
+    return [
+      {
+        src: HOENN_MAP_SRC,
+        caption: outdoor.caption,
+        areaId: outdoor.areaId,
+        crop: outdoor.crop,
+      },
+    ];
+  }
 
   return [
     {
