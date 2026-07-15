@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.14",
+    date: "2026-07-15",
+    summary:
+      "Light mode text contrast — walkthrough story, badges, and panels stay readable on light backgrounds.",
+    sections: [
+      {
+        heading: "Appearance",
+        items: [
+          "Walkthrough body copy, changelog summaries, and map legend descriptions no longer use pale dark-theme text colors in Light mode.",
+          "Modals, starter/Ralts embeds, and status chips use theme tokens so labels stay high-contrast in both Light and Dark.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.13",
     date: "2026-07-15",
     summary:
