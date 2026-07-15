@@ -28,7 +28,7 @@ export const CHANGELOG: ChangelogRelease[] = [
       {
         heading: "Walkthrough",
         items: [
-          "Route 103 Rival Battle #1 shows a quick north-shore cutscene with both trainers looking right at each other (baked sprites).",
+          "Route 103 Rival Battle #1 shows a quick north-shore cutscene with Brendan and May facing each other as Emerald’s Big Poké Ball transition starts to form.",
           "The existing Route 103 Hoenn crop still appears below the cutscene.",
         ],
       },

@@ -1033,7 +1033,7 @@ export const AREA_MAPS: AreaMap[] = [
     group: "Route 103",
     floor: "Rival Battle #1",
     image: "maps/areas/route103-rival-battle.png",
-    width: 224,
+    width: 240,
     height: 160,
     markers: [],
   },

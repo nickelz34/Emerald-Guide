@@ -1,8 +1,14 @@
+/**
+ * Route 103 Rival Battle #1 — baked face-off at the moment the Big Poké Ball
+ * transition starts forming (Emerald PatternWeave early blend).
+ *
+ * Usage: node scripts/preview-route103-rival-faceoff.mjs
+ */
 import fs from "node:fs";
 import path from "node:path";
 import { PNG } from "pngjs";
 
-const ROOT = "/workspace";
+const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
 const AREA_DIR = path.join(ROOT, "public/maps/areas");
 const PREVIEW = path.join(ROOT, "public/screenshots/previews/chapter6");
@@ -121,7 +127,10 @@ function renderLayout(layout) {
   const png = new PNG({ width: OW, height: OH, colorType: 6 });
   const ob = png.data;
   for (let i = 0; i < ob.length; i += 4) {
-    ob[i] = 56; ob[i + 1] = 104; ob[i + 2] = 168; ob[i + 3] = 255;
+    ob[i] = 56;
+    ob[i + 1] = 104;
+    ob[i + 2] = 168;
+    ob[i + 3] = 255;
   }
   for (let row = 0; row < H; row++) {
     for (let col = 0; col < W; col++) {
@@ -158,22 +167,33 @@ function blitSprite(dest, sprite, dx, dy, { flipX = false, frameX = 0, frameW = 
   for (let row = 0; row < frameH; row++) {
     for (let col = 0; col < frameW; col++) {
       const si = (row * png.width + (frameX + col)) * 4;
-      let r = png.data[si], g = png.data[si + 1], b = png.data[si + 2];
+      let r = png.data[si];
+      let g = png.data[si + 1];
+      let b = png.data[si + 2];
       if (palette) {
-        let best = 0, bestD = Infinity;
+        let best = 0;
+        let bestD = Infinity;
         for (let i = 0; i < palette.length; i++) {
           const d = (r - palette[i].r) ** 2 + (g - palette[i].g) ** 2 + (b - palette[i].b) ** 2;
-          if (d < bestD) { bestD = d; best = i; }
+          if (d < bestD) {
+            bestD = d;
+            best = i;
+          }
         }
         if (best === 0) continue;
-        r = palette[best].r; g = palette[best].g; b = palette[best].b;
+        r = palette[best].r;
+        g = palette[best].g;
+        b = palette[best].b;
         if (r === 255 && g === 0 && b === 255) continue;
       } else if (png.data[si + 3] === 0) continue;
       const tx = flipX ? dx + (frameW - 1 - col) : dx + col;
       const ty = dy + row;
       if (tx < 0 || ty < 0 || tx >= dest.width || ty >= dest.height) continue;
       const di = (ty * dest.width + tx) * 4;
-      dest.data[di] = r; dest.data[di + 1] = g; dest.data[di + 2] = b; dest.data[di + 3] = 255;
+      dest.data[di] = r;
+      dest.data[di + 1] = g;
+      dest.data[di + 2] = b;
+      dest.data[di + 3] = 255;
     }
   }
 }
@@ -199,15 +219,21 @@ function cropPng(src, { x, y, w, h }) {
   const out = new PNG({ width: w, height: h, colorType: 6 });
   for (let row = 0; row < h; row++) {
     for (let col = 0; col < w; col++) {
-      const sx = x + col, sy = y + row;
+      const sx = x + col;
+      const sy = y + row;
       const di = (row * w + col) * 4;
       if (sx < 0 || sy < 0 || sx >= src.width || sy >= src.height) {
-        out.data[di] = 56; out.data[di + 1] = 104; out.data[di + 2] = 168; out.data[di + 3] = 255;
+        out.data[di] = 56;
+        out.data[di + 1] = 104;
+        out.data[di + 2] = 168;
+        out.data[di + 3] = 255;
         continue;
       }
       const si = (sy * src.width + sx) * 4;
-      out.data[di] = src.data[si]; out.data[di + 1] = src.data[si + 1];
-      out.data[di + 2] = src.data[si + 2]; out.data[di + 3] = src.data[si + 3];
+      out.data[di] = src.data[si];
+      out.data[di + 1] = src.data[si + 1];
+      out.data[di + 2] = src.data[si + 2];
+      out.data[di + 3] = src.data[si + 3];
     }
   }
   return out;
@@ -219,8 +245,10 @@ function scaleNearest(src, scale) {
     for (let x = 0; x < out.width; x++) {
       const si = (((y / scale) | 0) * src.width + ((x / scale) | 0)) * 4;
       const di = (y * out.width + x) * 4;
-      out.data[di] = src.data[si]; out.data[di + 1] = src.data[si + 1];
-      out.data[di + 2] = src.data[si + 2]; out.data[di + 3] = src.data[si + 3];
+      out.data[di] = src.data[si];
+      out.data[di + 1] = src.data[si + 1];
+      out.data[di + 2] = src.data[si + 2];
+      out.data[di + 3] = src.data[si + 3];
     }
   }
   return out;
@@ -232,29 +260,161 @@ function writePng(file, png) {
   console.log(file, png.width, png.height);
 }
 
+function loadJascPal(rel) {
+  const lines = fs.readFileSync(path.join(REPO, rel), "utf8").split(/\r?\n/);
+  const cols = [];
+  for (let i = 3; i < 19; i++) {
+    const parts = (lines[i] || "").trim().split(/\s+/).map(Number);
+    cols.push({ r: parts[0] || 0, g: parts[1] || 0, b: parts[2] || 0 });
+  }
+  return cols;
+}
+
+/** Render Emerald big_pokeball BG at GBA 240×160 using tiles + tilemap + field-effect palette. */
+function renderBigPokeball() {
+  const sheet = PNG.sync.read(fs.readFileSync(path.join(REPO, "graphics/battle_transitions/big_pokeball.png")));
+  const mapBin = fs.readFileSync(path.join(REPO, "graphics/battle_transitions/big_pokeball_map.bin"));
+  const pal = loadJascPal("graphics/field_effects/palettes/pokeball.pal");
+
+  // Nearest-index map from sheet RGB → palette index for color remap
+  const sheetToIdx = (r, g, b) => {
+    if (sheet.palette) {
+      // sheet is indexed; find matching palette entry via RGB nearest in sheet.palette then remapped
+    }
+    let best = 0;
+    let bestD = Infinity;
+    const srcPal = sheet.palette || [];
+    // Prefer sheet palette index if exact
+    for (let i = 0; i < srcPal.length; i++) {
+      const [sr, sg, sb] = srcPal[i];
+      const d = (r - sr) ** 2 + (g - sg) ** 2 + (b - sb) ** 2;
+      if (d < bestD) {
+        bestD = d;
+        best = i;
+      }
+    }
+    return best;
+  };
+
+  const tilesX = sheet.width >> 3; // 4
+  const getTilePx = (tileId, lx, ly) => {
+    const tc = tileId % tilesX;
+    const tr = (tileId / tilesX) | 0;
+    const sx = tc * 8 + lx;
+    const sy = tr * 8 + ly;
+    if (sx >= sheet.width || sy >= sheet.height) return 0;
+    const o = (sy * sheet.width + sx) * 4;
+    return sheetToIdx(sheet.data[o], sheet.data[o + 1], sheet.data[o + 2]);
+  };
+
+  const W = 240;
+  const H = 160;
+  const out = new PNG({ width: W, height: H, colorType: 6 });
+  for (let row = 0; row < 20; row++) {
+    for (let col = 0; col < 30; col++) {
+      const mi = (row * 30 + col) * 2;
+      const entry = mapBin[mi] | (mapBin[mi + 1] << 8);
+      const tileId = entry & 0x3ff;
+      const xflip = (entry >> 10) & 1;
+      const yflip = (entry >> 11) & 1;
+      for (let ly = 0; ly < 8; ly++) {
+        for (let lx = 0; lx < 8; lx++) {
+          const tx = xflip ? 7 - lx : lx;
+          const ty = yflip ? 7 - ly : ly;
+          const ci = getTilePx(tileId, tx, ty);
+          const c = pal[ci] || pal[0];
+          const px = col * 8 + lx;
+          const py = row * 8 + ly;
+          const di = (py * W + px) * 4;
+          // Index 0 is treated as transparent in GBA overlays for this tile (empty BG)
+          if (ci === 0) {
+            out.data[di + 3] = 0;
+          } else {
+            out.data[di] = c.r;
+            out.data[di + 1] = c.g;
+            out.data[di + 2] = c.b;
+            out.data[di + 3] = 255;
+          }
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Early PatternWeave moment: Poké Ball overlay just beginning to form —
+ * shimmering sine offset + low blend alpha so trainers stay clearly visible.
+ */
+function compositeFormingBall(scene, ball, { alpha = 0.42, amp = 10, phase = 0.55 } = {}) {
+  const out = clonePng(scene);
+  const W = scene.width;
+  const H = scene.height;
+  for (let y = 0; y < H; y++) {
+    // SetSinWave-style horizontal displacement that settles as amplitude drops in-game
+    const offset = Math.round(Math.sin((y * phase + 0.4) * Math.PI * 2) * amp);
+    for (let x = 0; x < W; x++) {
+      const sx = x + offset;
+      if (sx < 0 || sx >= ball.width) continue;
+      // Map scene width onto ball's 240 if needed
+      const bx = Math.min(ball.width - 1, Math.round((sx / W) * ball.width));
+      const by = Math.min(ball.height - 1, y);
+      const bi = (by * ball.width + bx) * 4;
+      if (ball.data[bi + 3] === 0) continue;
+      const di = (y * W + x) * 4;
+      // Extra fade toward edges of ball for "just starting to form" look
+      const cx = (bx - ball.width / 2) / (ball.width / 2);
+      const cy = (by - ball.height / 2) / (ball.height / 2);
+      const r2 = cx * cx + cy * cy;
+      const form = Math.max(0, 1 - r2 * 0.55); // stronger in center as ball coalesces
+      const a = alpha * form;
+      if (a <= 0.02) continue;
+      out.data[di] = Math.round(out.data[di] * (1 - a) + ball.data[bi] * a);
+      out.data[di + 1] = Math.round(out.data[di + 1] * (1 - a) + ball.data[bi + 1] * a);
+      out.data[di + 2] = Math.round(out.data[di + 2] * (1 - a) + ball.data[bi + 2] * a);
+    }
+  }
+  return out;
+}
+
 const mj = JSON.parse(fs.readFileSync(path.join(REPO, "data/maps/Route103/map.json"), "utf8"));
 const layout = layoutById.get(mj.layout);
 const base = renderLayout(layout);
-const may = loadIndexedSprite("graphics/object_events/pics/people/may/walking.png", "graphics/object_events/palettes/may.pal");
-const brendan = loadIndexedSprite("graphics/object_events/pics/people/brendan/walking.png", "graphics/object_events/palettes/brendan.pal");
+const may = loadIndexedSprite(
+  "graphics/object_events/pics/people/may/walking.png",
+  "graphics/object_events/palettes/may.pal",
+);
+const brendan = loadIndexedSprite(
+  "graphics/object_events/pics/people/brendan/walking.png",
+  "graphics/object_events/palettes/brendan.pal",
+);
 
-// Face-off at battle start: May at map spawn (10,3) facing south; Brendan one tile south facing north.
+// Same facing as before: May @ (10,3) south, Brendan @ (10,5) north — looking at each other.
 const scene = clonePng(base);
 placePerson(scene, may, 10, 3, "south");
 placePerson(scene, brendan, 10, 5, "north");
 
-// Tight crop around the two trainers for a quick cutscene panel
-const crop = { x: 4 * 16, y: 0, w: 14 * 16, h: 10 * 16 };
+// GBA-sized crop (240×160) centered on the face-off for a true transition frame
+const crop = { x: 3 * 16, y: 0, w: 240, h: 160 };
 const focus = cropPng(scene, crop);
-fs.mkdirSync(AREA_DIR, { recursive: true });
-writePng(path.join(AREA_DIR, "route103-rival-battle.png"), focus);
-for (const dir of [PREVIEW, ARTIFACT]) {
-  writePng(path.join(dir, "event-2-rival-faceoff.png"), focus);
-  writePng(path.join(dir, "event-2-rival-faceoff@2x.png"), scaleNearest(focus, 2));
-  writePng(path.join(dir, "event-2-rival-faceoff-full.png"), scene);
-}
-fs.writeFileSync(path.join(PREVIEW, "README.md"), `# Chapter 6 — Route 103 rival face-off
 
-Baked cutscene for Rival Battle #1: Brendan and May looking right at each other on the north shore.
-`);
+const ball = renderBigPokeball();
+const forming = compositeFormingBall(focus, ball, { alpha: 0.48, amp: 12, phase: 0.6 });
+
+fs.mkdirSync(AREA_DIR, { recursive: true });
+writePng(path.join(AREA_DIR, "route103-rival-battle.png"), forming);
+for (const dir of [PREVIEW, ARTIFACT]) {
+  writePng(path.join(dir, "event-2-rival-faceoff.png"), forming);
+  writePng(path.join(dir, "event-2-rival-faceoff@2x.png"), scaleNearest(forming, 2));
+  writePng(path.join(dir, "event-2-rival-faceoff-clean.png"), focus);
+  writePng(path.join(dir, "big-pokeball-layer.png"), ball);
+}
+fs.writeFileSync(
+  path.join(PREVIEW, "README.md"),
+  `# Chapter 6 — Route 103 rival face-off
+
+Baked cutscene for Rival Battle #1 at the moment Emerald's **Big Poké Ball**
+transition starts weaving onto the screen. Brendan and May keep facing each other.
+`,
+);
 console.log("done");
