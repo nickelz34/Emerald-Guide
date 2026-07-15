@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.3",
+    date: "2026-07-14",
+    summary:
+      "Chapter 6 Rival Battle #1 opens with a baked Route 103 face-off of Brendan and May.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Route 103 Rival Battle #1 shows a quick north-shore cutscene with both trainers looking right at each other (baked sprites).",
+          "The existing Route 103 Hoenn crop still appears below the cutscene.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.2",
     date: "2026-07-14",
     summary:

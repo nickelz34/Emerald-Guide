@@ -1014,6 +1014,7 @@ export const AREA_MAPS: AreaMap[] = [
   {
     // Hand-added: Route 101 has no collectibles. Baked Birch rescue cutscene;
     // legend markers (bag, Birch, Poochyena) come from AREA_MAP_CUTSCENE_ENTITIES.
+    // Hand-added: Birch rescue baked into the PNG; legend markers from AREA_MAP_CUTSCENE_ENTITIES.
     id: "route101",
     mapId: "MAP_ROUTE101",
     name: "Route 101",
@@ -1022,6 +1023,18 @@ export const AREA_MAPS: AreaMap[] = [
     image: "maps/areas/route101.png",
     width: 320,
     height: 320,
+    markers: [],
+  },
+  {
+    // Hand-added: Rival Battle #1 face-off (Brendan + May baked in).
+    id: "route103-rival-battle",
+    mapId: "MAP_ROUTE103",
+    name: "Route 103",
+    group: "Route 103",
+    floor: "Rival Battle #1",
+    image: "maps/areas/route103-rival-battle.png",
+    width: 224,
+    height: 160,
     markers: [],
   },
   {

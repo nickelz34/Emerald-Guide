@@ -40,6 +40,9 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "route-101-2": "route101",
   "route-101-3": "littleroottown-professorbirchslab",
 
+  // Route 103 — Rival Battle #1 face-off
+  "route-103-2": "route103-rival-battle",
+
   // Petalburg Woods
   "petalburg-woods-1": "petalburgwoods",
   "petalburg-woods-2": "petalburgwoods",
