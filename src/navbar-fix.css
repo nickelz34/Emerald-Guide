@@ -1,7 +1,7 @@
-/* Keep the desktop top menu on a single row without overlapping the view
-   toggle. The nav keeps its natural content width (never shrinks below it),
-   so links can't spill over neighbours; the sticky bar scrolls horizontally
-   as a safety net on very narrow frames. */
+/* Keep the desktop top menu on a single row without overlapping the prefs
+   cluster (layout + color toggles). The nav keeps its natural content width
+   (never shrinks below it), so links can't spill over neighbours; the sticky
+   bar scrolls horizontally as a safety net on very narrow frames. */
 
 .app-shell[data-view="desktop"] .sidebar__nav,
 .app-shell[data-view="desktop"] .sidebar__group-links {
@@ -15,4 +15,17 @@
 
 .app-shell[data-view="desktop"] .sidebar__link {
   flex: 0 0 auto;
+}
+
+.app-shell[data-view="desktop"] .sidebar__prefs {
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.app-shell[data-view="desktop"] .sidebar__prefs .view-toggle__btn {
+  padding: 0.4rem 0.65rem;
+  font-size: 0.78rem;
 }

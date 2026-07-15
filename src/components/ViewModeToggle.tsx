@@ -7,7 +7,7 @@ interface ViewModeToggleProps {
 
 export function ViewModeToggle({ mode, onChange }: ViewModeToggleProps) {
   return (
-    <div className="view-toggle sidebar__view-toggle" role="group" aria-label="Layout view">
+    <div className="view-toggle" role="group" aria-label="Layout view">
       <button
         type="button"
         className={`view-toggle__btn ${mode === "mobile" ? "view-toggle__btn--active" : ""}`}
