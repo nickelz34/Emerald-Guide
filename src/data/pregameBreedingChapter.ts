@@ -17,7 +17,7 @@ export const pregameBreedingChapter: GuideSection = {
         "The Pokémon Day Care sits on Route 117 west of Mauville City. Talk to the old man inside to leave up to two Pokémon with the couple. While you adventure elsewhere, those Pokémon gain experience slowly — about half the usual rate — and the game quietly tracks whether the pair is compatible.",
         "Compatibility requires either opposite genders in a shared egg group, or one parent being Ditto. Two Ditto cannot breed. Genderless species such as Voltorb, Magnemite, Staryu, and Beldum breed only with Ditto. Species in the Undiscovered egg group — most legendaries, most baby Pokémon, and a handful of single-stage species — never produce Eggs at all.",
         "When the pair is compatible, the game checks for an Egg after every 256 steps you take. The Day Care Man eventually stands outside with an Egg when one is ready — only one Egg waits at a time. Pick it up and it goes straight into your party (you need an empty slot; there is no Egg pocket in the Bag). The Egg hatches into the female parent's family when genders are involved; with Ditto, the offspring matches the non-Ditto parent. Baby forms hatch when the species has one (Pichu from Pikachu, for example), except for the two incense babies covered in Event 3.",
-        "Hatchlings emerge at level 5 in Generation III. You will reach the Day Care naturally in the story on Route 117. This pregame chapter is the full rules reference; the route walkthrough step is still where you first walk through the door.",
+        "Receiving the Egg is only the start — it will not hatch at the Day Care or in a PC Box. Keep it in your party and walk (details in Event 6: Hatching Eggs once you have them). Hatchlings emerge at level 5 in Generation III. You will reach the Day Care naturally in the story on Route 117.",
       ],
       details: [],
       tips: [
@@ -105,22 +105,31 @@ export const pregameBreedingChapter: GuideSection = {
     },
     {
       id: "pregame-breeding-6",
-      title: "Hatching, Ditto & story resources",
-      location: "Hoenn region",
+      title: "Hatching Eggs once you have them",
+      location: "Hoenn region — party steps",
       summary:
-        "Eggs hatch from steps in your party at level 5. Flame Body and Magma Armor halve egg cycles in Emerald.",
+        "Keep the Egg in your party and walk: every 256 steps burns one egg cycle (two with Flame Body or Magma Armor). It hatches at level 5.",
       story: [
-        "In Ruby, Sapphire, and Emerald, Eggs hatch purely from the number of steps you take while the Egg is in your party. Biking back and forth on Route 117, looping through Mauville, or walking the Battle Frontier all count. Each species has a fixed egg-cycle count; every 256 steps drops one cycle, or two cycles if a party member has Flame Body or Magma Armor (both abilities halve hatch time in Emerald).",
-        "Slugma on Route 113 and in Fiery Path, and Numel on Route 112 and Route 113, are the practical Flame Body / Magma Armor carriers most players catch for breeding. Keep one in your party (not at the Day Care) while you walk Eggs. Fill empty party slots with multiple Eggs when grinding long routes so several hatch in one session.",
-        "Lavaridge Town's old woman near the hot springs gives a Wynaut Egg as a story gift. After the Elite Four, Desert Underpass on Route 114 is the reliable wild Ditto location at a low encounter rate. Steven's house in Mossdeep gifts Beldum after you become Champion. Complete the Hoenn Pokédex and Professor Birch in Littleroot offers your choice of Chikorita, Cyndaquil, or Totodile for breeding those dex lines.",
-        "When the story reaches Route 117, leave your first serious breeding pair and start a cycle. Return to this chapter whenever you need the rules; the Day Care building itself never changes.",
+        "Once the Day Care Man hands you an Egg (or you take Lavaridge’s gift Wynaut Egg), it must sit in your party — Emerald has no Egg pocket in the Bag, and Eggs in the PC never hatch. You need one free party slot when you pick it up. From that moment on, every step you take in the overworld counts toward hatching: walking, Running Shoes, and the bicycle all work. Common grinding spots are Route 117 in front of the Day Care, Mauville’s loops, and later the Battle Frontier paths.",
+        "Each species has a fixed egg-cycle count (Mudkip’s line is 20 cycles, for example). Every 256 steps you take drops one cycle. When the count hits zero, the game interrupts you with the hatching cutscene and the newborn Pokémon appears at level 5 with its moves and stats already rolled. Open the Egg in your party menu along the way — Emerald’s messages progress from “it will take a long time” to “it moves occasionally” to “it’s making sounds… getting ready to hatch.” Those lines are your progress meter.",
+        "A party member with Flame Body or Magma Armor halves the work: every 256 steps then drop two egg cycles instead of one. Catch Slugma on Route 113 or in Fiery Path (Flame Body or Magma Armor) or Numel on Route 112 / Route 113 (Magma Armor) and keep that Pokémon in the party — not left at the Day Care — while you walk. Fill the other slots with more Eggs so several hatch on the same grind; long Safari Zone or Frontier sessions hatch them “for free” while you do other things.",
+        "After the Elite Four, Desert Underpass on Route 114 is the reliable wild Ditto spot. Steven’s house in Mossdeep gifts Beldum once you are Champion. Complete the Hoenn Pokédex and Professor Birch offers Chikorita, Cyndaquil, or Totodile. When the story first reaches Route 117, leave a breeding pair, pick up your first Egg, and use this page as the hatch checklist.",
       ],
-      details: [],
+      details: [
+        "Pick up the Egg with an empty party slot — it goes straight into the party (no Bag storage).",
+        "Walk or bike with the Egg in your party; every 256 steps burns one egg cycle.",
+        "Keep Flame Body or Magma Armor in the party to burn two cycles per 256 steps.",
+        "Watch party-menu Egg messages; when cycles hit zero the hatch cutscene plays and the Pokémon is level 5.",
+      ],
       tips: [
-        "Stack Eggs during long post-game grinds — Battle Frontier coins, EV training routes, and Safari Zone trips all hatch Eggs for free.",
+        "Mach Bike on long straight routes covers tiles faster in real time — same step rules, less waiting.",
         "A single Ditto plus Everstone natures and a handful of high-IV catches covers most competitive and dex-completion breeding in Emerald.",
+        "Check the Egg periodically — “It’s making sounds” means one more short walk usually finishes the hatch.",
       ],
-      tags: ["pregame", "breeding", "hatching", "wynaut", "ditto"],
+      secrets: [
+        "Eggs never gain steps in the PC Box. Withdraw any Egg you want hatched before a long grind.",
+      ],
+      tags: ["pregame", "breeding", "hatching", "wynaut", "ditto", "flame-body"],
     },
   ],
 };

@@ -1,10 +1,10 @@
 import type { BreedingChartSpec } from "./breedingChartTypes";
 
-/** Ch. 2 Event 6 — hatching, Ditto anchor, and story eggs. */
+/** Breeding Event 6 — hatching once the Egg is in your party. */
 export const HATCHING_BREEDING_CHART: BreedingChartSpec = {
-  title: "Hatching & breeding resources",
-  lead: "Eggs hatch from steps in your party at level 5. A party member with Flame Body or Magma Armor halves the remaining egg cycles.",
-  ariaLabel: "Hatching and breeding resources chart",
+  title: "How Eggs hatch in Emerald",
+  lead: "Keep the Egg in your party and walk. Every 256 steps burns one egg cycle — two cycles if Flame Body or Magma Armor is also in the party. Hatchlings are always level 5.",
+  ariaLabel: "How Eggs hatch reference chart",
   groups: [
     {
       name: "Steps in party — hatch at level 5",
@@ -15,7 +15,7 @@ export const HATCHING_BREEDING_CHART: BreedingChartSpec = {
           parentB: { name: "Mudkip", dex: 258, gender: "male" },
           methodLabel: "Egg",
           offspring: [{ name: "Mudkip", dex: 258, subtitle: "~5,120 steps" }],
-          note: "Each species has a fixed egg-cycle count (×256 steps). Stack up to five Eggs in party + Bag while you grind routes.",
+          note: "Each species has a fixed egg-cycle count (×256 steps). Stack multiple Eggs in free party slots while you walk — the PC never hatches them.",
         },
       ],
     },
@@ -28,7 +28,7 @@ export const HATCHING_BREEDING_CHART: BreedingChartSpec = {
           parentB: { name: "Egg", kind: "egg", subtitle: "hatching" },
           methodLabel: "Egg",
           offspring: [{ name: "Mudkip", dex: 258, subtitle: "~2,560 steps" }],
-          note: "From Emerald onward, Flame Body or Magma Armor in your party drops two egg cycles per 256 steps instead of one. Slugma is on Route 113/18; Camerupt works too.",
+          note: "Flame Body or Magma Armor in your party drops two egg cycles per 256 steps. Slugma (Route 113 / Fiery Path) and Numel (Route 112 / 113; Magma Armor) are the usual carriers.",
         },
       ],
     },

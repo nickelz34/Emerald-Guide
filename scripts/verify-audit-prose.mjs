@@ -11,6 +11,8 @@ const FILES = [
   "src/data/walkthrough.ts",
   "src/data/postgameWalkthrough.ts",
   "src/data/pregameFieldChapter.ts",
+  "src/data/pregameBreedingChapter.ts",
+  "src/data/breedingHatchingChart.ts",
   "src/data/pokeBalls.ts",
   "src/data/keyItems.ts",
   "src/data/hmUnlock.ts",
@@ -94,6 +96,21 @@ const REQUIRED = [
     file: "src/data/pokeBalls.ts",
     re: /while surfing, fishing, or underwater/i,
     why: "Dive Ball Gen III bonus conditions",
+  },
+  {
+    file: "src/data/pregameBreedingChapter.ts",
+    re: /every 256 steps burns one egg cycle/i,
+    why: "Breeding: hatch step rule once Egg is received",
+  },
+  {
+    file: "src/data/pregameBreedingChapter.ts",
+    re: /PC never hatch|never hatch.*PC|Eggs in the PC never hatch/i,
+    why: "Breeding: Eggs only hatch in the party",
+  },
+  {
+    file: "src/data/breedingHatchingChart.ts",
+    re: /PC never hatches them/i,
+    why: "Hatching chart: no Bag/PC hatch implication",
   },
 ];
 
