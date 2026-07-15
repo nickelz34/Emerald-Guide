@@ -5,6 +5,7 @@ import type { LayoutViewMode } from "../hooks/useViewMode";
 import { CATEGORY_DESCRIPTIONS, CATEGORY_LABELS } from "../types";
 import { ChangelogModal } from "./ChangelogModal";
 import { ColorModeToggle } from "./ColorModeToggle";
+import { EmeraldGemIcon } from "./EmeraldGemIcon";
 import { ViewModeToggle } from "./ViewModeToggle";
 
 const APP_VERSION = __APP_VERSION__;
@@ -61,7 +62,9 @@ export function Sidebar({
   return (
     <header className={`sidebar ${menuOpen ? "sidebar--menu-open" : ""}`}>
       <div className="sidebar__brand">
-        <span className="sidebar__icon">◆</span>
+        <span className="sidebar__icon" title="Emerald Guide">
+          <EmeraldGemIcon />
+        </span>
         <div className="sidebar__brand-text">
           <h1>Emerald Guide</h1>
           <button
