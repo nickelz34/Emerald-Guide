@@ -10,6 +10,8 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const FILES = [
   "src/data/walkthrough.ts",
   "src/data/postgameWalkthrough.ts",
+  "src/data/pregameFieldChapter.ts",
+  "src/data/pokeBalls.ts",
   "src/data/keyItems.ts",
   "src/data/hmUnlock.ts",
   "src/data/areaData.ts",
@@ -68,6 +70,31 @@ const REQUIRED = [
   { file: "src/data/walkthrough.ts", re: /Meditite/i, why: "Brawly party includes Meditite" },
   { file: "src/data/walkthrough.ts", re: /Claydol.*Xatu/i, why: "Tate & Liza full party" },
   { file: "src/data/areaData.ts", re: /both Plusle and Minun appear in Emerald/i, why: "Route 110 encounter note" },
+  {
+    file: "src/data/pregameFieldChapter.ts",
+    re: /Super Rod is a free gift/i,
+    why: "Pregame fishing: Super Rod is free",
+  },
+  {
+    file: "src/data/pregameFieldChapter.ts",
+    re: /National Pokédex/i,
+    why: "Pregame trading: FRLG National Dex gate",
+  },
+  {
+    file: "src/data/pregameFieldChapter.ts",
+    re: /Network Machine/i,
+    why: "Pregame trading: Celio Network Machine gate",
+  },
+  {
+    file: "src/data/pregameFieldChapter.ts",
+    re: /no Fast Ball or Dusk Ball/i,
+    why: "Pregame catching: Gen III ball accuracy",
+  },
+  {
+    file: "src/data/pokeBalls.ts",
+    re: /while surfing, fishing, or underwater/i,
+    why: "Dive Ball Gen III bonus conditions",
+  },
 ];
 
 const errors = [];

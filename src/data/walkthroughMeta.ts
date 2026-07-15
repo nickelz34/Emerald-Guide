@@ -1,6 +1,10 @@
 import type { GuideSection, GuideStep, WalkthroughBand } from "../types";
 
-const PREGAME_CHAPTER_IDS = new Set(["pregame-evolution", "pregame-breeding"]);
+const PREGAME_CHAPTER_IDS = new Set([
+  "pregame-field",
+  "pregame-evolution",
+  "pregame-breeding",
+]);
 
 const POSTGAME_CHAPTER_IDS = new Set([
   "postgame-opening",

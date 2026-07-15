@@ -1,11 +1,12 @@
 import type { GuideSection } from "../types";
 import { pregameBreedingChapter } from "./pregameBreedingChapter";
+import { pregameFieldChapter } from "./pregameFieldChapter";
 
-export { pregameBreedingChapter };
+export { pregameBreedingChapter, pregameFieldChapter };
 
 /**
- * Pregame reference chapters — Evolution & Breeding — shown before Littleroot.
- * Renumbered to Ch. 1 / Ch. 2 when assembled in walkthrough.ts.
+ * Pregame reference chapters — Field, Evolution & Breeding — shown before Littleroot.
+ * Renumbered when assembled in walkthrough.ts (Field = Ch. 1).
  */
 export const pregameEvolutionChapter: GuideSection = {
   id: "pregame-evolution",

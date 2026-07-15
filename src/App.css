@@ -4540,6 +4540,17 @@
   background: rgba(120, 200, 120, 0.1);
 }
 
+.poke-ball-table__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.poke-ball-table__icon {
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
 .scott-sightings__list {
   margin: 0;
   padding: 0;
