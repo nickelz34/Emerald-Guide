@@ -152,6 +152,26 @@ const REQUIRED = [
     re: /TM13 Ice Beam/i,
     why: "Abandoned Ship lists Ice Beam, not Snatch",
   },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /lose exactly half the money/i,
+    why: "RSE blackout loses half money",
+  },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /two independent Trainers who spot you at the same time/i,
+    why: "Emerald dual-spotter doubles",
+  },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /voluntary switch is your action[\s\S]*before normal moves/i,
+    why: "Gen III voluntary switch before moves",
+  },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /Speed is greater than or equal to the wild foe/i,
+    why: "Gen III escape auto-success when Speed >= foe",
+  },
 ];
 
 const errors = [];

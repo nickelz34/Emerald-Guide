@@ -17,9 +17,9 @@ interface CommandTile {
 const BATTLE_EXAMPLES: BattleExample[] = [
   {
     id: "wild",
-    title: "Wild battle",
+    title: "Wild battle (always 1-on-1)",
     blurb:
-      "One wild Pokémon — tall grass, caves, Surf, or fishing. Poké Balls and Run work here.",
+      "Tall grass, caves, Surf, or fishing. Poké Balls work. Run succeeds if you are faster (or equal Speed); slower = chance that improves each try.",
     species: [
       { name: "Poochyena", dex: 261, types: ["Dark"] },
       { name: "Zigzagoon", dex: 263, types: ["Normal"] },
@@ -30,7 +30,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
     id: "trainer",
     title: "Trainer battle (singles)",
     blurb:
-      "One foe at a time from a trainer’s party. No Balls, no Run — win for prize money.",
+      "Line of sight or talk. No catching. Run is refused. Win prize money when their party is out.",
     species: [
       { name: "Treecko", dex: 252, types: ["Grass"] },
       { name: "Torchic", dex: 255, types: ["Fire"] },
@@ -39,9 +39,9 @@ const BATTLE_EXAMPLES: BattleExample[] = [
   },
   {
     id: "doubles",
-    title: "Double battle",
+    title: "Double battle (2-on-2)",
     blurb:
-      "Two of yours vs two foes. Pick targets carefully — Surf hits both enemies; Earthquake hits your ally too.",
+      "Pair classes, two trainers spotting you at once (Emerald), or Tate & Liza. Surf hits both foes; Earthquake hits your ally too.",
     species: [
       { name: "Solrock", dex: 338, types: ["Rock", "Psychic"] },
       { name: "Lunatone", dex: 337, types: ["Rock", "Psychic"] },
@@ -54,25 +54,25 @@ const COMMANDS: CommandTile[] = [
     id: "fight",
     label: "Fight",
     hint: "Moves",
-    detail: "Pick one of four moves. Watch type, power cues, and remaining PP.",
+    detail: "Choose a move (name, type, PP). Priority brackets act before Speed within the turn.",
   },
   {
     id: "bag",
     label: "Bag",
     hint: "Items",
-    detail: "Potions, status heals, X items. Poké Balls only in wild battles.",
+    detail: "Potions, status heals, X items. Poké Balls only vs wild Pokémon. Uses your turn.",
   },
   {
     id: "pokemon",
     label: "Pokémon",
     hint: "Party",
-    detail: "Switch leads, check status, or use an item on a benched Pokémon.",
+    detail: "View summaries and switch. A voluntary switch happens before moves — the new lead is hit.",
   },
   {
     id: "run",
     label: "Run",
     hint: "Escape",
-    detail: "Flee wild battles only. Fails sometimes — Speed helps you get away.",
+    detail: "Wild only. Always works if Speed ≥ the foe; otherwise chance rises each attempt. Fails vs trainers.",
   },
 ];
 
@@ -112,8 +112,8 @@ export function BattleBasicsPanel({ className = "" }: { className?: string }) {
     >
       <h5 className="battle-basics__title">Battle types at a glance</h5>
       <p className="battle-basics__lead">
-        Emerald battle sprites for the three fight shapes you will see in Hoenn — wild singles,
-        trainer singles, and doubles — plus what each menu command does.
+        Emerald battle sprites for wild 1-on-1s, trainer singles, and doubles — plus Fight / Bag /
+        Pokémon / Run as documented in Gen III (Bulbapedia, Prima Emerald, Serebii doubles notes).
       </p>
 
       <div className="battle-basics__examples">
