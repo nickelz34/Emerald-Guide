@@ -116,8 +116,12 @@ export function AreaMapView({
       <button
         key={point.id}
         type="button"
-        className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
-          baked ? "hoenn-map__pin--baked-cutscene" : trainer || owSprite ? "hoenn-map__pin--ow-sprite" : ""
+        className={`hoenn-map__pin ${
+          baked
+            ? "hoenn-map__pin--baked-cutscene"
+            : `hoenn-map__pin--${point.category}${
+                trainer || owSprite ? " hoenn-map__pin--ow-sprite" : ""
+              }`
         } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
         style={{
           left: `${point.x}%`,
@@ -178,7 +182,11 @@ export function AreaMapView({
         inLightbox
           ? isTall
             ? { width: "100%" }
-            : { width: "100%", height: "100%" }
+            : {
+                width: "100%",
+                height: "auto",
+                aspectRatio: `${area.width} / ${area.height}`,
+              }
           : isTall
             ? {
                 width: "100%",
