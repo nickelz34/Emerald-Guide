@@ -39,10 +39,33 @@ for (const dir of fs.readdirSync(MAPS_DIR)) {
 }
 
 const DUNGEON_RE =
-  /Cave|Tunnel|Falls|Pyre|Hideout|Woods|VictoryRoad|AbandonedShip|Seafloor|Shoal|FieryPath|Scorched|Artisan|DesertUnderpass|NewMauville|Underwater|JaggedPass|SafariZone|IslandCave|MirageTower|SkyPillar|CaveOfOrigin|MarineCave|TerraCave|AncientTomb|NavelRock|BirthIsland|SouthernIsland|FarawayIsland|TrainerHill|AlteringCave/i;
+  /Cave|Tunnel|Falls|Pyre|Hideout|Woods|VictoryRoad|AbandonedShip|Seafloor|Shoal|FieryPath|Scorched|Artisan|DesertUnderpass|NewMauville|Underwater|JaggedPass|SafariZone|IslandCave|MirageTower|SkyPillar|CaveOfOrigin|MarineCave|TerraCave|AncientTomb|NavelRock|BirthIsland|SouthernIsland|FarawayIsland|TrainerHill|AlteringCave|Gym/i;
 
 function isDungeonFolder(folder) {
   return DUNGEON_RE.test(folder);
+}
+
+/**
+ * Petalburg Gym is one tall pokeemerald map rendered as per-room crops in AREA_MAPS.
+ * Tile Y ranges match scripts/split-petalburg-gym-rooms.mjs.
+ */
+const PETALBURG_GYM_MAP = "MAP_PETALBURG_CITY_GYM";
+const PETALBURG_GYM_ROOM_H = 8;
+const PETALBURG_GYM_ROOMS = [
+  { id: "petalburgcity-gym-norman", floor: "Norman's room", tile0: 0 },
+  { id: "petalburgcity-gym-jody", floor: "Challenge room — Jody", tile0: 13 },
+  { id: "petalburgcity-gym-berke", floor: "Challenge room — Berke", tile0: 26 },
+  { id: "petalburgcity-gym-parker", floor: "Challenge room — Parker", tile0: 39 },
+  { id: "petalburgcity-gym-alexia", floor: "Challenge room — Alexia", tile0: 52 },
+  { id: "petalburgcity-gym-george", floor: "Challenge room — George", tile0: 65 },
+  { id: "petalburgcity-gym-randall", floor: "Challenge room — Randall", tile0: 78 },
+  { id: "petalburgcity-gym-mary", floor: "Challenge room — Mary", tile0: 91 },
+  { id: "petalburgcity-gym-entrance", floor: "Entrance", tile0: 104 },
+];
+const PETALBURG_GYM_ROOM_IDS = new Set(PETALBURG_GYM_ROOMS.map((r) => r.id));
+
+function petalburgRoomForY(y) {
+  return PETALBURG_GYM_ROOMS.find((r) => y >= r.tile0 && y < r.tile0 + PETALBURG_GYM_ROOM_H) || null;
 }
 
 /** Parse AREA_MAPS entries from the TS source (avoids importing generated TS). */
@@ -75,9 +98,14 @@ function titleCaseWords(s) {
     .join(" ");
 }
 
-/** Folder prefix shared by floors of one dungeon (GraniteCave_1F → GraniteCave). */
+/**
+ * Folder prefix shared by floors of one dungeon (GraniteCave_1F → GraniteCave).
+ * Gym interiors keep the Gym segment so PetalburgCity_Gym ≠ PetalburgCity.
+ */
 function complexKeyFromFolder(folder) {
-  const i = folder.indexOf("_");
+  const gym = /^(.*?_Gym)/.exec(folder || "");
+  if (gym) return gym[1];
+  const i = (folder || "").indexOf("_");
   return i < 0 ? folder : folder.slice(0, i);
 }
 
@@ -144,17 +172,18 @@ function isFloorLevelToken(t) {
 
 function connectorKind(fromFolder, fromP, destP, sameComplex) {
   if (!sameComplex) return "Exit";
-  // Room doors (Steven's Room, Captain's Office, etc.) — not ladders.
+  // Room doors (Steven's Room, Captain's Office, Petalburg challenge rooms) — not ladders.
   if (!isFloorLevelToken(destP.floor) || !isFloorLevelToken(fromP.floor)) return "Door";
   const fromR = floorRank(fromP.floor);
   const destR = floorRank(destP.floor);
   if (fromR !== destR) {
+    if (/Gym/i.test(fromFolder)) return "Hole";
     if (/Hideout/i.test(fromFolder)) return "Warp";
     if (/AbandonedShip|Ship/i.test(fromFolder)) return "Stairs";
     if (/Pyre/i.test(fromFolder)) return "Stairs";
     return "Ladder";
   }
-  if (/Hideout/i.test(fromFolder)) return "Warp";
+  if (/Gym|Hideout/i.test(fromFolder)) return "Warp";
   return "Door";
 }
 
@@ -423,12 +452,26 @@ function warpLabel(fromFolder, fromMapId, destMapId, destWarpId, sourceWarp, til
     };
   }
 
+  // Same-map gym teleporters (Mossdeep) — label by destination pad side.
+  if (fromMapId === destMapId && /Gym/i.test(fromFolder)) {
+    const destCard = cardinalFromDest(destMapId, destWarpId) || card || "";
+    const destLabel = destCard ? `${destCard} pad` : "paired pad";
+    const codeBit = code ? `${code} ` : "";
+    const matchBit =
+      code && reciprocal ? ` Matches Warp ${code} on the ${destLabel}.` : "";
+    return {
+      name: `Warp ${codeBit}to ${destLabel}`.replace(/\s+/g, " ").trim(),
+      desc: `Teleports within the gym to the ${destLabel}.${matchBit}`,
+      code,
+    };
+  }
+
   const destShort = destP.floorDisplay || destP.roomLabel || destP.display;
   const verb = directionVerb(fromP, destP);
   const codeBit = code ? `${code} ` : "";
   const matchBit =
     code && reciprocal ? ` Matches ${kind} ${code} on ${destShort}.` : "";
-  if (kind === "Ladder" || kind === "Stairs" || kind === "Warp") {
+  if (kind === "Ladder" || kind === "Stairs" || kind === "Warp" || kind === "Hole") {
     return {
       name: `${kind} ${codeBit}to ${destShort}`.replace(/\s+/g, " ").trim(),
       desc: `${verb} ${destP.display}.${matchBit}`,
@@ -474,6 +517,10 @@ for (const area of areas) {
   const info = byMapId.get(area.mapId);
   if (!info) continue;
   if (!isDungeonFolder(info.folder)) continue;
+  // Full Petalburg Gym tower is a crop source only — pins live on room crops.
+  if (area.id === "petalburgcity-gym") continue;
+  // Petalburg room crops are handled below (remapped tile coords).
+  if (PETALBURG_GYM_ROOM_IDS.has(area.id)) continue;
 
   const tilesW = info.layout.width;
   const tilesH = info.layout.height;
@@ -518,6 +565,92 @@ for (const area of areas) {
   total += markers.length;
 }
 
+/** Room-local entrance pins for Petalburg Gym challenge-room crops. */
+function generatePetalburgGymRoomEntrances() {
+  const info = byMapId.get(PETALBURG_GYM_MAP);
+  if (!info) return;
+  const warps = info.map.warp_events || [];
+  const tilesW = info.layout.width;
+
+  for (const room of PETALBURG_GYM_ROOMS) {
+    const roomWarps = [];
+    warps.forEach((w, warpIdx) => {
+      if (!w.dest_map || w.dest_map === "MAP_NONE" || w.dest_map === "MAP_DYNAMIC") return;
+      if (w.y < room.tile0 || w.y >= room.tile0 + PETALBURG_GYM_ROOM_H) return;
+      roomWarps.push({ w, warpIdx });
+    });
+    if (!roomWarps.length) continue;
+
+    const markers = [];
+    let idx = 0;
+    for (const { w, warpIdx } of roomWarps) {
+      let name;
+      let desc;
+      let code = "";
+
+      if (w.dest_map !== PETALBURG_GYM_MAP) {
+        const labeled = warpLabel(
+          info.folder,
+          PETALBURG_GYM_MAP,
+          w.dest_map,
+          w.dest_warp_id,
+          w,
+          tilesW,
+          info.layout.height,
+          warpIdx,
+        );
+        name = labeled.name;
+        desc = labeled.desc;
+        code = labeled.code || "";
+      } else {
+        const destWarp = warps[Number(w.dest_warp_id)];
+        const destRoom = destWarp ? petalburgRoomForY(destWarp.y) : null;
+        const destShort = destRoom?.floor || "another room";
+        code = CONNECTOR_CODES.get(epKey(PETALBURG_GYM_MAP, warpIdx)) || "";
+        const reciprocal = isReciprocalWarp(
+          PETALBURG_GYM_MAP,
+          warpIdx,
+          w.dest_map,
+          w.dest_warp_id,
+        );
+        const codeBit = code ? `${code} ` : "";
+        const matchBit =
+          code && reciprocal && destRoom
+            ? ` Matches Door ${code} on ${destShort}.`
+            : "";
+        name = `Door ${codeBit}to ${destShort}`.replace(/\s+/g, " ").trim();
+        desc = `Leads to ${destShort}.${matchBit}`;
+      }
+
+      const sameTile = roomWarps.filter((x) => x.w.x === w.x && x.w.y === w.y);
+      const si = sameTile.findIndex((x) => x.warpIdx === warpIdx);
+      const baseX = toLocalX(w.x, tilesW);
+      const baseY = +(((w.y - room.tile0 + 0.5) / PETALBURG_GYM_ROOM_H) * 100).toFixed(2);
+      const spread = sameTile.length > 1 ? 2.5 : 0;
+      const x = +(baseX + (si - (sameTile.length - 1) / 2) * spread).toFixed(2);
+
+      markers.push({
+        id: `aen-${room.id}-${idx}`,
+        name,
+        category: "entrance",
+        x,
+        y: baseY,
+        desc,
+        code: code || undefined,
+        destMap: w.dest_map,
+        destWarpId: String(w.dest_warp_id ?? ""),
+      });
+      idx++;
+    }
+
+    byAreaId[room.id] = markers;
+    mapsWith++;
+    total += markers.length;
+  }
+}
+
+generatePetalburgGymRoomEntrances();
+
 const lines = [];
 lines.push("// AUTO-GENERATED by scripts/gen-area-map-entrances.mjs — do not edit by hand.");
 lines.push("// Cave/dungeon entrance, exit, and ladder pins with destination labels.");
@@ -553,15 +686,16 @@ console.log(`Wrote ${total} entrance markers across ${mapsWith} dungeon area map
 // Preview a few labels
 for (const sample of [
   "granitecave-1f",
-  "granitecave-b1f",
-  "granitecave-b2f",
-  "petalburgwoods",
-  "victoryroad-1f",
-  "victoryroad-b1f",
-  "aquahideout-b1f",
+  "lavaridgetown-gym-1f",
+  "lavaridgetown-gym-b1f",
+  "sootopoliscity-gym-1f",
+  "mossdeepcity-gym",
+  "petalburgcity-gym-entrance",
+  "petalburgcity-gym-norman",
 ]) {
   const m = byAreaId[sample];
   if (!m) continue;
   console.log(`\n${sample}:`);
-  for (const e of m) console.log(`  • ${e.name} — ${e.desc}`);
+  for (const e of m.slice(0, 8)) console.log(`  • ${e.name} — ${e.desc}`);
+  if (m.length > 8) console.log(`  … +${m.length - 8} more`);
 }

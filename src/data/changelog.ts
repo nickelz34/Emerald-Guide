@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.11",
+    date: "2026-07-15",
+    summary:
+      "Gym interiors with warps now show entrance pins and matching letter codes like caves and dungeons.",
+    sections: [
+      {
+        heading: "Gym maps",
+        items: [
+          "Lavaridge (1F↔B1F holes), Sootopolis (1F↔B1F), Mossdeep (teleporter pads), and single-floor gym exits now get pokeemerald-accurate entrance pins.",
+          "Petalburg Gym room crops get Door A/B/… pins that match the connecting room on the other side (exit to town on Entrance).",
+          "Gym complexes no longer share a map key with their overworld towns, so town exits stay labeled Exit instead of false in-gym connectors.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.10",
     date: "2026-07-15",
     summary:
