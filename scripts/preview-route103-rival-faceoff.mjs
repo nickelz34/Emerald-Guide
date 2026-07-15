@@ -399,22 +399,25 @@ const crop = { x: 3 * 16, y: 0, w: 240, h: 160 };
 const focus = cropPng(scene, crop);
 
 const ball = renderBigPokeball();
+// Clean face-off (trainers only) — preferred ship image.
+const faceoff = focus;
+// Optional transition frame kept as a preview for comparison.
 const forming = compositeFormingBall(focus, ball, { alpha: 0.48, amp: 12, phase: 0.6 });
 
 fs.mkdirSync(AREA_DIR, { recursive: true });
-writePng(path.join(AREA_DIR, "route103-rival-battle.png"), forming);
+writePng(path.join(AREA_DIR, "route103-rival-battle.png"), faceoff);
 for (const dir of [PREVIEW, ARTIFACT]) {
-  writePng(path.join(dir, "event-2-rival-faceoff.png"), forming);
-  writePng(path.join(dir, "event-2-rival-faceoff@2x.png"), scaleNearest(forming, 2));
-  writePng(path.join(dir, "event-2-rival-faceoff-clean.png"), focus);
+  writePng(path.join(dir, "event-2-rival-faceoff.png"), faceoff);
+  writePng(path.join(dir, "event-2-rival-faceoff@2x.png"), scaleNearest(faceoff, 2));
+  writePng(path.join(dir, "event-2-rival-faceoff-pokeball.png"), forming);
   writePng(path.join(dir, "big-pokeball-layer.png"), ball);
 }
 fs.writeFileSync(
   path.join(PREVIEW, "README.md"),
   `# Chapter 6 — Route 103 rival face-off
 
-Baked cutscene for Rival Battle #1 at the moment Emerald's **Big Poké Ball**
-transition starts weaving onto the screen. Brendan and May keep facing each other.
+Baked cutscene for Rival Battle #1: Brendan and May looking at each other
+on the north shore (clean face-off; no transition overlay).
 `,
 );
 console.log("done");
