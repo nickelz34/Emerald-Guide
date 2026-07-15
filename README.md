@@ -233,32 +233,32 @@ A full-region map of Hoenn you can zoom, pan, and pinch.
 
 ---
 
-### Everything included — checklist
+### The everything included list
 
-Use this as a quick “what do I get?” list:
+A quick look at what ships with the guide:
 
-- [x] Full story walkthrough from Littleroot through the Elite Four & Hall of Fame  
-- [x] Postgame: Frontier, Hoenn cleanup, contests, Mystery Gift islands  
-- [x] Pregame Evolution & Breeding chapters with interactive tools  
-- [x] Storyline vs Completionist mode filtering  
-- [x] Manual Mark complete + gym / league progress bar  
-- [x] 4-letter local save codes  
-- [x] Searchable step list (desktop rail + mobile Steps drawer)  
-- [x] Prima-style story prose + checklist + tips + secrets per event  
-- [x] Annotated area maps with sprite pins  
-- [x] Rival, gym leader, and League face-off cutscenes  
-- [x] Multi-room gym maps (including Petalburg)  
-- [x] Trainer parties, moves, items, and battle tips  
-- [x] Gym guides, rival party resolver, starter comparison  
-- [x] Mart inventories and shop pins  
-- [x] HM unlock + key item reference tables  
-- [x] Scott sightings + Match Call rematch tools  
-- [x] Wild encounter tables on steps and route guides  
-- [x] Offline Pokédex (387) with location maps  
-- [x] Interactive Hoenn overworld map with layers  
-- [x] Mobile and Desktop layouts, swipe + keyboard navigation  
-- [x] In-app changelog from the version badge  
-- [x] No ROM required; guide-only fan project  
+- Full story walkthrough from Littleroot through the Elite Four & Hall of Fame
+- Postgame: Frontier, Hoenn cleanup, contests, Mystery Gift islands
+- Pregame Evolution & Breeding chapters with interactive tools
+- Storyline vs Completionist mode filtering
+- Manual Mark complete + gym / league progress bar
+- 4-letter local save codes
+- Searchable step list (desktop rail + mobile Steps drawer)
+- Prima-style story prose + checklist + tips + secrets per event
+- Annotated area maps with sprite pins
+- Rival, gym leader, and League face-off cutscenes
+- Multi-room gym maps (including Petalburg)
+- Trainer parties, moves, items, and battle tips
+- Gym guides, rival party resolver, starter comparison
+- Mart inventories and shop pins
+- HM unlock + key item reference tables
+- Scott sightings + Match Call rematch tools
+- Wild encounter tables on steps and route guides
+- Offline Pokédex (387) with location maps
+- Interactive Hoenn overworld map with layers
+- Mobile and Desktop layouts, swipe + keyboard navigation
+- In-app changelog from the version badge
+- No ROM required; guide-only fan project
 
 ---
 
