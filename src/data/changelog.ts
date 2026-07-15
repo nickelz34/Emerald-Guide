@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.8",
+    date: "2026-07-15",
+    summary:
+      "Dungeon connector letters now pair only with the true matching ladder/stairs on the other side.",
+    sections: [
+      {
+        heading: "Area maps",
+        items: [
+          "Letters are assigned from reciprocal warp pairs (plus adjacent dual-door tiles), so Ladder A on one floor is the ladder you arrive at / return from.",
+          "Teleporter pads no longer chain into one shared letter; one-way landings get their own code without a false match claim.",
+          "Build now runs verify:area-map-entrances against pokeemerald warps (coords, destinations, letter pairs) for every dungeon area map.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.7",
     date: "2026-07-15",
     summary:

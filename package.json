@@ -1,11 +1,11 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-    "version": "1.26.7",
+    "version": "1.26.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/verify-local-assets.mjs && node scripts/verify-map-pins.mjs && node scripts/verify-audit-prose.mjs && node scripts/verify-encounter-coverage.mjs && node scripts/verify-optional-coverage.mjs && tsc -b && vite build",
+    "build": "node scripts/verify-local-assets.mjs && node scripts/verify-map-pins.mjs && node scripts/verify-audit-prose.mjs && node scripts/verify-encounter-coverage.mjs && node scripts/verify-optional-coverage.mjs && node scripts/verify-area-map-entrances.mjs && tsc -b && vite build",
     "preview": "vite preview",
     "render:events": "node .calib/render-locations.mjs all && node .calib/optimize-events.mjs",
     "render:events:list": "node .calib/render-locations.mjs list",
@@ -46,6 +46,7 @@
     "verify:area-items": "node scripts/verify-area-items.mjs",
     "verify:area-assets": "node scripts/verify-area-assets.mjs",
     "verify:step-area-maps": "node scripts/verify-step-area-maps.mjs",
+    "verify:area-map-entrances": "node scripts/verify-area-map-entrances.mjs",
     "verify:hidden-items": "node scripts/verify-hidden-items.mjs",
     "verify:encounter-coverage": "node scripts/verify-encounter-coverage.mjs",
     "verify:optional-coverage": "node scripts/verify-optional-coverage.mjs",
