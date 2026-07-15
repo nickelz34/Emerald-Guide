@@ -115,6 +115,7 @@ export function StepBrowser({
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const stageRef = useRef<HTMLDivElement>(null);
   const railNavRef = useRef<HTMLElement>(null);
+  const filterInputRef = useRef<HTMLInputElement>(null);
   const swipeRef = useRef<{ x: number; y: number } | null>(null);
 
   const currentId = activeStepId ?? internalId;
@@ -280,36 +281,37 @@ export function StepBrowser({
   );
 
   // Keep the active chapter/event visible in the left rail (including after refresh).
+  // Only scroll the nav list — never the panel that holds the sticky search field.
+  // Skip while the filter is focused so typing does not jump the rail away.
   useEffect(() => {
     const nav = railNavRef.current;
     if (!nav || !currentId) return;
+    if (document.activeElement === filterInputRef.current) return;
 
     const frame = window.requestAnimationFrame(() => {
+      if (document.activeElement === filterInputRef.current) return;
+
       const active = nav.querySelector<HTMLElement>(".step-rail__item--active");
       if (!active) return;
 
-      const scrollParent =
-        ([nav, nav.parentElement, nav.closest(".step-rail")].find((el) => {
-          if (!(el instanceof HTMLElement)) return false;
-          const style = window.getComputedStyle(el);
-          return (
-            /(auto|scroll)/.test(style.overflowY) && el.scrollHeight > el.clientHeight + 1
-          );
-        }) as HTMLElement | undefined) ?? null;
+      // Prefer the nav itself so the filter/header above stays pinned.
+      const style = window.getComputedStyle(nav);
+      const navScrolls =
+        /(auto|scroll)/.test(style.overflowY) && nav.scrollHeight > nav.clientHeight + 1;
 
-      if (!scrollParent) {
-        active.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+      if (navScrolls) {
+        const parentRect = nav.getBoundingClientRect();
+        const activeRect = active.getBoundingClientRect();
+        const nextTop =
+          nav.scrollTop +
+          (activeRect.top - parentRect.top) -
+          parentRect.height / 2 +
+          activeRect.height / 2;
+        nav.scrollTo({ top: Math.max(0, nextTop), behavior: "auto" });
         return;
       }
 
-      const parentRect = scrollParent.getBoundingClientRect();
-      const activeRect = active.getBoundingClientRect();
-      const nextTop =
-        scrollParent.scrollTop +
-        (activeRect.top - parentRect.top) -
-        parentRect.height / 2 +
-        activeRect.height / 2;
-      scrollParent.scrollTo({ top: Math.max(0, nextTop), behavior: "auto" });
+      active.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -365,13 +367,33 @@ export function StepBrowser({
             </span>
           </div>
         ) : null}
-        <input
-          type="search"
-          className="step-rail__filter"
-          placeholder="Search items, locations, story…"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        />
+        <div className="step-rail__filter-wrap">
+          <input
+            ref={filterInputRef}
+            type="search"
+            className="step-rail__filter"
+            placeholder="Search items, locations, story…"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            enterKeyHint="search"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+          {filter ? (
+            <button
+              type="button"
+              className="step-rail__filter-clear"
+              aria-label="Clear search"
+              onClick={() => {
+                setFilter("");
+                filterInputRef.current?.focus();
+              }}
+            >
+              ×
+            </button>
+          ) : null}
+        </div>
         {q ? (
           <p className="step-rail__results">
             {matchCount} matching step{matchCount === 1 ? "" : "s"}

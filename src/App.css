@@ -630,8 +630,7 @@
   display: none;
   margin-top: 0.6rem;
   max-height: 60vh;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  overflow: hidden;
   padding: 0.75rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -642,7 +641,18 @@
   display: flex;
 }
 
+/* Keep search pinned; only the step list scrolls (matches desktop). */
+.app-shell[data-view="mobile"] .step-rail__filter-wrap,
+.app-shell[data-view="mobile"] .step-rail__guide-settings,
+.app-shell[data-view="mobile"] .step-rail__results {
+  flex-shrink: 0;
+}
+
 .app-shell[data-view="mobile"] .step-rail__nav {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   flex-direction: column;
   gap: 0.85rem;
 }
@@ -7566,6 +7576,12 @@
   display: none;
 }
 
+.step-rail__filter-wrap {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+}
+
 .step-rail__filter {
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -7575,6 +7591,43 @@
   color: var(--text);
   outline: none;
   font-size: 0.85rem;
+}
+
+.step-rail__filter-wrap:has(.step-rail__filter-clear) .step-rail__filter {
+  padding-right: 2.25rem;
+}
+
+/* Prefer our clear button; hide the native WebKit cancel affordance. */
+.step-rail__filter::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.step-rail__filter-clear {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.step-rail__filter-clear:hover,
+.step-rail__filter-clear:focus-visible {
+  color: var(--text);
+  background: var(--bg-elevated);
+  outline: none;
 }
 
 /*
