@@ -23,13 +23,14 @@ export const CHANGELOG: ChangelogRelease[] = [
     version: "1.22.3",
     date: "2026-07-14",
     summary:
-      "Chapter 6 Rival Battle #1 opens with a baked Route 103 face-off of Brendan and May.",
+      "Rival Battles #1 and #2 open with baked face-off cutscenes (Route 103 and Rustboro).",
     sections: [
       {
         heading: "Walkthrough",
         items: [
-          "Route 103 Rival Battle #1 shows a quick north-shore cutscene with Brendan and May looking at each other (baked sprites).",
-          "The existing Route 103 Hoenn crop still appears below the cutscene.",
+          "Route 103 Rival Battle #1 shows Brendan and May looking at each other on the north shore.",
+          "Rustboro Rival Battle #2 shows the same face-off style near the Pokémon School.",
+          "Existing Hoenn crops still appear below each cutscene.",
         ],
       },
     ],

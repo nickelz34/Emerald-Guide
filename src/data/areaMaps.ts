@@ -1038,6 +1038,18 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Rival Battle #2 face-off near Pokémon School (Brendan + May baked in).
+    id: "rustborocity-rival-battle",
+    mapId: "MAP_RUSTBORO_CITY",
+    name: "Rustboro City",
+    group: "Rustboro City",
+    floor: "Rival Battle #2",
+    image: "maps/areas/rustborocity-rival-battle.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     id: "route110-trickhouseend",
     mapId: "MAP_ROUTE110_TRICK_HOUSE_END",
     name: "Route 110 Trick House End",
