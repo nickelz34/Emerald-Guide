@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.12",
+    date: "2026-07-15",
+    summary:
+      "Petalburg Gym challenge-room maps bake Norman and the Cooltrainers into the art so sprites sit on the correct tiles.",
+    sections: [
+      {
+        heading: "Petalburg Gym (Ch. 29 Event 1)",
+        items: [
+          "Room crops (Entrance → Norman) now include baked NPC sprites instead of overlay pins that used full-tower coordinates.",
+          "Legend still shows each character with an invisible hit target (same baked-cutscene pattern as gym leader face-offs).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.11",
     date: "2026-07-15",
     summary:

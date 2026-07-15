@@ -1201,6 +1201,7 @@ export const AREA_MAPS: AreaMap[] = [
     ],
   },
   {
+    // Room crop with Norman baked in (see scripts/bake-petalburg-gym-room-sprites.mjs).
     id: "petalburgcity-gym-norman",
     mapId: "MAP_PETALBURG_CITY_GYM",
     name: "Petalburg City Gym",
@@ -1212,6 +1213,7 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Room crop with Cooltrainer Jody baked in.
     id: "petalburgcity-gym-jody",
     mapId: "MAP_PETALBURG_CITY_GYM",
     name: "Petalburg City Gym",
