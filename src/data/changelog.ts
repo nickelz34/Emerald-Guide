@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.17",
+    date: "2026-07-15",
+    summary:
+      "Walkthrough Wild Pokémon panels show a short note when an area has no wild encounters instead of sitting empty.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Steps with a mapped area but no wild encounters now say “No wild Pokémon encountered in this area.” under the Wild Pokémon heading.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.16",
     date: "2026-07-15",
     summary:
