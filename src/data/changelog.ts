@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.19",
+    date: "2026-07-15",
+    summary:
+      "Pregame fishing event now leads with a Dewford cutscene of the player casting a rod into the harbor.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Fishing (Catching, Travel & Trading Event 3) shows a baked harbor fishing cutscene before the Dewford → Route 118 → Mossdeep rod location crops.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.18",
     date: "2026-07-15",
     summary:
