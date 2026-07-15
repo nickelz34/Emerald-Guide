@@ -1,3 +1,5 @@
+I am doing this by myself, I work 12hrs a day in a factory. I dont expect anything from this, I have loved this game since i was a child. 
+
 LIVE SITE IS IN BETA BUT ITS UP :)
 
 https://nickelz34.github.io/Emerald-Guide/
