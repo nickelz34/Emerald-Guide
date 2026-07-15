@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.8",
+    date: "2026-07-14",
+    summary:
+      "Petalburg Gym’s tall interior map keeps a usable full-width size on mobile.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Ultra-tall area maps (Petalburg City Gym) no longer shrink to a tiny strip on mobile — they use a full-width pan/zoom viewport instead of height×aspect sizing.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.7",
     date: "2026-07-14",
     summary:
