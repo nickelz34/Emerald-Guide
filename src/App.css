@@ -882,6 +882,16 @@
   align-self: center;
 }
 
+/* Ultra-tall maps (Petalburg Gym): full-width viewport — pan/zoom the tower. */
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .map-zoom-viewport--crop-fit.map-zoom-viewport--tall {
+  width: 100%;
+  max-width: 100%;
+  height: min(52dvh, 420px);
+  max-height: min(52dvh, 420px);
+  aspect-ratio: auto;
+  align-self: stretch;
+}
+
 .lightbox[data-view="mobile"] .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
   flex: 0 0 auto;
   min-height: 0;
@@ -1027,6 +1037,15 @@
 
 .lightbox[data-view="desktop"] .lightbox__panel--annotated .map-zoom-viewport--crop-fit {
   width: min(100%, calc(min(62vh, 600px) * var(--map-aspect-ratio, 1)));
+  align-self: center;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .map-zoom-viewport--crop-fit.map-zoom-viewport--tall {
+  width: 100%;
+  max-width: min(100%, 420px);
+  height: min(62vh, 600px);
+  max-height: min(62vh, 600px);
+  aspect-ratio: auto;
   align-self: center;
 }
 
@@ -1612,6 +1631,26 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+/* Tall tower maps: keep natural aspect at full viewport width; zoom pan fits the whole gym. */
+.map-zoom-viewport--tall.map-zoom-viewport--crop-fit .area-map-view__frame {
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--map-aspect);
+}
+
+.map-zoom-viewport--tall.map-zoom-viewport--crop-fit .area-map-view__image {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+}
+
+.area-map-view__image--tall-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
 }
 
 .map-zoom-viewport__content .hoenn-crop__frame,
@@ -9339,6 +9378,15 @@ button.story-progress__hit:hover .story-progress__num {
     max-width: 100%;
     max-height: min(48dvh, 400px);
     align-self: center;
+  }
+
+  .lightbox__panel--annotated .map-zoom-viewport--crop-fit.map-zoom-viewport--tall {
+    width: 100%;
+    max-width: 100%;
+    height: min(52dvh, 420px);
+    max-height: min(52dvh, 420px);
+    aspect-ratio: auto;
+    align-self: stretch;
   }
 
   .lightbox__panel--annotated .hoenn-crop__lightbox-body .hoenn-crop__frame {
