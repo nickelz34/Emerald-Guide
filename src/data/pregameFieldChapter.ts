@@ -35,7 +35,7 @@ export const pregameFieldChapter: GuideSection = {
       summary:
         "Surf opens the sea after the Balance Badge; Dive reaches the ocean floor after the Mind Badge.",
       story: [
-        "HM03 Surf is given by Wally’s father in Petalburg Gym right after you beat Norman for the Balance Badge (badge 5). You can teach Surf earlier only if you already hold the disc, but field use still needs that badge. Surf lets a party Pokémon carry you across water tiles, trigger Surf wild encounters, and reach islands, coastal routes, and places like Route 118’s east shore.",
+        "HM03 Surf comes from Wally’s father in Petalburg right after you beat Norman for the Balance Badge (badge 5) — he meets you when you leave the Gym (or you can visit his house in town). You can teach Surf as soon as you hold the disc, but field use still needs that badge. Surf lets a party Pokémon carry you across water tiles, trigger Surf wild encounters, and reach islands, coastal routes, and places like Route 118’s east shore.",
         "HM08 Dive comes from Steven’s house in Mossdeep City and works in the field only with the Mind Badge (badge 7 from Tate & Liza). On deep-water tiles marked for Dive you sink to underwater routes (124–128 and beyond), swim to dark spots and seafloor landmarks, then resurface at matching Dive tiles. Waterfall (HM07) is a separate climb for cascading water and needs the Rain Badge — do not confuse it with Surf or Dive. The walkthrough marks each Surf and Dive gate when you arrive; this event is the rules overview.",
       ],
       details: [],
