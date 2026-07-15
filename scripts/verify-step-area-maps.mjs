@@ -10,7 +10,11 @@ const areaMapsSrc = readFileSync(join(root, "src/data/areaMaps.ts"), "utf8");
 const stepAreaMapsSrc = readFileSync(join(root, "src/data/stepAreaMaps.ts"), "utf8");
 
 /** Event / distribution-only maps with no walkthrough step. */
-const OPTIONAL_UNLINKED = new Set([]);
+const OPTIONAL_UNLINKED = new Set([
+  // Superseded by rustborocity-gym-roxanne-battle face-off on rustboro-2;
+  // keep the full floor plan asset for gym entity data / future use.
+  "rustborocity-gym",
+]);
 
 const mapBlockIds = [...areaMapsSrc.matchAll(/id: "([^"]+)",\r?\n\s+mapId:/g)].map((m) => m[1]);
 
