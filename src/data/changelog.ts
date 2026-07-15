@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.25",
+    date: "2026-07-15",
+    summary:
+      "Battles Event 1 rebuilt against Bulbapedia, Serebii, Prima Emerald, and PokéBase Gen III rules — blackout, escape, doubles, and menu commands corrected.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Battle types & commands now state RSE blackout loses half your money, Gen III escape Speed rules, voluntary switch-before-moves, Emerald dual-spotter doubles, and accurate Fight/Bag/Pokémon/Run roles.",
+          "BattleBasicsPanel blurbs match those Gen III facts (wild always 1-on-1; Run refused vs trainers; Surf vs Earthquake targeting).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.24",
     date: "2026-07-15",
     summary:
