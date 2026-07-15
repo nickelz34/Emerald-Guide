@@ -8,6 +8,7 @@ import { MapModal } from "./components/MapModal";
 import { WalkthroughSetup } from "./components/WalkthroughSetup";
 import { LightboxProvider } from "./components/ImageLightbox";
 import { preloadHoennOverworldMap } from "./lib/preloadMapImages";
+import { useColorMode } from "./hooks/useColorMode";
 import { useViewMode } from "./hooks/useViewMode";
 import {
   getWalkthroughStartStepId,
@@ -27,6 +28,7 @@ export type NavKey = GuideCategory | "map";
 
 export default function App() {
   const [viewMode, setViewMode] = useViewMode();
+  const [colorMode, setColorMode] = useColorMode();
   const [nav, setNav] = useState<NavKey>("walkthrough");
   const [walkthroughPrefs, setWalkthroughPrefs] = useWalkthroughPreferences();
   const [activeStepId, setActiveStepId] = useState<string | undefined>(
@@ -151,6 +153,8 @@ export default function App() {
             onSelect={handleSelect}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
+            colorMode={colorMode}
+            onColorModeChange={setColorMode}
           />
           <main className="main">
             <div className="toolbar">

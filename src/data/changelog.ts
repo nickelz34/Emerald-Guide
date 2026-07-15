@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.0",
+    date: "2026-07-15",
+    summary:
+      "Light and dark themes — switch appearance from the sidebar on desktop or inside the mobile Menu.",
+    sections: [
+      {
+        heading: "Appearance",
+        items: [
+          "New Light / Dark toggle sits next to the layout Mobile / Desktop control in the top bar (desktop) and under the nav links in the hamburger Menu (mobile).",
+          "Your choice is remembered in the browser; phone browser chrome (theme-color) follows the active theme.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.25.1",
     date: "2026-07-15",
     summary:
