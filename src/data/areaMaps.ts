@@ -1050,6 +1050,42 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Rival Battle #3 face-off on Route 110 (Brendan + May baked in).
+    id: "route110-rival-battle",
+    mapId: "MAP_ROUTE110",
+    name: "Route 110",
+    group: "Route 110",
+    floor: "Rival Battle #3",
+    image: "maps/areas/route110-rival-battle.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
+    // Hand-added: Rival Battle #4 face-off on Route 119 (Brendan + May baked in).
+    id: "route119-rival-battle",
+    mapId: "MAP_ROUTE119",
+    name: "Route 119",
+    group: "Route 119",
+    floor: "Rival Battle #4",
+    image: "maps/areas/route119-rival-battle.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
+    // Hand-added: Rival Battle #5 face-off outside Department Store (Brendan + May baked in).
+    id: "lilycovecity-rival-battle",
+    mapId: "MAP_LILYCOVE_CITY",
+    name: "Lilycove City",
+    group: "Lilycove City",
+    floor: "Rival Battle #5",
+    image: "maps/areas/lilycovecity-rival-battle.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     id: "route110-trickhouseend",
     mapId: "MAP_ROUTE110_TRICK_HOUSE_END",
     name: "Route 110 Trick House End",

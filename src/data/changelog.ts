@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.4",
+    date: "2026-07-14",
+    summary:
+      "Every rival battle opens with a baked Brendan–May face-off cutscene.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Rival Battles #1–#5 (Route 103, Rustboro, Route 110, Route 119, Lilycove) each show Brendan and May looking at each other on the local map.",
+          "Legend pins stay as invisible hit targets with sprite labels; existing Hoenn crops still appear below each cutscene.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.3",
     date: "2026-07-14",
     summary:

@@ -46,6 +46,15 @@ export const STEP_AREA_MAP: Record<string, string> = {
   // Rustboro — Rival Battle #2 face-off near Pokémon School
   "rustboro-3": "rustborocity-rival-battle",
 
+  // Route 110 — Rival Battle #3 face-off
+  "route-110-3": "route110-rival-battle",
+
+  // Route 119 — Rival Battle #4 face-off north of Weather Institute
+  "route-119-3": "route119-rival-battle",
+
+  // Lilycove — Rival Battle #5 face-off outside Department Store
+  "lilycove-1": "lilycovecity-rival-battle",
+
   // Petalburg Woods
   "petalburg-woods-1": "petalburgwoods",
   "petalburg-woods-2": "petalburgwoods",
