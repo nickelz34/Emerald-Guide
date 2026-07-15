@@ -1,8 +1,8 @@
 import type { GuideSection } from "../types";
 
 /**
- * Fourth pregame reference chapter — battles, types, status, natures, vitamins,
- * and the full TM/HM catalog — first pregame chapter, before Catching/Travel.
+ * First pregame reference chapter — battles, types, status, natures, vitamins,
+ * and the full TM/HM catalog — shown before Catching/Travel.
  */
 export const pregameBattlesChapter: GuideSection = {
   id: "pregame-battles",
@@ -15,17 +15,32 @@ export const pregameBattlesChapter: GuideSection = {
       title: "Battle types & commands",
       location: "Hoenn — trainer & wild battles",
       summary:
-        "Wild and trainer fights share the same menu; singles are the default, doubles appear for pairs, and Escape never works against a trainer.",
+        "Wild and trainer fights share the same Fight / Bag / Pokémon / Run menu. Singles are the default; doubles put two of yours against two foes; Run never works against a trainer.",
       story: [
-        "Every fight in Emerald is either a wild battle or a trainer battle. Wild battles start when you walk through tall grass, cave floors, surfing water, or land a bite with a fishing rod. Trainer battles start when you step into a walking NPC’s line of sight (or talk to them). You cannot throw a Poké Ball at a trainer’s Pokémon, and you cannot use Escape / Run to leave a trainer fight — only Switch, Bag, or Fight until one side is out of usable Pokémon.",
-        "Most fights are single battles: one of your Pokémon faces one foe. Double battles put two of yours against two foes — common for twin trainers, Tate & Liza, and some later pairs. In a double battle each of your battlers picks a move (or switch) each turn; moves that hit “both foes” or “everyone” matter far more here than in singles.",
-        "The battle menu always offers Fight, Bag, Pokémon, and Run. Fight opens the four-move list. Bag lets you use medicines, Balls (wild only), and battle items. Pokémon opens the party to switch, check status, or use an item on a benched mon. Run attempts escape from wild Pokémon only — success chance depends on Speed. If your whole party faints you black out, lose some money, and return to the last Pokémon Center (or your home early on).",
+        "Every Pokémon Emerald battle is one of two kinds: a wild encounter or a trainer battle. Wild battles start when you walk through tall grass, step on cave floors, Surf on water tiles, or land a bite with a fishing rod. The foe is always one Pokémon drawn from that map’s encounter table. Trainer battles start when you walk into an NPC’s line of sight, or when you talk to them — the exclamation bubble and spin mean the fight is locked in. You cannot throw a Poké Ball at a trainer’s Pokémon, and you cannot use Run to leave. Stay until one side has no usable Pokémon left.",
+        "Wild fights are your Exp, catch attempts, and money from Pickup later. The first scripted wild lesson on Route 101 is saving Birch from a Poochyena with your starter; Route 102 later shows Wally weaken and catch a Ralts with Zigzagoon — both scenes use the same battle rules you will use all game. Lower HP, add status when you can, then throw Balls. Sleep and freeze double catch odds; paralysis, poison, and burn help a little. See Catching in tall grass in the next pregame chapter for Balls and more.",
+        "Most trainer fights — and every gym until Mossdeep — are single battles: one of your Pokémon faces one of theirs. Speed decides who moves first each turn (ties go randomly). When your lead faints, you pick the next party member before the foe’s next action. When theirs faints, they send another from their party until empty. You earn prize money when you win; you do not keep their Pokémon.",
+        "Double battles put two of yours on the field against two foes at once. Twin trainers on routes, some couples, and Mossdeep’s Tate & Liza Gym all force doubles. Each of your battlers chooses Fight, Bag, Pokémon, or Run separately each turn. Single-target moves ask which foe to hit. Moves like Surf hit both foes without hurting your partner; Earthquake hits both foes and your ally. Bring two healthy leads into doubles — if only one Pokémon remains, you fight 1-vs-2.",
+        "Every battle uses the same four commands. Fight opens your active Pokémon’s move list (name, type, PP). Bag opens medicines, X items, and — in wild battles only — Poké Balls. Pokémon opens the party screen to switch, check HP and status, or use an item from here on a benched mon. Run tries to escape a wild battle; success depends mainly on Speed differences and can fail, so keep a False Swipe / sleep plan for stubborn targets. Choosing a switch from the Pokémon menu still ends your turn for that battler — the foe usually acts before or after based on Speed, and the Pokémon you send in takes any incoming attack.",
+        "If every Pokémon in your party has fainted, you black out. Emerald returns you to the last Pokémon Center you healed at (or your Littleroot bedroom early on), and you lose some money. Gym Leaders, the Elite Four, and legendaries are the fights worth a quick save beforehand — a wipe does not erase story progress, but it does cost money and a walk of shame. Heal often; Potion spam is cheaper than a bad blackout on a long route.",
       ],
-      details: [],
+      details: [
+        "Wild = grass, caves, Surf, fishing — Balls and Run allowed.",
+        "Trainer = line of sight or talk — no Balls, no Run; win prize money.",
+        "Singles = 1 vs 1 (default gyms, rivals, most routes).",
+        "Doubles = 2 vs 2 (twins, some pairs, Tate & Liza).",
+        "Menu: Fight (moves) · Bag (items / Balls) · Pokémon (switch) · Run (wild only).",
+        "Whole party faints → black out, lose money, wake at last Center.",
+      ],
       tips: [
-        "Save before tough gym leaders and legendaries — a wipe still costs money and sends you back to the last Center.",
-        "In doubles, watch both foes’ types before locking in a move that hits only one target.",
-        "You can switch before the foe’s move resolves if you open the Pokémon menu — the incoming Pokémon takes the hit.",
+        "Save before gym leaders and legendaries — a wipe still costs money and sends you back to the last Center.",
+        "In doubles, check both foes’ types before locking a single-target move.",
+        "Open Pokémon to switch on a predicted hit — the new lead soaks the attack.",
+        "Keep at least one Potion and one status heal (Antidote / Parlyz Heal / Full Heal) for long route corridors.",
+      ],
+      secrets: [
+        "You can still open Bag in a trainer fight for potions and X items — only Balls and Run are blocked.",
+        "If a wild Pokémon is faster and you keep failing Run, switch to a faster party member or knock it out and heal.",
       ],
       tags: ["pregame", "battles", "commands", "wild", "trainer", "doubles"],
     },

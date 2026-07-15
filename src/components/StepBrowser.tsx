@@ -12,6 +12,7 @@ import { FlowerShopGuidePanelForStep } from "./FlowerShopGuidePanel";
 import { StoryTrainerGuidePanelForStep } from "./StoryTrainerGuidePanel";
 import { StarterChoicePanelForStep } from "./StarterChoicePanel";
 import { RaltsSpotlightPanelForStep } from "./RaltsSpotlightPanel";
+import { BattleBasicsPanel } from "./BattleBasicsPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { PokeBallTable } from "./PokeBallTable";
@@ -146,6 +147,7 @@ export function StepBrowser({
   const showHmTable = current?.step.id === "rustboro-1";
   const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
   const showPokeBallTable = current?.step.id === "pregame-field-5";
+  const showBattleBasicsPanel = current?.step.id === "pregame-battles-1";
   const showTypeChartTable = current?.step.id === "pregame-battles-3";
   const showStatusTable = current?.step.id === "pregame-battles-6";
   const showNatureTable = current?.step.id === "pregame-battles-7";
@@ -622,6 +624,12 @@ export function StepBrowser({
           )}
 
           <ScreenshotGallery stepId={current.step.id} compact />
+
+          {showBattleBasicsPanel && (
+            <section className="reference-embed battle-basics-embed" aria-label="Battle types and commands">
+              <BattleBasicsPanel />
+            </section>
+          )}
 
           {current.step.id === "route-101-2" && (
             <section className="starter-choice-embed" aria-label="Starter comparison">

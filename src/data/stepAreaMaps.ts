@@ -138,6 +138,14 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
 /** Multiple area maps for steps that span floors or zones. */
 export const STEP_AREA_MAPS: Record<string, string[]> = {
+  // Pregame battles — in-game cutscenes matching wild / trainer / doubles lessons
+  "pregame-battles-1": [
+    "route101",
+    "route102-wally-catch",
+    "route103-rival-battle",
+    "mossdeepcity-gym-tate-liza-battle",
+  ],
+
   // Pregame field chapter — cutscene / area stacks
   "pregame-field-1": ["route102-wally-catch"],
   "pregame-field-2": [

@@ -4540,6 +4540,143 @@
   background: rgba(120, 200, 120, 0.1);
 }
 
+.battle-basics__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.battle-basics__title--commands {
+  margin-top: 1.15rem;
+}
+
+.battle-basics__lead {
+  margin: 0 0 0.9rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.battle-basics__examples {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.battle-basics__card {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--hover-fill-strong);
+  border-radius: 10px;
+  background: rgba(80, 120, 80, 0.05);
+  min-width: 0;
+}
+
+.battle-basics__card-title {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+}
+
+.battle-basics__card-blurb {
+  margin: 0 0 0.65rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.battle-basics__sprites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.battle-basics__mon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 4.5rem;
+}
+
+.battle-basics__sprite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+
+.battle-basics__sprite img {
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.battle-basics__sprite-fallback {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.battle-basics__mon-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.battle-basics__commands {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.battle-basics__command {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--hover-fill-strong);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.battle-basics__command-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.battle-basics__command-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+}
+
+.battle-basics__command-detail {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.battle-basics__command--fight {
+  border-color: rgba(206, 64, 105, 0.35);
+}
+
+.battle-basics__command--bag {
+  border-color: rgba(244, 210, 60, 0.35);
+}
+
+.battle-basics__command--pokemon {
+  border-color: rgba(77, 144, 213, 0.35);
+}
+
+.battle-basics__command--run {
+  border-color: rgba(144, 153, 161, 0.45);
+}
+
 .reference-table__subtitle {
   margin: 1rem 0 0.45rem;
   font-size: 0.95rem;
