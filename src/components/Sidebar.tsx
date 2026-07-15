@@ -1,8 +1,10 @@
 import { Fragment, useState } from "react";
 import type { NavKey } from "../App";
+import type { ColorMode } from "../hooks/useColorMode";
 import type { LayoutViewMode } from "../hooks/useViewMode";
 import { CATEGORY_DESCRIPTIONS, CATEGORY_LABELS } from "../types";
 import { ChangelogModal } from "./ChangelogModal";
+import { ColorModeToggle } from "./ColorModeToggle";
 import { ViewModeToggle } from "./ViewModeToggle";
 
 const APP_VERSION = __APP_VERSION__;
@@ -12,6 +14,8 @@ interface SidebarProps {
   onSelect: (key: NavKey) => void;
   viewMode: LayoutViewMode;
   onViewModeChange: (mode: LayoutViewMode) => void;
+  colorMode: ColorMode;
+  onColorModeChange: (mode: ColorMode) => void;
 }
 
 const NAV_META: Record<NavKey, { label: string; hint: string }> = {
@@ -38,7 +42,14 @@ const GROUPS: { title: string; keys: NavKey[] }[] = [
   { title: "Reference", keys: ["map"] },
 ];
 
-export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: SidebarProps) {
+export function Sidebar({
+  active,
+  onSelect,
+  viewMode,
+  onViewModeChange,
+  colorMode,
+  onColorModeChange,
+}: SidebarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [changelogOpen, setChangelogOpen] = useState(false);
 
@@ -104,7 +115,10 @@ export function Sidebar({ active, onSelect, viewMode, onViewModeChange }: Sideba
         ))}
       </nav>
 
-      <ViewModeToggle mode={viewMode} onChange={onViewModeChange} />
+      <div className="sidebar__prefs">
+        <ViewModeToggle mode={viewMode} onChange={onViewModeChange} />
+        <ColorModeToggle mode={colorMode} onChange={onColorModeChange} />
+      </div>
 
       <ChangelogModal open={changelogOpen} onClose={() => setChangelogOpen(false)} />
     </header>

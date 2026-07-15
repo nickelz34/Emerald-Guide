@@ -20,7 +20,7 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
-    version: "1.25.5",
+    version: "1.26.1",
     date: "2026-07-15",
     summary:
       "Map lightbox legend thumbnails scale to fit any sprite size so large faces (and other OW art) are no longer clipped.",
@@ -30,6 +30,21 @@ export const CHANGELOG: ChangelogRelease[] = [
         items: [
           "Legend rows under area-map lightboxes scale each overworld/battle sprite into a fixed thumb instead of a flat 0.75 scale into a 28×28 crop.",
           "Fixes Treecko/Torchic/Mudkip (and any other larger sheet) being cut off in the Ch. 4 Event 2 starter-choose legend on desktop and mobile.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.0",
+    date: "2026-07-15",
+    summary:
+      "Light and dark themes — switch appearance from the sidebar on desktop or inside the mobile Menu.",
+    sections: [
+      {
+        heading: "Appearance",
+        items: [
+          "New Light / Dark toggle sits next to the layout Mobile / Desktop control in the top bar (desktop) and under the nav links in the hamburger Menu (mobile).",
+          "Your choice is remembered in the browser; phone browser chrome (theme-color) follows the active theme.",
         ],
       },
     ],
