@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, type SetStateAction } from "react";
 import type { WalkthroughPlayMode } from "../types";
+import { normalizeCompletedStepIds } from "../lib/walkthroughProgress";
 
 export interface WalkthroughPreferences {
   setupComplete: boolean;
@@ -8,10 +9,10 @@ export interface WalkthroughPreferences {
   /** Last walkthrough step the user was viewing (persisted across reloads). */
   activeStepId?: string;
   /**
-   * Furthest story/postgame step used for Complete markers.
-   * Browsing pregame tips does not clear this.
+   * Story/postgame step ids the user has explicitly marked Complete.
+   * Navigating the guide does not add or remove these.
    */
-  progressStepId?: string;
+  completedStepIds?: string[];
 }
 
 const STORAGE_KEY = "emerald-guide-walkthrough-prefs";
@@ -40,8 +41,7 @@ function readStoredPreferences(): WalkthroughPreferences | null {
       playMode: parsed.playMode,
       activeStepId:
         typeof parsed.activeStepId === "string" ? parsed.activeStepId : undefined,
-      progressStepId:
-        typeof parsed.progressStepId === "string" ? parsed.progressStepId : undefined,
+      completedStepIds: normalizeCompletedStepIds(parsed.completedStepIds),
     };
   } catch {
     return null;

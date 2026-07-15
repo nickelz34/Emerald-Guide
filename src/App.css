@@ -8189,6 +8189,44 @@ button.story-progress__hit:hover .story-progress__num {
   margin-bottom: 0.4rem;
 }
 
+.step-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.step-card__head-text {
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+
+.step-card__head .step-card__crumb {
+  margin-bottom: 0.35rem;
+}
+
+.step-card__head .step-card__title {
+  margin-bottom: 0;
+}
+
+.step-card__complete {
+  flex-shrink: 0;
+  border: 1px solid rgba(134, 239, 172, 0.35);
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.step-card__complete:hover {
+  background: rgba(34, 197, 94, 0.16);
+}
+
+.step-card__complete--done {
+  background: rgba(34, 197, 94, 0.22);
+  border-color: rgba(134, 239, 172, 0.55);
+}
+
 .step-card__title {
   margin: 0 0 0.3rem;
   font-size: 1.6rem;
