@@ -398,18 +398,19 @@ const storyChapters: GuideSection[] = [
         location: "Route 104 (north)",
         summary: "Buy berries and receive a Wailmer Pail to grow them.",
         story: [
-          "The northern half of Route 104 blooms with the Pretty Petal flower shop, run by a trio of green-thumbed sisters. Chat with them and one hands you the Wailmer Pail — the watering can that turns every soft-soil patch in Hoenn into a personal berry farm. They'll also sell you berries and décor for your secret base.",
-          "It's worth stopping to plant a few Oran and Pecha berries in the plots nearby. They cost nothing, they water for free, and by the time you loop back this way you'll have a tidy stock of healing and status-curing snacks.",
+          "The northern half of Route 104 blooms with the Pretty Petal flower shop, run by a trio of green-thumbed sisters. Chat with them: one hands you the Wailmer Pail — the watering can that turns every soft-soil patch in Hoenn into a personal berry farm — and another gives one free random berry each day.",
+          "The owner sells plant decorations for your Secret Base, but that counter unlocks only after you earn the Dynamo Badge in Mauville. For now, plant Oran and Pecha in the soft soil just west of the shop, water them with your new pail, and you'll have free healing waiting when you next pass through.",
         ],
         details: [
-          "The flower shop near the Petalburg Woods exit sells berries and décor.",
-          "You receive the Wailmer Pail to water planted berries.",
-          "Plant Oran/Pecha berries in soft soil for free healing supplies.",
+          "Talk to the Wailmer Pail sister inside Pretty Petal to receive the watering can.",
+          "Talk to the berry sister once per day for a free random berry (Cheri, Chesto, Pecha, Rawst, Aspear, Leppa, Oran, or Persim).",
+          "Plant Oran/Pecha in the soft-soil plots west of the shop and water them with the Wailmer Pail.",
+          "Plant decorations (Red Plant, Tropical Plant, etc.) go on sale after Mauville’s Dynamo Badge.",
         ],
         secrets: [
-          "The flower-shop sisters will sell you berries and, if you keep visiting, decorative plants for your secret base later on.",
+          "Berries are free gifts here — the shop does not sell berries for money. Come back daily for another berry.",
         ],
-        tags: ["berries", "route-104"],
+        tags: ["berries", "route-104", "key-item", "shop"],
       },
       {
         id: "route-104-3",

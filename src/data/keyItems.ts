@@ -9,6 +9,13 @@ export interface KeyItemUnlock {
 
 export const KEY_ITEM_UNLOCKS: KeyItemUnlock[] = [
   {
+    id: "wailmer-pail",
+    name: "Wailmer Pail",
+    obtainLocation: "Route 104 — Pretty Petal Flower Shop",
+    walkthroughStepId: "route-104-2",
+    note: "Water soft-soil berry plots after planting. Required for larger berry harvests across Hoenn.",
+  },
+  {
     id: "pokenav",
     name: "PokéNav",
     obtainLocation: "Rustboro — Devon Corp (Mr. Stone)",

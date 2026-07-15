@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.24.2",
+  "version": "1.25.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,7 @@
     "preview:roxanne-gym-faceoff": "node scripts/preview-roxanne-gym-faceoff.mjs",
     "preview:remaining-gym-faceoffs": "node scripts/preview-remaining-gym-faceoffs.mjs",
     "preview:elite-four-faceoffs": "node scripts/preview-elite-four-faceoffs.mjs",
+    "preview:pretty-petal": "node scripts/preview-pretty-petal-flower-shop.mjs",
     "split:petalburg-gym-rooms": "node scripts/split-petalburg-gym-rooms.mjs",
     "gen:map-crops": "node scripts/gen-map-crops.mjs",
     "gen:marts": "node scripts/gen-marts.mjs",

@@ -8,6 +8,7 @@ import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { RivalGuidePanelForStep } from "./RivalGuidePanel";
+import { FlowerShopGuidePanelForStep } from "./FlowerShopGuidePanel";
 import { StarterChoicePanelForStep } from "./StarterChoicePanel";
 import { RaltsSpotlightPanelForStep } from "./RaltsSpotlightPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
@@ -616,6 +617,12 @@ export function StepBrowser({
           {current.step.id === "route-102-2" && (
             <section className="starter-choice-embed ralts-spotlight-embed" aria-label="Ralts catch spotlight">
               <RaltsSpotlightPanelForStep stepId={current.step.id} />
+            </section>
+          )}
+
+          {current.step.id === "route-104-2" && (
+            <section className="flower-shop-guide-embed" aria-label="Pretty Petal Flower Shop guide">
+              <FlowerShopGuidePanelForStep stepId={current.step.id} />
             </section>
           )}
 
