@@ -1647,8 +1647,12 @@
 
 .map-zoom-viewport--crop-fit .map-zoom-viewport__content {
   width: 100%;
-  height: 100%;
+  height: auto;
   position: relative;
+}
+
+.map-zoom-viewport--tall.map-zoom-viewport--crop-fit .map-zoom-viewport__content {
+  height: auto;
 }
 
 .map-zoom-viewport--crop-fit .hoenn-crop__frame {
@@ -1661,9 +1665,11 @@
   border-radius: 0;
 }
 
+/* Crop-fit frames follow map aspect (height:auto) so object-fit:fill never stretches rooms. */
 .map-zoom-viewport--crop-fit .area-map-view__frame {
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: var(--map-aspect);
   border-radius: 0;
   border-left: none;
   border-right: none;
@@ -1671,8 +1677,9 @@
 
 .map-zoom-viewport--crop-fit .area-map-view__image {
   width: 100%;
-  height: 100%;
-  object-fit: fill;
+  height: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
 }
 
 /* Tall tower maps: keep natural aspect at full viewport width; zoom pan fits the whole gym. */
@@ -1768,13 +1775,18 @@
   transform-origin: calc(var(--badge-fw, 16) * 0.5px) calc(var(--badge-fh, 16) * 1px);
 }
 
-.map-zoom-viewport .hoenn-map__pin--trainer {
+.map-zoom-viewport .hoenn-map__pin--trainer:not(.hoenn-map__pin--baked-cutscene) {
   transform: translate(
       calc(var(--trainer-fw, 16) * -0.5px),
       calc(var(--trainer-fh, 32) * -1px)
     )
     scale(var(--pin-zoom));
   transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
+}
+
+.map-zoom-viewport .hoenn-map__pin--baked-cutscene {
+  transform: translate(-50%, -50%) scale(var(--pin-zoom));
+  transform-origin: center;
 }
 
 .map-zoom-viewport .hoenn-map__pin--item,
@@ -2388,11 +2400,13 @@
   image-rendering: pixelated;
 }
 
-/* Invisible hit targets over baked cutscene art — legend still lists the sprite. */
+/* Invisible hit targets over baked cutscene art — legend still lists the sprite.
+   Must win over trainer/ow-sprite rules (same points often have category "trainer"). */
 .hoenn-map__pin--baked-cutscene {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   transform: translate(-50%, -50%);
+  transform-origin: center;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -2400,7 +2414,8 @@
 }
 
 .hoenn-map__pin--baked-cutscene::before {
-  content: none;
+  content: none !important;
+  display: none;
 }
 
 .hoenn-map__pin--baked-cutscene.is-active {
@@ -2411,8 +2426,8 @@
 }
 
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
-.hoenn-map__pin--trainer,
-.hoenn-map__pin--ow-sprite {
+.hoenn-map__pin--trainer:not(.hoenn-map__pin--baked-cutscene),
+.hoenn-map__pin--ow-sprite:not(.hoenn-map__pin--baked-cutscene) {
   width: calc(var(--trainer-fw, 16) * 1px);
   height: calc(var(--trainer-fh, 32) * 1px);
   transform: translate(
@@ -2424,8 +2439,8 @@
 }
 
 /* Small ground shadow like the in-game OAM shadow under NPCs. */
-.hoenn-map__pin--trainer::before,
-.hoenn-map__pin--ow-sprite::before {
+.hoenn-map__pin--trainer:not(.hoenn-map__pin--baked-cutscene)::before,
+.hoenn-map__pin--ow-sprite:not(.hoenn-map__pin--baked-cutscene)::before {
   content: "";
   position: absolute;
   left: calc(var(--trainer-fw, 16) * 0.5px);

@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.13",
+    date: "2026-07-15",
+    summary:
+      "Desktop lightbox keeps Petalburg Gym room crops at the real map aspect — baked sprites no longer look stretched, and trainer hit targets stay centered.",
+    sections: [
+      {
+        heading: "Maps — desktop lightbox",
+        items: [
+          "Crop-fit area maps size the image from aspect ratio instead of object-fit:fill, so room crops keep native proportions on desktop.",
+          "Baked cutscene hit targets no longer inherit trainer foot-anchor / ground-shadow CSS, which pulled focus rings and shadows off the baked sprites.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.12",
     date: "2026-07-15",
     summary:
