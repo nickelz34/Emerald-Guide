@@ -1158,6 +1158,18 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Player fishing on Dewford harbor shore (pregame field).
+    id: "dewfordtown-fishing",
+    mapId: "MAP_DEWFORD_TOWN",
+    name: "Dewford Town",
+    group: "Dewford Town",
+    floor: "Fishing on the harbor shore",
+    image: "maps/areas/dewfordtown-fishing.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     // Hand-added: Mr. Briney’s cottage interior with Peeko.
     id: "route104-mrbrineyshouse",
     mapId: "MAP_ROUTE104_MR_BRINEYS_HOUSE",

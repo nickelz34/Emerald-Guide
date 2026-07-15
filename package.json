@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-    "version": "1.26.18",
+    "version": "1.26.19",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,6 +19,7 @@
     "preview:elite-four-faceoffs": "node scripts/preview-elite-four-faceoffs.mjs",
     "preview:pretty-petal": "node scripts/preview-pretty-petal-flower-shop.mjs",
     "preview:norman-wally-briney": "node scripts/preview-norman-wally-briney-cutscenes.mjs",
+    "preview:fishing-cutscene": "node scripts/preview-fishing-cutscene.mjs",
     "preview:petalburg-woods-aqua": "node scripts/preview-petalburg-woods-aqua-cutscenes.mjs",
     "bake:petalburg-gym-rooms": "node scripts/bake-petalburg-gym-room-sprites.mjs",
     "split:petalburg-gym-rooms": "node scripts/split-petalburg-gym-rooms.mjs",

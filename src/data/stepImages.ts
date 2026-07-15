@@ -94,25 +94,25 @@ export function getAreaDisplayMap(areaId: string, caption?: string): StepScreens
 /** Primary map view for a walkthrough or guide step. */
 export function getStepImages(stepId: string): StepScreenshot[] {
   // Pregame: only explicit cutscenes / crop stacks — no generic Hoenn fallback.
+  // Area-map cutscenes come first; optional Hoenn crops follow (e.g. fishing rods).
   if (stepId.startsWith("pregame-")) {
+    const shots: StepScreenshot[] = [];
     const areaMaps = areaMapShots(stepId);
-    if (areaMaps.length > 0) {
-      return areaMaps.map(({ areaMapId, caption }) => ({
-        src: "",
-        caption,
-        areaMapId,
-      }));
+    for (const { areaMapId, caption } of areaMaps) {
+      shots.push({ src: "", caption, areaMapId });
     }
     const crops = PREGAME_STEP_CROPS[stepId];
     if (crops?.length) {
-      return crops.map((c) => ({
-        src: HOENN_MAP_SRC,
-        caption: c.caption,
-        areaId: c.areaId,
-        crop: c.crop,
-      }));
+      for (const c of crops) {
+        shots.push({
+          src: HOENN_MAP_SRC,
+          caption: c.caption,
+          areaId: c.areaId,
+          crop: c.crop,
+        });
+      }
     }
-    return [];
+    return shots;
   }
 
   const areaMaps = areaMapShots(stepId);
