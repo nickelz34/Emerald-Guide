@@ -14,6 +14,7 @@ import { LANDMARK_PINS_GENERATED } from "../data/mapLandmarksGenerated";
 import { SHOP_PINS_GENERATED } from "../data/shopPinsGenerated";
 import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
+import { AREA_MAP_ENTRANCES } from "../data/areaMapEntrancesGenerated";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
@@ -70,7 +71,8 @@ const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
 
 /** Convert an area map's markers into the MapPoint shape used by the pins/list. */
 function areaPoints(area: AreaMap): MapPoint[] {
-  return area.markers.map((m) =>
+  const markers = [...area.markers, ...(AREA_MAP_ENTRANCES[area.id] ?? [])];
+  return markers.map((m) =>
     withCleanItemDesc({
       id: m.id,
       name: m.name,
@@ -414,6 +416,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         const next = {} as Record<PoiCategory, boolean>;
         for (const c of POI_CATEGORIES) next[c.id] = false;
         for (const m of area?.markers ?? []) next[m.category] = true;
+        for (const m of AREA_MAP_ENTRANCES[areaId] ?? []) next[m.category] = true;
         if ((AREA_TRAINERS[areaId] ?? []).length) next.trainer = true;
         setVisible(next);
       } else {

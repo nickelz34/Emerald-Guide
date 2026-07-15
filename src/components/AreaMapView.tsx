@@ -4,6 +4,7 @@ import { AREA_MAPS } from "../data/areaMaps";
 import { formatAreaMapCaption } from "../data/areaMapLabels";
 import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
 import { AREA_MAP_CUTSCENE_ENTITIES, hasOwSprite, isBakedCutscenePoint } from "../data/areaMapCutsceneEntities";
+import { AREA_MAP_ENTRANCES } from "../data/areaMapEntrancesGenerated";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
@@ -38,7 +39,14 @@ export function AreaMapView({
 
   const points = useMemo((): MapPoint[] => {
     if (!area) return [];
-    const items: MapPoint[] = area.markers.map((m) => ({
+    const toPoint = (m: {
+      id: string;
+      name: string;
+      category: MapPoint["category"];
+      x: number;
+      y: number;
+      desc?: string;
+    }): MapPoint => ({
       id: m.id,
       name: m.name,
       category: m.category,
@@ -46,7 +54,11 @@ export function AreaMapView({
       y: m.y,
       desc: m.desc ? formatItemDescription(m.desc) : m.desc,
       note: area.name,
-    }));
+    });
+    const items: MapPoint[] = [
+      ...area.markers.map(toPoint),
+      ...(AREA_MAP_ENTRANCES[area.id] ?? []).map(toPoint),
+    ];
     const seen = new Set<string>();
     const sprites: MapPoint[] = [];
     for (const src of [
