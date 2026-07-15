@@ -28,7 +28,12 @@ import {
 } from "../data/walkthroughSearch";
 import type { WalkthroughPreferences } from "../hooks/useWalkthroughPreferences";
 import { createSaveCode } from "../lib/saveCode";
-import { isStepReached, stepIdForSave } from "../lib/walkthroughProgress";
+import {
+  canMarkStepComplete,
+  isStepCompleted,
+  stepIdForSave,
+  toggleCompletedStepId,
+} from "../lib/walkthroughProgress";
 
 interface StepBrowserProps {
   category: GuideCategory;
@@ -38,6 +43,7 @@ interface StepBrowserProps {
   onActiveStepChange?: (stepId: string) => void;
   viewMode?: LayoutViewMode;
   walkthroughPrefs?: WalkthroughPreferences;
+  onWalkthroughPrefsChange?: (next: WalkthroughPreferences) => void;
   onOpenGuideSettings?: () => void;
 }
 
@@ -95,6 +101,7 @@ export function StepBrowser({
   onActiveStepChange,
   viewMode = "desktop",
   walkthroughPrefs,
+  onWalkthroughPrefsChange,
   onOpenGuideSettings,
 }: StepBrowserProps) {
   const mobileNav = useMobileGuideNav(viewMode);
@@ -132,12 +139,6 @@ export function StepBrowser({
   const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
   const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
 
-  const flatIndexById = useMemo(() => {
-    const map = new Map<string, number>();
-    flat.forEach((entry, index) => map.set(entry.step.id, index));
-    return map;
-  }, [flat]);
-
   const storyStepIds = useMemo(() => flat.map((entry) => entry.step.id), [flat]);
 
   const select = useCallback(
@@ -159,16 +160,23 @@ export function StepBrowser({
     if (currentIndex > 0) select(flat[currentIndex - 1].step.id);
   }, [currentIndex, flat, select]);
 
-  const progressIndex = useMemo(() => {
-    if (category !== "walkthrough") return -1;
-    const progressStepId = walkthroughPrefs?.progressStepId;
-    if (!progressStepId) return -1;
-    return flatIndexById.get(progressStepId) ?? -1;
-  }, [category, walkthroughPrefs?.progressStepId, flatIndexById]);
+  const currentSectionBand = useMemo(
+    () => sections.find((section) => section.steps.some((step) => step.id === current?.step.id))?.band,
+    [sections, current?.step.id],
+  );
+
+  const completedStepIds = useMemo(
+    () => new Set(walkthroughPrefs?.completedStepIds ?? []),
+    [walkthroughPrefs?.completedStepIds],
+  );
 
   const handleSaveProgress = useCallback(async () => {
     if (!walkthroughPrefs || !current?.step.id) return;
-    const stepId = stepIdForSave(sections, current.step.id, walkthroughPrefs.progressStepId);
+    const stepId = stepIdForSave(
+      sections,
+      current.step.id,
+      walkthroughPrefs.completedStepIds,
+    );
     if (!stepId) return;
     const code = createSaveCode({
       skipPregame: walkthroughPrefs.skipPregame,
@@ -185,6 +193,24 @@ export function StepBrowser({
       setCopyStatus("failed");
     }
   }, [walkthroughPrefs, current?.step.id, sections]);
+
+  const handleToggleComplete = useCallback(() => {
+    if (!walkthroughPrefs || !onWalkthroughPrefsChange || !current?.step.id) return;
+    if (!canMarkStepComplete(category, currentSectionBand)) return;
+    onWalkthroughPrefsChange({
+      ...walkthroughPrefs,
+      completedStepIds: toggleCompletedStepId(
+        walkthroughPrefs.completedStepIds,
+        current.step.id,
+      ),
+    });
+  }, [
+    walkthroughPrefs,
+    onWalkthroughPrefsChange,
+    current?.step.id,
+    category,
+    currentSectionBand,
+  ]);
 
   useEffect(() => {
     if (activeStepId) setInternalId(activeStepId);
@@ -354,13 +380,24 @@ export function StepBrowser({
     ? currentSection.steps.findIndex((s) => s.id === current.step.id)
     : 0;
   const eventTotal = currentSection ? currentSection.steps.length : 0;
+  const currentCompleted = isStepCompleted({
+    category,
+    sectionBand: currentSection?.band,
+    stepId: current.step.id,
+    completedStepIds,
+  });
+  const showCompleteToggle =
+    Boolean(walkthroughPrefs && onWalkthroughPrefsChange) &&
+    canMarkStepComplete(category, currentSection?.band);
 
   return (
     <div className="step-browser">
       <StoryProgressBar
         stepIds={storyStepIds}
         currentIndex={currentIndex}
-        progressIndex={progressIndex}
+        completedStepIds={
+          category === "walkthrough" ? walkthroughPrefs?.completedStepIds : undefined
+        }
         onSelectStep={category === "walkthrough" ? select : undefined}
       />
 
@@ -447,12 +484,11 @@ export function StepBrowser({
                 {visible.map(({ step: s, hit }) => {
                   const eventNum = section.steps.findIndex((x) => x.id === s.id) + 1;
                   const active = s.id === currentId;
-                  const stepFlatIndex = flatIndexById.get(s.id) ?? -1;
-                  const reached = isStepReached({
+                  const reached = isStepCompleted({
                     category,
                     sectionBand: section.band,
-                    stepFlatIndex,
-                    progressIndex,
+                    stepId: s.id,
+                    completedStepIds,
                   });
                   return (
                     <button
@@ -531,16 +567,32 @@ export function StepBrowser({
         ) : null}
 
         <article className="step-card">
-          <span className="step-card__crumb">
-            {current.sectionTitle}
-            {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
-          </span>
-          <h2 className="step-card__title">
-            {current.step.title}
-            {current.step.optional ? (
-              <span className="step-optional-badge step-optional-badge--title">Optional</span>
+          <div className="step-card__head">
+            <div className="step-card__head-text">
+              <span className="step-card__crumb">
+                {current.sectionTitle}
+                {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
+              </span>
+              <h2 className="step-card__title">
+                {current.step.title}
+                {current.step.optional ? (
+                  <span className="step-optional-badge step-optional-badge--title">Optional</span>
+                ) : null}
+              </h2>
+            </div>
+            {showCompleteToggle ? (
+              <button
+                type="button"
+                className={`btn btn--sm step-card__complete${
+                  currentCompleted ? " step-card__complete--done" : ""
+                }`}
+                aria-pressed={currentCompleted}
+                onClick={handleToggleComplete}
+              >
+                {currentCompleted ? "Completed" : "Mark complete"}
+              </button>
             ) : null}
-          </h2>
+          </div>
           {current.step.location && <p className="step-card__location">{current.step.location}</p>}
           <p className="step-card__summary">{current.step.summary}</p>
 

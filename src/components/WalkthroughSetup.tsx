@@ -26,7 +26,7 @@ export function WalkthroughSetup({
       skipPregame,
       playMode,
       activeStepId: preferences.activeStepId,
-      progressStepId: preferences.progressStepId,
+      completedStepIds: preferences.completedStepIds,
     });
   }
 

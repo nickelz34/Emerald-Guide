@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.24.0",
+    date: "2026-07-15",
+    summary:
+      "Walkthrough events no longer auto-mark Complete from your place in the guide — mark each event yourself.",
+    sections: [
+      {
+        heading: "Walkthrough progress",
+        items: [
+          "Opening or browsing an event no longer marks earlier events Complete in the step list.",
+          "Use Mark complete on a story or postgame event to toggle its Complete badge; tap again (Completed) to clear it.",
+          "Pregame Evolution and Breeding tips still cannot be marked Complete.",
+          "Gym badge and league milestones on the story progress bar light from events you mark complete, not from navigation alone.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.23.4",
     date: "2026-07-15",
     summary: "The mobile Steps menu closes when you tap outside it.",

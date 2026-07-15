@@ -22,10 +22,10 @@ interface StoryProgressBarProps {
   /** Index of the active step within `stepIds`. */
   currentIndex: number;
   /**
-   * Furthest story progress index (Complete markers). Badge earn state uses
-   * this when provided so browsing earlier steps doesn't dim badges again.
+   * Story/postgame step ids the user has marked Complete.
+   * Milestone badges earn from these ids — not from the currently viewed step.
    */
-  progressIndex?: number;
+  completedStepIds?: readonly string[];
   onSelectStep?: (stepId: string) => void;
 }
 
@@ -38,14 +38,19 @@ interface PlacedMilestone {
 
 function isMilestoneEarned(
   kind: StoryMilestone["kind"],
-  progressIndex: number,
+  stepId: string,
   stepIndex: number,
+  completed: ReadonlySet<string>,
+  stepIds: readonly string[],
 ): boolean {
-  if (progressIndex < 0) return false;
-  // Champion and Hall of Fame share league-3: Champ lights on arrival, HoF after you leave.
-  if (kind === "champion") return progressIndex >= stepIndex;
-  if (kind === "hall-of-fame") return progressIndex > stepIndex;
-  return progressIndex > stepIndex;
+  if (kind === "hall-of-fame") {
+    // Champ and HoF share league-3; HoF waits until a later event is marked complete.
+    for (let i = stepIndex + 1; i < stepIds.length; i++) {
+      if (completed.has(stepIds[i])) return true;
+    }
+    return false;
+  }
+  return completed.has(stepId);
 }
 
 /** Step index threshold used when the fill / “next” cursor reaches this milestone. */
@@ -191,10 +196,10 @@ function LeagueMarker({
 export function StoryProgressBar({
   stepIds,
   currentIndex,
-  progressIndex = -1,
+  completedStepIds = [],
   onSelectStep,
 }: StoryProgressBarProps) {
-  const earnedIndex = Math.max(currentIndex, progressIndex);
+  const completed = useMemo(() => new Set(completedStepIds), [completedStepIds]);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   const placed = useMemo<PlacedMilestone[]>(() => {
@@ -229,7 +234,13 @@ export function StoryProgressBar({
 
     let nextAssigned = false;
     for (const entry of raw) {
-      entry.earned = isMilestoneEarned(entry.milestone.kind, earnedIndex, entry.stepIndex);
+      entry.earned = isMilestoneEarned(
+        entry.milestone.kind,
+        entry.milestone.stepId,
+        entry.stepIndex,
+        completed,
+        stepIds,
+      );
       if (!entry.earned && !nextAssigned) {
         entry.isNext = true;
         nextAssigned = true;
@@ -237,7 +248,7 @@ export function StoryProgressBar({
     }
 
     return raw;
-  }, [stepIds, earnedIndex]);
+  }, [stepIds, completed]);
 
   useEffect(() => {
     const scroller = scrollerRef.current;
