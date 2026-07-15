@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.9",
+    date: "2026-07-14",
+    summary:
+      "Petalburg Gym is shown as nine room maps (Norman → entrance) instead of one tiny tower.",
+    sections: [
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Gym 5 splits the Petalburg interior into separate rooms stacked top to bottom — Norman’s room, each challenge room, then the entrance — each with correctly sized trainer pins.",
+          "The Norman face-off cutscene still appears above the room maps.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.8",
     date: "2026-07-14",
     summary:
