@@ -82,8 +82,7 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "mauville-3": "newmauville-inside",
   "mauville-4": "newmauville-inside",
 
-  // Gym battles — face-off cutscenes / single-floor interiors
-  "rustboro-2": "rustborocity-gym-roxanne-battle",
+  // Gym battles — single-floor interiors
   "dewford-2": "dewfordtown-gym",
   "petalburg-gym-1": "petalburgcity-gym",
   "fortree-2": "fortreecity-gym",
@@ -230,6 +229,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "battlepyramidsquare16",
   ],
   // Multi-floor gym interiors
+  "rustboro-2": ["rustborocity-gym-roxanne-battle", "rustborocity-gym"],
   "lavaridge-2": ["lavaridgetown-gym-1f", "lavaridgetown-gym-b1f"],
   "sootopolis-gym-2": ["sootopoliscity-gym-1f", "sootopoliscity-gym-b1f"],
   "postgame-hoenn-5": [

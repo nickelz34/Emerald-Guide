@@ -28,9 +28,8 @@ export const CHANGELOG: ChangelogRelease[] = [
       {
         heading: "Walkthrough",
         items: [
-          "Rustboro Gym battle step shows Brendan facing Roxanne on the leader podium, matching the rival face-off style.",
-          "Legend lists Roxanne and Brendan via invisible hit targets with sprite labels.",
-          "The Gym guide panel still lists Roxanne’s team and the junior trainers below the cutscene.",
+          "Rustboro Gym battle step shows Brendan facing Roxanne on the leader podium above the full gym interior map.",
+          "Legend lists Roxanne and Brendan via invisible hit targets with sprite labels; junior trainers stay on the floor plan below.",
         ],
       },
     ],
