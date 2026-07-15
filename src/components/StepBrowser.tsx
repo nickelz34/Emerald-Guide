@@ -114,6 +114,7 @@ export function StepBrowser({
   const [saveCode, setSaveCode] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const stageRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLElement>(null);
   const railNavRef = useRef<HTMLElement>(null);
   const filterInputRef = useRef<HTMLInputElement>(null);
   const swipeRef = useRef<{ x: number; y: number } | null>(null);
@@ -280,6 +281,30 @@ export function StepBrowser({
     [q, searchGroups],
   );
 
+  // Close the mobile Steps menu when tapping outside it (or pressing Escape).
+  useEffect(() => {
+    if (!railOpen) return;
+
+    const onPointerDown = (e: PointerEvent) => {
+      const rail = railRef.current;
+      const target = e.target;
+      if (!(target instanceof Node) || !rail) return;
+      if (rail.contains(target)) return;
+      setRailOpen(false);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setRailOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [railOpen]);
+
   // Keep the active chapter/event visible in the left rail (including after refresh).
   // Prefer scrolling the nav on desktop. On mobile the panel scrolls under a sticky
   // search head — avoid scrolling while typing / while a filter is active so the
@@ -339,7 +364,10 @@ export function StepBrowser({
         onSelectStep={category === "walkthrough" ? select : undefined}
       />
 
-      <aside className={`step-rail ${railOpen ? "step-rail--open" : ""}`}>
+      <aside
+        ref={railRef}
+        className={`step-rail ${railOpen ? "step-rail--open" : ""}`}
+      >
         <button
           type="button"
           className="step-rail__toggle"
@@ -360,7 +388,14 @@ export function StepBrowser({
         <div className="step-rail__panel-head">
           {category === "walkthrough" && walkthroughPrefs && onOpenGuideSettings ? (
             <div className="step-rail__guide-settings">
-              <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenGuideSettings}>
+              <button
+                type="button"
+                className="btn btn--ghost btn--sm"
+                onClick={() => {
+                  setRailOpen(false);
+                  onOpenGuideSettings();
+                }}
+              >
                 Guide settings
               </button>
               <span className="step-rail__mode-label">

@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.23.4",
+    date: "2026-07-15",
+    summary: "The mobile Steps menu closes when you tap outside it.",
+    sections: [
+      {
+        heading: "Mobile guide",
+        items: [
+          "With Steps open (search + chapters), tapping outside the menu dismisses it — Escape also closes it.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.23.3",
     date: "2026-07-15",
     summary:
