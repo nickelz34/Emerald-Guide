@@ -1086,6 +1086,18 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Gym 1 face-off — Roxanne on the podium (Brendan + Roxanne baked in).
+    id: "rustborocity-gym-roxanne-battle",
+    mapId: "MAP_RUSTBORO_CITY_GYM",
+    name: "Rustboro City Gym",
+    group: "Rustboro City",
+    floor: "Gym Battle — Roxanne",
+    image: "maps/areas/rustborocity-gym-roxanne-battle.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     id: "route110-trickhouseend",
     mapId: "MAP_ROUTE110_TRICK_HOUSE_END",
     name: "Route 110 Trick House End",

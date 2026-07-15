@@ -82,8 +82,8 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "mauville-3": "newmauville-inside",
   "mauville-4": "newmauville-inside",
 
-  // Gym battles — single-floor interiors
-  "rustboro-2": "rustborocity-gym",
+  // Gym battles — face-off cutscenes / single-floor interiors
+  "rustboro-2": "rustborocity-gym-roxanne-battle",
   "dewford-2": "dewfordtown-gym",
   "petalburg-gym-1": "petalburgcity-gym",
   "fortree-2": "fortreecity-gym",

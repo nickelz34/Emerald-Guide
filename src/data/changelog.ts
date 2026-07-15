@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.6",
+    date: "2026-07-14",
+    summary:
+      "Gym 1 (Roxanne) opens with a baked face-off cutscene on the podium.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Rustboro Gym battle step shows Brendan facing Roxanne on the leader podium, matching the rival face-off style.",
+          "Legend lists Roxanne and Brendan via invisible hit targets with sprite labels.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.5",
     date: "2026-07-14",
     summary:
