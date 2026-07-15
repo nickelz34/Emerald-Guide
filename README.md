@@ -4,7 +4,7 @@
 
 **Live site (beta):** [https://nickelz34.github.io/Emerald-Guide/](https://nickelz34.github.io/Emerald-Guide/)
 
-Current app version: **1.26.20**
+Current app version: **1.26.21**
 
 ---
 
@@ -51,7 +51,7 @@ The top navigation has **three sections**:
 
 Older versions of this project had separate “Secrets,” “Legendaries,” and “Tips” tabs. Those topics are now **woven into the walkthrough** (and into map/route panels) so you follow one path instead of hopping between sections.
 
-You can also open an in-app **changelog** by clicking the version badge (`v1.26.20`) next to the Emerald Guide title.
+You can also open an in-app **changelog** by clicking the version badge (`v1.26.21`) next to the Emerald Guide title.
 
 ### Layout: Mobile vs Desktop
 
@@ -72,8 +72,8 @@ The first time you open **Walkthrough**, you get a setup screen (**How do you wa
 
 **Pregame chapters**
 
-- Checkbox: **Skip Catching, Evolution & Breeding prep**
-- Off (default): start with interactive Catching/Travel/Trading, Evolution, and Breeding reference chapters
+- Checkbox: **Skip Catching, Evolution, Breeding & Battles prep**
+- Off (default): start with interactive Catching/Travel/Trading, Evolution, Breeding, and Battles & Training reference chapters
 - On: jump straight to Littleroot Town (`littleroot-1`)
 
 **Walkthrough mode**
@@ -93,6 +93,7 @@ The guide is organized into three **bands**:
    - Catching, Surf/Dive, fishing, caves, every Poké Ball, and trading (including FireRed/LeafGreen National Dex gates)
    - Evolution methods (stones, trades, friendship, unique forms) with charts
    - Breeding (Day Care, egg groups, incense babies, IVs/natures/abilities, egg moves, hatching) plus a **Breeding lookup** tool
+   - Battles & Training (battle commands, move targets, types/multipliers, strategies, battle messages, status cures, all 25 natures, vitamins/EVs, full TM01–TM50 & HM catalog)
 2. **Main story**
    - Littleroot → Hall of Fame, chapter-by-chapter (towns, routes, dungeons, gyms, League)
    - Optional chapters (hidden in Storyline mode), for example Trick House, Contest prep, Lilycove Contests, Abandoned Ship, Shoal Cave, Sealed Chamber & Regis
@@ -1524,7 +1525,7 @@ You’re in **Main storyline** mode. Open **Guide settings** and switch to **Com
 
 #### Started in Littleroot but wanted Evolution / Breeding prep
 
-Open **Guide settings**, uncheck **Skip Catching, Evolution & Breeding prep**, start again (or navigate to the pregame chapters if they are visible for your settings).
+Open **Guide settings**, uncheck **Skip Catching, Evolution, Breeding & Battles prep**, start again (or navigate to the pregame chapters if they are visible for your settings).
 
 #### Hosted beta looks old / cached (especially iOS Safari)
 

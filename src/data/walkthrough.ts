@@ -10,6 +10,7 @@ import {
   pregameFieldChapter,
   pregameEvolutionChapter,
   pregameBreedingChapter,
+  pregameBattlesChapter,
 } from "./pregameWalkthrough";
 
 /**
@@ -2246,11 +2247,13 @@ const storyChapters: GuideSection[] = [
         summary: "Surf to the half-sunk ship between Dewford and Slateport.",
         story: [
           "Out on Route 108, between Dewford and Slateport, a half-sunk ship lists in the shallows. Surf out and climb aboard to explore its flooded cabins — a warren of locked rooms, seawater, and scattered loot. Many doors need keys you'll find on site, so expect to backtrack as you piece the puzzle together.",
-          "The upper cabins give up Harbor Mail, a Revive, and TM13 Snatch among other odds and ends. To reach the best prize, though, you'll need to head below the surface.",
+          "The upper cabins give up Harbor Mail, a Revive, and TM13 Ice Beam among other odds and ends. To reach the best prize, though, you'll need to head below the surface.",
+
         ],
         details: [
           "Surf to the Abandoned Ship on Route 108 (east of Dewford's waters).",
-          "Explore the cabins for Harbor Mail, a Revive, TM13 Snatch, and more.",
+          "Explore the cabins for Harbor Mail, a Revive, TM13 Ice Beam, and more.",
+
           "Some rooms are locked until you find the Room Key and Storage Key.",
         ],
         tips: ["Bring Surf; you can visit as soon as you can cross the water, but Dive unlocks the full ship."],
@@ -2946,6 +2949,7 @@ const built: GuideSection[] = [
   pregameFieldChapter,
   pregameEvolutionChapter,
   pregameBreedingChapter,
+  pregameBattlesChapter,
   ...storyChapters,
 ];
 insertAfter(built, "route-110", trickHouseChapter);

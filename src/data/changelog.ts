@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.21",
+    date: "2026-07-15",
+    summary:
+      "New pregame Battles & Training chapter covers battle basics, types, status, all 25 natures, vitamins, and every TM and HM.",
+    sections: [
+      {
+        heading: "Pregame walkthrough",
+        items: [
+          "Added Ch. 4 — Pregame: Battles & Training (nine events) after Breeding: battle types & commands, move targeting, types & damage multipliers, strategies, battle messages, status anomalies & cures, natures, vitamins/EVs, and TMs & HMs.",
+          "Interactive reference tables: Gen III type multiplier picker, status cure list, full 25-nature table (stats + contest flavors), and TM01–TM50 / HM01–HM08 catalog with obtain locations and field badges.",
+          "Guide settings skip label and README pregame list now include Battles & Training; Breeding’s nature note points here instead of Contest Preparation.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.20",
     date: "2026-07-15",
     summary:

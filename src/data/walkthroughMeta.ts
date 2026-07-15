@@ -4,6 +4,7 @@ const PREGAME_CHAPTER_IDS = new Set([
   "pregame-field",
   "pregame-evolution",
   "pregame-breeding",
+  "pregame-battles",
 ]);
 
 const POSTGAME_CHAPTER_IDS = new Set([
