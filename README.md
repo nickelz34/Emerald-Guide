@@ -1,6 +1,8 @@
+My name is Nicholas,
+
 I am doing this by myself, I work 12hrs a day in a factory. I dont expect anything from this, I have loved this game since I was a child. I feel that the current sources for walkthrough help with this game are hard to navigate or are plagued with ads. I am aiming to bring one of the most clear, yet detailed guides for pokemon emerald as a web app free to everyone! I hope you all enjoy this guide and it truely helps you to be the best! Happy Gaming !!!
 
-LIVE SITE IS IN BETA BUT ITS UP :)
+THE LIVE GUIDE IS IN BETA BUT ITS UP :)
 
 https://nickelz34.github.io/Emerald-Guide/
 
