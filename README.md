@@ -19,9 +19,10 @@ Hi — I’m Nicholas. I built this guide by myself after long factory shifts be
 3. [Requirements](#requirements)
 4. [How to install — Linux](#how-to-install--linux)
 5. [How to install — Windows](#how-to-install--windows)
-6. [Daily use cheat sheet](#daily-use-cheat-sheet)
-7. [Troubleshooting](#troubleshooting)
-8. [License & disclaimer](#license--disclaimer)
+6. [How to install — macOS](#how-to-install--macos)
+7. [Daily use cheat sheet](#daily-use-cheat-sheet)
+8. [Troubleshooting](#troubleshooting)
+9. [License & disclaimer](#license--disclaimer)
 
 ---
 
@@ -290,6 +291,33 @@ Open the hosted beta: [https://nickelz34.github.io/Emerald-Guide/](https://nicke
 ## How to install — Linux
 
 These steps use a normal terminal (`bash` or `zsh`). Distro package names differ — pick the block that matches your system, then follow the common clone / install / run steps.
+
+### Best Linux operating systems for this guide
+
+Emerald Guide is a small Node.js / Vite web app. It does **not** need a special “gaming Linux” or GPU drivers. Any modern desktop distro works if you can install **Git** and **Node.js 18+**. Some systems are simply smoother for first-time setup:
+
+| Priority | Distro | Why it’s a good fit |
+|---|---|---|
+| **Best for most people** | **Ubuntu LTS** (22.04 / 24.04) | Huge documentation, predictable `apt`, easy recovery if something breaks. Use **nvm** for Node — Ubuntu’s packaged `nodejs` is often too old. |
+| **Best Ubuntu-like (polished desktop)** | **Linux Mint** (Cinnamon) or **Pop!_OS** | Same Debian/Ubuntu package commands as below, friendlier desktop defaults, great if you’re coming from Windows. |
+| **Best “just works + fresh packages”** | **Fedora Workstation** | Current Node/Git are usually available via `dnf` without fighting ancient packages. Excellent if you want a modern Red Hat–family system. |
+| **Best rolling / power-user** | **Arch Linux**, **EndeavourOS**, or **Manjaro** | `pacman` Node is typically new enough; EndeavourOS is the gentler Arch entry point. Still fine to use nvm if you prefer a user-local Node. |
+| **Also solid** | **openSUSE Leap / Tumbleweed**, **Debian Testing/Sid** (or Debian Stable **with nvm**) | Fully supported by the commands below; on Debian Stable prefer nvm so you don’t get stuck on an old Node. |
+
+**Practical recommendation**
+
+1. If you’re new to Linux or just want the path of least resistance: **Ubuntu LTS**, **Linux Mint**, or **Pop!_OS**, then install Node with **nvm** (see step 2).  
+2. If you already like Fedora: stay on **Fedora Workstation**.  
+3. If you already know Arch: stay there — don’t switch distros just for this guide.
+
+**What to avoid / treat carefully**
+
+- **Very old LTS releases** that only ship Node 12/16 in the default repos — still usable, but **you must use nvm** (or another current Node source).  
+- **Container-only or headless servers** without a browser on the same machine — you can still run Vite, but you’ll want a browser somewhere (`localhost` or the printed Network URL).  
+- **WSL on Windows** — follow the Linux commands inside WSL if you choose that workflow, but for a dedicated Windows machine the [Windows install section](#how-to-install--windows) is usually simpler.  
+- You do **not** need SteamOS, specialized gaming spins, or Wayland-specific tweaks for Emerald Guide.
+
+Pick whichever distro above you’re comfortable with, then continue from step 0.
 
 ### 0. Open a terminal
 
@@ -773,6 +801,296 @@ Open the URL printed by preview (commonly `http://localhost:4173/`).
 
 ---
 
+## How to install — macOS
+
+These steps target **macOS** on both **Apple silicon** (M1 / M2 / M3 / M4) and **Intel** Macs. You will use **Terminal** (or iTerm2 if you already have it). The commands below are the same for Apple silicon and Intel once Node and Git are installed correctly for your chip.
+
+Supported for this guide: recent macOS releases that can run a current **Node.js LTS** and a modern browser (Safari, Chrome, Firefox, Edge, Arc, etc.).
+
+### 0. Open Terminal and check your Mac
+
+1. Press **Cmd + Space**, type `Terminal`, press **Return**  
+   Or open **Applications → Utilities → Terminal**  
+2. Optional but useful — learn your chip and macOS version:
+
+```bash
+uname -m
+sw_vers
+```
+
+- `arm64` → Apple silicon  
+- `x86_64` → Intel (or an Intel Terminal under Rosetta)
+
+Confirm you have a normal user shell:
+
+```bash
+echo "$SHELL"
+whoami
+pwd
+```
+
+Most modern Macs default to **zsh**. Either `zsh` or `bash` is fine for the rest of these steps.
+
+---
+
+### 1. Install Apple’s Command Line Tools (includes Git)
+
+On macOS, the cleanest way to get a working `git` (and the compilers some Node install methods expect) is Apple’s **Command Line Tools**.
+
+In Terminal:
+
+```bash
+xcode-select --install
+```
+
+A system dialog should appear — choose **Install** (you do **not** need the full Xcode app from the App Store for Emerald Guide).
+
+Wait until it finishes, then verify Git:
+
+```bash
+git --version
+```
+
+Expected: something like `git version 2.x.x` (Apple’s build is fine).
+
+If you already installed CLT / Xcode earlier and get `xcode-select: error: command line tools are already installed`, you’re done with this step — just confirm `git --version` works.
+
+**Optional — Homebrew’s Git**
+
+If you prefer Homebrew’s newer Git after installing Homebrew (step 2 options below):
+
+```bash
+brew install git
+hash -r
+git --version
+which git
+```
+
+Either Apple Git or Homebrew Git works for cloning this repo.
+
+---
+
+### 2. Install Node.js 18+ (and npm)
+
+Emerald Guide needs **Node.js 18+** (20 LTS or 22 LTS recommended). Pick **one** method below — don’t mix them randomly in the same shell until you know which `node` is active (`which node`).
+
+#### Option A — Official Node.js installer (simplest for many people)
+
+1. Open [https://nodejs.org](https://nodejs.org) in Safari/Chrome  
+2. Download the **LTS** macOS installer  
+   - Apple silicon → the **ARM64** / Apple installer  
+   - Intel → the **x64** installer  
+3. Open the `.pkg` and click through **Continue → Agree → Install** (you’ll need an admin password)  
+4. **Quit Terminal completely** (Cmd+Q) and open a new Terminal window  
+
+Verify:
+
+```bash
+node --version
+npm --version
+which node
+```
+
+You want `v18…` / `v20…` / `v22…` (or newer LTS) and an npm like `10.x`.
+
+#### Option B — nvm (excellent if you want multiple Node versions)
+
+nvm keeps Node in your home folder and is easy to upgrade later.
+
+1. Install nvm ([nvm releases](https://github.com/nvm-sh/nvm/releases) if you want a newer tag; `v0.40.1` is commonly used):
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+2. Load nvm in this Terminal (or open a new tab/window):
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+```
+
+On zsh, the installer usually appends lines to `~/.zshrc`. Confirm:
+
+```bash
+grep -n nvm ~/.zshrc || true
+```
+
+3. Install LTS and make it default:
+
+```bash
+nvm install --lts
+nvm use --lts
+nvm alias default 'lts/*'
+node --version
+npm --version
+which node
+```
+
+`which node` should point under `~/.nvm/...`.
+
+#### Option C — Homebrew
+
+If you already use Homebrew (or want it):
+
+1. Install Homebrew if needed — follow the current one-liner at [https://brew.sh](https://brew.sh) (it will ask for an admin password and may install CLT).  
+2. Install Node:
+
+```bash
+brew update
+brew install node
+node --version
+npm --version
+which node
+```
+
+Homebrew’s `node` formula tracks current releases and usually satisfies Vite’s engine range. If `brew` itself isn’t found in a new Terminal after install, follow Homebrew’s printed “Next steps” (often adding `/opt/homebrew/bin` on Apple silicon or `/usr/local/bin` on Intel to your `PATH` in `~/.zprofile` / `~/.zshrc`).
+
+**PATH tip for Apple silicon + Homebrew**
+
+If `brew` works in one Terminal but not another, add this and reopen Terminal:
+
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+---
+
+### 3. Choose a folder and clone the repository
+
+```bash
+mkdir -p ~/Projects
+cd ~/Projects
+git clone https://github.com/nickelz34/Emerald-Guide.git
+cd Emerald-Guide
+```
+
+Confirm you’re in the project root:
+
+```bash
+ls
+test -f package.json && echo "OK: package.json present"
+```
+
+You should see `package.json`, `src/`, and `public/`.
+
+**SSH alternative** (if your GitHub account uses SSH keys):
+
+```bash
+git clone git@github.com:nickelz34/Emerald-Guide.git
+```
+
+**Updating an existing clone later:**
+
+```bash
+cd ~/Projects/Emerald-Guide
+git pull origin main
+npm install
+```
+
+**macOS Gatekeeper / quarantine note**
+
+Cloning with Git does not quarantine files the way random downloaded `.app` bundles do. You should **not** need to right-click → Open anything for this project. If a security dialog ever appears for a terminal helper, cancel and verify you cloned from the official GitHub URL above.
+
+---
+
+### 4. Install project dependencies
+
+Still inside `Emerald-Guide`:
+
+```bash
+npm install
+```
+
+This creates `node_modules/` and usually takes 1–3 minutes.
+
+Success = back at a prompt with no `npm ERR!` lines.
+
+**Do not use `sudo npm install`.** If you previously used sudo with npm and hit permission errors:
+
+```bash
+sudo chown -R "$(whoami)" ~/.npm
+cd ~/Projects/Emerald-Guide
+rm -rf node_modules
+npm install
+```
+
+Optional lockfile-exact install:
+
+```bash
+npm ci
+```
+
+---
+
+### 5. Start the development server
+
+```bash
+npm run dev
+```
+
+Look for output like:
+
+```text
+  VITE v6.x.x  ready in XXX ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.x.x:5173/
+```
+
+**Leave this Terminal window open** while you use the guide.
+
+1. Open Safari, Chrome, Firefox, or Edge  
+2. Go to **http://localhost:5173/**  
+3. You should see Emerald Guide (Walkthrough / Pokédex / Hoenn Map)  
+
+If something else is already using port 5173:
+
+```bash
+npm run dev -- --port 5174
+```
+
+Then open `http://localhost:5174/`.
+
+**Safari tip:** if the page looks blank after an update, do a hard refresh (**Cmd + Option + R**) or clear cached data for `localhost`.
+
+---
+
+### 6. Stop the app
+
+Focus the Terminal running Vite and press:
+
+```text
+Ctrl+C
+```
+
+(Note: that’s **Control+C**, not Cmd+C — Cmd+C copies text on macOS.)
+
+---
+
+### 7. (Optional) Production build and local preview
+
+```bash
+npm run build
+npm run preview
+```
+
+Open the URL printed by preview (often `http://localhost:4173/`).
+
+For day-to-day local playthrough use, `npm run dev` is enough.
+
+---
+
+### 8. macOS extras that help
+
+- **iTerm2** or **Warp** are nice alternatives to Terminal if you keep many tabs open  
+- Keep the project under your home folder (`~/Projects/...`) — avoid iCloud Desktop/Documents sync folders if you see flaky `node_modules` file locks  
+- Apple silicon users: install the **ARM64** Node build (official pkg, Homebrew under `/opt/homebrew`, or nvm’s arm64 binary). Avoid forcing x64 Node under Rosetta unless you know you need it  
+- Firewall: for `localhost` you normally need no changes. System Settings → Network → Firewall only matters if you intentionally use the Network URL from another device  
+
+---
+
 ## Daily use cheat sheet
 
 | Goal | Command / action |
@@ -790,7 +1108,7 @@ Open the URL printed by preview (commonly `http://localhost:4173/`).
 
 ## Troubleshooting
 
-Issues are split into **Linux** and **Windows**. Read the section for your OS first; shared app-behavior issues are at the end.
+Issues are split into **Linux**, **Windows**, and **macOS**. Read the section for your OS first; shared app-behavior issues are at the end.
 
 ---
 
@@ -1044,7 +1362,146 @@ Enable Windows long paths, or keep the repo near `C:\dev\Emerald-Guide` so neste
 
 ---
 
-### App / guide behavior troubleshooting (Linux & Windows)
+### macOS troubleshooting
+
+#### `xcode-select: note: No developer tools were found` / `git: command not found`
+
+Install Apple’s Command Line Tools:
+
+```bash
+xcode-select --install
+```
+
+Complete the GUI installer, then open a **new** Terminal and run `git --version`.
+
+If the install appears stuck, reboot and run `xcode-select --install` again, or install/update CLT from Apple’s developer downloads page while signed into your Apple ID.
+
+#### `node: command not found` after installing the `.pkg`
+
+Terminal was already open during install and never reloaded `PATH`.
+
+1. Quit Terminal fully (**Cmd+Q**)  
+2. Open a new Terminal  
+3. Run:
+
+```bash
+node --version
+npm --version
+which node
+```
+
+If still missing, reinstall the **correct** Node LTS `.pkg` for your chip (ARM64 vs x64), or switch to **nvm** / **Homebrew** from the macOS install section.
+
+#### Wrong CPU architecture (Apple silicon running x64 Node under Rosetta)
+
+Symptoms can include odd install failures or surprisingly slow `npm install`.
+
+```bash
+uname -m
+node -p "process.arch"
+```
+
+On Apple silicon you want `arm64` for both. If `node` prints `x64`, reinstall Node with the ARM64/official Apple silicon build, or with Homebrew/`nvm` natively on arm64 — don’t keep an Intel-only Node as your default.
+
+#### Homebrew’s `brew` or `node` not found in new Terminal windows
+
+On Apple silicon, Homebrew usually lives in `/opt/homebrew`. Add it to your login shell and reload:
+
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+brew --version
+node --version
+```
+
+Intel Homebrew is typically `/usr/local/bin` — follow whatever `brew doctor` prints if paths look wrong.
+
+#### nvm works in one tab but not after restart
+
+The nvm init lines never landed in your shell config (or you’re using a different shell than you think).
+
+```bash
+echo "$SHELL"
+grep -n nvm ~/.zshrc ~/.bashrc ~/.zprofile 2>/dev/null || true
+```
+
+Re-run the nvm install script or manually append the `NVM_DIR` / `nvm.sh` lines to `~/.zshrc`, then:
+
+```bash
+source ~/.zshrc
+nvm use --lts
+```
+
+#### `npm install` fails with `EACCES` / permission denied
+
+Usually from an old `sudo npm` habit.
+
+```bash
+sudo chown -R "$(whoami)" ~/.npm
+cd ~/Projects/Emerald-Guide
+rm -rf node_modules
+npm install
+```
+
+Never use `sudo npm install` or `sudo npm run dev` for this project.
+
+#### `npm install` network / certificate errors (school/work network)
+
+```bash
+npm cache clean --force
+npm install
+```
+
+If you’re behind a mandatory proxy, set it with `npm config set proxy` / `https-proxy` (same pattern as Linux/Windows). Corporate SSL inspection sometimes requires IT’s certificate setup for Node — if only Node fails while Safari works, ask IT for the Node/`NODE_EXTRA_CA_CERTS` guidance they recommend.
+
+#### Port 5173 already in use
+
+```bash
+lsof -i :5173
+npm run dev -- --port 5174
+```
+
+If `lsof` shows a leftover `node` process you started earlier, quit that Terminal or stop the process, then retry.
+
+#### Blank page in Safari on `localhost`
+
+1. Confirm Terminal still shows Vite “ready”  
+2. Hard refresh: **Cmd + Option + R**  
+3. Try `http://127.0.0.1:5173/`  
+4. Try Chrome/Firefox to see if it’s Safari cache only  
+5. Clean reinstall deps:
+
+```bash
+cd ~/Projects/Emerald-Guide
+rm -rf node_modules
+npm install
+npm run dev
+```
+
+#### Project lives in iCloud Desktop/Documents and files “vanish” or lock
+
+iCloud Drive sync can fight large `node_modules` trees. Move/clone the repo to a local non-synced folder:
+
+```bash
+mkdir -p ~/Projects
+cd ~/Projects
+git clone https://github.com/nickelz34/Emerald-Guide.git
+cd Emerald-Guide
+npm install
+npm run dev
+```
+
+#### Full Disk Access / privacy prompts
+
+Emerald Guide does not need Full Disk Access, Screen Recording, or special TCC permissions. If macOS prompts you, you can deny those — only Terminal needs normal file access to your project folder.
+
+#### `npm run build` fails but `npm run dev` works
+
+Same as other platforms: the production build runs verify scripts. For playing along with the guide locally, `npm run dev` is enough. Fix missing assets / pull latest `main` if you’re trying to deploy.
+
+---
+
+### App / guide behavior troubleshooting (all platforms)
 
 #### Progress didn’t restore after refresh
 
