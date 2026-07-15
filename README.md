@@ -1,361 +1,338 @@
-My name is Nicholas,
-
-I am doing this by myself, I work 12hrs a day in a factory. I dont expect anything from this, I have loved this game since I was a child. I feel that the current sources for walkthrough help with this game are hard to navigate or are plagued with ads. I am aiming to bring one of the most clear, yet detailed guides for pokemon emerald as a web app free to everyone! I hope you all enjoy this guide and it truely helps you to be the best! Happy Gaming !!!
-
-THE LIVE GUIDE IS IN BETA BUT ITS UP :)
-
-https://nickelz34.github.io/Emerald-Guide/
-
 # Emerald Guide
 
-A local web app that helps you play through Pokémon Emerald. Open it in your browser while you play the game on a GBA, emulator, or cartridge — it tells you what to do next, shows you annotated maps of each area, and lets you look up any Pokémon's wild locations, stats, and evolutions.
+**A free, ad-free, offline-friendly Pokémon Emerald walkthrough web app — clear maps, Prima-style story prose, and everything you need to beat Hoenn (and clean it up afterward).**
 
-This is a **guide only**. It does not run the game, does not need a ROM, and does not connect to your save file.
+**Live site (beta):** [https://nickelz34.github.io/Emerald-Guide/](https://nickelz34.github.io/Emerald-Guide/)
+
+Current app version: **1.24.1**
 
 ---
 
-## What this app does
+Hi — I’m Nicholas. I built this guide by myself after long factory shifts because I love Emerald and wanted something clearer than cluttered wikis or ad-heavy pages. Use it however you like. Happy gaming!
 
-When you open Emerald Guide, you see a navigation bar across the top with six sections. Here is what each one is for and how you use it.
+---
+
+## Table of contents
+
+1. [What Emerald Guide is](#what-emerald-guide-is)
+2. [What you get — full feature guide](#what-you-get--full-feature-guide)
+3. [Requirements](#requirements)
+4. [How to install — Linux](#how-to-install--linux)
+5. [How to install — Windows](#how-to-install--windows)
+6. [Daily use cheat sheet](#daily-use-cheat-sheet)
+7. [Troubleshooting](#troubleshooting)
+8. [License & disclaimer](#license--disclaimer)
+
+---
+
+## What Emerald Guide is
+
+Emerald Guide is a **local web app** you open in a browser while you play Pokémon Emerald on a GBA, cartridge, or emulator. It does **not** run the game, does **not** need a ROM, and does **not** read your save file.
+
+It tells you what to do next, shows annotated area maps and Hoenn overworld crops, lists trainer parties and wild encounters, and includes postgame, contests, Battle Frontier, and Mystery Gift island content.
+
+You can:
+
+- Use the **hosted beta** at the link above (no install), or
+- **Clone and run it locally** with Node.js so everything works on your machine (all guide data and Pokédex data are bundled — no PokéAPI fetch required at runtime).
+
+---
+
+## What you get — full feature guide
+
+The top navigation has **three sections**:
+
+| Tab | What it’s for |
+|---|---|
+| **Walkthrough** | The full playthrough guide (pregame → story → postgame) |
+| **Pokédex** | All 387 Gen 3 species — stats, evolutions, wild locations |
+| **Hoenn Map** | Interactive region map; jump to walkthrough steps, routes, gyms, marts, trainers |
+
+Older versions of this project had separate “Secrets,” “Legendaries,” and “Tips” tabs. Those topics are now **woven into the walkthrough** (and into map/route panels) so you follow one path instead of hopping between sections.
+
+You can also open an in-app **changelog** by clicking the version badge (`v1.24.1`) next to the Emerald Guide title.
+
+### Layout: Mobile vs Desktop
+
+A **Mobile / Desktop** toggle in the header switches the chrome intentionally (not only by screen width). Your choice is remembered in the browser (`localStorage`).
+
+- **Desktop** — side-by-side step list + event detail; left/right arrow keys to change events
+- **Mobile** — compact nav, collapsible **Steps** drawer, swipe left/right between events, sticky search, tap-outside or Escape to close the Steps menu
+
+---
 
 ### Story Walkthrough
 
-This is the main playthrough guide. It covers the full game from choosing your starter in Littleroot Town through beating the Elite Four.
+This is the heart of the app.
 
-The screen is split into two parts:
+#### First-time Guide settings
 
-- **Left side** — a scrollable list of every guide step, grouped into chapters (for example "Early Game — Littleroot to Rustboro", "Dewford, Slateport & Mt. Chimney"). You can type in the search box to filter steps by title, location, or keyword.
-- **Right side** — the currently selected step. Each step shows:
-  - A **title** and **location** (for example "Stone Badge — Roxanne" at Rustboro City Gym)
-  - A short **summary** of what happens at that point in the game
-  - An **annotated map** of the area (when one exists for that step) — see below
-  - A **What to do** checklist with the specific actions you should take
-  - Optional **tips** (starter advice, item locations, battle strategy)
-  - A **wild encounter table** listing Pokémon you can catch in that area, with level ranges, encounter method (grass, surf, fishing rod, etc.), and time of day
+The first time you open **Walkthrough**, you get a setup screen (**How do you want to play?**). You can reopen it anytime with **Guide settings**.
 
-Use the **Previous** and **Next** buttons at the bottom to move between steps, or press the **left** and **right arrow keys** on your keyboard.
+**Pregame chapters**
 
-If a step is tied to a place on the world map, a **Show on Hoenn map** button appears so you can see where that step takes place in the region.
+- Checkbox: **Skip Evolution & Breeding prep**
+- Off (default): start with interactive Evolution & Breeding reference chapters
+- On: jump straight to Littleroot Town (`littleroot-1`)
 
-### Annotated maps
+**Walkthrough mode**
 
-Many walkthrough steps include a screenshot of the in-game area with colored markers placed on it. Marker types include:
+- **Main storyline** — required story events only (gyms, rivals, plot). Optional chapters and optional side events are hidden.
+- **Completionist** (default) — main story **plus** every optional side quest, activity, and bonus area.
 
-- **Trainer battles** — trainers you will fight on that map
-- **Items** — visible and hidden items on the ground
-- **Important NPCs** — story characters and key people
-- **Buildings** — Pokémon Centers, Marts, gyms, houses
-- **Points of interest** — exits to other routes, story events, signs
-- **Wild Pokémon** — grass patches and surf spots
+**Continue with save code**
 
-You can **click a map** to open it in a larger lightbox view. In the lightbox (and on full-size inline maps) you can:
+- Enter a **4-letter** code previously created on **this same browser** to restore mode, pregame skip, and your place in the guide.
 
-- **Scroll** the mouse wheel to zoom in and out
-- **Click and drag** to pan around the map
-- Use the **reset button** in the bottom-right corner to return to the default view
+#### What the walkthrough covers
 
-Marker positions are calibrated against the [pokeemerald](https://github.com/pret/pokeemerald) decompilation data so they line up with the actual game maps.
+The guide is organized into three **bands**:
+
+1. **Pregame**
+   - Evolution methods (stones, trades, friendship, unique forms) with charts
+   - Breeding (Day Care, egg groups, incense babies, IVs/natures/abilities, egg moves, hatching) plus a **Breeding lookup** tool
+2. **Main story**
+   - Littleroot → Hall of Fame, chapter-by-chapter (towns, routes, dungeons, gyms, League)
+   - Optional chapters (hidden in Storyline mode), for example Trick House, Contest prep, Lilycove Contests, Abandoned Ship, Shoal Cave, Sealed Chamber & Regis
+   - Optional in-chapter events (Safari Zone, Mirage Island, legendary catches you can delay, Battle Tents, etc.)
+3. **Postgame**
+   - Opening (S.S. Ticket, Latias/Latios TV, National Dex / Scott)
+   - Battle Frontier
+   - Postgame Hoenn (Beldum, Desert Underpass, Trainer Hill, Johto starters, Safari expansion, Match Call rematches, Steven, diplomas/stars, and more)
+   - Contest mastery
+   - Mystery Gift & event islands (Eon / Mystic / Aurora Ticket / Old Sea Map content)
+
+Legendaries are **not** a separate tab — they appear at the story/postgame beats where you unlock them (Groudon, Kyogre, Rayquaza, Regis, Latios/Latias, ticket islands, etc.).
+
+#### What each walkthrough event shows
+
+A selected event can include:
+
+- **Title**, **location**, and short **summary**
+- **Optional** badge when the event is skippable for the main story
+- **Mark complete / Completed** toggle (story & postgame only — pregame tips cannot be marked complete)
+  - Completing is **manual**. Opening or browsing an event does **not** auto-complete it or earlier events
+- **Story prose** — Prima-style narrative paragraphs retelling that beat of the game
+- **Annotated maps / screenshots**
+  - Area maps with sprite markers (trainers, items, NPCs, shops, entrances, wild spots, and more)
+  - Baked **face-off cutscenes** for rival battles, gym leaders, Elite Four, and the Champion
+  - Multi-room gym layouts (for example Petalburg Gym shown room-by-room)
+  - Click a map to open a **lightbox**: zoom (scroll / pinch), pan (drag), reset/fit controls, prev/next when a step has multiple images
+- **Contextual helper panels** when the event calls for them:
+  - **Starter comparison** (Treecko / Torchic / Mudkip) — difficulty, abilities, evolutions, stats, early gym matchups
+  - **Gym guide** — leader, specialty, badge, puzzle notes, junior trainers, full leader party
+  - **Rival guide** — choose your gender + starter to see the correct rival party
+  - **Trainer detail** — party sprites, types, moves, held items, prize money, battle tips
+  - **Mart / shop stock** — item icons, prices, unlock notes (including multi-floor department stores)
+  - **HM unlock table** — which badge unlocks which field move
+  - **Key items table**
+  - **Scott sightings** checklist (Battle Frontier BP bonuses)
+  - **Match Call** rematch finder + rematch location rules
+  - **Evolution / breeding charts** and **breeding species lookup**
+- **What to do** — numbered objectives checklist
+- **Tips** — strategy, items, timing
+- **Secrets, Extras, & Hidden Items** — missables merged from the step and the area data
+- **Wild Pokémon** table for the linked area(s) — methods (grass, surf, rods, rock smash, cave), levels, rates, species sprites
+- **Show on Hoenn map** — jump to that place on the regional map
+- **Tags** for search/filtering context
+
+#### Step list, search, and navigation
+
+- Left rail (desktop) or **Steps** drawer (mobile): chapters → numbered events
+- **Search** filters by title, location, story text, checklist, tips, secrets, tags, and chapter name
+- Sticky search on mobile with a clear (×) control; match count stays visible while you scroll
+- **Previous / Next** buttons; desktop **← / →** keys; mobile **swipe** between events
+- Counter showing your place among visible steps
+
+#### Story progress bar
+
+Above the walkthrough content:
+
+- Markers for all **8 gym badges**, plus **Elite Four**, **Champion**, and **Hall of Fame**
+- Badge / league markers light up from events you **Mark complete** (not from merely visiting a step)
+- Click a marker to jump to that milestone’s step
+- Status text tells you the next badge or league goal
+
+#### Save progress
+
+- **Save progress** creates a random **4-letter save code** and tries to copy it to the clipboard
+- Codes store your walkthrough mode, pregame preference, and current step in **this browser’s `localStorage` only**
+  - They are **not** cloud-synced and **not** tied to a Pokémon Emerald cart/emulator save
+- Use **Continue with save code** on the Guide settings screen to resume
+
+Preferences also auto-persist: setup choices, active step, and completed step IDs survive page reloads in the same browser.
+
+---
+
+### Annotated maps (deep dive)
+
+Many events ship pokeemerald-calibrated maps so pins line up with real in-game layouts.
+
+**Marker kinds you will see**
+
+- Towns, routes, gyms, landmarks
+- Visible items, hidden items, berries
+- Entrances / exits
+- Shops / marts
+- Trainers and important NPCs (often with authentic Emerald overworld / trainer sprites)
+- Wild encounter spots
+
+**Interaction**
+
+- Hover / tap a pin for callouts
+- Open trainers → full party panel
+- Open shops → stock list
+- Open routes / areas → wilds, items, trainers, secrets
+- Zoom and pan on large maps; pinch on touch devices
+- Face-off cutscenes often appear **above** the floor plan for that battle
+
+---
 
 ### Pokédex
 
-The Pokédex section lets you look up any of the **387 Pokémon** in Emerald.
+Fully **bundled offline** — wild encounter data, species info, and Emerald sprites ship with the app. You do **not** need an internet connection to use the Pokédex after the site/app has loaded (runtime PokéAPI / GitHub fetches are gone).
 
-At the top you choose a scope:
+**Scopes**
 
-- **Hoenn** — the 202 Pokémon in the regional dex
-- **National** — the 185 additional species unlocked after beating the game
-- **All** — every species in one list
+- **Hoenn** — 202 regional dex entries
+- **National** — 185 additional species (includes the Deoxys / glitch edge cases the data covers)
+- **All** — 387 entries in one list
 
-You can search by name. Each Pokémon appears as a card showing its dex number, which encounter methods apply (grass, surf, rods, etc.), level range, and how many locations it appears in.
+**Browse & search**
 
-Click a card to open the full detail view:
+- Search by name, dex number, encounter method, or location name
+- Cards show sprite, methods, level range, and location count — or “Not in the wild” for gifts / trades / evolutions
 
-- Sprite, types, and type-colored chips
-- Base stats with visual stat bars and BST total
-- Abilities (including hidden ability when applicable)
-- Evolution chain
-- Flavor text
-- **Every wild location** in Emerald where that Pokémon can be caught, with encounter method, level, rate, and an annotated map preview for that area
+**Detail view**
 
-Pokémon that cannot be caught in the wild (starters, gift Pokémon, trade evolutions) are still listed but marked as "Not in the wild."
+- Types, genus, flavor text
+- Abilities (including hidden ability when present)
+- Height / weight, egg groups
+- Emerald-accurate evolution methods
+- Base stats with bars + BST
+- **Where to find** — every wild location with method, levels, rate, and a clickable annotated map preview
 
-**Note:** The first time you open the Pokédex, the app downloads wild encounter data from the pokeemerald GitHub repository and species details from [PokéAPI](https://pokeapi.co/). You need an internet connection for this. After loading, data is cached in your browser for the rest of the session.
+Emerald wild tables in this guide do **not** vary encounters by time of day (tide-based Shoal Cave notes are handled where relevant).
 
-### Secrets & Hidden Items
-
-A separate guide section for things that are easy to miss: hidden items behind trees, optional areas, Secret Base tips, and rewards you might skip on a first playthrough. It uses the same step-by-step layout as the main walkthrough.
-
-### Legendaries
-
-Step-by-step instructions for catching every legendary Pokémon available on a normal Emerald cartridge — Groudon, Kyogre, Rayquaza, the Regis, Latios/Latias, and the rest. Each entry covers unlock requirements, location, and what to bring to the fight.
-
-### Tips & Team Building
-
-General strategy reference: type matchups, recommended HM slaves, when to evolve Pokémon, economy tips, and team-building advice for different stages of the game.
+---
 
 ### Hoenn Map
 
-A clickable overworld map of the entire Hoenn region. Each town, route, and dungeon has a pin. Click a pin to jump directly to the relevant walkthrough step for that area. You can also open this map from individual walkthrough steps via **Show on Hoenn map**.
+A full-region map of Hoenn you can zoom, pan, and pinch.
+
+- **Layer toggles** for pin categories (towns, routes, shops, trainers, items, etc.)
+- Filter trainers (for example rematchable-only where supported)
+- **Area switcher** for interior / dungeon maps with their own pins
+- Click pins to:
+  - Jump into the matching **walkthrough** step
+  - Open a **route guide** (wilds, items/berries, trainers, secrets)
+  - Open a **gym** detail / guide panel
+  - Open a **mart** stock list
+  - Open a **trainer** battle panel
+- Opening the map from **Show on Hoenn map** or the Map tab restores your last pan/zoom for the **current browser session** (a fresh session starts at the normal full-map framing — it no longer auto-pops the current walkthrough town)
 
 ---
 
-## What you need to install
+### Everything included — checklist
 
-Emerald Guide is a web app built with React and Vite. To run it on your own computer you need three things installed first. None of them are part of the game — they are standard developer tools used to download and serve the app.
+Use this as a quick “what do I get?” list:
 
-### 1. Node.js (version 18 or newer)
-
-**What it is:** A JavaScript runtime. The app is written in TypeScript/React and needs Node.js to install its dependencies and start a local web server.
-
-**Where to get it:** https://nodejs.org — download the **LTS** (Long Term Support) version.
-
-**How to check if you already have it:** Open a terminal and run:
-
-```
-node --version
-```
-
-You should see `v18.x.x` or higher (for example `v20.11.0`). If the command is not found or the version is below 18, install Node.js from the link above.
-
-Node.js includes **npm** (Node Package Manager), which you also need. Check it with:
-
-```
-npm --version
-```
-
-### 2. Git
-
-**What it is:** A version control tool. You use it once to download (clone) the project files from GitHub.
-
-**Where to get it:** https://git-scm.com/downloads
-
-**How to check if you already have it:**
-
-```
-git --version
-```
-
-You should see `git version 2.x.x`. If not, install Git from the link above.
-
-### 3. A web browser
-
-Any modern browser works: Chrome, Firefox, Edge, or Safari. You will open the app at `http://localhost:5173` in your browser after starting it.
-
-### Also required
-
-- **Internet connection** — needed the first time you use the Pokédex (to download encounter and species data). The walkthrough, maps, secrets, legendaries, and tips work offline once the app is running.
-- **About 500 MB of free disk space** — for Node.js, the project files, and installed dependencies.
-
-### You do NOT need
-
-- Python, Java, Docker, or any database
-- A Pokémon ROM or emulator (the guide runs separately from the game)
-- Administrator/root access (except when installing Node.js and Git themselves)
+- [x] Full story walkthrough from Littleroot through the Elite Four & Hall of Fame  
+- [x] Postgame: Frontier, Hoenn cleanup, contests, Mystery Gift islands  
+- [x] Pregame Evolution & Breeding chapters with interactive tools  
+- [x] Storyline vs Completionist mode filtering  
+- [x] Manual Mark complete + gym / league progress bar  
+- [x] 4-letter local save codes  
+- [x] Searchable step list (desktop rail + mobile Steps drawer)  
+- [x] Prima-style story prose + checklist + tips + secrets per event  
+- [x] Annotated area maps with sprite pins  
+- [x] Rival, gym leader, and League face-off cutscenes  
+- [x] Multi-room gym maps (including Petalburg)  
+- [x] Trainer parties, moves, items, and battle tips  
+- [x] Gym guides, rival party resolver, starter comparison  
+- [x] Mart inventories and shop pins  
+- [x] HM unlock + key item reference tables  
+- [x] Scott sightings + Match Call rematch tools  
+- [x] Wild encounter tables on steps and route guides  
+- [x] Offline Pokédex (387) with location maps  
+- [x] Interactive Hoenn overworld map with layers  
+- [x] Mobile and Desktop layouts, swipe + keyboard navigation  
+- [x] In-app changelog from the version badge  
+- [x] No ROM required; guide-only fan project  
 
 ---
 
-## How to install — Windows
+## Requirements
 
-These steps use **PowerShell**, which is built into Windows 10 and 11. Press the Windows key, type `PowerShell`, and open it.
+To run Emerald Guide **on your own computer** you need:
 
-### Step 1: Install Node.js
+| Requirement | Details |
+|---|---|
+| **Node.js 18+** (20 LTS or 22 LTS recommended) | Vite 6 used by this project requires Node `^18 \|\| ^20 \|\| >=22` |
+| **npm** | Ships with Node.js — used to install dependencies and start the app |
+| **Git** | Used once to download (`clone`) the project from GitHub |
+| **A modern browser** | Chrome, Firefox, Edge, or Safari |
+| **Disk space** | Roughly **300–500 MB** free for Node.js, the repo (~70 MB+), and `node_modules` |
+| **Internet** | Needed to clone the repo and run `npm install`. After that, the guide and Pokédex run locally without runtime API downloads |
 
-1. Go to https://nodejs.org in your web browser.
-2. Click the big green button for the **LTS** version (for example "20.x.x LTS").
-3. Run the downloaded `.msi` installer.
-4. Click **Next** through the wizard. Keep all default options checked, especially **"Add to PATH"**.
-5. Click **Install**, then **Finish**.
-6. **Close PowerShell completely** and open a new PowerShell window. This is required so Windows picks up the new PATH.
+### You do **not** need
 
-Verify Node.js is installed:
+- Python, Java, Docker, or a database  
+- A Pokémon ROM, emulator, or cartridge connection  
+- Admin/root for day-to-day running (only when installing Node.js / Git system-wide)
 
-```powershell
-node --version
-```
+### Prefer zero install?
 
-Expected output: something like `v20.11.0`.
-
-```powershell
-npm --version
-```
-
-Expected output: something like `10.2.4`.
-
-If either command says "not recognized", Node.js did not install correctly. Re-run the installer or restart your computer and try again.
-
-### Step 2: Install Git
-
-1. Go to https://git-scm.com/download/win
-2. The download should start automatically. Run the installer.
-3. Click **Next** through every screen — the defaults are fine for this project.
-4. Click **Install**, then **Finish**.
-5. Close and reopen PowerShell if it was already open.
-
-Verify Git is installed:
-
-```powershell
-git --version
-```
-
-Expected output: something like `git version 2.43.0.windows.1`.
-
-### Step 3: Download the project
-
-In PowerShell, navigate to where you want the project folder. For example, your Documents folder:
-
-```powershell
-cd $HOME\Documents
-```
-
-Download the project from GitHub:
-
-```powershell
-git clone https://github.com/nickelz34/Emerald-Guide.git
-```
-
-This creates a folder called `Emerald-Guide` containing all the project files. It should take a few seconds.
-
-Go into that folder:
-
-```powershell
-cd Emerald-Guide
-```
-
-### Step 4: Install the app's dependencies
-
-The project depends on libraries like React and Vite. Install them with:
-
-```powershell
-npm install
-```
-
-This reads `package.json` and downloads everything into a `node_modules` folder. The first run takes one to three minutes depending on your internet speed.
-
-You will see a lot of text scroll by. When it finishes, you should be back at the command prompt with no error messages. If you see `npm ERR!` lines, read the error — usually it is a network problem. Check your internet connection and run `npm install` again.
-
-### Step 5: Start the app
-
-```powershell
-npm run dev
-```
-
-After a few seconds you will see output like:
-
-```
-  VITE v6.x.x  ready in XXX ms
-
-  ➜  Local:   http://localhost:5173/
-```
-
-**This is the app running.** Do not close this PowerShell window while you use the app.
-
-1. Open your web browser (Chrome, Edge, Firefox).
-2. Go to **http://localhost:5173**
-3. You should see the Emerald Guide home page with the navigation bar at the top (Story Walkthrough, Pokédex, Secrets, Legendaries, Tips, Hoenn Map).
-
-If the page does not load, make sure the PowerShell window is still open and shows the Vite "ready" message. If port 5173 is already in use by another program, stop the other program or run:
-
-```powershell
-npm run dev -- --port 5174
-```
-
-Then open `http://localhost:5174` instead.
-
-### Step 6: Stop the app
-
-When you are done, click on the PowerShell window and press **Ctrl+C**. The server stops and the page will no longer load.
-
-### Step 7 (optional): Build a standalone copy
-
-If you want a production build (for example to host on a website):
-
-```powershell
-npm run build
-```
-
-This creates a `dist` folder with static HTML/JS/CSS files. To preview it locally:
-
-```powershell
-npm run preview
-```
-
-Open the URL shown (usually `http://localhost:4173`).
+Open the hosted beta: [https://nickelz34.github.io/Emerald-Guide/](https://nickelz34.github.io/Emerald-Guide/)
 
 ---
 
 ## How to install — Linux
 
-These steps use a terminal (`bash` or `zsh`). Open your system's terminal application.
+These steps use a normal terminal (`bash` or `zsh`). Distro package names differ — pick the block that matches your system, then follow the common clone / install / run steps.
 
-### Step 1: Install Node.js (version 18+)
+### 0. Open a terminal
 
-The install command depends on your Linux distribution.
+- **GNOME / Ubuntu / Pop!_OS / Linux Mint:** `Ctrl+Alt+T`, or Applications → Terminal  
+- **KDE / Fedora Workstation:** Konsole / System → Terminal  
+- **Arch / Sway / i3:** your usual terminal emulator  
 
-**Debian / Ubuntu / Linux Mint:**
+Confirm you’re in a normal user shell (not a broken `PATH`):
+
+```bash
+echo "$SHELL"
+whoami
+pwd
+```
+
+---
+
+### 1. Install Git
+
+**Debian / Ubuntu / Linux Mint / Pop!_OS**
 
 ```bash
 sudo apt update
-sudo apt install -y nodejs npm
-```
-
-**Fedora:**
-
-```bash
-sudo dnf install -y nodejs npm
-```
-
-**Arch Linux / Manjaro:**
-
-```bash
-sudo pacman -S nodejs npm
-```
-
-After installing, check the version:
-
-```bash
-node --version
-```
-
-If the version is **below 18** (some older distro packages ship Node 12 or 16), install a newer version using **nvm** (Node Version Manager):
-
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-```
-
-Close the terminal, open a new one, then:
-
-```bash
-nvm install --lts
-nvm use --lts
-node --version
-```
-
-You should now see `v18.x.x` or higher.
-
-Also verify npm:
-
-```bash
-npm --version
-```
-
-### Step 2: Install Git
-
-**Debian / Ubuntu / Linux Mint:**
-
-```bash
 sudo apt install -y git
 ```
 
-**Fedora:**
+**Fedora / RHEL / CentOS Stream**
 
 ```bash
 sudo dnf install -y git
 ```
 
-**Arch Linux / Manjaro:**
+**Arch Linux / Manjaro / EndeavourOS**
 
 ```bash
-sudo pacman -S git
+sudo pacman -Syu --needed git
+```
+
+**openSUSE**
+
+```bash
+sudo zypper refresh
+sudo zypper install -y git
 ```
 
 Verify:
@@ -364,128 +341,745 @@ Verify:
 git --version
 ```
 
-Expected output: `git version 2.x.x`.
+You want something like `git version 2.x.x`. If you see `command not found`, the package did not install — re-run the install command and fix any apt/dnf/pacman errors first.
 
-### Step 3: Download the project
+---
 
-Choose a directory for the project. For example:
+### 2. Install Node.js 18+ (and npm)
+
+Many distros ship an **old** Node packaged as `nodejs`. Emerald Guide needs **18 or newer**. Prefer **nvm** (Node Version Manager) unless you know your distro package is current.
+
+#### Recommended on every distro: nvm (Node Version Manager)
+
+nvm installs Node in your home directory — no fighting system packages.
+
+1. Install nvm (check [nvm releases](https://github.com/nvm-sh/nvm/releases) if you want a newer install script tag; `v0.40.1` is commonly used):
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+If `curl` is missing:
+
+```bash
+# Debian/Ubuntu
+sudo apt install -y curl
+# Fedora
+sudo dnf install -y curl
+# Arch
+sudo pacman -S --needed curl
+```
+
+2. Load nvm in **this** terminal (or close the terminal and open a new one):
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+```
+
+3. Install and activate the current LTS:
+
+```bash
+nvm install --lts
+nvm use --lts
+nvm alias default 'lts/*'
+```
+
+4. Verify:
+
+```bash
+node --version
+npm --version
+which node
+```
+
+Expected: `node` reports `v18…`, `v20…`, or `v22…` (or newer LTS), and `which node` points under `~/.nvm/…`.
+
+**Important:** Every new terminal must load nvm. The install script usually appends lines to `~/.bashrc` or `~/.zshrc`. If `node` disappears after closing the terminal, open your shell config and confirm those lines exist, then run `source ~/.bashrc` (or `source ~/.zshrc`).
+
+#### Alternative A — Debian / Ubuntu packages (only if version ≥ 18)
+
+```bash
+sudo apt update
+sudo apt install -y nodejs npm
+node --version
+```
+
+If `node --version` is **below 18**, do **not** continue with that package — use **nvm** above instead (or install from [NodeSource](https://github.com/nodesource/distributions) following their current docs for your Ubuntu/Debian version).
+
+#### Alternative B — Fedora
+
+```bash
+sudo dnf install -y nodejs npm
+node --version
+```
+
+Fedora’s packages are usually recent enough. If still below 18, use nvm.
+
+#### Alternative C — Arch
+
+```bash
+sudo pacman -Syu --needed nodejs npm
+node --version
+```
+
+Arch’s `nodejs` package is typically current.
+
+#### Alternative D — Snap (Ubuntu-like systems)
+
+```bash
+sudo snap install node --classic
+node --version
+npm --version
+```
+
+---
+
+### 3. Choose a folder and clone the repository
 
 ```bash
 mkdir -p ~/projects
 cd ~/projects
-```
-
-Clone the repository:
-
-```bash
 git clone https://github.com/nickelz34/Emerald-Guide.git
-```
-
-Go into the project folder:
-
-```bash
 cd Emerald-Guide
 ```
 
-### Step 4: Install the app's dependencies
+Confirm you are in the project root (you should see `package.json`, `src/`, `public/`):
+
+```bash
+ls
+test -f package.json && echo "OK: package.json present"
+```
+
+**SSH alternative** (if you use GitHub SSH keys):
+
+```bash
+git clone git@github.com:nickelz34/Emerald-Guide.git
+```
+
+**Updating an existing clone later:**
+
+```bash
+cd ~/projects/Emerald-Guide
+git pull origin main
+npm install
+```
+
+---
+
+### 4. Install project dependencies
+
+Still inside `Emerald-Guide`:
 
 ```bash
 npm install
 ```
 
-Wait for it to finish. You should return to the prompt with no `npm ERR!` messages. Packages are installed into `node_modules/`.
+What this does:
 
-If you get permission errors, do **not** use `sudo npm install`. Instead, fix npm's global directory permissions:
+- Reads `package.json` / `package-lock.json`
+- Downloads React, Vite, TypeScript, and other packages into `node_modules/`
+- Usually takes 1–3 minutes depending on your connection
+
+Success looks like returning to a prompt **without** `npm ERR!` lines.
+
+**Do not use `sudo npm install`.** If npm complains about permissions for **global** installs, fix your npm prefix instead:
 
 ```bash
 mkdir -p ~/.npm-global
-npm config set prefix '~/.npm-global'
+npm config set prefix "$HOME/.npm-global"
+echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
-Add `export PATH=~/.npm-global/bin:$PATH` to your `~/.bashrc` or `~/.zshrc`, reopen the terminal, and run `npm install` again.
+(Use `~/.zshrc` instead of `~/.bashrc` if you use zsh.)
 
-### Step 5: Start the app
+Then run `npm install` again **without** sudo.
+
+Optional: install exactly from the lockfile (CI-style):
+
+```bash
+npm ci
+```
+
+`npm ci` requires a clean `node_modules` and an existing `package-lock.json`. Prefer it when you want a bit-for-bit dependency match; `npm install` is fine for normal use.
+
+---
+
+### 5. Start the development server
 
 ```bash
 npm run dev
 ```
 
-Look for:
+You should see output similar to:
 
-```
+```text
+  VITE v6.x.x  ready in XXX ms
+
   ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.x.x:5173/
 ```
 
-**Leave this terminal open** while using the app.
+This project’s Vite config sets `server.host = true`, so it listens on all interfaces. For local use, open:
 
-1. Open your browser.
-2. Navigate to **http://localhost:5173**
-3. The Emerald Guide interface should appear.
+**http://localhost:5173/**
 
-The dev server listens on `localhost` only, so no firewall changes are needed for local use.
+**Leave this terminal open** while you use the app. Closing it (or pressing Ctrl+C) stops the server.
 
-If port 5173 is busy:
+Then:
+
+1. Open Chrome, Firefox, or another modern browser  
+2. Go to `http://localhost:5173/`  
+3. You should see Emerald Guide with Walkthrough / Pokédex / Hoenn Map  
+
+If port **5173** is already taken:
 
 ```bash
 npm run dev -- --port 5174
 ```
 
-Then open `http://localhost:5174`.
+Open `http://localhost:5174/` instead.
 
-### Step 6: Stop the app
+---
 
-Press **Ctrl+C** in the terminal where the dev server is running.
+### 6. Stop the app
 
-### Step 7 (optional): Build a standalone copy
+Focus the terminal running Vite and press:
+
+```text
+Ctrl+C
+```
+
+If it asks to confirm, press `Ctrl+C` again or answer yes.
+
+---
+
+### 7. (Optional) Production build and local preview
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Open the URL printed by `npm run preview` (usually `http://localhost:4173`).
+`npm run build` runs asset/map verification scripts, TypeScript (`tsc -b`), and Vite’s production bundle into `dist/`.
+
+`npm run preview` serves that folder (often at `http://localhost:4173/`).
+
+The hosted GitHub Pages site builds with `VITE_BASE_PATH=/Emerald-Guide/` so assets load under that subpath. For a **local** clone you usually leave the base path alone (Vite defaults to `/` when that env var is unset).
 
 ---
 
-## Quick reference
+### 8. Linux firewall note
 
-| What you want to do | Command |
+For **localhost-only** use you normally change nothing. If you intentionally open the Network URL from another device on your LAN, you may need to allow TCP port 5173 in your firewall (`ufw`, `firewalld`, etc.). Prefer localhost when unsure.
+
+---
+
+## How to install — Windows
+
+These steps target **Windows 10** and **Windows 11**. Use **Windows PowerShell** (or Windows Terminal → PowerShell).
+
+### 0. Open PowerShell
+
+1. Press the **Windows** key  
+2. Type `PowerShell`  
+3. Open **Windows PowerShell** or **Terminal**  
+
+Optional: confirm execution policy won’t block normal npm scripts (you usually do **not** need to change this for `npm run dev`):
+
+```powershell
+Get-ExecutionPolicy
+```
+
+If scripts are blocked later, opening PowerShell as your user and running `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` is a common fix — only do this if npm/scripts clearly fail with an execution-policy error.
+
+---
+
+### 1. Install Node.js (LTS)
+
+#### Option A — Official installer (recommended for most people)
+
+1. Open https://nodejs.org in your browser  
+2. Download the **LTS** Windows installer (`.msi`, 64-bit)  
+3. Run the installer  
+4. Click through the wizard. Keep defaults, especially:
+   - **Add to PATH** (must stay enabled)
+   - Optional “Tools for Native Modules” is fine either way for this project (we don’t require a global C++ toolchain for day-to-day `npm run dev`)
+5. Finish the installer  
+6. **Close every PowerShell / Terminal window** and open a **new** one so PATH updates apply  
+
+Verify:
+
+```powershell
+node --version
+npm --version
+```
+
+Expected examples: `v20.19.0` / `v22.14.0` and an npm like `10.x`. Both must work. If PowerShell says the command is not recognized, see [Troubleshooting — Windows](#windows-troubleshooting).
+
+#### Option B — winget (Windows Package Manager)
+
+In an **elevated-or-normal** PowerShell (winget usually works for the current user):
+
+```powershell
+winget install OpenJS.NodeJS.LTS --accept-package-agreements --accept-source-agreements
+```
+
+Close and reopen PowerShell, then run `node --version` and `npm --version`.
+
+#### Option C — Chocolatey (if you already use it)
+
+In an **Administrator** PowerShell:
+
+```powershell
+choco install nodejs-lts -y
+```
+
+Close and reopen PowerShell afterward.
+
+---
+
+### 2. Install Git for Windows
+
+#### Option A — Official installer
+
+1. Open https://git-scm.com/download/win  
+2. Run the downloaded installer  
+3. Click **Next** through the screens — defaults are fine for this project  
+   - Editor can stay Neo/Vim/Notepad++/VS Code — unused for simply running the guide  
+   - “Git from the command line and also from 3rd-party software” is the usual PATH choice  
+4. Finish, then **close and reopen PowerShell**
+
+Verify:
+
+```powershell
+git --version
+```
+
+Expected: `git version 2.x.x.windows.x`
+
+#### Option B — winget
+
+```powershell
+winget install Git.Git --accept-package-agreements --accept-source-agreements
+```
+
+Reopen PowerShell and verify with `git --version`.
+
+---
+
+### 3. Clone the repository
+
+Pick a folder (Documents is fine):
+
+```powershell
+cd $HOME\Documents
+git clone https://github.com/nickelz34/Emerald-Guide.git
+cd Emerald-Guide
+```
+
+Confirm contents:
+
+```powershell
+dir
+Test-Path .\package.json
+```
+
+`Test-Path` should return `True`.
+
+**Updating later:**
+
+```powershell
+cd $HOME\Documents\Emerald-Guide
+git pull origin main
+npm install
+```
+
+---
+
+### 4. Install project dependencies
+
+From inside `Emerald-Guide`:
+
+```powershell
+npm install
+```
+
+First run can take several minutes. Watch for a clean return to the prompt.
+
+If you see `npm ERR!` network errors, check internet / VPN / proxy (see troubleshooting). Do **not** run PowerShell “as Administrator” just for `npm install` unless a permissions error explicitly requires it for your machine policy.
+
+Optional lockfile-exact install:
+
+```powershell
+npm ci
+```
+
+---
+
+### 5. Start the app
+
+```powershell
+npm run dev
+```
+
+Look for:
+
+```text
+  ➜  Local:   http://localhost:5173/
+```
+
+**Keep this PowerShell window open.**
+
+1. Open Edge, Chrome, or Firefox  
+2. Visit **http://localhost:5173/**  
+3. You should see Emerald Guide  
+
+If 5173 is busy:
+
+```powershell
+npm run dev -- --port 5174
+```
+
+Then open `http://localhost:5174/`.
+
+**Note on file watching:** this project’s Vite config enables polling and ignores `public/` so Windows file locks on PNGs under `public/` don’t crash the watcher with `EBUSY`. You normally don’t need to change anything for that.
+
+---
+
+### 6. Stop the app
+
+Click the PowerShell window running Vite and press **Ctrl+C**. If Windows asks `Terminate batch job (Y/N)?`, type `Y` and Enter.
+
+---
+
+### 7. (Optional) Production build and preview
+
+```powershell
+npm run build
+npm run preview
+```
+
+Open the URL printed by preview (commonly `http://localhost:4173/`).
+
+---
+
+### 8. Windows extras that help
+
+- **Windows Terminal** (from Microsoft Store) gives better tabs/fonts for long npm logs  
+- If SmartScreen blocks the Node or Git installer, choose **More info → Run anyway** only when you downloaded from the official sites above  
+- Corporate proxies: configure npm before `npm install` (see troubleshooting)
+
+---
+
+## Daily use cheat sheet
+
+| Goal | Command / action |
 |---|---|
-| Install dependencies (first time only) | `npm install` |
-| Start the app for daily use | `npm run dev` |
-| Open the app in your browser | Go to `http://localhost:5173` |
-| Stop the app | Press `Ctrl+C` in the terminal |
-| Build for production | `npm run build` |
-| Preview the production build | `npm run preview` |
+| Install dependencies (first time / after pulls) | `npm install` |
+| Start local guide | `npm run dev` |
+| Open in browser | http://localhost:5173/ |
+| Stop server | `Ctrl+C` in the terminal |
+| Production build | `npm run build` |
+| Preview production build | `npm run preview` |
+| Use hosted beta (no install) | https://nickelz34.github.io/Emerald-Guide/ |
+| Update local clone | `git pull origin main` then `npm install` |
 
 ---
 
 ## Troubleshooting
 
-**`node` or `git` command not found**
-The tool is not installed or not on your PATH. Install it using the steps above, then close and reopen your terminal. On Windows, you may need to restart the computer after installing Node.js.
-
-**`npm install` fails with network or timeout errors**
-Check your internet connection. If you are behind a corporate proxy, you may need to configure npm: `npm config set proxy http://your-proxy:port`.
-
-**Blank white page in the browser**
-Make sure you ran both `npm install` and `npm run dev` from inside the `Emerald-Guide` folder. Open the browser developer tools (press F12), check the Console tab for error messages.
-
-**Pokédex stays on "Loading…" forever**
-The Pokédex needs internet access to fetch data from pokeemerald and PokéAPI. Check your connection and refresh the page. The rest of the app (walkthrough, maps, secrets) does not need internet.
-
-**Port 5173 already in use**
-Another application is using that port. Either close the other application, or start on a different port: `npm run dev -- --port 5174`.
-
-**Maps or screenshots do not appear**
-Make sure you cloned the full repository (not just downloaded a zip of `src/`). The `public/screenshots/` and `public/maps/` folders must exist and contain PNG files.
+Issues are split into **Linux** and **Windows**. Read the section for your OS first; shared app-behavior issues are at the end.
 
 ---
 
-## License
+### Linux troubleshooting
 
-MIT — see [LICENSE](LICENSE).
+#### `git: command not found`
 
-## Disclaimer
+Git isn’t installed or isn’t on `PATH`.
 
-Pokémon and Pokémon Emerald are © Nintendo / Game Freak / The Pokémon Company. This is an unofficial fan project and is not affiliated with or endorsed by them.
+```bash
+# Debian/Ubuntu
+sudo apt update && sudo apt install -y git
+# Fedora
+sudo dnf install -y git
+# Arch
+sudo pacman -S --needed git
+```
+
+Close and reopen the terminal, then `git --version`.
+
+#### `node: command not found` or Node version below 18
+
+Symptoms:
+
+```text
+node: command not found
+# or
+v12.x.x / v16.x.x
+```
+
+Fix with nvm (most reliable):
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+nvm install --lts
+nvm use --lts
+node --version
+```
+
+If nvm itself isn’t found in new terminals, add/load it from `~/.bashrc` or `~/.zshrc`, then `source` that file.
+
+#### `npm install` fails with `EACCES` / permission denied
+
+You used sudo with npm earlier, or global prefix points at a root-owned path.
+
+```bash
+sudo chown -R "$(whoami)" ~/.npm
+mkdir -p ~/.npm-global
+npm config set prefix "$HOME/.npm-global"
+# ensure PATH includes ~/.npm-global/bin
+cd ~/projects/Emerald-Guide
+rm -rf node_modules
+npm install
+```
+
+Never fix this with `sudo npm install` inside the project.
+
+#### `npm install` fails with network / certificate / timeout errors
+
+- Confirm general connectivity: `ping -c 2 registry.npmjs.org` or open https://registry.npmjs.org in a browser  
+- Temporarily disable VPN and retry  
+- Clear npm cache and retry:
+
+```bash
+npm cache clean --force
+npm install
+```
+
+- Behind an HTTP proxy:
+
+```bash
+npm config set proxy http://PROXY_HOST:PORT
+npm config set https-proxy http://PROXY_HOST:PORT
+```
+
+#### `npm ERR! engine` / Vite refuses to start because Node is too old
+
+Upgrade to Node 18+ (nvm `nvm install --lts` is easiest). Confirm with `node --version` in the **same** terminal you use for `npm run dev`.
+
+#### Port 5173 already in use (`EADDRINUSE`)
+
+Find and stop the other process, or pick a new port:
+
+```bash
+# see what holds 5173 (extra packages may be needed on some distros)
+ss -ltnp | grep 5173
+# or
+lsof -i :5173
+
+npm run dev -- --port 5174
+```
+
+#### Blank white page at localhost
+
+1. Confirm the terminal still shows Vite “ready”  
+2. Confirm you ran commands from the **project root** (`package.json` present)  
+3. Hard-refresh the browser (`Ctrl+Shift+R`)  
+4. Open DevTools → Console (`F12`) and note any red errors  
+5. Re-install cleanly:
+
+```bash
+cd ~/projects/Emerald-Guide
+rm -rf node_modules
+npm install
+npm run dev
+```
+
+#### Maps / sprites missing
+
+Make sure the full repo was cloned (not a partial copy). Required folders include `public/screenshots/`, `public/maps/` (or published map assets), and `public/sprites/`.
+
+```bash
+ls public
+git status
+```
+
+If you deleted large assets, re-clone or restore from git.
+
+#### `npm run build` fails on verify scripts
+
+The production build runs integrity checks (`verify-local-assets`, map pins, encounter coverage, etc.). Read the first error line — it usually names a missing asset or mismatched pin. For personal local play, `npm run dev` is enough; fix/build failures matter if you’re deploying.
+
+#### Flatpak / Snap browser can’t reach localhost
+
+Rare sandbox issue: try a distro-native browser package, or open the Network URL Vite prints. Prefer `http://127.0.0.1:5173/` over a hostname misfire.
+
+#### SELinux / corporate lockdown blocks `npm`
+
+Run `npm install` from your home directory project path (as documented). If your environment blocks executing binaries under `node_modules`, ask your admin for a developer exception — the Vite binary must be executable.
+
+---
+
+### Windows troubleshooting
+
+#### `node` / `npm` not recognized in PowerShell
+
+Node didn’t land on PATH, or the terminal wasn’t restarted.
+
+1. Close **all** PowerShell / Terminal windows  
+2. Reopen PowerShell  
+3. Run:
+
+```powershell
+node --version
+npm --version
+where.exe node
+```
+
+If still missing:
+
+1. Re-run the Node.js LTS `.msi`  
+2. Ensure **Add to PATH** is checked  
+3. Reboot Windows  
+4. Or install via `winget install OpenJS.NodeJS.LTS` and reopen PowerShell  
+
+Manual PATH check: Settings → System → About → Advanced system settings → Environment Variables → Path should include something like `C:\Program Files\nodejs\`.
+
+#### `git` not recognized
+
+Install Git for Windows, reopen PowerShell, run `git --version`.  
+If you use Git only inside “Git Bash,” either call Git Bash or ensure “Git from the command line…” was selected during install.
+
+#### `npm install` fails with `EPERM` / file lock / antivirus
+
+Windows antivirus sometimes locks files under `node_modules` mid-extract.
+
+1. Close editors/IDEs that have the folder open  
+2. Delete and retry:
+
+```powershell
+cd $HOME\Documents\Emerald-Guide
+Remove-Item -Recurse -Force .\node_modules -ErrorAction SilentlyContinue
+Remove-Item -Force .\package-lock.json -ErrorAction SilentlyContinue
+# Prefer keeping package-lock.json — only delete it if it's corrupt; better:
+git checkout -- package-lock.json
+npm cache clean --force
+npm install
+```
+
+3. Add an antivirus exclusion for the project folder if your security tools keep quarantining Vite/node binaries  
+4. Avoid installing onto synced-only OneDrive placeholder folders if you see flaky locks — a local `Documents` or `C:\dev\` path is more reliable  
+
+#### Execution policy blocks scripts
+
+Error text mentions `Running scripts is disabled on this system`.
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+Close and reopen PowerShell, then retry `npm run dev`.
+
+#### `EBUSY` / watcher errors under `public\`
+
+This repo already sets Vite `usePolling: true` and ignores `public/**` for watching because Windows locks PNGs. Pull the latest `main` if your clone is old. You should not need to disable antivirus solely for this if you’re on current source.
+
+#### Port 5173 already in use
+
+```powershell
+netstat -ano | findstr :5173
+npm run dev -- --port 5174
+```
+
+Optionally end the old PID via Task Manager → Details if you know it’s a leftover Node process.
+
+#### Browser shows “Unable to connect”
+
+- Confirm PowerShell still shows Vite ready  
+- Try `http://127.0.0.1:5173/` instead of `localhost`  
+- Disable VPN / reverse proxies temporarily  
+- Check Windows Firewall prompts — allow Node.js on **private** networks if you clicked Block earlier  
+
+#### `npm ERR! network` / `CERT_HAS_EXPIRED` / proxy errors
+
+```powershell
+npm config delete proxy
+npm config delete https-proxy
+npm cache clean --force
+npm install
+```
+
+If you **must** use a corporate proxy:
+
+```powershell
+npm config set proxy http://PROXY_HOST:PORT
+npm config set https-proxy http://PROXY_HOST:PORT
+```
+
+#### Spaces or weird characters in the project path
+
+If the project lives in a deeply nested path with odd characters and tools misbehave, move/clone to something simple:
+
+```powershell
+mkdir C:\dev
+cd C:\dev
+git clone https://github.com/nickelz34/Emerald-Guide.git
+cd Emerald-Guide
+npm install
+npm run dev
+```
+
+#### `npm run build` fails after a fresh clone
+
+Read the first script error. Dev use only needs `npm run dev`. If verify scripts fail, ensure `git clone` finished completely and no `public` assets were excluded by a sparse checkout.
+
+#### Long path issues (rare)
+
+Enable Windows long paths, or keep the repo near `C:\dev\Emerald-Guide` so nested `node_modules` paths stay shorter.
+
+---
+
+### App / guide behavior troubleshooting (Linux & Windows)
+
+#### Progress didn’t restore after refresh
+
+Preferences live in **browser `localStorage`** for that origin (`localhost` vs the GitHub Pages URL are **different** stores). Clearing site data, using Private/Incognito, or switching browsers resets Guide settings, completed events, and save codes.
+
+#### Save code says invalid / not found
+
+- Codes are **4 letters A–Z**, generated on **that browser**  
+- A code created on your PC will **not** work on your phone unless you somehow synced the same browser storage (normally you didn’t)  
+- Re-create a save with **Save progress** on the device you’ll continue on  
+
+#### Pokédex empty or sprites missing
+
+Unlike older README versions, the Pokédex is bundled. If sprites fail, confirm `public/sprites/` exists in your clone and hard-refresh. Offline mode still works once assets are present.
+
+#### Walkthrough missing optional chapters
+
+You’re in **Main storyline** mode. Open **Guide settings** and switch to **Completionist** to show optional side content.
+
+#### Started in Littleroot but wanted Evolution / Breeding prep
+
+Open **Guide settings**, uncheck **Skip Evolution & Breeding prep**, start again (or navigate to the pregame chapters if they are visible for your settings).
+
+#### Hosted beta looks old / cached (especially iOS Safari)
+
+Hard-refresh or clear site data for `nickelz34.github.io`. The app sets cache-busting meta tags to help mobile Safari pick up new deploys; a stubborn cache still occasionally needs a manual clear.
+
+#### “Is this cheating / illegal?”
+
+This is an unofficial **fan guide** — text, maps, and reference data for people who already own the game. It does not distribute ROMs.
+
+---
+
+## License & disclaimer
+
+**License:** MIT — see [LICENSE](LICENSE).
+
+**Disclaimer:** Pokémon and Pokémon Emerald are © Nintendo / Game Freak / The Pokémon Company. Emerald Guide is an unofficial fan project and is not affiliated with or endorsed by them.
