@@ -630,7 +630,8 @@
   display: none;
   margin-top: 0.6rem;
   max-height: 60vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0.75rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -639,20 +640,28 @@
 
 .app-shell[data-view="mobile"] .step-rail--open .step-rail__panel {
   display: flex;
+  flex-direction: column;
 }
 
-/* Keep search pinned; only the step list scrolls (matches desktop). */
-.app-shell[data-view="mobile"] .step-rail__filter-wrap,
-.app-shell[data-view="mobile"] .step-rail__guide-settings,
-.app-shell[data-view="mobile"] .step-rail__results {
+/*
+ * Keep search (and settings / match count) pinned while the step list scrolls.
+ * Sticky is used instead of a flex:1 1 0 nav — that zero-basis pattern collapsed
+ * the results to 0 height under max-height-only flex containers on mobile.
+ */
+.app-shell[data-view="mobile"] .step-rail__panel-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: -0.75rem -0.75rem 0;
+  padding: 0.75rem 0.75rem 0.5rem;
+  background: var(--bg-card);
 }
 
 .app-shell[data-view="mobile"] .step-rail__nav {
-  flex: 1 1 0;
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   flex-direction: column;
   gap: 0.85rem;
 }
@@ -7569,6 +7578,13 @@
   flex-direction: column;
   gap: 0.75rem;
   min-height: 0;
+}
+
+.step-rail__panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 /* The collapsible header is mobile-only; desktop always shows the panel. */

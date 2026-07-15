@@ -281,12 +281,14 @@ export function StepBrowser({
   );
 
   // Keep the active chapter/event visible in the left rail (including after refresh).
-  // Only scroll the nav list — never the panel that holds the sticky search field.
-  // Skip while the filter is focused so typing does not jump the rail away.
+  // Prefer scrolling the nav on desktop. On mobile the panel scrolls under a sticky
+  // search head — avoid scrolling while typing / while a filter is active so the
+  // search field stays put.
   useEffect(() => {
     const nav = railNavRef.current;
     if (!nav || !currentId) return;
     if (document.activeElement === filterInputRef.current) return;
+    if (q) return;
 
     const frame = window.requestAnimationFrame(() => {
       if (document.activeElement === filterInputRef.current) return;
@@ -294,7 +296,6 @@ export function StepBrowser({
       const active = nav.querySelector<HTMLElement>(".step-rail__item--active");
       if (!active) return;
 
-      // Prefer the nav itself so the filter/header above stays pinned.
       const style = window.getComputedStyle(nav);
       const navScrolls =
         /(auto|scroll)/.test(style.overflowY) && nav.scrollHeight > nav.clientHeight + 1;
@@ -315,7 +316,7 @@ export function StepBrowser({
     });
 
     return () => window.cancelAnimationFrame(frame);
-  }, [currentId, searchGroups]);
+  }, [currentId, searchGroups, q]);
 
   if (!current) return null;
 
@@ -356,49 +357,51 @@ export function StepBrowser({
           <span className="step-rail__toggle-caret" aria-hidden="true">▾</span>
         </button>
         <div className="step-rail__panel">
-        {category === "walkthrough" && walkthroughPrefs && onOpenGuideSettings ? (
-          <div className="step-rail__guide-settings">
-            <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenGuideSettings}>
-              Guide settings
-            </button>
-            <span className="step-rail__mode-label">
-              {walkthroughPrefs.playMode === "storyline" ? "Storyline" : "Completionist"}
-              {walkthroughPrefs.skipPregame ? " · No pregame" : ""}
-            </span>
+        <div className="step-rail__panel-head">
+          {category === "walkthrough" && walkthroughPrefs && onOpenGuideSettings ? (
+            <div className="step-rail__guide-settings">
+              <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenGuideSettings}>
+                Guide settings
+              </button>
+              <span className="step-rail__mode-label">
+                {walkthroughPrefs.playMode === "storyline" ? "Storyline" : "Completionist"}
+                {walkthroughPrefs.skipPregame ? " · No pregame" : ""}
+              </span>
+            </div>
+          ) : null}
+          <div className="step-rail__filter-wrap">
+            <input
+              ref={filterInputRef}
+              type="search"
+              className="step-rail__filter"
+              placeholder="Search items, locations, story…"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              enterKeyHint="search"
+              autoComplete="off"
+              autoCorrect="off"
+              spellCheck={false}
+            />
+            {filter ? (
+              <button
+                type="button"
+                className="step-rail__filter-clear"
+                aria-label="Clear search"
+                onClick={() => {
+                  setFilter("");
+                  filterInputRef.current?.focus();
+                }}
+              >
+                ×
+              </button>
+            ) : null}
           </div>
-        ) : null}
-        <div className="step-rail__filter-wrap">
-          <input
-            ref={filterInputRef}
-            type="search"
-            className="step-rail__filter"
-            placeholder="Search items, locations, story…"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            enterKeyHint="search"
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck={false}
-          />
-          {filter ? (
-            <button
-              type="button"
-              className="step-rail__filter-clear"
-              aria-label="Clear search"
-              onClick={() => {
-                setFilter("");
-                filterInputRef.current?.focus();
-              }}
-            >
-              ×
-            </button>
+          {q ? (
+            <p className="step-rail__results">
+              {matchCount} matching step{matchCount === 1 ? "" : "s"}
+            </p>
           ) : null}
         </div>
-        {q ? (
-          <p className="step-rail__results">
-            {matchCount} matching step{matchCount === 1 ? "" : "s"}
-          </p>
-        ) : null}
         <nav className="step-rail__nav" ref={railNavRef}>
           {searchGroups.map(({ section, visible }) => (
               <div
