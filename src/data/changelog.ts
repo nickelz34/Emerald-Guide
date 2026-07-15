@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.24.2",
+    date: "2026-07-15",
+    summary:
+      "Visual Ralts catch spotlight on Route 102 — sprites, stats, and Emerald hunt advice.",
+    sections: [
+      {
+        heading: "Ralts catch (Ch. 7 Event 2)",
+        items: [
+          "New Ralts → Kirlia → Gardevoir spotlight panel on route-102-2 with large Emerald sprites and full stage stats.",
+          "Emerald-accurate Psychic-only typing (no Fairy/Gallade), type matchups, Synchronize nature tips, and recommended natures.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.24.1",
     date: "2026-07-15",
     summary:

@@ -9,6 +9,7 @@ import { StepSecretsExtras } from "./StepSecretsExtras";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { RivalGuidePanelForStep } from "./RivalGuidePanel";
 import { StarterChoicePanelForStep } from "./StarterChoicePanel";
+import { RaltsSpotlightPanelForStep } from "./RaltsSpotlightPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { ScottSightingsPanel } from "./ScottSightingsPanel";
@@ -609,6 +610,12 @@ export function StepBrowser({
           {current.step.id === "route-101-2" && (
             <section className="starter-choice-embed" aria-label="Starter comparison">
               <StarterChoicePanelForStep stepId={current.step.id} />
+            </section>
+          )}
+
+          {current.step.id === "route-102-2" && (
+            <section className="starter-choice-embed ralts-spotlight-embed" aria-label="Ralts catch spotlight">
+              <RaltsSpotlightPanelForStep stepId={current.step.id} />
             </section>
           )}
 
