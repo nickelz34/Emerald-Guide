@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.22.6",
+  "version": "1.22.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,7 @@
     "preview:rustboro-rival-faceoff": "node scripts/preview-rustboro-rival-faceoff.mjs",
     "preview:remaining-rival-faceoffs": "node scripts/preview-remaining-rival-faceoffs.mjs",
     "preview:roxanne-gym-faceoff": "node scripts/preview-roxanne-gym-faceoff.mjs",
+    "preview:remaining-gym-faceoffs": "node scripts/preview-remaining-gym-faceoffs.mjs",
     "gen:map-crops": "node scripts/gen-map-crops.mjs",
     "gen:marts": "node scripts/gen-marts.mjs",
     "gen:shop-pins": "node scripts/gen-shop-pins.mjs",

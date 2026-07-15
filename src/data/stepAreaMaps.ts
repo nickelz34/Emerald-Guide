@@ -78,16 +78,10 @@ export const STEP_AREA_MAP: Record<string, string> = {
   "trick-8": "route110-trickhousepuzzle8",
 
   // Mauville / New Mauville
-  "mauville-2": "mauvillecity-gym",
   "mauville-3": "newmauville-inside",
   "mauville-4": "newmauville-inside",
 
-  // Gym battles — single-floor interiors
-  "dewford-2": "dewfordtown-gym",
-  "petalburg-gym-1": "petalburgcity-gym",
-  "fortree-2": "fortreecity-gym",
-  "mossdeep-1": "mossdeepcity-gym",
-  "lavaridge-2": "lavaridgetown-gym-1f",
+  // Gym battles — Waterfall pickup keeps 1F (battle uses STEP_AREA_MAPS face-off + floors)
   "sootopolis-gym-1": "sootopoliscity-gym-1f",
 
   // Lilycove contests
@@ -228,10 +222,23 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "battlepyramidsquare15",
     "battlepyramidsquare16",
   ],
-  // Multi-floor gym interiors
+  // Gym battles — face-off cutscene first, then full interior floor plan(s)
   "rustboro-2": ["rustborocity-gym-roxanne-battle", "rustborocity-gym"],
-  "lavaridge-2": ["lavaridgetown-gym-1f", "lavaridgetown-gym-b1f"],
-  "sootopolis-gym-2": ["sootopoliscity-gym-1f", "sootopoliscity-gym-b1f"],
+  "dewford-2": ["dewfordtown-gym-brawly-battle", "dewfordtown-gym"],
+  "mauville-2": ["mauvillecity-gym-wattson-battle", "mauvillecity-gym"],
+  "lavaridge-2": [
+    "lavaridgetown-gym-flannery-battle",
+    "lavaridgetown-gym-1f",
+    "lavaridgetown-gym-b1f",
+  ],
+  "petalburg-gym-1": ["petalburgcity-gym-norman-battle", "petalburgcity-gym"],
+  "fortree-2": ["fortreecity-gym-winona-battle", "fortreecity-gym"],
+  "mossdeep-1": ["mossdeepcity-gym-tate-liza-battle", "mossdeepcity-gym"],
+  "sootopolis-gym-2": [
+    "sootopoliscity-gym-juan-battle",
+    "sootopoliscity-gym-1f",
+    "sootopoliscity-gym-b1f",
+  ],
   "postgame-hoenn-5": [
     "safarizone-northeast",
     "safarizone-northwest",

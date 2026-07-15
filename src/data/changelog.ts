@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.22.7",
+    date: "2026-07-14",
+    summary:
+      "Every Gym battle opens with a baked leader face-off cutscene above the full gym map.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Gyms 1–8 (Roxanne through Juan) each show Brendan facing the leader on the podium before the interior floor plan(s).",
+          "Existing gym maps, trainer pins, and gym guide panels are unchanged — cutscenes are added, nothing removed.",
+          "Mossdeep shows Tate & Liza together for the double battle.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.22.6",
     date: "2026-07-14",
     summary:
