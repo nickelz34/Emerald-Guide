@@ -19,6 +19,7 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
     changeSummary,
   } = useAdmin();
 
+  // Guest entry is only mounted when the app has ?admin=1 (see App.tsx).
   if (!isAdmin) {
     return (
       <div className="admin-toolbar admin-toolbar--guest">
