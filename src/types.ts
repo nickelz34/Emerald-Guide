@@ -37,12 +37,32 @@ export const METHOD_LABELS: Record<EncounterMethod, string> = {
   cave: "Cave",
 };
 
-/** CMS-editable URL media attached to a walkthrough step. */
+/** CMS-editable media attached to a walkthrough step (URL, area map, or Hoenn crop). */
 export interface GuideMediaItem {
   id: string;
-  type: "screenshot" | "map";
+  type: "screenshot" | "map" | "area-map" | "hoenn-crop";
+  /** Image URL or site-relative path (screenshot/map). Empty for area-map / hoenn-crop. */
   url: string;
   caption: string;
+  /** Interactive interior/dungeon map id from AREA_MAPS. */
+  areaMapId?: string;
+  /** Area id for Hoenn crop markers. */
+  areaId?: string;
+  /** Window into the shared Hoenn overworld map. */
+  crop?: { x: number; y: number; w: number; h: number };
+}
+
+/** Freeform CMS table rendered on a walkthrough step. */
+export interface GuideTableRow {
+  id: string;
+  cells: string[];
+}
+
+export interface GuideCustomTable {
+  id: string;
+  title: string;
+  headers: string[];
+  rows: GuideTableRow[];
 }
 
 export interface GuideStep {
@@ -60,8 +80,20 @@ export interface GuideStep {
   tips?: string[];
   /** Optional secrets, extras, and hidden-item notes (merged with area data in the walkthrough UI). */
   secrets?: string[];
-  /** Optional CMS media overrides (URL screenshots/maps). When set, the gallery prefers these. */
+  /**
+   * CMS media gallery. When `useCustomMedia` is true, this replaces derived maps
+   * even if the array is empty (hidden gallery).
+   */
   media?: GuideMediaItem[];
+  /** When true, ScreenshotGallery uses `media` only (no derived fallback). */
+  useCustomMedia?: boolean;
+  /** Optional freeform tables (objectives grids, reference charts, etc.). */
+  tables?: GuideCustomTable[];
+  /**
+   * Specialty panels to hide on this step (gym, rival, encounters, etc.).
+   * Panel data still lives in code; this only suppresses rendering.
+   */
+  hiddenPanels?: string[];
   tags?: string[];
   mapRegion?: string;
   /** True when this event is not required to finish the main story. */

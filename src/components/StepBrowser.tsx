@@ -6,6 +6,7 @@ import { useAdmin } from "../admin/AdminContext";
 import { ChapterTree } from "../admin/ChapterTree";
 import { StepEditor } from "../admin/StepEditor";
 import { ScreenshotGallery } from "./ScreenshotGallery";
+import { GuideCustomTables } from "./GuideCustomTables";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
@@ -143,24 +144,51 @@ export function StepBrowser({
   const currentId = activeStepId ?? internalId;
   const currentIndex = Math.max(0, flat.findIndex((f) => f.step.id === currentId));
   const current = flat[currentIndex] ?? flat[0];
-  const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
-  const rivalForStep = current ? getRivalForWalkthroughStep(current.step.id) : undefined;
-  const storyTrainerForStep = current
-    ? getStoryTrainerForWalkthroughStep(current.step.id)
-    : undefined;
-  const showHmTable = current?.step.id === "rustboro-1";
-  const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
-  const showPokeBallTable = current?.step.id === "pregame-field-5";
-  const showBattleBasicsPanel = current?.step.id === "pregame-battles-1";
-  const showTypeChartTable = current?.step.id === "pregame-battles-3";
-  const showStatusTable = current?.step.id === "pregame-battles-6";
-  const showNatureTable = current?.step.id === "pregame-battles-7";
-  const showTmHmTable = current?.step.id === "pregame-battles-9";
-  const showScottChecklist = current?.step.id === "battle-frontier-2";
-  const showMatchCallRematch = current?.step.id === "postgame-hoenn-6";
-  const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
-  const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
-  const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
+  const hiddenPanels = useMemo(
+    () => new Set(current?.step.hiddenPanels ?? []),
+    [current?.step.hiddenPanels],
+  );
+  const panelVisible = useCallback((id: string) => !hiddenPanels.has(id), [hiddenPanels]);
+  const gymForStep =
+    current && panelVisible("gym") ? getGymForWalkthroughStep(current.step.id) : undefined;
+  const rivalForStep =
+    current && panelVisible("rival")
+      ? getRivalForWalkthroughStep(current.step.id)
+      : undefined;
+  const storyTrainerForStep =
+    current && panelVisible("story-trainer")
+      ? getStoryTrainerForWalkthroughStep(current.step.id)
+      : undefined;
+  const showHmTable = current?.step.id === "rustboro-1" && panelVisible("hm-table");
+  const showKeyItemsTable =
+    current?.step.id === "rusturf-tunnel-2" && panelVisible("key-items");
+  const showPokeBallTable =
+    current?.step.id === "pregame-field-5" && panelVisible("poke-balls");
+  const showBattleBasicsPanel =
+    current?.step.id === "pregame-battles-1" && panelVisible("battle-basics");
+  const showTypeChartTable =
+    current?.step.id === "pregame-battles-3" && panelVisible("type-chart");
+  const showStatusTable =
+    current?.step.id === "pregame-battles-6" && panelVisible("status-table");
+  const showNatureTable =
+    current?.step.id === "pregame-battles-7" && panelVisible("nature-table");
+  const showTmHmTable =
+    current?.step.id === "pregame-battles-9" && panelVisible("tm-hm-table");
+  const showScottChecklist =
+    current?.step.id === "battle-frontier-2" && panelVisible("scott");
+  const showMatchCallRematch =
+    current?.step.id === "postgame-hoenn-6" && panelVisible("match-call");
+  const showBreedingLookup =
+    Boolean(current?.step.tags?.includes("breeding-lookup")) &&
+    panelVisible("breeding-lookup");
+  const evolutionChart =
+    current && panelVisible("evolution-chart")
+      ? PREGAME_EVOLUTION_CHARTS[current.step.id]
+      : undefined;
+  const breedingChart =
+    current && panelVisible("breeding-chart")
+      ? PREGAME_BREEDING_CHARTS[current.step.id]
+      : undefined;
 
   const storyStepIds = useMemo(() => flat.map((entry) => entry.step.id), [flat]);
 
@@ -674,7 +702,10 @@ export function StepBrowser({
             stepId={current.step.id}
             compact
             media={current.step.media}
+            useCustomMedia={current.step.useCustomMedia}
           />
+
+          {!isAdmin ? <GuideCustomTables tables={current.step.tables} /> : null}
 
           {showBattleBasicsPanel && (
             <section className="reference-embed battle-basics-embed" aria-label="Battle types and commands">
@@ -682,19 +713,19 @@ export function StepBrowser({
             </section>
           )}
 
-          {current.step.id === "route-101-2" && (
+          {current.step.id === "route-101-2" && panelVisible("starter") && (
             <section className="starter-choice-embed" aria-label="Starter comparison">
               <StarterChoicePanelForStep stepId={current.step.id} />
             </section>
           )}
 
-          {current.step.id === "route-102-2" && (
+          {current.step.id === "route-102-2" && panelVisible("ralts") && (
             <section className="starter-choice-embed ralts-spotlight-embed" aria-label="Ralts catch spotlight">
               <RaltsSpotlightPanelForStep stepId={current.step.id} />
             </section>
           )}
 
-          {current.step.id === "route-104-2" && (
+          {current.step.id === "route-104-2" && panelVisible("flower-shop") && (
             <section className="flower-shop-guide-embed" aria-label="Pretty Petal Flower Shop guide">
               <FlowerShopGuidePanelForStep stepId={current.step.id} />
             </section>
@@ -799,7 +830,7 @@ export function StepBrowser({
             </>
           ) : null}
 
-          <StepEncounters stepId={current.step.id} />
+          {panelVisible("encounters") ? <StepEncounters stepId={current.step.id} /> : null}
 
           <div className="step-card__footerrow">
             {current.step.tags && (
