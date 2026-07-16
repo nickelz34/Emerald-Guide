@@ -4,7 +4,7 @@ import {
   Droppable,
   type DropResult,
 } from "@hello-pangea/dnd";
-import { useEffect } from "react";
+import { useMemo } from "react";
 import { reorderList } from "../lib/reorderList";
 import type { GuideStep, StepSpecialtyData } from "../types";
 import { createAdminId } from "./adminIds";
@@ -20,20 +20,12 @@ interface SpecialtyPanelEditorsProps {
 
 export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsProps) {
   const available = getAvailablePanelsForStep(step);
-
-  useEffect(() => {
-    if (available.length === 0) return;
-    const seeded = seedSpecialtyForStep(step);
-    if (JSON.stringify(step.specialty ?? {}) !== JSON.stringify(seeded)) {
-      onChange(seeded);
-    }
-    // Only re-seed when the step identity changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step.id]);
+  // Derive editor defaults without writing into the draft. Persisting seed on
+  // navigation was marking every step visit as a pending publish change.
+  const specialty = useMemo(() => seedSpecialtyForStep(step), [step]);
 
   if (available.length === 0) return null;
 
-  const specialty = step.specialty ?? {};
   const patch = (partial: Partial<StepSpecialtyData>) =>
     onChange({ ...specialty, ...partial });
 
