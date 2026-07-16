@@ -52,19 +52,6 @@ export interface GuideMediaItem {
   crop?: { x: number; y: number; w: number; h: number };
 }
 
-/** Freeform CMS table rendered on a walkthrough step. */
-export interface GuideTableRow {
-  id: string;
-  cells: string[];
-}
-
-export interface GuideCustomTable {
-  id: string;
-  title: string;
-  headers: string[];
-  rows: GuideTableRow[];
-}
-
 /** Editable junior trainer row inside a CMS gym override. */
 export interface GuideGymJunior {
   name: string;
@@ -117,10 +104,6 @@ export interface GuideStarterEntryOverride {
   natures: string[];
   difficulty: string;
   accent: string;
-}
-
-export interface GuideTableRowOverride {
-  [key: string]: string | number | boolean | null | undefined;
 }
 
 /**
@@ -233,8 +216,6 @@ export interface GuideStep {
   media?: GuideMediaItem[];
   /** When true, ScreenshotGallery uses `media` only (no derived fallback). */
   useCustomMedia?: boolean;
-  /** Optional freeform tables (objectives grids, reference charts, etc.). */
-  tables?: GuideCustomTable[];
   /**
    * Specialty panels to hide on this step (gym, rival, encounters, etc.).
    * Panel data still lives in code; this only suppresses rendering.
@@ -242,6 +223,11 @@ export interface GuideStep {
   hiddenPanels?: string[];
   /** Editable specialty panel content for this step (CMS overrides). */
   specialty?: StepSpecialtyData;
+  /**
+   * Ordered list of page blocks for this step (summary, story, media items,
+   * specialty panels, details, etc.). Missing ids are filled with defaults.
+   */
+  blockOrder?: string[];
   tags?: string[];
   mapRegion?: string;
   /** True when this event is not required to finish the main story. */

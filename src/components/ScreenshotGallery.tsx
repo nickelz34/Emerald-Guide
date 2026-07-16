@@ -17,6 +17,8 @@ interface ScreenshotGalleryProps {
   media?: GuideMediaItem[];
   /** When true, use `media` only — never fall back to derived maps. */
   useCustomMedia?: boolean;
+  /** When set, only render this CMS media item id. */
+  onlyMediaId?: string;
 }
 
 function areaIdForStep(stepId: string): string | undefined {
@@ -64,10 +66,13 @@ export function ScreenshotGallery({
   compact,
   media,
   useCustomMedia = false,
+  onlyMediaId,
 }: ScreenshotGalleryProps) {
   const { open } = useLightbox();
-  const cmsItems = media ?? [];
-  const usingCms = useCustomMedia || cmsItems.length > 0;
+  const cmsItems = (media ?? []).filter((item) =>
+    onlyMediaId ? item.id === onlyMediaId : true,
+  );
+  const usingCms = Boolean(onlyMediaId) || useCustomMedia || (media ?? []).length > 0;
   const cmsShots = usingCms ? cmsToScreenshots(cmsItems) : [];
   const images = usingCms ? cmsShots : getStepImages(stepId);
   const defaultAreaId = areaIdForStep(stepId);

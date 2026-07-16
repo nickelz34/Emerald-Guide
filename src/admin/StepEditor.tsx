@@ -1,10 +1,10 @@
 import type { GuideStep } from "../types";
+import { BlockOrderEditor } from "./BlockOrderEditor";
 import { MediaEditor } from "./MediaEditor";
 import { PanelsEditor } from "./PanelsEditor";
 import { RichTextField } from "./RichTextField";
 import { SortableStringList } from "./SortableStringList";
 import { SpecialtyPanelEditors } from "./SpecialtyPanelEditors";
-import { TablesEditor } from "./TablesEditor";
 
 interface StepEditorProps {
   step: GuideStep;
@@ -14,6 +14,13 @@ interface StepEditorProps {
 export function StepEditor({ step, onChange }: StepEditorProps) {
   return (
     <div className="admin-step-editor">
+      <BlockOrderEditor
+        step={step}
+        onChange={(blockOrder) =>
+          onChange({ blockOrder: blockOrder.length ? blockOrder : undefined })
+        }
+      />
+
       <label className="admin-field">
         <span className="admin-field__label">Title</span>
         <input
@@ -115,12 +122,6 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
             useCustomMedia: useCustomMedia || undefined,
           })
         }
-      />
-
-      <TablesEditor
-        tables={step.tables ?? []}
-        droppableId={`tables-${step.id}`}
-        onChange={(tables) => onChange({ tables: tables.length ? tables : undefined })}
       />
 
       <PanelsEditor
