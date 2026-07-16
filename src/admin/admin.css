@@ -157,10 +157,35 @@
 }
 
 .admin-changes__inspect {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-height: min(48vh, 22rem);
+  padding: 0;
+  border-top: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 70%, transparent);
+  min-height: 0;
+}
+
+.admin-changes__inspect-actions {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.55rem 0.6rem 0.35rem;
+  background: color-mix(in srgb, var(--panel, #121a12) 94%, #000);
+  border-bottom: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 55%, transparent);
+}
+
+.admin-changes__inspect-diffs {
   display: grid;
   gap: 0.55rem;
   padding: 0 0.6rem 0.65rem;
-  border-top: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 70%, transparent);
+  overflow: auto;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .admin-change-diff {
@@ -187,6 +212,12 @@
   .admin-change-diff__cols {
     grid-template-columns: 1fr;
   }
+}
+
+.app-shell[data-view="mobile"] .admin-change-diff__cols,
+.admin-change-inspect--mobile .admin-change-diff__cols,
+.admin-file-diff--mobile .admin-change-diff__cols {
+  grid-template-columns: 1fr;
 }
 
 .admin-change-diff__side {
@@ -290,11 +321,108 @@
   align-items: start;
 }
 
-.admin-changes__inspect-actions {
+.admin-change-inspect {
+  position: fixed;
+  inset: 0;
+  z-index: 88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.admin-change-inspect__panel {
+  width: min(40rem, 100%);
+  max-height: min(92dvh, 48rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border, #3a4a3a);
+  background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.admin-change-inspect__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.admin-change-inspect__head > div {
+  min-width: 0;
+}
+
+.admin-change-inspect__head h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+}
+
+.admin-change-inspect__label {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-change-inspect__close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 0.15rem 0.35rem;
+}
+
+.admin-change-inspect__actions {
+  flex-shrink: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.25rem;
+}
+
+.admin-change-inspect__actions .btn {
+  width: 100%;
+  min-height: 2.6rem;
+}
+
+.admin-change-inspect__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  display: grid;
+  gap: 0.55rem;
+  padding-right: 0.1rem;
+}
+
+.admin-change-inspect--mobile {
+  padding: 0;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.admin-change-inspect--mobile .admin-change-inspect__panel {
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+  padding:
+    max(0.65rem, env(safe-area-inset-top, 0px))
+    0.65rem
+    calc(0.65rem + env(safe-area-inset-bottom, 0px));
 }
 
 .admin-file-diff {
@@ -484,6 +612,27 @@
       0.65rem
       calc(0.65rem + env(safe-area-inset-bottom, 0px));
     gap: 0.45rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+  }
+
+  .admin-file-diff__head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: -0.15rem 0 0;
+    padding: 0.15rem 0 0.35rem;
+    background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
+  }
+
+  .admin-file-diff__body {
+    flex: none;
+    overflow: visible;
+    min-height: 0;
+    max-height: none;
   }
 
   .admin-file-diff__head h3 {
@@ -581,7 +730,8 @@
   min-height: 2.5rem;
 }
 
-/* Also apply when the app is in Mobile view on wider phones / desktop simulators. */
+/* Also apply when the app is in Mobile view on wider phones / desktop simulators.
+   Use one scroll container (the panel) — nested body scroll is unreliable on iOS. */
 .admin-file-diff--mobile {
   padding: 0;
   align-items: stretch;
@@ -598,6 +748,20 @@
     0.65rem
     calc(0.65rem + env(safe-area-inset-bottom, 0px));
   gap: 0.45rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.admin-file-diff--mobile .admin-file-diff__head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: -0.15rem 0 0;
+  padding: 0.15rem 0 0.35rem;
+  background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
 }
 
 .admin-file-diff--mobile .admin-file-diff__head h3 {
@@ -611,6 +775,14 @@
 .admin-file-diff--mobile .admin-file-diff__subtitle {
   font-size: 0.75rem;
   -webkit-line-clamp: 2;
+}
+
+.admin-file-diff--mobile .admin-file-diff__body {
+  flex: none;
+  overflow: visible;
+  min-height: 0;
+  max-height: none;
+  touch-action: manipulation;
 }
 
 .admin-file-diff--mobile .admin-file-diff__ln--old {
@@ -637,7 +809,11 @@
 }
 
 .app-shell[data-view="mobile"] .admin-changes__list {
-  max-height: min(55vh, 22rem);
+  max-height: min(45vh, 18rem);
+}
+
+.app-shell[data-view="mobile"] .admin-changes__inspect {
+  max-height: min(42vh, 18rem);
 }
 
 .app-shell[data-view="mobile"] .admin-chapter-tree {

@@ -1,38 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import type { GuideSection } from "../types";
 import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import type { GuideChangeItem } from "./guideChangeSummary";
 import { buildGuideFileDiff, type DiffHunk } from "./guideFileDiff";
-
-function useCompactFileDiffChrome(): boolean {
-  const [compact, setCompact] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const view = document.querySelector(".app-shell")?.getAttribute("data-view");
-    return view === "mobile" || window.matchMedia("(max-width: 720px)").matches;
-  });
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 720px)");
-    const sync = () => {
-      const view = document.querySelector(".app-shell")?.getAttribute("data-view");
-      setCompact(view === "mobile" || mq.matches);
-    };
-    sync();
-    mq.addEventListener("change", sync);
-    const shell = document.querySelector(".app-shell");
-    const observer = shell ? new MutationObserver(sync) : null;
-    if (shell && observer) {
-      observer.observe(shell, { attributes: true, attributeFilter: ["data-view"] });
-    }
-    return () => {
-      mq.removeEventListener("change", sync);
-      observer?.disconnect();
-    };
-  }, []);
-
-  return compact;
-}
+import { useCompactAdminChrome } from "./useCompactAdminChrome";
 
 interface AdminChangeFileDiffPanelProps {
   item: GuideChangeItem;
@@ -78,7 +50,7 @@ export function AdminChangeFileDiffPanel({
   draft,
   onClose,
 }: AdminChangeFileDiffPanelProps) {
-  const compact = useCompactFileDiffChrome();
+  const compact = useCompactAdminChrome();
   const result = useMemo(
     () => buildGuideFileDiff(baseline, draft, item),
     [baseline, draft, item],
@@ -86,16 +58,13 @@ export function AdminChangeFileDiffPanel({
 
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
-    const prevTouchAction = document.body.style.touchAction;
     document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = prevOverflow;
-      document.body.style.touchAction = prevTouchAction;
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);
