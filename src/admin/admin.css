@@ -1143,14 +1143,27 @@
 }
 
 .admin-chapter-tree__handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   background: transparent;
   color: inherit;
   cursor: grab;
-  padding: 0.2rem 0.35rem;
+  padding: 0.35rem 0.45rem;
   opacity: 0.7;
   font-size: 0.85rem;
   letter-spacing: -0.08em;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  flex-shrink: 0;
+}
+
+.admin-chapter-tree__handle:active {
+  cursor: grabbing;
+  opacity: 1;
 }
 
 .admin-chapter-tree__title-input {

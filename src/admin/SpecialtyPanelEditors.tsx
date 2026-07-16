@@ -7,6 +7,7 @@ import {
 import { useMemo } from "react";
 import { reorderList } from "../lib/reorderList";
 import type { GuideStep, StepSpecialtyData } from "../types";
+import { AdminDragHandle } from "./AdminDragHandle";
 import { createAdminId } from "./adminIds";
 import { getAvailablePanelsForStep } from "./availablePanels";
 import { RichTextField } from "./RichTextField";
@@ -850,14 +851,10 @@ function ReferenceRowsEditor<T extends Record<string, unknown>>({
                         snapshot.isDragging ? " admin-specialty__nested--dragging" : ""
                       }`}
                     >
-                      <button
-                        type="button"
-                        className="admin-chapter-tree__handle"
-                        aria-label={`Drag ${title} row ${index + 1}`}
-                        {...drag.dragHandleProps}
-                      >
-                        ⋮⋮
-                      </button>
+                      <AdminDragHandle
+                        label={`Drag ${title} row ${index + 1}`}
+                        dragHandleProps={drag.dragHandleProps}
+                      />
                       <div className="admin-specialty__row-fields">
                         {columns.map(([key, label]) => (
                           <label key={key} className="admin-field">

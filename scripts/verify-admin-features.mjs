@@ -3,6 +3,9 @@
  * Usage: npx tsx scripts/verify-admin-features.mjs
  */
 import assert from "node:assert/strict";
+import { readdirSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import guideData from "../src/data/guide_data.json" with { type: "json" };
 import { summarizeGuideChanges } from "../src/admin/guideChangeSummary.ts";
 import {
@@ -164,6 +167,21 @@ check("adding sprite marks pending publish with sprite field diff", () => {
   const item = summary.items.find((i) => i.stepId === step.id);
   assert.ok(item);
   assert.ok(item.diffs.some((d) => d.field.startsWith("sprites") || d.label.toLowerCase().includes("sprite")));
+});
+
+check("drag handles are non-interactive spans (hello-pangea blocks buttons)", () => {
+  const adminDir = join(dirname(fileURLToPath(import.meta.url)), "../src/admin");
+  const files = readdirSync(adminDir).filter((f) => f.endsWith(".tsx"));
+  for (const file of files) {
+    const src = readFileSync(join(adminDir, file), "utf8");
+    assert.equal(
+      /<button[\s\S]*?admin-chapter-tree__handle/.test(src),
+      false,
+      `${file} must not use <button> as a drag handle`,
+    );
+  }
+  const handle = readFileSync(join(adminDir, "AdminDragHandle.tsx"), "utf8");
+  assert.match(handle, /<span[\s\S]*admin-chapter-tree__handle/);
 });
 
 if (failed) {
