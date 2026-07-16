@@ -37,6 +37,14 @@ export const METHOD_LABELS: Record<EncounterMethod, string> = {
   cave: "Cave",
 };
 
+/** CMS-editable URL media attached to a walkthrough step. */
+export interface GuideMediaItem {
+  id: string;
+  type: "screenshot" | "map";
+  url: string;
+  caption: string;
+}
+
 export interface GuideStep {
   id: string;
   title: string;
@@ -52,6 +60,8 @@ export interface GuideStep {
   tips?: string[];
   /** Optional secrets, extras, and hidden-item notes (merged with area data in the walkthrough UI). */
   secrets?: string[];
+  /** Optional CMS media overrides (URL screenshots/maps). When set, the gallery prefers these. */
+  media?: GuideMediaItem[];
   tags?: string[];
   mapRegion?: string;
   /** True when this event is not required to finish the main story. */

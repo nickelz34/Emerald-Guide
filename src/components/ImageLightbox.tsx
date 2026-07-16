@@ -87,6 +87,11 @@ export function LightboxProvider({
                 showLegend
                 variant="lightbox"
               />
+            ) : current.src ? (
+              <figure className="lightbox__plain">
+                <img src={current.src} alt={current.caption || "Guide media"} />
+                {current.caption ? <figcaption>{current.caption}</figcaption> : null}
+              </figure>
             ) : null}
             {state.images.length > 1 && (
               <div className="lightbox__footer">

@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GuideCategory, GuideSection, GuideStep } from "../types";
 import { getRegionForStep } from "../data/mapRegions";
 import type { LayoutViewMode } from "../hooks/useViewMode";
+import { useAdmin } from "../admin/AdminContext";
+import { ChapterTree } from "../admin/ChapterTree";
+import { StepEditor } from "../admin/StepEditor";
 import { ScreenshotGallery } from "./ScreenshotGallery";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
@@ -115,6 +118,7 @@ export function StepBrowser({
   onOpenGuideSettings,
 }: StepBrowserProps) {
   const mobileNav = useMobileGuideNav(viewMode);
+  const { isAdmin, updateStep, updateChapter } = useAdmin();
   const flat = useMemo<FlatStep[]>(
     () =>
       sections.flatMap((section) =>
@@ -245,7 +249,13 @@ export function StepBrowser({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement) return;
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.target instanceof HTMLSelectElement
+      ) {
+        return;
+      }
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
     };
@@ -409,8 +419,10 @@ export function StepBrowser({
     Boolean(walkthroughPrefs && onWalkthroughPrefsChange) &&
     canMarkStepComplete(category, currentSection?.band);
 
+  const activeChapterId = current.sectionId;
+
   return (
-    <div className="step-browser">
+    <div className={`step-browser${isAdmin ? " step-browser--admin" : ""}`}>
       <StoryProgressBar
         stepIds={storyStepIds}
         currentIndex={currentIndex}
@@ -419,6 +431,14 @@ export function StepBrowser({
         }
         onSelectStep={category === "walkthrough" ? select : undefined}
       />
+
+      {isAdmin && category === "walkthrough" ? (
+        <ChapterTree
+          sections={sections}
+          activeStepId={current.step.id}
+          onSelectStep={select}
+        />
+      ) : null}
 
       <aside
         ref={railRef}
@@ -592,14 +612,16 @@ export function StepBrowser({
                 {current.sectionTitle}
                 {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
               </span>
-              <h2 className="step-card__title">
-                {current.step.title}
-                {current.step.optional ? (
-                  <span className="step-optional-badge step-optional-badge--title">Optional</span>
-                ) : null}
-              </h2>
+              {isAdmin ? null : (
+                <h2 className="step-card__title">
+                  {current.step.title}
+                  {current.step.optional ? (
+                    <span className="step-optional-badge step-optional-badge--title">Optional</span>
+                  ) : null}
+                </h2>
+              )}
             </div>
-            {showCompleteToggle ? (
+            {showCompleteToggle && !isAdmin ? (
               <button
                 type="button"
                 className={`btn btn--sm step-card__complete${
@@ -612,18 +634,47 @@ export function StepBrowser({
               </button>
             ) : null}
           </div>
-          {current.step.location && <p className="step-card__location">{current.step.location}</p>}
-          <p className="step-card__summary">{current.step.summary}</p>
 
-          {current.step.story && current.step.story.length > 0 && (
-            <div className="step-card__story">
-              {current.step.story.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
+          {isAdmin ? (
+            <>
+              <label className="admin-field" style={{ marginBottom: "0.75rem" }}>
+                <span className="admin-field__label">Chapter description</span>
+                <textarea
+                  className="admin-field__textarea"
+                  rows={2}
+                  value={currentSection?.description ?? ""}
+                  onChange={(e) =>
+                    updateChapter(activeChapterId, { description: e.target.value })
+                  }
+                />
+              </label>
+              <StepEditor
+                step={current.step}
+                onChange={(patch) => updateStep(activeChapterId, current.step.id, patch)}
+              />
+            </>
+          ) : (
+            <>
+              {current.step.location && (
+                <p className="step-card__location">{current.step.location}</p>
+              )}
+              <p className="step-card__summary">{current.step.summary}</p>
+
+              {current.step.story && current.step.story.length > 0 && (
+                <div className="step-card__story">
+                  {current.step.story.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              )}
+            </>
           )}
 
-          <ScreenshotGallery stepId={current.step.id} compact />
+          <ScreenshotGallery
+            stepId={current.step.id}
+            compact
+            media={current.step.media}
+          />
 
           {showBattleBasicsPanel && (
             <section className="reference-embed battle-basics-embed" aria-label="Battle types and commands">
@@ -729,20 +780,24 @@ export function StepBrowser({
           {evolutionChart && <EvolutionChart chart={evolutionChart} />}
           {breedingChart && <BreedingChart chart={breedingChart} />}
 
-          <StepDetails details={current.step.details} />
+          {!isAdmin ? (
+            <>
+              <StepDetails details={current.step.details} />
 
-          {current.step.tips && current.step.tips.length > 0 && (
-            <div className="step-card__tips">
-              <strong>Tips</strong>
-              <ul>
-                {current.step.tips.map((tip) => (
-                  <li key={tip}>{tip}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+              {current.step.tips && current.step.tips.length > 0 && (
+                <div className="step-card__tips">
+                  <strong>Tips</strong>
+                  <ul>
+                    {current.step.tips.map((tip) => (
+                      <li key={tip}>{tip}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-          <StepSecretsExtras stepId={current.step.id} secrets={current.step.secrets} />
+              <StepSecretsExtras stepId={current.step.id} secrets={current.step.secrets} />
+            </>
+          ) : null}
 
           <StepEncounters stepId={current.step.id} />
 

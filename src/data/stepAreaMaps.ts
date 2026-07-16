@@ -3,7 +3,7 @@
  * Outdoor steps that use HoennCrop (EVENT_MAP_CROP) keep the overworld window;
  * interior and dungeon steps use the matching standalone area map here.
  */
-import { walkthrough } from "./walkthrough";
+import { walkthrough } from "./walkthroughFromJson";
 import { AREA_MAPS, type AreaMap } from "./areaMaps";
 import { formatAreaMapCaption } from "./areaMapLabels";
 
