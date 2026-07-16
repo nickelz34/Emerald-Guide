@@ -43,6 +43,10 @@ export default function App() {
   const [mapOpen, setMapOpen] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
   const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  /** Admin UI is opt-in via ?admin=1 — never show the guest Admin button otherwise. */
+  const [adminEntryEnabled] = useState(
+    () => new URLSearchParams(window.location.search).get("admin") === "1",
+  );
   const { isAdmin, draftWalkthrough, toast, dismissToast } = useAdmin();
 
   const category: GuideCategory = nav === "map" ? "walkthrough" : nav;
@@ -87,11 +91,10 @@ export default function App() {
   );
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("admin") === "1" && !isAdmin) {
+    if (adminEntryEnabled && !isAdmin) {
       setAdminLoginOpen(true);
     }
-  }, [isAdmin]);
+  }, [adminEntryEnabled, isAdmin]);
 
   useEffect(() => {
     if (nav !== "walkthrough") return;
@@ -198,8 +201,12 @@ export default function App() {
                 <CategoryHeader nav={nav} />
               </div>
 
-              <AdminToolbar onOpenLogin={() => setAdminLoginOpen(true)} />
-              {isAdmin ? <AdminChangesPanel /> : null}
+              {adminEntryEnabled ? (
+                <>
+                  <AdminToolbar onOpenLogin={() => setAdminLoginOpen(true)} />
+                  {isAdmin ? <AdminChangesPanel /> : null}
+                </>
+              ) : null}
             </div>
 
             {nav === "map" ? (
@@ -237,7 +244,9 @@ export default function App() {
         onClose={() => setMapOpen(false)}
       />
 
-      <AdminLoginModal open={adminLoginOpen} onClose={() => setAdminLoginOpen(false)} />
+      {adminEntryEnabled ? (
+        <AdminLoginModal open={adminLoginOpen} onClose={() => setAdminLoginOpen(false)} />
+      ) : null}
       <AdminToast toast={toast} onDismiss={dismissToast} />
     </LightboxProvider>
   );

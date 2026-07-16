@@ -175,8 +175,11 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     [showToast, resetHistory],
   );
 
-  // Restore session token on load (re-validate against GitHub).
+  // Restore session token only when Admin Mode is explicitly requested via ?admin=1.
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("admin") !== "1") return;
+
     const cached = sessionStorage.getItem(TOKEN_KEY);
     if (!cached) return;
     let cancelled = false;
