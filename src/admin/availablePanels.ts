@@ -34,6 +34,7 @@ export function getAvailablePanelsForStep(step: GuideStep): AvailablePanel[] {
   if (id === "pregame-battles-3") panels.push({ id: "type-chart", label: "Type chart" });
   if (id === "pregame-battles-6") panels.push({ id: "status-table", label: "Status table" });
   if (id === "pregame-battles-7") panels.push({ id: "nature-table", label: "Nature table" });
+  if (id === "pregame-battles-8") panels.push({ id: "vitamins-table", label: "Vitamins table" });
   if (id === "pregame-battles-9") panels.push({ id: "tm-hm-table", label: "TM/HM table" });
   if (id === "battle-frontier-2") panels.push({ id: "scott", label: "Scott sightings" });
   if (id === "postgame-hoenn-6") panels.push({ id: "match-call", label: "Match Call" });

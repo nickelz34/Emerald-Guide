@@ -15,6 +15,7 @@ import { KEY_ITEM_UNLOCKS } from "../data/keyItems";
 import { POKE_BALL_TABLE } from "../data/pokeBalls";
 import { STATUS_CONDITION_TABLE } from "../data/statusConditions";
 import { NATURE_TABLE } from "../data/natures";
+import { VITAMIN_TABLE } from "../data/vitamins";
 import { SCOTT_SIGHTINGS } from "../data/scottSightings";
 import { EMERALD_HM_CATALOG, EMERALD_TM_CATALOG } from "../data/tmHmCatalog";
 import type { GuideStep, StepSpecialtyData } from "../types";
@@ -140,6 +141,9 @@ export function seedSpecialtyForStep(step: GuideStep): StepSpecialtyData {
   }
   if (available.has("nature-table") && !specialty.natures) {
     specialty.natures = structuredClone(NATURE_TABLE);
+  }
+  if (available.has("vitamins-table") && !specialty.vitamins) {
+    specialty.vitamins = structuredClone(VITAMIN_TABLE);
   }
   if (available.has("tm-hm-table") && !specialty.tmHmTable) {
     specialty.tmHmTable = {

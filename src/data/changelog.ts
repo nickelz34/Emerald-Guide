@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.30",
+    date: "2026-07-16",
+    summary:
+      "Ch. 1 Section 8 shows every vitamin with bag sprites, EV gains, soft caps, and shop info.",
+    sections: [
+      {
+        heading: "Pregame — Battles & Training",
+        items: [
+          "Manually raising stats (Section 8) adds a Vitamins in Emerald catalog: HP Up, Protein, Iron, Calcium, Zinc, and Carbos with sprites, +10 EV targets, 100 EV fail rule, ₽9,800 price, and buy locations.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.29",
     date: "2026-07-16",
     summary:
