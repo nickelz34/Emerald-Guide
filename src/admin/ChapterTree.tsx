@@ -5,6 +5,7 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import type { GuideSection } from "../types";
+import { AdminDragHandle } from "./AdminDragHandle";
 import { useAdmin } from "./AdminContext";
 
 interface ChapterTreeProps {
@@ -88,14 +89,10 @@ export function ChapterTree({ sections, activeStepId, onSelectStep }: ChapterTre
                       }${chapter.id === activeChapterId ? " admin-chapter-tree__chapter--active" : ""}`}
                     >
                       <div className="admin-chapter-tree__chapter-head">
-                        <button
-                          type="button"
-                          className="admin-chapter-tree__handle"
-                          aria-label="Drag chapter"
-                          {...dragProvided.dragHandleProps}
-                        >
-                          ⋮⋮
-                        </button>
+                        <AdminDragHandle
+                          label="Drag chapter"
+                          dragHandleProps={dragProvided.dragHandleProps}
+                        />
                         <input
                           type="text"
                           className="admin-chapter-tree__title-input"
@@ -158,14 +155,10 @@ export function ChapterTree({ sections, activeStepId, onSelectStep }: ChapterTre
                                         : ""
                                     }`}
                                   >
-                                    <button
-                                      type="button"
-                                      className="admin-chapter-tree__handle"
-                                      aria-label="Drag step"
-                                      {...stepDrag.dragHandleProps}
-                                    >
-                                      ⋮⋮
-                                    </button>
+                                    <AdminDragHandle
+                                      label="Drag step"
+                                      dragHandleProps={stepDrag.dragHandleProps}
+                                    />
                                     <button
                                       type="button"
                                       className="admin-chapter-tree__step-select"

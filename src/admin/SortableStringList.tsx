@@ -5,6 +5,7 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import { reorderList } from "../lib/reorderList";
+import { AdminDragHandle } from "./AdminDragHandle";
 import { RichTextField } from "./RichTextField";
 
 interface SortableStringListProps {
@@ -81,14 +82,10 @@ export function SortableStringList({
                         snapshot.isDragging ? " admin-sortable-list__item--dragging" : ""
                       }${richText ? " admin-sortable-list__item--rich" : ""}`}
                     >
-                      <button
-                        type="button"
-                        className="admin-chapter-tree__handle"
-                        aria-label={`Drag ${label} item`}
-                        {...drag.dragHandleProps}
-                      >
-                        ⋮⋮
-                      </button>
+                      <AdminDragHandle
+                        label={`Drag ${label} item`}
+                        dragHandleProps={drag.dragHandleProps}
+                      />
                       {richText ? (
                         <RichTextField
                           value={item}

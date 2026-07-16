@@ -10,6 +10,7 @@ import { reorderList } from "../lib/reorderList";
 import type { GuideMediaItem } from "../types";
 import { AreaMapView } from "../components/AreaMapView";
 import { HoennCrop } from "../components/HoennCrop";
+import { AdminDragHandle } from "./AdminDragHandle";
 import { createAdminId } from "./adminIds";
 
 interface MediaEditorProps {
@@ -187,14 +188,10 @@ export function MediaEditor({
                         }`}
                       >
                         <div className="admin-media__card-head">
-                          <button
-                            type="button"
-                            className="admin-chapter-tree__handle"
-                            aria-label="Drag media"
-                            {...drag.dragHandleProps}
-                          >
-                            ⋮⋮
-                          </button>
+                          <AdminDragHandle
+                            label="Drag media"
+                            dragHandleProps={drag.dragHandleProps}
+                          />
                           <span className="admin-media__type-badge">{item.type}</span>
                           <button
                             type="button"

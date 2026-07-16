@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
 import { reorderList } from "../lib/reorderList";
 import type { GuideSpriteItem, GuideSpriteKind } from "../types";
+import { AdminDragHandle } from "./AdminDragHandle";
 import { createAdminId } from "./adminIds";
 import {
   filterSpriteCatalog,
@@ -158,14 +159,10 @@ export function SpriteEditor({ stepId, sprites, onChange }: SpriteEditorProps) {
                           snapshot.isDragging ? " admin-sprites__card--dragging" : ""
                         }`}
                       >
-                        <button
-                          type="button"
-                          className="admin-chapter-tree__handle"
-                          aria-label={`Drag ${item.label}`}
-                          {...drag.dragHandleProps}
-                        >
-                          ⋮⋮
-                        </button>
+                        <AdminDragHandle
+                          label={`Drag ${item.label}`}
+                          dragHandleProps={drag.dragHandleProps}
+                        />
                         <img
                           className="admin-sprites__preview"
                           src={assetUrl(item.src)}

@@ -7,6 +7,7 @@ import {
 import { useMemo } from "react";
 import { reorderList } from "../lib/reorderList";
 import type { GuideStep } from "../types";
+import { AdminDragHandle } from "./AdminDragHandle";
 import { resolveStepBlockOrder, type StepBlockId } from "./stepBlocks";
 
 interface BlockOrderEditorProps {
@@ -79,14 +80,10 @@ export function BlockOrderEditor({ step, onChange }: BlockOrderEditorProps) {
                         snapshot.isDragging ? " admin-block-order__item--dragging" : ""
                       }`}
                     >
-                      <button
-                        type="button"
-                        className="admin-chapter-tree__handle"
-                        aria-label={`Drag ${block.label}`}
-                        {...drag.dragHandleProps}
-                      >
-                        ⋮⋮
-                      </button>
+                      <AdminDragHandle
+                        label={`Drag ${block.label}`}
+                        dragHandleProps={drag.dragHandleProps}
+                      />
                       <span className="admin-block-order__label">{block.label}</span>
                       <span className="admin-block-order__kind">{blockKind(block.id)}</span>
                     </li>
