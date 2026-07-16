@@ -65,6 +65,151 @@ export interface GuideCustomTable {
   rows: GuideTableRow[];
 }
 
+/** Editable junior trainer row inside a CMS gym override. */
+export interface GuideGymJunior {
+  name: string;
+  trainerClass: string;
+  trainerId: string;
+  note?: string;
+}
+
+/** CMS override for a gym guide panel on a step. */
+export interface GuideGymOverride {
+  gymName: string;
+  city: string;
+  gymNumber: number;
+  leaderName: string;
+  specialty: string;
+  badgeName: string;
+  leaderTrainerId: string;
+  mapPointId: string;
+  walkthroughStepId: string;
+  doubleBattle?: boolean;
+  puzzleNote?: string;
+  juniors: GuideGymJunior[];
+}
+
+export interface GuideRivalOverride {
+  walkthroughStepId: string;
+  battleNumber: number;
+  locationKey: string;
+  note?: string;
+}
+
+export interface GuideStoryTrainerOverride {
+  walkthroughStepId: string;
+  title: string;
+  intro: string;
+  note?: string;
+  trainerName?: string;
+  trainerClass?: string;
+  trainerNote?: string;
+  trainerDesc?: string;
+  trainerId?: string;
+}
+
+export interface GuideStarterEntryOverride {
+  slug: string;
+  tagline: string;
+  bestFor: string;
+  earlyGyms: string;
+  rivalFaces: string;
+  natures: string[];
+  difficulty: string;
+  accent: string;
+}
+
+export interface GuideTableRowOverride {
+  [key: string]: string | number | boolean | null | undefined;
+}
+
+/**
+ * Per-step specialty panel content edited in Admin Mode.
+ * When present, the live UI prefers these overrides over code defaults.
+ */
+export interface StepSpecialtyData {
+  gym?: GuideGymOverride;
+  rival?: GuideRivalOverride;
+  storyTrainer?: GuideStoryTrainerOverride;
+  starter?: {
+    intro: string;
+    entries: GuideStarterEntryOverride[];
+  };
+  ralts?: {
+    intro: string;
+    huntTips: string[];
+    natures: string[];
+    abilitiesNote: string;
+    stages: Array<{
+      slug: string;
+      tagline: string;
+      role: string;
+      note: string;
+      accent: string;
+    }>;
+  };
+  flowerShop?: {
+    pailBlurb: string;
+    softSoilNote: string;
+  };
+  battleBasics?: {
+    lead: string;
+    examples: Array<{ id: string; title: string; blurb: string }>;
+    commands: Array<{ id: string; label: string; hint: string; detail: string }>;
+  };
+  hmTable?: Array<{
+    hm: string;
+    move: string;
+    obtainStepId: string;
+    obtainLocation: string;
+    fieldBadge: string;
+    fieldBadgeNumber: number;
+  }>;
+  keyItems?: Array<{
+    id: string;
+    name: string;
+    obtainLocation: string;
+    walkthroughStepId: string;
+    prerequisite?: string;
+    note?: string;
+  }>;
+  pokeBalls?: Array<{
+    id: string;
+    name: string;
+    multiplier: string;
+    bestUsed: string;
+    obtain: string;
+    iconName?: string;
+  }>;
+  statusTable?: Array<{
+    id: string;
+    name: string;
+    kind: string;
+    effect: string;
+    cures: string;
+    notes?: string;
+  }>;
+  natures?: Array<{
+    name: string;
+    raised: string | null;
+    lowered: string | null;
+    contest: string | null;
+    likes: string | null;
+    dislikes: string | null;
+  }>;
+  scott?: Array<{
+    id: number;
+    location: string;
+    timing: string;
+    walkthroughStepId?: string;
+    mandatory?: boolean;
+  }>;
+  encounters?: {
+    tips: string[];
+    secrets: string[];
+  };
+}
+
 export interface GuideStep {
   id: string;
   title: string;
@@ -74,6 +219,7 @@ export interface GuideStep {
    * Narrative walkthrough prose (one entry per paragraph). When present it is
    * rendered as the main body of the event, Prima-guide style, with the
    * `details` list kept as a quick objectives checklist beneath it.
+   * Supports plain text or rich HTML from the admin editor.
    */
   story?: string[];
   details: string[];
@@ -94,6 +240,8 @@ export interface GuideStep {
    * Panel data still lives in code; this only suppresses rendering.
    */
   hiddenPanels?: string[];
+  /** Editable specialty panel content for this step (CMS overrides). */
+  specialty?: StepSpecialtyData;
   tags?: string[];
   mapRegion?: string;
   /** True when this event is not required to finish the main story. */

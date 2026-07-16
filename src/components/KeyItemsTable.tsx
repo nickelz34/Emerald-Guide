@@ -1,12 +1,17 @@
-import { KEY_ITEM_UNLOCKS } from "../data/keyItems";
+import { KEY_ITEM_UNLOCKS, type KeyItemUnlock } from "../data/keyItems";
 
 interface KeyItemsTableProps {
   highlightStepId?: string;
   className?: string;
+  rows?: KeyItemUnlock[];
 }
 
 /** Key item unlock locations across Hoenn. */
-export function KeyItemsTable({ highlightStepId, className = "" }: KeyItemsTableProps) {
+export function KeyItemsTable({
+  highlightStepId,
+  className = "",
+  rows = KEY_ITEM_UNLOCKS,
+}: KeyItemsTableProps) {
   return (
     <section className={`reference-table key-items-table ${className}`.trim()} aria-label="Key items reference">
       <h5 className="reference-table__title">Key items & tools</h5>
@@ -20,7 +25,7 @@ export function KeyItemsTable({ highlightStepId, className = "" }: KeyItemsTable
             </tr>
           </thead>
           <tbody>
-            {KEY_ITEM_UNLOCKS.map((item) => (
+            {rows.map((item) => (
               <tr
                 key={item.id}
                 className={

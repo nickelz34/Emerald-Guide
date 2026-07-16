@@ -5,6 +5,12 @@ import type { LayoutViewMode } from "../hooks/useViewMode";
 import { useAdmin } from "../admin/AdminContext";
 import { ChapterTree } from "../admin/ChapterTree";
 import { StepEditor } from "../admin/StepEditor";
+import { GuideHtml } from "../lib/guideHtml";
+import type { GuideStoryTrainerOverride } from "../types";
+import type { GymData } from "../data/gymData";
+import type { StoryTrainerBattle } from "../data/storyTrainerBattles";
+import type { StarterGuideEntry, StarterSlug } from "../data/starterChoice";
+import type { RaltsStageGuide } from "../data/raltsSpotlight";
 import { ScreenshotGallery } from "./ScreenshotGallery";
 import { GuideCustomTables } from "./GuideCustomTables";
 import { StepDetails } from "./StepDetails";
@@ -149,16 +155,39 @@ export function StepBrowser({
     [current?.step.hiddenPanels],
   );
   const panelVisible = useCallback((id: string) => !hiddenPanels.has(id), [hiddenPanels]);
-  const gymForStep =
-    current && panelVisible("gym") ? getGymForWalkthroughStep(current.step.id) : undefined;
-  const rivalForStep =
-    current && panelVisible("rival")
-      ? getRivalForWalkthroughStep(current.step.id)
-      : undefined;
-  const storyTrainerForStep =
-    current && panelVisible("story-trainer")
-      ? getStoryTrainerForWalkthroughStep(current.step.id)
-      : undefined;
+  const specialty = current?.step.specialty;
+  const gymForStep = (() => {
+    if (!current || !panelVisible("gym")) return undefined;
+    if (specialty?.gym) return specialty.gym as GymData;
+    return getGymForWalkthroughStep(current.step.id);
+  })();
+  const rivalForStep = (() => {
+    if (!current || !panelVisible("rival")) return undefined;
+    return specialty?.rival ?? getRivalForWalkthroughStep(current.step.id);
+  })();
+  const storyTrainerForStep = (() => {
+    if (!current || !panelVisible("story-trainer")) return undefined;
+    const base = getStoryTrainerForWalkthroughStep(current.step.id);
+    const override = specialty?.storyTrainer as GuideStoryTrainerOverride | undefined;
+    if (!base && !override) return undefined;
+    if (!override) return base;
+    if (!base) return undefined;
+    return {
+      ...base,
+      title: override.title,
+      intro: override.intro,
+      note: override.note,
+      trainer: {
+        ...base.trainer,
+        name: override.trainerName ?? base.trainer.name,
+        trainerName: override.trainerName ?? base.trainer.trainerName,
+        trainerClass: override.trainerClass ?? base.trainer.trainerClass,
+        note: override.trainerNote ?? base.trainer.note,
+        desc: override.trainerDesc ?? base.trainer.desc,
+        trainerId: override.trainerId ?? base.trainer.trainerId,
+      },
+    } satisfies StoryTrainerBattle;
+  })();
   const showHmTable = current?.step.id === "rustboro-1" && panelVisible("hm-table");
   const showKeyItemsTable =
     current?.step.id === "rusturf-tunnel-2" && panelVisible("key-items");
@@ -686,12 +715,16 @@ export function StepBrowser({
               {current.step.location && (
                 <p className="step-card__location">{current.step.location}</p>
               )}
-              <p className="step-card__summary">{current.step.summary}</p>
+              <GuideHtml
+                value={current.step.summary}
+                as="p"
+                className="step-card__summary"
+              />
 
               {current.step.story && current.step.story.length > 0 && (
                 <div className="step-card__story">
                   {current.step.story.map((para, i) => (
-                    <p key={i}>{para}</p>
+                    <GuideHtml key={i} value={para} as="p" />
                   ))}
                 </div>
               )}
@@ -709,25 +742,44 @@ export function StepBrowser({
 
           {showBattleBasicsPanel && (
             <section className="reference-embed battle-basics-embed" aria-label="Battle types and commands">
-              <BattleBasicsPanel />
+              <BattleBasicsPanel content={specialty?.battleBasics} />
             </section>
           )}
 
           {current.step.id === "route-101-2" && panelVisible("starter") && (
             <section className="starter-choice-embed" aria-label="Starter comparison">
-              <StarterChoicePanelForStep stepId={current.step.id} />
+              <StarterChoicePanelForStep
+                stepId={current.step.id}
+                intro={specialty?.starter?.intro}
+                entries={specialty?.starter?.entries?.map((entry) => ({
+                  ...entry,
+                  slug: entry.slug as StarterSlug,
+                  difficulty: entry.difficulty as StarterGuideEntry["difficulty"],
+                }))}
+              />
             </section>
           )}
 
           {current.step.id === "route-102-2" && panelVisible("ralts") && (
             <section className="starter-choice-embed ralts-spotlight-embed" aria-label="Ralts catch spotlight">
-              <RaltsSpotlightPanelForStep stepId={current.step.id} />
+              <RaltsSpotlightPanelForStep
+                stepId={current.step.id}
+                intro={specialty?.ralts?.intro}
+                stages={specialty?.ralts?.stages as RaltsStageGuide[] | undefined}
+                huntTips={specialty?.ralts?.huntTips}
+                natures={specialty?.ralts?.natures}
+                abilitiesNote={specialty?.ralts?.abilitiesNote}
+              />
             </section>
           )}
 
           {current.step.id === "route-104-2" && panelVisible("flower-shop") && (
             <section className="flower-shop-guide-embed" aria-label="Pretty Petal Flower Shop guide">
-              <FlowerShopGuidePanelForStep stepId={current.step.id} />
+              <FlowerShopGuidePanelForStep
+                stepId={current.step.id}
+                pailBlurb={specialty?.flowerShop?.pailBlurb}
+                softSoilNote={specialty?.flowerShop?.softSoilNote}
+              />
             </section>
           )}
 
@@ -739,7 +791,7 @@ export function StepBrowser({
 
           {rivalForStep && (
             <section className="gym-guide-embed rival-guide-embed" aria-label="Rival battle guide">
-              <RivalGuidePanelForStep stepId={current.step.id} />
+              <RivalGuidePanelForStep stepId={current.step.id} rival={rivalForStep} />
             </section>
           )}
 
@@ -748,25 +800,34 @@ export function StepBrowser({
               className="gym-guide-embed rival-guide-embed story-trainer-guide-embed"
               aria-label="Story trainer battle guide"
             >
-              <StoryTrainerGuidePanelForStep stepId={current.step.id} />
+              <StoryTrainerGuidePanelForStep
+                stepId={current.step.id}
+                battle={storyTrainerForStep}
+              />
             </section>
           )}
 
           {showHmTable && (
             <section className="reference-embed" aria-label="HM reference">
-              <HmUnlockTable highlightStepId={current.step.id} />
+              <HmUnlockTable
+                highlightStepId={current.step.id}
+                rows={specialty?.hmTable}
+              />
             </section>
           )}
 
           {showKeyItemsTable && (
             <section className="reference-embed" aria-label="Key items reference">
-              <KeyItemsTable highlightStepId={current.step.id} />
+              <KeyItemsTable
+                highlightStepId={current.step.id}
+                rows={specialty?.keyItems}
+              />
             </section>
           )}
 
           {showPokeBallTable && (
             <section className="reference-embed" aria-label="Poké Ball reference">
-              <PokeBallTable />
+              <PokeBallTable rows={specialty?.pokeBalls} />
             </section>
           )}
 
@@ -778,13 +839,18 @@ export function StepBrowser({
 
           {showStatusTable && (
             <section className="reference-embed" aria-label="Status condition reference">
-              <StatusTable />
+              <StatusTable
+                rows={specialty?.statusTable?.map((row) => ({
+                  ...row,
+                  kind: row.kind as "persistent" | "volatile",
+                }))}
+              />
             </section>
           )}
 
           {showNatureTable && (
             <section className="reference-embed" aria-label="Nature reference">
-              <NatureTable />
+              <NatureTable rows={specialty?.natures} />
             </section>
           )}
 
@@ -796,7 +862,12 @@ export function StepBrowser({
 
           {showScottChecklist && (
             <section className="reference-embed" aria-label="Scott sightings">
-              <ScottSightingsPanel />
+              <ScottSightingsPanel
+                rows={specialty?.scott?.map((row) => ({
+                  ...row,
+                  mandatory: Boolean(row.mandatory),
+                }))}
+              />
             </section>
           )}
 
@@ -819,18 +890,38 @@ export function StepBrowser({
                 <div className="step-card__tips">
                   <strong>Tips</strong>
                   <ul>
-                    {current.step.tips.map((tip) => (
-                      <li key={tip}>{tip}</li>
+                    {current.step.tips.map((tip, i) => (
+                      <GuideHtml key={`${i}-${tip.slice(0, 24)}`} value={tip} as="li" />
                     ))}
                   </ul>
                 </div>
               )}
 
-              <StepSecretsExtras stepId={current.step.id} secrets={current.step.secrets} />
+              <StepSecretsExtras
+                stepId={current.step.id}
+                secrets={[
+                  ...(current.step.secrets ?? []),
+                  ...(specialty?.encounters?.secrets ?? []),
+                ]}
+              />
             </>
           ) : null}
 
-          {panelVisible("encounters") ? <StepEncounters stepId={current.step.id} /> : null}
+          {panelVisible("encounters") ? (
+            <>
+              {specialty?.encounters?.tips?.length ? (
+                <div className="step-card__tips">
+                  <strong>Encounter tips</strong>
+                  <ul>
+                    {specialty.encounters.tips.map((tip, i) => (
+                      <GuideHtml key={`enc-tip-${i}`} value={tip} as="li" />
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <StepEncounters stepId={current.step.id} />
+            </>
+          ) : null}
 
           <div className="step-card__footerrow">
             {current.step.tags && (

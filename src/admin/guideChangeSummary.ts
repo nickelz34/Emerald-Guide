@@ -53,6 +53,7 @@ function describeStepDiff(before: GuideStep, after: GuideStep): string[] {
   check("useCustomMedia", "custom media mode");
   check("tables", "tables");
   check("hiddenPanels", "hidden panels");
+  check("specialty", "specialty panels");
   check("mapRegion", "map region");
   return parts;
 }

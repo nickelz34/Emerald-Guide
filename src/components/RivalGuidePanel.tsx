@@ -141,11 +141,13 @@ export function RivalGuidePanel({ rival, className = "" }: RivalGuidePanelProps)
 export function RivalGuidePanelForStep({
   stepId,
   className,
+  rival: rivalOverride,
 }: {
   stepId: string;
   className?: string;
+  rival?: RivalBattleData;
 }) {
-  const rival = getRivalForWalkthroughStep(stepId);
+  const rival = rivalOverride ?? getRivalForWalkthroughStep(stepId);
   if (!rival) return null;
   return <RivalGuidePanel rival={rival} className={className} />;
 }

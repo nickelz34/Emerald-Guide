@@ -1,3 +1,5 @@
+import { GuideHtml } from "../lib/guideHtml";
+
 interface StepDetailsProps {
   details: string[];
 }
@@ -10,7 +12,7 @@ export function StepDetails({ details }: StepDetailsProps) {
       <strong>What to do</strong>
       <ol>
         {details.map((line, i) => (
-          <li key={`${i}-${line}`}>{line}</li>
+          <GuideHtml key={`${i}-${line.slice(0, 24)}`} value={line} as="li" />
         ))}
       </ol>
     </div>

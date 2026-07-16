@@ -5,6 +5,7 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import { reorderList } from "../lib/reorderList";
+import { RichTextField } from "./RichTextField";
 
 interface SortableStringListProps {
   label: string;
@@ -13,6 +14,7 @@ interface SortableStringListProps {
   placeholder?: string;
   addLabel?: string;
   multiline?: boolean;
+  richText?: boolean;
   droppableId: string;
   emptyText?: string;
 }
@@ -24,6 +26,7 @@ export function SortableStringList({
   placeholder = "Enter text…",
   addLabel = "+ Add item",
   multiline = false,
+  richText = false,
   droppableId,
   emptyText = "No items yet.",
 }: SortableStringListProps) {
@@ -76,7 +79,7 @@ export function SortableStringList({
                       {...drag.draggableProps}
                       className={`admin-sortable-list__item${
                         snapshot.isDragging ? " admin-sortable-list__item--dragging" : ""
-                      }`}
+                      }${richText ? " admin-sortable-list__item--rich" : ""}`}
                     >
                       <button
                         type="button"
@@ -86,7 +89,14 @@ export function SortableStringList({
                       >
                         ⋮⋮
                       </button>
-                      {multiline ? (
+                      {richText ? (
+                        <RichTextField
+                          value={item}
+                          placeholder={placeholder}
+                          minHeight={multiline ? 88 : 56}
+                          onChange={(value) => updateAt(index, value)}
+                        />
+                      ) : multiline ? (
                         <textarea
                           className="admin-field__textarea"
                           rows={3}

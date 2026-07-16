@@ -59,10 +59,12 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@hello-pangea/dnd": "^18.0.1",
+    "dompurify": "^3.4.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",

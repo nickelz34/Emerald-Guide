@@ -103,21 +103,44 @@ function Sprite({ dex, name }: { dex: number; name: string }) {
   );
 }
 
+export interface BattleBasicsContent {
+  lead?: string;
+  examples?: Array<{ id: string; title: string; blurb: string }>;
+  commands?: Array<{ id: string; label: string; hint: string; detail: string }>;
+}
+
 /** In-game sprites + command cards for Pregame Battles Event 1. */
-export function BattleBasicsPanel({ className = "" }: { className?: string }) {
+export function BattleBasicsPanel({
+  className = "",
+  content,
+}: {
+  className?: string;
+  content?: BattleBasicsContent;
+}) {
+  const lead =
+    content?.lead ??
+    "Emerald battle sprites for wild 1-on-1s, trainer singles, and doubles — plus Fight / Bag / Pokémon / Run as documented in Gen III (Bulbapedia, Prima Emerald, Serebii doubles notes).";
+  const examples = BATTLE_EXAMPLES.map((ex) => {
+    const override = content?.examples?.find((item) => item.id === ex.id);
+    return override ? { ...ex, title: override.title, blurb: override.blurb } : ex;
+  });
+  const commands = COMMANDS.map((cmd) => {
+    const override = content?.commands?.find((item) => item.id === cmd.id);
+    return override
+      ? { ...cmd, label: override.label, hint: override.hint, detail: override.detail }
+      : cmd;
+  });
+
   return (
     <section
       className={`battle-basics ${className}`.trim()}
       aria-label="Battle types and commands"
     >
       <h5 className="battle-basics__title">Battle types at a glance</h5>
-      <p className="battle-basics__lead">
-        Emerald battle sprites for wild 1-on-1s, trainer singles, and doubles — plus Fight / Bag /
-        Pokémon / Run as documented in Gen III (Bulbapedia, Prima Emerald, Serebii doubles notes).
-      </p>
+      <p className="battle-basics__lead">{lead}</p>
 
       <div className="battle-basics__examples">
-        {BATTLE_EXAMPLES.map((ex) => (
+        {examples.map((ex) => (
           <article key={ex.id} className="battle-basics__card">
             <h6 className="battle-basics__card-title">{ex.title}</h6>
             <p className="battle-basics__card-blurb">{ex.blurb}</p>
@@ -136,7 +159,7 @@ export function BattleBasicsPanel({ className = "" }: { className?: string }) {
 
       <h5 className="battle-basics__title battle-basics__title--commands">Battle commands</h5>
       <ul className="battle-basics__commands">
-        {COMMANDS.map((cmd) => (
+        {commands.map((cmd) => (
           <li key={cmd.id} className={`battle-basics__command battle-basics__command--${cmd.id}`}>
             <span className="battle-basics__command-label">{cmd.label}</span>
             <span className="battle-basics__command-hint">{cmd.hint}</span>

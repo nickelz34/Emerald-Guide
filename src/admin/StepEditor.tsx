@@ -1,7 +1,9 @@
 import type { GuideStep } from "../types";
 import { MediaEditor } from "./MediaEditor";
 import { PanelsEditor } from "./PanelsEditor";
+import { RichTextField } from "./RichTextField";
 import { SortableStringList } from "./SortableStringList";
+import { SpecialtyPanelEditors } from "./SpecialtyPanelEditors";
 import { TablesEditor } from "./TablesEditor";
 
 interface StepEditorProps {
@@ -30,20 +32,17 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
           onChange={(e) => onChange({ location: e.target.value || undefined })}
         />
       </label>
-      <label className="admin-field">
-        <span className="admin-field__label">Summary</span>
-        <textarea
-          className="admin-field__textarea"
-          rows={3}
-          value={step.summary}
-          onChange={(e) => onChange({ summary: e.target.value })}
-        />
-      </label>
+      <RichTextField
+        label="Summary"
+        value={step.summary}
+        onChange={(summary) => onChange({ summary })}
+      />
 
       <SortableStringList
         label="Story paragraphs"
         droppableId={`story-${step.id}`}
         items={step.story ?? []}
+        richText
         multiline
         placeholder="Story paragraph…"
         addLabel="+ Add paragraph"
@@ -55,6 +54,7 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
         label="Details / objectives"
         droppableId={`details-${step.id}`}
         items={step.details}
+        richText
         multiline
         placeholder="Objective or detail…"
         addLabel="+ Add detail"
@@ -66,6 +66,7 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
         label="Tips"
         droppableId={`tips-${step.id}`}
         items={step.tips ?? []}
+        richText
         multiline
         placeholder="Tip…"
         addLabel="+ Add tip"
@@ -77,6 +78,7 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
         label="Secrets"
         droppableId={`secrets-${step.id}`}
         items={step.secrets ?? []}
+        richText
         multiline
         placeholder="Secret, hidden item, or extras note…"
         addLabel="+ Add secret"
@@ -127,6 +129,11 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
         onChange={(hiddenPanels) =>
           onChange({ hiddenPanels: hiddenPanels.length ? hiddenPanels : undefined })
         }
+      />
+
+      <SpecialtyPanelEditors
+        step={step}
+        onChange={(specialty) => onChange({ specialty })}
       />
     </div>
   );
