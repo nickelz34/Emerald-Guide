@@ -23,6 +23,7 @@ import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
 import { useAdmin } from "./admin/AdminContext";
 import { AdminToolbar } from "./admin/AdminToolbar";
+import { AdminChangesPanel } from "./admin/AdminChangesPanel";
 import { AdminLoginModal } from "./admin/AdminLoginModal";
 import { AdminToast } from "./admin/AdminToast";
 import "./App.css";
@@ -197,6 +198,7 @@ export default function App() {
             </div>
 
             <AdminToolbar onOpenLogin={() => setAdminLoginOpen(true)} />
+            {isAdmin ? <AdminChangesPanel /> : null}
 
             {nav === "map" ? (
               <HoennMap onSelectRegion={handleMapRegion} />

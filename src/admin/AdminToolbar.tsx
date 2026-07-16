@@ -16,6 +16,7 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
     canRedo,
     undo,
     redo,
+    changeSummary,
   } = useAdmin();
 
   if (!isAdmin) {
@@ -38,7 +39,9 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
       <div className="admin-toolbar__status">
         <span className="admin-toolbar__badge">Admin Mode</span>
         <span className={`admin-toolbar__dirty${isDirty ? " admin-toolbar__dirty--on" : ""}`}>
-          {isDirty ? "Unsaved changes" : "In sync with GitHub"}
+          {isDirty
+            ? `${changeSummary.total} unpublished change${changeSummary.total === 1 ? "" : "s"}`
+            : "In sync with GitHub"}
         </span>
       </div>
       <div className="admin-toolbar__actions">

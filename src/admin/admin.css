@@ -65,6 +65,66 @@
   font-size: 0.88rem;
 }
 
+.admin-changes {
+  margin: 0 0 0.85rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, #e6b84d 45%, var(--border, #3a4a3a));
+  background: color-mix(in srgb, var(--panel, #152015) 90%, #3a3218);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.admin-changes--empty {
+  border-color: color-mix(in srgb, var(--border, #3a4a3a) 80%, transparent);
+  background: color-mix(in srgb, var(--panel, #152015) 92%, transparent);
+}
+
+.admin-changes__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.admin-changes__count {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e6b84d;
+}
+
+.admin-changes__list {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  display: grid;
+  gap: 0.35rem;
+  max-height: 14rem;
+  overflow: auto;
+}
+
+.admin-changes__item {
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.admin-changes__label {
+  display: block;
+  font-weight: 600;
+}
+
+.admin-changes__detail {
+  display: block;
+  opacity: 0.75;
+  font-size: 0.82rem;
+}
+
+.admin-changes__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  opacity: 0.8;
+}
+
 .admin-toolbar__spinner-dot {
   width: 0.85rem;
   height: 0.85rem;

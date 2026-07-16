@@ -18,6 +18,10 @@ import {
 import { renumberChapterTitles, reorderList } from "../lib/reorderList";
 import type { GuideMediaItem, GuideSection, GuideStep } from "../types";
 import { createAdminId } from "./adminIds";
+import {
+  summarizeGuideChanges,
+  type GuideChangeSummary,
+} from "./guideChangeSummary";
 
 const TOKEN_KEY = "emerald-guide-admin-token";
 const MAX_HISTORY = 50;
@@ -31,12 +35,14 @@ export interface AdminToastMessage {
 
 interface AdminContextValue {
   isAdmin: boolean;
+  /** True when draft differs from the last loaded/published baseline. */
   isDirty: boolean;
   isPublishing: boolean;
   isBootstrapping: boolean;
   canUndo: boolean;
   canRedo: boolean;
   draftWalkthrough: GuideSection[];
+  changeSummary: GuideChangeSummary;
   toast: AdminToastMessage | null;
   dismissToast: () => void;
   showToast: (tone: AdminToastTone, message: string) => void;
@@ -69,7 +75,9 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [draftWalkthrough, setDraftState] = useState<GuideSection[]>(() =>
     cloneWalkthrough(bundledWalkthrough),
   );
-  const [isDirty, setIsDirty] = useState(false);
+  const [baselineWalkthrough, setBaselineWalkthrough] = useState<GuideSection[]>(() =>
+    cloneWalkthrough(bundledWalkthrough),
+  );
   const [isPublishing, setIsPublishing] = useState(false);
   const [isBootstrapping, setIsBootstrapping] = useState(false);
   const [toast, setToast] = useState<AdminToastMessage | null>(null);
@@ -77,6 +85,12 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [redoStack, setRedoStack] = useState<GuideSection[][]>([]);
   const draftRef = useRef(draftWalkthrough);
   draftRef.current = draftWalkthrough;
+
+  const changeSummary = useMemo(
+    () => summarizeGuideChanges(baselineWalkthrough, draftWalkthrough),
+    [baselineWalkthrough, draftWalkthrough],
+  );
+  const isDirty = changeSummary.total > 0;
 
   const showToast = useCallback((tone: AdminToastTone, message: string) => {
     setToast({ tone, message });
@@ -99,7 +113,6 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       setRedoStack([]);
     }
     setDraftState(next);
-    setIsDirty(true);
   }, []);
 
   const setDraftWalkthrough = useCallback(
@@ -115,7 +128,6 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const previous = prevUndo[prevUndo.length - 1];
       setRedoStack((prevRedo) => [...prevRedo, cloneWalkthrough(draftRef.current)]);
       setDraftState(cloneWalkthrough(previous));
-      setIsDirty(true);
       return prevUndo.slice(0, -1);
     });
   }, []);
@@ -126,7 +138,6 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const next = prevRedo[prevRedo.length - 1];
       setUndoStack((prevUndo) => [...prevUndo, cloneWalkthrough(draftRef.current)]);
       setDraftState(cloneWalkthrough(next));
-      setIsDirty(true);
       return prevRedo.slice(0, -1);
     });
   }, []);
@@ -136,9 +147,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     clearCurrentFileSha();
     setToken(null);
     setIsAdmin(false);
-    setIsDirty(false);
     resetHistory();
-    setDraftState(cloneWalkthrough(bundledWalkthrough));
+    const bundled = cloneWalkthrough(bundledWalkthrough);
+    setDraftState(bundled);
+    setBaselineWalkthrough(bundled);
     showToast("info", "Exited Admin Mode");
   }, [showToast, resetHistory]);
 
@@ -149,10 +161,11 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
       const config = getGitHubConfigFromEnv(trimmed);
       const payload = await fetchGuideFromGitHub(config);
+      const loaded = cloneWalkthrough(payload.walkthrough);
       sessionStorage.setItem(TOKEN_KEY, trimmed);
       setToken(trimmed);
-      setDraftState(cloneWalkthrough(payload.walkthrough));
-      setIsDirty(false);
+      setDraftState(loaded);
+      setBaselineWalkthrough(cloneWalkthrough(loaded));
       resetHistory();
       setIsAdmin(true);
       showToast("success", "Admin Mode active — editing live guide data from GitHub");
@@ -219,7 +232,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     try {
       const config = getGitHubConfigFromEnv(token);
       await commitGuideToGitHub(config, { walkthrough: draftWalkthrough });
-      setIsDirty(false);
+      setBaselineWalkthrough(cloneWalkthrough(draftWalkthrough));
       resetHistory();
       showToast("success", "Published — commit pushed to GitHub. Pages will redeploy shortly.");
     } catch (err) {
@@ -350,6 +363,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       canUndo: undoStack.length > 0,
       canRedo: redoStack.length > 0,
       draftWalkthrough,
+      changeSummary,
       toast,
       dismissToast,
       showToast,
@@ -377,6 +391,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       undoStack.length,
       redoStack.length,
       draftWalkthrough,
+      changeSummary,
       toast,
       dismissToast,
       showToast,
