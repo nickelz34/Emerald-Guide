@@ -318,6 +318,24 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.main__top {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.main__top .toolbar {
+  margin-bottom: 0;
+}
+
+.main__top .admin-toolbar {
+  margin-bottom: 0;
+}
+
+.main__top .admin-changes {
+  margin-bottom: 0;
+}
+
 .toolbar {
   margin-bottom: 2rem;
 }
@@ -1427,10 +1445,16 @@
   align-items: start;
 }
 
-.app-shell[data-view="desktop"] .main:has(.step-browser) .toolbar {
+.app-shell[data-view="desktop"] .main:has(.step-browser) .main__top {
   grid-column: 2;
   grid-row: 1;
+  display: grid;
+  gap: 0.75rem;
   margin-bottom: 0.75rem;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser) .main__top .toolbar {
+  margin-bottom: 0;
 }
 
 .app-shell[data-view="desktop"] .main:has(.step-browser) .step-browser {
@@ -1476,6 +1500,35 @@
 .app-shell[data-view="desktop"] .main:has(.step-browser) .step-stage {
   grid-column: 2;
   grid-row: 3;
+}
+
+/* Admin Mode: chapter tree replaces the step rail in the left column. */
+.app-shell[data-view="desktop"] .main:has(.step-browser--admin) {
+  grid-template-columns: minmax(300px, 340px) minmax(0, 1fr);
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser--admin) .admin-chapter-tree {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  position: sticky;
+  top: calc(var(--nav-height) + 0.5rem);
+  height: calc(100dvh - var(--nav-height) - 0.75rem);
+  max-height: calc(100dvh - var(--nav-height) - 0.75rem);
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser--admin) .admin-chapter-tree__toolbar {
+  flex-shrink: 0;
+}
+
+.app-shell[data-view="desktop"] .main:has(.step-browser--admin) .admin-chapter-tree__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .app-shell[data-view="desktop"] .step-rail {

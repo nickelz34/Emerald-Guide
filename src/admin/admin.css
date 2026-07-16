@@ -1094,7 +1094,8 @@
   border: 1px solid var(--border, #3a4a3a);
   border-radius: 8px;
   background: color-mix(in srgb, var(--panel, #152015) 92%, #1a2e20);
-  max-height: min(50vh, 28rem);
+  /* Fallback height outside the desktop sticky column layout. */
+  max-height: min(70vh, 40rem);
   overflow: auto;
 }
 
@@ -1115,6 +1116,7 @@
   display: grid;
   gap: 0.35rem;
   padding: 0.5rem;
+  min-height: 0;
 }
 
 .admin-chapter-tree__chapter {
