@@ -3,6 +3,7 @@ import {
   SECRETS_EXTRAS_SECTION_TITLE,
   type RoutePickup,
 } from "../data/areaData";
+import { GuideHtml } from "../lib/guideHtml";
 
 interface StepSecretsExtrasProps {
   stepId: string;
@@ -23,8 +24,8 @@ export function SecretsExtrasBlock({ items }: { items: string[] }) {
     <div className="step-card__secrets">
       <strong>{SECRETS_EXTRAS_SECTION_TITLE}</strong>
       <ul>
-        {items.map((item) => (
-          <li key={item}>{item}</li>
+        {items.map((item, index) => (
+          <GuideHtml key={`${index}-${item.slice(0, 24)}`} value={item} as="li" />
         ))}
       </ul>
     </div>

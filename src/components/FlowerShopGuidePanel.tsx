@@ -68,7 +68,15 @@ function StockSection({ section }: { section: MartSection }) {
 }
 
 /** Info-rich Pretty Petal panel — Wailmer Pail callout + free gifts / décor stock. */
-export function FlowerShopGuidePanel({ className = "" }: { className?: string }) {
+export function FlowerShopGuidePanel({
+  className = "",
+  pailBlurb,
+  softSoilNote,
+}: {
+  className?: string;
+  pailBlurb?: string;
+  softSoilNote?: string;
+}) {
   const mart = getMartById(MART_ID);
   const pail = KEY_ITEM_UNLOCKS.find((k) => k.id === "wailmer-pail");
   const pailIcon = getItemBagIcon("Wailmer Pail");
@@ -95,9 +103,8 @@ export function FlowerShopGuidePanel({ className = "" }: { className?: string })
         <div className="flower-shop-guide__pail-copy">
           <h4 className="flower-shop-guide__title">Wailmer Pail</h4>
           <p>
-            Key item from the sister near the stools. Use it on any soft-soil patch after planting a
-            berry — watering each growth stage raises your harvest. Without it, plots still grow, but
-            you miss the bigger yields that keep Oran and Pecha stocked for free.
+            {pailBlurb ??
+              "Key item from the sister near the stools. Use it on any soft-soil patch after planting a berry — watering each growth stage raises your harvest. Without it, plots still grow, but you miss the bigger yields that keep Oran and Pecha stocked for free."}
           </p>
           {pail?.note && <p className="flower-shop-guide__note">{pail.note}</p>}
         </div>
@@ -110,8 +117,8 @@ export function FlowerShopGuidePanel({ className = "" }: { className?: string })
             <li key={note}>{note}</li>
           ))}
           <li>
-            Soft-soil plots sit just west of the shop — plant Oran (restore 10 HP) or Pecha (cure
-            poison) first for early free healing.
+            {softSoilNote ??
+              "Soft-soil plots sit just west of the shop — plant Oran (restore 10 HP) or Pecha (cure poison) first for early free healing."}
           </li>
         </ul>
       </section>
@@ -125,10 +132,20 @@ export function FlowerShopGuidePanel({ className = "" }: { className?: string })
 export function FlowerShopGuidePanelForStep({
   stepId,
   className,
+  pailBlurb,
+  softSoilNote,
 }: {
   stepId: string;
   className?: string;
+  pailBlurb?: string;
+  softSoilNote?: string;
 }) {
   if (stepId !== "route-104-2") return null;
-  return <FlowerShopGuidePanel className={className} />;
+  return (
+    <FlowerShopGuidePanel
+      className={className}
+      pailBlurb={pailBlurb}
+      softSoilNote={softSoilNote}
+    />
+  );
 }

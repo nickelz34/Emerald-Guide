@@ -21,8 +21,14 @@ import {
 } from "./lib/filterWalkthroughSections";
 import type { GuideCategory } from "./types";
 import type { MapRegion } from "./data/mapRegions";
+import { useAdmin } from "./admin/AdminContext";
+import { AdminToolbar } from "./admin/AdminToolbar";
+import { AdminChangesPanel } from "./admin/AdminChangesPanel";
+import { AdminLoginModal } from "./admin/AdminLoginModal";
+import { AdminToast } from "./admin/AdminToast";
 import "./App.css";
 import "./navbar-fix.css";
+import "./admin/admin.css";
 
 export type NavKey = GuideCategory | "map";
 
@@ -36,24 +42,43 @@ export default function App() {
   );
   const [mapOpen, setMapOpen] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
+  const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  const { isAdmin, draftWalkthrough, toast, dismissToast } = useAdmin();
 
   const category: GuideCategory = nav === "map" ? "walkthrough" : nav;
 
+  const sourceWalkthrough = isAdmin ? draftWalkthrough : guideData.walkthrough;
+
   const walkthroughSections = useMemo(
     () =>
-      filterWalkthroughSections(guideData.walkthrough, {
-        setupComplete: walkthroughPrefs.setupComplete,
-        skipPregame: walkthroughPrefs.skipPregame,
-        playMode: walkthroughPrefs.playMode,
-      }),
-    [walkthroughPrefs.setupComplete, walkthroughPrefs.skipPregame, walkthroughPrefs.playMode],
+      isAdmin
+        ? draftWalkthrough
+        : filterWalkthroughSections(sourceWalkthrough, {
+            setupComplete: walkthroughPrefs.setupComplete,
+            skipPregame: walkthroughPrefs.skipPregame,
+            playMode: walkthroughPrefs.playMode,
+          }),
+    [
+      isAdmin,
+      draftWalkthrough,
+      sourceWalkthrough,
+      walkthroughPrefs.setupComplete,
+      walkthroughPrefs.skipPregame,
+      walkthroughPrefs.playMode,
+    ],
   );
 
   const sections = category === "walkthrough" ? walkthroughSections : guideData[category];
 
   const categoryStepIds = useMemo(
-    () => new Set(getFlatSteps(category).map((s) => s.id)),
-    [category],
+    () =>
+      new Set(
+        (category === "walkthrough"
+          ? sourceWalkthrough.flatMap((s) => s.steps)
+          : getFlatSteps(category)
+        ).map((s) => s.id),
+      ),
+    [category, sourceWalkthrough],
   );
 
   const visibleStepIds = useMemo(
@@ -62,13 +87,24 @@ export default function App() {
   );
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("admin") === "1" && !isAdmin) {
+      setAdminLoginOpen(true);
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
     if (nav !== "walkthrough") return;
+    if (isAdmin) {
+      setShowSetup(false);
+      return;
+    }
     if (!walkthroughPrefs.setupComplete) {
       setShowSetup(true);
       return;
     }
     setShowSetup(false);
-  }, [nav, walkthroughPrefs.setupComplete]);
+  }, [nav, walkthroughPrefs.setupComplete, isAdmin]);
 
   useEffect(() => {
     if (category !== "walkthrough") return;
@@ -161,11 +197,14 @@ export default function App() {
               <CategoryHeader nav={nav} />
             </div>
 
+            <AdminToolbar onOpenLogin={() => setAdminLoginOpen(true)} />
+            {isAdmin ? <AdminChangesPanel /> : null}
+
             {nav === "map" ? (
               <HoennMap onSelectRegion={handleMapRegion} />
             ) : nav === "pokedex" ? (
               <Pokedex />
-            ) : showSetup ? (
+            ) : showSetup && !isAdmin ? (
               <WalkthroughSetup
                 preferences={walkthroughPrefs}
                 onContinue={handleSetupContinue}
@@ -173,7 +212,7 @@ export default function App() {
               />
             ) : (
               <StepBrowser
-                key={`${category}-${walkthroughPrefs.playMode}-${walkthroughPrefs.skipPregame}`}
+                key={`${category}-${isAdmin ? "admin" : `${walkthroughPrefs.playMode}-${walkthroughPrefs.skipPregame}`}`}
                 category={category}
                 sections={sections}
                 activeStepId={activeStepId}
@@ -195,6 +234,9 @@ export default function App() {
         onSelectRegion={handleMapRegion}
         onClose={() => setMapOpen(false)}
       />
+
+      <AdminLoginModal open={adminLoginOpen} onClose={() => setAdminLoginOpen(false)} />
+      <AdminToast toast={toast} onDismiss={dismissToast} />
     </LightboxProvider>
   );
 }

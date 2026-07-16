@@ -1,13 +1,14 @@
-import { POKE_BALL_TABLE } from "../data/pokeBalls";
+import { POKE_BALL_TABLE, type PokeBallRow } from "../data/pokeBalls";
 import { getItemBagIcon } from "../data/itemIconsGenerated";
 import { assetUrl } from "../lib/assetUrl";
 
 interface PokeBallTableProps {
   className?: string;
+  rows?: PokeBallRow[];
 }
 
 /** Emerald Poké Ball catch multipliers and obtain notes. */
-export function PokeBallTable({ className = "" }: PokeBallTableProps) {
+export function PokeBallTable({ className = "", rows = POKE_BALL_TABLE }: PokeBallTableProps) {
   return (
     <section
       className={`reference-table poke-ball-table ${className}`.trim()}
@@ -19,7 +20,7 @@ export function PokeBallTable({ className = "" }: PokeBallTableProps) {
         still help every Ball; the Master Ball skips the formula entirely.
       </p>
       <ul className="poke-ball-table__list">
-        {POKE_BALL_TABLE.map((row) => {
+        {rows.map((row) => {
           const icon = row.iconName ? getItemBagIcon(row.iconName) : undefined;
           return (
             <li key={row.id} className="poke-ball-table__item">

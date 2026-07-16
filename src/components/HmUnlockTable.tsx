@@ -1,13 +1,18 @@
-import { HM_UNLOCK_TABLE } from "../data/hmUnlock";
+import { HM_UNLOCK_TABLE, type HmUnlockRow } from "../data/hmUnlock";
 
 interface HmUnlockTableProps {
   /** Highlight the row for this walkthrough step, if any. */
   highlightStepId?: string;
   className?: string;
+  rows?: HmUnlockRow[];
 }
 
 /** Emerald HM obtain locations and badge gates for field use. */
-export function HmUnlockTable({ highlightStepId, className = "" }: HmUnlockTableProps) {
+export function HmUnlockTable({
+  highlightStepId,
+  className = "",
+  rows = HM_UNLOCK_TABLE,
+}: HmUnlockTableProps) {
   return (
     <section className={`reference-table hm-unlock-table ${className}`.trim()} aria-label="HM unlock reference">
       <h5 className="reference-table__title">HM unlock & field use (Emerald)</h5>
@@ -26,7 +31,7 @@ export function HmUnlockTable({ highlightStepId, className = "" }: HmUnlockTable
             </tr>
           </thead>
           <tbody>
-            {HM_UNLOCK_TABLE.map((row) => (
+            {rows.map((row) => (
               <tr
                 key={row.hm}
                 className={highlightStepId === row.obtainStepId ? "reference-table__row--active" : undefined}

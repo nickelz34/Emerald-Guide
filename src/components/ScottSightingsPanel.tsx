@@ -1,16 +1,20 @@
-import { SCOTT_SIGHTINGS, scottBpBonus } from "../data/scottSightings";
+import { SCOTT_SIGHTINGS, scottBpBonus, type ScottSighting } from "../data/scottSightings";
 
 interface ScottSightingsPanelProps {
   className?: string;
+  rows?: ScottSighting[];
 }
 
 /** Checklist of every Scott conversation for the Frontier BP bonus. */
-export function ScottSightingsPanel({ className = "" }: ScottSightingsPanelProps) {
-  const mandatory = SCOTT_SIGHTINGS.filter((s) => s.mandatory).length;
+export function ScottSightingsPanel({
+  className = "",
+  rows = SCOTT_SIGHTINGS,
+}: ScottSightingsPanelProps) {
+  const mandatory = rows.filter((s) => s.mandatory).length;
 
   return (
     <section className={`reference-table scott-sightings ${className}`.trim()} aria-label="Scott sightings checklist">
-      <h5 className="reference-table__title">Scott sightings checklist (13 total)</h5>
+      <h5 className="reference-table__title">Scott sightings checklist ({rows.length} total)</h5>
       <p className="reference-table__lead">
         Talk to Scott at every location below during the main game. On your first visit to his house at
         the Battle Frontier, he awards{" "}
@@ -19,7 +23,7 @@ export function ScottSightingsPanel({ className = "" }: ScottSightingsPanelProps
         permanently.
       </p>
       <ol className="scott-sightings__list">
-        {SCOTT_SIGHTINGS.map((sighting) => (
+        {rows.map((sighting) => (
           <li key={sighting.id} className="scott-sightings__item">
             <span className="scott-sightings__num">{sighting.id}.</span>
             <span className="scott-sightings__body">

@@ -31,7 +31,9 @@ const codeFiles = [
 const urlHits = [];
 const urlRe = /https?:\/\/[^\s"'`)]+/g;
 const allowUrl = (u) =>
-  /w3\.org|schema\.org|reactjs\.org|typescriptlang\.org|vitejs\.dev/i.test(u);
+  /w3\.org|schema\.org|reactjs\.org|typescriptlang\.org|vitejs\.dev|api\.github\.com/i.test(
+    u,
+  );
 
 for (const file of codeFiles) {
   const norm = file.replace(/\\/g, "/");

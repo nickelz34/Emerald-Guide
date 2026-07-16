@@ -37,6 +37,203 @@ export const METHOD_LABELS: Record<EncounterMethod, string> = {
   cave: "Cave",
 };
 
+/** CMS-editable media attached to a walkthrough step (URL, area map, or Hoenn crop). */
+export interface GuideMediaItem {
+  id: string;
+  type: "screenshot" | "map" | "area-map" | "hoenn-crop";
+  /** Image URL or site-relative path (screenshot/map). Empty for area-map / hoenn-crop. */
+  url: string;
+  caption: string;
+  /** Interactive interior/dungeon map id from AREA_MAPS. */
+  areaMapId?: string;
+  /** Area id for Hoenn crop markers. */
+  areaId?: string;
+  /** Window into the shared Hoenn overworld map. */
+  crop?: { x: number; y: number; w: number; h: number };
+}
+
+/** CMS sprite strip item picked from project assets (Pokémon / trainers / items). */
+export type GuideSpriteKind = "pokemon" | "trainer" | "item" | "other";
+
+export interface GuideSpriteItem {
+  id: string;
+  kind: GuideSpriteKind;
+  /** Path relative to public/, e.g. sprites/pokemon/emerald/252.png */
+  src: string;
+  /** Display label shown under the sprite (usually catalog name). */
+  label: string;
+  caption?: string;
+}
+
+/** Editable junior trainer row inside a CMS gym override. */
+export interface GuideGymJunior {
+  name: string;
+  trainerClass: string;
+  trainerId: string;
+  note?: string;
+}
+
+/** CMS override for a gym guide panel on a step. */
+export interface GuideGymOverride {
+  gymName: string;
+  city: string;
+  gymNumber: number;
+  leaderName: string;
+  specialty: string;
+  badgeName: string;
+  leaderTrainerId: string;
+  mapPointId: string;
+  walkthroughStepId: string;
+  doubleBattle?: boolean;
+  puzzleNote?: string;
+  juniors: GuideGymJunior[];
+}
+
+export interface GuideRivalOverride {
+  walkthroughStepId: string;
+  battleNumber: number;
+  locationKey: string;
+  note?: string;
+}
+
+export interface GuideStoryTrainerOverride {
+  walkthroughStepId: string;
+  title: string;
+  intro: string;
+  note?: string;
+  trainerName?: string;
+  trainerClass?: string;
+  trainerNote?: string;
+  trainerDesc?: string;
+  trainerId?: string;
+}
+
+export interface GuideStarterEntryOverride {
+  slug: string;
+  tagline: string;
+  bestFor: string;
+  earlyGyms: string;
+  rivalFaces: string;
+  natures: string[];
+  difficulty: string;
+  accent: string;
+}
+
+/**
+ * Per-step specialty panel content edited in Admin Mode.
+ * When present, the live UI prefers these overrides over code defaults.
+ */
+export interface StepSpecialtyData {
+  gym?: GuideGymOverride;
+  rival?: GuideRivalOverride;
+  storyTrainer?: GuideStoryTrainerOverride;
+  starter?: {
+    intro: string;
+    entries: GuideStarterEntryOverride[];
+  };
+  ralts?: {
+    intro: string;
+    huntTips: string[];
+    natures: string[];
+    abilitiesNote: string;
+    stages: Array<{
+      slug: string;
+      tagline: string;
+      role: string;
+      note: string;
+      accent: string;
+    }>;
+  };
+  flowerShop?: {
+    pailBlurb: string;
+    softSoilNote: string;
+  };
+  battleBasics?: {
+    lead: string;
+    examples: Array<{ id: string; title: string; blurb: string }>;
+    commands: Array<{ id: string; label: string; hint: string; detail: string }>;
+  };
+  hmTable?: Array<{
+    hm: string;
+    move: string;
+    obtainStepId: string;
+    obtainLocation: string;
+    fieldBadge: string;
+    fieldBadgeNumber: number;
+  }>;
+  keyItems?: Array<{
+    id: string;
+    name: string;
+    obtainLocation: string;
+    walkthroughStepId: string;
+    prerequisite?: string;
+    note?: string;
+  }>;
+  pokeBalls?: Array<{
+    id: string;
+    name: string;
+    multiplier: string;
+    bestUsed: string;
+    obtain: string;
+    iconName?: string;
+  }>;
+  statusTable?: Array<{
+    id: string;
+    name: string;
+    kind: string;
+    effect: string;
+    cures: string;
+    notes?: string;
+  }>;
+  natures?: Array<{
+    name: string;
+    raised: string | null;
+    lowered: string | null;
+    contest: string | null;
+    likes: string | null;
+    dislikes: string | null;
+  }>;
+  /** Editable TM/HM catalog for the reference table panel. */
+  tmHmTable?: {
+    title?: string;
+    lead?: string;
+    tms: Array<{
+      id: string;
+      move: string;
+      locations: string[];
+      type?: string;
+      fieldBadge?: string;
+      fieldBadgeNumber?: number;
+      notes?: string;
+    }>;
+    hms: Array<{
+      id: string;
+      move: string;
+      locations: string[];
+      type?: string;
+      fieldBadge?: string;
+      fieldBadgeNumber?: number;
+      notes?: string;
+    }>;
+  };
+  /** Copy overrides for the interactive type chart (multipliers stay game-data). */
+  typeChart?: {
+    title?: string;
+    lead?: string;
+  };
+  scott?: Array<{
+    id: number;
+    location: string;
+    timing: string;
+    walkthroughStepId?: string;
+    mandatory?: boolean;
+  }>;
+  encounters?: {
+    tips: string[];
+    secrets: string[];
+  };
+}
+
 export interface GuideStep {
   id: string;
   title: string;
@@ -46,12 +243,37 @@ export interface GuideStep {
    * Narrative walkthrough prose (one entry per paragraph). When present it is
    * rendered as the main body of the event, Prima-guide style, with the
    * `details` list kept as a quick objectives checklist beneath it.
+   * Supports plain text or rich HTML from the admin editor.
    */
   story?: string[];
   details: string[];
   tips?: string[];
   /** Optional secrets, extras, and hidden-item notes (merged with area data in the walkthrough UI). */
   secrets?: string[];
+  /**
+   * CMS media gallery. When `useCustomMedia` is true, this replaces derived maps
+   * even if the array is empty (hidden gallery).
+   */
+  media?: GuideMediaItem[];
+  /** When true, ScreenshotGallery uses `media` only (no derived fallback). */
+  useCustomMedia?: boolean;
+  /**
+   * Decorative / spotlight sprites chosen from project assets.
+   * Independent of specialty-panel sprites (encounters, gym parties, etc.).
+   */
+  sprites?: GuideSpriteItem[];
+  /**
+   * Specialty panels to hide on this step (gym, rival, encounters, etc.).
+   * Panel data still lives in code; this only suppresses rendering.
+   */
+  hiddenPanels?: string[];
+  /** Editable specialty panel content for this step (CMS overrides). */
+  specialty?: StepSpecialtyData;
+  /**
+   * Ordered list of page blocks for this step (summary, story, media items,
+   * specialty panels, details, etc.). Missing ids are filled with defaults.
+   */
+  blockOrder?: string[];
   tags?: string[];
   mapRegion?: string;
   /** True when this event is not required to finish the main story. */

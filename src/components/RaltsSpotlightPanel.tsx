@@ -177,10 +177,24 @@ function StageCard({
   );
 }
 
-export function RaltsSpotlightPanel({ className = "" }: { className?: string }) {
+export function RaltsSpotlightPanel({
+  className = "",
+  intro = RALTS_SPOTLIGHT_INTRO,
+  stages: stageGuides = RALTS_STAGES,
+  huntTips = RALTS_HUNT_TIPS,
+  natures = RALTS_NATURES,
+  abilitiesNote = RALTS_ABILITIES_NOTE,
+}: {
+  className?: string;
+  intro?: string;
+  stages?: RaltsStageGuide[];
+  huntTips?: string[];
+  natures?: string[];
+  abilitiesNote?: string;
+}) {
   const [focused, setFocused] = useState<string>("ralts");
 
-  const stages = RALTS_STAGES.map((guide) => {
+  const stages = stageGuides.map((guide) => {
     const species = SPECIES_BY_SLUG[guide.slug];
     return species ? { guide, species } : null;
   }).filter((s): s is { guide: RaltsStageGuide; species: SpeciesInfo } => Boolean(s));
@@ -196,7 +210,7 @@ export function RaltsSpotlightPanel({ className = "" }: { className?: string }) 
     >
       <header className="starter-choice__intro">
         <h3 className="starter-choice__title">Catch spotlight — Ralts line</h3>
-        <p className="starter-choice__lead">{RALTS_SPOTLIGHT_INTRO}</p>
+        <p className="starter-choice__lead">{intro}</p>
       </header>
 
       {ralts && kirlia && gardevoir && (
@@ -237,19 +251,19 @@ export function RaltsSpotlightPanel({ className = "" }: { className?: string }) 
       <aside className="starter-choice__quick">
         <h4 className="starter-choice__subhead">Hunt checklist</h4>
         <ul>
-          {RALTS_HUNT_TIPS.map((tip) => (
+          {huntTips.map((tip) => (
             <li key={tip}>{tip}</li>
           ))}
         </ul>
 
         <h4 className="starter-choice__subhead">Recommended natures</h4>
         <ul className="starter-choice__natures ralts-spotlight__natures">
-          {RALTS_NATURES.map((n) => (
+          {natures.map((n) => (
             <li key={n}>{n}</li>
           ))}
         </ul>
 
-        <p className="starter-choice__hint">{RALTS_ABILITIES_NOTE}</p>
+        <p className="starter-choice__hint">{abilitiesNote}</p>
         <p className="starter-choice__hint">
           Gen III note: Ralts / Kirlia / Gardevoir are <strong>Psychic only</strong> in Emerald. Fairy typing and Gallade arrive in later games.
         </p>
@@ -261,10 +275,29 @@ export function RaltsSpotlightPanel({ className = "" }: { className?: string }) 
 export function RaltsSpotlightPanelForStep({
   stepId,
   className,
+  intro,
+  stages,
+  huntTips,
+  natures,
+  abilitiesNote,
 }: {
   stepId: string;
   className?: string;
+  intro?: string;
+  stages?: RaltsStageGuide[];
+  huntTips?: string[];
+  natures?: string[];
+  abilitiesNote?: string;
 }) {
   if (stepId !== "route-102-2") return null;
-  return <RaltsSpotlightPanel className={className} />;
+  return (
+    <RaltsSpotlightPanel
+      className={className}
+      intro={intro}
+      stages={stages}
+      huntTips={huntTips}
+      natures={natures}
+      abilitiesNote={abilitiesNote}
+    />
+  );
 }

@@ -214,11 +214,19 @@ function StarterCard({
   );
 }
 
-export function StarterChoicePanel({ className = "" }: { className?: string }) {
+export function StarterChoicePanel({
+  className = "",
+  intro = STARTER_CHOICE_INTRO,
+  entries = STARTER_GUIDE,
+}: {
+  className?: string;
+  intro?: string;
+  entries?: StarterGuideEntry[];
+}) {
   const [statView, setStatView] = useState<StatView>("base");
   const [focused, setFocused] = useState<string | null>(null);
 
-  const cards = STARTER_GUIDE.map((guide) => {
+  const cards = entries.map((guide) => {
     const base = SPECIES_BY_SLUG[guide.slug];
     const finalSlug = (base?.evolution[base.evolution.length - 1] ?? guide.slug).toLowerCase();
     const final = SPECIES_BY_SLUG[finalSlug] ?? base;
@@ -231,7 +239,7 @@ export function StarterChoicePanel({ className = "" }: { className?: string }) {
     <section className={`starter-choice ${className}`.trim()} aria-label="Starter Pokémon comparison">
       <header className="starter-choice__intro">
         <h3 className="starter-choice__title">Compare the three Hoenn starters</h3>
-        <p className="starter-choice__lead">{STARTER_CHOICE_INTRO}</p>
+        <p className="starter-choice__lead">{intro}</p>
         <div className="starter-choice__toolbar" role="group" aria-label="Stat view">
           <button
             type="button"
@@ -290,10 +298,14 @@ export function StarterChoicePanel({ className = "" }: { className?: string }) {
 export function StarterChoicePanelForStep({
   stepId,
   className,
+  intro,
+  entries,
 }: {
   stepId: string;
   className?: string;
+  intro?: string;
+  entries?: StarterGuideEntry[];
 }) {
   if (stepId !== "route-101-2") return null;
-  return <StarterChoicePanel className={className} />;
+  return <StarterChoicePanel className={className} intro={intro} entries={entries} />;
 }

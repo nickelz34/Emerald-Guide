@@ -1,5 +1,5 @@
 import { assetUrl } from "../lib/assetUrl";
-import { walkthrough } from "./walkthrough";
+import { walkthrough } from "./walkthroughFromJson";
 import {
   EVENT_MAP_CROP,
   AREA_MAP_CROP,

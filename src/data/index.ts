@@ -1,4 +1,4 @@
-import { walkthrough } from "./walkthrough";
+import { walkthrough } from "./walkthroughFromJson";
 import { encounters } from "./encounters";
 import type { GuideData, GuideCategory, GuideSection, GuideStep } from "../types";
 

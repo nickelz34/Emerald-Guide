@@ -1,11 +1,15 @@
-import { STATUS_CONDITION_TABLE } from "../data/statusConditions";
+import { STATUS_CONDITION_TABLE, type StatusConditionRow } from "../data/statusConditions";
 
 interface StatusTableProps {
   className?: string;
+  rows?: StatusConditionRow[];
 }
 
 /** Emerald status anomalies with effects and cures. */
-export function StatusTable({ className = "" }: StatusTableProps) {
+export function StatusTable({
+  className = "",
+  rows = STATUS_CONDITION_TABLE,
+}: StatusTableProps) {
   return (
     <section
       className={`reference-table status-table ${className}`.trim()}
@@ -27,7 +31,7 @@ export function StatusTable({ className = "" }: StatusTableProps) {
             </tr>
           </thead>
           <tbody>
-            {STATUS_CONDITION_TABLE.map((row) => (
+            {rows.map((row) => (
               <tr key={row.id}>
                 <td>{row.name}</td>
                 <td>{row.kind === "persistent" ? "Persistent" : "Volatile"}</td>

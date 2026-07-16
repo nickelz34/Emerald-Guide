@@ -1,11 +1,22 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { GuideCategory, GuideSection, GuideStep } from "../types";
 import { getRegionForStep } from "../data/mapRegions";
 import type { LayoutViewMode } from "../hooks/useViewMode";
+import { useAdmin } from "../admin/AdminContext";
+import { ChapterTree } from "../admin/ChapterTree";
+import { StepEditor } from "../admin/StepEditor";
+import { resolveStepBlockOrder, type StepBlockId } from "../admin/stepBlocks";
+import { GuideHtml } from "../lib/guideHtml";
+import type { GuideStoryTrainerOverride } from "../types";
+import type { GymData } from "../data/gymData";
+import type { StoryTrainerBattle } from "../data/storyTrainerBattles";
+import type { StarterGuideEntry, StarterSlug } from "../data/starterChoice";
+import type { RaltsStageGuide } from "../data/raltsSpotlight";
 import { ScreenshotGallery } from "./ScreenshotGallery";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
+import { StepSprites } from "./StepSprites";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { RivalGuidePanelForStep } from "./RivalGuidePanel";
 import { FlowerShopGuidePanelForStep } from "./FlowerShopGuidePanel";
@@ -94,6 +105,7 @@ function swipeShouldIgnore(target: EventTarget | null): boolean {
       "select",
       "button",
       "a",
+      "[contenteditable]:not([contenteditable='false'])",
       ".step-rail",
       ".story-progress",
       ".annotated-map__frame--zoomable",
@@ -101,6 +113,18 @@ function swipeShouldIgnore(target: EventTarget | null): boolean {
       ".hoenn-map__viewport",
     ].join(", "),
   );
+}
+
+function isEditableKeyTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  ) {
+    return true;
+  }
+  return target.isContentEditable;
 }
 
 export function StepBrowser({
@@ -115,6 +139,7 @@ export function StepBrowser({
   onOpenGuideSettings,
 }: StepBrowserProps) {
   const mobileNav = useMobileGuideNav(viewMode);
+  const { isAdmin, updateStep, updateChapter } = useAdmin();
   const flat = useMemo<FlatStep[]>(
     () =>
       sections.flatMap((section) =>
@@ -139,24 +164,74 @@ export function StepBrowser({
   const currentId = activeStepId ?? internalId;
   const currentIndex = Math.max(0, flat.findIndex((f) => f.step.id === currentId));
   const current = flat[currentIndex] ?? flat[0];
-  const gymForStep = current ? getGymForWalkthroughStep(current.step.id) : undefined;
-  const rivalForStep = current ? getRivalForWalkthroughStep(current.step.id) : undefined;
-  const storyTrainerForStep = current
-    ? getStoryTrainerForWalkthroughStep(current.step.id)
-    : undefined;
-  const showHmTable = current?.step.id === "rustboro-1";
-  const showKeyItemsTable = current?.step.id === "rusturf-tunnel-2";
-  const showPokeBallTable = current?.step.id === "pregame-field-5";
-  const showBattleBasicsPanel = current?.step.id === "pregame-battles-1";
-  const showTypeChartTable = current?.step.id === "pregame-battles-3";
-  const showStatusTable = current?.step.id === "pregame-battles-6";
-  const showNatureTable = current?.step.id === "pregame-battles-7";
-  const showTmHmTable = current?.step.id === "pregame-battles-9";
-  const showScottChecklist = current?.step.id === "battle-frontier-2";
-  const showMatchCallRematch = current?.step.id === "postgame-hoenn-6";
-  const showBreedingLookup = current?.step.tags?.includes("breeding-lookup");
-  const evolutionChart = current ? PREGAME_EVOLUTION_CHARTS[current.step.id] : undefined;
-  const breedingChart = current ? PREGAME_BREEDING_CHARTS[current.step.id] : undefined;
+  const hiddenPanels = useMemo(
+    () => new Set(current?.step.hiddenPanels ?? []),
+    [current?.step.hiddenPanels],
+  );
+  const panelVisible = useCallback((id: string) => !hiddenPanels.has(id), [hiddenPanels]);
+  const specialty = current?.step.specialty;
+  const gymForStep = (() => {
+    if (!current || !panelVisible("gym")) return undefined;
+    if (specialty?.gym) return specialty.gym as GymData;
+    return getGymForWalkthroughStep(current.step.id);
+  })();
+  const rivalForStep = (() => {
+    if (!current || !panelVisible("rival")) return undefined;
+    return specialty?.rival ?? getRivalForWalkthroughStep(current.step.id);
+  })();
+  const storyTrainerForStep = (() => {
+    if (!current || !panelVisible("story-trainer")) return undefined;
+    const base = getStoryTrainerForWalkthroughStep(current.step.id);
+    const override = specialty?.storyTrainer as GuideStoryTrainerOverride | undefined;
+    if (!base && !override) return undefined;
+    if (!override) return base;
+    if (!base) return undefined;
+    return {
+      ...base,
+      title: override.title,
+      intro: override.intro,
+      note: override.note,
+      trainer: {
+        ...base.trainer,
+        name: override.trainerName ?? base.trainer.name,
+        trainerName: override.trainerName ?? base.trainer.trainerName,
+        trainerClass: override.trainerClass ?? base.trainer.trainerClass,
+        note: override.trainerNote ?? base.trainer.note,
+        desc: override.trainerDesc ?? base.trainer.desc,
+        trainerId: override.trainerId ?? base.trainer.trainerId,
+      },
+    } satisfies StoryTrainerBattle;
+  })();
+  const showHmTable = current?.step.id === "rustboro-1" && panelVisible("hm-table");
+  const showKeyItemsTable =
+    current?.step.id === "rusturf-tunnel-2" && panelVisible("key-items");
+  const showPokeBallTable =
+    current?.step.id === "pregame-field-5" && panelVisible("poke-balls");
+  const showBattleBasicsPanel =
+    current?.step.id === "pregame-battles-1" && panelVisible("battle-basics");
+  const showTypeChartTable =
+    current?.step.id === "pregame-battles-3" && panelVisible("type-chart");
+  const showStatusTable =
+    current?.step.id === "pregame-battles-6" && panelVisible("status-table");
+  const showNatureTable =
+    current?.step.id === "pregame-battles-7" && panelVisible("nature-table");
+  const showTmHmTable =
+    current?.step.id === "pregame-battles-9" && panelVisible("tm-hm-table");
+  const showScottChecklist =
+    current?.step.id === "battle-frontier-2" && panelVisible("scott");
+  const showMatchCallRematch =
+    current?.step.id === "postgame-hoenn-6" && panelVisible("match-call");
+  const showBreedingLookup =
+    Boolean(current?.step.tags?.includes("breeding-lookup")) &&
+    panelVisible("breeding-lookup");
+  const evolutionChart =
+    current && panelVisible("evolution-chart")
+      ? PREGAME_EVOLUTION_CHARTS[current.step.id]
+      : undefined;
+  const breedingChart =
+    current && panelVisible("breeding-chart")
+      ? PREGAME_BREEDING_CHARTS[current.step.id]
+      : undefined;
 
   const storyStepIds = useMemo(() => flat.map((entry) => entry.step.id), [flat]);
 
@@ -245,7 +320,7 @@ export function StepBrowser({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement) return;
+      if (isEditableKeyTarget(e.target)) return;
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
     };
@@ -409,8 +484,330 @@ export function StepBrowser({
     Boolean(walkthroughPrefs && onWalkthroughPrefsChange) &&
     canMarkStepComplete(category, currentSection?.band);
 
+  const renderStepBlock = (blockId: StepBlockId): ReactNode => {
+    const step = current.step;
+
+    if (blockId === "summary") {
+      return (
+        <GuideHtml
+          value={step.summary}
+          as="p"
+          className="step-card__summary"
+        />
+      );
+    }
+
+    if (blockId === "story") {
+      if (!step.story?.length) return null;
+      return (
+        <div className="step-card__story">
+          {step.story.map((para, i) => (
+            <GuideHtml key={i} value={para} as="p" />
+          ))}
+        </div>
+      );
+    }
+
+    if (blockId === "details") {
+      if (!step.details.length) return null;
+      return <StepDetails details={step.details} />;
+    }
+
+    if (blockId === "tips") {
+      if (!step.tips?.length) return null;
+      return (
+        <div className="step-card__tips">
+          <strong>Tips</strong>
+          <ul>
+            {step.tips.map((tip, i) => (
+              <GuideHtml key={`${i}-${tip.slice(0, 24)}`} value={tip} as="li" />
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    if (blockId === "secrets") {
+      return (
+        <StepSecretsExtras
+          stepId={step.id}
+          secrets={[...(step.secrets ?? []), ...(specialty?.encounters?.secrets ?? [])]}
+        />
+      );
+    }
+
+    if (blockId === "media") {
+      return (
+        <ScreenshotGallery
+          stepId={step.id}
+          compact
+          media={step.media}
+          useCustomMedia={step.useCustomMedia}
+        />
+      );
+    }
+
+    if (blockId.startsWith("media-item:")) {
+      const mediaId = blockId.slice("media-item:".length);
+      return (
+        <ScreenshotGallery
+          stepId={step.id}
+          compact
+          media={step.media}
+          useCustomMedia
+          onlyMediaId={mediaId}
+        />
+      );
+    }
+
+    if (blockId === "sprites") {
+      return <StepSprites sprites={step.sprites} />;
+    }
+
+    if (blockId.startsWith("sprite-item:")) {
+      const spriteId = blockId.slice("sprite-item:".length);
+      return <StepSprites sprites={step.sprites} onlySpriteId={spriteId} />;
+    }
+
+    if (blockId === "encounters") {
+      if (!panelVisible("encounters")) return null;
+      return (
+        <>
+          {specialty?.encounters?.tips?.length ? (
+            <div className="step-card__tips">
+              <strong>Encounter tips</strong>
+              <ul>
+                {specialty.encounters.tips.map((tip, i) => (
+                  <GuideHtml key={`enc-tip-${i}`} value={tip} as="li" />
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          <StepEncounters stepId={step.id} />
+        </>
+      );
+    }
+
+    if (blockId === "tags") {
+      if (!step.tags?.length) return null;
+      return (
+        <div className="step-card__tags">
+          {step.tags.map((tag) => (
+            <span key={tag} className="tag">
+              {tag}
+            </span>
+          ))}
+        </div>
+      );
+    }
+
+    if (blockId === "panel:battle-basics" && showBattleBasicsPanel) {
+      return (
+        <section
+          className="reference-embed battle-basics-embed"
+          aria-label="Battle types and commands"
+        >
+          <BattleBasicsPanel content={specialty?.battleBasics} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:starter" && step.id === "route-101-2" && panelVisible("starter")) {
+      return (
+        <section className="starter-choice-embed" aria-label="Starter comparison">
+          <StarterChoicePanelForStep
+            stepId={step.id}
+            intro={specialty?.starter?.intro}
+            entries={specialty?.starter?.entries?.map((entry) => ({
+              ...entry,
+              slug: entry.slug as StarterSlug,
+              difficulty: entry.difficulty as StarterGuideEntry["difficulty"],
+            }))}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:ralts" && step.id === "route-102-2" && panelVisible("ralts")) {
+      return (
+        <section
+          className="starter-choice-embed ralts-spotlight-embed"
+          aria-label="Ralts catch spotlight"
+        >
+          <RaltsSpotlightPanelForStep
+            stepId={step.id}
+            intro={specialty?.ralts?.intro}
+            stages={specialty?.ralts?.stages as RaltsStageGuide[] | undefined}
+            huntTips={specialty?.ralts?.huntTips}
+            natures={specialty?.ralts?.natures}
+            abilitiesNote={specialty?.ralts?.abilitiesNote}
+          />
+        </section>
+      );
+    }
+
+    if (
+      blockId === "panel:flower-shop" &&
+      step.id === "route-104-2" &&
+      panelVisible("flower-shop")
+    ) {
+      return (
+        <section
+          className="flower-shop-guide-embed"
+          aria-label="Pretty Petal Flower Shop guide"
+        >
+          <FlowerShopGuidePanelForStep
+            stepId={step.id}
+            pailBlurb={specialty?.flowerShop?.pailBlurb}
+            softSoilNote={specialty?.flowerShop?.softSoilNote}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:gym" && gymForStep) {
+      return (
+        <section className="gym-guide-embed" aria-label="Gym guide">
+          <GymGuidePanel gym={gymForStep} showWalkthroughText={false} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:rival" && rivalForStep) {
+      return (
+        <section
+          className="gym-guide-embed rival-guide-embed"
+          aria-label="Rival battle guide"
+        >
+          <RivalGuidePanelForStep stepId={step.id} rival={rivalForStep} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:story-trainer" && storyTrainerForStep) {
+      return (
+        <section
+          className="gym-guide-embed rival-guide-embed story-trainer-guide-embed"
+          aria-label="Story trainer battle guide"
+        >
+          <StoryTrainerGuidePanelForStep
+            stepId={step.id}
+            battle={storyTrainerForStep}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:hm-table" && showHmTable) {
+      return (
+        <section className="reference-embed" aria-label="HM reference">
+          <HmUnlockTable highlightStepId={step.id} rows={specialty?.hmTable} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:key-items" && showKeyItemsTable) {
+      return (
+        <section className="reference-embed" aria-label="Key items reference">
+          <KeyItemsTable highlightStepId={step.id} rows={specialty?.keyItems} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:poke-balls" && showPokeBallTable) {
+      return (
+        <section className="reference-embed" aria-label="Poké Ball reference">
+          <PokeBallTable rows={specialty?.pokeBalls} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:type-chart" && showTypeChartTable) {
+      return (
+        <section className="reference-embed" aria-label="Type chart reference">
+          <TypeChartTable
+            title={specialty?.typeChart?.title}
+            lead={specialty?.typeChart?.lead}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:status-table" && showStatusTable) {
+      return (
+        <section className="reference-embed" aria-label="Status condition reference">
+          <StatusTable
+            rows={specialty?.statusTable?.map((row) => ({
+              ...row,
+              kind: row.kind as "persistent" | "volatile",
+            }))}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:nature-table" && showNatureTable) {
+      return (
+        <section className="reference-embed" aria-label="Nature reference">
+          <NatureTable rows={specialty?.natures} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:tm-hm-table" && showTmHmTable) {
+      return (
+        <section className="reference-embed" aria-label="TM and HM reference">
+          <TmHmTable
+            title={specialty?.tmHmTable?.title}
+            lead={specialty?.tmHmTable?.lead}
+            tms={specialty?.tmHmTable?.tms}
+            hms={specialty?.tmHmTable?.hms}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:scott" && showScottChecklist) {
+      return (
+        <section className="reference-embed" aria-label="Scott sightings">
+          <ScottSightingsPanel
+            rows={specialty?.scott?.map((row) => ({
+              ...row,
+              mandatory: Boolean(row.mandatory),
+            }))}
+          />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:match-call" && showMatchCallRematch) {
+      return (
+        <section className="reference-embed" aria-label="Match Call rematches">
+          <MatchCallRematchPanel />
+          <MatchCallSchedulePanel className="match-call-schedule--stacked" />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:breeding-lookup" && showBreedingLookup) {
+      return <BreedingLookup />;
+    }
+
+    if (blockId === "panel:evolution-chart" && evolutionChart) {
+      return <EvolutionChart chart={evolutionChart} />;
+    }
+
+    if (blockId === "panel:breeding-chart" && breedingChart) {
+      return <BreedingChart chart={breedingChart} />;
+    }
+
+    return null;
+  };
+
+  const activeChapterId = current.sectionId;
+
   return (
-    <div className="step-browser">
+    <div className={`step-browser${isAdmin ? " step-browser--admin" : ""}`}>
       <StoryProgressBar
         stepIds={storyStepIds}
         currentIndex={currentIndex}
@@ -419,6 +816,14 @@ export function StepBrowser({
         }
         onSelectStep={category === "walkthrough" ? select : undefined}
       />
+
+      {isAdmin && category === "walkthrough" ? (
+        <ChapterTree
+          sections={sections}
+          activeStepId={current.step.id}
+          onSelectStep={select}
+        />
+      ) : null}
 
       <aside
         ref={railRef}
@@ -592,14 +997,16 @@ export function StepBrowser({
                 {current.sectionTitle}
                 {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
               </span>
-              <h2 className="step-card__title">
-                {current.step.title}
-                {current.step.optional ? (
-                  <span className="step-optional-badge step-optional-badge--title">Optional</span>
-                ) : null}
-              </h2>
+              {isAdmin ? null : (
+                <h2 className="step-card__title">
+                  {current.step.title}
+                  {current.step.optional ? (
+                    <span className="step-optional-badge step-optional-badge--title">Optional</span>
+                  ) : null}
+                </h2>
+              )}
             </div>
-            {showCompleteToggle ? (
+            {showCompleteToggle && !isAdmin ? (
               <button
                 type="button"
                 className={`btn btn--sm step-card__complete${
@@ -612,151 +1019,45 @@ export function StepBrowser({
               </button>
             ) : null}
           </div>
-          {current.step.location && <p className="step-card__location">{current.step.location}</p>}
-          <p className="step-card__summary">{current.step.summary}</p>
 
-          {current.step.story && current.step.story.length > 0 && (
-            <div className="step-card__story">
-              {current.step.story.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
+          {isAdmin ? (
+            <>
+              <label className="admin-field" style={{ marginBottom: "0.75rem" }}>
+                <span className="admin-field__label">Chapter description</span>
+                <textarea
+                  className="admin-field__textarea"
+                  rows={2}
+                  value={currentSection?.description ?? ""}
+                  onChange={(e) =>
+                    updateChapter(activeChapterId, { description: e.target.value })
+                  }
+                />
+              </label>
+              <StepEditor
+                step={current.step}
+                onChange={(patch) => updateStep(activeChapterId, current.step.id, patch)}
+              />
+              <p className="admin-muted" style={{ margin: "0.75rem 0 0.35rem" }}>
+                Live page preview (follows page layout order)
+              </p>
+            </>
+          ) : (
+            current.step.location && (
+              <p className="step-card__location">{current.step.location}</p>
+            )
           )}
 
-          <ScreenshotGallery stepId={current.step.id} compact />
-
-          {showBattleBasicsPanel && (
-            <section className="reference-embed battle-basics-embed" aria-label="Battle types and commands">
-              <BattleBasicsPanel />
-            </section>
-          )}
-
-          {current.step.id === "route-101-2" && (
-            <section className="starter-choice-embed" aria-label="Starter comparison">
-              <StarterChoicePanelForStep stepId={current.step.id} />
-            </section>
-          )}
-
-          {current.step.id === "route-102-2" && (
-            <section className="starter-choice-embed ralts-spotlight-embed" aria-label="Ralts catch spotlight">
-              <RaltsSpotlightPanelForStep stepId={current.step.id} />
-            </section>
-          )}
-
-          {current.step.id === "route-104-2" && (
-            <section className="flower-shop-guide-embed" aria-label="Pretty Petal Flower Shop guide">
-              <FlowerShopGuidePanelForStep stepId={current.step.id} />
-            </section>
-          )}
-
-          {gymForStep && (
-            <section className="gym-guide-embed" aria-label="Gym guide">
-              <GymGuidePanel gym={gymForStep} showWalkthroughText={false} />
-            </section>
-          )}
-
-          {rivalForStep && (
-            <section className="gym-guide-embed rival-guide-embed" aria-label="Rival battle guide">
-              <RivalGuidePanelForStep stepId={current.step.id} />
-            </section>
-          )}
-
-          {storyTrainerForStep && (
-            <section
-              className="gym-guide-embed rival-guide-embed story-trainer-guide-embed"
-              aria-label="Story trainer battle guide"
-            >
-              <StoryTrainerGuidePanelForStep stepId={current.step.id} />
-            </section>
-          )}
-
-          {showHmTable && (
-            <section className="reference-embed" aria-label="HM reference">
-              <HmUnlockTable highlightStepId={current.step.id} />
-            </section>
-          )}
-
-          {showKeyItemsTable && (
-            <section className="reference-embed" aria-label="Key items reference">
-              <KeyItemsTable highlightStepId={current.step.id} />
-            </section>
-          )}
-
-          {showPokeBallTable && (
-            <section className="reference-embed" aria-label="Poké Ball reference">
-              <PokeBallTable />
-            </section>
-          )}
-
-          {showTypeChartTable && (
-            <section className="reference-embed" aria-label="Type chart reference">
-              <TypeChartTable />
-            </section>
-          )}
-
-          {showStatusTable && (
-            <section className="reference-embed" aria-label="Status condition reference">
-              <StatusTable />
-            </section>
-          )}
-
-          {showNatureTable && (
-            <section className="reference-embed" aria-label="Nature reference">
-              <NatureTable />
-            </section>
-          )}
-
-          {showTmHmTable && (
-            <section className="reference-embed" aria-label="TM and HM reference">
-              <TmHmTable />
-            </section>
-          )}
-
-          {showScottChecklist && (
-            <section className="reference-embed" aria-label="Scott sightings">
-              <ScottSightingsPanel />
-            </section>
-          )}
-
-          {showMatchCallRematch && (
-            <section className="reference-embed" aria-label="Match Call rematches">
-              <MatchCallRematchPanel />
-              <MatchCallSchedulePanel className="match-call-schedule--stacked" />
-            </section>
-          )}
-
-          {showBreedingLookup && <BreedingLookup />}
-          {evolutionChart && <EvolutionChart chart={evolutionChart} />}
-          {breedingChart && <BreedingChart chart={breedingChart} />}
-
-          <StepDetails details={current.step.details} />
-
-          {current.step.tips && current.step.tips.length > 0 && (
-            <div className="step-card__tips">
-              <strong>Tips</strong>
-              <ul>
-                {current.step.tips.map((tip) => (
-                  <li key={tip}>{tip}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <StepSecretsExtras stepId={current.step.id} secrets={current.step.secrets} />
-
-          <StepEncounters stepId={current.step.id} />
-
-          <div className="step-card__footerrow">
-            {current.step.tags && (
-              <div className="step-card__tags">
-                {current.step.tags.map((tag) => (
-                  <span key={tag} className="tag">
-                    {tag}
-                  </span>
-                ))}
+          {resolveStepBlockOrder(current.step).map(({ id }) => {
+            // In admin, content fields are edited above — still preview layout for all blocks.
+            return (
+              <div key={id} className="step-card__block" data-block={id}>
+                {renderStepBlock(id)}
               </div>
-            )}
-            {region && onShowOnMap && (
+            );
+          })}
+
+          {!isAdmin && region && onShowOnMap ? (
+            <div className="step-card__footerrow">
               <button
                 type="button"
                 className="btn btn--ghost"
@@ -764,8 +1065,8 @@ export function StepBrowser({
               >
                 Show on Hoenn map
               </button>
-            )}
-          </div>
+            </div>
+          ) : null}
         </article>
 
         <div className="step-nav">

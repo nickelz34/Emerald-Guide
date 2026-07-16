@@ -51,11 +51,13 @@ export function StoryTrainerGuidePanel({ battle, className = "" }: StoryTrainerG
 export function StoryTrainerGuidePanelForStep({
   stepId,
   className,
+  battle: battleOverride,
 }: {
   stepId: string;
   className?: string;
+  battle?: StoryTrainerBattle;
 }) {
-  const battle = getStoryTrainerForWalkthroughStep(stepId);
+  const battle = battleOverride ?? getStoryTrainerForWalkthroughStep(stepId);
   if (!battle) return null;
   return <StoryTrainerGuidePanel battle={battle} className={className} />;
 }

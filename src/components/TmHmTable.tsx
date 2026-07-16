@@ -1,21 +1,36 @@
-import { EMERALD_HM_CATALOG, EMERALD_TM_CATALOG } from "../data/tmHmCatalog";
+import {
+  EMERALD_HM_CATALOG,
+  EMERALD_TM_CATALOG,
+  type TmHmCatalogRow,
+} from "../data/tmHmCatalog";
+import { GuideHtml } from "../lib/guideHtml";
 
 interface TmHmTableProps {
   className?: string;
+  title?: string;
+  lead?: string;
+  tms?: TmHmCatalogRow[];
+  hms?: TmHmCatalogRow[];
 }
 
+const DEFAULT_LEAD =
+  "Generation III TMs are reusable. HMs are reusable too, but field use waits for the matching gym badge — the move still works in battle as soon as you teach it.";
+
 /** Full Emerald TM01–TM50 and HM01–HM08 obtain catalog. */
-export function TmHmTable({ className = "" }: TmHmTableProps) {
+export function TmHmTable({
+  className = "",
+  title = "TMs & HMs in Emerald",
+  lead = DEFAULT_LEAD,
+  tms = EMERALD_TM_CATALOG,
+  hms = EMERALD_HM_CATALOG,
+}: TmHmTableProps) {
   return (
     <section
       className={`reference-table tm-hm-table ${className}`.trim()}
       aria-label="TM and HM reference"
     >
-      <h5 className="reference-table__title">TMs & HMs in Emerald</h5>
-      <p className="reference-table__lead">
-        Generation III TMs are reusable. HMs are reusable too, but field use waits for the matching
-        gym badge — the move still works in battle as soon as you teach it.
-      </p>
+      <h5 className="reference-table__title">{title}</h5>
+      <GuideHtml value={lead} as="p" className="reference-table__lead" />
 
       <h6 className="reference-table__subtitle">Technical Machines (TM01–TM50)</h6>
       <div className="reference-table__scroll">
@@ -29,7 +44,7 @@ export function TmHmTable({ className = "" }: TmHmTableProps) {
             </tr>
           </thead>
           <tbody>
-            {EMERALD_TM_CATALOG.map((row) => (
+            {tms.map((row) => (
               <tr key={row.id}>
                 <td>{row.id}</td>
                 <td>{row.move}</td>
@@ -57,7 +72,7 @@ export function TmHmTable({ className = "" }: TmHmTableProps) {
             </tr>
           </thead>
           <tbody>
-            {EMERALD_HM_CATALOG.map((row) => (
+            {hms.map((row) => (
               <tr key={row.id}>
                 <td>{row.id}</td>
                 <td>{row.move}</td>

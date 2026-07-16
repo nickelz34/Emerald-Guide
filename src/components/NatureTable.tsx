@@ -1,7 +1,8 @@
-import { NATURE_TABLE } from "../data/natures";
+import { NATURE_TABLE, type NatureRow } from "../data/natures";
 
 interface NatureTableProps {
   className?: string;
+  rows?: NatureRow[];
 }
 
 function fmtStat(stat: string | null): string {
@@ -9,7 +10,7 @@ function fmtStat(stat: string | null): string {
 }
 
 /** All 25 Emerald natures with +/− battle stats and contest flavor ties. */
-export function NatureTable({ className = "" }: NatureTableProps) {
+export function NatureTable({ className = "", rows = NATURE_TABLE }: NatureTableProps) {
   return (
     <section
       className={`reference-table nature-table ${className}`.trim()}
@@ -34,7 +35,7 @@ export function NatureTable({ className = "" }: NatureTableProps) {
             </tr>
           </thead>
           <tbody>
-            {NATURE_TABLE.map((row) => (
+            {rows.map((row) => (
               <tr key={row.name}>
                 <td>{row.name}</td>
                 <td>{fmtStat(row.raised)}</td>
