@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
+import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import { useAdmin } from "./AdminContext";
 import { AdminChangeFileDiffPanel } from "./AdminChangeFileDiffPanel";
 import type { GuideChangeItem, GuideFieldDiff } from "./guideChangeSummary";
+import { useCompactAdminChrome } from "./useCompactAdminChrome";
 
 const PREVIEW_LIMIT = 40;
 
@@ -28,14 +31,82 @@ function DiffBlock({ diff }: { diff: GuideFieldDiff }) {
   );
 }
 
+function InspectDiffList({ item }: { item: GuideChangeItem }) {
+  if (item.diffs.length === 0) {
+    return <p className="admin-muted">No field-level details available for this change.</p>;
+  }
+  return (
+    <>
+      {item.diffs.map((diff) => (
+        <DiffBlock key={diff.field} diff={diff} />
+      ))}
+    </>
+  );
+}
+
+function ChangeInspectSheet({
+  item,
+  onClose,
+  onOpenFileDiff,
+}: {
+  item: GuideChangeItem;
+  onClose: () => void;
+  onOpenFileDiff: () => void;
+}) {
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <ModalBackdrop
+      className="admin-change-inspect admin-change-inspect--mobile"
+      onClose={onClose}
+      aria-labelledby="admin-change-inspect-title"
+    >
+      <div className="admin-change-inspect__panel" onClick={(e) => e.stopPropagation()}>
+        <div className="admin-change-inspect__head">
+          <div>
+            <h3 id="admin-change-inspect-title">Pending change</h3>
+            <p className="admin-change-inspect__label">{item.label}</p>
+            {item.detail ? <p className="admin-muted">{item.detail}</p> : null}
+          </div>
+          <ModalCloseButton className="admin-change-inspect__close" onClose={onClose} />
+        </div>
+
+        <div className="admin-change-inspect__actions">
+          <button type="button" className="btn btn--primary btn--sm" onClick={onOpenFileDiff}>
+            View in-depth file diff
+          </button>
+        </div>
+
+        <div className="admin-change-inspect__body">
+          <InspectDiffList item={item} />
+        </div>
+      </div>
+    </ModalBackdrop>,
+    document.body,
+  );
+}
+
 function ChangeItem({
   item,
   open,
+  compact,
   onToggle,
   onOpenFileDiff,
 }: {
   item: GuideChangeItem;
   open: boolean;
+  compact: boolean;
   onToggle: () => void;
   onOpenFileDiff: () => void;
 }) {
@@ -53,17 +124,15 @@ function ChangeItem({
           {open ? "▾" : "▸"}
         </span>
       </button>
-      {open ? (
+      {open && !compact ? (
         <div className="admin-changes__inspect" role="region" aria-label={`Exact changes for ${item.label}`}>
-          {item.diffs.length === 0 ? (
-            <p className="admin-muted">No field-level details available for this change.</p>
-          ) : (
-            item.diffs.map((diff) => <DiffBlock key={diff.field} diff={diff} />)
-          )}
           <div className="admin-changes__inspect-actions">
-            <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenFileDiff}>
+            <button type="button" className="btn btn--primary btn--sm" onClick={onOpenFileDiff}>
               View in-depth file diff
             </button>
+          </div>
+          <div className="admin-changes__inspect-diffs">
+            <InspectDiffList item={item} />
           </div>
         </div>
       ) : null}
@@ -197,6 +266,7 @@ export function AdminChangesPanel() {
     baselineWalkthrough,
     draftWalkthrough,
   } = useAdmin();
+  const compact = useCompactAdminChrome();
   const [expanded, setExpanded] = useState(true);
   const [openId, setOpenId] = useState<string | null>(null);
   const [fileDiffId, setFileDiffId] = useState<string | null>(null);
@@ -206,6 +276,11 @@ export function AdminChangesPanel() {
     [changeSummary.items],
   );
   const overflow = Math.max(0, changeSummary.total - visibleItems.length);
+
+  const openItem = useMemo(
+    () => changeSummary.items.find((item) => item.id === openId) ?? null,
+    [changeSummary.items, openId],
+  );
 
   const fileDiffItem = useMemo(
     () => changeSummary.items.find((item) => item.id === fileDiffId) ?? null,
@@ -255,6 +330,7 @@ export function AdminChangesPanel() {
             <ChangeItem
               key={item.id}
               item={item}
+              compact={compact}
               open={openId === item.id}
               onToggle={() => setOpenId((current) => (current === item.id ? null : item.id))}
               onOpenFileDiff={() => setFileDiffId(item.id)}
@@ -266,13 +342,21 @@ export function AdminChangesPanel() {
         <p className="admin-muted">…and {overflow} more change{overflow === 1 ? "" : "s"}</p>
       ) : null}
       <p className="admin-changes__hint">
-        Click a change for field details, then <strong>View in-depth file diff</strong> for the exact{" "}
+        Tap a change for field details, then <strong>View in-depth file diff</strong> for the exact{" "}
         <code>guide_data.json</code> lines Publish will write. Publish also bumps the app version,
         prepends the in-app changelog, and syncs README version strings
         {pendingRelease?.updateReadmeProse ? " (plus README pregame list for larger edits)" : ""}.
       </p>
 
       <ChangelogEditor />
+
+      {compact && openItem ? (
+        <ChangeInspectSheet
+          item={openItem}
+          onClose={() => setOpenId(null)}
+          onOpenFileDiff={() => setFileDiffId(openItem.id)}
+        />
+      ) : null}
 
       {fileDiffItem ? (
         <AdminChangeFileDiffPanel
