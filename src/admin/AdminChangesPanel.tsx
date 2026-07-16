@@ -1,17 +1,85 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAdmin } from "./AdminContext";
+import type { GuideChangeItem, GuideFieldDiff } from "./guideChangeSummary";
 
 const PREVIEW_LIMIT = 40;
+
+function DiffBlock({ diff }: { diff: GuideFieldDiff }) {
+  const unchanged = diff.before === diff.after;
+  return (
+    <div className="admin-change-diff">
+      <div className="admin-change-diff__field">{diff.label}</div>
+      <div className="admin-change-diff__cols">
+        <div className="admin-change-diff__side admin-change-diff__side--before">
+          <span className="admin-change-diff__side-label">Before</span>
+          <pre className="admin-change-diff__value">{diff.before}</pre>
+        </div>
+        <div
+          className={`admin-change-diff__side admin-change-diff__side--after${
+            unchanged ? "" : " admin-change-diff__side--changed"
+          }`}
+        >
+          <span className="admin-change-diff__side-label">After</span>
+          <pre className="admin-change-diff__value">{diff.after}</pre>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ChangeItem({
+  item,
+  open,
+  onToggle,
+}: {
+  item: GuideChangeItem;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <li className={`admin-changes__item admin-changes__item--${item.kind}`}>
+      <button
+        type="button"
+        className={`admin-changes__trigger${open ? " admin-changes__trigger--open" : ""}`}
+        onClick={onToggle}
+        aria-expanded={open}
+      >
+        <span className="admin-changes__label">{item.label}</span>
+        {item.detail ? <span className="admin-changes__detail">{item.detail}</span> : null}
+        <span className="admin-changes__chevron" aria-hidden="true">
+          {open ? "▾" : "▸"}
+        </span>
+      </button>
+      {open ? (
+        <div className="admin-changes__inspect" role="region" aria-label={`Exact changes for ${item.label}`}>
+          {item.diffs.length === 0 ? (
+            <p className="admin-muted">No field-level details available for this change.</p>
+          ) : (
+            item.diffs.map((diff) => <DiffBlock key={diff.field} diff={diff} />)
+          )}
+        </div>
+      ) : null}
+    </li>
+  );
+}
 
 export function AdminChangesPanel() {
   const { isAdmin, isDirty, changeSummary } = useAdmin();
   const [expanded, setExpanded] = useState(true);
+  const [openId, setOpenId] = useState<string | null>(null);
 
   const visibleItems = useMemo(
     () => changeSummary.items.slice(0, PREVIEW_LIMIT),
     [changeSummary.items],
   );
   const overflow = Math.max(0, changeSummary.total - visibleItems.length);
+
+  useEffect(() => {
+    if (!openId) return;
+    if (!changeSummary.items.some((item) => item.id === openId)) {
+      setOpenId(null);
+    }
+  }, [changeSummary.items, openId]);
 
   if (!isAdmin || !isDirty || changeSummary.total === 0) return null;
 
@@ -35,11 +103,13 @@ export function AdminChangesPanel() {
       </div>
       {expanded ? (
         <ol className="admin-changes__list">
-          {visibleItems.map((item, index) => (
-            <li key={`${item.kind}-${index}`} className={`admin-changes__item admin-changes__item--${item.kind}`}>
-              <span className="admin-changes__label">{item.label}</span>
-              {item.detail ? <span className="admin-changes__detail">{item.detail}</span> : null}
-            </li>
+          {visibleItems.map((item) => (
+            <ChangeItem
+              key={item.id}
+              item={item}
+              open={openId === item.id}
+              onToggle={() => setOpenId((current) => (current === item.id ? null : item.id))}
+            />
           ))}
         </ol>
       ) : null}
@@ -47,7 +117,8 @@ export function AdminChangesPanel() {
         <p className="admin-muted">…and {overflow} more change{overflow === 1 ? "" : "s"}</p>
       ) : null}
       <p className="admin-changes__hint">
-        Review this list before clicking <strong>Publish Changes to Live Guide</strong>.
+        Click a change to inspect the exact before → after values, then{" "}
+        <strong>Publish Changes to Live Guide</strong> when ready.
       </p>
     </section>
   );
