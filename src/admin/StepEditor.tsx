@@ -13,8 +13,10 @@ interface StepEditorProps {
 }
 
 export function StepEditor({ step, onChange }: StepEditorProps) {
+  // Remount field state when the active step changes so contentEditable editors
+  // cannot leak the previous step's HTML into the next one.
   return (
-    <div className="admin-step-editor">
+    <div className="admin-step-editor" key={step.id}>
       <BlockOrderEditor
         step={step}
         onChange={(blockOrder) =>

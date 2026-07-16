@@ -243,23 +243,19 @@
 .admin-file-diff {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 90;
   display: grid;
   place-items: center;
-  padding: 1rem;
-}
-
-.admin-file-diff__backdrop {
-  position: absolute;
-  inset: 0;
+  padding: 0.75rem;
   background: rgba(0, 0, 0, 0.55);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .admin-file-diff__panel {
   position: relative;
-  z-index: 1;
   width: min(72rem, 100%);
-  max-height: min(88vh, 52rem);
+  max-height: min(92vh, 52rem);
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 0.65rem;
@@ -268,6 +264,7 @@
   border: 1px solid var(--border, #3a4a3a);
   background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  margin: auto;
 }
 
 .admin-file-diff__head {
@@ -275,6 +272,17 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
+}
+
+.admin-file-diff__close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 0.15rem 0.35rem;
 }
 
 .admin-file-diff__head h3 {
@@ -372,6 +380,113 @@
   margin: 0;
   font-size: 0.78rem;
   opacity: 0.7;
+}
+
+@media (max-width: 720px) {
+  .admin-file-diff {
+    padding: 0;
+    place-items: stretch;
+  }
+
+  .admin-file-diff__panel {
+    width: 100%;
+    max-height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+    padding: 0.75rem 0.7rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .admin-file-diff__ln--old {
+    display: none;
+  }
+
+  .admin-file-diff__ln {
+    width: 2.4rem;
+    padding: 0 0.25rem;
+    font-size: 0.68rem;
+  }
+
+  .admin-file-diff__code {
+    font-size: 0.7rem;
+  }
+
+  .admin-sprites__card {
+    grid-template-columns: auto 1fr;
+  }
+
+  .admin-sprite-picker__grid {
+    grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+    max-height: 14rem;
+  }
+
+  .admin-changes__list {
+    max-height: min(60vh, 24rem);
+  }
+
+  .admin-chapter-tree {
+    max-height: min(40vh, 18rem);
+  }
+
+  .admin-step-editor {
+    padding: 0.65rem;
+  }
+
+  .admin-change-diff__value {
+    max-height: 8rem;
+    font-size: 0.72rem;
+  }
+
+  .admin-toolbar__actions {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .admin-toolbar__actions .btn {
+    flex: 1;
+  }
+}
+
+.app-shell[data-view="mobile"] .admin-toolbar {
+  gap: 0.5rem;
+}
+
+.app-shell[data-view="mobile"] .admin-toolbar__actions {
+  margin-left: 0;
+  width: 100%;
+}
+
+.app-shell[data-view="mobile"] .admin-toolbar__actions .btn {
+  flex: 1;
+  min-height: 2.5rem;
+}
+
+.app-shell[data-view="mobile"] .admin-file-diff {
+  padding: 0;
+  place-items: stretch;
+}
+
+.app-shell[data-view="mobile"] .admin-file-diff__panel {
+  width: 100%;
+  max-height: 100dvh;
+  min-height: 100dvh;
+  border-radius: 0;
+  padding: 0.75rem 0.7rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+}
+
+.app-shell[data-view="mobile"] .admin-file-diff__ln--old {
+  display: none;
+}
+
+.app-shell[data-view="mobile"] .admin-sprites__card {
+  grid-template-columns: auto 1fr;
+}
+
+.app-shell[data-view="mobile"] .admin-changes__list {
+  max-height: min(55vh, 22rem);
+}
+
+.app-shell[data-view="mobile"] .admin-chapter-tree {
+  max-height: min(40vh, 18rem);
 }
 
 .admin-toolbar__spinner-dot {
@@ -1150,15 +1265,4 @@
 
 .step-browser--admin .step-rail {
   display: none;
-}
-
-@media (max-width: 720px) {
-  .admin-toolbar__actions {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .admin-toolbar__actions .btn {
-    flex: 1;
-  }
 }

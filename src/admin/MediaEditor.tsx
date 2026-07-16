@@ -317,7 +317,7 @@ export function MediaEditor({
                                 className="admin-field__input"
                                 value={item.url}
                                 onChange={(e) => updateAt(index, { url: e.target.value })}
-                                placeholder="/maps/… or https://…"
+                                placeholder="/maps/… or a full https URL"
                               />
                             </label>
                           ) : null}

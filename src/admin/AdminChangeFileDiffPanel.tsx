@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import type { GuideSection } from "../types";
+import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import type { GuideChangeItem } from "./guideChangeSummary";
 import { buildGuideFileDiff, type DiffHunk } from "./guideFileDiff";
 
@@ -53,11 +55,16 @@ export function AdminChangeFileDiffPanel({
   );
 
   useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [onClose]);
 
   const changedLines = result.hunks.reduce(
@@ -65,10 +72,13 @@ export function AdminChangeFileDiffPanel({
     0,
   );
 
-  return (
-    <div className="admin-file-diff" role="dialog" aria-modal="true" aria-labelledby="admin-file-diff-title">
-      <div className="admin-file-diff__backdrop" onClick={onClose} />
-      <div className="admin-file-diff__panel">
+  return createPortal(
+    <ModalBackdrop
+      className="admin-file-diff"
+      onClose={onClose}
+      aria-labelledby="admin-file-diff-title"
+    >
+      <div className="admin-file-diff__panel" onClick={(e) => e.stopPropagation()}>
         <div className="admin-file-diff__head">
           <div>
             <h3 id="admin-file-diff-title">In-depth file diff</h3>
@@ -82,16 +92,18 @@ export function AdminChangeFileDiffPanel({
               {result.scoped && result.scopeLabel
                 ? ` — scoped to ${result.scopeLabel} in the publish file`
                 : " — full publish file diff"}
-              {changedLines > 0 ? ` · ${changedLines} changed line${changedLines === 1 ? "" : "s"}` : ""}
+              {changedLines > 0
+                ? ` · ${changedLines} changed line${changedLines === 1 ? "" : "s"}`
+                : ""}
             </p>
           </div>
-          <button type="button" className="btn btn--ghost btn--sm" onClick={onClose}>
-            Close
-          </button>
+          <ModalCloseButton className="admin-file-diff__close" onClose={onClose} />
         </div>
 
         {result.hunks.length === 0 ? (
-          <p className="admin-muted">No line differences found in the publish file for this change.</p>
+          <p className="admin-muted">
+            No line differences found in the publish file for this change.
+          </p>
         ) : (
           <div className="admin-file-diff__body">
             {result.hunks.map((hunk) => (
@@ -101,10 +113,11 @@ export function AdminChangeFileDiffPanel({
         )}
 
         <p className="admin-file-diff__footnote">
-          This is the JSON that Publish writes to GitHub ({result.file.path}). Line numbers match the
-          pretty-printed file (2-space indent).
+          This is the JSON that Publish writes to GitHub ({result.file.path}). Line numbers match
+          the pretty-printed file (2-space indent).
         </p>
       </div>
-    </div>
+    </ModalBackdrop>,
+    document.body,
   );
 }

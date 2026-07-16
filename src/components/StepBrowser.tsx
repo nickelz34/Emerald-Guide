@@ -105,6 +105,7 @@ function swipeShouldIgnore(target: EventTarget | null): boolean {
       "select",
       "button",
       "a",
+      "[contenteditable]:not([contenteditable='false'])",
       ".step-rail",
       ".story-progress",
       ".annotated-map__frame--zoomable",
@@ -112,6 +113,18 @@ function swipeShouldIgnore(target: EventTarget | null): boolean {
       ".hoenn-map__viewport",
     ].join(", "),
   );
+}
+
+function isEditableKeyTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  ) {
+    return true;
+  }
+  return target.isContentEditable;
 }
 
 export function StepBrowser({
@@ -307,13 +320,7 @@ export function StepBrowser({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        e.target instanceof HTMLSelectElement
-      ) {
-        return;
-      }
+      if (isEditableKeyTarget(e.target)) return;
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
     };

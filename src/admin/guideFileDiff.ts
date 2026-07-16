@@ -45,6 +45,34 @@ export function getGuideFileRef(): GuideFileRef {
   };
 }
 
+function braceDeltasIgnoringStrings(line: string): Array<{ index: number; delta: number }> {
+  const out: Array<{ index: number; delta: number }> = [];
+  let inString = false;
+  let escape = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inString) {
+      if (escape) {
+        escape = false;
+        continue;
+      }
+      if (ch === "\\") {
+        escape = true;
+        continue;
+      }
+      if (ch === '"') inString = false;
+      continue;
+    }
+    if (ch === '"') {
+      inString = true;
+      continue;
+    }
+    if (ch === "{") out.push({ index: i, delta: 1 });
+    else if (ch === "}") out.push({ index: i, delta: -1 });
+  }
+  return out;
+}
+
 /**
  * Find the pretty-printed JSON object that owns `"id": "<id>"`.
  * Returns 1-based inclusive line numbers in the full file text.
@@ -62,11 +90,11 @@ export function findJsonObjectLineRange(
   let depth = 0;
   let foundOpen = false;
   for (let i = idLine; i >= 0; i--) {
-    const line = lines[i];
-    for (let c = line.length - 1; c >= 0; c--) {
-      const ch = line[c];
-      if (ch === "}") depth++;
-      else if (ch === "{") {
+    const deltas = braceDeltasIgnoringStrings(lines[i]);
+    for (let d = deltas.length - 1; d >= 0; d--) {
+      const { delta } = deltas[d];
+      if (delta === -1) depth++;
+      else if (delta === 1) {
         if (depth === 0) {
           start = i;
           foundOpen = true;
@@ -80,17 +108,12 @@ export function findJsonObjectLineRange(
   if (!foundOpen) return null;
 
   depth = 0;
-  let end = start;
   for (let i = start; i < lines.length; i++) {
-    const line = lines[i];
-    for (const ch of line) {
-      if (ch === "{") depth++;
-      else if (ch === "}") {
-        depth--;
-        if (depth === 0) {
-          end = i;
-          return { start: start + 1, end: end + 1 };
-        }
+    const deltas = braceDeltasIgnoringStrings(lines[i]);
+    for (const { delta } of deltas) {
+      depth += delta;
+      if (depth === 0) {
+        return { start: start + 1, end: i + 1 };
       }
     }
   }

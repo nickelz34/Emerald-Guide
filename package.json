@@ -53,6 +53,7 @@
     "verify:hidden-items": "node scripts/verify-hidden-items.mjs",
     "verify:encounter-coverage": "node scripts/verify-encounter-coverage.mjs",
     "verify:optional-coverage": "node scripts/verify-optional-coverage.mjs",
+    "verify:admin-features": "npx vite-node scripts/verify-admin-features.mjs",
     "render:hoenn": "node scripts/publish-hoenn-map.mjs",
     "optimize:hoenn": "node scripts/optimize-hoenn-map.mjs"
   },
