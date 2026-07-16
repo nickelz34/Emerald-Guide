@@ -1,10 +1,8 @@
-import { useEffect, useMemo } from "react";
-import { createPortal } from "react-dom";
+import { useMemo } from "react";
 import type { GuideSection } from "../types";
-import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
+import { AdminMobileSheet } from "./AdminMobileSheet";
 import type { GuideChangeItem } from "./guideChangeSummary";
 import { buildGuideFileDiff, type DiffHunk } from "./guideFileDiff";
-import { useCompactAdminChrome } from "./useCompactAdminChrome";
 
 interface AdminChangeFileDiffPanelProps {
   item: GuideChangeItem;
@@ -17,29 +15,22 @@ function HunkView({ hunk }: { hunk: DiffHunk }) {
   return (
     <div className="admin-file-diff__hunk">
       <div className="admin-file-diff__hunk-header">{hunk.header}</div>
-      <table className="admin-file-diff__table">
-        <tbody>
-          {hunk.lines.map((line, index) => (
-            <tr
+      <pre className="admin-file-diff__pre">
+        {hunk.lines.map((line, index) => {
+          const mark = line.kind === "add" ? "+" : line.kind === "remove" ? "−" : " ";
+          const ln = String(line.newLine ?? line.oldLine ?? "").padStart(4, " ");
+          return (
+            <div
               key={`${hunk.header}-${index}`}
-              className={`admin-file-diff__row admin-file-diff__row--${line.kind}`}
+              className={`admin-file-diff__line admin-file-diff__line--${line.kind}`}
             >
-              <td className="admin-file-diff__ln admin-file-diff__ln--old">
-                {line.oldLine ?? ""}
-              </td>
-              <td className="admin-file-diff__ln admin-file-diff__ln--new">
-                {line.newLine ?? ""}
-              </td>
-              <td className="admin-file-diff__gutter">
-                {line.kind === "add" ? "+" : line.kind === "remove" ? "−" : " "}
-              </td>
-              <td className="admin-file-diff__code">
-                <code>{line.text}</code>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              <span className="admin-file-diff__ln">{ln}</span>
+              <span className="admin-file-diff__mark">{mark}</span>
+              <span className="admin-file-diff__text">{line.text}</span>
+            </div>
+          );
+        })}
+      </pre>
     </div>
   );
 }
@@ -50,76 +41,53 @@ export function AdminChangeFileDiffPanel({
   draft,
   onClose,
 }: AdminChangeFileDiffPanelProps) {
-  const compact = useCompactAdminChrome();
   const result = useMemo(
     () => buildGuideFileDiff(baseline, draft, item),
     [baseline, draft, item],
   );
-
-  useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [onClose]);
 
   const changedLines = result.hunks.reduce(
     (n, hunk) => n + hunk.lines.filter((l) => l.kind !== "context").length,
     0,
   );
 
-  return createPortal(
-    <ModalBackdrop
-      className={`admin-file-diff${compact ? " admin-file-diff--mobile" : ""}`}
+  return (
+    <AdminMobileSheet
+      className="admin-sheet--file-diff"
+      titleId="admin-file-diff-title"
+      title="In-depth file diff"
       onClose={onClose}
-      aria-labelledby="admin-file-diff-title"
-    >
-      <div className="admin-file-diff__panel" onClick={(e) => e.stopPropagation()}>
-        <div className="admin-file-diff__head">
-          <div>
-            <h3 id="admin-file-diff-title">In-depth file diff</h3>
-            <p className="admin-file-diff__meta">
-              <code>{result.file.path}</code>
-              <span aria-hidden="true"> · </span>
-              branch <code>{result.file.branch}</code>
-            </p>
-            <p className="admin-muted admin-file-diff__subtitle">
-              {item.label}
-              {result.scoped && result.scopeLabel
-                ? ` — scoped to ${result.scopeLabel} in the publish file`
-                : " — full publish file diff"}
-              {changedLines > 0
-                ? ` · ${changedLines} changed line${changedLines === 1 ? "" : "s"}`
-                : ""}
-            </p>
-          </div>
-          <ModalCloseButton className="admin-file-diff__close" onClose={onClose} />
-        </div>
-
-        {result.hunks.length === 0 ? (
-          <p className="admin-muted">
-            No line differences found in the publish file for this change.
+      subtitle={
+        <>
+          <p className="admin-sheet__meta">
+            <code>{result.file.path}</code>
+            <span aria-hidden="true"> · </span>
+            branch <code>{result.file.branch}</code>
           </p>
-        ) : (
-          <div className="admin-file-diff__body">
-            {result.hunks.map((hunk) => (
-              <HunkView key={hunk.header + hunk.oldStart + hunk.newStart} hunk={hunk} />
-            ))}
-          </div>
-        )}
-
-        <p className="admin-file-diff__footnote">
-          This is the JSON that Publish writes to GitHub ({result.file.path}). Line numbers match
-          the pretty-printed file (2-space indent).
+          <p>
+            {item.label}
+            {result.scoped && result.scopeLabel
+              ? ` — scoped to ${result.scopeLabel}`
+              : " — full publish file diff"}
+            {changedLines > 0
+              ? ` · ${changedLines} changed line${changedLines === 1 ? "" : "s"}`
+              : ""}
+          </p>
+        </>
+      }
+      footnote={`This is the JSON Publish writes to GitHub (${result.file.path}). Line numbers match the pretty-printed file.`}
+    >
+      {result.hunks.length === 0 ? (
+        <p className="admin-muted">
+          No line differences found in the publish file for this change.
         </p>
-      </div>
-    </ModalBackdrop>,
-    document.body,
+      ) : (
+        <div className="admin-file-diff__stack">
+          {result.hunks.map((hunk: DiffHunk) => (
+            <HunkView key={hunk.header + hunk.oldStart + hunk.newStart} hunk={hunk} />
+          ))}
+        </div>
+      )}
+    </AdminMobileSheet>
   );
 }

@@ -156,38 +156,6 @@
   font-size: 0.85rem;
 }
 
-.admin-changes__inspect {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  max-height: min(48vh, 22rem);
-  padding: 0;
-  border-top: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 70%, transparent);
-  min-height: 0;
-}
-
-.admin-changes__inspect-actions {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  padding: 0.55rem 0.6rem 0.35rem;
-  background: color-mix(in srgb, var(--panel, #121a12) 94%, #000);
-  border-bottom: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 55%, transparent);
-}
-
-.admin-changes__inspect-diffs {
-  display: grid;
-  gap: 0.55rem;
-  padding: 0 0.6rem 0.65rem;
-  overflow: auto;
-  min-height: 0;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-}
-
 .admin-change-diff {
   display: grid;
   gap: 0.3rem;
@@ -208,16 +176,10 @@
   gap: 0.4rem;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .admin-change-diff__cols {
     grid-template-columns: 1fr;
   }
-}
-
-.app-shell[data-view="mobile"] .admin-change-diff__cols,
-.admin-change-inspect--mobile .admin-change-diff__cols,
-.admin-file-diff--mobile .admin-change-diff__cols {
-  grid-template-columns: 1fr;
 }
 
 .admin-change-diff__side {
@@ -250,12 +212,12 @@
 .admin-change-diff__value {
   margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
   word-break: break-word;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.78rem;
   line-height: 1.4;
-  max-height: 12rem;
-  overflow: auto;
+  max-height: none;
 }
 
 .admin-changes__hint {
@@ -321,487 +283,214 @@
   align-items: start;
 }
 
-.admin-change-inspect {
+/* Shared full-viewport admin sheet: ONE scroll container (the frame). */
+.admin-sheet {
   position: fixed;
   inset: 0;
-  z-index: 88;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem;
-  background: rgba(0, 0, 0, 0.55);
+  z-index: 120;
+  display: block;
   overflow: hidden;
 }
 
-.admin-change-inspect__panel {
-  width: min(40rem, 100%);
-  max-height: min(92dvh, 48rem);
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  min-height: 0;
-  overflow: hidden;
-  padding: 0.85rem 1rem;
-  border-radius: 10px;
-  border: 1px solid var(--border, #3a4a3a);
-  background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-}
-
-.admin-change-inspect__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
-  flex-shrink: 0;
-  min-width: 0;
-}
-
-.admin-change-inspect__head > div {
-  min-width: 0;
-}
-
-.admin-change-inspect__head h3 {
-  margin: 0 0 0.2rem;
-  font-size: 1rem;
-}
-
-.admin-change-inspect__label {
-  margin: 0;
-  font-weight: 600;
-  font-size: 0.92rem;
-  overflow-wrap: anywhere;
-}
-
-.admin-change-inspect__close {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font-size: 1.4rem;
-  cursor: pointer;
-  line-height: 1;
-  flex-shrink: 0;
-  padding: 0.15rem 0.35rem;
-}
-
-.admin-change-inspect__actions {
-  flex-shrink: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.admin-change-inspect__actions .btn {
-  width: 100%;
-  min-height: 2.6rem;
-}
-
-.admin-change-inspect__body {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-  display: grid;
-  gap: 0.55rem;
-  padding-right: 0.1rem;
-}
-
-.admin-change-inspect--mobile {
+.admin-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
   padding: 0;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-.admin-change-inspect--mobile .admin-change-inspect__panel {
-  width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
-  border-radius: 0;
-  padding:
-    max(0.65rem, env(safe-area-inset-top, 0px))
-    0.65rem
-    calc(0.65rem + env(safe-area-inset-bottom, 0px));
-}
-
-.admin-file-diff {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem;
-  background: rgba(0, 0, 0, 0.55);
-  overflow: hidden;
-}
-
-.admin-file-diff__panel {
-  position: relative;
-  width: min(72rem, 100%);
-  max-height: min(92vh, 52rem);
-  max-height: min(92dvh, 52rem);
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 0.85rem 1rem;
-  border-radius: 10px;
-  border: 1px solid var(--border, #3a4a3a);
-  background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-  min-height: 0;
-}
-
-.admin-file-diff__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
-  flex-shrink: 0;
-  min-width: 0;
-}
-
-.admin-file-diff__head > div {
-  min-width: 0;
-}
-
-.admin-file-diff__close {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font-size: 1.4rem;
-  cursor: pointer;
-  line-height: 1;
-  flex-shrink: 0;
-  padding: 0.15rem 0.35rem;
-}
-
-.admin-file-diff__head h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.05rem;
-}
-
-.admin-file-diff__meta {
   margin: 0;
-  font-size: 0.85rem;
-  overflow-wrap: anywhere;
+  background: rgba(0, 0, 0, 0.62);
+  cursor: pointer;
 }
 
-.admin-file-diff__meta code {
-  font-size: 0.82rem;
-}
-
-.admin-file-diff__subtitle {
-  margin: 0.25rem 0 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.admin-file-diff__body {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-  border: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 80%, transparent);
-  border-radius: 6px;
-  background: #0b100b;
-}
-
-.admin-file-diff__hunk + .admin-file-diff__hunk {
-  border-top: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 70%, transparent);
-}
-
-.admin-file-diff__hunk-header {
-  padding: 0.35rem 0.55rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.75rem;
-  color: #9ec4ff;
-  background: color-mix(in srgb, #1a2740 70%, #0b100b);
-  border-bottom: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 55%, transparent);
-  position: sticky;
-  top: 0;
+.admin-sheet__frame {
+  position: absolute;
+  inset: 0;
   z-index: 1;
-}
-
-.admin-file-diff__table {
-  width: 100%;
-  max-width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.72rem;
-  line-height: 1.35;
-}
-
-.admin-file-diff__ln {
-  width: 2.6rem;
-  padding: 0 0.3rem;
-  text-align: right;
-  user-select: none;
-  opacity: 0.45;
-  vertical-align: top;
-  white-space: nowrap;
-}
-
-.admin-file-diff__gutter {
-  width: 1rem;
-  padding: 0 0.15rem;
-  text-align: center;
-  user-select: none;
-  vertical-align: top;
-  opacity: 0.8;
-}
-
-.admin-file-diff__code {
-  width: auto;
-  padding: 0 0.45rem 0 0.15rem;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  vertical-align: top;
-}
-
-.admin-file-diff__code code {
-  font: inherit;
-  color: inherit;
-  white-space: inherit;
-}
-
-.admin-file-diff__row--remove {
-  background: color-mix(in srgb, #7a2e2e 38%, transparent);
-  color: #ffd0d0;
-}
-
-.admin-file-diff__row--add {
-  background: color-mix(in srgb, #2f6b45 38%, transparent);
-  color: #d4ffe4;
-}
-
-.admin-file-diff__row--context {
-  color: color-mix(in srgb, currentColor 78%, transparent);
-}
-
-.admin-file-diff__footnote {
-  margin: 0;
-  flex-shrink: 0;
-  font-size: 0.78rem;
-  opacity: 0.7;
-}
-
-/* Portaled to document.body — do not rely on .app-shell ancestors. */
-@media (max-width: 720px) {
-  .admin-file-diff {
-    padding: 0;
-    align-items: stretch;
-    justify-content: stretch;
-  }
-
-  .admin-file-diff__panel {
-    width: 100%;
-    height: 100dvh;
-    max-height: 100dvh;
-    border-radius: 0;
-    padding:
-      max(0.65rem, env(safe-area-inset-top, 0px))
-      0.65rem
-      calc(0.65rem + env(safe-area-inset-bottom, 0px));
-    gap: 0.45rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    touch-action: pan-y;
-  }
-
-  .admin-file-diff__head {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    margin: -0.15rem 0 0;
-    padding: 0.15rem 0 0.35rem;
-    background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
-  }
-
-  .admin-file-diff__body {
-    flex: none;
-    overflow: visible;
-    min-height: 0;
-    max-height: none;
-  }
-
-  .admin-file-diff__head h3 {
-    font-size: 0.95rem;
-  }
-
-  .admin-file-diff__meta {
-    font-size: 0.75rem;
-  }
-
-  .admin-file-diff__meta code {
-    font-size: 0.72rem;
-  }
-
-  .admin-file-diff__subtitle {
-    font-size: 0.75rem;
-    -webkit-line-clamp: 2;
-  }
-
-  .admin-file-diff__ln--old {
-    display: none;
-  }
-
-  .admin-file-diff__table {
-    font-size: 0.65rem;
-    line-height: 1.3;
-  }
-
-  .admin-file-diff__ln {
-    width: 2.1rem;
-    padding: 0 0.2rem;
-    font-size: 0.62rem;
-  }
-
-  .admin-file-diff__gutter {
-    width: 0.85rem;
-    font-size: 0.62rem;
-  }
-
-  .admin-file-diff__code {
-    padding: 0 0.35rem 0 0.1rem;
-  }
-
-  .admin-file-diff__footnote {
-    font-size: 0.7rem;
-  }
-
-  .admin-sprites__card {
-    grid-template-columns: auto 1fr;
-  }
-
-  .admin-sprite-picker__grid {
-    grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
-    max-height: 14rem;
-  }
-
-  .admin-changes__list {
-    max-height: min(60vh, 24rem);
-  }
-
-  .admin-chapter-tree {
-    max-height: min(40vh, 18rem);
-  }
-
-  .admin-step-editor {
-    padding: 0.65rem;
-  }
-
-  .admin-change-diff__value {
-    max-height: 8rem;
-    font-size: 0.72rem;
-  }
-
-  .admin-toolbar__actions {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .admin-toolbar__actions .btn {
-    flex: 1;
-  }
-}
-
-.app-shell[data-view="mobile"] .admin-toolbar {
-  gap: 0.5rem;
-}
-
-.app-shell[data-view="mobile"] .admin-toolbar__actions {
-  margin-left: 0;
-  width: 100%;
-}
-
-.app-shell[data-view="mobile"] .admin-toolbar__actions .btn {
-  flex: 1;
-  min-height: 2.5rem;
-}
-
-/* Also apply when the app is in Mobile view on wider phones / desktop simulators.
-   Use one scroll container (the panel) — nested body scroll is unreliable on iOS. */
-.admin-file-diff--mobile {
-  padding: 0;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-.admin-file-diff--mobile .admin-file-diff__panel {
-  width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
-  border-radius: 0;
-  padding:
-    max(0.65rem, env(safe-area-inset-top, 0px))
-    0.65rem
-    calc(0.65rem + env(safe-area-inset-bottom, 0px));
-  gap: 0.45rem;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   touch-action: pan-y;
+  background: color-mix(in srgb, var(--panel, #121a12) 97%, #000);
+  color: inherit;
+  padding:
+    max(0.7rem, env(safe-area-inset-top, 0px))
+    max(0.7rem, env(safe-area-inset-right, 0px))
+    max(0.85rem, env(safe-area-inset-bottom, 0px))
+    max(0.7rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
 }
 
-.admin-file-diff--mobile .admin-file-diff__head {
+.admin-sheet__chrome {
   position: sticky;
   top: 0;
-  z-index: 2;
-  margin: -0.15rem 0 0;
-  padding: 0.15rem 0 0.35rem;
-  background: color-mix(in srgb, var(--panel, #121a12) 96%, #000);
+  z-index: 3;
+  margin: 0 0 0.75rem;
+  padding: 0 0 0.55rem;
+  background: color-mix(in srgb, var(--panel, #121a12) 98%, #000);
+  border-bottom: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 80%, transparent);
+  display: grid;
+  gap: 0.55rem;
 }
 
-.admin-file-diff--mobile .admin-file-diff__head h3 {
-  font-size: 0.95rem;
+.admin-sheet__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-width: 0;
 }
 
-.admin-file-diff--mobile .admin-file-diff__meta {
+.admin-sheet__titles {
+  min-width: 0;
+  flex: 1;
+}
+
+.admin-sheet__titles h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.admin-sheet__subtitle {
+  margin-top: 0.3rem;
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  opacity: 0.9;
+  overflow-wrap: anywhere;
+}
+
+.admin-sheet__subtitle p {
+  margin: 0;
+}
+
+.admin-sheet__meta {
   font-size: 0.75rem;
 }
 
-.admin-file-diff--mobile .admin-file-diff__subtitle {
-  font-size: 0.75rem;
-  -webkit-line-clamp: 2;
+.admin-sheet__meta code {
+  font-size: 0.72rem;
 }
 
-.admin-file-diff--mobile .admin-file-diff__body {
-  flex: none;
-  overflow: visible;
-  min-height: 0;
-  max-height: none;
-  touch-action: manipulation;
+.admin-sheet__emphasis {
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
-.admin-file-diff--mobile .admin-file-diff__ln--old {
-  display: none;
+.admin-sheet__close {
+  border: 1px solid var(--border, #3a4a3a);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel, #121a12) 80%, #000);
+  color: inherit;
+  width: 2.4rem;
+  height: 2.4rem;
+  font-size: 1.35rem;
+  line-height: 1;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
-.admin-file-diff--mobile .admin-file-diff__table {
-  font-size: 0.65rem;
-  line-height: 1.3;
+.admin-sheet__actions {
+  display: grid;
+  gap: 0.4rem;
 }
 
-.admin-file-diff--mobile .admin-file-diff__ln {
-  width: 2.1rem;
-  padding: 0 0.2rem;
-  font-size: 0.62rem;
+.admin-sheet__actions .btn {
+  width: 100%;
+  min-height: 2.75rem;
 }
 
-.admin-file-diff--mobile .admin-file-diff__footnote {
-  font-size: 0.7rem;
+.admin-sheet__content {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+  padding-bottom: 0.35rem;
+}
+
+.admin-sheet__footnote {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  opacity: 0.7;
+  overflow-wrap: anywhere;
+}
+
+.admin-sheet--file-diff {
+  z-index: 130;
+}
+
+.admin-file-diff__stack {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.admin-file-diff__hunk {
+  border: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 80%, transparent);
+  border-radius: 6px;
+  background: #0b100b;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.admin-file-diff__hunk-header {
+  padding: 0.35rem 0.55rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  color: #9ec4ff;
+  background: color-mix(in srgb, #1a2740 70%, #0b100b);
+  border-bottom: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 55%, transparent);
+}
+
+.admin-file-diff__pre {
+  margin: 0;
+  padding: 0.2rem 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  white-space: normal;
+}
+
+.admin-file-diff__line {
+  display: grid;
+  grid-template-columns: 2.6rem 1rem minmax(0, 1fr);
+  gap: 0.15rem;
+  padding: 0.05rem 0.4rem;
+  min-width: 0;
+}
+
+.admin-file-diff__ln,
+.admin-file-diff__mark {
+  user-select: none;
+  opacity: 0.55;
+  text-align: right;
+}
+
+.admin-file-diff__mark {
+  text-align: center;
+  opacity: 0.85;
+}
+
+.admin-file-diff__text {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.admin-file-diff__line--remove {
+  background: color-mix(in srgb, #7a2e2e 38%, transparent);
+  color: #ffd0d0;
+}
+
+.admin-file-diff__line--add {
+  background: color-mix(in srgb, #2f6b45 38%, transparent);
+  color: #d4ffe4;
+}
+
+.admin-file-diff__line--context {
+  color: color-mix(in srgb, currentColor 78%, transparent);
 }
 
 .app-shell[data-view="mobile"] .admin-sprites__card {
@@ -810,10 +499,6 @@
 
 .app-shell[data-view="mobile"] .admin-changes__list {
   max-height: min(45vh, 18rem);
-}
-
-.app-shell[data-view="mobile"] .admin-changes__inspect {
-  max-height: min(42vh, 18rem);
 }
 
 .app-shell[data-view="mobile"] .admin-chapter-tree {
