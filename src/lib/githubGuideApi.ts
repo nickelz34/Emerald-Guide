@@ -79,6 +79,13 @@ export async function fetchGuideFromGitHub(
     } catch {
       /* ignore */
     }
+    if (response.status === 404) {
+      throw new Error(
+        `Guide file not found at ${config.path} on branch “${config.branch}” (404). ` +
+          `Until Admin Mode is merged, set VITE_GITHUB_BRANCH to your feature branch. ` +
+          `A 404 can also mean the PAT lacks Contents access to ${config.owner}/${config.repo}.`,
+      );
+    }
     throw new Error(`Failed to fetch guide data from GitHub (${response.status}): ${detail}`);
   }
 
