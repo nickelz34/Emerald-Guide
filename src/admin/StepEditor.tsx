@@ -122,6 +122,7 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
       />
 
       <PanelsEditor
+        step={step}
         hiddenPanels={step.hiddenPanels ?? []}
         onChange={(hiddenPanels) =>
           onChange({ hiddenPanels: hiddenPanels.length ? hiddenPanels : undefined })
