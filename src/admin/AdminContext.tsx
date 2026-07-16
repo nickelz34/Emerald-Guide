@@ -13,6 +13,7 @@ import {
   clearCurrentFileSha,
   commitGuideToGitHub,
   fetchGuideFromGitHub,
+  fetchRepoTextFile,
   getGitHubConfigFromEnv,
 } from "../lib/githubGuideApi";
 import { renumberChapterTitles, reorderList } from "../lib/reorderList";
@@ -22,6 +23,15 @@ import {
   summarizeGuideChanges,
   type GuideChangeSummary,
 } from "./guideChangeSummary";
+import {
+  applyReadmeReleaseUpdates,
+  bumpPackageJsonVersion,
+  bumpPackageLockVersion,
+  planReleaseFromGuideChanges,
+  prependChangelogEntry,
+  toChangelogRelease,
+  type PlannedRelease,
+} from "./releaseFromChanges";
 
 const TOKEN_KEY = "emerald-guide-admin-token";
 const MAX_HISTORY = 50;
@@ -45,6 +55,10 @@ interface AdminContextValue {
   /** Last loaded/published walkthrough (used for pending-change diffs). */
   baselineWalkthrough: GuideSection[];
   changeSummary: GuideChangeSummary;
+  /** Planned semver/changelog release for the current pending edits (null when clean). */
+  pendingRelease: PlannedRelease | null;
+  /** package.json version last loaded from GitHub (or after a successful publish). */
+  repoVersion: string | null;
   toast: AdminToastMessage | null;
   dismissToast: () => void;
   showToast: (tone: AdminToastTone, message: string) => void;
@@ -82,6 +96,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   );
   const [isPublishing, setIsPublishing] = useState(false);
   const [isBootstrapping, setIsBootstrapping] = useState(false);
+  const [repoVersion, setRepoVersion] = useState<string | null>(null);
   const [toast, setToast] = useState<AdminToastMessage | null>(null);
   const [undoStack, setUndoStack] = useState<GuideSection[][]>([]);
   const [redoStack, setRedoStack] = useState<GuideSection[][]>([]);
@@ -93,6 +108,14 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     [baselineWalkthrough, draftWalkthrough],
   );
   const isDirty = changeSummary.total > 0;
+  const pendingRelease = useMemo(() => {
+    if (!isDirty || !repoVersion) return null;
+    try {
+      return planReleaseFromGuideChanges(changeSummary, repoVersion);
+    } catch {
+      return null;
+    }
+  }, [isDirty, repoVersion, changeSummary]);
 
   const showToast = useCallback((tone: AdminToastTone, message: string) => {
     setToast({ tone, message });
@@ -149,6 +172,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     clearCurrentFileSha();
     setToken(null);
     setIsAdmin(false);
+    setRepoVersion(null);
     resetHistory();
     const bundled = cloneWalkthrough(bundledWalkthrough);
     setDraftState(bundled);
@@ -162,10 +186,17 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       if (!trimmed) throw new Error("Personal Access Token is required");
 
       const config = getGitHubConfigFromEnv(trimmed);
-      const payload = await fetchGuideFromGitHub(config);
+      const [payload, packageJsonText] = await Promise.all([
+        fetchGuideFromGitHub(config),
+        fetchRepoTextFile(config, "package.json"),
+      ]);
+      const pkg = JSON.parse(packageJsonText) as { version?: string };
+      if (!pkg.version) throw new Error("package.json on GitHub is missing version");
+
       const loaded = cloneWalkthrough(payload.walkthrough);
       sessionStorage.setItem(TOKEN_KEY, trimmed);
       setToken(trimmed);
+      setRepoVersion(pkg.version);
       setDraftState(loaded);
       setBaselineWalkthrough(cloneWalkthrough(loaded));
       resetHistory();
@@ -236,14 +267,48 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     setIsPublishing(true);
     try {
       const config = getGitHubConfigFromEnv(token);
-      const result = await commitGuideToGitHub(config, { walkthrough: draftWalkthrough });
+      const summary = summarizeGuideChanges(baselineWalkthrough, draftWalkthrough);
+      if (summary.total === 0) throw new Error("No guide changes to publish");
+
+      const [packageJsonText, packageLockText, changelogText, readmeText] = await Promise.all([
+        fetchRepoTextFile(config, "package.json"),
+        fetchRepoTextFile(config, "package-lock.json"),
+        fetchRepoTextFile(config, "src/data/changelog.ts"),
+        fetchRepoTextFile(config, "README.md"),
+      ]);
+      const pkg = JSON.parse(packageJsonText) as { version?: string };
+      if (!pkg.version) throw new Error("package.json on GitHub is missing version");
+
+      const plan = planReleaseFromGuideChanges(summary, pkg.version);
+      const release = toChangelogRelease(plan);
+      const nextPackageJson = bumpPackageJsonVersion(packageJsonText, plan.version);
+      const nextPackageLock = bumpPackageLockVersion(packageLockText, plan.version);
+      const nextChangelog = prependChangelogEntry(changelogText, release);
+      const nextReadme = applyReadmeReleaseUpdates(readmeText, plan, draftWalkthrough);
+
+      const result = await commitGuideToGitHub(config, {
+        updatedData: { walkthrough: draftWalkthrough },
+        files: [
+          { path: "package.json", content: nextPackageJson },
+          { path: "package-lock.json", content: nextPackageLock },
+          { path: "src/data/changelog.ts", content: nextChangelog },
+          { path: "README.md", content: nextReadme },
+        ],
+        commitTitle: plan.commitTitle,
+        commitBody: plan.commitBody,
+        version: plan.version,
+      });
+
       setBaselineWalkthrough(cloneWalkthrough(draftWalkthrough));
+      setRepoVersion(plan.version);
       resetHistory();
+      const via =
+        result.mode === "pull-request"
+          ? ` via PR${result.prNumber ? ` #${result.prNumber}` : ""}`
+          : "";
       showToast(
         "success",
-        result.mode === "pull-request"
-          ? `Published via PR${result.prNumber ? ` #${result.prNumber}` : ""} — Pages will redeploy shortly.`
-          : "Published — commit pushed to GitHub. Pages will redeploy shortly.",
+        `Published v${plan.version}${via} — changelog updated. Pages will redeploy shortly.`,
       );
     } catch (err) {
       const message = err instanceof Error ? err.message : "Publish failed";
@@ -252,7 +317,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsPublishing(false);
     }
-  }, [token, draftWalkthrough, showToast, resetHistory]);
+  }, [token, baselineWalkthrough, draftWalkthrough, showToast, resetHistory]);
 
   const updateChapter = useCallback(
     (chapterId: string, patch: Partial<GuideSection>) => {
@@ -375,6 +440,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       draftWalkthrough,
       baselineWalkthrough,
       changeSummary,
+      pendingRelease,
+      repoVersion,
       toast,
       dismissToast,
       showToast,
@@ -404,6 +471,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       draftWalkthrough,
       baselineWalkthrough,
       changeSummary,
+      pendingRelease,
+      repoVersion,
       toast,
       dismissToast,
       showToast,

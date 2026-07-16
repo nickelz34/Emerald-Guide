@@ -19,6 +19,16 @@ import { resolveStepBlockOrder, getAvailableStepBlocks } from "../src/admin/step
 import { getSpriteCatalog, filterSpriteCatalog } from "../src/admin/spriteCatalog.ts";
 import { seedSpecialtyForStep } from "../src/admin/specialtySeed.ts";
 import { isPullRequestRequiredError } from "../src/lib/githubGuideApi.ts";
+import {
+  applyReadmeReleaseUpdates,
+  bumpPackageJsonVersion,
+  bumpPackageLockVersion,
+  bumpSemver,
+  classifyGuideBump,
+  planReleaseFromGuideChanges,
+  prependChangelogEntry,
+  toChangelogRelease,
+} from "../src/admin/releaseFromChanges.ts";
 
 const walkthrough = guideData.walkthrough;
 
@@ -168,6 +178,86 @@ check("adding sprite marks pending publish with sprite field diff", () => {
   const item = summary.items.find((i) => i.stepId === step.id);
   assert.ok(item);
   assert.ok(item.diffs.some((d) => d.field.startsWith("sprites") || d.label.toLowerCase().includes("sprite")));
+});
+
+check("admin publish plans patch vs minor like Cursor ships", () => {
+  assert.equal(bumpSemver("1.26.25", "patch"), "1.26.26");
+  assert.equal(bumpSemver("1.26.25", "minor"), "1.27.0");
+
+  const baseline = clone(walkthrough);
+  const patchDraft = clone(walkthrough);
+  patchDraft[0].steps[0].summary = `${patchDraft[0].steps[0].summary} tweak`;
+  const patchSummary = summarizeGuideChanges(baseline, patchDraft);
+  assert.equal(classifyGuideBump(patchSummary), "patch");
+  const patchPlan = planReleaseFromGuideChanges(patchSummary, "1.26.25", new Date("2026-07-16T12:00:00Z"));
+  assert.equal(patchPlan.version, "1.26.26");
+  assert.equal(patchPlan.bump, "patch");
+  assert.equal(patchPlan.updateReadmeProse, false);
+
+  const minorDraft = clone(walkthrough);
+  minorDraft.unshift({
+    id: "new-chapter",
+    title: "Ch. 0 — New chapter",
+    description: "Brand new",
+    band: "pregame",
+    steps: [{ id: "new-step", title: "New", summary: "", details: [] }],
+  });
+  const minorSummary = summarizeGuideChanges(baseline, minorDraft);
+  assert.equal(classifyGuideBump(minorSummary), "minor");
+  const minorPlan = planReleaseFromGuideChanges(minorSummary, "1.26.25", new Date("2026-07-16T12:00:00Z"));
+  assert.equal(minorPlan.version, "1.27.0");
+  assert.equal(minorPlan.updateReadmeProse, true);
+});
+
+check("release helpers update changelog package.json lockfile and README", () => {
+  const plan = planReleaseFromGuideChanges(
+    {
+      total: 1,
+      items: [
+        {
+          id: "step-updated:x",
+          kind: "step-updated",
+          label: "Updated step “Test”",
+          detail: "summary",
+          diffs: [{ field: "summary", label: "Summary", before: "a", after: "b" }],
+        },
+      ],
+    },
+    "1.26.25",
+    new Date("2026-07-16T12:00:00Z"),
+  );
+  const release = toChangelogRelease(plan);
+  const changelogSrc = `export const CHANGELOG: ChangelogRelease[] = [\n  { version: "1.26.25" },\n];\n`;
+  const nextChangelog = prependChangelogEntry(changelogSrc, release);
+  assert.match(nextChangelog, /version: "1\.26\.26"/);
+  assert.ok(nextChangelog.indexOf("1.26.26") < nextChangelog.indexOf("1.26.25"));
+
+  const pkg = bumpPackageJsonVersion(`{\n  "name": "x",\n  "version": "1.26.25"\n}\n`, "1.26.26");
+  assert.match(pkg, /"version": "1\.26\.26"/);
+
+  const lock = bumpPackageLockVersion(
+    `{\n  "name": "x",\n  "version": "1.26.25",\n  "packages": {\n    "": {\n      "name": "x",\n      "version": "1.26.25"\n    }\n  }\n}\n`,
+    "1.26.26",
+  );
+  assert.equal(JSON.parse(lock).version, "1.26.26");
+  assert.equal(JSON.parse(lock).packages[""].version, "1.26.26");
+
+  const readme = [
+    "Current app version: **1.26.25**",
+    "",
+    "badge (`v1.26.25`)",
+    "",
+    "1. **Pregame**",
+    "   - Old list",
+    "2. **Main story**",
+    "",
+    "4. Publish commits `src/data/guide_data.json` on `main`; GitHub Pages rebuilds the hosted site.",
+  ].join("\n");
+  const nextReadme = applyReadmeReleaseUpdates(readme, { ...plan, updateReadmeProse: true }, walkthrough);
+  assert.match(nextReadme, /\*\*1\.26\.26\*\*/);
+  assert.match(nextReadme, /`v1\.26\.26`/);
+  assert.match(nextReadme, /version bump, changelog entry/);
+  assert.match(nextReadme, /Battles & Training/);
 });
 
 check("detects GitHub ruleset 409 that requires a pull request", () => {

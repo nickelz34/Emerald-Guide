@@ -72,7 +72,14 @@ function ChangeItem({
 }
 
 export function AdminChangesPanel() {
-  const { isAdmin, isDirty, changeSummary, baselineWalkthrough, draftWalkthrough } = useAdmin();
+  const {
+    isAdmin,
+    isDirty,
+    changeSummary,
+    pendingRelease,
+    baselineWalkthrough,
+    draftWalkthrough,
+  } = useAdmin();
   const [expanded, setExpanded] = useState(true);
   const [openId, setOpenId] = useState<string | null>(null);
   const [fileDiffId, setFileDiffId] = useState<string | null>(null);
@@ -111,6 +118,9 @@ export function AdminChangesPanel() {
           <strong>Pending publish</strong>
           <p className="admin-changes__count">
             {changeSummary.total} change{changeSummary.total === 1 ? "" : "s"} ready to publish
+            {pendingRelease
+              ? ` · ships as v${pendingRelease.version} (${pendingRelease.bump})`
+              : ""}
           </p>
         </div>
         <button
@@ -140,8 +150,15 @@ export function AdminChangesPanel() {
       ) : null}
       <p className="admin-changes__hint">
         Click a change for field details, then <strong>View in-depth file diff</strong> for the exact{" "}
-        <code>guide_data.json</code> lines Publish will write.
+        <code>guide_data.json</code> lines Publish will write. Publish also bumps the app version,
+        prepends the in-app changelog, and syncs README version strings
+        {pendingRelease?.updateReadmeProse ? " (plus README pregame list for larger edits)" : ""}.
       </p>
+      {pendingRelease ? (
+        <p className="admin-changes__release-preview" role="note">
+          <strong>Changelog preview:</strong> {pendingRelease.summary}
+        </p>
+      ) : null}
 
       {fileDiffItem ? (
         <AdminChangeFileDiffPanel

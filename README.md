@@ -1541,10 +1541,10 @@ This is an unofficial **fan guide** — text, maps, and reference data for peopl
 
 Walkthrough content is stored in [`src/data/guide_data.json`](src/data/guide_data.json). Editors can update it from the live app:
 
-1. Open the site with `?admin=1`, or click **Admin** in the toolbar.
-2. Paste a GitHub Personal Access Token with **Contents** write access to this repo (fine-grained recommended). The token is kept in `sessionStorage` for the tab only.
-3. Edit chapters/steps, reorder with drag handles, attach screenshot/map URLs, then **Publish Changes to Live Guide**.
-4. Publish commits `src/data/guide_data.json` on `main`; GitHub Pages rebuilds the hosted site.
+1. Open the site with `?admin=1`.
+2. Paste a GitHub Personal Access Token with **Contents** and **Pull requests** read/write access to this repo (fine-grained recommended). The token is kept in `sessionStorage` for the tab only.
+3. Edit chapters/steps, reorder with drag handles, attach screenshot/map URLs, then **Publish**.
+4. Publish ships `src/data/guide_data.json` plus a version bump, changelog entry, and README version sync (via a short-lived PR when `main` is protected); GitHub Pages rebuilds the hosted site.
 
 Repository targets (`owner`, `repo`, `path`, `branch`) come from Vite env vars — see [`.env.example`](.env.example). Never put a PAT in env files or commits.
 

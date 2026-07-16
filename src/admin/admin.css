@@ -233,6 +233,12 @@
   opacity: 0.8;
 }
 
+.admin-changes__release-preview {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
 .admin-changes__inspect-actions {
   display: flex;
   flex-wrap: wrap;

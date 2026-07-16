@@ -12,10 +12,16 @@ export interface GuideFilePayload {
   walkthrough: GuideSection[];
 }
 
+export interface RepoTextFile {
+  path: string;
+  content: string;
+}
+
 export interface CommitGuideResult {
   mode: "direct" | "pull-request";
   prUrl?: string;
   prNumber?: number;
+  version?: string;
 }
 
 /** SHA of the guide_data.json blob currently loaded from GitHub (required for updates). */
@@ -43,9 +49,9 @@ function apiBase(config: GitHubConfig): string {
   return `https://api.github.com/repos/${config.owner}/${config.repo}`;
 }
 
-function contentsUrl(config: GitHubConfig, withRef: boolean, ref = config.branch): string {
-  const base = `${apiBase(config)}/contents/${config.path}`;
-  return withRef ? `${base}?ref=${encodeURIComponent(ref)}` : base;
+function contentsUrl(config: GitHubConfig, path: string, ref?: string): string {
+  const base = `${apiBase(config)}/contents/${path}`;
+  return ref ? `${base}?ref=${encodeURIComponent(ref)}` : base;
 }
 
 function authHeaders(token: string, withContentType = false): HeadersInit {
@@ -63,13 +69,6 @@ function decodeBase64Utf8(content: string): string {
   const binary = atob(cleaned);
   const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
   return new TextDecoder("utf-8").decode(bytes);
-}
-
-function encodeBase64Utf8(text: string): string {
-  const bytes = new TextEncoder().encode(text);
-  let binary = "";
-  for (const byte of bytes) binary += String.fromCharCode(byte);
-  return btoa(binary);
 }
 
 export function serializeGuidePayload(updatedData: GuideFilePayload): string {
@@ -98,20 +97,6 @@ export function isPullRequestRequiredError(detail: string): boolean {
   );
 }
 
-async function fetchFileSha(config: GitHubConfig, ref = config.branch): Promise<string> {
-  const response = await fetch(contentsUrl(config, true, ref), {
-    headers: authHeaders(config.token),
-  });
-  if (!response.ok) {
-    const detail = await readErrorDetail(response);
-    throw new Error(`Failed to refresh guide file SHA (${response.status}): ${detail}`);
-  }
-  const data = (await response.json()) as { sha?: string };
-  if (!data.sha) throw new Error("GitHub response missing file SHA");
-  currentFileSha = data.sha;
-  return data.sha;
-}
-
 async function fetchBranchHeadSha(config: GitHubConfig, branch = config.branch): Promise<string> {
   const response = await fetch(`${apiBase(config)}/git/ref/heads/${encodeURIComponent(branch)}`, {
     headers: authHeaders(config.token),
@@ -124,6 +109,86 @@ async function fetchBranchHeadSha(config: GitHubConfig, branch = config.branch):
   const sha = data.object?.sha;
   if (!sha) throw new Error(`Branch “${branch}” is missing a commit SHA`);
   return sha;
+}
+
+async function fetchCommitTreeSha(config: GitHubConfig, commitSha: string): Promise<string> {
+  const response = await fetch(`${apiBase(config)}/git/commits/${commitSha}`, {
+    headers: authHeaders(config.token),
+  });
+  if (!response.ok) {
+    const detail = await readErrorDetail(response);
+    throw new Error(`Failed to read commit ${commitSha.slice(0, 7)} (${response.status}): ${detail}`);
+  }
+  const data = (await response.json()) as { tree?: { sha?: string } };
+  const treeSha = data.tree?.sha;
+  if (!treeSha) throw new Error("Commit is missing a tree SHA");
+  return treeSha;
+}
+
+async function createBlob(config: GitHubConfig, content: string): Promise<string> {
+  const response = await fetch(`${apiBase(config)}/git/blobs`, {
+    method: "POST",
+    headers: authHeaders(config.token, true),
+    body: JSON.stringify({ content, encoding: "utf-8" }),
+  });
+  if (!response.ok) {
+    const detail = await readErrorDetail(response);
+    throw new Error(`Failed to create git blob (${response.status}): ${detail}`);
+  }
+  const data = (await response.json()) as { sha?: string };
+  if (!data.sha) throw new Error("GitHub blob response missing SHA");
+  return data.sha;
+}
+
+async function createTree(
+  config: GitHubConfig,
+  baseTreeSha: string,
+  files: Array<{ path: string; sha: string }>,
+): Promise<string> {
+  const response = await fetch(`${apiBase(config)}/git/trees`, {
+    method: "POST",
+    headers: authHeaders(config.token, true),
+    body: JSON.stringify({
+      base_tree: baseTreeSha,
+      tree: files.map((file) => ({
+        path: file.path,
+        mode: "100644",
+        type: "blob",
+        sha: file.sha,
+      })),
+    }),
+  });
+  if (!response.ok) {
+    const detail = await readErrorDetail(response);
+    throw new Error(`Failed to create git tree (${response.status}): ${detail}`);
+  }
+  const data = (await response.json()) as { sha?: string };
+  if (!data.sha) throw new Error("GitHub tree response missing SHA");
+  return data.sha;
+}
+
+async function createCommit(
+  config: GitHubConfig,
+  message: string,
+  treeSha: string,
+  parentSha: string,
+): Promise<string> {
+  const response = await fetch(`${apiBase(config)}/git/commits`, {
+    method: "POST",
+    headers: authHeaders(config.token, true),
+    body: JSON.stringify({
+      message,
+      tree: treeSha,
+      parents: [parentSha],
+    }),
+  });
+  if (!response.ok) {
+    const detail = await readErrorDetail(response);
+    throw new Error(`Failed to create git commit (${response.status}): ${detail}`);
+  }
+  const data = (await response.json()) as { sha?: string };
+  if (!data.sha) throw new Error("GitHub commit response missing SHA");
+  return data.sha;
 }
 
 async function createBranch(config: GitHubConfig, branchName: string, fromSha: string): Promise<void> {
@@ -141,6 +206,24 @@ async function createBranch(config: GitHubConfig, branchName: string, fromSha: s
   }
 }
 
+async function updateBranchRef(
+  config: GitHubConfig,
+  branch: string,
+  commitSha: string,
+): Promise<{ ok: boolean; status: number; detail: string }> {
+  const response = await fetch(`${apiBase(config)}/git/refs/heads/${encodeURIComponent(branch)}`, {
+    method: "PATCH",
+    headers: authHeaders(config.token, true),
+    body: JSON.stringify({ sha: commitSha, force: false }),
+  });
+  if (response.ok) return { ok: true, status: response.status, detail: "" };
+  return {
+    ok: false,
+    status: response.status,
+    detail: await readErrorDetail(response),
+  };
+}
+
 async function deleteBranch(config: GitHubConfig, branchName: string): Promise<void> {
   const response = await fetch(
     `${apiBase(config)}/git/refs/heads/${encodeURIComponent(branchName)}`,
@@ -153,48 +236,6 @@ async function deleteBranch(config: GitHubConfig, branchName: string): Promise<v
     const detail = await readErrorDetail(response);
     console.warn(`Could not delete branch “${branchName}”: ${detail}`);
   }
-}
-
-interface PutFileResult {
-  ok: boolean;
-  status: number;
-  detail: string;
-  contentSha?: string;
-}
-
-async function putGuideFile(
-  config: GitHubConfig,
-  branch: string,
-  encodedContent: string,
-  sha: string,
-  message: string,
-): Promise<PutFileResult> {
-  const response = await fetch(contentsUrl(config, false), {
-    method: "PUT",
-    headers: authHeaders(config.token, true),
-    body: JSON.stringify({
-      message,
-      content: encodedContent,
-      sha,
-      branch,
-    }),
-  });
-
-  if (!response.ok) {
-    return {
-      ok: false,
-      status: response.status,
-      detail: await readErrorDetail(response),
-    };
-  }
-
-  const result = (await response.json()) as { content?: { sha?: string } };
-  return {
-    ok: true,
-    status: response.status,
-    detail: "",
-    contentSha: result.content?.sha,
-  };
 }
 
 async function createPullRequest(
@@ -224,12 +265,16 @@ async function createPullRequest(
   return { number: data.number, htmlUrl: data.html_url };
 }
 
-async function mergePullRequest(config: GitHubConfig, prNumber: number): Promise<void> {
+async function mergePullRequest(
+  config: GitHubConfig,
+  prNumber: number,
+  commitTitle: string,
+): Promise<void> {
   const response = await fetch(`${apiBase(config)}/pulls/${prNumber}/merge`, {
     method: "PUT",
     headers: authHeaders(config.token, true),
     body: JSON.stringify({
-      commit_title: "cms: update guide data via admin panel",
+      commit_title: commitTitle,
       merge_method: "merge",
     }),
   });
@@ -243,12 +288,66 @@ async function mergePullRequest(config: GitHubConfig, prNumber: number): Promise
 }
 
 /**
+ * Create a single commit that updates one or more text files on top of a parent commit.
+ */
+export async function createCommitWithFiles(
+  config: GitHubConfig,
+  parentCommitSha: string,
+  message: string,
+  files: RepoTextFile[],
+): Promise<string> {
+  if (files.length === 0) throw new Error("No files to commit");
+  const baseTreeSha = await fetchCommitTreeSha(config, parentCommitSha);
+  const blobs = await Promise.all(
+    files.map(async (file) => ({
+      path: file.path,
+      sha: await createBlob(config, file.content),
+    })),
+  );
+  const treeSha = await createTree(config, baseTreeSha, blobs);
+  return createCommit(config, message, treeSha, parentCommitSha);
+}
+
+async function refreshGuideFileSha(config: GitHubConfig): Promise<string> {
+  const response = await fetch(contentsUrl(config, config.path, config.branch), {
+    headers: authHeaders(config.token),
+  });
+  if (!response.ok) {
+    const detail = await readErrorDetail(response);
+    throw new Error(`Failed to refresh guide file SHA (${response.status}): ${detail}`);
+  }
+  const data = (await response.json()) as { sha?: string };
+  if (!data.sha) throw new Error("GitHub response missing file SHA");
+  currentFileSha = data.sha;
+  return data.sha;
+}
+
+/** Fetch a UTF-8 text file from the configured branch. */
+export async function fetchRepoTextFile(
+  config: GitHubConfig,
+  path: string,
+  ref = config.branch,
+): Promise<string> {
+  const response = await fetch(contentsUrl(config, path, ref), {
+    headers: authHeaders(config.token),
+  });
+  if (!response.ok) {
+    const detail = await readErrorDetail(response);
+    throw new Error(`Failed to fetch ${path} (${response.status}): ${detail}`);
+  }
+  const data = (await response.json()) as { content?: string; encoding?: string; sha?: string };
+  if (!data.content) throw new Error(`GitHub response missing content for ${path}`);
+  if (path === config.path && data.sha) currentFileSha = data.sha;
+  return decodeBase64Utf8(data.content);
+}
+
+/**
  * Fetches the latest guide data and its SHA directly from GitHub.
  */
 export async function fetchGuideFromGitHub(
   config: GitHubConfig,
 ): Promise<GuideFilePayload> {
-  const response = await fetch(contentsUrl(config, true), {
+  const response = await fetch(contentsUrl(config, config.path, config.branch), {
     headers: authHeaders(config.token),
   });
 
@@ -277,52 +376,31 @@ export async function fetchGuideFromGitHub(
   return parsed;
 }
 
-async function publishViaPullRequest(
+async function publishCommitViaPullRequest(
   config: GitHubConfig,
-  encodedContent: string,
-  message: string,
+  commitSha: string,
+  title: string,
+  body: string,
 ): Promise<CommitGuideResult> {
-  const headSha = await fetchBranchHeadSha(config);
   const branchName = `cms/guide-data-${Date.now().toString(36)}`;
-  await createBranch(config, branchName, headSha);
+  await createBranch(config, branchName, commitSha);
 
   let pullRequestOpened = false;
   try {
-    const fileSha = currentFileSha ?? (await fetchFileSha(config, config.branch));
-    const put = await putGuideFile(config, branchName, encodedContent, fileSha, message);
-    if (!put.ok) {
-      throw new Error(`Failed to commit updates on “${branchName}” (${put.status}): ${put.detail}`);
-    }
-    if (put.contentSha) currentFileSha = put.contentSha;
-
-    const pr = await createPullRequest(
-      config,
-      branchName,
-      "cms: update guide data via admin panel",
-      [
-        "Automated Admin Mode publish.",
-        "",
-        "Updates `src/data/guide_data.json` from the live guide editor.",
-        "This PR is opened because the target branch requires changes through a pull request.",
-      ].join("\n"),
-    );
+    const pr = await createPullRequest(config, branchName, title, body);
     pullRequestOpened = true;
 
     try {
-      await mergePullRequest(config, pr.number);
+      await mergePullRequest(config, pr.number, title);
     } catch (err) {
-      // Leave the branch + PR for manual merge; surface the URL.
       const hint = err instanceof Error ? err.message : "Merge failed";
       throw new Error(`${hint} PR: ${pr.htmlUrl}`);
     }
 
     await deleteBranch(config, branchName);
-    await fetchFileSha(config, config.branch);
-
+    await refreshGuideFileSha(config);
     return { mode: "pull-request", prUrl: pr.htmlUrl, prNumber: pr.number };
   } catch (err) {
-    // Only delete the temp branch if we never opened a PR (so nothing is left orphaned
-    // without a PR, and we don't delete a PR head the user still needs to merge).
     if (!pullRequestOpened) {
       await deleteBranch(config, branchName);
     }
@@ -330,49 +408,64 @@ async function publishViaPullRequest(
   }
 }
 
+export interface PublishGuideOptions {
+  updatedData: GuideFilePayload;
+  /** Extra release files (changelog, package.json, README, …). */
+  files?: RepoTextFile[];
+  commitTitle: string;
+  commitBody?: string;
+  version?: string;
+}
+
 /**
- * Commits the freshly edited guide data back to GitHub.
- * Tries a direct Contents API update first; if branch rules require a PR,
- * opens a short-lived branch, commits, opens a PR, and merges it.
+ * Commits guide data (+ optional release files) back to GitHub.
+ * Uses the Git Data API for a single multi-file commit, then updates the branch
+ * ref directly or via a short-lived PR when rules require it.
  */
 export async function commitGuideToGitHub(
   config: GitHubConfig,
-  updatedData: GuideFilePayload,
+  options: PublishGuideOptions,
 ): Promise<CommitGuideResult> {
-  // Always refresh SHA immediately before writing to avoid stale-blob 409s.
-  await fetchFileSha(config);
+  const guideContent = serializeGuidePayload(options.updatedData);
+  const files: RepoTextFile[] = [
+    { path: config.path, content: guideContent },
+    ...(options.files ?? []),
+  ];
 
-  const jsonString = serializeGuidePayload(updatedData);
-  const encodedContent = encodeBase64Utf8(jsonString);
-  const message = "cms: update guide data via admin panel";
-  const sha = currentFileSha;
-  if (!sha) throw new Error("Cannot update file without existing file SHA");
+  const parentSha = await fetchBranchHeadSha(config);
+  const message = options.commitBody
+    ? `${options.commitTitle}\n\n${options.commitBody}`
+    : options.commitTitle;
 
-  const direct = await putGuideFile(config, config.branch, encodedContent, sha, message);
+  const commitSha = await createCommitWithFiles(config, parentSha, message, files);
+
+  const direct = await updateBranchRef(config, config.branch, commitSha);
   if (direct.ok) {
-    if (direct.contentSha) currentFileSha = direct.contentSha;
-    return { mode: "direct" };
+    await refreshGuideFileSha(config);
+    return { mode: "direct", version: options.version };
   }
 
-  if (direct.status === 409 && isPullRequestRequiredError(direct.detail)) {
-    return publishViaPullRequest(config, encodedContent, message);
+  // Protected branches often reject direct ref updates with 409/422 + a PR-required message.
+  if (
+    isPullRequestRequiredError(direct.detail) ||
+    direct.status === 422 ||
+    direct.status === 409
+  ) {
+    const result = await publishCommitViaPullRequest(
+      config,
+      commitSha,
+      options.commitTitle,
+      options.commitBody ??
+        [
+          "Automated Admin Mode publish.",
+          "",
+          "Updates guide data and release metadata (version, changelog, README).",
+        ].join("\n"),
+    );
+    return { ...result, version: options.version };
   }
 
-  if (direct.status === 409) {
-    // Stale blob SHA — refresh once and retry, then fall back to PR flow if required.
-    await fetchFileSha(config);
-    const retrySha = currentFileSha;
-    if (!retrySha) throw new Error("Cannot update file without existing file SHA");
-    const retry = await putGuideFile(config, config.branch, encodedContent, retrySha, message);
-    if (retry.ok) {
-      if (retry.contentSha) currentFileSha = retry.contentSha;
-      return { mode: "direct" };
-    }
-    if (retry.status === 409 && isPullRequestRequiredError(retry.detail)) {
-      return publishViaPullRequest(config, encodedContent, message);
-    }
-    throw new Error(`Failed to commit updates to GitHub (${retry.status}): ${retry.detail}`);
-  }
-
-  throw new Error(`Failed to commit updates to GitHub (${direct.status}): ${direct.detail}`);
+  throw new Error(
+    `Failed to update branch “${config.branch}” (${direct.status}): ${direct.detail}`,
+  );
 }
