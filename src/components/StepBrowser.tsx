@@ -1001,7 +1001,11 @@ export function StepBrowser({
             <div className="step-card__head-text">
               <span className="step-card__crumb">
                 {current.sectionTitle}
-                {eventTotal > 0 ? ` · Event ${eventIndex + 1} of ${eventTotal}` : ""}
+                {eventTotal > 0
+                  ? ` · ${
+                      currentSection?.band === "pregame" ? "Section" : "Event"
+                    } ${eventIndex + 1} of ${eventTotal}`
+                  : ""}
               </span>
               {isAdmin ? null : (
                 <h2 className="step-card__title">

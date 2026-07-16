@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.29",
+    date: "2026-07-16",
+    summary:
+      "Pregame chapters (Ch. 1–4) label steps as Section instead of Event in the step header crumb.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Battles & Training, Catching/Travel, Evolution, and Breeding now show “Section X of Y” under the chapter title — story chapters still use “Event.”",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.28",
     date: "2026-07-16",
     summary:
