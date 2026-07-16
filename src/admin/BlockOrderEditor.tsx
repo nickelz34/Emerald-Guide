@@ -26,6 +26,7 @@ const TABLE_PANEL_IDS = new Set([
 
 function blockKind(id: StepBlockId): string {
   if (id.startsWith("media")) return "image";
+  if (id === "sprites" || id.startsWith("sprite-item:")) return "sprite";
   if (TABLE_PANEL_IDS.has(id)) return "table";
   if (id.startsWith("panel:")) return "panel";
   return "content";
@@ -57,8 +58,8 @@ export function BlockOrderEditor({ step, onChange }: BlockOrderEditorProps) {
         <strong>Page layout</strong>
       </div>
       <p className="admin-muted">
-        Drag to place summary, story, images, specialty panels, reference tables, and other
-        sections anywhere on the step page.
+        Drag to place summary, story, images, sprites, specialty panels, reference tables, and
+        other sections anywhere on the step page.
       </p>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId={`block-order-${step.id}`}>

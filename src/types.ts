@@ -52,6 +52,19 @@ export interface GuideMediaItem {
   crop?: { x: number; y: number; w: number; h: number };
 }
 
+/** CMS sprite strip item picked from project assets (Pokémon / trainers / items). */
+export type GuideSpriteKind = "pokemon" | "trainer" | "item" | "other";
+
+export interface GuideSpriteItem {
+  id: string;
+  kind: GuideSpriteKind;
+  /** Path relative to public/, e.g. sprites/pokemon/emerald/252.png */
+  src: string;
+  /** Display label shown under the sprite (usually catalog name). */
+  label: string;
+  caption?: string;
+}
+
 /** Editable junior trainer row inside a CMS gym override. */
 export interface GuideGymJunior {
   name: string;
@@ -244,6 +257,11 @@ export interface GuideStep {
   media?: GuideMediaItem[];
   /** When true, ScreenshotGallery uses `media` only (no derived fallback). */
   useCustomMedia?: boolean;
+  /**
+   * Decorative / spotlight sprites chosen from project assets.
+   * Independent of specialty-panel sprites (encounters, gym parties, etc.).
+   */
+  sprites?: GuideSpriteItem[];
   /**
    * Specialty panels to hide on this step (gym, rival, encounters, etc.).
    * Panel data still lives in code; this only suppresses rendering.

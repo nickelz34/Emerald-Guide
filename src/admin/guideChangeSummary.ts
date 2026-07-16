@@ -51,6 +51,7 @@ function describeStepDiff(before: GuideStep, after: GuideStep): string[] {
   check("optional", "optional flag");
   check("media", "media");
   check("useCustomMedia", "custom media mode");
+  check("sprites", "sprites");
   check("hiddenPanels", "hidden panels");
   check("specialty", "specialty panels");
   check("blockOrder", "page layout");

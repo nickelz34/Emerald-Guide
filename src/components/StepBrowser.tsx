@@ -16,6 +16,7 @@ import { ScreenshotGallery } from "./ScreenshotGallery";
 import { StepDetails } from "./StepDetails";
 import { StepEncounters } from "./EncounterTable";
 import { StepSecretsExtras } from "./StepSecretsExtras";
+import { StepSprites } from "./StepSprites";
 import { GymGuidePanel } from "./GymGuidePanel";
 import { RivalGuidePanelForStep } from "./RivalGuidePanel";
 import { FlowerShopGuidePanelForStep } from "./FlowerShopGuidePanel";
@@ -550,6 +551,15 @@ export function StepBrowser({
           onlyMediaId={mediaId}
         />
       );
+    }
+
+    if (blockId === "sprites") {
+      return <StepSprites sprites={step.sprites} />;
+    }
+
+    if (blockId.startsWith("sprite-item:")) {
+      const spriteId = blockId.slice("sprite-item:".length);
+      return <StepSprites sprites={step.sprites} onlySpriteId={spriteId} />;
     }
 
     if (blockId === "encounters") {

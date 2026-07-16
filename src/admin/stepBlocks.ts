@@ -11,12 +11,14 @@ export type StepBlockId =
   | "tips"
   | "secrets"
   | "media"
+  | "sprites"
   | "encounters"
   | "tags"
   | "panel:breeding-lookup"
   | "panel:evolution-chart"
   | "panel:breeding-chart"
   | `media-item:${string}`
+  | `sprite-item:${string}`
   | `panel:${string}`;
 
 export interface StepBlockDescriptor {
@@ -84,6 +86,13 @@ export function getAvailableStepBlocks(step: GuideStep): StepBlockDescriptor[] {
     }
   }
 
+  for (const item of step.sprites ?? []) {
+    blocks.push({
+      id: `sprite-item:${item.id}`,
+      label: `Sprite: ${item.caption || item.label}`,
+    });
+  }
+
   for (const panel of getAvailablePanelsForStep(step)) {
     if (panel.id === "encounters") continue; // handled as encounters block
     if (hidden.has(panel.id)) continue;
@@ -126,6 +135,7 @@ const DEFAULT_ORDER_PRIORITY: string[] = [
   "summary",
   "story",
   "media",
+  "sprites",
   "panel:battle-basics",
   "panel:starter",
   "panel:ralts",
@@ -152,17 +162,19 @@ const DEFAULT_ORDER_PRIORITY: string[] = [
   "tags",
 ];
 
+function defaultPriorityIndex(id: StepBlockId): number {
+  if (id.startsWith("media-item:")) return DEFAULT_ORDER_PRIORITY.indexOf("media");
+  if (id.startsWith("sprite-item:")) return DEFAULT_ORDER_PRIORITY.indexOf("sprites");
+  return DEFAULT_ORDER_PRIORITY.indexOf(id);
+}
+
 function sortByDefaultPriority(ids: StepBlockId[]): StepBlockId[] {
   return ids.slice().sort((a, b) => {
-    const ai = a.startsWith("media-item:")
-      ? DEFAULT_ORDER_PRIORITY.indexOf("media")
-      : DEFAULT_ORDER_PRIORITY.indexOf(a);
-    const bi = b.startsWith("media-item:")
-      ? DEFAULT_ORDER_PRIORITY.indexOf("media")
-      : DEFAULT_ORDER_PRIORITY.indexOf(b);
-    const aIdx = ai === -1 ? 999 : ai;
-    const bIdx = bi === -1 ? 999 : bi;
-    if (aIdx !== bIdx) return aIdx - bIdx;
+    const aIdx = defaultPriorityIndex(a);
+    const bIdx = defaultPriorityIndex(b);
+    const aRank = aIdx === -1 ? 999 : aIdx;
+    const bRank = bIdx === -1 ? 999 : bIdx;
+    if (aRank !== bRank) return aRank - bRank;
     return a.localeCompare(b);
   });
 }
@@ -188,15 +200,10 @@ export function resolveStepBlockOrder(step: GuideStep): StepBlockDescriptor[] {
   // Insert missing blocks by default priority relative to saved list.
   const result: StepBlockId[] = [...saved];
   for (const id of orderedMissing) {
-    const priority = id.startsWith("media-item:")
-      ? DEFAULT_ORDER_PRIORITY.indexOf("media")
-      : DEFAULT_ORDER_PRIORITY.indexOf(id);
+    const priority = defaultPriorityIndex(id);
     let insertAt = result.length;
     for (let i = 0; i < result.length; i++) {
-      const other = result[i];
-      const otherPriority = other.startsWith("media-item:")
-        ? DEFAULT_ORDER_PRIORITY.indexOf("media")
-        : DEFAULT_ORDER_PRIORITY.indexOf(other);
+      const otherPriority = defaultPriorityIndex(result[i]);
       if ((priority === -1 ? 999 : priority) < (otherPriority === -1 ? 999 : otherPriority)) {
         insertAt = i;
         break;
@@ -210,6 +217,7 @@ export function resolveStepBlockOrder(step: GuideStep): StepBlockDescriptor[] {
 
 export function blockLabel(id: StepBlockId): string {
   if (id.startsWith("media-item:")) return `Image (${id.slice("media-item:".length)})`;
+  if (id.startsWith("sprite-item:")) return `Sprite (${id.slice("sprite-item:".length)})`;
   if (id.startsWith("panel:")) return panelLabel(id.slice("panel:".length));
   const labels: Record<string, string> = {
     summary: "Summary",
@@ -218,6 +226,7 @@ export function blockLabel(id: StepBlockId): string {
     tips: "Tips",
     secrets: "Secrets",
     media: "Images & maps",
+    sprites: "Sprites",
     encounters: "Wild encounters",
     tags: "Tags",
   };

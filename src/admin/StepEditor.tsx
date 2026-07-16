@@ -5,6 +5,7 @@ import { PanelsEditor } from "./PanelsEditor";
 import { RichTextField } from "./RichTextField";
 import { SortableStringList } from "./SortableStringList";
 import { SpecialtyPanelEditors } from "./SpecialtyPanelEditors";
+import { SpriteEditor } from "./SpriteEditor";
 
 interface StepEditorProps {
   step: GuideStep;
@@ -122,6 +123,12 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
             useCustomMedia: useCustomMedia || undefined,
           })
         }
+      />
+
+      <SpriteEditor
+        stepId={step.id}
+        sprites={step.sprites ?? []}
+        onChange={(sprites) => onChange({ sprites: sprites.length ? sprites : undefined })}
       />
 
       <PanelsEditor
