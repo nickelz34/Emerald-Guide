@@ -17,6 +17,55 @@ export interface PlannedRelease {
   commitBody: string;
 }
 
+/** Editable changelog copy shown before Admin Mode publish. */
+export interface ChangelogDraft {
+  summary: string;
+  sections: ChangelogSection[];
+}
+
+export function changelogDraftFromPlan(plan: PlannedRelease): ChangelogDraft {
+  return {
+    summary: plan.summary,
+    sections: structuredClone(plan.sections),
+  };
+}
+
+function rebuildCommitBody(plan: PlannedRelease, summary: string, changeCount?: number): string {
+  return [
+    summary,
+    "",
+    `Bump: ${plan.bump} (${plan.previousVersion} → ${plan.version})`,
+    `Changes: ${changeCount ?? "n/a"}`,
+    "",
+    "Shipped from Admin Mode with changelog + version alignment.",
+  ].join("\n");
+}
+
+/**
+ * Apply admin-edited changelog text onto an auto-planned release.
+ * Empty headings/items fall back safely so publish never writes a blank entry.
+ */
+export function applyChangelogDraftToPlan(
+  plan: PlannedRelease,
+  draft: ChangelogDraft,
+  changeCount?: number,
+): PlannedRelease {
+  const summary = draft.summary.trim() || plan.summary;
+  const sections = draft.sections
+    .map((section) => ({
+      heading: section.heading.trim() || "Walkthrough",
+      items: section.items.map((item) => item.trim()).filter(Boolean),
+    }))
+    .filter((section) => section.items.length > 0);
+
+  return {
+    ...plan,
+    summary,
+    sections: sections.length > 0 ? sections : plan.sections,
+    commitBody: rebuildCommitBody(plan, summary, changeCount),
+  };
+}
+
 const MAX_CHANGELOG_ITEMS = 12;
 
 /** Parse `1.26.25` → parts; throws if invalid. */
@@ -175,7 +224,7 @@ export function planReleaseFromGuideChanges(
         item.kind === "chapter-reordered",
     );
 
-  return {
+  const plan: PlannedRelease = {
     bump,
     version,
     previousVersion,
@@ -184,14 +233,11 @@ export function planReleaseFromGuideChanges(
     sections,
     updateReadmeProse,
     commitTitle: `cms: guide update ${version}`,
-    commitBody: [
-      summaryText,
-      "",
-      `Bump: ${bump} (${previousVersion} → ${version})`,
-      `Changes: ${summary.total}`,
-      "",
-      "Shipped from Admin Mode with changelog + version alignment.",
-    ].join("\n"),
+    commitBody: "",
+  };
+  return {
+    ...plan,
+    commitBody: rebuildCommitBody(plan, summaryText, summary.total),
   };
 }
 

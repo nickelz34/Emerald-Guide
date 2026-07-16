@@ -23,13 +23,17 @@ import {
   summarizeGuideChanges,
   type GuideChangeSummary,
 } from "./guideChangeSummary";
+import type { ChangelogSection } from "../data/changelog";
 import {
+  applyChangelogDraftToPlan,
   applyReadmeReleaseUpdates,
   bumpPackageJsonVersion,
   bumpPackageLockVersion,
+  changelogDraftFromPlan,
   planReleaseFromGuideChanges,
   prependChangelogEntry,
   toChangelogRelease,
+  type ChangelogDraft,
   type PlannedRelease,
 } from "./releaseFromChanges";
 
@@ -57,6 +61,8 @@ interface AdminContextValue {
   changeSummary: GuideChangeSummary;
   /** Planned semver/changelog release for the current pending edits (null when clean). */
   pendingRelease: PlannedRelease | null;
+  /** Editable changelog copy for the pending release (null when clean). */
+  changelogDraft: ChangelogDraft | null;
   /** package.json version last loaded from GitHub (or after a successful publish). */
   repoVersion: string | null;
   toast: AdminToastMessage | null;
@@ -65,6 +71,14 @@ interface AdminContextValue {
   login: (token: string) => Promise<void>;
   logout: () => void;
   publish: () => Promise<void>;
+  setChangelogSummary: (summary: string) => void;
+  setChangelogSectionHeading: (sectionIndex: number, heading: string) => void;
+  setChangelogItem: (sectionIndex: number, itemIndex: number, text: string) => void;
+  addChangelogItem: (sectionIndex: number) => void;
+  removeChangelogItem: (sectionIndex: number, itemIndex: number) => void;
+  addChangelogSection: () => void;
+  removeChangelogSection: (sectionIndex: number) => void;
+  resetChangelogDraft: () => void;
   undo: () => void;
   redo: () => void;
   setDraftWalkthrough: (next: GuideSection[]) => void;
@@ -97,6 +111,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [isPublishing, setIsPublishing] = useState(false);
   const [isBootstrapping, setIsBootstrapping] = useState(false);
   const [repoVersion, setRepoVersion] = useState<string | null>(null);
+  const [changelogDraft, setChangelogDraft] = useState<ChangelogDraft | null>(null);
+  const [changelogDraftKey, setChangelogDraftKey] = useState("");
   const [toast, setToast] = useState<AdminToastMessage | null>(null);
   const [undoStack, setUndoStack] = useState<GuideSection[][]>([]);
   const [redoStack, setRedoStack] = useState<GuideSection[][]>([]);
@@ -116,6 +132,27 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       return null;
     }
   }, [isDirty, repoVersion, changeSummary]);
+
+  const pendingReleaseKey = useMemo(() => {
+    if (!pendingRelease) return "";
+    return [
+      pendingRelease.version,
+      pendingRelease.bump,
+      changeSummary.items.map((item) => item.id).join("|"),
+    ].join("::");
+  }, [pendingRelease, changeSummary.items]);
+
+  // Re-seed editable changelog when the auto plan changes (new edits / version).
+  useEffect(() => {
+    if (!pendingRelease || !pendingReleaseKey) {
+      setChangelogDraft(null);
+      setChangelogDraftKey("");
+      return;
+    }
+    if (changelogDraftKey === pendingReleaseKey) return;
+    setChangelogDraft(changelogDraftFromPlan(pendingRelease));
+    setChangelogDraftKey(pendingReleaseKey);
+  }, [pendingRelease, pendingReleaseKey, changelogDraftKey]);
 
   const showToast = useCallback((tone: AdminToastTone, message: string) => {
     setToast({ tone, message });
@@ -173,6 +210,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     setToken(null);
     setIsAdmin(false);
     setRepoVersion(null);
+    setChangelogDraft(null);
+    setChangelogDraftKey("");
     resetHistory();
     const bundled = cloneWalkthrough(bundledWalkthrough);
     setDraftState(bundled);
@@ -279,7 +318,9 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const pkg = JSON.parse(packageJsonText) as { version?: string };
       if (!pkg.version) throw new Error("package.json on GitHub is missing version");
 
-      const plan = planReleaseFromGuideChanges(summary, pkg.version);
+      const autoPlan = planReleaseFromGuideChanges(summary, pkg.version);
+      const draft = changelogDraft ?? changelogDraftFromPlan(autoPlan);
+      const plan = applyChangelogDraftToPlan(autoPlan, draft, summary.total);
       const release = toChangelogRelease(plan);
       const nextPackageJson = bumpPackageJsonVersion(packageJsonText, plan.version);
       const nextPackageLock = bumpPackageLockVersion(packageLockText, plan.version);
@@ -301,6 +342,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
       setBaselineWalkthrough(cloneWalkthrough(draftWalkthrough));
       setRepoVersion(plan.version);
+      setChangelogDraft(null);
+      setChangelogDraftKey("");
       resetHistory();
       const via =
         result.mode === "pull-request"
@@ -317,7 +360,89 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsPublishing(false);
     }
-  }, [token, baselineWalkthrough, draftWalkthrough, showToast, resetHistory]);
+  }, [token, baselineWalkthrough, draftWalkthrough, changelogDraft, showToast, resetHistory]);
+
+  const setChangelogSummary = useCallback((summary: string) => {
+    setChangelogDraft((prev) => (prev ? { ...prev, summary } : prev));
+  }, []);
+
+  const setChangelogSectionHeading = useCallback((sectionIndex: number, heading: string) => {
+    setChangelogDraft((prev) => {
+      if (!prev) return prev;
+      const sections = prev.sections.map((section, index) =>
+        index === sectionIndex ? { ...section, heading } : section,
+      );
+      return { ...prev, sections };
+    });
+  }, []);
+
+  const setChangelogItem = useCallback(
+    (sectionIndex: number, itemIndex: number, text: string) => {
+      setChangelogDraft((prev) => {
+        if (!prev) return prev;
+        const sections = prev.sections.map((section, index) => {
+          if (index !== sectionIndex) return section;
+          const items = section.items.map((item, i) => (i === itemIndex ? text : item));
+          return { ...section, items };
+        });
+        return { ...prev, sections };
+      });
+    },
+    [],
+  );
+
+  const addChangelogItem = useCallback((sectionIndex: number) => {
+    setChangelogDraft((prev) => {
+      if (!prev) return prev;
+      const sections = prev.sections.map((section, index) =>
+        index === sectionIndex ? { ...section, items: [...section.items, ""] } : section,
+      );
+      return { ...prev, sections };
+    });
+  }, []);
+
+  const removeChangelogItem = useCallback((sectionIndex: number, itemIndex: number) => {
+    setChangelogDraft((prev) => {
+      if (!prev) return prev;
+      const sections = prev.sections
+        .map((section, index) => {
+          if (index !== sectionIndex) return section;
+          return {
+            ...section,
+            items: section.items.filter((_, i) => i !== itemIndex),
+          };
+        })
+        .filter((section) => section.items.length > 0 || prev.sections.length === 1);
+      return {
+        ...prev,
+        sections: sections.length > 0 ? sections : [{ heading: "Walkthrough", items: [""] }],
+      };
+    });
+  }, []);
+
+  const addChangelogSection = useCallback(() => {
+    setChangelogDraft((prev) => {
+      if (!prev) return prev;
+      const section: ChangelogSection = { heading: "Walkthrough", items: [""] };
+      return { ...prev, sections: [...prev.sections, section] };
+    });
+  }, []);
+
+  const removeChangelogSection = useCallback((sectionIndex: number) => {
+    setChangelogDraft((prev) => {
+      if (!prev || prev.sections.length <= 1) return prev;
+      return {
+        ...prev,
+        sections: prev.sections.filter((_, index) => index !== sectionIndex),
+      };
+    });
+  }, []);
+
+  const resetChangelogDraft = useCallback(() => {
+    if (!pendingRelease) return;
+    setChangelogDraft(changelogDraftFromPlan(pendingRelease));
+    setChangelogDraftKey(pendingReleaseKey);
+  }, [pendingRelease, pendingReleaseKey]);
 
   const updateChapter = useCallback(
     (chapterId: string, patch: Partial<GuideSection>) => {
@@ -441,6 +566,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       baselineWalkthrough,
       changeSummary,
       pendingRelease,
+      changelogDraft,
       repoVersion,
       toast,
       dismissToast,
@@ -448,6 +574,14 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       login,
       logout,
       publish,
+      setChangelogSummary,
+      setChangelogSectionHeading,
+      setChangelogItem,
+      addChangelogItem,
+      removeChangelogItem,
+      addChangelogSection,
+      removeChangelogSection,
+      resetChangelogDraft,
       undo,
       redo,
       setDraftWalkthrough,
@@ -472,6 +606,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       baselineWalkthrough,
       changeSummary,
       pendingRelease,
+      changelogDraft,
       repoVersion,
       toast,
       dismissToast,
@@ -479,6 +614,14 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       login,
       logout,
       publish,
+      setChangelogSummary,
+      setChangelogSectionHeading,
+      setChangelogItem,
+      addChangelogItem,
+      removeChangelogItem,
+      addChangelogSection,
+      removeChangelogSection,
+      resetChangelogDraft,
       undo,
       redo,
       setDraftWalkthrough,

@@ -20,6 +20,7 @@ import { getSpriteCatalog, filterSpriteCatalog } from "../src/admin/spriteCatalo
 import { seedSpecialtyForStep } from "../src/admin/specialtySeed.ts";
 import { isPullRequestRequiredError } from "../src/lib/githubGuideApi.ts";
 import {
+  applyChangelogDraftToPlan,
   applyReadmeReleaseUpdates,
   bumpPackageJsonVersion,
   bumpPackageLockVersion,
@@ -258,6 +259,43 @@ check("release helpers update changelog package.json lockfile and README", () =>
   assert.match(nextReadme, /`v1\.26\.26`/);
   assert.match(nextReadme, /version bump, changelog entry/);
   assert.match(nextReadme, /Battles & Training/);
+});
+
+check("editable changelog draft overrides auto plan before publish", () => {
+  const plan = planReleaseFromGuideChanges(
+    {
+      total: 1,
+      items: [
+        {
+          id: "step-updated:x",
+          kind: "step-updated",
+          label: "Updated step “Test”",
+          detail: "summary",
+          diffs: [{ field: "summary", label: "Summary", before: "a", after: "b" }],
+        },
+      ],
+    },
+    "1.26.25",
+    new Date("2026-07-16T12:00:00Z"),
+  );
+  const edited = applyChangelogDraftToPlan(
+    plan,
+    {
+      summary: "Custom summary for the release.",
+      sections: [
+        {
+          heading: "Custom heading",
+          items: ["First custom bullet.", "", "  Second custom bullet.  "],
+        },
+      ],
+    },
+    1,
+  );
+  assert.equal(edited.summary, "Custom summary for the release.");
+  assert.equal(edited.sections.length, 1);
+  assert.equal(edited.sections[0].heading, "Custom heading");
+  assert.deepEqual(edited.sections[0].items, ["First custom bullet.", "Second custom bullet."]);
+  assert.match(edited.commitBody, /Custom summary for the release/);
 });
 
 check("detects GitHub ruleset 409 that requires a pull request", () => {

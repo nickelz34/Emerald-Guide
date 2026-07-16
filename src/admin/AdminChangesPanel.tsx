@@ -71,6 +71,123 @@ function ChangeItem({
   );
 }
 
+function ChangelogEditor() {
+  const {
+    pendingRelease,
+    changelogDraft,
+    isPublishing,
+    setChangelogSummary,
+    setChangelogSectionHeading,
+    setChangelogItem,
+    addChangelogItem,
+    removeChangelogItem,
+    addChangelogSection,
+    removeChangelogSection,
+    resetChangelogDraft,
+  } = useAdmin();
+
+  if (!pendingRelease || !changelogDraft) return null;
+
+  return (
+    <div className="admin-changelog-editor" aria-label="Editable changelog for this publish">
+      <div className="admin-changelog-editor__head">
+        <div>
+          <strong>Changelog for v{pendingRelease.version}</strong>
+          <p className="admin-muted">
+            Edit the summary and bullets before Publish. This is what the version badge changelog
+            will show.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="btn btn--ghost btn--sm"
+          onClick={resetChangelogDraft}
+          disabled={isPublishing}
+        >
+          Reset to auto
+        </button>
+      </div>
+
+      <label className="admin-field">
+        <span className="admin-field__label">Summary</span>
+        <textarea
+          className="admin-field__textarea"
+          rows={3}
+          value={changelogDraft.summary}
+          disabled={isPublishing}
+          onChange={(e) => setChangelogSummary(e.target.value)}
+        />
+      </label>
+
+      {changelogDraft.sections.map((section, sectionIndex) => (
+        <div key={`section-${sectionIndex}`} className="admin-changelog-editor__section">
+          <div className="admin-changelog-editor__section-head">
+            <label className="admin-field admin-changelog-editor__heading-field">
+              <span className="admin-field__label">Section heading</span>
+              <input
+                className="admin-field__input"
+                value={section.heading}
+                disabled={isPublishing}
+                onChange={(e) => setChangelogSectionHeading(sectionIndex, e.target.value)}
+              />
+            </label>
+            <button
+              type="button"
+              className="btn btn--ghost btn--sm"
+              disabled={isPublishing || changelogDraft.sections.length <= 1}
+              onClick={() => removeChangelogSection(sectionIndex)}
+            >
+              Remove section
+            </button>
+          </div>
+
+          <ul className="admin-changelog-editor__items">
+            {section.items.map((item, itemIndex) => (
+              <li key={`item-${sectionIndex}-${itemIndex}`} className="admin-changelog-editor__item">
+                <textarea
+                  className="admin-field__textarea"
+                  rows={2}
+                  value={item}
+                  disabled={isPublishing}
+                  aria-label={`${section.heading || "Section"} item ${itemIndex + 1}`}
+                  onChange={(e) => setChangelogItem(sectionIndex, itemIndex, e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="btn btn--ghost btn--sm"
+                  disabled={isPublishing}
+                  aria-label={`Remove item ${itemIndex + 1}`}
+                  onClick={() => removeChangelogItem(sectionIndex, itemIndex)}
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <button
+            type="button"
+            className="btn btn--ghost btn--sm"
+            disabled={isPublishing}
+            onClick={() => addChangelogItem(sectionIndex)}
+          >
+            + Bullet
+          </button>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        className="btn btn--ghost btn--sm"
+        disabled={isPublishing}
+        onClick={addChangelogSection}
+      >
+        + Section
+      </button>
+    </div>
+  );
+}
+
 export function AdminChangesPanel() {
   const {
     isAdmin,
@@ -154,11 +271,8 @@ export function AdminChangesPanel() {
         prepends the in-app changelog, and syncs README version strings
         {pendingRelease?.updateReadmeProse ? " (plus README pregame list for larger edits)" : ""}.
       </p>
-      {pendingRelease ? (
-        <p className="admin-changes__release-preview" role="note">
-          <strong>Changelog preview:</strong> {pendingRelease.summary}
-        </p>
-      ) : null}
+
+      <ChangelogEditor />
 
       {fileDiffItem ? (
         <AdminChangeFileDiffPanel
