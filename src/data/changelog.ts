@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.28",
+    date: "2026-07-16",
+    summary:
+      "Updated step “Moving into Littleroot Town”.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Updated step “Moving into Littleroot Town” (Ch. 5 — Littleroot Town · Hidden panels).",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.27",
     date: "2026-07-16",
     summary:
