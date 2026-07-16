@@ -1,4 +1,11 @@
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  type DropResult,
+} from "@hello-pangea/dnd";
 import { useEffect } from "react";
+import { reorderList } from "../lib/reorderList";
 import type { GuideStep, StepSpecialtyData } from "../types";
 import { createAdminId } from "./adminIds";
 import { getAvailablePanelsForStep } from "./availablePanels";
@@ -33,11 +40,12 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
   return (
     <div className="admin-specialty">
       <div className="admin-specialty__head">
-        <strong>Edit specialty panels</strong>
+        <strong>Edit specialty panels &amp; tables</strong>
       </div>
       <p className="admin-muted">
-        These controls edit the panels shown on this step. Trainer parties and wild encounter rates
-        still come from game data; prose, notes, and reference table rows are fully editable here.
+        Edit gym/rival guides and reference tables for this step. Drag rows to reorder tables.
+        Trainer parties and wild encounter rates still come from game data. Use{" "}
+        <strong>Page layout</strong> above to move any panel or table around on the page.
       </p>
 
       {specialty.gym ? (
@@ -476,6 +484,7 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
       {specialty.hmTable ? (
         <ReferenceRowsEditor
           title="HM unlock table"
+          droppableId={`hm-table-${step.id}`}
           rows={specialty.hmTable}
           columns={[
             ["hm", "HM"],
@@ -500,6 +509,7 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
       {specialty.keyItems ? (
         <ReferenceRowsEditor
           title="Key items"
+          droppableId={`key-items-${step.id}`}
           rows={specialty.keyItems}
           columns={[
             ["name", "Name"],
@@ -522,6 +532,7 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
       {specialty.pokeBalls ? (
         <ReferenceRowsEditor
           title="Poké Balls"
+          droppableId={`poke-balls-${step.id}`}
           rows={specialty.pokeBalls}
           columns={[
             ["name", "Name"],
@@ -544,6 +555,7 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
       {specialty.statusTable ? (
         <ReferenceRowsEditor
           title="Status conditions"
+          droppableId={`status-table-${step.id}`}
           rows={specialty.statusTable}
           columns={[
             ["name", "Name"],
@@ -567,6 +579,7 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
       {specialty.natures ? (
         <ReferenceRowsEditor
           title="Natures"
+          droppableId={`natures-${step.id}`}
           rows={specialty.natures}
           columns={[
             ["name", "Name"],
@@ -588,9 +601,156 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
         />
       ) : null}
 
+      {specialty.typeChart ? (
+        <div className="admin-specialty__card">
+          <h4>Type chart</h4>
+          <p className="admin-muted">
+            Damage multipliers stay Gen III game data. Edit the heading and intro shown above the
+            interactive picker.
+          </p>
+          <label className="admin-field">
+            <span className="admin-field__label">Title</span>
+            <input
+              className="admin-field__input"
+              value={specialty.typeChart.title ?? "Damage multipliers (Gen III)"}
+              onChange={(e) =>
+                patch({ typeChart: { ...specialty.typeChart!, title: e.target.value } })
+              }
+            />
+          </label>
+          <RichTextField
+            label="Intro"
+            value={specialty.typeChart.lead ?? ""}
+            onChange={(lead) =>
+              patch({ typeChart: { ...specialty.typeChart!, lead } })
+            }
+          />
+        </div>
+      ) : null}
+
+      {specialty.tmHmTable ? (
+        <>
+          <div className="admin-specialty__card">
+            <h4>TM &amp; HM catalog</h4>
+            <label className="admin-field">
+              <span className="admin-field__label">Title</span>
+              <input
+                className="admin-field__input"
+                value={specialty.tmHmTable.title ?? "TMs & HMs in Emerald"}
+                onChange={(e) =>
+                  patch({ tmHmTable: { ...specialty.tmHmTable!, title: e.target.value } })
+                }
+              />
+            </label>
+            <RichTextField
+              label="Intro"
+              value={specialty.tmHmTable.lead ?? ""}
+              onChange={(lead) =>
+                patch({ tmHmTable: { ...specialty.tmHmTable!, lead } })
+              }
+            />
+          </div>
+          <ReferenceRowsEditor
+            title="Technical Machines"
+            droppableId={`tm-catalog-${step.id}`}
+            rows={specialty.tmHmTable.tms.map((row) => ({
+              id: row.id,
+              move: row.move,
+              type: row.type ?? "",
+              locationsText: row.locations.join(" · "),
+              notes: row.notes ?? "",
+            }))}
+            columns={[
+              ["id", "TM"],
+              ["move", "Move"],
+              ["type", "Type"],
+              ["locationsText", "Locations ( · separated)"],
+              ["notes", "Notes"],
+            ]}
+            onChange={(rows) =>
+              patch({
+                tmHmTable: {
+                  ...specialty.tmHmTable!,
+                  tms: rows.map((row) => ({
+                    id: String(row.id ?? ""),
+                    move: String(row.move ?? ""),
+                    type: String(row.type ?? "") || undefined,
+                    notes: String(row.notes ?? "") || undefined,
+                    locations: String(row.locationsText ?? "")
+                      .split(/\s*·\s*/)
+                      .map((s) => s.trim())
+                      .filter(Boolean),
+                  })),
+                },
+              })
+            }
+            createRow={() => ({
+              id: "TM00",
+              move: "New move",
+              type: "Normal",
+              locationsText: "",
+              notes: "",
+            })}
+          />
+          <ReferenceRowsEditor
+            title="Hidden Machines"
+            droppableId={`hm-catalog-${step.id}`}
+            rows={specialty.tmHmTable.hms.map((row) => ({
+              id: row.id,
+              move: row.move,
+              locationsText: row.locations.join(" · "),
+              fieldBadge: row.fieldBadge ?? "",
+              fieldBadgeNumber: row.fieldBadgeNumber ?? "",
+              notes: row.notes ?? "",
+            }))}
+            columns={[
+              ["id", "HM"],
+              ["move", "Move"],
+              ["locationsText", "Locations ( · separated)"],
+              ["fieldBadge", "Field badge"],
+              ["fieldBadgeNumber", "Badge #"],
+              ["notes", "Field effect / notes"],
+            ]}
+            onChange={(rows) =>
+              patch({
+                tmHmTable: {
+                  ...specialty.tmHmTable!,
+                  hms: rows.map((row) => {
+                    const badgeNum = row.fieldBadgeNumber;
+                    const parsed =
+                      badgeNum === "" || badgeNum == null ? undefined : Number(badgeNum);
+                    return {
+                      id: String(row.id ?? ""),
+                      move: String(row.move ?? ""),
+                      fieldBadge: String(row.fieldBadge ?? "") || undefined,
+                      fieldBadgeNumber:
+                        parsed != null && !Number.isNaN(parsed) ? parsed : undefined,
+                      notes: String(row.notes ?? "") || undefined,
+                      locations: String(row.locationsText ?? "")
+                        .split(/\s*·\s*/)
+                        .map((s) => s.trim())
+                        .filter(Boolean),
+                    };
+                  }),
+                },
+              })
+            }
+            createRow={() => ({
+              id: "HM00",
+              move: "New move",
+              locationsText: "",
+              fieldBadge: "",
+              fieldBadgeNumber: 1,
+              notes: "",
+            })}
+          />
+        </>
+      ) : null}
+
       {specialty.scott ? (
         <ReferenceRowsEditor
           title="Scott sightings"
+          droppableId={`scott-${step.id}`}
           rows={specialty.scott}
           columns={[
             ["id", "Id"],
@@ -642,6 +802,7 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
 
 interface ReferenceRowsEditorProps<T extends Record<string, unknown>> {
   title: string;
+  droppableId: string;
   rows: T[];
   columns: Array<[string, string]>;
   onChange: (rows: T[]) => void;
@@ -650,11 +811,18 @@ interface ReferenceRowsEditorProps<T extends Record<string, unknown>> {
 
 function ReferenceRowsEditor<T extends Record<string, unknown>>({
   title,
+  droppableId,
   rows,
   columns,
   onChange,
   createRow,
 }: ReferenceRowsEditorProps<T>) {
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    if (result.destination.index === result.source.index) return;
+    onChange(reorderList(rows, result.source.index, result.destination.index));
+  };
+
   return (
     <div className="admin-specialty__card">
       <div className="admin-specialty__subhead">
@@ -667,39 +835,77 @@ function ReferenceRowsEditor<T extends Record<string, unknown>>({
           + Row
         </button>
       </div>
-      {rows.map((row, index) => (
-        <div key={index} className="admin-specialty__nested">
-          {columns.map(([key, label]) => (
-            <label key={key} className="admin-field">
-              <span className="admin-field__label">{label}</span>
-              <input
-                className="admin-field__input"
-                value={row[key] == null ? "" : String(row[key])}
-                onChange={(e) => {
-                  const next = rows.slice();
-                  const raw = e.target.value;
-                  const prev = row[key];
-                  const value =
-                    typeof prev === "number"
-                      ? Number(raw) || 0
-                      : raw === "" && (prev === null || prev === undefined)
-                        ? null
-                        : raw;
-                  next[index] = { ...row, [key]: value };
-                  onChange(next);
-                }}
-              />
-            </label>
-          ))}
-          <button
-            type="button"
-            className="btn btn--ghost btn--sm"
-            onClick={() => onChange(rows.filter((_, i) => i !== index))}
-          >
-            Remove row
-          </button>
-        </div>
-      ))}
+      <p className="admin-muted">Drag the handle to reorder rows.</p>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId={droppableId}>
+          {(provided) => (
+            <div
+              className="admin-specialty__rows"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {rows.map((row, index) => (
+                <Draggable
+                  key={`${droppableId}-${index}`}
+                  draggableId={`${droppableId}-row-${index}`}
+                  index={index}
+                >
+                  {(drag, snapshot) => (
+                    <div
+                      ref={drag.innerRef}
+                      {...drag.draggableProps}
+                      className={`admin-specialty__nested${
+                        snapshot.isDragging ? " admin-specialty__nested--dragging" : ""
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        className="admin-chapter-tree__handle"
+                        aria-label={`Drag ${title} row ${index + 1}`}
+                        {...drag.dragHandleProps}
+                      >
+                        ⋮⋮
+                      </button>
+                      <div className="admin-specialty__row-fields">
+                        {columns.map(([key, label]) => (
+                          <label key={key} className="admin-field">
+                            <span className="admin-field__label">{label}</span>
+                            <input
+                              className="admin-field__input"
+                              value={row[key] == null ? "" : String(row[key])}
+                              onChange={(e) => {
+                                const next = rows.slice();
+                                const raw = e.target.value;
+                                const prev = row[key];
+                                const value =
+                                  typeof prev === "number"
+                                    ? Number(raw) || 0
+                                    : raw === "" && (prev === null || prev === undefined)
+                                      ? null
+                                      : raw;
+                                next[index] = { ...row, [key]: value };
+                                onChange(next);
+                              }}
+                            />
+                          </label>
+                        ))}
+                        <button
+                          type="button"
+                          className="btn btn--ghost btn--sm"
+                          onClick={() => onChange(rows.filter((_, i) => i !== index))}
+                        >
+                          Remove row
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 }

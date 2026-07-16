@@ -7,11 +7,28 @@ import {
 import { useMemo } from "react";
 import { reorderList } from "../lib/reorderList";
 import type { GuideStep } from "../types";
-import { resolveStepBlockOrder } from "./stepBlocks";
+import { resolveStepBlockOrder, type StepBlockId } from "./stepBlocks";
 
 interface BlockOrderEditorProps {
   step: GuideStep;
   onChange: (blockOrder: string[]) => void;
+}
+
+const TABLE_PANEL_IDS = new Set([
+  "panel:hm-table",
+  "panel:key-items",
+  "panel:poke-balls",
+  "panel:type-chart",
+  "panel:status-table",
+  "panel:nature-table",
+  "panel:tm-hm-table",
+]);
+
+function blockKind(id: StepBlockId): string {
+  if (id.startsWith("media")) return "image";
+  if (TABLE_PANEL_IDS.has(id)) return "table";
+  if (id.startsWith("panel:")) return "panel";
+  return "content";
 }
 
 export function BlockOrderEditor({ step, onChange }: BlockOrderEditorProps) {
@@ -40,8 +57,8 @@ export function BlockOrderEditor({ step, onChange }: BlockOrderEditorProps) {
         <strong>Page layout</strong>
       </div>
       <p className="admin-muted">
-        Drag to place summary, story, images, specialty panels, and other sections anywhere on
-        the step page.
+        Drag to place summary, story, images, specialty panels, reference tables, and other
+        sections anywhere on the step page.
       </p>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId={`block-order-${step.id}`}>
@@ -70,13 +87,7 @@ export function BlockOrderEditor({ step, onChange }: BlockOrderEditorProps) {
                         ⋮⋮
                       </button>
                       <span className="admin-block-order__label">{block.label}</span>
-                      <span className="admin-block-order__kind">
-                        {block.id.startsWith("media")
-                          ? "image"
-                          : block.id.startsWith("panel:")
-                            ? "panel"
-                            : "content"}
-                      </span>
+                      <span className="admin-block-order__kind">{blockKind(block.id)}</span>
                     </li>
                   )}
                 </Draggable>

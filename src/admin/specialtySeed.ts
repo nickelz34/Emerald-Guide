@@ -16,6 +16,7 @@ import { POKE_BALL_TABLE } from "../data/pokeBalls";
 import { STATUS_CONDITION_TABLE } from "../data/statusConditions";
 import { NATURE_TABLE } from "../data/natures";
 import { SCOTT_SIGHTINGS } from "../data/scottSightings";
+import { EMERALD_HM_CATALOG, EMERALD_TM_CATALOG } from "../data/tmHmCatalog";
 import type { GuideStep, StepSpecialtyData } from "../types";
 import { getAvailablePanelsForStep } from "./availablePanels";
 
@@ -137,8 +138,22 @@ export function seedSpecialtyForStep(step: GuideStep): StepSpecialtyData {
   if (available.has("status-table") && !specialty.statusTable) {
     specialty.statusTable = structuredClone(STATUS_CONDITION_TABLE);
   }
-  if (available.has("natures") && !specialty.natures) {
+  if (available.has("nature-table") && !specialty.natures) {
     specialty.natures = structuredClone(NATURE_TABLE);
+  }
+  if (available.has("tm-hm-table") && !specialty.tmHmTable) {
+    specialty.tmHmTable = {
+      lead:
+        "Generation III TMs are reusable. HMs are reusable too, but field use waits for the matching gym badge — the move still works in battle as soon as you teach it.",
+      tms: structuredClone(EMERALD_TM_CATALOG),
+      hms: structuredClone(EMERALD_HM_CATALOG),
+    };
+  }
+  if (available.has("type-chart") && !specialty.typeChart) {
+    specialty.typeChart = {
+      lead:
+        "Pick an attacking move type to see how it hits every defending type. Dual-typed Pokémon multiply both factors (for example Water/Ground takes 4× from Grass). STAB (1.5×) is separate and applies when the move matches the user’s type.",
+    };
   }
   if (available.has("scott") && !specialty.scott) {
     specialty.scott = structuredClone(SCOTT_SIGHTINGS);

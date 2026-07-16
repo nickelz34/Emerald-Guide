@@ -1,8 +1,11 @@
 import { useMemo, useState } from "react";
 import { ALL_TYPES, typeEffectiveness } from "../lib/typeChart";
+import { GuideHtml } from "../lib/guideHtml";
 
 interface TypeChartTableProps {
   className?: string;
+  title?: string;
+  lead?: string;
 }
 
 function formatMult(m: number): string {
@@ -22,8 +25,15 @@ function multClass(m: number): string {
   return "";
 }
 
+const DEFAULT_LEAD =
+  "Pick an attacking move type to see how it hits every defending type. Dual-typed Pokémon multiply both factors (for example Water/Ground takes 4× from Grass). STAB (1.5×) is separate and applies when the move matches the user’s type.";
+
 /** Interactive Gen III type multiplier lookup for the battles pregame chapter. */
-export function TypeChartTable({ className = "" }: TypeChartTableProps) {
+export function TypeChartTable({
+  className = "",
+  title = "Damage multipliers (Gen III)",
+  lead = DEFAULT_LEAD,
+}: TypeChartTableProps) {
   const [attackType, setAttackType] = useState(ALL_TYPES[0] ?? "Normal");
 
   const rows = useMemo(
@@ -40,12 +50,8 @@ export function TypeChartTable({ className = "" }: TypeChartTableProps) {
       className={`reference-table type-chart-table ${className}`.trim()}
       aria-label="Type chart reference"
     >
-      <h5 className="reference-table__title">Damage multipliers (Gen III)</h5>
-      <p className="reference-table__lead">
-        Pick an attacking move type to see how it hits every defending type. Dual-typed Pokémon
-        multiply both factors (for example Water/Ground takes 4× from Grass). STAB (1.5×) is
-        separate and applies when the move matches the user’s type.
-      </p>
+      <h5 className="reference-table__title">{title}</h5>
+      <GuideHtml value={lead} as="p" className="reference-table__lead" />
       <label className="type-chart-table__picker">
         <span className="type-chart-table__picker-label">Attacking type</span>
         <select

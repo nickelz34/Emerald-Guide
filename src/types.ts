@@ -180,6 +180,34 @@ export interface StepSpecialtyData {
     likes: string | null;
     dislikes: string | null;
   }>;
+  /** Editable TM/HM catalog for the reference table panel. */
+  tmHmTable?: {
+    title?: string;
+    lead?: string;
+    tms: Array<{
+      id: string;
+      move: string;
+      locations: string[];
+      type?: string;
+      fieldBadge?: string;
+      fieldBadgeNumber?: number;
+      notes?: string;
+    }>;
+    hms: Array<{
+      id: string;
+      move: string;
+      locations: string[];
+      type?: string;
+      fieldBadge?: string;
+      fieldBadgeNumber?: number;
+      notes?: string;
+    }>;
+  };
+  /** Copy overrides for the interactive type chart (multipliers stay game-data). */
+  typeChart?: {
+    title?: string;
+    lead?: string;
+  };
   scott?: Array<{
     id: number;
     location: string;

@@ -708,7 +708,10 @@ export function StepBrowser({
     if (blockId === "panel:type-chart" && showTypeChartTable) {
       return (
         <section className="reference-embed" aria-label="Type chart reference">
-          <TypeChartTable />
+          <TypeChartTable
+            title={specialty?.typeChart?.title}
+            lead={specialty?.typeChart?.lead}
+          />
         </section>
       );
     }
@@ -737,7 +740,12 @@ export function StepBrowser({
     if (blockId === "panel:tm-hm-table" && showTmHmTable) {
       return (
         <section className="reference-embed" aria-label="TM and HM reference">
-          <TmHmTable />
+          <TmHmTable
+            title={specialty?.tmHmTable?.title}
+            lead={specialty?.tmHmTable?.lead}
+            tms={specialty?.tmHmTable?.tms}
+            hms={specialty?.tmHmTable?.hms}
+          />
         </section>
       );
     }

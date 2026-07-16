@@ -507,6 +507,26 @@
   background: color-mix(in srgb, var(--panel, #121a12) 78%, transparent);
 }
 
+.admin-specialty__rows {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.admin-specialty__nested {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+
+.admin-specialty__nested--dragging {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.admin-specialty__row-fields {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
 .admin-specialty__card h4 {
   margin: 0;
 }
