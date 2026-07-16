@@ -13,16 +13,7 @@ export function AdminChangesPanel() {
   );
   const overflow = Math.max(0, changeSummary.total - visibleItems.length);
 
-  if (!isAdmin) return null;
-
-  if (!isDirty || changeSummary.total === 0) {
-    return (
-      <div className="admin-changes admin-changes--empty" role="status">
-        <strong>Pending publish</strong>
-        <p className="admin-muted">No unpublished changes compared with the last loaded guide.</p>
-      </div>
-    );
-  }
+  if (!isAdmin || !isDirty || changeSummary.total === 0) return null;
 
   return (
     <section className="admin-changes" aria-label="Pending publish changes">
