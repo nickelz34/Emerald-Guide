@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.27",
+    date: "2026-07-16",
+    summary:
+      "Updated step “Meet your rival next door”.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Updated step “Meet your rival next door” (Ch. 5 — Littleroot Town · Hidden panels).",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.26",
     date: "2026-07-16",
     summary:

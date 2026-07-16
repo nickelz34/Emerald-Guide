@@ -746,6 +746,9 @@
           "tags": [
             "rival",
             "littleroot"
+          ],
+          "hiddenPanels": [
+            "encounters"
           ]
         },
         {
