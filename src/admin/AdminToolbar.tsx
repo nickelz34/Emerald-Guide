@@ -17,6 +17,7 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
     undo,
     redo,
     changeSummary,
+    pendingRelease,
   } = useAdmin();
 
   // Guest entry is only mounted when the app has ?admin=1 (see App.tsx).
@@ -70,7 +71,11 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
           disabled={isPublishing || !isDirty}
           onClick={() => void publish()}
         >
-          {isPublishing ? "Publishing…" : "Publish Changes to Live Guide"}
+          {isPublishing
+            ? "Publishing…"
+            : pendingRelease
+              ? `Publish v${pendingRelease.version}`
+              : "Publish Changes to Live Guide"}
         </button>
         <button type="button" className="btn btn--ghost" onClick={logout} disabled={isPublishing}>
           Logout
