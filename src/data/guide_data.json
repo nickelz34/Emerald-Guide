@@ -724,6 +724,9 @@
           "tags": [
             "intro",
             "littleroot"
+          ],
+          "hiddenPanels": [
+            "encounters"
           ]
         },
         {
