@@ -192,13 +192,15 @@ export default function App() {
             colorMode={colorMode}
             onColorModeChange={setColorMode}
           />
-          <main className="main">
-            <div className="toolbar">
-              <CategoryHeader nav={nav} />
-            </div>
+          <main className={`main${isAdmin ? " main--admin" : ""}`}>
+            <div className="main__top">
+              <div className="toolbar">
+                <CategoryHeader nav={nav} />
+              </div>
 
-            <AdminToolbar onOpenLogin={() => setAdminLoginOpen(true)} />
-            {isAdmin ? <AdminChangesPanel /> : null}
+              <AdminToolbar onOpenLogin={() => setAdminLoginOpen(true)} />
+              {isAdmin ? <AdminChangesPanel /> : null}
+            </div>
 
             {nav === "map" ? (
               <HoennMap onSelectRegion={handleMapRegion} />

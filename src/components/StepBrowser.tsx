@@ -808,6 +808,14 @@ export function StepBrowser({
 
   return (
     <div className={`step-browser${isAdmin ? " step-browser--admin" : ""}`}>
+      {isAdmin && category === "walkthrough" ? (
+        <ChapterTree
+          sections={sections}
+          activeStepId={current.step.id}
+          onSelectStep={select}
+        />
+      ) : null}
+
       <StoryProgressBar
         stepIds={storyStepIds}
         currentIndex={currentIndex}
@@ -816,14 +824,6 @@ export function StepBrowser({
         }
         onSelectStep={category === "walkthrough" ? select : undefined}
       />
-
-      {isAdmin && category === "walkthrough" ? (
-        <ChapterTree
-          sections={sections}
-          activeStepId={current.step.id}
-          onSelectStep={select}
-        />
-      ) : null}
 
       <aside
         ref={railRef}
