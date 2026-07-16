@@ -79,7 +79,7 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
       {isPublishing ? (
         <p className="admin-toolbar__spinner" role="status">
           <span className="admin-toolbar__spinner-dot" aria-hidden="true" />
-          Pushing commit directly to GitHub repository...
+          Publishing to GitHub (opens and merges a PR when main is protected)…
         </p>
       ) : null}
     </div>

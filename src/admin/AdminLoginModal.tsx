@@ -55,7 +55,8 @@ export function AdminLoginModal({ open, onClose }: AdminLoginModalProps) {
           <ModalCloseButton className="admin-login-modal__close" onClose={onClose} />
         </div>
         <p className="admin-login-modal__hint">
-          Paste a GitHub Personal Access Token with Contents write access for this repository.
+          Paste a GitHub Personal Access Token with Contents and Pull requests read/write access
+          for this repository. Publish opens a short-lived PR when <code>main</code> is protected.
           The token is stored in session storage for this tab only and is never committed.
         </p>
         <form className="admin-login-modal__form" onSubmit={(e) => void handleSubmit(e)}>

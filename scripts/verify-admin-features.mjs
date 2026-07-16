@@ -18,6 +18,7 @@ import {
 import { resolveStepBlockOrder, getAvailableStepBlocks } from "../src/admin/stepBlocks.ts";
 import { getSpriteCatalog, filterSpriteCatalog } from "../src/admin/spriteCatalog.ts";
 import { seedSpecialtyForStep } from "../src/admin/specialtySeed.ts";
+import { isPullRequestRequiredError } from "../src/lib/githubGuideApi.ts";
 
 const walkthrough = guideData.walkthrough;
 
@@ -167,6 +168,16 @@ check("adding sprite marks pending publish with sprite field diff", () => {
   const item = summary.items.find((i) => i.stepId === step.id);
   assert.ok(item);
   assert.ok(item.diffs.some((d) => d.field.startsWith("sprites") || d.label.toLowerCase().includes("sprite")));
+});
+
+check("detects GitHub ruleset 409 that requires a pull request", () => {
+  assert.equal(
+    isPullRequestRequiredError(
+      "Repository rule violations found\n\nChanges must be made through a pull request.\n\n",
+    ),
+    true,
+  );
+  assert.equal(isPullRequestRequiredError("src/data/guide_data.json does not match abc"), false);
 });
 
 check("drag handles are non-interactive spans (hello-pangea blocks buttons)", () => {
