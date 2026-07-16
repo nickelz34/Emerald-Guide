@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -19,6 +20,7 @@ import type { GuideMediaItem, GuideSection, GuideStep } from "../types";
 import { createAdminId } from "./adminIds";
 
 const TOKEN_KEY = "emerald-guide-admin-token";
+const MAX_HISTORY = 50;
 
 export type AdminToastTone = "success" | "error" | "info";
 
@@ -32,6 +34,8 @@ interface AdminContextValue {
   isDirty: boolean;
   isPublishing: boolean;
   isBootstrapping: boolean;
+  canUndo: boolean;
+  canRedo: boolean;
   draftWalkthrough: GuideSection[];
   toast: AdminToastMessage | null;
   dismissToast: () => void;
@@ -39,6 +43,8 @@ interface AdminContextValue {
   login: (token: string) => Promise<void>;
   logout: () => void;
   publish: () => Promise<void>;
+  undo: () => void;
+  redo: () => void;
   setDraftWalkthrough: (next: GuideSection[]) => void;
   updateChapter: (chapterId: string, patch: Partial<GuideSection>) => void;
   updateStep: (chapterId: string, stepId: string, patch: Partial<GuideStep>) => void;
@@ -67,6 +73,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [isPublishing, setIsPublishing] = useState(false);
   const [isBootstrapping, setIsBootstrapping] = useState(false);
   const [toast, setToast] = useState<AdminToastMessage | null>(null);
+  const [undoStack, setUndoStack] = useState<GuideSection[][]>([]);
+  const [redoStack, setRedoStack] = useState<GuideSection[][]>([]);
+  const draftRef = useRef(draftWalkthrough);
+  draftRef.current = draftWalkthrough;
 
   const showToast = useCallback((tone: AdminToastTone, message: string) => {
     setToast({ tone, message });
@@ -74,9 +84,51 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   const dismissToast = useCallback(() => setToast(null), []);
 
-  const setDraftWalkthrough = useCallback((next: GuideSection[]) => {
+  const resetHistory = useCallback(() => {
+    setUndoStack([]);
+    setRedoStack([]);
+  }, []);
+
+  const applyDraft = useCallback((next: GuideSection[], options?: { recordHistory?: boolean }) => {
+    const recordHistory = options?.recordHistory !== false;
+    if (recordHistory) {
+      setUndoStack((prev) => {
+        const stacked = [...prev, cloneWalkthrough(draftRef.current)];
+        return stacked.length > MAX_HISTORY ? stacked.slice(stacked.length - MAX_HISTORY) : stacked;
+      });
+      setRedoStack([]);
+    }
     setDraftState(next);
     setIsDirty(true);
+  }, []);
+
+  const setDraftWalkthrough = useCallback(
+    (next: GuideSection[]) => {
+      applyDraft(next);
+    },
+    [applyDraft],
+  );
+
+  const undo = useCallback(() => {
+    setUndoStack((prevUndo) => {
+      if (prevUndo.length === 0) return prevUndo;
+      const previous = prevUndo[prevUndo.length - 1];
+      setRedoStack((prevRedo) => [...prevRedo, cloneWalkthrough(draftRef.current)]);
+      setDraftState(cloneWalkthrough(previous));
+      setIsDirty(true);
+      return prevUndo.slice(0, -1);
+    });
+  }, []);
+
+  const redo = useCallback(() => {
+    setRedoStack((prevRedo) => {
+      if (prevRedo.length === 0) return prevRedo;
+      const next = prevRedo[prevRedo.length - 1];
+      setUndoStack((prevUndo) => [...prevUndo, cloneWalkthrough(draftRef.current)]);
+      setDraftState(cloneWalkthrough(next));
+      setIsDirty(true);
+      return prevRedo.slice(0, -1);
+    });
   }, []);
 
   const logout = useCallback(() => {
@@ -85,9 +137,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     setToken(null);
     setIsAdmin(false);
     setIsDirty(false);
+    resetHistory();
     setDraftState(cloneWalkthrough(bundledWalkthrough));
     showToast("info", "Exited Admin Mode");
-  }, [showToast]);
+  }, [showToast, resetHistory]);
 
   const login = useCallback(
     async (rawToken: string) => {
@@ -100,10 +153,11 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       setToken(trimmed);
       setDraftState(cloneWalkthrough(payload.walkthrough));
       setIsDirty(false);
+      resetHistory();
       setIsAdmin(true);
       showToast("success", "Admin Mode active — editing live guide data from GitHub");
     },
-    [showToast],
+    [showToast, resetHistory],
   );
 
   // Restore session token on load (re-validate against GitHub).
@@ -135,6 +189,30 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(t);
   }, [toast]);
 
+  // Ctrl/Cmd+Z undo, Ctrl/Cmd+Shift+Z redo while in admin mode.
+  useEffect(() => {
+    if (!isAdmin) return;
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target;
+      const inField =
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target instanceof HTMLSelectElement ||
+        (target instanceof HTMLElement && target.isContentEditable);
+      // Allow native text undo inside fields; use history undo when not typing
+      // or when using Ctrl+Z with Alt for force (also support Ctrl+Z always for draft).
+      const key = e.key.toLowerCase();
+      const mod = e.metaKey || e.ctrlKey;
+      if (!mod || key !== "z") return;
+      if (inField && !e.altKey) return;
+      e.preventDefault();
+      if (e.shiftKey) redo();
+      else undo();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isAdmin, undo, redo]);
+
   const publish = useCallback(async () => {
     if (!token) throw new Error("Not logged in");
     setIsPublishing(true);
@@ -142,6 +220,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       const config = getGitHubConfigFromEnv(token);
       await commitGuideToGitHub(config, { walkthrough: draftWalkthrough });
       setIsDirty(false);
+      resetHistory();
       showToast("success", "Published — commit pushed to GitHub. Pages will redeploy shortly.");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Publish failed";
@@ -150,19 +229,21 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsPublishing(false);
     }
-  }, [token, draftWalkthrough, showToast]);
+  }, [token, draftWalkthrough, showToast, resetHistory]);
 
-  const updateChapter = useCallback((chapterId: string, patch: Partial<GuideSection>) => {
-    setDraftState((prev) =>
-      prev.map((ch) => (ch.id === chapterId ? { ...ch, ...patch } : ch)),
-    );
-    setIsDirty(true);
-  }, []);
+  const updateChapter = useCallback(
+    (chapterId: string, patch: Partial<GuideSection>) => {
+      applyDraft(
+        draftRef.current.map((ch) => (ch.id === chapterId ? { ...ch, ...patch } : ch)),
+      );
+    },
+    [applyDraft],
+  );
 
   const updateStep = useCallback(
     (chapterId: string, stepId: string, patch: Partial<GuideStep>) => {
-      setDraftState((prev) =>
-        prev.map((ch) => {
+      applyDraft(
+        draftRef.current.map((ch) => {
           if (ch.id !== chapterId) return ch;
           return {
             ...ch,
@@ -170,33 +251,33 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           };
         }),
       );
-      setIsDirty(true);
     },
-    [],
+    [applyDraft],
   );
 
-  const reorderChapters = useCallback((startIndex: number, endIndex: number) => {
-    setDraftState((prev) => renumberChapterTitles(reorderList(prev, startIndex, endIndex)));
-    setIsDirty(true);
-  }, []);
+  const reorderChapters = useCallback(
+    (startIndex: number, endIndex: number) => {
+      applyDraft(renumberChapterTitles(reorderList(draftRef.current, startIndex, endIndex)));
+    },
+    [applyDraft],
+  );
 
   const reorderSteps = useCallback(
     (chapterId: string, startIndex: number, endIndex: number) => {
-      setDraftState((prev) =>
-        prev.map((ch) => {
+      applyDraft(
+        draftRef.current.map((ch) => {
           if (ch.id !== chapterId) return ch;
           return { ...ch, steps: reorderList(ch.steps, startIndex, endIndex) };
         }),
       );
-      setIsDirty(true);
     },
-    [],
+    [applyDraft],
   );
 
   const addChapter = useCallback(() => {
     const chapterId = createAdminId("chapter");
     const stepId = createAdminId("step");
-    const n = draftWalkthrough.length + 1;
+    const n = draftRef.current.length + 1;
     const chapter: GuideSection = {
       id: chapterId,
       title: `Ch. ${n} — New chapter`,
@@ -211,40 +292,47 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       ],
       band: "story",
     };
-    setDraftState((prev) => renumberChapterTitles([...prev, chapter]));
-    setIsDirty(true);
+    applyDraft(renumberChapterTitles([...draftRef.current, chapter]));
     return { chapterId, stepId };
-  }, [draftWalkthrough.length]);
+  }, [applyDraft]);
 
-  const deleteChapter = useCallback((chapterId: string) => {
-    setDraftState((prev) => renumberChapterTitles(prev.filter((ch) => ch.id !== chapterId)));
-    setIsDirty(true);
-  }, []);
+  const deleteChapter = useCallback(
+    (chapterId: string) => {
+      applyDraft(renumberChapterTitles(draftRef.current.filter((ch) => ch.id !== chapterId)));
+    },
+    [applyDraft],
+  );
 
-  const addStep = useCallback((chapterId: string) => {
-    const id = createAdminId("step");
-    const step: GuideStep = {
-      id,
-      title: "New step",
-      summary: "",
-      details: [],
-    };
-    setDraftState((prev) =>
-      prev.map((ch) => (ch.id === chapterId ? { ...ch, steps: [...ch.steps, step] } : ch)),
-    );
-    setIsDirty(true);
-    return id;
-  }, []);
+  const addStep = useCallback(
+    (chapterId: string) => {
+      const id = createAdminId("step");
+      const step: GuideStep = {
+        id,
+        title: "New step",
+        summary: "",
+        details: [],
+      };
+      applyDraft(
+        draftRef.current.map((ch) =>
+          ch.id === chapterId ? { ...ch, steps: [...ch.steps, step] } : ch,
+        ),
+      );
+      return id;
+    },
+    [applyDraft],
+  );
 
-  const deleteStep = useCallback((chapterId: string, stepId: string) => {
-    setDraftState((prev) =>
-      prev.map((ch) => {
-        if (ch.id !== chapterId) return ch;
-        return { ...ch, steps: ch.steps.filter((s) => s.id !== stepId) };
-      }),
-    );
-    setIsDirty(true);
-  }, []);
+  const deleteStep = useCallback(
+    (chapterId: string, stepId: string) => {
+      applyDraft(
+        draftRef.current.map((ch) => {
+          if (ch.id !== chapterId) return ch;
+          return { ...ch, steps: ch.steps.filter((s) => s.id !== stepId) };
+        }),
+      );
+    },
+    [applyDraft],
+  );
 
   const setStepMedia = useCallback(
     (chapterId: string, stepId: string, media: GuideMediaItem[]) => {
@@ -259,6 +347,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       isDirty,
       isPublishing,
       isBootstrapping,
+      canUndo: undoStack.length > 0,
+      canRedo: redoStack.length > 0,
       draftWalkthrough,
       toast,
       dismissToast,
@@ -266,6 +356,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       login,
       logout,
       publish,
+      undo,
+      redo,
       setDraftWalkthrough,
       updateChapter,
       updateStep,
@@ -282,6 +374,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       isDirty,
       isPublishing,
       isBootstrapping,
+      undoStack.length,
+      redoStack.length,
       draftWalkthrough,
       toast,
       dismissToast,
@@ -289,6 +383,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       login,
       logout,
       publish,
+      undo,
+      redo,
       setDraftWalkthrough,
       updateChapter,
       updateStep,

@@ -29,7 +29,7 @@ interface PanelsEditorProps {
 export function PanelsEditor({ hiddenPanels, onChange }: PanelsEditorProps) {
   const hidden = new Set(hiddenPanels);
 
-  const toggle = (id: string) => {
+  const toggleHide = (id: string) => {
     if (hidden.has(id)) {
       onChange(hiddenPanels.filter((p) => p !== id));
     } else {
@@ -40,12 +40,11 @@ export function PanelsEditor({ hiddenPanels, onChange }: PanelsEditorProps) {
   return (
     <div className="admin-panels">
       <div className="admin-panels__head">
-        <strong>Specialty panels</strong>
+        <strong>Hide specialty panels</strong>
       </div>
       <p className="admin-muted">
-        Gym parties, encounters, type charts, and similar embeds are still powered by
-        game-data modules. Uncheck a panel to hide it on this step. Full in-place editing
-        of those datasets is a follow-up.
+        Existing steps leave these unchecked so gyms, encounters, charts, and other embeds keep
+        showing. Check a box only when you want to hide that panel on this step.
       </p>
       <ul className="admin-panels__list">
         {PANEL_OPTIONS.map((panel) => (
@@ -53,10 +52,10 @@ export function PanelsEditor({ hiddenPanels, onChange }: PanelsEditorProps) {
             <label className="admin-panels__item">
               <input
                 type="checkbox"
-                checked={!hidden.has(panel.id)}
-                onChange={() => toggle(panel.id)}
+                checked={hidden.has(panel.id)}
+                onChange={() => toggleHide(panel.id)}
               />
-              <span>{panel.label}</span>
+              <span>Hide {panel.label.toLowerCase()}</span>
             </label>
           </li>
         ))}

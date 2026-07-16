@@ -5,7 +5,18 @@ interface AdminToolbarProps {
 }
 
 export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
-  const { isAdmin, isDirty, isPublishing, publish, logout, isBootstrapping } = useAdmin();
+  const {
+    isAdmin,
+    isDirty,
+    isPublishing,
+    publish,
+    logout,
+    isBootstrapping,
+    canUndo,
+    canRedo,
+    undo,
+    redo,
+  } = useAdmin();
 
   if (!isAdmin) {
     return (
@@ -31,6 +42,24 @@ export function AdminToolbar({ onOpenLogin }: AdminToolbarProps) {
         </span>
       </div>
       <div className="admin-toolbar__actions">
+        <button
+          type="button"
+          className="btn btn--ghost"
+          disabled={!canUndo || isPublishing}
+          onClick={undo}
+          title="Undo last change (Ctrl/Cmd+Z; add Alt while typing in a field)"
+        >
+          Undo
+        </button>
+        <button
+          type="button"
+          className="btn btn--ghost"
+          disabled={!canRedo || isPublishing}
+          onClick={redo}
+          title="Redo (Ctrl/Cmd+Shift+Z; add Alt while typing in a field)"
+        >
+          Redo
+        </button>
         <button
           type="button"
           className="btn btn--primary"
