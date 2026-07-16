@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.26",
+    date: "2026-07-16",
+    summary:
+      "Reordered steps in “Ch. 1 — Pregame: Battles & Training”.",
+    sections: [
+      {
+        heading: "Guide structure",
+        items: [
+          "Reordered steps in “Ch. 1 — Pregame: Battles & Training” — 9 existing steps moved.",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.25",
     date: "2026-07-15",
     summary:

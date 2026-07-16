@@ -99,30 +99,6 @@
           ]
         },
         {
-          "id": "pregame-battles-5",
-          "title": "Battle messages",
-          "location": "Hoenn — in-battle text",
-          "summary": "Emerald tells you the chart result, crits, misses, and status applications in plain text at the bottom of the battle screen.",
-          "story": [
-            "Watch the message window after every move. “It’s super effective!” means a 2× or 4× chart hit. “It’s not very effective…” means ½× or ¼×. “It doesn’t affect [Pokémon]…” means a 0× immunity — spare the PP and switch. Critical hits announce “A critical hit!” and ignore defensive stat drops while applying a Gen III crit multiplier; they can turn a resisted hit into a KO you did not expect.",
-            "Misses and fails are different. “The attack missed!” means accuracy / evasion check failed. “But it failed!” covers blocked cases — Protect, a sleep move landing on an already sleeping foe, Light Screen when screens already stand, and similar. Stat changes narrate “Attack rose!” / “sharply rose!” / “fell!” so you can track Swords Dance stacks without opening the summary.",
-            "Status lines tell you what stuck: “was burned,” “was poisoned,” “was badly poisoned,” “is paralyzed,” “fell asleep,” “was frozen solid,” “became confused,” or “fell in love.” Flinch simply skips the turn with a short “flinched” line. Learning to read these flashes keeps you from wasting a second Thunderbolt into a Ground-type or a Fire Blast into a Dry Skin myth — Emerald has no Dry Skin, but the same habit saves PP against immunities all League long."
-          ],
-          "details": [],
-          "tips": [
-            "If you see “doesn’t affect,” do not repeat the same move — switch or pick coverage.",
-            "Confused Pokémon can hurt themselves; wait it out or use a Persim Berry / Yellow Flute.",
-            "Screen messages (“Light Screen raised Special Defense”) last five turns — pressure before they fade."
-          ],
-          "tags": [
-            "pregame",
-            "battles",
-            "messages",
-            "critical",
-            "miss"
-          ]
-        },
-        {
           "id": "pregame-battles-4",
           "title": "Battle strategies",
           "location": "Hoenn — practical tips",
@@ -144,6 +120,30 @@
             "strategy",
             "coverage",
             "weather"
+          ]
+        },
+        {
+          "id": "pregame-battles-5",
+          "title": "Battle messages",
+          "location": "Hoenn — in-battle text",
+          "summary": "Emerald tells you the chart result, crits, misses, and status applications in plain text at the bottom of the battle screen.",
+          "story": [
+            "Watch the message window after every move. “It’s super effective!” means a 2× or 4× chart hit. “It’s not very effective…” means ½× or ¼×. “It doesn’t affect [Pokémon]…” means a 0× immunity — spare the PP and switch. Critical hits announce “A critical hit!” and ignore defensive stat drops while applying a Gen III crit multiplier; they can turn a resisted hit into a KO you did not expect.",
+            "Misses and fails are different. “The attack missed!” means accuracy / evasion check failed. “But it failed!” covers blocked cases — Protect, a sleep move landing on an already sleeping foe, Light Screen when screens already stand, and similar. Stat changes narrate “Attack rose!” / “sharply rose!” / “fell!” so you can track Swords Dance stacks without opening the summary.",
+            "Status lines tell you what stuck: “was burned,” “was poisoned,” “was badly poisoned,” “is paralyzed,” “fell asleep,” “was frozen solid,” “became confused,” or “fell in love.” Flinch simply skips the turn with a short “flinched” line. Learning to read these flashes keeps you from wasting a second Thunderbolt into a Ground-type or a Fire Blast into a Dry Skin myth — Emerald has no Dry Skin, but the same habit saves PP against immunities all League long."
+          ],
+          "details": [],
+          "tips": [
+            "If you see “doesn’t affect,” do not repeat the same move — switch or pick coverage.",
+            "Confused Pokémon can hurt themselves; wait it out or use a Persim Berry / Yellow Flute.",
+            "Screen messages (“Light Screen raised Special Defense”) last five turns — pressure before they fade."
+          ],
+          "tags": [
+            "pregame",
+            "battles",
+            "messages",
+            "critical",
+            "miss"
           ]
         },
         {
