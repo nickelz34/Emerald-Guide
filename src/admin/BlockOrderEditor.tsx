@@ -22,6 +22,7 @@ const TABLE_PANEL_IDS = new Set([
   "panel:type-chart",
   "panel:status-table",
   "panel:nature-table",
+  "panel:vitamins-table",
   "panel:tm-hm-table",
 ]);
 

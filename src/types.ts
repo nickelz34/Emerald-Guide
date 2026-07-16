@@ -193,6 +193,17 @@ export interface StepSpecialtyData {
     likes: string | null;
     dislikes: string | null;
   }>;
+  vitamins?: Array<{
+    id: string;
+    name: string;
+    stat: string;
+    evGain: string;
+    failsWhen: string;
+    price: string;
+    obtain: string;
+    effect: string;
+    iconName: string;
+  }>;
   /** Editable TM/HM catalog for the reference table panel. */
   tmHmTable?: {
     title?: string;

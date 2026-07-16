@@ -569,6 +569,37 @@ export function SpecialtyPanelEditors({ step, onChange }: SpecialtyPanelEditorsP
         />
       ) : null}
 
+      {specialty.vitamins ? (
+        <ReferenceRowsEditor
+          title="Vitamins"
+          droppableId={`vitamins-${step.id}`}
+          rows={specialty.vitamins}
+          columns={[
+            ["name", "Name"],
+            ["stat", "Stat"],
+            ["evGain", "EV gain"],
+            ["failsWhen", "Fails when"],
+            ["price", "Price"],
+            ["obtain", "Obtain"],
+            ["effect", "Effect"],
+            ["iconName", "Icon name"],
+            ["id", "Id"],
+          ]}
+          onChange={(vitamins) => patch({ vitamins })}
+          createRow={() => ({
+            id: createAdminId("vitamin"),
+            name: "New vitamin",
+            stat: "Attack",
+            evGain: "+10 Attack EVs",
+            failsWhen: "That Pokémon already has 100+ Attack EVs",
+            price: "₽9,800",
+            obtain: "",
+            effect: "",
+            iconName: "",
+          })}
+        />
+      ) : null}
+
       {specialty.natures ? (
         <ReferenceRowsEditor
           title="Natures"

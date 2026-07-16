@@ -28,6 +28,7 @@ import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { PokeBallTable } from "./PokeBallTable";
 import { NatureTable } from "./NatureTable";
+import { VitaminsTable } from "./VitaminsTable";
 import { StatusTable } from "./StatusTable";
 import { TypeChartTable } from "./TypeChartTable";
 import { TmHmTable } from "./TmHmTable";
@@ -221,6 +222,8 @@ export function StepBrowser({
     current?.step.id === "pregame-battles-6" && panelVisible("status-table");
   const showNatureTable =
     current?.step.id === "pregame-battles-7" && panelVisible("nature-table");
+  const showVitaminsTable =
+    current?.step.id === "pregame-battles-8" && panelVisible("vitamins-table");
   const showTmHmTable =
     current?.step.id === "pregame-battles-9" && panelVisible("tm-hm-table");
   const showScottChecklist =
@@ -756,6 +759,14 @@ export function StepBrowser({
       return (
         <section className="reference-embed" aria-label="Nature reference">
           <NatureTable rows={specialty?.natures} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:vitamins-table" && showVitaminsTable) {
+      return (
+        <section className="reference-embed" aria-label="Vitamin reference">
+          <VitaminsTable rows={specialty?.vitamins} />
         </section>
       );
     }
