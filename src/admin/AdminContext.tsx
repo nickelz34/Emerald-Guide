@@ -236,10 +236,15 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     setIsPublishing(true);
     try {
       const config = getGitHubConfigFromEnv(token);
-      await commitGuideToGitHub(config, { walkthrough: draftWalkthrough });
+      const result = await commitGuideToGitHub(config, { walkthrough: draftWalkthrough });
       setBaselineWalkthrough(cloneWalkthrough(draftWalkthrough));
       resetHistory();
-      showToast("success", "Published — commit pushed to GitHub. Pages will redeploy shortly.");
+      showToast(
+        "success",
+        result.mode === "pull-request"
+          ? `Published via PR${result.prNumber ? ` #${result.prNumber}` : ""} — Pages will redeploy shortly.`
+          : "Published — commit pushed to GitHub. Pages will redeploy shortly.",
+      );
     } catch (err) {
       const message = err instanceof Error ? err.message : "Publish failed";
       showToast("error", message);
