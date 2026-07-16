@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAdmin } from "./AdminContext";
+import { AdminChangeFileDiffPanel } from "./AdminChangeFileDiffPanel";
 import type { GuideChangeItem, GuideFieldDiff } from "./guideChangeSummary";
 
 const PREVIEW_LIMIT = 40;
@@ -31,10 +32,12 @@ function ChangeItem({
   item,
   open,
   onToggle,
+  onOpenFileDiff,
 }: {
   item: GuideChangeItem;
   open: boolean;
   onToggle: () => void;
+  onOpenFileDiff: () => void;
 }) {
   return (
     <li className={`admin-changes__item admin-changes__item--${item.kind}`}>
@@ -57,6 +60,11 @@ function ChangeItem({
           ) : (
             item.diffs.map((diff) => <DiffBlock key={diff.field} diff={diff} />)
           )}
+          <div className="admin-changes__inspect-actions">
+            <button type="button" className="btn btn--ghost btn--sm" onClick={onOpenFileDiff}>
+              View in-depth file diff
+            </button>
+          </div>
         </div>
       ) : null}
     </li>
@@ -64,9 +72,10 @@ function ChangeItem({
 }
 
 export function AdminChangesPanel() {
-  const { isAdmin, isDirty, changeSummary } = useAdmin();
+  const { isAdmin, isDirty, changeSummary, baselineWalkthrough, draftWalkthrough } = useAdmin();
   const [expanded, setExpanded] = useState(true);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [fileDiffId, setFileDiffId] = useState<string | null>(null);
 
   const visibleItems = useMemo(
     () => changeSummary.items.slice(0, PREVIEW_LIMIT),
@@ -74,12 +83,24 @@ export function AdminChangesPanel() {
   );
   const overflow = Math.max(0, changeSummary.total - visibleItems.length);
 
+  const fileDiffItem = useMemo(
+    () => changeSummary.items.find((item) => item.id === fileDiffId) ?? null,
+    [changeSummary.items, fileDiffId],
+  );
+
   useEffect(() => {
     if (!openId) return;
     if (!changeSummary.items.some((item) => item.id === openId)) {
       setOpenId(null);
     }
   }, [changeSummary.items, openId]);
+
+  useEffect(() => {
+    if (!fileDiffId) return;
+    if (!changeSummary.items.some((item) => item.id === fileDiffId)) {
+      setFileDiffId(null);
+    }
+  }, [changeSummary.items, fileDiffId]);
 
   if (!isAdmin || !isDirty || changeSummary.total === 0) return null;
 
@@ -109,6 +130,7 @@ export function AdminChangesPanel() {
               item={item}
               open={openId === item.id}
               onToggle={() => setOpenId((current) => (current === item.id ? null : item.id))}
+              onOpenFileDiff={() => setFileDiffId(item.id)}
             />
           ))}
         </ol>
@@ -117,9 +139,18 @@ export function AdminChangesPanel() {
         <p className="admin-muted">…and {overflow} more change{overflow === 1 ? "" : "s"}</p>
       ) : null}
       <p className="admin-changes__hint">
-        Click a change to inspect the exact before → after values, then{" "}
-        <strong>Publish Changes to Live Guide</strong> when ready.
+        Click a change for field details, then <strong>View in-depth file diff</strong> for the exact{" "}
+        <code>guide_data.json</code> lines Publish will write.
       </p>
+
+      {fileDiffItem ? (
+        <AdminChangeFileDiffPanel
+          item={fileDiffItem}
+          baseline={baselineWalkthrough}
+          draft={draftWalkthrough}
+          onClose={() => setFileDiffId(null)}
+        />
+      ) : null}
     </section>
   );
 }

@@ -42,6 +42,8 @@ interface AdminContextValue {
   canUndo: boolean;
   canRedo: boolean;
   draftWalkthrough: GuideSection[];
+  /** Last loaded/published walkthrough (used for pending-change diffs). */
+  baselineWalkthrough: GuideSection[];
   changeSummary: GuideChangeSummary;
   toast: AdminToastMessage | null;
   dismissToast: () => void;
@@ -363,6 +365,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       canUndo: undoStack.length > 0,
       canRedo: redoStack.length > 0,
       draftWalkthrough,
+      baselineWalkthrough,
       changeSummary,
       toast,
       dismissToast,
@@ -391,6 +394,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       undoStack.length,
       redoStack.length,
       draftWalkthrough,
+      baselineWalkthrough,
       changeSummary,
       toast,
       dismissToast,
