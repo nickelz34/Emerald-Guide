@@ -99,30 +99,6 @@
           ]
         },
         {
-          "id": "pregame-battles-4",
-          "title": "Battle strategies",
-          "location": "Hoenn — practical tips",
-          "summary": "Win Emerald’s story fights with type coverage, smart switches, setup turns, early status, and weather — not Perfect IVs.",
-          "story": [
-            "You do not need a competitive team to clear Hoenn. You do need coverage: one or two moves that hit the types your STAB cannot. A Fire starter that also learns a Ground or Fighting move sails through Wattson and Juan far more comfortably than Flamethrower alone. Check each gym specialty in the walkthrough and bring the counter type on your lead or in the first switch slot.",
-            "Switching is free information. If Roxanne’s Geodude appears and you locked in Absorb, you still swap to a Water- or Grass-type before the Rock Tomb lands. Setup moves — Bulk Up, Calm Mind, Dragon Dance, Swords Dance — turn a safe switch-in into a sweep if the foe must struggle through a resist. Status speeds the same plan: Thunder Wave or Toxic on a wall, then stall; sleep from Spore or Hypnosis creates a free turn to set rain or sun.",
-            "Weather is a Hoenn specialty. Rain boosts Water and weakens Fire; sun does the opposite and powers SolarBeam’s charge; sand and hail chip each turn. Gym leaders and teams often play into one weather — Flannery’s sun, Juan’s rain — so packing the opposing weather move or a type that ignores the chip keeps you ahead. Keep Potions and status heals stocked; a Full Heal before the Elite Four is worth more than a third Rare Candy."
-          ],
-          "details": [],
-          "tips": [
-            "Lead with a Pokémon that resists the gym’s STAB so your first switch is on your terms.",
-            "False Swipe plus a sleep move is the catching core for legendaries later — teach it when you find the TM path.",
-            "Do not overlevel one starter past the rest of the party; shared Exp and the Exp. Share keep coverage online."
-          ],
-          "tags": [
-            "pregame",
-            "battles",
-            "strategy",
-            "coverage",
-            "weather"
-          ]
-        },
-        {
           "id": "pregame-battles-5",
           "title": "Battle messages",
           "location": "Hoenn — in-battle text",
@@ -144,6 +120,30 @@
             "messages",
             "critical",
             "miss"
+          ]
+        },
+        {
+          "id": "pregame-battles-4",
+          "title": "Battle strategies",
+          "location": "Hoenn — practical tips",
+          "summary": "Win Emerald’s story fights with type coverage, smart switches, setup turns, early status, and weather — not Perfect IVs.",
+          "story": [
+            "You do not need a competitive team to clear Hoenn. You do need coverage: one or two moves that hit the types your STAB cannot. A Fire starter that also learns a Ground or Fighting move sails through Wattson and Juan far more comfortably than Flamethrower alone. Check each gym specialty in the walkthrough and bring the counter type on your lead or in the first switch slot.",
+            "Switching is free information. If Roxanne’s Geodude appears and you locked in Absorb, you still swap to a Water- or Grass-type before the Rock Tomb lands. Setup moves — Bulk Up, Calm Mind, Dragon Dance, Swords Dance — turn a safe switch-in into a sweep if the foe must struggle through a resist. Status speeds the same plan: Thunder Wave or Toxic on a wall, then stall; sleep from Spore or Hypnosis creates a free turn to set rain or sun.",
+            "Weather is a Hoenn specialty. Rain boosts Water and weakens Fire; sun does the opposite and powers SolarBeam’s charge; sand and hail chip each turn. Gym leaders and teams often play into one weather — Flannery’s sun, Juan’s rain — so packing the opposing weather move or a type that ignores the chip keeps you ahead. Keep Potions and status heals stocked; a Full Heal before the Elite Four is worth more than a third Rare Candy."
+          ],
+          "details": [],
+          "tips": [
+            "Lead with a Pokémon that resists the gym’s STAB so your first switch is on your terms.",
+            "False Swipe plus a sleep move is the catching core for legendaries later — teach it when you find the TM path.",
+            "Do not overlevel one starter past the rest of the party; shared Exp and the Exp. Share keep coverage online."
+          ],
+          "tags": [
+            "pregame",
+            "battles",
+            "strategy",
+            "coverage",
+            "weather"
           ]
         },
         {
