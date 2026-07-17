@@ -30,8 +30,10 @@ export function getAvailablePanelsForStep(step: GuideStep): AvailablePanel[] {
   if (id === "pregame-battles-1") panels.push({ id: "battle-basics", label: "Battle basics" });
   if (id === "rustboro-1") panels.push({ id: "hm-table", label: "HM unlock table" });
   if (id === "rusturf-tunnel-2") panels.push({ id: "key-items", label: "Key items table" });
-  if (id === "pregame-field-3") {
+  if (id === "pregame-field-3" || id === "route-119-4") {
     panels.push({ id: "feebas-tiles", label: "Feebas tiles" });
+  }
+  if (id === "pregame-field-3") {
     panels.push({ id: "fishing-table", label: "Fishing table" });
   }
   if (id === "pregame-field-5") panels.push({ id: "poke-balls", label: "Poké Ball table" });

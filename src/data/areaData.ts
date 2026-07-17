@@ -146,13 +146,13 @@ export const AREA_DATA: Record<string, AreaExtras> = {
     tips: [
       "Need Acro Bike to cross log bridges — get it in Mauville.",
       "Castform is a gift, not a wild encounter — from Weather Institute director.",
-      "Feebas only appears on six fishing tiles that move with the trendy phrase in Dewford — not on every water square.",
+      "Feebas only appears on six numbered fishing-spot IDs that move with Dewford’s trendy phrase — use the Feebas calculator on the optional Route 119 hunt step (or Pregame → Fishing).",
     ],
     secrets: [
       "Weather Institute: HM02 Fly on the top-floor bed after Aqua battle.",
       "Soft Soil patch for berries behind the institute.",
       "Rare Candy on the route (hidden) — check Bulbapedia for exact tile if hunting 100%.",
-      "Feebas: six random water tiles among Route 119's fishable water yield Feebas on any rod; the set reshuffles when Dewford's trendy phrase changes. Fish every water tile systematically, or change the trend in Dewford and try a new set.",
+      "Feebas: six of 447 spot IDs are active (Dewford trend seed); ~50% on a correct tile with any rod. Surf never finds Feebas. Reshuffle by changing Dewford’s trendy phrase.",
       "Feebas evolves into Milotic at Beauty 170+ on level-up (Dry Pokéblocks) — see Pregame: Evolution and Contest Preparation.",
     ],
     encounters: [
@@ -557,6 +557,7 @@ export const STEP_AREA_MAP: Record<string, string[]> = {
   "mt-chimney-1": ["mt-chimney"],
   "mt-chimney-2": ["jagged-pass"],
   "route-119-1": ["route-119"],
+  "route-119-4": ["route-119"],
   "route-120-2": ["route-120"],
   "lilycove-1": ["lilycove"],
   "mt-pyre-1": ["mt-pyre"],
