@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.67",
+    date: "2026-07-17",
+    summary:
+      "Updated step “Catching in tall grass”.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Updated step “Catching in tall grass” (Ch. 2 — Pregame: Catching, Travel & Trading · Story).",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.66",
     date: "2026-07-17",
     summary:
