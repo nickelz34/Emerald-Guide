@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.66",
+    date: "2026-07-17",
+    summary:
+      "Admin step editor now labels the secrets checklist as “Secrets, Extras & Hidden Items.”",
+    sections: [
+      {
+        heading: "Admin Mode",
+        items: [
+          "Renamed the Secrets field, block-order label, and change-summary name to Secrets, Extras & Hidden Items.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.65",
     date: "2026-07-17",
     summary:

@@ -122,7 +122,7 @@ export function getAvailableStepBlocks(step: GuideStep): StepBlockDescriptor[] {
   if (step.details.length) blocks.push({ id: "details", label: "What to do" });
   if (step.tips?.length) blocks.push({ id: "tips", label: "Tips" });
   if (step.secrets?.length || step.specialty?.encounters?.secrets?.length) {
-    blocks.push({ id: "secrets", label: "Secrets" });
+    blocks.push({ id: "secrets", label: "Secrets, Extras & Hidden Items" });
   }
 
   const encountersAvailable = getAvailablePanelsForStep(step).some((p) => p.id === "encounters");
@@ -232,7 +232,7 @@ export function blockLabel(id: StepBlockId): string {
     story: "Story",
     details: "What to do",
     tips: "Tips",
-    secrets: "Secrets",
+    secrets: "Secrets, Extras & Hidden Items",
     media: "Images & maps",
     sprites: "Sprites",
     encounters: "Wild encounters",
