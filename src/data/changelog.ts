@@ -30,6 +30,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         items: [
           "New TID + phrase tab reverse-engineers candidate Dewford trend seeds from Trainer ID and the two Easy Chat words (when the phrase was never manually changed).",
           "Feebas tile RNG now uses pokeemerald’s ISO_RANDOMIZE2 (+12345), matching in-game FeebasRandom.",
+          "Active Feebas markers are clear in the center (readable spot numbers) with a brighter, faster-pulsing magenta outer ring.",
         ],
       },
     ],

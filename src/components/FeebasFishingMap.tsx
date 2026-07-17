@@ -307,9 +307,8 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
               </li>
               <li>
                 <strong>Magenta highlights</strong> — the active Feebas metatiles for the seed
-                you applied. Each highlight is sized to one map tile (striped magenta fill +
-                black/white/magenta rings) so it stays obvious on yellow water and the baked spot
-                number remains readable in the center.
+                you applied. Each highlight is a bright pulsing magenta ring around the tile so
+                the baked spot number stays readable in the clear center.
               </li>
               <li>
                 <strong>Zoom &amp; pan</strong> — scroll / pinch to zoom, drag to pan, or use the + /
