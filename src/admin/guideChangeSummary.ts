@@ -182,7 +182,7 @@ const STEP_FIELDS: Array<[keyof GuideStep, string]> = [
   ["location", "Location"],
   ["summary", "Summary"],
   ["story", "Story"],
-  ["details", "Details"],
+  ["details", "What to do"],
   ["tips", "Tips"],
   ["secrets", "Secrets"],
   ["tags", "Tags"],

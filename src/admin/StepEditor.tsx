@@ -61,14 +61,14 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
       />
 
       <SortableStringList
-        label="Details / objectives"
+        label="What to do"
         droppableId={`details-${step.id}`}
         items={step.details}
         richText
         multiline
-        placeholder="Objective or detail…"
-        addLabel="+ Add detail"
-        emptyText="No details yet."
+        placeholder="What to do…"
+        addLabel="+ Add item"
+        emptyText="No items yet."
         onChange={(details) => onChange({ details })}
       />
 
