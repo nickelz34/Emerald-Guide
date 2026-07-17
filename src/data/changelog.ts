@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.34",
+    date: "2026-07-17",
+    summary:
+      "Wild Pokémon panels no longer list the same encounter many times for multi-room dungeons like Seafloor Cavern.",
+    sections: [
+      {
+        heading: "Wild encounters",
+        items: [
+          "When aggregating pokeemerald wild tables for an area (e.g. all Seafloor Cavern rooms), identical species/method/level/rate rows are shown once.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.33",
     date: "2026-07-17",
     summary:
