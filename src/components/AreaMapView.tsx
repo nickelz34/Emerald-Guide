@@ -21,6 +21,17 @@ interface AreaMapViewProps {
   variant?: "default" | "lightbox";
   onClick?: () => void;
   className?: string;
+  /** Extra pins merged on top of the area’s built-in markers (e.g. Feebas seed results). */
+  extraMarkers?: Array<{
+    id: string;
+    name: string;
+    category: MapPoint["category"];
+    x: number;
+    y: number;
+    desc?: string;
+  }>;
+  /** When true, omit the area’s baked markers (landmarks / demo pins). */
+  hideBuiltInMarkers?: boolean;
 }
 
 /** Compact interactive area map for walkthrough step galleries. */
@@ -31,6 +42,8 @@ export function AreaMapView({
   variant = "default",
   onClick,
   className = "",
+  extraMarkers,
+  hideBuiltInMarkers = false,
 }: AreaMapViewProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
@@ -59,29 +72,32 @@ export function AreaMapView({
       pinCode: m.pinCode ?? m.code,
     });
     const items: MapPoint[] = [
-      ...area.markers.map(toPoint),
-      ...(AREA_MAP_ENTRANCES[area.id] ?? []).map(toPoint),
+      ...(hideBuiltInMarkers ? [] : area.markers.map(toPoint)),
+      ...(hideBuiltInMarkers ? [] : (AREA_MAP_ENTRANCES[area.id] ?? []).map(toPoint)),
+      ...(extraMarkers ?? []).map(toPoint),
     ];
     const seen = new Set<string>();
     const sprites: MapPoint[] = [];
-    for (const src of [
-      AREA_MAP_CUTSCENE_ENTITIES[area.id],
-      AREA_MAP_ENTITIES[area.id],
-      GYM_MAP_ENTITIES[area.id],
-      AREA_TRAINERS[area.id],
-    ]) {
-      if (!src) continue;
-      for (const p of src) {
-        const key =
-          ("trainerId" in p && p.trainerId) ||
-          `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
-        if (seen.has(String(key))) continue;
-        seen.add(String(key));
-        sprites.push(p);
+    if (!hideBuiltInMarkers) {
+      for (const src of [
+        AREA_MAP_CUTSCENE_ENTITIES[area.id],
+        AREA_MAP_ENTITIES[area.id],
+        GYM_MAP_ENTITIES[area.id],
+        AREA_TRAINERS[area.id],
+      ]) {
+        if (!src) continue;
+        for (const p of src) {
+          const key =
+            ("trainerId" in p && p.trainerId) ||
+            `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
+          if (seen.has(String(key))) continue;
+          seen.add(String(key));
+          sprites.push(p);
+        }
       }
     }
     return [...items, ...sprites];
-  }, [area]);
+  }, [area, extraMarkers, hideBuiltInMarkers]);
 
   const activePoint = points.find((p) => p.id === activeId) ?? null;
   const maxH = variant === "lightbox" ? 720 : 360;

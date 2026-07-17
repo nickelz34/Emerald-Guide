@@ -2458,20 +2458,13 @@ export const AREA_MAPS: AreaMap[] = [
         category: "landmark",
         x: 16.25,
         y: 70.65,
-        desc: "Team Aqua/Magma weather plot. Feebas fishing spots are the numbered yellow water tiles.",
-      },
-      {
-        id: "r119-feebas-demo-82",
-        name: "Feebas spot 82 (example)",
-        category: "wild",
-        x: 41.25,
-        y: 92.39,
-        desc: "Example active Feebas tile for demo seed 0x4A7C — not your save. Fish any rod; ~50% Feebas on an active tile.",
+        desc: "Team Aqua/Magma weather plot. Feebas fishing spots are the numbered yellow water tiles. Active Feebas pins come from the seed you enter in the Feebas panel.",
       },
     ],
   },
   {
     // Hand-added: Route 119 Feebas fishing spots — middle section.
+    // Active Feebas pins are injected at runtime from the Feebas seed panel.
     id: "route119-feebas-fishing-s1",
     mapId: "MAP_ROUTE119",
     name: "Route 119",
@@ -2480,24 +2473,7 @@ export const AREA_MAPS: AreaMap[] = [
     image: "maps/areas/route119-feebas-fishing-s1.png",
     width: 1280,
     height: 1472,
-    markers: [
-      {
-        id: "r119-feebas-demo-175",
-        name: "Feebas spot 175 (example)",
-        category: "wild",
-        x: 83.75,
-        y: 16.3,
-        desc: "Example active Feebas tile for demo seed 0x4A7C — not your save.",
-      },
-      {
-        id: "r119-feebas-demo-262",
-        name: "Feebas spot 262 (example)",
-        category: "wild",
-        x: 61.25,
-        y: 48.91,
-        desc: "Example active Feebas tile for demo seed 0x4A7C — not your save.",
-      },
-    ],
+    markers: [],
   },
   {
     // Hand-added: Route 119 Feebas fishing spots — south section.
@@ -2509,31 +2485,6 @@ export const AREA_MAPS: AreaMap[] = [
     image: "maps/areas/route119-feebas-fishing-s2.png",
     width: 1280,
     height: 1536,
-    markers: [
-      {
-        id: "r119-feebas-demo-339",
-        name: "Feebas spot 339 (example)",
-        category: "wild",
-        x: 58.75,
-        y: 24.0,
-        desc: "Example active Feebas tile for demo seed 0x4A7C — not your save.",
-      },
-      {
-        id: "r119-feebas-demo-360",
-        name: "Feebas spot 360 (example)",
-        category: "wild",
-        x: 53.75,
-        y: 28.13,
-        desc: "Example active Feebas tile for demo seed 0x4A7C — not your save.",
-      },
-      {
-        id: "r119-feebas-demo-446",
-        name: "Feebas spot 446 (example)",
-        category: "wild",
-        x: 18.75,
-        y: 42.71,
-        desc: "Example active Feebas tile for demo seed 0x4A7C — not your save.",
-      },
-    ],
+    markers: [],
   },
 ];

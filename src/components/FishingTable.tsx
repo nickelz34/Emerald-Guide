@@ -12,7 +12,6 @@ import { emeraldSpriteUrl } from "../data/species";
 import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import { METHOD_LABELS, type EncounterMethod } from "../types";
 import { SpeciesPanel } from "./Pokedex";
-import { FeebasFishingMap } from "./FeebasFishingMap";
 
 type FishingMethod = Extract<EncounterMethod, "old-rod" | "good-rod" | "super-rod">;
 
@@ -291,8 +290,6 @@ export function FishingTable({
           </li>
         ))}
       </ul>
-
-      <FeebasFishingMap />
 
       {selectedPokemon &&
         createPortal(

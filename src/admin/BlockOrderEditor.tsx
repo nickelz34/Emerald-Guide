@@ -18,6 +18,7 @@ interface BlockOrderEditorProps {
 const TABLE_PANEL_IDS = new Set([
   "panel:hm-table",
   "panel:key-items",
+  "panel:feebas-tiles",
   "panel:fishing-table",
   "panel:poke-balls",
   "panel:type-chart",
