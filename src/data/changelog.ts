@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.62",
+    date: "2026-07-17",
+    summary:
+      "Battle commands sit in Emerald’s real 2×2 menu order: Fight, Bag, Pokémon, Run.",
+    sections: [
+      {
+        heading: "Pregame — Battles & Training",
+        items: [
+          "Command squares use a fixed Fight | Bag / Pokémon | Run grid instead of wrapping into a free-form row.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.61",
     date: "2026-07-17",
     summary:

@@ -4996,10 +4996,22 @@
   margin-top: 0.28rem;
 }
 
+.battle-basics__commands-lead {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+/* Emerald battle menu: Fight | Bag / Pokémon | Run */
 .battle-basics__commands {
   display: grid;
   gap: 0.55rem;
-  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "fight bag"
+    "pokemon run";
+  max-width: 32rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -5010,6 +5022,7 @@
   border: 1px solid var(--hover-fill-strong);
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.08);
+  min-width: 0;
 }
 
 .battle-basics__command-label {
@@ -5034,18 +5047,22 @@
 }
 
 .battle-basics__command--fight {
+  grid-area: fight;
   border-color: rgba(206, 64, 105, 0.35);
 }
 
 .battle-basics__command--bag {
+  grid-area: bag;
   border-color: rgba(244, 210, 60, 0.35);
 }
 
 .battle-basics__command--pokemon {
+  grid-area: pokemon;
   border-color: rgba(77, 144, 213, 0.35);
 }
 
 .battle-basics__command--run {
+  grid-area: run;
   border-color: rgba(144, 153, 161, 0.45);
 }
 
