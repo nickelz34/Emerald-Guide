@@ -534,7 +534,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Dewford Town Gym",
     group: "Dewford Town",
     floor: "",
-    image: "maps/areas/dewfordtown-gym.png",
+    image: "maps/areas/dewfordtown-gym-npcs.png",
     width: 288,
     height: 448,
     markers: [
@@ -820,7 +820,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Mauville City Gym",
     group: "Mauville City",
     floor: "",
-    image: "maps/areas/mauvillecity-gym.png",
+    image: "maps/areas/mauvillecity-gym-npcs.png",
     width: 160,
     height: 336,
     markers: [
@@ -1368,7 +1368,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Petalburg Woods",
     group: "Petalburg Woods",
     floor: "",
-    image: "maps/areas/petalburgwoods.png",
+    image: "maps/areas/petalburgwoods-npcs.png",
     width: 768,
     height: 704,
     markers: [
@@ -2066,7 +2066,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 1",
     group: "Route 110 Trick House Puzzle 1",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle1.png",
+    image: "maps/areas/route110-trickhousepuzzle1-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2079,7 +2079,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 2",
     group: "Route 110 Trick House Puzzle 2",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle2.png",
+    image: "maps/areas/route110-trickhousepuzzle2-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2093,7 +2093,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 3",
     group: "Route 110 Trick House Puzzle 3",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle3.png",
+    image: "maps/areas/route110-trickhousepuzzle3-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2107,7 +2107,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 4",
     group: "Route 110 Trick House Puzzle 4",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle4.png",
+    image: "maps/areas/route110-trickhousepuzzle4-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2120,7 +2120,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 6",
     group: "Route 110 Trick House Puzzle 6",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle6.png",
+    image: "maps/areas/route110-trickhousepuzzle6-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2133,7 +2133,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 7",
     group: "Route 110 Trick House Puzzle 7",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle7.png",
+    image: "maps/areas/route110-trickhousepuzzle7-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2146,7 +2146,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House Puzzle 8",
     group: "Route 110 Trick House Puzzle 8",
     floor: "",
-    image: "maps/areas/route110-trickhousepuzzle8.png",
+    image: "maps/areas/route110-trickhousepuzzle8-npcs.png",
     width: 240,
     height: 352,
     markers: [
@@ -2159,7 +2159,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Rustboro City Gym",
     group: "Rustboro City",
     floor: "",
-    image: "maps/areas/rustborocity-gym.png",
+    image: "maps/areas/rustborocity-gym-npcs.png",
     width: 176,
     height: 320,
     markers: [
@@ -2171,7 +2171,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Rusturf Tunnel",
     group: "Rusturf Tunnel",
     floor: "",
-    image: "maps/areas/rusturftunnel.png",
+    image: "maps/areas/rusturftunnel-npcs.png",
     width: 576,
     height: 384,
     markers: [

@@ -1,17 +1,14 @@
 /**
- * Bake remaining Ch. 11–25 area-map NPCs into their PNGs (same pattern as
- * Ch. 1–10 interiors): paint OW sprites into the art and register
- * AREA_MAP_CUTSCENE_ENTITIES with bakedInImage for legend / hit targets.
+ * Bake Ch. 11–25 area-map NPCs/trainers into their PNGs (same pattern as
+ * Ch. 1–10): paint OW sprites into the art and emit cutscene entities with
+ * bakedInImage for legend / hit targets.
  *
- * Clear-cut targets (small interiors / few NPCs):
- *   - sstidallowerdeck (Sailors Phillip & Leonard)
- *   - route110-trickhouseend (Trick Master)
- *
- * Larger gyms / woods / Trick House puzzle rooms are left as overlays unless
- * the user opts in — those already have separate face-off cutscene maps where
- * relevant.
+ * Covers clear-cut interiors plus full gym floors, Petalburg Woods, Rusturf
+ * Tunnel, and Trick House puzzle rooms.
  *
  * Usage: node scripts/bake-ch11-25-area-npcs.mjs
+ *
+ * Entity metadata: scripts/data/ch11-25-bake-entities.json
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -21,17 +18,58 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const REPO = path.join(ROOT, ".calib/pokeemerald");
 const AREA_DIR = path.join(ROOT, "public/maps/areas");
 const ARTIFACT = "/opt/cursor/artifacts/ch11-25-area-npcs-baked";
+const SOURCE = path.join(ROOT, "scripts/data/ch11-25-bake-entities.json");
 
 if (!fs.existsSync(REPO)) {
   console.error("Missing .calib/pokeemerald");
   process.exit(1);
 }
+if (!fs.existsSync(SOURCE)) {
+  console.error("Missing", SOURCE);
+  process.exit(1);
+}
+
+const sourceEntities = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
 
 const layoutsJson = JSON.parse(
   fs.readFileSync(path.join(REPO, "data/layouts/layouts.json"), "utf8"),
 );
 const layoutById = new Map();
 for (const l of layoutsJson.layouts) if (l?.id) layoutById.set(l.id, l);
+
+/** Palette tag → .pal file for each OBJ_EVENT_GFX_* */
+const gfxPalette = new Map();
+{
+  const infoH = fs.readFileSync(
+    path.join(REPO, "src/data/object_events/object_event_graphics_info.h"),
+    "utf8",
+  );
+  const ptrH = fs.readFileSync(
+    path.join(REPO, "src/data/object_events/object_event_graphics_info_pointers.h"),
+    "utf8",
+  );
+  const infoPal = new Map();
+  for (const m of infoH.matchAll(
+    /gObjectEventGraphicsInfo_(\w+)\s*=\s*\{[\s\S]*?\.paletteTag\s*=\s*(OBJ_EVENT_PAL_TAG_\w+)/g,
+  )) {
+    infoPal.set(m[1], m[2]);
+  }
+  const palFile = {
+    OBJ_EVENT_PAL_TAG_NPC_1: "npc_1.pal",
+    OBJ_EVENT_PAL_TAG_NPC_2: "npc_2.pal",
+    OBJ_EVENT_PAL_TAG_NPC_3: "npc_3.pal",
+    OBJ_EVENT_PAL_TAG_NPC_4: "npc_4.pal",
+    OBJ_EVENT_PAL_TAG_BRENDAN: "brendan.pal",
+    OBJ_EVENT_PAL_TAG_MAY: "may.pal",
+  };
+  for (const m of ptrH.matchAll(
+    /\[(OBJ_EVENT_GFX_\w+)\]\s*=\s*&gObjectEventGraphicsInfo_(\w+)/g,
+  )) {
+    const tag = infoPal.get(m[2]);
+    const file = tag && palFile[tag];
+    if (file) gfxPalette.set(m[1], `graphics/object_events/palettes/${file}`);
+  }
+}
 
 const tilesetDir = (sym, kind) => {
   const name = sym
@@ -234,17 +272,6 @@ function blitSprite(dest, sprite, dx, dy, { flipX = false, frameX = 0, frameW = 
   }
 }
 
-function placePerson(dest, sprite, tileX, tileY, facing) {
-  const FACE = { south: 0, north: 1, west: 2, east: 2 };
-  const frame = FACE[facing] ?? 0;
-  blitSprite(dest, sprite, tileX * 16, tileY * 16 - 16, {
-    flipX: facing === "east",
-    frameX: frame * 16,
-    frameW: 16,
-    frameH: 32,
-  });
-}
-
 function facingFromMovement(mt) {
   switch (mt) {
     case "MOVEMENT_TYPE_FACE_UP":
@@ -260,8 +287,30 @@ function facingFromMovement(mt) {
     case "MOVEMENT_TYPE_JOG_IN_PLACE_RIGHT":
       return "east";
     default:
+      if (mt?.includes("_UP") && !mt.includes("_DOWN")) return "north";
+      if (mt?.includes("_LEFT") && !mt.includes("_RIGHT")) return "west";
+      if (mt?.includes("_RIGHT") && !mt.includes("_LEFT")) return "east";
       return "south";
   }
+}
+
+function facingFromSpriteFrame(frame) {
+  if (frame === 1) return "north";
+  if (frame === 2) return "west";
+  if (frame === 3) return "east";
+  return "south";
+}
+
+function placeOw(dest, sprite, tileX, tileY, facing, frameH = 32) {
+  const FACE = { south: 0, north: 1, west: 2, east: 2 };
+  const frame = FACE[facing] ?? 0;
+  const dy = frameH === 16 ? tileY * 16 : tileY * 16 - 16;
+  blitSprite(dest, sprite, tileX * 16, dy, {
+    flipX: facing === "east",
+    frameX: frame * 16,
+    frameW: 16,
+    frameH,
+  });
 }
 
 function toLocalX(x, W) {
@@ -282,82 +331,60 @@ function clonePng(src) {
   return out;
 }
 
-const GFX = {
-  man_1: {
-    public: "sprites/trainers/man_1.png",
-    repoPng: "graphics/object_events/pics/people/man_1.png",
-    repoPal: "graphics/object_events/palettes/npc_3.pal",
-  },
-  sailor: {
-    public: "sprites/trainers/sailor.png",
-    repoPng: "graphics/object_events/pics/people/sailor.png",
-    repoPal: "graphics/object_events/palettes/npc_1.pal",
-  },
-};
+/** public spriteSheet → pokeemerald PNG path */
+function repoPngFromPublic(spriteSheet) {
+  if (spriteSheet.startsWith("sprites/overworld/")) {
+    const name = spriteSheet.replace("sprites/overworld/", "").replace(/\.png$/, "");
+    return `graphics/object_events/pics/pokemon/${name}.png`;
+  }
+  let rest = spriteSheet.replace(/^sprites\/trainers\//, "").replace(/\.png$/, "");
+  if (rest.startsWith("gym_leaders_")) {
+    return `graphics/object_events/pics/people/gym_leaders/${rest.slice("gym_leaders_".length)}.png`;
+  }
+  if (rest.startsWith("team_aqua_")) {
+    return `graphics/object_events/pics/people/team_aqua/${rest.slice("team_aqua_".length)}.png`;
+  }
+  if (rest.startsWith("team_magma_")) {
+    return `graphics/object_events/pics/people/team_magma/${rest.slice("team_magma_".length)}.png`;
+  }
+  if (rest === "brendan_walking") {
+    return "graphics/object_events/pics/people/brendan/walking.png";
+  }
+  if (rest === "may_walking") {
+    return "graphics/object_events/pics/people/may/walking.png";
+  }
+  return `graphics/object_events/pics/people/${rest}.png`;
+}
 
 const spriteCache = new Map();
-function spriteFor(key) {
+function spriteForEntity(ent) {
+  const key = `${ent.graphicsId}|${ent.spriteSheet}`;
   if (spriteCache.has(key)) return spriteCache.get(key);
-  const g = GFX[key];
-  const s = loadIndexedSprite(g.repoPng, g.repoPal);
+  const repoPng = repoPngFromPublic(ent.spriteSheet);
+  const repoPal = gfxPalette.get(ent.graphicsId) || null;
+  if (!fs.existsSync(path.join(REPO, repoPng))) {
+    throw new Error(`Missing sprite PNG ${repoPng} for ${ent.graphicsId}`);
+  }
+  const s = loadIndexedSprite(repoPng, repoPal);
   spriteCache.set(key, s);
   return s;
 }
 
 const MAPS = [
-  {
-    areaId: "sstidallowerdeck",
-    mapDir: "SSTidalLowerDeck",
-    file: "sstidallowerdeck-npcs.png",
-    alsoWrite: ["sstidallowerdeck.png"],
-    entities: [
-      {
-        id: "ss-tidal-phillip",
-        name: "Sailor Phillip",
-        trainerName: "Phillip",
-        gfx: "sailor",
-        graphicsId: "OBJ_EVENT_GFX_SAILOR",
-        script: "SSTidalLowerDeck_EventScript_Phillip",
-        class: "Sailor",
-        trainerId: "TRAINER_PHILLIP",
-        desc: "Sailor Phillip — double-battle partner with Leonard on the lower deck.",
-        match: (oe) => oe.script === "SSTidalLowerDeck_EventScript_Phillip",
-      },
-      {
-        id: "ss-tidal-leonard",
-        name: "Sailor Leonard",
-        trainerName: "Leonard",
-        gfx: "sailor",
-        graphicsId: "OBJ_EVENT_GFX_SAILOR",
-        script: "SSTidalLowerDeck_EventScript_Leonard",
-        class: "Sailor",
-        trainerId: "TRAINER_LEONARD",
-        desc: "Sailor Leonard — double-battle partner with Phillip on the lower deck.",
-        match: (oe) => oe.script === "SSTidalLowerDeck_EventScript_Leonard",
-      },
-    ],
-  },
-  {
-    areaId: "route110-trickhouseend",
-    mapDir: "Route110_TrickHouseEnd",
-    file: "route110-trickhouseend-npcs.png",
-    alsoWrite: ["route110-trickhouseend.png"],
-    entities: [
-      {
-        id: "trick-house-master",
-        name: "Trick Master",
-        trainerName: "Trick Master",
-        gfx: "man_1",
-        graphicsId: "OBJ_EVENT_GFX_MAN_1",
-        script: "Route110_TrickHouseEnd_EventScript_TrickMaster",
-        class: "Man 1",
-        desc: "Trick Master — claim your prize after clearing a Trick House puzzle.",
-        match: (oe) =>
-          oe.script === "Route110_TrickHouseEnd_EventScript_TrickMaster" ||
-          oe.graphics_id === "OBJ_EVENT_GFX_MAN_1",
-      },
-    ],
-  },
+  { areaId: "sstidallowerdeck", mapDir: "SSTidalLowerDeck", file: "sstidallowerdeck-npcs.png" },
+  { areaId: "route110-trickhouseend", mapDir: "Route110_TrickHouseEnd", file: "route110-trickhouseend-npcs.png" },
+  { areaId: "petalburgwoods", mapDir: "PetalburgWoods", file: "petalburgwoods-npcs.png" },
+  { areaId: "rusturftunnel", mapDir: "RusturfTunnel", file: "rusturftunnel-npcs.png" },
+  { areaId: "rustborocity-gym", mapDir: "RustboroCity_Gym", file: "rustborocity-gym-npcs.png" },
+  { areaId: "dewfordtown-gym", mapDir: "DewfordTown_Gym", file: "dewfordtown-gym-npcs.png" },
+  { areaId: "mauvillecity-gym", mapDir: "MauvilleCity_Gym", file: "mauvillecity-gym-npcs.png" },
+  { areaId: "route110-trickhousepuzzle1", mapDir: "Route110_TrickHousePuzzle1", file: "route110-trickhousepuzzle1-npcs.png" },
+  { areaId: "route110-trickhousepuzzle2", mapDir: "Route110_TrickHousePuzzle2", file: "route110-trickhousepuzzle2-npcs.png" },
+  { areaId: "route110-trickhousepuzzle3", mapDir: "Route110_TrickHousePuzzle3", file: "route110-trickhousepuzzle3-npcs.png" },
+  { areaId: "route110-trickhousepuzzle4", mapDir: "Route110_TrickHousePuzzle4", file: "route110-trickhousepuzzle4-npcs.png" },
+  { areaId: "route110-trickhousepuzzle6", mapDir: "Route110_TrickHousePuzzle6", file: "route110-trickhousepuzzle6-npcs.png" },
+  { areaId: "route110-trickhousepuzzle7", mapDir: "Route110_TrickHousePuzzle7", file: "route110-trickhousepuzzle7-npcs.png" },
+  { areaId: "route110-trickhousepuzzle8", mapDir: "Route110_TrickHousePuzzle8", file: "route110-trickhousepuzzle8-npcs.png" },
 ];
 
 fs.mkdirSync(ARTIFACT, { recursive: true });
@@ -365,6 +392,11 @@ const cutsceneByArea = {};
 const FACE = { south: 0, north: 1, west: 2, east: 2 };
 
 for (const mapSpec of MAPS) {
+  const ents = sourceEntities[mapSpec.areaId];
+  if (!ents?.length) {
+    console.error("No source entities for", mapSpec.areaId);
+    process.exit(1);
+  }
   const mapJson = JSON.parse(
     fs.readFileSync(path.join(REPO, "data/maps", mapSpec.mapDir, "map.json"), "utf8"),
   );
@@ -380,30 +412,39 @@ for (const mapSpec of MAPS) {
   writePng(path.join(ARTIFACT, mapSpec.file.replace(".png", "-clean.png")), base);
 
   const baked = [];
-  for (const ent of mapSpec.entities) {
-    const oe = (mapJson.object_events || []).find(ent.match);
+  for (const ent of ents) {
+    const oe = (mapJson.object_events || []).find((e) => e.script === ent.script);
     if (!oe) {
-      console.warn("  missing", ent.id, "on", mapSpec.areaId);
+      console.warn("  missing OE for", ent.id, ent.script);
       continue;
     }
+    // Prefer map.json movement — generated overlays use frame 3 for east
+    // without flipX, while bake uses frame 2 + spriteFlipX.
     const facing = facingFromMovement(oe.movement_type);
-    placePerson(scene, spriteFor(ent.gfx), oe.x, oe.y, facing);
+    const frameH = ent.spriteHeight === 16 ? 16 : 32;
+    placeOw(scene, spriteForEntity(ent), oe.x, oe.y, facing, frameH);
+    const id = String(ent.id).startsWith("area-")
+      ? `${mapSpec.areaId}-${(ent.trainerName || ent.name || "npc")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "")}`
+      : ent.id;
     baked.push({
-      id: ent.id,
+      id,
       name: ent.name,
-      category: "trainer",
+      category: ent.category || "trainer",
       x: toLocalX(oe.x, W),
       y: toLocalY(oe.y, H),
-      desc: ent.desc,
-      spriteSheet: GFX[ent.gfx].public,
-      spriteWidth: 16,
-      spriteHeight: 32,
+      desc: ent.desc || `${ent.name} on ${mapSpec.areaId}.`,
+      spriteSheet: ent.spriteSheet,
+      spriteWidth: ent.spriteWidth || 16,
+      spriteHeight: frameH,
       spriteFrame: FACE[facing] ?? 0,
       ...(facing === "east" ? { spriteFlipX: true } : {}),
       note: mapSpec.areaId,
       bakedInImage: true,
-      trainerClass: ent.class,
-      trainerName: ent.trainerName ?? ent.name,
+      ...(ent.trainerClass ? { trainerClass: ent.trainerClass } : {}),
+      ...(ent.trainerName ? { trainerName: ent.trainerName } : {}),
       ...(ent.trainerId ? { trainerId: ent.trainerId } : {}),
       graphicsId: ent.graphicsId,
       script: ent.script,
@@ -411,7 +452,8 @@ for (const mapSpec of MAPS) {
     console.log(`  ${mapSpec.areaId}: ${ent.name} @(${oe.x},${oe.y}) ${facing}`);
   }
 
-  for (const file of [mapSpec.file, ...(mapSpec.alsoWrite || [])]) {
+  const alsoWrite = [mapSpec.file.replace("-npcs.png", ".png")];
+  for (const file of [mapSpec.file, ...alsoWrite]) {
     writePng(path.join(AREA_DIR, file), scene);
     writePng(path.join(ARTIFACT, file), scene);
   }
@@ -423,3 +465,7 @@ fs.writeFileSync(
   JSON.stringify(cutsceneByArea, null, 2),
 );
 console.log("Wrote", path.join(ARTIFACT, "cutscene-entities.json"));
+console.log(
+  "Total entities:",
+  Object.values(cutsceneByArea).reduce((n, a) => n + a.length, 0),
+);

@@ -23,14 +23,16 @@ export const CHANGELOG: ChangelogRelease[] = [
     version: "1.26.73",
     date: "2026-07-17",
     summary:
-      "Ch. 11–25 area maps bake remaining small-interior NPC overlays into the art (S.S. Tidal lower deck, Trick House end).",
+      "Ch. 11–25 area maps bake remaining NPC and trainer overlays into the art (gyms, woods, tunnel, Trick House, S.S. Tidal).",
     sections: [
       {
         heading: "Mid chapters (11–25)",
         items: [
-          "S.S. Tidal Lower Deck paints Sailors Phillip and Leonard into the image (Ch. 18).",
-          "Trick House End bakes the Trick Master for the puzzle-clear prize room (Ch. 20).",
-          "Other Ch. 11–25 event maps already used baked cutscenes (Pretty Petal, Briney, gym/rival/Scott face-offs, Granite Cave letter, etc.).",
+          "S.S. Tidal Lower Deck paints Sailors Phillip and Leonard (Ch. 18).",
+          "Trick House End bakes the Trick Master; puzzle rooms 1–4 and 6–8 bake their trainers (Ch. 20).",
+          "Petalburg Woods bakes route NPCs/trainers (Ch. 12); Rusturf Tunnel bakes story cast + Hiker Mike (Ch. 15).",
+          "Rustboro, Dewford, and Mauville Gym floors bake leaders, guides, and every gym trainer (face-off crops unchanged).",
+          "Other Ch. 11–25 event maps already used baked cutscenes (Pretty Petal, Briney, rival/Scott face-offs, Granite Cave letter, etc.).",
         ],
       },
     ],
