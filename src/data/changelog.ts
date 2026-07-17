@@ -20,6 +20,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.60",
+    date: "2026-07-17",
+    summary: "Fishing rod bag sprites display at 48×48 so they read clearly on the cards.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Old / Good / Super Rod icons on the Fishing rods panel scale up from 24×24 to 48×48 with crisp nearest-neighbor rendering.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.59",
     date: "2026-07-17",
     summary:
