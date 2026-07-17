@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { useMapZoomPan } from "../lib/mapZoomPan";
+import { useMapZoomPan, ZOOM_MAX, ZOOM_MIN } from "../lib/mapZoomPan";
 
 interface MapZoomViewportProps {
   enabled: boolean;
@@ -7,6 +7,11 @@ interface MapZoomViewportProps {
   className?: string;
   /** Crop aspect ratio (e.g. "384 / 384") — sizes viewport to map, no letterboxing. */
   cropAspect?: string;
+  /** Center/zoom to this content percent when set (and when focusKey changes). */
+  focusPercent?: { x: number; y: number } | null;
+  focusKey?: string | number;
+  /** Show +/- zoom buttons (in addition to pinch / scroll / drag). */
+  showControls?: boolean;
   children: ReactNode;
 }
 
@@ -31,6 +36,9 @@ export function MapZoomViewport({
   contentKey,
   className = "",
   cropAspect,
+  focusPercent = null,
+  focusKey,
+  showControls = false,
   children,
 }: MapZoomViewportProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -45,11 +53,22 @@ export function MapZoomViewport({
   /** Ultra-tall maps (Petalburg Gym): don't derive width from height×aspect. */
   const isTall = cropAspectRatio !== undefined && cropAspectRatio < 0.4;
   const maxFitZoom = narrow ? 2 : 1;
-  const { attachViewportRef, canvasStyle, fitToContent, recenterPos, zoomStyle } = useMapZoomPan({
+  const {
+    attachViewportRef,
+    canvasStyle,
+    fitToContent,
+    recenterPos,
+    resetView,
+    zoom,
+    zoomByFactor,
+    zoomStyle,
+  } = useMapZoomPan({
     enabled,
     contentKey,
     contentRef,
     maxFitZoom,
+    focusPercent,
+    focusKey,
   });
 
   useEffect(() => {
@@ -57,14 +76,14 @@ export function MapZoomViewport({
     const content = contentRef.current;
     if (!content) return;
 
-    const onLoad = () => requestAnimationFrame(fitToContent);
+    const onLoad = () => requestAnimationFrame(resetView);
     const imgs = content.querySelectorAll("img");
     imgs.forEach((img) => {
       if (img.complete) onLoad();
       else img.addEventListener("load", onLoad);
     });
     return () => imgs.forEach((img) => img.removeEventListener("load", onLoad));
-  }, [contentKey, enabled, fitToContent]);
+  }, [contentKey, enabled, resetView]);
 
   if (!enabled) {
     return <>{children}</>;
@@ -89,6 +108,36 @@ export function MapZoomViewport({
           {children}
         </div>
       </div>
+      {showControls && (
+        <div className="map-zoom-viewport__controls" onPointerDown={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            className="map-zoom-viewport__zoom-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              zoomByFactor(1.25);
+            }}
+            disabled={zoom >= ZOOM_MAX - 0.001}
+            aria-label="Zoom in"
+            title="Zoom in"
+          >
+            +
+          </button>
+          <button
+            type="button"
+            className="map-zoom-viewport__zoom-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              zoomByFactor(1 / 1.25);
+            }}
+            disabled={zoom <= ZOOM_MIN + 0.001}
+            aria-label="Zoom out"
+            title="Zoom out"
+          >
+            −
+          </button>
+        </div>
+      )}
       {recenterPos && (
         <button
           type="button"

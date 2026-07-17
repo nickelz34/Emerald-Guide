@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.47",
+    date: "2026-07-17",
+    summary:
+      "Feebas fishing maps are zoomable and clearer, with tile-accurate green overlays on the exact active metatiles.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Route 119 Feebas maps support scroll/pinch zoom, drag pan, +/− controls, and an Enlarge lightbox — so yellow spot numbers stay readable.",
+          "Active Feebas locations use green tile-sized overlays centered on each metatile (not approximate pins); clicking a spot ID jumps the map to that tile.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.45",
     date: "2026-07-17",
     summary:

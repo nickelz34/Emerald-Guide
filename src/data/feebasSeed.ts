@@ -73,14 +73,24 @@ export function feebasSpotsForSeed(seed: number): FeebasFishingSpot[] {
     .filter((s): s is FeebasFishingSpot => Boolean(s));
 }
 
-/** Local % coordinates inside a Feebas section map image. */
+/** Local % coordinates (tile center) inside a Feebas section map image. */
 export function feebasSpotLocalPercent(spot: FeebasFishingSpot): { x: number; y: number } {
   const sec = FEEBAS_FISHING_SECTIONS[spot.section];
   const tileH = sec.ymax - sec.ymin + 1;
   const localY = spot.y - sec.ymin;
   return {
-    x: +(((spot.x + 0.5) / MAP_WIDTH_TILES) * 100).toFixed(2),
-    y: +(((localY + 0.5) / tileH) * 100).toFixed(2),
+    x: +(((spot.x + 0.5) / MAP_WIDTH_TILES) * 100).toFixed(4),
+    y: +(((localY + 0.5) / tileH) * 100).toFixed(4),
+  };
+}
+
+/** One metatile as a % of the section map — used for exact tile overlays. */
+export function feebasSpotTileSizePercent(spot: FeebasFishingSpot): { w: number; h: number } {
+  const sec = FEEBAS_FISHING_SECTIONS[spot.section];
+  const tileH = sec.ymax - sec.ymin + 1;
+  return {
+    w: +((100 / MAP_WIDTH_TILES).toFixed(4)),
+    h: +((100 / tileH).toFixed(4)),
   };
 }
 

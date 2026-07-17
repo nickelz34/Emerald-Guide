@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   FEEBAS_FISHING_AREA_MAP_IDS,
   FEEBAS_FISHING_SECTIONS,
@@ -8,11 +8,13 @@ import {
 import {
   FEEBAS_DEMO_SEED,
   feebasSpotLocalPercent,
+  feebasSpotTileSizePercent,
   feebasSpotsForSeed,
   formatFeebasSeed,
   parseFeebasSeed,
 } from "../data/feebasSeed";
 import { AreaMapView } from "./AreaMapView";
+import { useViewMode } from "../hooks/useViewMode";
 
 const SECTION_TABS = FEEBAS_FISHING_SECTIONS.map((s, i) => ({
   ...s,
@@ -21,9 +23,12 @@ const SECTION_TABS = FEEBAS_FISHING_SECTIONS.map((s, i) => ({
 
 /** Numbered Route 119 fishing-spot maps + Dewford-trend seed calculator. */
 export function FeebasFishingMap({ className = "" }: { className?: string }) {
+  const [viewMode] = useViewMode();
   const [section, setSection] = useState(0);
   const [seedInput, setSeedInput] = useState(formatFeebasSeed(FEEBAS_DEMO_SEED));
   const [appliedSeed, setAppliedSeed] = useState(FEEBAS_DEMO_SEED);
+  const [focusSpotKey, setFocusSpotKey] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const parsedSeed = useMemo(() => parseFeebasSeed(seedInput), [seedInput]);
   const seedError =
@@ -36,17 +41,41 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
   const active = SECTION_TABS[section] ?? SECTION_TABS[0];
   const spotsInSection = activeSpots.filter((s) => s.section === section);
 
+  const focusSpot = useMemo(() => {
+    if (focusSpotKey) {
+      const match = spotsInSection.find(
+        (s) => `${s.id}-${s.x}-${s.y}` === focusSpotKey || String(s.id) === focusSpotKey,
+      );
+      if (match) return match;
+    }
+    return spotsInSection[0] ?? null;
+  }, [focusSpotKey, spotsInSection]);
+
+  const focusPercent = useMemo(
+    () => (focusSpot ? feebasSpotLocalPercent(focusSpot) : null),
+    [focusSpot],
+  );
+
+  const focusKey = focusSpot
+    ? `${appliedSeed}-${focusSpot.id}-${focusSpot.x}-${focusSpot.y}-${section}`
+    : `section-${section}-${appliedSeed}`;
+
   const extraMarkers = useMemo(
     () =>
       spotsInSection.map((spot) => {
         const { x, y } = feebasSpotLocalPercent(spot);
+        const { w, h } = feebasSpotTileSizePercent(spot);
         return {
           id: `feebas-seed-${appliedSeed}-${spot.id}-${spot.x}-${spot.y}`,
           name: `Feebas spot ${spot.id}`,
           category: "wild" as const,
           x,
           y,
-          desc: `Active for seed ${formatFeebasSeed(appliedSeed)}. Tile (${spot.x}, ${spot.y}). Fish any rod — about 50% Feebas on this tile.`,
+          tileW: w,
+          tileH: h,
+          markerStyle: "tile" as const,
+          pinCode: String(spot.id),
+          desc: `Active for seed ${formatFeebasSeed(appliedSeed)}. Exact tile (${spot.x}, ${spot.y}). Fish any rod — about 50% Feebas on this tile.`,
         };
       }),
     [spotsInSection, appliedSeed],
@@ -56,7 +85,17 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
     setAppliedSeed(seed);
     setSeedInput(formatFeebasSeed(seed));
     const first = feebasSpotsForSeed(seed)[0];
-    if (first) setSection(first.section);
+    if (first) {
+      setSection(first.section);
+      setFocusSpotKey(`${first.id}-${first.x}-${first.y}`);
+    } else {
+      setFocusSpotKey(null);
+    }
+  };
+
+  const jumpToSpot = (spot: (typeof activeSpots)[number]) => {
+    setSection(spot.section);
+    setFocusSpotKey(`${spot.id}-${spot.x}-${spot.y}`);
   };
 
   const onSubmit = (e: FormEvent) => {
@@ -64,6 +103,36 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
     if (parsedSeed == null) return;
     applySeed(parsedSeed);
   };
+
+  useEffect(() => {
+    if (!expanded) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExpanded(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [expanded]);
+
+  const mapView = (variant: "default" | "lightbox") => (
+    <AreaMapView
+      areaMapId={active.areaMapId}
+      caption={`Route 119 Feebas fishing spots — ${active.label}`}
+      showLegend
+      variant={variant}
+      interactive={variant === "default"}
+      previewMaxH={variant === "default" ? 640 : undefined}
+      showZoomControls
+      extraMarkers={extraMarkers}
+      focusPercent={focusPercent}
+      focusKey={focusKey}
+      className={variant === "default" ? "feebas-map__area" : undefined}
+    />
+  );
 
   return (
     <section
@@ -96,8 +165,9 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
           </li>
           <li>
             <strong>Read the results.</strong> The green list shows your six active spot IDs with
-            map coordinates. Tap a spot ID to jump to that North / Middle / South map section.
-            Green wild pins mark the active tiles on the numbered yellow grid.
+            map coordinates. Tap a spot ID to jump to that North / Middle / South map section and
+            zoom the map onto that exact tile. Green tile overlays mark the active metatiles on the
+            numbered yellow grid — zoom in to confirm the spot number underneath.
           </li>
           <li>
             <strong>Fish those tiles in-game.</strong> Face the water tile, use any rod (Old Rod is
@@ -182,7 +252,7 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
         </details>
 
         <details className="feebas-map__details">
-          <summary>Using the maps, pins, and Demo seed</summary>
+          <summary>Using the maps, zoom, and Demo seed</summary>
           <div className="feebas-map__details-body">
             <ul>
               <li>
@@ -190,8 +260,13 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
                 match pokeemerald’s fishing-spot IDs (1–{FEEBAS_FISHING_SPOT_COUNT}).
               </li>
               <li>
-                <strong>Green wild pins</strong> — the active Feebas tiles for the seed you applied.
-                Only those pins (and the matching numbers in the list) matter for catching Feebas.
+                <strong>Green tile overlays</strong> — the active Feebas metatiles for the seed you
+                applied. Each overlay is sized to one map tile and centered on that spot, so zooming
+                in lines it up with the yellow number underneath.
+              </li>
+              <li>
+                <strong>Zoom &amp; pan</strong> — scroll / pinch to zoom, drag to pan, or use the + /
+                − buttons. <em>Enlarge map</em> opens a full lightbox with the same controls.
               </li>
               <li>
                 <strong>North / Middle / South tabs</strong> — the route is split into three map
@@ -200,8 +275,8 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
               </li>
               <li>
                 <strong>Spot list links</strong> — click “Spot 262” (etc.) to jump straight to that
-                section. Coordinates <code>(x, y)</code> are tile positions on the full Route 119
-                layout.
+                section and center the map on that tile. Coordinates <code>(x, y)</code> are tile
+                positions on the full Route 119 layout.
               </li>
               <li>
                 <strong>Demo seed</strong> — loads a built-in example (
@@ -300,21 +375,32 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
           {activeSpots.map((spot, idx) => {
             const sec = FEEBAS_FISHING_SECTIONS[spot.section];
             const here = spot.section === section;
+            const focused =
+              focusSpot != null &&
+              focusSpot.id === spot.id &&
+              focusSpot.x === spot.x &&
+              focusSpot.y === spot.y;
             return (
               <li
                 key={`${spot.id}-${spot.x}-${spot.y}-${idx}`}
-                className={here ? "feebas-map__demo-item--here" : undefined}
+                className={
+                  focused
+                    ? "feebas-map__demo-item--here feebas-map__demo-item--focused"
+                    : here
+                      ? "feebas-map__demo-item--here"
+                      : undefined
+                }
               >
                 <button
                   type="button"
                   className="feebas-map__demo-jump"
-                  onClick={() => setSection(spot.section)}
+                  onClick={() => jumpToSpot(spot)}
                 >
                   Spot {spot.id}
                 </button>
                 <span>
                   ({spot.x}, {spot.y}) · {sec.label}
-                  {here ? " · on this map" : ""}
+                  {focused ? " · focused" : here ? " · on this map" : ""}
                 </span>
               </li>
             );
@@ -333,7 +419,11 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
                 role="tab"
                 aria-selected={section === tab.id}
                 className={`feebas-map__tab${section === tab.id ? " feebas-map__tab--active" : ""}`}
-                onClick={() => setSection(tab.id)}
+                onClick={() => {
+                  setSection(tab.id);
+                  const first = activeSpots.find((s) => s.section === tab.id);
+                  setFocusSpotKey(first ? `${first.id}-${first.x}-${first.y}` : null);
+                }}
               >
                 {tab.label}
                 {count > 0 ? ` · ${count}` : ""}
@@ -341,14 +431,16 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
             );
           })}
         </div>
+        <button
+          type="button"
+          className="feebas-map__enlarge"
+          onClick={() => setExpanded(true)}
+        >
+          Enlarge map
+        </button>
       </div>
 
-      <AreaMapView
-        areaMapId={active.areaMapId}
-        caption={`Route 119 Feebas fishing spots — ${active.label}`}
-        showLegend
-        extraMarkers={extraMarkers}
-      />
+      {mapView("default")}
 
       {spotsInSection.length === 0 ? (
         <p className="feebas-map__demo-empty">
@@ -357,9 +449,36 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
       ) : null}
 
       <p className="encounter-legend">
-        Yellow tiles = all fishable spots. Green pins = active Feebas IDs for the seed above. Spots
-        1–3 are inaccessible. Old Rod + several casts per pin (~50% Feebas on a hit).
+        Yellow tiles = all fishable spots. Green overlays = exact active Feebas tiles for the seed
+        above. Zoom / pan to read spot numbers. Spots 1–3 are inaccessible. Old Rod + several casts
+        per tile (~50% Feebas on a hit).
       </p>
+
+      {expanded ? (
+        <div
+          className="lightbox"
+          data-view={viewMode}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Feebas fishing map"
+          onClick={() => setExpanded(false)}
+        >
+          <div
+            className="lightbox__panel lightbox__panel--annotated"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="lightbox__close"
+              onClick={() => setExpanded(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            {mapView("lightbox")}
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

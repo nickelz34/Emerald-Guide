@@ -2004,6 +2004,93 @@
   line-height: 1.35;
 }
 
+.map-zoom-viewport__controls {
+  position: absolute;
+  z-index: 5;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.map-zoom-viewport__zoom-btn {
+  width: 1.85rem;
+  height: 1.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(18, 24, 32, 0.82);
+  color: #f5f7fa;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.map-zoom-viewport__zoom-btn:hover:not(:disabled) {
+  background: rgba(36, 48, 64, 0.92);
+}
+
+.map-zoom-viewport__zoom-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hoenn-map__pin--tile {
+  width: var(--tile-w, 2.5%);
+  height: var(--tile-h, 2.17%);
+  box-sizing: border-box;
+  padding: 0;
+  border: 2px solid #22c55e;
+  border-radius: 2px;
+  background: rgba(34, 197, 94, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  z-index: 6;
+}
+
+.hoenn-map__pin--tile.is-active {
+  border-color: #86efac;
+  background: rgba(74, 222, 128, 0.55);
+  z-index: 8;
+}
+
+.hoenn-map__pin--tile .hoenn-map__tile-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: clamp(0.45rem, 1.6cqw, 0.7rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ecfdf5;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+
+.hoenn-map__pin--tile .hoenn-map__pin-hint,
+.hoenn-map__pin--tile .hoenn-map__pin-tip {
+  /* Keep tooltips readable above the small tile box. */
+  left: 50%;
+  bottom: calc(100% + 0.35rem);
+}
+
+.marker-index__swatch--tile {
+  background: #22c55e;
+  color: #052e16;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
 /* Shrink pins as the map zooms in so markers don't pile on top of each other. */
 .map-zoom-viewport {
   --pin-zoom-min: 1;
@@ -2019,9 +2106,21 @@
 
 .map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--gym):not(.hoenn-map__pin--trainer):not(
     .hoenn-map__pin--item
-  ):not(.hoenn-map__pin--berry):not(.hoenn-map__pin--hidden) {
+  ):not(.hoenn-map__pin--berry):not(.hoenn-map__pin--hidden):not(.hoenn-map__pin--tile) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
   transform-origin: center;
+}
+
+/* Feebas (and similar) tile overlays must stay locked to metatile size — no counter-scale. */
+.map-zoom-viewport .hoenn-map__pin--tile {
+  width: var(--tile-w);
+  height: var(--tile-h);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+}
+
+.map-zoom-viewport .hoenn-map__pin--tile.is-active {
+  transform: translate(-50%, -50%);
 }
 
 .map-zoom-viewport .hoenn-map__pin--gym {
@@ -5247,6 +5346,66 @@
   margin: 0;
 }
 
+.feebas-map__area {
+  width: 100%;
+  align-items: stretch;
+}
+
+.feebas-map__area.area-map-view--interactive {
+  gap: 0.5rem;
+}
+
+.area-map-view--interactive {
+  width: 100%;
+  align-items: stretch;
+}
+
+.area-map-view__interactive-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.area-map-view__zoom--inline {
+  width: 100%;
+  max-height: var(--area-map-inline-max-h, 640px);
+  height: min(65vh, var(--area-map-inline-max-h, 640px));
+  aspect-ratio: unset !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  overflow: hidden;
+  touch-action: none;
+}
+
+.area-map-view__zoom--inline.map-zoom-viewport--crop-fit {
+  max-height: var(--area-map-inline-max-h, 640px);
+  height: min(65vh, var(--area-map-inline-max-h, 640px));
+}
+
+.feebas-map__enlarge {
+  flex-shrink: 0;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feebas-map__enlarge:hover {
+  border-color: var(--emerald, #38b2ac);
+  color: var(--emerald, #38b2ac);
+}
+
+.feebas-map__demo-item--focused .feebas-map__demo-jump {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.45);
+}
+
 .feebas-map__guide {
   margin: 0 0 1rem;
   padding: 0.85rem 0.95rem;
@@ -5456,6 +5615,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 0.55rem 0.85rem;
   margin: 0 0 0.65rem;
 }

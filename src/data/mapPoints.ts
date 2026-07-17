@@ -60,6 +60,15 @@ export interface MapPoint {
   stepId?: string;
   /** Shared A/B/C code for dungeon connectors paired across floors. */
   pinCode?: string;
+  /**
+   * Marker rendering mode. `"tile"` draws a map-tile-sized overlay (used for
+   * Feebas fishing spots) instead of a category pin glyph.
+   */
+  markerStyle?: "pin" | "tile";
+  /** Tile overlay width as a percent of the map image (markerStyle `"tile"`). */
+  tileW?: number;
+  /** Tile overlay height as a percent of the map image (markerStyle `"tile"`). */
+  tileH?: number;
   /** Optional overworld / object-event sprite sheet (cutscene & NPC pins). */
   spriteSheet?: string;
   spriteWidth?: number;
