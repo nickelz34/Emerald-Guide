@@ -119,7 +119,7 @@ export function getAvailableStepBlocks(step: GuideStep): StepBlockDescriptor[] {
     }
   }
 
-  if (step.details.length) blocks.push({ id: "details", label: "Details / objectives" });
+  if (step.details.length) blocks.push({ id: "details", label: "What to do" });
   if (step.tips?.length) blocks.push({ id: "tips", label: "Tips" });
   if (step.secrets?.length || step.specialty?.encounters?.secrets?.length) {
     blocks.push({ id: "secrets", label: "Secrets" });
@@ -230,7 +230,7 @@ export function blockLabel(id: StepBlockId): string {
   const labels: Record<string, string> = {
     summary: "Summary",
     story: "Story",
-    details: "Details / objectives",
+    details: "What to do",
     tips: "Tips",
     secrets: "Secrets",
     media: "Images & maps",

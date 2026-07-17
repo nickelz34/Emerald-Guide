@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.64",
+    date: "2026-07-17",
+    summary:
+      "Admin step editor now labels the details checklist as “What to do,” matching the live guide.",
+    sections: [
+      {
+        heading: "Admin Mode",
+        items: [
+          "Renamed the Details / objectives field, block-order label, and change-summary name to What to do.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.63",
     date: "2026-07-17",
     summary:
