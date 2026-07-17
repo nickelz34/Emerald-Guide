@@ -204,7 +204,7 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
               </li>
               <li>
                 Copy the Feebas / Dewford trend random value it reports (a number from 0–65535, often
-                shown in hex). Paste that value into the seed box above and press{" "}
+                shown in hex). Paste that value into the seed box below and press{" "}
                 <em>Show tiles</em>.
               </li>
             </ol>
