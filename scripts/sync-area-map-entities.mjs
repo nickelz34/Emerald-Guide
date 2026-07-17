@@ -446,12 +446,26 @@ for (const { id: areaId, mapId } of areas) {
   ) {
     continue;
   }
-  // Ch. 1–10 interiors bake NPCs into the PNG (lab, May’s room, Granite Cave).
+  // Interiors bake NPCs into the PNG (Ch. 1–10 + Ch. 11–25).
   if (
     areaId === "littleroottown-professorbirchslab" ||
     areaId === "littleroottown-mayshouse-2f" ||
     areaId === "granitecave-1f" ||
-    areaId === "granitecave-stevensroom"
+    areaId === "granitecave-stevensroom" ||
+    areaId === "sstidallowerdeck" ||
+    areaId === "route110-trickhouseend" ||
+    areaId === "petalburgwoods" ||
+    areaId === "rusturftunnel" ||
+    areaId === "rustborocity-gym" ||
+    areaId === "dewfordtown-gym" ||
+    areaId === "mauvillecity-gym" ||
+    areaId === "route110-trickhousepuzzle1" ||
+    areaId === "route110-trickhousepuzzle2" ||
+    areaId === "route110-trickhousepuzzle3" ||
+    areaId === "route110-trickhousepuzzle4" ||
+    areaId === "route110-trickhousepuzzle6" ||
+    areaId === "route110-trickhousepuzzle7" ||
+    areaId === "route110-trickhousepuzzle8"
   ) {
     continue;
   }
