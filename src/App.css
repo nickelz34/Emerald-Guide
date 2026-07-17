@@ -5392,7 +5392,7 @@
 }
 
 .feebas-map__area.area-map-view--interactive {
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .area-map-view--interactive {
@@ -5403,9 +5403,40 @@
 .area-map-view__interactive-body {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
   width: 100%;
   min-width: 0;
+}
+
+/* Inline Feebas (column) sidebar must not keep the lightbox’s 220px flex basis. */
+.area-map-view--interactive .area-map-view__sidebar {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-height: none;
+  width: 100%;
+  overflow: visible;
+  gap: 0.2rem;
+}
+
+.area-map-view--interactive .area-map-view__legend {
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.area-map-view--interactive .map-zoom-viewport__hint {
+  margin: 0;
+}
+
+.area-map-view--interactive .area-map-view__caption {
+  margin: 0;
+}
+
+.feebas-map .encounter-legend {
+  margin: 0.45rem 0 0;
+}
+
+.feebas-map__demo-empty {
+  margin: 0.35rem 0 0;
 }
 
 .area-map-view__zoom--inline {
