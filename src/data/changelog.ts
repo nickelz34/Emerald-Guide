@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.53",
+    date: "2026-07-17",
+    summary:
+      "Walkthrough search snippets strip HTML so rich story prose no longer shows raw tags.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Search result excerpts convert story HTML (headings, lists, entities) to plain text before display — fixes the Feebas / Ch. 2 fishing hit showing markup.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.52",
     date: "2026-07-17",
     summary:

@@ -73,6 +73,24 @@ function tokenize(query: string): string[] {
     .filter(Boolean);
 }
 
+/** Story/CMS prose may include HTML — strip tags/entities for match + snippets. */
+function htmlToPlainText(value: string): string {
+  return value
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<\/(p|div|li|h[1-6]|tr|blockquote|ul|ol)>/gi, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number(code)))
+    .replace(/&[a-z]+;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function includesAll(haystack: string, tokens: string[]): boolean {
   if (tokens.length === 0) return true;
   const h = haystack.toLowerCase();
@@ -81,7 +99,7 @@ function includesAll(haystack: string, tokens: string[]): boolean {
 
 /** Pull a short readable excerpt around the first matching token. */
 function makeSnippet(text: string, tokens: string[], maxLen = 96): string {
-  const cleaned = text.replace(/\s+/g, " ").trim();
+  const cleaned = htmlToPlainText(text);
   if (!cleaned) return "";
   const lower = cleaned.toLowerCase();
   let idx = -1;
@@ -116,18 +134,24 @@ interface SearchField {
 
 function stepSearchFields(step: GuideStep, sectionTitle: string): SearchField[] {
   const fields: SearchField[] = [
-    { field: "title", text: step.title },
-    { field: "section", text: sectionTitle },
-    { field: "summary", text: step.summary },
+    { field: "title", text: htmlToPlainText(step.title) },
+    { field: "section", text: htmlToPlainText(sectionTitle) },
+    { field: "summary", text: htmlToPlainText(step.summary) },
   ];
-  if (step.location) fields.push({ field: "location", text: step.location });
-  for (const para of step.story ?? []) fields.push({ field: "story", text: para });
-  for (const line of step.details) fields.push({ field: "details", text: line });
-  for (const tip of step.tips ?? []) fields.push({ field: "tips", text: tip });
+  if (step.location) fields.push({ field: "location", text: htmlToPlainText(step.location) });
+  for (const para of step.story ?? []) {
+    fields.push({ field: "story", text: htmlToPlainText(para) });
+  }
+  for (const line of step.details) {
+    fields.push({ field: "details", text: htmlToPlainText(line) });
+  }
+  for (const tip of step.tips ?? []) {
+    fields.push({ field: "tips", text: htmlToPlainText(tip) });
+  }
   for (const tag of step.tags ?? []) fields.push({ field: "tags", text: tag.replace(/-/g, " ") });
 
   for (const line of getSecretsExtrasForStep(step.id, step.secrets)) {
-    fields.push({ field: "secrets", text: line });
+    fields.push({ field: "secrets", text: htmlToPlainText(line) });
   }
 
   for (const areaId of getAreasForStep(step.id)) {
