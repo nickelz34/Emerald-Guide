@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.58",
+    date: "2026-07-17",
+    summary:
+      "Fishing encounters are a standalone location finder panel instead of a nested dual-pane browser.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Splits Ch. 2 Fishing into Fishing rods and a separate Fishing encounters by location panel.",
+          "Encounter finder uses a per-map dropdown (search by map or Pokémon) instead of huge shared-table cluster labels and a cluttered side list.",
+          "Maps that share an identical rod table are listed under the selection as “Same table as …”.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.57",
     date: "2026-07-17",
     summary:

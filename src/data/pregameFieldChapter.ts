@@ -62,7 +62,7 @@ All three are free gifts — none are sold in marts.
 <ul>
 <li><strong>Old Rod</strong> — Dewford south shore by the Gym. Fast prompts; Magikarp and Tentacool / Goldeen.</li>
 <li><strong>Good Rod</strong> — Route 118 east shore (needs Surf / Balance Badge). Mid-level tables.</li>
-<li><strong>Super Rod</strong> — Mossdeep house east of the Gym. The Super Rod is a free gift (never sold). Strongest map tables (see the chart below).</li>
+<li><strong>Super Rod</strong> — Mossdeep house east of the Gym. The Super Rod is a free gift (never sold). Strongest map tables (see Fishing encounters by location below).</li>
 </ul>`,
         `<strong class="story-heading">Feebas &amp; Relicanth</strong>
 <ul>
@@ -86,6 +86,7 @@ All three are free gifts — none are sold in marts.
         "story",
         "media",
         "panel:fishing-table",
+        "panel:fishing-encounters",
         "tips",
         "secrets",
         "tags",

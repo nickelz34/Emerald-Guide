@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.26.57",
+  "version": "1.26.58",
   "type": "module",
   "scripts": {
     "dev": "vite",

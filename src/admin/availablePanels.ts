@@ -34,7 +34,8 @@ export function getAvailablePanelsForStep(step: GuideStep): AvailablePanel[] {
     panels.push({ id: "feebas-tiles", label: "Feebas tiles" });
   }
   if (id === "pregame-field-3") {
-    panels.push({ id: "fishing-table", label: "Fishing table" });
+    panels.push({ id: "fishing-table", label: "Fishing rods" });
+    panels.push({ id: "fishing-encounters", label: "Fishing encounters" });
   }
   if (id === "pregame-field-5") panels.push({ id: "poke-balls", label: "Poké Ball table" });
   if (id === "pregame-battles-3") panels.push({ id: "type-chart", label: "Type chart" });
