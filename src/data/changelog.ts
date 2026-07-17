@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.44",
+    date: "2026-07-17",
+    summary:
+      "Old / Good / Super Rod cards are reorganized with clearer fields, reel-prompt detail, and less cramped layout.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Fishing rod cards use stacked Obtained / Requirement / Reel prompts / Typical catches / Tip sections instead of cramped inline labels.",
+          "Each rod now lists progression tier, location + NPC, prompt counts (1 / 1–3 / 1–6), and bullet catch notes with more breathing room on desktop and a single column on narrow screens.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.43",
     date: "2026-07-17",
     summary:
