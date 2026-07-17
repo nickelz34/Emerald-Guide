@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.42",
+    date: "2026-07-17",
+    summary:
+      "Fishing tables are rebuilt from pokeemerald for all 53 maps, with Old/Good/Super tabs and clickable species details.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Fishing encounter table is generated from wild_encounters.json: every map with fishing, clustered by identical Old / Good / Super Rod tables (accurate rates and levels).",
+          "Rod tabs + search filter; location section headers keep the grid compact. Click a Pokémon for the full species panel (types, abilities, stats, etc.).",
+          "Fixes the old highlight shortcuts (e.g. conflated “ocean” rows) — Dewford 100% Wailmer, Routes 132–134 Horsea, Abandoned Ship Tentacool/Tentacruel, and other missing tables are included.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.41",
     date: "2026-07-17",
     summary:
