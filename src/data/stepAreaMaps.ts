@@ -166,12 +166,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "underwater-route128",
     "mossdeepcity-stevenshouse",
   ],
-  "pregame-field-3": [
-    "dewfordtown-fishing",
-    "route119-feebas-fishing-s0",
-    "route119-feebas-fishing-s1",
-    "route119-feebas-fishing-s2",
-  ],
+  "pregame-field-3": ["dewfordtown-fishing"],
   "route-119-4": [
     "route119-feebas-fishing-s0",
     "route119-feebas-fishing-s1",

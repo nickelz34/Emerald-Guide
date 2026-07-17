@@ -66,14 +66,14 @@ All three are free gifts — none are sold in marts.
 </ul>`,
         `<strong class="story-heading">Feebas &amp; Relicanth</strong>
 <ul>
-<li><strong>Feebas (Route 119)</strong> — six active fishing-spot IDs from Dewford’s trendy phrase (enter your seed in the Feebas tiles panel); any rod; ~50% on a correct tile. Surf never finds it. Change the trendy phrase to reshuffle. Full river access and a story-timed hunt sit after Rival Battle #4 on Route 119 (optional walkthrough step).</li>
+<li><strong>Feebas (Route 119)</strong> — rare fish on six Dewford-trend fishing tiles (any rod; Surf never finds it). The full hunt guide, north/middle/south spot maps, and active-tile calculator live in the walkthrough at <strong>Ch. 33 — Route 119 &amp; Weather Institute, event 4 of 4</strong> (Hunt Feebas on the river), right after Rival Battle #4.</li>
 <li><strong>Relicanth</strong> — Dive encounter on Underwater Routes 124 / 126, not Super Rod. Needed with Wailord for the Regi puzzle.</li>
 </ul>`,
       ],
       details: [],
       tips: [
         "Register a rod in Key Items so Select casts it without opening the Bag.",
-        "Old Rod is the fastest tool when sweeping Route 119 tiles for Feebas.",
+        "For Feebas maps and the seed / TID + phrase calculator, open Ch. 33 event 4 of 4 in the walkthrough.",
         "You can fish from bridges, beaches, and while surfing — any adjacent water tile the rod can reach.",
         "Suction Cups / Sticky Hold on the lead raises the chance of getting a bite.",
       ],
@@ -82,7 +82,6 @@ All three are free gifts — none are sold in marts.
       ],
       tags: ["pregame", "fishing", "old-rod", "good-rod", "super-rod", "feebas"],
       blockOrder: [
-        "panel:feebas-tiles",
         "summary",
         "story",
         "media",

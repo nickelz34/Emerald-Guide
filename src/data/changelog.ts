@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.54",
+    date: "2026-07-17",
+    summary:
+      "Pregame Fishing points to the Ch. 33 Feebas hunt instead of embedding the tile calculator.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Removes the Feebas active-tile calculator from Ch. 2 Fishing (event 3 of 6).",
+          "Removes the north/middle/south Feebas fishing-spot maps from that event’s media stack.",
+          "Feebas blurb and tip now send players to Ch. 33 — Route 119 & Weather Institute, event 4 of 4 (Hunt Feebas on the river).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.53",
     date: "2026-07-17",
     summary:
