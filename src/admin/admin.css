@@ -958,6 +958,13 @@
   align-items: center;
 }
 
+.admin-richtext__divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 0.15rem 0.1rem;
+  background: color-mix(in srgb, var(--border, #3a4a3a) 80%, transparent);
+}
+
 .admin-richtext__btn,
 .admin-richtext__select {
   border: 1px solid var(--border, #3a4a3a);
@@ -966,7 +973,43 @@
   border-radius: 4px;
   padding: 0.2rem 0.45rem;
   font: inherit;
+  font-size: 0.82rem;
+  line-height: 1.2;
   cursor: pointer;
+  min-height: 1.85rem;
+}
+
+.admin-richtext__btn--wide {
+  padding-inline: 0.55rem;
+}
+
+.admin-richtext__color {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid var(--border, #3a4a3a);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--panel, #121a12) 70%, #000);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.admin-richtext__color input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+
+.admin-richtext__color--highlight {
+  color: #ca8a04;
 }
 
 .admin-richtext__editor {
@@ -976,11 +1019,64 @@
   padding: 0.55rem;
   line-height: 1.45;
   outline: none;
+  overflow-wrap: anywhere;
 }
 
 .admin-richtext__editor:empty:before {
   content: attr(data-placeholder);
   opacity: 0.45;
+}
+
+.admin-richtext__editor ul,
+.admin-richtext__editor ol {
+  margin: 0.35rem 0;
+  padding-left: 1.35rem;
+}
+
+.admin-richtext__editor li {
+  margin: 0.2rem 0;
+}
+
+.admin-richtext__editor h3,
+.admin-richtext__editor h4 {
+  margin: 0.45rem 0 0.25rem;
+  line-height: 1.3;
+}
+
+.admin-richtext__editor h3 {
+  font-size: 1.05rem;
+}
+
+.admin-richtext__editor h4 {
+  font-size: 0.95rem;
+}
+
+.admin-richtext__editor blockquote {
+  margin: 0.45rem 0;
+  padding: 0.35rem 0.65rem;
+  border-left: 3px solid #3f8f5a;
+  opacity: 0.95;
+}
+
+.admin-richtext__editor pre {
+  margin: 0.4rem 0;
+  padding: 0.45rem 0.55rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, #000 35%, transparent);
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+.admin-richtext__editor hr {
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--border, #3a4a3a) 85%, transparent);
+  margin: 0.65rem 0;
+}
+
+.admin-richtext__editor a {
+  color: #6ee7b7;
+  text-decoration: underline;
 }
 
 .admin-sortable-list__item--rich {

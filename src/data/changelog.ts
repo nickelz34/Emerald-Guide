@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.39",
+    date: "2026-07-17",
+    summary:
+      "Admin guide editor rich text now supports lists, headings, alignment, colors, links, and more Word-like formatting.",
+    sections: [
+      {
+        heading: "Admin Mode",
+        items: [
+          "Rich text toolbar expands beyond bold/italic/underline: strikethrough, sub/superscript, paragraph styles, font family/size, text and highlight colors, bulleted and numbered lists, indent, alignment, links, horizontal rules, and clear formatting.",
+          "Sanitizer and live guide styles allow lists, headings, quotes, preformatted blocks, horizontal rules, and safer external links so formatted copy renders in the walkthrough.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.38",
     date: "2026-07-17",
     summary:
@@ -33,7 +48,6 @@ export const CHANGELOG: ChangelogRelease[] = [
       },
     ],
   },
-
   {
     version: "1.26.37",
     date: "2026-07-17",
