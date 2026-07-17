@@ -1,5 +1,5 @@
 /**
- * Bake outdoor route trainers into Hoenn walkthrough crop PNGs (Ch. 11–25).
+ * Bake outdoor route trainers into Hoenn walkthrough crop PNGs (Ch. 1–25).
  *
  * Mirrors the area-map bake pattern: paint OW sprites into
  * public/maps/crops/route-XXX-npcs.png, emit HOENN_CROP_CUTSCENE_ENTITIES
@@ -18,12 +18,17 @@ import { AREA_MAP_CROP, AREA_NOTE_LABELS, HOENN_MAP_W, HOENN_MAP_H } from "../sr
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const CROP_DIR = path.join(ROOT, "public/maps/crops");
-const ARTIFACT = "/opt/cursor/artifacts/ch11-25-outdoor-route-trainers-baked";
+const ARTIFACT = "/opt/cursor/artifacts/outdoor-route-trainers-baked";
 const OUT_TS = path.join(ROOT, "src/data/hoennCropCutsceneEntities.ts");
-const OUT_JSON = path.join(ROOT, "scripts/data/ch11-25-outdoor-route-bake-entities.json");
+const OUT_JSON = path.join(ROOT, "scripts/data/outdoor-route-bake-entities.json");
 
-/** Ch. 11–25 outdoor routes that still show MAP_TRAINERS on Hoenn crops. */
+/** Outdoor routes with MAP_TRAINERS on Hoenn crops (Ch. 1–10 + Ch. 11–25). */
 const ROUTE_AREA_IDS = [
+  // Ch. 1–10 (story + pregame fishing preview)
+  "route-102",
+  "route-103",
+  "route-118",
+  // Ch. 11–25
   "route-104",
   "route-116",
   "route-110",

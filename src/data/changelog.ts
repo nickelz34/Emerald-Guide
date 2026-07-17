@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.75",
+    date: "2026-07-17",
+    summary:
+      "Ch. 1–10 outdoor route trainers bake into Hoenn crop maps (Routes 102, 103, and 118).",
+    sections: [
+      {
+        heading: "Outdoor routes (Ch. 1–10)",
+        items: [
+          "Routes 102 and 103 paint every overworld trainer into the walkthrough crop image (Ch. 8–9).",
+          "Route 118 trainers bake for the pregame fishing preview crop (Ch. 2).",
+          "Same HoennCrop baked-hit-target pattern as later outdoor routes.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.74",
     date: "2026-07-17",
     summary:
