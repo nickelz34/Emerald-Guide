@@ -446,6 +446,15 @@ for (const { id: areaId, mapId } of areas) {
   ) {
     continue;
   }
+  // Ch. 1–10 interiors bake NPCs into the PNG (lab, May’s room, Granite Cave).
+  if (
+    areaId === "littleroottown-professorbirchslab" ||
+    areaId === "littleroottown-mayshouse-2f" ||
+    areaId === "granitecave-1f" ||
+    areaId === "granitecave-stevensroom"
+  ) {
+    continue;
+  }
   const mapDir = mapIdToFolder.get(mapId) ?? mapIdToDir(mapId);
   let map;
   try {

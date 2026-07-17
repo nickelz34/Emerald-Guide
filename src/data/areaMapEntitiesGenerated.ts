@@ -1173,46 +1173,6 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
   ],
-  "granitecave-1f": [
-    {
-      id: "area-e51",
-      name: "Hiker Hiker",
-      category: "trainer",
-      trainerClass: "Hiker",
-      trainerName: "Hiker",
-      
-      x: 86.9,
-      y: 66.67,
-      graphicsId: "OBJ_EVENT_GFX_HIKER",
-      spriteSheet: "sprites/trainers/hiker.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "GraniteCave_1F_EventScript_Hiker",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-  ],
-  "granitecave-stevensroom": [
-    {
-      id: "area-e52",
-      name: "Champion Steven",
-      category: "trainer",
-      trainerClass: "Champion",
-      trainerName: "Steven",
-      
-      x: 50,
-      y: 64.29,
-      graphicsId: "OBJ_EVENT_GFX_STEVEN",
-      spriteSheet: "sprites/trainers/steven.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "GraniteCave_StevensRoom_EventScript_Steven",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-  ],
   "jaggedpass": [
     {
       id: "area-e53",
@@ -1505,62 +1465,6 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       desc: "Hidden trainer",
       script: "LavaridgeTown_Gym_B1F_EventScript_Eli",
       trainerType: "TRAINER_TYPE_BURIED",
-    },
-  ],
-  "littleroottown-professorbirchslab": [
-    {
-      id: "area-e69",
-      name: "Aide Aide",
-      category: "trainer",
-      trainerClass: "Aide",
-      trainerName: "Aide",
-      
-      x: 73.08,
-      y: 69.23,
-      graphicsId: "OBJ_EVENT_GFX_SCIENTIST_1",
-      spriteSheet: "sprites/trainers/scientist_1.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "LittlerootTown_ProfessorBirchsLab_EventScript_Aide",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e70",
-      name: "Professor Birch",
-      category: "trainer",
-      trainerClass: "Professor",
-      trainerName: "Birch",
-      
-      x: 50,
-      y: 38.46,
-      graphicsId: "OBJ_EVENT_GFX_PROF_BIRCH",
-      spriteSheet: "sprites/trainers/prof_birch.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "LittlerootTown_ProfessorBirchsLab_EventScript_Birch",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e71",
-      name: "Rival Rival",
-      category: "trainer",
-      trainerClass: "Rival",
-      trainerName: "Rival",
-      
-      x: 57.69,
-      y: 38.46,
-      graphicsId: "OBJ_EVENT_GFX_BRENDAN_NORMAL",
-      spriteSheet: "sprites/trainers/brendan_walking.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 0,
-      
-      script: "LittlerootTown_ProfessorBirchsLab_EventScript_Rival",
-      trainerType: "TRAINER_TYPE_NONE",
     },
   ],
   "magmahideout-1f": [

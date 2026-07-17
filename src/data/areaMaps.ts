@@ -572,7 +572,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Granite Cave 1F",
     group: "Granite Cave",
     floor: "1F",
-    image: "maps/areas/granitecave-1f.png",
+    image: "maps/areas/granitecave-1f-npcs.png",
     width: 672,
     height: 240,
     markers: [
@@ -615,7 +615,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Granite Cave Steven's Room",
     group: "Granite Cave",
     floor: "Steven's Room",
-    image: "maps/areas/granitecave-stevensroom.png",
+    image: "maps/areas/granitecave-stevensroom-npcs.png",
     width: 240,
     height: 224,
     markers: [],
@@ -691,7 +691,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Littleroot Town Mays House 2F",
     group: "Littleroot Town",
     floor: "May's House 2F",
-    image: "maps/areas/littleroottown-mayshouse-2f.png",
+    image: "maps/areas/littleroottown-mayshouse-2f-npcs.png",
     width: 144,
     height: 128,
     markers: [
@@ -704,7 +704,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Littleroot Town Professor Birchs Lab",
     group: "Littleroot Town",
     floor: "Professor Birch's Lab",
-    image: "maps/areas/littleroottown-professorbirchslab.png",
+    image: "maps/areas/littleroottown-professorbirchslab-npcs.png",
     width: 208,
     height: 208,
     markers: [
