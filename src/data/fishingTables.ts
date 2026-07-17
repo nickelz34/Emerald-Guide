@@ -119,7 +119,7 @@ export const FISHING_SPECIAL_NOTES = [
   {
     id: "feebas",
     title: "Feebas (Route 119)",
-    body: "Exactly six numbered fishing spots are active at a time (Dewford trendy-phrase seed) — see the Feebas map below. Fish any rod on those tiles (Old Rod is fastest). On a correct tile, Feebas is about 50%. Surf never catches Feebas. Not part of the standard Route 119 rod table.",
+    body: "Exactly six numbered fishing spots are active at a time (Dewford trendy-phrase seed) — use the Feebas tiles panel at the top of this step to enter your seed. Fish any rod on those tiles (Old Rod is fastest). On a correct tile, Feebas is about 50%. Surf never catches Feebas. Not part of the standard Route 119 rod table.",
   },
   {
     id: "relicanth",

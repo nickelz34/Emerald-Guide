@@ -28,6 +28,7 @@ import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { PokeBallTable } from "./PokeBallTable";
 import { FishingTable } from "./FishingTable";
+import { FeebasFishingMap } from "./FeebasFishingMap";
 import { NatureTable } from "./NatureTable";
 import { VitaminsTable } from "./VitaminsTable";
 import { StatusTable } from "./StatusTable";
@@ -213,6 +214,8 @@ export function StepBrowser({
   const showHmTable = current?.step.id === "rustboro-1" && panelVisible("hm-table");
   const showKeyItemsTable =
     current?.step.id === "rusturf-tunnel-2" && panelVisible("key-items");
+  const showFeebasTiles =
+    current?.step.id === "pregame-field-3" && panelVisible("feebas-tiles");
   const showFishingTable =
     current?.step.id === "pregame-field-3" && panelVisible("fishing-table");
   const showPokeBallTable =
@@ -730,6 +733,14 @@ export function StepBrowser({
       return (
         <section className="reference-embed" aria-label="Key items reference">
           <KeyItemsTable highlightStepId={step.id} rows={specialty?.keyItems} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:feebas-tiles" && showFeebasTiles) {
+      return (
+        <section className="reference-embed" aria-label="Feebas fishing tiles">
+          <FeebasFishingMap />
         </section>
       );
     }
