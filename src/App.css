@@ -1913,6 +1913,22 @@
  * Crisp pixel zoom: canvas is sized to nativeMapPx * zoom (inline), and the
  * image is resized with nearest-neighbor — not CSS transform scale (which blurs).
  */
+/* Keep a real viewport box when the crisp canvas is abs-positioned (otherwise height collapses). */
+.map-zoom-viewport--crisp.map-zoom-viewport--crop-fit:not(.map-zoom-viewport--tall) {
+  aspect-ratio: var(--map-aspect, auto);
+  height: auto;
+}
+
+.lightbox[data-view="desktop"] .lightbox__panel--annotated .map-zoom-viewport--crisp.map-zoom-viewport--crop-fit:not(.map-zoom-viewport--tall) {
+  width: min(100%, calc(min(62vh, 600px) * var(--map-aspect-ratio, 1)));
+  max-height: min(62vh, 600px);
+}
+
+.lightbox[data-view="mobile"] .lightbox__panel--annotated .map-zoom-viewport--crisp.map-zoom-viewport--crop-fit:not(.map-zoom-viewport--tall) {
+  width: min(100%, calc(min(48dvh, 400px) * var(--map-aspect-ratio, 1)));
+  max-height: min(48dvh, 400px);
+}
+
 .map-zoom-viewport--crisp.map-zoom-viewport--crop-fit .map-zoom-viewport__canvas {
   inset: auto;
   top: 0;

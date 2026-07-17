@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.55",
+    date: "2026-07-17",
+    summary:
+      "Feebas Enlarge map lightbox shows the map again (crisp zoom no longer collapses the viewport).",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Crisp-pixel Feebas zoom kept the lightbox canvas absolutely positioned without giving the viewport an aspect-ratio/height, so Enlarge map showed the legend only. Viewport sizing is restored for crisp crop-fit maps.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.54",
     date: "2026-07-17",
     summary:
