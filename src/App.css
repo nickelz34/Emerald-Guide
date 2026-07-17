@@ -5207,8 +5207,8 @@
 
 .fishing-table__rod-icon {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }

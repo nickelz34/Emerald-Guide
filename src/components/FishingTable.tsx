@@ -40,8 +40,8 @@ export function FishingTable({
                         className="fishing-table__rod-icon"
                         src={assetUrl(icon.spriteSheet)}
                         alt=""
-                        width={icon.spriteWidth}
-                        height={icon.spriteHeight}
+                        width={48}
+                        height={48}
                         draggable={false}
                       />
                     ) : null}
