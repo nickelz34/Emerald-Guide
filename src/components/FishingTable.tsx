@@ -72,6 +72,7 @@ export function FishingTable({
 }: FishingTableProps) {
   const [method, setMethod] = useState<FishingMethod>(defaultMethod);
   const [search, setSearch] = useState("");
+  const [selectedClusterId, setSelectedClusterId] = useState<string | null>(null);
   const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<DexEntry | null>(null);
 
@@ -126,6 +127,20 @@ export function FishingTable({
       })
       .filter((c): c is NonNullable<typeof c> => c != null);
   }, [clusters, search]);
+
+  // Keep one location selected; jump to the first match when the rod tab or search changes.
+  useEffect(() => {
+    if (filtered.length === 0) {
+      setSelectedClusterId(null);
+      return;
+    }
+    if (!selectedClusterId || !filtered.some((c) => c.id === selectedClusterId)) {
+      setSelectedClusterId(filtered[0].id);
+    }
+  }, [filtered, selectedClusterId]);
+
+  const selectedCluster =
+    filtered.find((c) => c.id === selectedClusterId) ?? filtered[0] ?? null;
 
   const openPokemon = (name: string) => {
     const entry = findDexEntryByName(dexEntries, name);
@@ -198,8 +213,8 @@ export function FishingTable({
       <h5 className="reference-table__subtitle">Fishing encounter tables</h5>
       <p className="reference-table__lead">
         Slot rates and levels from pokeemerald’s <code>fishing_mons</code> groups
-        ({mapCount} maps). Maps that share an identical table are grouped. Click a Pokémon for
-        types, abilities, base stats, and more.
+        ({mapCount} maps). Pick a location group to see its table — maps that share an identical
+        table are grouped. Click a Pokémon for types, abilities, base stats, and more.
       </p>
 
       <div className="fishing-table__toolbar">
@@ -227,54 +242,88 @@ export function FishingTable({
         />
       </div>
 
-      <div className="encounter-table-wrap fishing-table__wrap">
-        <table className="encounter-table fishing-table__grid">
-          <thead>
-            <tr>
-              <th scope="col">Pokémon</th>
-              <th scope="col">Levels</th>
-              <th scope="col">Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.length === 0 ? (
-              <tr>
-                <td colSpan={3} className="encounter-table__empty">
-                  No matches for current filters.
-                </td>
-              </tr>
-            ) : (
-              filtered.flatMap((cluster) => [
-                <tr key={`${cluster.id}-head`} className="fishing-table__section">
-                  <th scope="colgroup" colSpan={3}>
-                    <span className="fishing-table__loc-name">{cluster.location}</span>
-                    {cluster.maps.length > 1 ? (
-                      <span className="fishing-table__loc-count">
-                        {cluster.maps.length} maps
+      <div className="fishing-table__browser">
+        <div className="fishing-table__loc-panel">
+          <div className="fishing-table__loc-panel-head">
+            Locations
+            <span className="fishing-table__loc-panel-count">{filtered.length}</span>
+          </div>
+          {filtered.length === 0 ? (
+            <p className="fishing-table__loc-empty">No matches for current filters.</p>
+          ) : (
+            <ul className="fishing-table__loc-list" role="listbox" aria-label="Fishing locations">
+              {filtered.map((cluster) => {
+                const active = cluster.id === selectedCluster?.id;
+                const summary = cluster.encounters
+                  .map((m) => `${m.name} ${m.rate}`)
+                  .join(" · ");
+                return (
+                  <li key={cluster.id}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={active}
+                      className={`fishing-table__loc-btn${active ? " fishing-table__loc-btn--active" : ""}`}
+                      onClick={() => setSelectedClusterId(cluster.id)}
+                    >
+                      <span className="fishing-table__loc-btn-name">{cluster.location}</span>
+                      <span className="fishing-table__loc-btn-meta">
+                        {cluster.maps.length > 1 ? `${cluster.maps.length} maps · ` : ""}
+                        {summary}
                       </span>
-                    ) : null}
-                    {cluster.note ? (
-                      <span className="fishing-table__loc-note">{cluster.note}</span>
-                    ) : null}
-                  </th>
-                </tr>,
-                ...cluster.encounters.map((mon) => (
-                  <tr key={`${cluster.id}-${mon.name}`}>
-                    <td data-label="Pokémon">
-                      <FishingMonCell
-                        mon={mon}
-                        dexEntry={dexLookup.get(mon.name)}
-                        onOpen={() => openPokemon(mon.name)}
-                      />
-                    </td>
-                    <td data-label="Levels">{mon.level}</td>
-                    <td data-label="Rate">{mon.rate}</td>
-                  </tr>
-                )),
-              ])
-            )}
-          </tbody>
-        </table>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+
+        <div className="fishing-table__detail">
+          {selectedCluster ? (
+            <>
+              <div className="fishing-table__detail-head">
+                <h6 className="fishing-table__loc-name">{selectedCluster.location}</h6>
+                {selectedCluster.maps.length > 1 ? (
+                  <span className="fishing-table__loc-count">
+                    {selectedCluster.maps.length} maps
+                  </span>
+                ) : null}
+                {selectedCluster.note ? (
+                  <p className="fishing-table__loc-note">{selectedCluster.note}</p>
+                ) : null}
+              </div>
+              <div className="encounter-table-wrap fishing-table__wrap">
+                <table className="encounter-table fishing-table__grid">
+                  <thead>
+                    <tr>
+                      <th scope="col">Pokémon</th>
+                      <th scope="col">Levels</th>
+                      <th scope="col">Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedCluster.encounters.map((mon) => (
+                      <tr key={`${selectedCluster.id}-${mon.name}`}>
+                        <td data-label="Pokémon">
+                          <FishingMonCell
+                            mon={mon}
+                            dexEntry={dexLookup.get(mon.name)}
+                            onOpen={() => openPokemon(mon.name)}
+                          />
+                        </td>
+                        <td data-label="Levels">{mon.level}</td>
+                        <td data-label="Rate">{mon.rate}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <p className="fishing-table__detail-empty">Select a location to view encounters.</p>
+          )}
+        </div>
       </div>
 
       <p className="encounter-legend">

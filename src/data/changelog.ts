@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.57",
+    date: "2026-07-17",
+    summary:
+      "Fishing encounter tables use a compact location picker so the long Pokémon list no longer stretches the whole page.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Old / Good / Super Rod encounter browser shows a scrollable location list beside one selected group’s Pokémon table instead of dumping every map table inline.",
+          "Search still filters locations and species; the detail pane updates to the first match.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.56",
     date: "2026-07-17",
     summary:
