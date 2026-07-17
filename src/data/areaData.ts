@@ -856,20 +856,32 @@ export function getRouteTrainers(areaId: string): TrainerPoint[] {
   return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
+/** Stable key for identical wild encounter rows (same species/method/level/rate). */
+function encounterRowKey(row: PokemonEncounter): string {
+  return [row.name, row.method, row.level, row.rate ?? "", row.time ?? "any"].join("|");
+}
+
 /** Build encounter rows from the live pokeemerald wild table for one map. */
 export function encountersFromWildData(wildList: WildPokemon[], areaId: string): PokemonEncounter[] {
+  // Multi-room dungeons share the same tables across map ids (e.g. seafloor-cavern-room1…8).
+  // Match by area prefix, then keep one row per identical encounter.
+  const seen = new Set<string>();
   const rows: PokemonEncounter[] = [];
   for (const mon of wildList) {
     for (const loc of mon.locations) {
       if (!wildLocationMatchesArea(loc.id, loc.areaId, areaId)) continue;
       for (const row of loc.rows) {
-        rows.push({
+        const encounter: PokemonEncounter = {
           name: mon.name,
           level: row.level,
           time: "any",
           method: row.method,
           rate: row.rate,
-        });
+        };
+        const key = encounterRowKey(encounter);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        rows.push(encounter);
       }
     }
   }
