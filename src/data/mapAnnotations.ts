@@ -408,7 +408,7 @@ export const MAP_ANNOTATIONS: Record<string, MapAnnotation> = {
         type: "wild",
         label: "Feebas fishing (trend tiles)",
         detail:
-          "Only six numbered fishing-spot IDs on Route 119 can yield Feebas (any rod). Use the Feebas calculator after Rival Battle #4 (optional hunt step) or in Pregame → Fishing. IDs reshuffle when Dewford’s trendy phrase changes; Surf never finds Feebas.",
+          "Only six numbered fishing-spot IDs on Route 119 can yield Feebas (any rod). Use the Feebas calculator on Ch. 33 event 4 of 4 (Hunt Feebas on the river). IDs reshuffle when Dewford’s trendy phrase changes; Surf never finds Feebas.",
         x: 48,
         y: 55,
       },

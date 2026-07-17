@@ -215,9 +215,7 @@ export function StepBrowser({
   const showKeyItemsTable =
     current?.step.id === "rusturf-tunnel-2" && panelVisible("key-items");
   const showFeebasTiles =
-    (current?.step.id === "pregame-field-3" ||
-      current?.step.id === "route-119-4") &&
-    panelVisible("feebas-tiles");
+    current?.step.id === "route-119-4" && panelVisible("feebas-tiles");
   const showFishingTable =
     current?.step.id === "pregame-field-3" && panelVisible("fishing-table");
   const showPokeBallTable =

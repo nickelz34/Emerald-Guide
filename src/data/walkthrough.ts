@@ -1605,7 +1605,7 @@ const storyChapters: GuideSection[] = [
           `<strong class="story-heading">How Feebas tiles work</strong>
 Every fishable water tile on Route 119 has a spot ID (1–447). Exactly six IDs are active, chosen from Dewford Town’s trendy phrase seed. On a correct tile, Feebas is about a 50% rod encounter — Surf never finds it. When the Dewford trend changes, the six IDs reshuffle.`,
           `<strong class="story-heading">Use the Feebas calculator</strong>
-The Feebas tiles panel on this step (same tool as Pregame: Catching, Travel &amp; Trading — Fishing) marks the six active IDs on zoomable maps. Enter a known Dewford trend seed, or use Trainer ID + the two Easy Chat trendy-phrase words when you never manually changed the phrase. Magenta rings with clear centers highlight the live tiles.`,
+The Feebas tiles panel on this step marks the six active IDs on zoomable north/middle/south maps. Enter a known Dewford trend seed, or use Trainer ID + the two Easy Chat trendy-phrase words when you never manually changed the phrase. Magenta rings with clear centers highlight the live tiles.`,
           "Cast any rod from a bridge, beach, or while surfing beside a target tile — Old Rod is fastest for sweeping. If the six tiles are exhausted or you want a fresh set, talk to the trendy-phrase boy in Dewford (you’ll walk or Surf there until Fortree’s Feather Badge unlocks Fly in the field).",
           "Feebas itself is frail. For Milotic, raise Beauty to 170+ with Dry Pokéblocks (Contest Preparation) and level it up — see Pregame: Evolution — Unique evolutions.",
         ],
@@ -1619,7 +1619,7 @@ The Feebas tiles panel on this step (same tool as Pregame: Catching, Travel &amp
         tips: [
           "Register Old Rod in Key Items so Select casts without opening the Bag.",
           "Suction Cups / Sticky Hold on the lead raises the chance of getting a bite.",
-          "The same Feebas calculator also lives under Pregame → Catching, Travel & Trading → Fishing.",
+          "Pregame → Catching, Travel & Trading → Fishing covers rods only and points here for the Feebas hunt.",
         ],
         secrets: [
           "Feebas’s Beauty check for Milotic ignores friendship — only Beauty 170+ and a level-up matter.",

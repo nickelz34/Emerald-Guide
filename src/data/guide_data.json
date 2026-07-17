@@ -321,12 +321,12 @@
           "story": [
             "Emerald fishing is short and mechanical: face water → use a rod from the Bag → press A when you see “Oh! A bite!” Better rods need more successful prompts in a row. Miss or walk away and you can try the same tile again.",
             "<strong class=\"story-heading\">The three rods</strong>\nAll three are free gifts — none are sold in marts.\n<ul>\n<li><strong>Old Rod</strong> — Dewford south shore by the Gym. Fast prompts; Magikarp and Tentacool / Goldeen.</li>\n<li><strong>Good Rod</strong> — Route 118 east shore (needs Surf / Balance Badge). Mid-level tables.</li>\n<li><strong>Super Rod</strong> — Mossdeep house east of the Gym. The Super Rod is a free gift (never sold). Strongest map tables (see the chart below).</li>\n</ul>",
-            "<strong class=\"story-heading\">Feebas &amp; Relicanth</strong>\n<ul>\n<li><strong>Feebas (Route 119)</strong> — six active fishing-spot IDs from Dewford’s trendy phrase (enter your seed in the Feebas tiles panel); any rod; ~50% on a correct tile. Surf never finds it. Change the trendy phrase to reshuffle. Full river access and a story-timed hunt sit after Rival Battle #4 on Route 119 (optional walkthrough step).</li>\n<li><strong>Relicanth</strong> — Dive encounter on Underwater Routes 124 / 126, not Super Rod. Needed with Wailord for the Regi puzzle.</li>\n</ul>"
+            "<strong class=\"story-heading\">Feebas &amp; Relicanth</strong>\n<ul>\n<li><strong>Feebas (Route 119)</strong> — rare fish on six Dewford-trend fishing tiles (any rod; Surf never finds it). The full hunt guide, north/middle/south spot maps, and active-tile calculator live in the walkthrough at <strong>Ch. 33 — Route 119 &amp; Weather Institute, event 4 of 4</strong> (Hunt Feebas on the river), right after Rival Battle #4.</li>\n<li><strong>Relicanth</strong> — Dive encounter on Underwater Routes 124 / 126, not Super Rod. Needed with Wailord for the Regi puzzle.</li>\n</ul>"
           ],
           "details": [],
           "tips": [
             "Register a rod in Key Items so Select casts it without opening the Bag.",
-            "Old Rod is the fastest tool when sweeping Route 119 tiles for Feebas.",
+            "For Feebas maps and the seed / TID + phrase calculator, open Ch. 33 event 4 of 4 in the walkthrough.",
             "You can fish from bridges, beaches, and while surfing — any adjacent water tile the rod can reach.",
             "Suction Cups / Sticky Hold on the lead raises the chance of getting a bite."
           ],
@@ -349,6 +349,9 @@
             "tips",
             "secrets",
             "tags"
+          ],
+          "hiddenPanels": [
+            "feebas-tiles"
           ]
         },
         {
@@ -2928,7 +2931,7 @@
           "story": [
             "You now have everything the Feebas hunt needs: the Acro Bike from Mauville for log bridges, the Weather Institute cleared so the north half of the route is open, and Rival Battle #4 behind you. Skip this step if you want Fortree first — Feebas waits whenever you come back.",
             "<strong class=\"story-heading\">How Feebas tiles work</strong>\nEvery fishable water tile on Route 119 has a spot ID (1–447). Exactly six IDs are active, chosen from Dewford Town’s trendy phrase seed. On a correct tile, Feebas is about a 50% rod encounter — Surf never finds it. When the Dewford trend changes, the six IDs reshuffle.",
-            "<strong class=\"story-heading\">Use the Feebas calculator</strong>\nThe Feebas tiles panel on this step (same tool as Pregame: Catching, Travel &amp; Trading — Fishing) marks the six active IDs on zoomable maps. Enter a known Dewford trend seed, or use Trainer ID + the two Easy Chat trendy-phrase words when you never manually changed the phrase. Magenta rings with clear centers highlight the live tiles.",
+            "<strong class=\"story-heading\">Use the Feebas calculator</strong>\nThe Feebas tiles panel on this step marks the six active IDs on zoomable north/middle/south maps. Enter a known Dewford trend seed, or use Trainer ID + the two Easy Chat trendy-phrase words when you never manually changed the phrase. Magenta rings with clear centers highlight the live tiles.",
             "Cast any rod from a bridge, beach, or while surfing beside a target tile — Old Rod is fastest for sweeping. If the six tiles are exhausted or you want a fresh set, talk to the trendy-phrase boy in Dewford (you’ll walk or Surf there until Fortree’s Feather Badge unlocks Fly in the field).",
             "Feebas itself is frail. For Milotic, raise Beauty to 170+ with Dry Pokéblocks (Contest Preparation) and level it up — see Pregame: Evolution — Unique evolutions."
           ],
@@ -2942,7 +2945,7 @@
           "tips": [
             "Register Old Rod in Key Items so Select casts without opening the Bag.",
             "Suction Cups / Sticky Hold on the lead raises the chance of getting a bite.",
-            "The same Feebas calculator also lives under Pregame → Catching, Travel & Trading → Fishing."
+            "Pregame → Catching, Travel & Trading → Fishing covers rods only and points here for the Feebas hunt."
           ],
           "secrets": [
             "Feebas’s Beauty check for Milotic ignores friendship — only Beauty 170+ and a level-up matter."

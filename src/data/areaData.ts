@@ -146,7 +146,7 @@ export const AREA_DATA: Record<string, AreaExtras> = {
     tips: [
       "Need Acro Bike to cross log bridges — get it in Mauville.",
       "Castform is a gift, not a wild encounter — from Weather Institute director.",
-      "Feebas only appears on six numbered fishing-spot IDs that move with Dewford’s trendy phrase — use the Feebas calculator on the optional Route 119 hunt step (or Pregame → Fishing).",
+      "Feebas only appears on six numbered fishing-spot IDs that move with Dewford’s trendy phrase — use the calculator on Ch. 33 event 4 of 4 (Hunt Feebas on the river).",
     ],
     secrets: [
       "Weather Institute: HM02 Fly on the top-floor bed after Aqua battle.",
