@@ -41,7 +41,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
     id: "doubles",
     title: "Double battle (2-on-2)",
     blurb:
-      "Pair classes, two trainers spotting you at once (Emerald), or Tate & Liza. Surf hits both foes; Earthquake hits your ally too.",
+      "Pair classes, two trainers spotting you at once (Emerald), or Tate & Liza. Surf hits both foes at half damage each; Earthquake hits your ally too at full power.",
     species: [
       { name: "Solrock", dex: 338, types: ["Rock", "Psychic"] },
       { name: "Lunatone", dex: 337, types: ["Rock", "Psychic"] },

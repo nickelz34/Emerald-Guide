@@ -202,6 +202,16 @@ const REQUIRED = [
     re: /Speed is greater than or equal to the wild foe/i,
     why: "Gen III escape auto-success when Speed >= foe",
   },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /turn-order RNG picks who acts first/i,
+    why: "Speed ties use battle RNG, not coin-flip wording",
+  },
+  {
+    file: "src/data/pregameBattlesChapter.ts",
+    re: /each hit deals half damage when two foes are present/i,
+    why: "Emerald both-foes moves are half damage (Gen III)",
+  },
 ];
 
 const errors = [];

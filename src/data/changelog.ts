@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.35",
+    date: "2026-07-17",
+    summary:
+      "Ch. 1 Battles Section 1 corrects speed ties and Emerald doubles multi-target damage; catch, escape, and blackout facts stay as verified.",
+    sections: [
+      {
+        heading: "Pregame — Battles & Training",
+        items: [
+          "Speed ties are decided by the battle engine’s turn-order RNG, not described as a coin flip.",
+          "Both-foes moves (Surf, Rock Slide…) deal half damage per target in Emerald when two foes are present; all-field moves like Earthquake keep full power — Gen III’s 50% cut, not Gen IV’s 25%.",
+          "Sleep/freeze ×2 catch bonus, Gen III escape formula, and RSE 50% money loss on blackout remain unchanged.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.34",
     date: "2026-07-17",
     summary:

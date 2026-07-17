@@ -13,8 +13,8 @@
           "story": [
             "Pokémon Emerald uses the same battle screen everywhere. Wild Pokémon appear from tall grass, cave tiles, Surf water, or a fishing bite — always one foe (a 1-on-1 fight). Trainer battles start when you enter an NPC’s line of sight or talk to them; the ! bubble means the fight is locked in. You cannot catch a trainer’s Pokémon. Selecting Run in a trainer battle fails with a “no running from a Trainer battle” message — you must fight until one side has no usable Pokémon left (Prima’s Emerald guide and Bulbapedia both state this).",
             "Wild battles are where you earn Exp, practice moves, and throw Balls. Route 101’s scripted Poochyena fight teaching you to save Birch, and Route 102’s Wally catching a Ralts with Zigzagoon, use those same rules. For catching: lower HP without fainting the target, then add status if you can. Generation III catch math (Bulbapedia / Dragonfly Cave) gives sleep and freeze a ×2 status bonus, and paralysis, poison, or burn a ×1.5 bonus. Full Ball tables live in Catching in tall grass in the next pregame chapter.",
-            "Most route trainers, rivals, and every Gym Leader until Mossdeep use single battles: one of yours versus one of theirs. Turn order is not only Speed — priority moves (Quick Attack, Mach Punch, Protect, and so on) act in their priority bracket first; within the same bracket, higher Speed goes first, and equal Speed is a coin flip (Smogon / Bulbapedia priority tables for Gen III).",
-            "Double battles put two of your Pokémon against two foes. Emerald has three common sources (Serebii / Bulbapedia): (1) special pair Trainer classes such as Twins or Young Couple who share one party; (2) two independent Trainers who spot you at the same time — an Emerald-era feature — each using their own party; (3) set-piece fights like Tate & Liza. If only one of your Pokémon can battle when two spotters trigger, Emerald falls back to two singles in a row instead of a double. In a true double, your first and second party Pokémon are sent out automatically; each chooses an action each turn. Surf and Rock Slide hit both foes without hitting your partner; Earthquake, Explosion, and Magnitude hit every other battler, including your ally.",
+            "Most route trainers, rivals, and every Gym Leader until Mossdeep use single battles: one of yours versus one of theirs. Turn order is not only Speed — priority moves (Quick Attack, Mach Punch, Protect, and so on) act in their priority bracket first; within the same bracket, higher Speed goes first. When Speeds match, the battle engine’s turn-order RNG picks who acts first that turn (Bulbapedia / Smogon Gen III priority tables — not a visible coin flip).",
+            "Double battles put two of your Pokémon against two foes. Emerald has three common sources (Serebii / Bulbapedia): (1) special pair Trainer classes such as Twins or Young Couple who share one party; (2) two independent Trainers who spot you at the same time — an Emerald-era feature — each using their own party; (3) set-piece fights like Tate & Liza. If only one of your Pokémon can battle when two spotters trigger, Emerald falls back to two singles in a row instead of a double. In a true double, your first and second party Pokémon are sent out automatically; each chooses an action each turn. Surf and Rock Slide hit both foes without hitting your partner, and in Emerald each hit deals half damage when two foes are present; Earthquake, Explosion, and Magnitude hit every other battler (including your ally) at full power (Bulbapedia Double Battle — Gen III’s both-foes cut is 50%, not the 25% used in later games).",
             "The four commands match Prima’s Emerald battle primer. Fight opens the move list (name, type, and PP in Emerald). Bag uses medicines, battle items, or — in wild battles only — Poké Balls; using an item spends that battler’s turn. Pokémon opens the party to view summaries and switch; a voluntary switch is your action for that battler and happens before normal moves (Gen III switch priority), so the Pokémon you send in takes the foe’s attack that turn. Run attempts to flee a wild battle. If your active Pokémon’s Speed is greater than or equal to the wild foe’s Speed, escape always succeeds; if you are slower, each failed attempt makes the next try easier (Bulbapedia Gen III–IV escape formula). Run Away, a held Smoke Ball, or items like a Poké Doll force a successful escape from wild fights. Trapping moves and some Abilities can block Run until those conditions end.",
             "If your whole party is fainted after a trainer fight (or poison in the overworld), you black out. Emerald returns you to the last Pokémon Center you used (or your home early on) and you lose exactly half the money you are carrying (Bulbapedia black-out rules for Ruby, Sapphire, and Emerald — not the badge-scaled formula used in FireRed/LeafGreen). Story progress is not erased. Save before Gym Leaders, legendaries, and other tough set pieces so a wipe only costs half your cash and a trek back."
           ],
@@ -23,15 +23,17 @@
             "Trainer = line of sight or talk. No catching; Run fails. Win prize money.",
             "Singles = 1 vs 1 (most trainers, rivals, Gyms before Mossdeep).",
             "Doubles = 2 vs 2 from pair classes, two spotters at once (Emerald), or set pieces like Tate & Liza.",
+            "Both-foes moves (Surf, Rock Slide…) deal half damage per target in Emerald when two foes are present; all-field moves (Earthquake…) stay full power.",
             "Menu: Fight (moves) · Bag (items / Balls) · Pokémon (switch / summary) · Run (wild escape check).",
             "Voluntary switch happens before moves — the new lead eats the incoming attack.",
+            "Speed ties → battle RNG decides turn order (not a coin flip).",
             "Black out → last Center (or home) and lose half your money (RSE rule)."
           ],
           "tips": [
             "Save before Gym Leaders and legendaries — a wipe costs half your money and sends you to the last Center.",
             "Keep two healthy leads ready on busy routes; Emerald’s dual-spotter doubles punish a one-Pokémon party with back-to-back singles instead.",
             "If Run keeps failing, switch to a faster Pokémon (raise Speed for the check) or use Smoke Ball / Poké Doll / Run Away.",
-            "In doubles, check both foes before locking a single-target move; Surf is safe spread, Earthquake is not."
+            "In doubles, check both foes before locking a single-target move; Surf is safe spread (half damage each in Emerald), Earthquake is not."
           ],
           "secrets": [
             "Bag still works in trainer fights for Potions and X items — only Balls fail to catch, and Run is refused.",
@@ -53,14 +55,14 @@
           "summary": "Moves aim at one foe, both foes, a random foe, all other Pokémon, the user, an ally, or the whole field — targeting changes between singles and doubles.",
           "story": [
             "Every move has a targeting rule. In a single battle most attacks simply hit the one opponent — Surf, Thunderbolt, and Earthquake all behave the same against a lone foe. Status moves like Growl, Thunder Wave, or Toxic also lock onto that one target unless they are self- or field-targeted.",
-            "In a double battle those same moves diverge. Single-target attacks ask you to pick which foe (or sometimes which ally) to hit — useful when one Pokémon resists your STAB and the other does not. Moves aimed at both foes — Surf, Rock Slide, Hyper Voice — strike each enemy once without hitting your partner. Moves that hit every other battler — Earthquake, Explosion, Magnitude, Selfdestruct — damage both foes and your ally; Protect on your partner, or a Ground / Flying / Levitate immunity, keeps the friendly fire down.",
+            "In a double battle those same moves diverge. Single-target attacks ask you to pick which foe (or sometimes which ally) to hit — useful when one Pokémon resists your STAB and the other does not. Moves aimed at both foes — Surf, Rock Slide, Hyper Voice — strike each enemy once without hitting your partner, and in Emerald each hit deals half damage when two foes are still present. Moves that hit every other battler — Earthquake, Explosion, Magnitude, Selfdestruct — damage both foes and your ally at full power; Protect on your partner, or a Ground / Flying / Levitate immunity, keeps the friendly fire down.",
             "A few moves pick a random opponent each turn they lock on — Outrage, Thrash, and Petal Dance can force you onto an awkward target in doubles if the first foe faints. Weather and screen moves — Rain Dance, Sunny Day, Sandstorm, Hail, Light Screen, Reflect, Safeguard — affect the whole field or your side rather than a single HP bar. Self-targeting moves (Swords Dance, Calm Mind, Recover, Rest) never ask for a foe. Ally-helpers such as Helping Hand need you to pick your partner.",
             "Rule of thumb: “the foe” is single-target; “both foes” hits the enemy pair only; Earthquake-style moves can hit your side too. Read the move when you teach a TM — Mossdeep’s double gym and the Battle Frontier punish careless Earthquake clicks."
           ],
           "details": [],
           "tips": [
-            "Surf is safe spread damage in doubles — it never hits your partner.",
-            "Earthquake hits everyone except airborne / Levitate / Flying Pokémon, including your ally — plan Protect or dual Ground resists.",
+            "Surf is safe spread damage in doubles — it never hits your partner, but Emerald halves its damage when both foes are present.",
+            "Earthquake hits everyone except airborne / Levitate / Flying Pokémon, including your ally, at full power — plan Protect or dual Ground resists.",
             "Weather and screens last five turns in Emerald — reapply before a long gym fight fades them."
           ],
           "secrets": [
@@ -724,9 +726,6 @@
           "tags": [
             "intro",
             "littleroot"
-          ],
-          "hiddenPanels": [
-            "encounters"
           ]
         },
         {
@@ -749,9 +748,6 @@
           "tags": [
             "rival",
             "littleroot"
-          ],
-          "hiddenPanels": [
-            "encounters"
           ]
         },
         {
@@ -2725,14 +2721,14 @@
           "tips": [
             "Bring a Machop/Makuhita line or Breloom to trivialize Slaking."
           ],
+          "secrets": [
+            "Defeating Norman hides Mr. Briney and his boat from Route 104, Dewford, and Route 109 — use the ferry for any last Dewford/Slateport trips before this Gym if you still need it."
+          ],
           "tags": [
             "gym",
             "badge-5",
             "norman",
             "petalburg-gym"
-          ],
-          "secrets": [
-            "Defeating Norman hides Mr. Briney and his boat from Route 104, Dewford, and Route 109 — use the ferry for any last Dewford/Slateport trips before this Gym if you still need it."
           ]
         },
         {
