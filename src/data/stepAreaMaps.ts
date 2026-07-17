@@ -175,8 +175,8 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
   "pregame-field-4": ["granitecave-1f", "granitecave-b1f", "granitecave-stevensroom"],
   "pregame-field-6": ["oldaletown-pokemoncenter-1f", "littleroottown-professorbirchslab"],
 
-  // Oldale first stop — town + Center heal + Mart tutorial
-  "oldale-1": ["oldaletown", "oldaletown-pokemoncenter-1f", "oldaletown-mart"],
+  // Oldale first stop — first-visit town (west blocker + potion tutorial) + Center + Mart
+  "oldale-1": ["oldaletown-first-stop", "oldaletown-pokemoncenter-1f", "oldaletown-mart"],
   "oldale-2": ["oldaletown"],
 
   // Pretty Petal Flower Shop — interior then nearby soft-soil plots

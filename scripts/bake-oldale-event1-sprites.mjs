@@ -326,13 +326,59 @@ function spriteFor(key) {
   return s;
 }
 
-/** @type {Array<{ areaId: string, mapDir: string, file: string, entities: Array<{
- *   id: string, name: string, gfx: string, graphicsId: string, script: string,
- *   class: string, desc: string, tileX?: number, tileY?: number, facing?: string,
- *   match: (oe: any) => boolean
- * }> }>} */
+/**
+ * Entities may set tileX/tileY/facing explicitly (Event 1 OnTransition moves),
+ * or omit them and resolve from map.json via match().
+ */
 const MAPS = [
   {
+    // Ch. 7 Event 1 — FLAG_ADVENTURE_STARTED unset / potion not received yet.
+    areaId: "oldaletown-first-stop",
+    mapDir: "OldaleTown",
+    file: "oldaletown-first-stop.png",
+    entities: [
+      {
+        id: "oldale-fs-girl",
+        name: "Girl",
+        gfx: "girl_3",
+        graphicsId: "OBJ_EVENT_GFX_GIRL_3",
+        script: "OldaleTown_EventScript_Girl",
+        class: "Girl",
+        desc: "Town tipster — points you toward the Pokémon Center and Poké Mart.",
+        tileX: 16,
+        tileY: 11,
+        facing: "west",
+      },
+      {
+        id: "oldale-fs-mart-employee",
+        name: "Mart Employee",
+        gfx: "mart_employee",
+        graphicsId: "OBJ_EVENT_GFX_MART_EMPLOYEE",
+        script: "OldaleTown_EventScript_MartEmployee",
+        class: "Mart Employee",
+        desc: "Stops you on the path for the free-Potion shopping tutorial (before she returns to the Mart door).",
+        // OldaleTown_EventScript_MoveMartEmployee
+        tileX: 13,
+        tileY: 14,
+        facing: "south",
+      },
+      {
+        id: "oldale-fs-researcher",
+        name: "Researcher",
+        gfx: "maniac",
+        graphicsId: "OBJ_EVENT_GFX_MANIAC",
+        script: "OldaleTown_EventScript_FootprintsMan",
+        class: "Researcher",
+        desc: "Blocks the west exit to Route 102 until you talk to him — head north to Route 103 first.",
+        // OldaleTown_EventScript_BlockWestEntrance
+        tileX: 1,
+        tileY: 11,
+        facing: "west",
+      },
+    ],
+  },
+  {
+    // Ch. 7 Event 2 / later — default object_event coords after flags clear.
     areaId: "oldaletown",
     mapDir: "OldaleTown",
     file: "oldaletown.png",
@@ -354,7 +400,7 @@ const MAPS = [
         graphicsId: "OBJ_EVENT_GFX_MART_EMPLOYEE",
         script: "OldaleTown_EventScript_MartEmployee",
         class: "Mart Employee",
-        desc: "Runs the free-Potion shopping tutorial outside the Poké Mart.",
+        desc: "Stands by the Poké Mart after the Potion tutorial.",
         match: (oe) => oe.graphics_id === "OBJ_EVENT_GFX_MART_EMPLOYEE",
       },
       {
@@ -364,26 +410,17 @@ const MAPS = [
         graphicsId: "OBJ_EVENT_GFX_MANIAC",
         script: "OldaleTown_EventScript_FootprintsMan",
         class: "Maniac",
-        desc: "Obsessed with footprints in the sand west of town.",
+        desc: "Studies footprints in the sand west of town once Route 102 is open.",
         match: (oe) => oe.graphics_id === "OBJ_EVENT_GFX_MANIAC",
-      },
-      {
-        id: "oldale-rival",
-        name: "Rival",
-        gfx: "brendan",
-        graphicsId: "OBJ_EVENT_GFX_BRENDAN_NORMAL",
-        script: "OldaleTown_EventScript_Rival",
-        class: "Rival",
-        desc: "Your rival — briefly blocks the south exit after Route 103 until you return to Birch’s lab.",
-        match: (oe) =>
-          oe.graphics_id === "OBJ_EVENT_GFX_VAR_0" || /Rival/i.test(oe.script || ""),
       },
     ],
   },
   {
     areaId: "oldaletown-pokemoncenter-1f",
     mapDir: "OldaleTown_PokemonCenter_1F",
-    file: "oldaletown-pokemoncenter-1f.png",
+    // New filename so clients don’t keep a nurse-only cached PNG without the other NPCs.
+    file: "oldaletown-pokemoncenter-1f-npcs.png",
+    alsoWrite: ["oldaletown-pokemoncenter-1f.png"],
     entities: [
       {
         id: "oldale-pc-nurse",
@@ -430,7 +467,8 @@ const MAPS = [
   {
     areaId: "oldaletown-mart",
     mapDir: "OldaleTown_Mart",
-    file: "oldaletown-mart.png",
+    file: "oldaletown-mart-npcs.png",
+    alsoWrite: ["oldaletown-mart.png"],
     entities: [
       {
         id: "oldale-mart-clerk",
@@ -487,19 +525,26 @@ for (const mapSpec of MAPS) {
 
   const baked = [];
   for (const ent of mapSpec.entities) {
-    const oe = (mapJson.object_events || []).find(ent.match);
-    if (!oe) {
-      console.warn("  missing object event for", ent.id, "on", mapSpec.areaId);
-      continue;
+    let tileX = ent.tileX;
+    let tileY = ent.tileY;
+    let facing = ent.facing;
+    if (tileX == null || tileY == null || !facing) {
+      const oe = ent.match && (mapJson.object_events || []).find(ent.match);
+      if (!oe) {
+        console.warn("  missing object event for", ent.id, "on", mapSpec.areaId);
+        continue;
+      }
+      tileX = oe.x;
+      tileY = oe.y;
+      facing = facingFromMovement(oe.movement_type);
     }
-    const facing = facingFromMovement(oe.movement_type);
-    placePerson(scene, spriteFor(ent.gfx), oe.x, oe.y, facing);
+    placePerson(scene, spriteFor(ent.gfx), tileX, tileY, facing);
     baked.push({
       id: ent.id,
       name: ent.name,
       category: "trainer",
-      x: toLocalX(oe.x, W),
-      y: toLocalY(oe.y, H),
+      x: toLocalX(tileX, W),
+      y: toLocalY(tileY, H),
       desc: ent.desc,
       spriteSheet: GFX[ent.gfx].public,
       spriteWidth: 16,
@@ -513,13 +558,14 @@ for (const mapSpec of MAPS) {
       graphicsId: ent.graphicsId,
       script: ent.script,
     });
-    console.log(
-      `  ${mapSpec.areaId}: ${ent.name} @(${oe.x},${oe.y}) ${facing}`,
-    );
+    console.log(`  ${mapSpec.areaId}: ${ent.name} @(${tileX},${tileY}) ${facing}`);
   }
 
-  writePng(path.join(AREA_DIR, mapSpec.file), scene);
-  writePng(path.join(ARTIFACT, mapSpec.file), scene);
+  const outFiles = [mapSpec.file, ...(mapSpec.alsoWrite || [])];
+  for (const file of outFiles) {
+    writePng(path.join(AREA_DIR, file), scene);
+    writePng(path.join(ARTIFACT, file), scene);
+  }
   cutsceneByArea[mapSpec.areaId] = baked;
 }
 
