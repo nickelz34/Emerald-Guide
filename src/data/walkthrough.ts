@@ -508,23 +508,28 @@ const storyChapters: GuideSection[] = [
     steps: [
       {
         id: "rustboro-1",
-        title: "Get HM01 Cut",
+        title: "Get HM01 Cut & meet Scott at school",
         location: "Rustboro City — Cutter's House",
-        summary: "The Cutter in the house west of the Pokémon Center gives you HM01 Cut.",
+        summary: "Pick up Cut from the Cutter, then talk to Scott inside the Trainer’s School before the Gym.",
         story: [
           "Rustboro is Hoenn's industrial heart — all brick, bustle, and the towering Devon Corporation — but your first stop should be the modest house just west of the Pokémon Center. The Cutter inside hands you HM01 Cut, the field move that clears those pesky little trees (once you've earned the Stone Badge to back it up).",
           "While you're wandering, poke your head into the Trainer's School in the northeast; the teacher there rewards curious students with a Quick Claw, a tidy held item that occasionally lets a slower Pokémon strike first.",
+          "Before you challenge Roxanne, step into the Pokémon Trainer’s School in the northeast. Just inside the entrance, Scott — the sunglasses-wearing scout from Petalburg — introduces himself properly. He’s hunting outstanding Trainers and battle experts, and he suggests your first job is teaching a Pokémon Cut (someone in town already has the HM).",
         ],
         details: [
           "Enter the house directly west of the Pokémon Center and talk to the man.",
           "He gives you HM01 Cut, which clears small trees once you have the Stone Badge.",
           "The Trainer's School (northeast) gives a Quick Claw from the teacher.",
+          "Optional: talk to Scott inside the Trainer’s School before earning the Stone Badge (Scott sighting #2).",
         ],
-        tips: ["Teach Cut to a spare 'HM slave' rather than your main attackers."],
+        tips: [
+          "Teach Cut to a spare 'HM slave' rather than your main attackers.",
+        ],
         secrets: [
           "The Trainer's School hands out a free Quick Claw — and its blackboard notes are a genuinely useful refresher on status conditions.",
+          "Scott leaves the school once you receive the PokéNav from Mr. Stone — catch him before then if you want both school chats.",
         ],
-        tags: ["hm", "cut", "rustboro"],
+        tags: ["hm","cut","rustboro","scott"],
       },
       {
         id: "rustboro-2",
@@ -552,13 +557,15 @@ const storyChapters: GuideSection[] = [
         story: [
           "Fresh off your first badge, your rival catches you near the Pokémon School for a friendly rematch — a quick measure of how far you've both come. They've grown stronger, but so have you, and the battle is more reunion than rivalry.",
           "The celebration is short-lived. As you make your way out of town, a Team Aqua Grunt bolts from the Devon Corporation building, having stolen the very Devon Goods you helped protect in the woods, and sprints east. The panicked researcher takes off after him toward Route 116, and there's really only one thing to do: give chase.",
+          "If you revisit the Trainer’s School after the Stone Badge (and before Mr. Stone hands over the PokéNav), Scott is still inside. He notices your badge, praises the win, then admits a League Badge alone can’t show him how you battle — he wishes he could have watched the fight.",
         ],
         details: [
           "Your rival battles you near the Pokémon School for a friendly rematch.",
           "As you leave, a Team Aqua Grunt steals the Devon Goods and flees east.",
           "The panicked Devon researcher runs toward Route 116 — follow him.",
+          "Optional: talk to Scott again at the Trainer’s School after the Stone Badge (Scott sighting #3) before you get the PokéNav.",
         ],
-        tags: ["rival", "team-aqua", "story", "rustboro"],
+        tags: ["rival","team-aqua","story","rustboro","scott"],
       },
     ],
   },
@@ -664,6 +671,7 @@ const storyChapters: GuideSection[] = [
         story: [
           "Peeko safely home, Mr. Briney makes good on his promise and rows you out across the waves to Dewford Town — a breezy little island known for two things: a Fighting-type Gym and the dark, sprawling Granite Cave next door. It's your first taste of Hoenn's endless ocean, and it won't be your last.",
           "Before the Gym, talk to the fisherman on the south shore — he gives you the Old Rod for basic fishing on any water tile. Chat with the boy outside Dewford Hall about what's \"hip and happening\" — that trendy phrase controls Feebas tile layouts in Route 119's water later. For a Silk Scarf now, visit the Ace Trainer in the house north of the pier instead.",
+          "Mr. Briney’s ferry stays available between his Route 104 cottage, Dewford, and the Route 109 beach near Slateport until you defeat Norman for the Balance Badge — after that battle he leaves the docks, so finish any island errands before Petalburg Gym.",
         ],
         details: [
           "Talk to Mr. Briney at his cottage and ask to sail to Dewford.",
@@ -672,12 +680,13 @@ const storyChapters: GuideSection[] = [
           "Dewford is a small island known for its gym and Granite Cave.",
           "Talk to the Ace Trainer in the house north of the pier for a free Silk Scarf.",
           "The boy outside Dewford Hall sets the \"hip and happening\" trend (affects Feebas tiles).",
+          "Briney’s boat runs Route 104 ↔ Dewford ↔ Route 109 until you beat Norman; then he disappears from the docks.",
         ],
         secrets: [
           "The Silk Scarf is a free gift from the Ace Trainer north of the pier — a held item that boosts Normal-type moves.",
           "Route 106's rocky shallows hide a Heart Scale underwater (Dive) and trainers with good EXP — worth a sweep once you have Surf.",
         ],
-        tags: ["briney", "dewford"],
+        tags: ["briney","dewford"],
       },
       {
         id: "dewford-2",
@@ -725,14 +734,16 @@ const storyChapters: GuideSection[] = [
         story: [
           "Talk to the Hiker just inside the cave entrance first — he hands you HM05 Flash. Teach it to a spare Pokémon so the dark basement floors light up before you explore deeper.",
           "Steven's chamber is a side room off 1F (west of the entrance). You find him there, a quiet, well-dressed young man crouched over the rocks with the eye of a serious collector. He takes Mr. Stone's Letter graciously — the two are closer than he lets on — and thanks you with TM47 Steel Wing. Return to Devon Corp in Rustboro before you sail on — Mr. Stone gives you the Exp. Share on the 3F once he knows the Letter was delivered.",
+          "Before Steven leaves, he registers you in the PokéNav for Match Call. You’ll be able to ring him later as the story advances — don’t skip the registration prompt after the Letter and TM47 Steel Wing.",
         ],
         details: [
           "A Hiker on the entrance floor (1F) gives you HM05 Flash — get this before exploring the dark basements.",
           "Steven is in Steven's Room off Granite Cave 1F; give him the Letter.",
           "He gives you TM47 Steel Wing as thanks.",
           "Return to Devon Corp in Rustboro for the Exp. Share from Mr. Stone.",
+          "Steven registers you in the PokéNav (Match Call) after giving TM47 Steel Wing.",
         ],
-        tags: ["steven", "flash", "story", "granite-cave"],
+        tags: ["steven","flash","story","granite-cave"],
       },
       {
         id: "granite-cave-2",
@@ -805,14 +816,16 @@ const storyChapters: GuideSection[] = [
         story: [
           "Stern's Shipyard comes first: talk to Dock inside and he'll tell you Captain Stern is at the Oceanic Museum. Until you speak with Dock, Aqua Grunts outside the museum keep you from going in.",
           "Pay the ₽50 entry, go upstairs, and talk to Stern — two Team Aqua Grunts interrupt and battle you. Afterward Team Aqua's leader, Archie, appears, sizes you up, warns you off, and leaves. Hand Stern the Devon Goods once the coast is clear.",
+          "Outside the museum, Scott intercepts you. He saw Team Aqua flee, guesses you drove them off, and registers you for Match Call on the PokéNav so he can ring you later. Then he heads out to scout other towns — don’t leave Slateport without talking to him (Scott sighting #4, mandatory).",
         ],
         details: [
           "Visit Stern's Shipyard and talk to Dock — he points you to the Oceanic Museum.",
           "Museum entry costs ₽50; talk to Stern upstairs to trigger two Grunt battles.",
           "Archie (Team Aqua's Leader, not an Admin) appears, warns you off, and leaves.",
           "Give the Devon Goods to Captain Stern.",
+          "After the museum, talk to Scott outside — he enables Scott Match Call (mandatory Scott sighting #4).",
         ],
-        tags: ["team-aqua", "story", "slateport"],
+        tags: ["team-aqua","story","slateport","scott"],
       },
       {
         id: "slateport-3",
@@ -821,12 +834,13 @@ const storyChapters: GuideSection[] = [
         summary: "Leave Slateport north toward Mauville, passing the Trick House.",
         story: [
           "Errands finished, your own journey pulls you north again. Grab any last supplies from the market — though Mauville, the next Gym town, is well-stocked too — and head out onto Route 110, the long causeway that runs alongside the Seaside Cycling Road. A curious puzzle house and another meeting with your rival wait along the way.",
+          "Remember Mr. Briney can still sail you back to Dewford or his Route 104 cottage from the Route 109 beach until you earn Norman’s Balance Badge — after that Gym he leaves the ferry routes for good.",
         ],
         details: [
           "Buy any last supplies — the next gym town has plenty too.",
           "Exit north onto Route 110 toward Mauville City.",
         ],
-        tags: ["route", "slateport"],
+        tags: ["route","slateport"],
       },
       {
         id: "slateport-4",
@@ -850,13 +864,15 @@ const storyChapters: GuideSection[] = [
         location: "Slateport City",
         summary: "Frontier-style practice battles on the south boardwalk.",
         story: [
+          "Before you leave Slateport for Mauville, check the Battle Tent entrance. Scott steps out of the doorway, greets you, and cheers you on for trying the tent challenge (Scott sighting #5, optional — missable if you defeat Wattson first).",
           "Slateport's Battle Tent on the south boardwalk offers the same optional Frontier-style gauntlet as Verdanturf and Fallarbor. It's a good place to test your team after the Oceanic Museum before pushing north on Route 110.",
         ],
         details: [
           "Enter the Battle Tent on Slateport's south side near the harbor.",
           "Register three Pokémon and battle through the practice gauntlet.",
+          "Optional: talk to Scott outside Slateport’s Battle Tent after the museum scene (Scott sighting #5).",
         ],
-        tags: ["optional", "battle-tent", "slateport"],
+        tags: ["optional","battle-tent","slateport","scott"],
       },
     ],
   },
@@ -912,19 +928,23 @@ const storyChapters: GuideSection[] = [
         story: [
           "Mauville's big gift is mobility. Rydel of Rydel's Cycles is so glad to have a customer that he simply gives you a bike — your choice of the speedy Mach Bike, which tears across cracked floors and up ramps, or the nimble Acro Bike, which hops and balances along thin rails. You can swap between them any time, so pick whichever suits the road ahead (the Mach Bike unlocks Cycling Road and, much later, the Sky Pillar).",
           "A local in the southeast hands over HM06 Rock Smash, letting you shatter the cracked boulders blocking so many caves. The woman in the house next to the Game Corner gives you the Coin Case — you'll need it to play the slots and buy TMs like TM32 Double Team. Approach the Gym and Wally returns — healthier and eager — with his uncle, challenging you to a quick battle to prove he's ready for Wattson.",
+          "Right after your battle with Wally, Scott appears. He watched the whole fight and praises that you didn’t hold back against a friend — that’s real battling, he says, and he’ll keep cheering for you (Scott sighting #6, mandatory).",
         ],
         details: [
           "Rydel's Cycles lets you pick the Mach Bike (speed) or Acro Bike (hops) — swap any time.",
           "The man in the southeast house gives you HM06 Rock Smash.",
           "The woman next to the Game Corner gives you the Coin Case.",
           "Outside the Gym, Wally and his uncle appear; Wally challenges you to a quick battle.",
+          "After Wally’s battle, talk to Scott in Mauville (mandatory Scott sighting #6).",
         ],
-        tips: ["Take the Mach Bike first for Cycling Road and later Sky Pillar."],
+        tips: [
+          "Take the Mach Bike first for Cycling Road and later Sky Pillar.",
+        ],
         secrets: [
           "You can return to Rydel any time to swap bikes for free — no need to agonize over the first pick.",
           "Game Corner TMs: TM32 Double Team, TM29 Psychic, TM35 Flamethrower, TM38 Fire Blast, TM50 Overheat — buy with coins after getting the Coin Case.",
         ],
-        tags: ["bikes", "hm", "rock-smash", "mauville"],
+        tags: ["bikes","hm","rock-smash","mauville","scott"],
       },
       {
         id: "mauville-2",
@@ -1016,15 +1036,19 @@ const storyChapters: GuideSection[] = [
         story: [
           "Verdanturf is a clean-aired mountain town, and it's where Wally now lives with relatives. Drop in on him and his uncle, who thanks you warmly for the kindness you showed the boy back in Petalburg — a quiet reminder that your journey touches other lives.",
           "The town also sits at the west end of Rusturf Tunnel. Now that you have Rock Smash, you can shatter the rubble from this side to reunite a woman named Wanda with her sweetheart; in gratitude he gives you HM04 Strength, the move that shoves heavy boulders and unlocks the puzzles waiting in caves like Victory Road. Verdanturf's Battle Tent offers optional Frontier-style battles — Pokémon Contests are only in Lilycove, but start berry farming here and follow the Contest Preparation chapter soon after.",
+          "Inside Verdanturf’s Battle Tent lobby, Scott is waiting. He expected to see you here — Battle Tents gather tough Trainers — and tells you to do your best (Scott sighting #7, optional; he appears after you earn Wattson’s Dynamo Badge).",
         ],
         details: [
           "Visit Wally and his family — his uncle thanks you for helping him.",
           "Use Rock Smash on the tunnel rocks to reunite Wanda and her boyfriend.",
           "He gives you HM04 Strength, which moves heavy boulders.",
           "Battle Tent on the north side — practice battles, not contests (Emerald-only).",
+          "Optional: talk to Scott in Verdanturf’s Battle Tent lobby after the Dynamo Badge (Scott sighting #7).",
         ],
-        tips: ["Strength opens boulder puzzles in caves like Victory Road — keep it on an HM carrier."],
-        tags: ["hm", "strength", "verdanturf", "route-117"],
+        tips: [
+          "Strength opens boulder puzzles in caves like Victory Road — keep it on an HM carrier.",
+        ],
+        tags: ["hm","strength","verdanturf","route-117","scott"],
       },
       {
         id: "verdanturf-3",
@@ -1201,13 +1225,16 @@ const storyChapters: GuideSection[] = [
         story: [
           "Fallarbor is a quiet farming town, but the peace is a thin veneer. Locals tell you that Team Magma has kidnapped Professor Cozmo, a meteorite researcher, and hauled him off toward Meteor Falls. It's the first time Magma's land-loving ambitions feel personal — and a clear sign that the fight over Mt. Chimney is about to boil over.",
           "The town's Battle Tent hosts optional practice battles if you want a breather, but the story is pulling you west and north toward the falls.",
+          "At Fallarbor’s Pokémon Center, Lanette — designer of the PC storage system — introduces herself and invites you to visit her house on Route 114. Swing by the Battle Tent lobby too if Scott is there: he greets you and says he’s looking for someone who can take a real challenge (Scott sighting #8, optional).",
         ],
         details: [
           "Learn that Team Magma abducted Professor Cozmo for the Meteorite.",
           "This foreshadows the Mt. Chimney showdown to come.",
           "Battle Tent here — not contests (all ranks are in Lilycove). Move Maniac is great for recovering contest moves later.",
+          "Talk to Lanette in Fallarbor’s Pokémon Center — she invites you to her Route 114 house.",
+          "Optional: talk to Scott in Fallarbor’s Battle Tent lobby (Scott sighting #8).",
         ],
-        tags: ["team-magma", "story", "fallarbor"],
+        tags: ["team-magma","story","fallarbor","scott","lanette"],
       },
       {
         id: "fallarbor-2",
@@ -1272,18 +1299,18 @@ const storyChapters: GuideSection[] = [
         location: "Meteor Falls",
         summary: "Team Magma and Team Aqua clash over the meteorite here.",
         story: [
-          "Meteor Falls is a misty, tiered cavern where the two villainous teams finally collide in front of you. Team Magma strong-arms the Meteorite from a shaken Professor Cozmo, and their leader Maxie announces his plan to supercharge Mt. Chimney's volcano with it — a scheme that would reshape all of Hoenn if it succeeds.",
-          "You can't stop him here; the confrontation is cut short and both teams scatter. But the deeper floors (reachable later with Surf and Waterfall) hide TM02 Dragon Claw and a young Bagon — the first step toward a fearsome Salamence.",
+          "Meteor Falls is a roaring underground river cave, and Team Magma is already inside. Magma Grunts seize Professor Cozmo’s Meteorite and flee toward Mt. Chimney before you can stop them.",
+          "Archie of Team Aqua arrives moments later. He recognizes you from the Slateport museum, explains that Magma fanatics want to expand the land while Aqua believes in expanding the sea, then races after Magma toward the volcano. Follow them — Mt. Chimney is next.",
         ],
         details: [
-          "Inside Meteor Falls, Team Magma takes the Meteorite from Professor Cozmo.",
-          "Maxie announces a plan to power up Mt. Chimney's volcano.",
-          "Deeper areas (need Surf/Waterfall later) hide TM02 Dragon Claw and Bagon.",
+          "Enter Meteor Falls; Magma steals Cozmo’s Meteorite and flees toward Mt. Chimney.",
+          "Archie appears, introduces Aqua’s rivalry with Magma, and chases them to the volcano.",
+          "Continue to Mt. Chimney after the cutscene.",
         ],
         secrets: [
           "Bagon in Meteor Falls is a 5% spawn on the deepest floor — start hunting now if you want Salamence before the League.",
         ],
-        tags: ["meteorite", "team-magma", "meteor-falls", "route-114"],
+        tags: ["meteorite","team-magma","meteor-falls","route-114","archie"],
       },
       {
         id: "route-114-3",
@@ -1331,17 +1358,19 @@ const storyChapters: GuideSection[] = [
         story: [
           "Maxie leaves the Meteorite behind in his hurry to flee — scoop it up. The story-friendly choice is to return it to Professor Cozmo in Fallarbor; if you keep it, a Mossdeep Space Center scientist will later trade a Sun Stone or Moon Stone for it instead.",
           "The only way down is Jagged Pass, a steep, ash-choked trail where Numel, Machop, and Spoink roam freely. Halfway down, keep an eye out for a hidden entrance to the Team Magma Hideout — sealed for now, but you'll be back once Mt. Pyre hands you the Magma Emblem. At the bottom, Lavaridge Town's hot springs are a welcome sight.",
+          "When Maxie flees the crater, Archie finds you on the summit path. He thanks you for thwarting Magma’s volcano plan — he’s still unsure whose side you’re on, but Aqua will keep pursuing Magma, and you’ll meet again.",
         ],
         details: [
           "Pick up the Meteorite Maxie leaves behind.",
           "Optional: return it to Prof. Cozmo in Fallarbor, or keep it for the Space Center stone trade later.",
           "Descend the ash-covered Jagged Pass; catch Numel, Machop, and Spoink.",
           "A hidden Team Magma Hideout entrance is on Jagged Pass (opens with the Magma Emblem after Mt. Pyre).",
+          "After Maxie flees, Archie thanks you on Mt. Chimney before leaving.",
         ],
         secrets: [
           "Keeping the Meteorite locks you out of Cozmo's thank-you scene but lets you trade it at Mossdeep Space Center for a Sun or Moon Stone.",
         ],
-        tags: ["meteorite", "jagged-pass", "mt-chimney"],
+        tags: ["meteorite","jagged-pass","mt-chimney","archie"],
       },
     ],
   },
@@ -1423,8 +1452,13 @@ const storyChapters: GuideSection[] = [
           "Slaking is huge but loafs every other turn (Truant) — set up or hit hard on its off-turn.",
           "Fighting-types shred the whole team; win for the Balance Badge and TM42 Facade.",
         ],
-        tips: ["Bring a Machop/Makuhita line or Breloom to trivialize Slaking."],
-        tags: ["gym", "badge-5", "norman", "petalburg-gym"],
+        tips: [
+          "Bring a Machop/Makuhita line or Breloom to trivialize Slaking.",
+        ],
+        secrets: [
+          "Defeating Norman hides Mr. Briney and his boat from Route 104, Dewford, and Route 109 — use the ferry for any last Dewford/Slateport trips before this Gym if you still need it.",
+        ],
+        tags: ["gym","badge-5","norman","petalburg-gym"],
       },
       {
         id: "petalburg-gym-2",
@@ -1471,18 +1505,16 @@ const storyChapters: GuideSection[] = [
         id: "route-118-1",
         title: "Surf across Route 118",
         location: "Route 118",
-        summary: "Fishers and Surf-only stretches connect Mauville to Route 119.",
+        summary: "Surf Route 118 and talk with Steven about how you raise Pokémon.",
         story: [
-          "Route 118 is a breezy coastal crossing where fishermen test your patience and Surf spans the gap between Mauville's eastern shore and the wilder country beyond. The fisherman on the east shore gives you the Good Rod once you have Surf — upgrade your catches before Route 119's Feebas hunt. Cast a line or Surf the shallows for Tentacool, Wingull, and the occasional Carvanha.",
-          "Near the eastern end, you catch a glimpse of Steven — a brief, wordless encounter that foreshadows the Devon Scope errand waiting on Route 120.",
+          "Route 118 stretches east from Mauville toward the Weather Institute’s jungles, with Surfing water, grassy banks, and trainers waiting on both shores.",
+          "Near the eastern end, Steven — the same collector you met in Granite Cave — stops you for a real conversation. He remembers the Letter delivery, asks whether you raise a few favorites or many kinds of Pokémon, then admits it’s not his business and hopes you’ll meet again. This is no wordless glimpse — hear him out before you push north to Route 119.",
         ],
         details: [
-          "Surf across the central water to reach the eastern shore.",
-          "Get the Good Rod from the fisherman on the east shore (requires Surf).",
-          "Fish and Surf for Tentacool, Wingull, and Carvanha (rare).",
-          "Steven is spotted here, hinting at events near Route 120.",
+          "Surf and battle across Route 118 toward Fortree.",
+          "Talk to Steven on the eastern path — he recalls Granite Cave and asks how you raise Pokémon.",
         ],
-        tags: ["route", "surf", "route-118"],
+        tags: ["route","surf","route-118"],
       },
       {
         id: "route-118-2",
@@ -1552,14 +1584,18 @@ const storyChapters: GuideSection[] = [
         story: [
           "Just north of the institute, your rival is waiting for another showdown — and this time they've brought a full team that will genuinely test your coverage. Win and they'll hand you HM02 Fly as a gift before cheering you on toward Fortree.",
           "Fly is a game-changer for backtracking, but note that you can't use it in the field until you earn the Feather Badge from Fortree's Gym. Head there next — though a colour-shifting roadblock waits in town first.",
+          "As your rival heads toward Fortree, Scott comes the other way. He cheers your win, mentions an angry biker kid he passed, asks if Fortree Gym is next, and says he expects you’ll do well there (Scott sighting #9, mandatory).",
         ],
         details: [
           "Just past the institute, Brendan/May challenges you with a full team.",
           "Defeat them — they give you HM02 Fly immediately after the battle.",
           "Fly lets you instantly warp to any visited town once you have the Feather Badge.",
+          "After Rival Battle #4 and HM02 Fly, talk to Scott on the path (mandatory Scott sighting #9).",
         ],
-        tips: ["Fly can't be used in the field until you have the Feather Badge from Fortree."],
-        tags: ["rival", "hm", "fly", "route-119"],
+        tips: [
+          "Fly can't be used in the field until you have the Feather Badge from Fortree.",
+        ],
+        tags: ["rival","hm","fly","route-119","scott"],
       },
     ],
   },
@@ -1592,13 +1628,15 @@ const storyChapters: GuideSection[] = [
         story: [
           "Winona's Gym is a dizzying network of rotating platforms that spin you toward trainers and away from the leader if you're not careful. Her Flying-types — Swablu, Tropius, Pelipper, Skarmory, and the dragon-bird Altaria — hit from the sky with a mix of status and power.",
           "Electric and Ice moves dominate; Ice in particular quadruples damage on Altaria. Beat Winona for the Feather Badge and TM40 Aerial Ace — and Fly finally works outside battle.",
+          "After you earn the Feather Badge, keep walking around town or the nearby routes. Scott rings your PokéNav to congratulate the Gym win — your strength may make you the Trainer he’s been searching for, and he’ll cheer from the sidelines (Scott sighting #10, mandatory phone call).",
         ],
         details: [
           "Her team: Swablu, Tropius, Pelipper, Skarmory, and Altaria (lv 29–33).",
           "Electric and Ice moves dominate; Ice hits Altaria for 4× damage.",
           "Win for the Feather Badge and TM40 Aerial Ace — and Fly now works in the field.",
+          "After Winona, take ~10 steps outdoors to receive Scott’s PokéNav call (mandatory Scott sighting #10).",
         ],
-        tags: ["gym", "badge-6", "winona", "fortree"],
+        tags: ["gym","badge-6","winona","fortree","scott"],
       },
       {
         id: "fortree-3",
@@ -1756,13 +1794,15 @@ const storyChapters: GuideSection[] = [
         story: [
           "Lilycove is Hoenn's grandest city — art museum, harbor, Contest Hall, and the towering Department Store where you can buy nearly every TM and evolution stone in the game. Stock up before the story pulls you into something darker.",
           "Outside the store, your rival catches you for Rival Battle #5 — their toughest team yet, a genuine checkpoint before the endgame. Win, then look east: Team Aqua's cave is already stirring, but Emerald's next plot beat is Mt. Pyre, not a full hideout raid.",
+          "Upstairs at the Cove Lily Motel, Scott is napping between Contest watching. He came for Contests but still prefers battles — though he admits Contests take strategy too (Scott sighting #11, optional; talk before Aqua steals the submarine from Slateport).",
         ],
         details: [
           "Rival Battle #5 happens in front of the Department Store — their toughest team yet.",
           "Buy TMs, evolution stones, and vitamins across the store's floors.",
           "All contest ranks (Normal through Master) are in the Lilycove Contest Hall — see the dedicated contest chapter before Mt. Pyre if you want ribbons now.",
+          "Optional: talk to Scott on Cove Lily Motel 2F before the submarine theft (Scott sighting #11).",
         ],
-        tags: ["rival", "department-store", "lilycove"],
+        tags: ["rival","department-store","lilycove","scott"],
       },
       {
         id: "lilycove-2",
@@ -1951,6 +1991,7 @@ const storyChapters: GuideSection[] = [
         location: "Mossdeep Space Center",
         summary: "Team Magma attacks the Space Center; Steven helps and gives you Dive.",
         story: [
+          "Outside the Space Center, Scott is milling about before the Magma raid. He came to size up Mossdeep’s Gym Leaders but senses something wrong — he mentions a warning letter and the Space Center, then decides it doesn’t concern him (Scott sighting #12, optional; talk before you clear the Magma attack).",
           "Team Magma launches a brazen raid on the Mossdeep Space Center, trying to steal rocket fuel. Steven arrives to back you up in a tag-team battle against Tabitha and Maxie — two on two, with Steven's Metang holding the line while you focus fire.",
           "Magma is driven off, and Steven invites you to his house afterward, where he entrusts you with HM08 Dive. The deep ocean south of Mossdeep is now yours to explore — and somewhere beneath the waves, Archie waits.",
         ],
@@ -1958,8 +1999,9 @@ const storyChapters: GuideSection[] = [
           "Team Magma tries to steal fuel from the Space Center.",
           "Fight alongside Steven (a tag battle) to defeat Tabitha and Maxie.",
           "Afterward, visit Steven's house — he gives you HM08 Dive.",
+          "Optional: talk to Scott outside the Space Center before the Magma raid (Scott sighting #12).",
         ],
-        tags: ["team-magma", "steven", "hm", "dive", "mossdeep"],
+        tags: ["team-magma","steven","hm","dive","mossdeep","scott"],
       },
       {
         id: "mossdeep-3",
@@ -2011,14 +2053,18 @@ const storyChapters: GuideSection[] = [
         story: [
           "At the cavern's heart, Aqua Admin Shelly (in a Double Battle with a Grunt) makes a last stand before Archie himself takes the field. Beat them and you arrive just as Archie uses the Red Orb to awaken Kyogre — only for the sea Pokémon to ignore him entirely and surge away, unleashing endless rain across Hoenn.",
           "Groudon's drought and Kyogre's downpour collide, and the sky itself begins to tear. Save before this point if you want a safety net; the story locks you toward Sootopolis and the climax.",
+          "The story warps you to Route 128. Maxie confronts Archie over awakening Kyogre, then tells you that responsibility for this mess falls on both teams before they flee. Steven arrives by air, warns that the world will drown if nothing is done, and leaves for Sootopolis — follow him there next.",
         ],
         details: [
           "Battle Aqua Admin Shelly (Double Battle with a Grunt), then Leader Archie deep in the cavern.",
           "Archie uses the Red Orb to wake Kyogre; it rampages and escapes.",
           "Endless rain (and Groudon's drought) now batter Hoenn — head to Sootopolis.",
+          "On Route 128 after the cavern: Maxie and Archie argue, then Steven points you to Sootopolis.",
         ],
-        tips: ["Save before Archie; the story locks you into the Sootopolis climax next."],
-        tags: ["kyogre", "archie", "story", "seafloor-cavern"],
+        tips: [
+          "Save before Archie; the story locks you into the Sootopolis climax next.",
+        ],
+        tags: ["kyogre","archie","story","seafloor-cavern"],
       },
     ],
   },
@@ -2477,6 +2523,7 @@ const storyChapters: GuideSection[] = [
         location: "Pokémon League",
         summary: "Begin with Sidney (Dark) and Phoebe (Ghost).",
         story: [
+          "Before you enter the Pokémon League, stop at Ever Grande’s Pokémon Center. Scott is waiting inside — he’s thrilled you’ve reached the League path and promises that if you become Champion, he’ll contact you. Go for greatness (Scott sighting #13, optional).",
           "The Pokémon League is a gauntlet of four Elite Four members with no healing between them — save before you step through the doors, because there's no exit until you win or wipe out.",
           "Sidney leads with a Dark-type squad (Mightyena, Shiftry, Cacturne, Crawdaunt, Absol) that folds to Fighting and Bug moves. Phoebe follows with Ghost-types — twin Dusclops, Banette, and Sableye — where Dark-type attacks or simply strong neutral hits carry the day. Pace yourself and don't burn through your Full Restores too early.",
         ],
@@ -2484,9 +2531,12 @@ const storyChapters: GuideSection[] = [
           "Sidney (Dark): Mightyena, Shiftry, Cacturne, Crawdaunt, Absol — Fighting/Bug moves help.",
           "Phoebe (Ghost): two Dusclops, Banette, Sableye — bring Dark or strong neutral hits.",
           "You cannot heal at a PC between members — pack plenty of Full Restores.",
+          "Optional: talk to Scott in Ever Grande’s Pokémon Center before the Elite Four (Scott sighting #13).",
         ],
-        tips: ["Save before entering; there's no exit once you start the gauntlet."],
-        tags: ["elite-four", "league"],
+        tips: [
+          "Save before entering; there's no exit once you start the gauntlet.",
+        ],
+        tags: ["elite-four","league","scott"],
       },
       {
         id: "league-2",

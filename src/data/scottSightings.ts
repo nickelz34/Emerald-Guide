@@ -45,7 +45,7 @@ export const SCOTT_SIGHTINGS: ScottSighting[] = [
     id: 5,
     location: "Slateport City — Battle Tent",
     timing: "After the museum encounter, before leaving town",
-    walkthroughStepId: "slateport-2",
+    walkthroughStepId: "slateport-5",
     mandatory: false,
   },
   {

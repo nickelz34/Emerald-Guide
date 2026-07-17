@@ -20,6 +20,33 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.32",
+    date: "2026-07-17",
+    summary:
+      "All remaining Scott sightings plus Archie, Steven, Lanette, and Briney ferry gaps get prose and cutscenes.",
+    sections: [
+      {
+        heading: "Scott (sightings #2–#13)",
+        items: [
+          "Prose + baked cutscenes for Rustboro school (×2), Slateport museum & Battle Tent, Mauville after Wally, Verdanturf/Fallarbor tents, Route 119, Fortree PokéNav call, Lilycove Motel, Mossdeep Space Center, and Ever Grande Pokémon Center.",
+          "Battle Tent Scott now links to slateport-5; Fortree call and Ever Grande Center are documented on fortree-2 and league-1.",
+        ],
+      },
+      {
+        heading: "Other character beats",
+        items: [
+          "Meteor Falls: Archie arrives after Magma steals the Meteorite (replaces incorrect Maxie credit).",
+          "Mt. Chimney: Archie thanks you after Maxie flees.",
+          "Route 118: full Steven dialogue (no longer called wordless).",
+          "Granite Cave: Steven’s PokéNav registration after the Letter.",
+          "Route 128 after Kyogre: Maxie, Archie, and Steven point you to Sootopolis.",
+          "Fallarbor Center: Lanette introduces herself before Route 114.",
+          "Mr. Briney ferry window noted through Norman’s Balance Badge (Route 104 / Dewford / Route 109 — not Petalburg).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.31",
     date: "2026-07-17",
     summary:
