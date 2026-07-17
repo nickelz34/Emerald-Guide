@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.41",
+    date: "2026-07-17",
+    summary:
+      "Super Rod encounters table is clearer on mobile and Pokémon open the same species popup as the rest of the guide.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Rebuilt the Super Rod highlight list as per-location blocks so notes no longer overlap rates and levels.",
+          "Tap or click a Super Rod Pokémon (sprite or name) to open the species panel — types, abilities, and base stats — same as wild encounter tables.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.40",
     date: "2026-07-17",
     summary:
