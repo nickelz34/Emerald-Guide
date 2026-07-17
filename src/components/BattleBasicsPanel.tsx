@@ -81,7 +81,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/lass.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 2,
+        spriteFrame: 0, // forward (south) for portrait cards — not map facing
       },
       {
         id: "roxanne",
