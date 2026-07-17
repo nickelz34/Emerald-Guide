@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.50",
+    date: "2026-07-17",
+    summary:
+      "Active Feebas tiles use high-contrast magenta highlights so they stay obvious on yellow water.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Feebas active-tile markers switch from a thin green border to striped magenta fills with black/white/magenta rings and a light pulse — much easier to spot against the yellow fishing grid.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.49",
     date: "2026-07-17",
     summary:
