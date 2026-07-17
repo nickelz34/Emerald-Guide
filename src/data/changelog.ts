@@ -20,6 +20,38 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.75",
+    date: "2026-07-17",
+    summary:
+      "Ch. 1–10 outdoor route trainers bake into Hoenn crop maps (Routes 102, 103, and 118).",
+    sections: [
+      {
+        heading: "Outdoor routes (Ch. 1–10)",
+        items: [
+          "Routes 102 and 103 paint every overworld trainer into the walkthrough crop image (Ch. 8–9).",
+          "Route 118 trainers bake for the pregame fishing preview crop (Ch. 2).",
+          "Same HoennCrop baked-hit-target pattern as later outdoor routes.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.74",
+    date: "2026-07-17",
+    summary:
+      "Ch. 11–25 outdoor route trainers bake into Hoenn crop maps (Routes 104, 110–112, 116–117).",
+    sections: [
+      {
+        heading: "Outdoor routes (Ch. 11–25)",
+        items: [
+          "Routes 104, 110, 111, 112, 116, and 117 paint every overworld trainer into the walkthrough crop image (65 trainers).",
+          "HoennCrop uses invisible hit targets + legend sprites (same pattern as baked area maps) so overlay pins no longer float oversized on the crop.",
+          "Re-bake with npm run bake:outdoor-route-trainers after regenerating Hoenn crops.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.73",
     date: "2026-07-17",
     summary:

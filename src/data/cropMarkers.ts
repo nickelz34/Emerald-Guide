@@ -5,6 +5,10 @@ import { LANDMARK_PINS_GENERATED } from "./mapLandmarksGenerated";
 import { SHOP_PINS_GENERATED } from "./shopPinsGenerated";
 import { MAP_TRAINERS, type TrainerPoint } from "./mapTrainersGenerated";
 import { AREA_MARKER_MAP_POS, AREA_NOTE_LABELS, HOENN_MAP_H, HOENN_MAP_W, type MapCrop } from "./mapCrops";
+import {
+  HOENN_CROP_CUTSCENE_ENTITIES,
+  isBakedOutdoorTrainer,
+} from "./hoennCropCutsceneEntities";
 import { formatItemDescription } from "../lib/itemText";
 
 const ALL_MAP_POINTS: MapPoint[] = [
@@ -252,7 +256,22 @@ export function getCropMapPoints(crop: MapCrop, areaId?: string): CropMapPoint[]
 
     for (const tr of MAP_TRAINERS) {
       if (!noteMatchesArea(tr.note, labels)) continue;
+      if (isBakedOutdoorTrainer(areaId, tr.id)) continue;
       placeMapPoint({ ...tr }, tr.x, tr.y, crop, candidates);
+    }
+
+    // Baked outdoor trainers (already crop-local %) — hit targets + legend only.
+    const baked = areaId ? HOENN_CROP_CUTSCENE_ENTITIES[areaId] : undefined;
+    if (baked) {
+      for (const ent of baked) {
+        const mapPos = toMapPos(ent.x, ent.y, crop);
+        candidates.push({
+          ...ent,
+          category: "trainer",
+          mapX: mapPos.x,
+          mapY: mapPos.y,
+        } as PlacedPoint);
+      }
     }
   }
 

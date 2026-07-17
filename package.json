@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.26.73",
+  "version": "1.26.75",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -62,7 +62,8 @@
     "render:hoenn": "node scripts/publish-hoenn-map.mjs",
     "optimize:hoenn": "node scripts/optimize-hoenn-map.mjs",
     "bake:ch1-10-area-npcs": "node scripts/bake-ch1-10-area-npcs.mjs",
-    "bake:ch11-25-area-npcs": "node scripts/bake-ch11-25-area-npcs.mjs"
+    "bake:ch11-25-area-npcs": "node scripts/bake-ch11-25-area-npcs.mjs",
+    "bake:outdoor-route-trainers": "npx tsx scripts/bake-outdoor-route-trainers.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
