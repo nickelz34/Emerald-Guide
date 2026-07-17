@@ -354,22 +354,26 @@ const storyChapters: GuideSection[] = [
       },
       {
         id: "petalburg-3",
-        title: "Prepare for the road ahead",
+        title: "Stock up, meet Scott & head west",
         location: "Petalburg City",
-        summary: "Stock up, then head west to Route 104 and Petalburg Woods.",
+        summary:
+          "Stock up at the Mart, then meet Scott as you leave west for Route 104.",
         story: [
           "Petalburg is the last town before a long, unbroken stretch of coast, forest, and city, so treat its Poké Mart as a supply run: load up on Poké Balls and Potions before you leave. Make a mental note of the house on the west side, too — much later, once you've beaten Norman for your fifth badge, its owner hands over HM03 Surf.",
-          "With your bag full, head west onto Route 104, where sea breeze and flower fields lead into the shady tangle of Petalburg Woods.",
+          "When you walk west toward Route 104, a man in a dark suit and sunglasses — Scott — hurries over and stops you. He guesses from your clothes that you might be a Pokémon Trainer, then decides you look too clean: either a rookie Trainer or just an ordinary kid. He says he's roaming Hoenn looking for talented Trainers, apologizes for taking your time, and heads off. You'll bump into him again across the region — every chat counts toward a small Battle Points bonus at his Battle Frontier house later.",
+          "With your bag full and that odd introduction behind you, continue west onto Route 104, where sea breeze and flower fields lead into the shady tangle of Petalburg Woods.",
         ],
         details: [
           "Buy Poké Balls and Potions before leaving — you're heading into a long stretch.",
           "Note the house that later gives HM03 Surf (after you beat Norman).",
+          "As you exit west toward Route 104, Scott stops you for a short chat (your first Scott sighting).",
           "Exit west onto Route 104.",
         ],
         secrets: [
           "The Surf HM comes from a Petalburg house, but only after you defeat Norman — remember this town for a return trip.",
+          "This Scott conversation is one of thirteen in Emerald — talk to him whenever you can for up to 4 BP at his Frontier house.",
         ],
-        tags: ["shopping", "petalburg"],
+        tags: ["shopping", "petalburg", "scott"],
       },
     ],
   },

@@ -16,8 +16,8 @@ export const SCOTT_SIGHTINGS: ScottSighting[] = [
   {
     id: 1,
     location: "Petalburg City",
-    timing: "After Wally catches his Ralts on Route 102",
-    walkthroughStepId: "petalburg-2",
+    timing: "After Wally’s catch — when you leave west toward Route 104",
+    walkthroughStepId: "petalburg-3",
     mandatory: true,
   },
   {
