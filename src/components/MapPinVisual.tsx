@@ -6,6 +6,7 @@ import { getItemBagIcon } from "../data/itemIconsGenerated";
 import { getGymBadgeSprite } from "../data/gymBadgesGenerated";
 import { getTownPinSprite } from "../data/townSprites";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
+import { OW_PORTRAIT_FRAME } from "../lib/owPortrait";
 
 export function isTrainerPoint(p: MapPoint): p is TrainerPoint {
   return p.category === "trainer" && "spriteSheet" in p && typeof p.spriteSheet === "string";
@@ -87,6 +88,7 @@ export function MapPinVisual({ point }: MapPinVisualProps) {
   return <span className="hoenn-map__pin-dot" />;
 }
 
+/** Map-pin crop: keeps in-world facing / flip from entity data. */
 export function pinSpriteStyle(point: MapPoint): Record<string, string | number> {
   if (isTrainerPoint(point) || hasOwSprite(point)) {
     return {
@@ -123,6 +125,21 @@ export function pinSpriteStyle(point: MapPoint): Record<string, string | number>
     }
   }
   return {};
+}
+
+/**
+ * Portrait crop for tables, charts, and lightbox legends.
+ * Trainer/NPC sheets always face the camera; map pins must use pinSpriteStyle().
+ */
+export function portraitSpriteStyle(point: MapPoint): Record<string, string | number> {
+  if (isTrainerPoint(point) || hasOwSprite(point)) {
+    return {
+      ["--trainer-frame"]: OW_PORTRAIT_FRAME,
+      ["--trainer-fw"]: point.spriteWidth ?? 16,
+      ["--trainer-fh"]: point.spriteHeight ?? 32,
+    };
+  }
+  return pinSpriteStyle(point);
 }
 
 const SELECTION_ICON_SCALE = 2;

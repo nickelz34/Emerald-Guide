@@ -189,28 +189,38 @@ const REQUIRED = [
   },
   {
     file: "src/data/pregameBattlesChapter.ts",
-    re: /two independent Trainers who spot you at the same time/i,
+    re: /two independent trainers see you at once/i,
     why: "Emerald dual-spotter doubles",
   },
   {
     file: "src/data/pregameBattlesChapter.ts",
-    re: /voluntary switch is your action[\s\S]*before normal moves/i,
+    re: /voluntary switch is your action and happens before moves/i,
     why: "Gen III voluntary switch before moves",
   },
   {
     file: "src/data/pregameBattlesChapter.ts",
-    re: /Speed is greater than or equal to the wild foe/i,
+    re: /Speed ≥ the foe/i,
     why: "Gen III escape auto-success when Speed >= foe",
   },
   {
     file: "src/data/pregameBattlesChapter.ts",
-    re: /turn-order RNG picks who acts first/i,
+    re: /turn-order RNG/i,
     why: "Speed ties use battle RNG, not coin-flip wording",
   },
   {
     file: "src/data/pregameBattlesChapter.ts",
-    re: /each hit deals half damage when two foes are present/i,
+    re: /deal half damage each when two foes are present/i,
     why: "Emerald both-foes moves are half damage (Gen III)",
+  },
+  {
+    file: "src/components/BattleBasicsPanel.tsx",
+    re: /name: "Tate"[\s\S]*name: "Liza"/i,
+    why: "Doubles card shows Tate & Liza trainers, not Pokémon",
+  },
+  {
+    file: "src/components/BattleBasicsPanel.tsx",
+    re: /kind: "trainer"[\s\S]*Youngster[\s\S]*Lass[\s\S]*Roxanne/i,
+    why: "Singles card shows trainer NPCs",
   },
 ];
 

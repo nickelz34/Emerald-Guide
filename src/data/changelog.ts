@@ -20,6 +20,37 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.37",
+    date: "2026-07-17",
+    summary:
+      "Trainer and NPC overworld portraits in tables, charts, and legends always face forward; map pins keep their in-world facing.",
+    sections: [
+      {
+        heading: "Sprites",
+        items: [
+          "Shared portrait helper forces south-facing frame 0 (no flip) for gym guide rows, trainer detail modals, rival/story panels, battle-basics cards, and area-map lightbox legend thumbs.",
+          "Hoenn map, area-map, and crop pins are unchanged — they still use each entity’s map facing.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.36",
+    date: "2026-07-17",
+    summary:
+      "Ch. 1 Battles Section 1 is easier to scan, and the battle-types table now shows trainers (not Pokémon) for singles and doubles.",
+    sections: [
+      {
+        heading: "Pregame — Battles & Training",
+        items: [
+          "Story copy uses short headed sections and bullet lists instead of a long prose wall.",
+          "Battle types panel rebuilt: wild card still shows Pokémon; singles shows Youngster Calvin, Lass Haley, and Roxanne; doubles shows Tate & Liza plus Twins Amy & Liv.",
+          "Each battle-type card lists verified rules (catch bonuses, no Run vs trainers, Emerald dual spotters, Gen III half damage on both-foes moves). Command cards unchanged.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.35",
     date: "2026-07-17",
     summary:

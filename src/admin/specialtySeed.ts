@@ -23,25 +23,25 @@ import { getAvailablePanelsForStep } from "./availablePanels";
 
 const BATTLE_BASICS_DEFAULT = {
   lead:
-    "Pokémon Emerald uses the same battle screen everywhere. Use these quick examples to read wild fights, trainer singles, and doubles.",
+    "Quick visual guide to Emerald’s three battle setups. Wild fights show Pokémon; trainer fights show the NPCs you actually face. Rules checked against Bulbapedia, Serebii, and Gen III battle docs.",
   examples: [
     {
       id: "wild",
-      title: "Wild battle (always 1-on-1)",
+      title: "Wild battle",
       blurb:
-        "Tall grass, caves, Surf, or fishing. Poké Balls work. Run succeeds if you are faster (or equal Speed); slower = chance that improves each try.",
+        "Always one wild Pokémon. Grass, caves, Surf, and fishing all use this 1-on-1 screen.",
     },
     {
       id: "trainer",
       title: "Trainer battle (singles)",
       blurb:
-        "Line of sight or talk. No catching. Run is refused. Win prize money when their party is out.",
+        "Triggered by line of sight or talking. One of yours vs one of theirs until a side is out.",
     },
     {
       id: "doubles",
       title: "Double battle (2-on-2)",
       blurb:
-        "Pair classes, two trainers spotting you at once (Emerald), or Tate & Liza. Surf hits both foes; Earthquake hits your ally too.",
+        "Two of your Pokémon vs two foes. Emerald’s set-piece example is Mossdeep’s Tate & Liza.",
     },
   ],
   commands: [

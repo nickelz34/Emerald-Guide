@@ -11,18 +11,17 @@
           "location": "Hoenn — trainer & wild battles",
           "summary": "Wild fights are always 1-on-1 with Run and Balls available; trainer fights cannot be fled. Emerald doubles come from pair classes, two trainers spotting you at once, or Mossdeep’s gym.",
           "story": [
-            "Pokémon Emerald uses the same battle screen everywhere. Wild Pokémon appear from tall grass, cave tiles, Surf water, or a fishing bite — always one foe (a 1-on-1 fight). Trainer battles start when you enter an NPC’s line of sight or talk to them; the ! bubble means the fight is locked in. You cannot catch a trainer’s Pokémon. Selecting Run in a trainer battle fails with a “no running from a Trainer battle” message — you must fight until one side has no usable Pokémon left (Prima’s Emerald guide and Bulbapedia both state this).",
-            "Wild battles are where you earn Exp, practice moves, and throw Balls. Route 101’s scripted Poochyena fight teaching you to save Birch, and Route 102’s Wally catching a Ralts with Zigzagoon, use those same rules. For catching: lower HP without fainting the target, then add status if you can. Generation III catch math (Bulbapedia / Dragonfly Cave) gives sleep and freeze a ×2 status bonus, and paralysis, poison, or burn a ×1.5 bonus. Full Ball tables live in Catching in tall grass in the next pregame chapter.",
-            "Most route trainers, rivals, and every Gym Leader until Mossdeep use single battles: one of yours versus one of theirs. Turn order is not only Speed — priority moves (Quick Attack, Mach Punch, Protect, and so on) act in their priority bracket first; within the same bracket, higher Speed goes first. When Speeds match, the battle engine’s turn-order RNG picks who acts first that turn (Bulbapedia / Smogon Gen III priority tables — not a visible coin flip).",
-            "Double battles put two of your Pokémon against two foes. Emerald has three common sources (Serebii / Bulbapedia): (1) special pair Trainer classes such as Twins or Young Couple who share one party; (2) two independent Trainers who spot you at the same time — an Emerald-era feature — each using their own party; (3) set-piece fights like Tate & Liza. If only one of your Pokémon can battle when two spotters trigger, Emerald falls back to two singles in a row instead of a double. In a true double, your first and second party Pokémon are sent out automatically; each chooses an action each turn. Surf and Rock Slide hit both foes without hitting your partner, and in Emerald each hit deals half damage when two foes are present; Earthquake, Explosion, and Magnitude hit every other battler (including your ally) at full power (Bulbapedia Double Battle — Gen III’s both-foes cut is 50%, not the 25% used in later games).",
-            "The four commands match Prima’s Emerald battle primer. Fight opens the move list (name, type, and PP in Emerald). Bag uses medicines, battle items, or — in wild battles only — Poké Balls; using an item spends that battler’s turn. Pokémon opens the party to view summaries and switch; a voluntary switch is your action for that battler and happens before normal moves (Gen III switch priority), so the Pokémon you send in takes the foe’s attack that turn. Run attempts to flee a wild battle. If your active Pokémon’s Speed is greater than or equal to the wild foe’s Speed, escape always succeeds; if you are slower, each failed attempt makes the next try easier (Bulbapedia Gen III–IV escape formula). Run Away, a held Smoke Ball, or items like a Poké Doll force a successful escape from wild fights. Trapping moves and some Abilities can block Run until those conditions end.",
-            "If your whole party is fainted after a trainer fight (or poison in the overworld), you black out. Emerald returns you to the last Pokémon Center you used (or your home early on) and you lose exactly half the money you are carrying (Bulbapedia black-out rules for Ruby, Sapphire, and Emerald — not the badge-scaled formula used in FireRed/LeafGreen). Story progress is not erased. Save before Gym Leaders, legendaries, and other tough set pieces so a wipe only costs half your cash and a trek back."
+            "Emerald uses one battle screen for every fight. Skim the sections below, then use the visual guide for wild Pokémon, trainer NPCs, and the Fight / Bag / Pokémon / Run commands.",
+            "<strong class=\"story-heading\">Wild battles</strong>\nGrass, caves, Surf, and fishing are always 1-on-1. Balls and Run work. Lower HP, then add status when you can.\n<ul>\n<li>Sleep / freeze → ×2 catch bonus; paralysis / poison / burn → ×1.5 (Bulbapedia / Dragonfly Cave Gen III math)</li>\n<li>Full Ball tables live in Catching in tall grass in the next pregame chapter</li>\n</ul>",
+            "<strong class=\"story-heading\">Trainer battles (singles)</strong>\nLine of sight or talk starts the fight — the ! bubble means it is locked in. Most route trainers, rivals, and Gym Leaders before Mossdeep are 1 vs 1.\n<ul>\n<li>No catching their Pokémon; Run is refused</li>\n<li>Win prize money when their party is out</li>\n<li>Turn order: priority moves first, then higher Speed; equal Speed uses the battle engine’s turn-order RNG (Bulbapedia / Smogon Gen III)</li>\n</ul>",
+            "<strong class=\"story-heading\">Double battles</strong>\nTwo of yours vs two foes. Emerald has three common sources (Serebii / Bulbapedia):\n<ul>\n<li><strong>Pair classes</strong> — Twins, Young Couple, and similar share one party</li>\n<li><strong>Dual spotters</strong> — two independent trainers see you at once (Emerald feature); each uses their own party. Only one conscious Pokémon → two singles instead</li>\n<li><strong>Set pieces</strong> — Tate &amp; Liza at Mossdeep Gym</li>\n</ul>\nBoth-foes moves (Surf, Rock Slide…) deal half damage each when two foes are present; Earthquake-style moves hit every other battler at full power, including your ally (Gen III 50% cut — not Gen IV’s 25%).",
+            "<strong class=\"story-heading\">Commands, escape &amp; blackout</strong>\nFight / Bag / Pokémon / Run are covered in the command cards below (Prima Emerald primer). A voluntary switch is your action and happens before moves, so the new lead takes the hit.\n<ul>\n<li><strong>Run (wild):</strong> always works if your Speed ≥ the foe’s; if slower, each fail makes the next try easier (Gen III–IV escape formula). Smoke Ball, Poké Doll, or Run Away force escape</li>\n<li><strong>Black out:</strong> return to the last Pokémon Center (or home early on) and lose exactly half the money you are carrying — RSE rule, not FR/LG’s badge-scaled loss (Bulbapedia). Story progress is kept</li>\n</ul>"
           ],
           "details": [
             "Wild = always 1-on-1 (grass, caves, Surf, fishing). Balls and Run allowed.",
             "Trainer = line of sight or talk. No catching; Run fails. Win prize money.",
             "Singles = 1 vs 1 (most trainers, rivals, Gyms before Mossdeep).",
-            "Doubles = 2 vs 2 from pair classes, two spotters at once (Emerald), or set pieces like Tate & Liza.",
+            "Doubles = 2 vs 2 from pair classes, two spotters at once (Emerald), or Tate & Liza.",
             "Both-foes moves (Surf, Rock Slide…) deal half damage per target in Emerald when two foes are present; all-field moves (Earthquake…) stay full power.",
             "Menu: Fight (moves) · Bag (items / Balls) · Pokémon (switch / summary) · Run (wild escape check).",
             "Voluntary switch happens before moves — the new lead eats the incoming attack.",
@@ -46,6 +45,15 @@
             "wild",
             "trainer",
             "doubles"
+          ],
+          "blockOrder": [
+            "summary",
+            "story",
+            "panel:battle-basics",
+            "details",
+            "tips",
+            "secrets",
+            "tags"
           ]
         },
         {

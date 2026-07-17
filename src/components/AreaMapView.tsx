@@ -9,7 +9,7 @@ import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { AREA_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
 import { MapZoomViewport } from "./MapZoomViewport";
-import { MapPinVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
+import { MapPinVisual, isTrainerPoint, pinSpriteStyle, portraitSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
@@ -255,7 +255,7 @@ export function AreaMapView({
                     {thumb ? (
                       <span
                         className="marker-index__sprite"
-                        style={pinSpriteStyle(point) as CSSProperties}
+                        style={portraitSpriteStyle(point) as CSSProperties}
                         aria-hidden="true"
                       >
                         <MapPinVisual point={point} />
