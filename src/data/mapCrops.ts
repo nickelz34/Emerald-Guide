@@ -59,6 +59,7 @@ export const EVENT_MAP_CROP: Record<string, EventMapCrop> = {
   "route-118-2": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — into the jungle", areaId: "route-119" },
   "route-119-1": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — rainy jungle", areaId: "route-119" },
   "route-119-3": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — Rival Battle #4", areaId: "route-119" },
+  "route-119-4": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — Feebas rivers", areaId: "route-119" },
   "fortree-1": { crop: { x: 39.75, y: 0, w: 5.5, h: 5.7441 }, caption: "Fortree City — the treetop town", areaId: "fortree" },
   "route-120-1": { crop: { x: 44.75, y: 0, w: 5.5, h: 26.6319 }, caption: "Route 120 — Steven & the Devon Scope", areaId: "route-120" },
   "lilycove-1": { crop: { x: 59.75, y: 17.7546, w: 10.5, h: 11.4883 }, caption: "Lilycove City — Rival Battle #5", areaId: "lilycove" },

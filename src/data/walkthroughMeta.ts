@@ -35,6 +35,7 @@ const OPTIONAL_STEP_IDS = new Set([
   "slateport-4",
   "slateport-5",
   "fortree-3",
+  "route-119-4",
   "route-120-3",
   "safari-zone-1",
   "safari-zone-2",

@@ -172,7 +172,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "route119-feebas-fishing-s1",
     "route119-feebas-fishing-s2",
   ],
-  "route-119-1": [
+  "route-119-4": [
     "route119-feebas-fishing-s0",
     "route119-feebas-fishing-s1",
     "route119-feebas-fishing-s2",

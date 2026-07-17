@@ -20,6 +20,37 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.53",
+    date: "2026-07-17",
+    summary:
+      "Walkthrough search snippets strip HTML so rich story prose no longer shows raw tags.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Search result excerpts convert story HTML (headings, lists, entities) to plain text before display — fixes the Feebas / Ch. 2 fishing hit showing markup.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.52",
+    date: "2026-07-17",
+    summary:
+      "New optional Route 119 step after Rival Battle #4 for the full Feebas river hunt with the tile calculator.",
+    sections: [
+      {
+        heading: "Ch. 33 — Route 119 & Weather Institute",
+        items: [
+          "Adds Hunt Feebas on the river (optional) after Rival Battle #4 — prerequisites, spot-ID rules, calculator (Seed / TID + phrase), and Milotic Beauty notes.",
+          "Embeds the Feebas tiles calculator on that story step (same tool as Pregame → Fishing).",
+          "Thins the early Route 119 Feebas dump to a short tease that points forward to the hunt step.",
+          "Moves the Feebas fishing-spot map stack from Cross the jungle route onto the new hunt step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.51",
     date: "2026-07-17",
     summary:

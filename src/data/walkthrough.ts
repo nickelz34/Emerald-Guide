@@ -1532,7 +1532,7 @@ const storyChapters: GuideSection[] = [
   {
     id: "route-119",
     title: "Ch. 27 — Route 119 & Weather Institute",
-    description: "Rescue the Weather Institute and receive Castform.",
+    description: "Rescue the Weather Institute, receive Castform, and optionally hunt Feebas.",
     steps: [
       {
         id: "route-119-1",
@@ -1542,23 +1542,19 @@ const storyChapters: GuideSection[] = [
         story: [
           "Route 119 is a rain-soaked jungle gauntlet — tall grass, log bridges that need the Acro Bike to hop, and trainers lurking at every turn. Hidden Rare Candies and TMs reward thorough exploration, and the grass itself is worth farming.",
           "Tropius drifts through at a rare 5%, Zigzagoon and Oddish are common, and invisible Kecleon pepper the route — you'll need the Devon Scope from Steven to spot them. For now, push through toward the Weather Institute rising above the canopy.",
-          "The rivers hide Emerald's rarest fish: Feebas. Every fishable water tile has a spot number (see the Feebas fishing-spot maps on this step); exactly six of those IDs are active, chosen from Dewford Town's trendy phrase. When the trend changes, the six IDs reshuffle. Sweep with any rod (Old Rod is fastest), or force a new set in Dewford. Feebas itself is weak; raise its Beauty to 170 with Dry Pokéblocks (Contest Preparation) and level it up for Milotic.",
+          "The rivers hide Emerald's rarest fish: Feebas. After you clear the Weather Institute and Rival Battle #4, the full river is open — the next optional step covers the hunt, the Feebas tile calculator, and evolving one into Milotic.",
         ],
         details: [
           "The Acro Bike is needed to hop the log bridges.",
           "Catch Tropius (5%), Zigzagoon, Oddish, and the invisible Kecleon (later with Devon Scope).",
           "Hidden Rare Candy and TMs dot the route.",
-          "Feebas: six numbered fishing spots are active (Dewford trend seed); maps on this step show every spot ID. Surf never finds Feebas.",
-          "Milotic: Beauty 170+, then level-up (see Pregame: Evolution — Unique evolutions).",
+          "Feebas hunting waits until after Rival Battle #4 (optional next step) — you need full river access.",
         ],
         secrets: [
           "A hidden Rare Candy sits on this route — and Tropius, if you catch one, is a solid Grass/Flying HM carrier that learns Fly.",
           "Leaf Stone pickup on this route — useful for Gloom, Nuzleaf, and other Leaf Stone evolutions.",
         ],
-        tips: [
-          "Trendy phrase tip: talk to the boy in Dewford who sets the town trend, then return to Route 119 if your current six tiles are exhausted.",
-        ],
-        tags: ["route", "tropius", "route-119", "feebas", "milotic"],
+        tags: ["route", "tropius", "route-119", "feebas"],
       },
       {
         id: "route-119-2",
@@ -1594,8 +1590,52 @@ const storyChapters: GuideSection[] = [
         ],
         tips: [
           "Fly can't be used in the field until you have the Feather Badge from Fortree.",
+          "Optional detour: with the institute clear and the Acro Bike already in hand, you can sweep Route 119's rivers for Feebas before Fortree — see the next step.",
         ],
         tags: ["rival","hm","fly","route-119","scott"],
+      },
+      {
+        id: "route-119-4",
+        title: "Hunt Feebas on the river (optional)",
+        location: "Route 119 — rivers",
+        summary:
+          "With the Weather Institute cleared and the Acro Bike in hand, sweep the full Route 119 river for Feebas using the tile calculator.",
+        story: [
+          "You now have everything the Feebas hunt needs: the Acro Bike from Mauville for log bridges, the Weather Institute cleared so the north half of the route is open, and Rival Battle #4 behind you. Skip this step if you want Fortree first — Feebas waits whenever you come back.",
+          `<strong class="story-heading">How Feebas tiles work</strong>
+Every fishable water tile on Route 119 has a spot ID (1–447). Exactly six IDs are active, chosen from Dewford Town’s trendy phrase seed. On a correct tile, Feebas is about a 50% rod encounter — Surf never finds it. When the Dewford trend changes, the six IDs reshuffle.`,
+          `<strong class="story-heading">Use the Feebas calculator</strong>
+The Feebas tiles panel on this step (same tool as Pregame: Catching, Travel &amp; Trading — Fishing) marks the six active IDs on zoomable maps. Enter a known Dewford trend seed, or use Trainer ID + the two Easy Chat trendy-phrase words when you never manually changed the phrase. Magenta rings with clear centers highlight the live tiles.`,
+          "Cast any rod from a bridge, beach, or while surfing beside a target tile — Old Rod is fastest for sweeping. If the six tiles are exhausted or you want a fresh set, talk to the trendy-phrase boy in Dewford (you’ll walk or Surf there until Fortree’s Feather Badge unlocks Fly in the field).",
+          "Feebas itself is frail. For Milotic, raise Beauty to 170+ with Dry Pokéblocks (Contest Preparation) and level it up — see Pregame: Evolution — Unique evolutions.",
+        ],
+        details: [
+          "Prerequisites: Acro Bike (Mauville), Weather Institute cleared, Rival Battle #4 done.",
+          "Open the Feebas tiles calculator on this step — Seed tab or TID + trendy phrase.",
+          "Fish only the six highlighted spot IDs with any rod (Old Rod is fastest). Surf never finds Feebas.",
+          "Optional: change Dewford’s trendy phrase to reshuffle the six IDs.",
+          "Milotic: Beauty 170+ with Dry Pokéblocks, then level-up.",
+        ],
+        tips: [
+          "Register Old Rod in Key Items so Select casts without opening the Bag.",
+          "Suction Cups / Sticky Hold on the lead raises the chance of getting a bite.",
+          "The same Feebas calculator also lives under Pregame → Catching, Travel & Trading → Fishing.",
+        ],
+        secrets: [
+          "Feebas’s Beauty check for Milotic ignores friendship — only Beauty 170+ and a level-up matter.",
+        ],
+        tags: ["optional", "feebas", "milotic", "fishing", "route-119"],
+        blockOrder: [
+          "summary",
+          "story",
+          "panel:feebas-tiles",
+          "media",
+          "details",
+          "tips",
+          "secrets",
+          "encounters",
+          "tags",
+        ],
       },
     ],
   },
