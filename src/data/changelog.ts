@@ -4,6 +4,10 @@
  *
  * Newest release first. Group changes under clear headings and be specific enough
  * that someone reading months later knows exactly what changed.
+ *
+ * `date` should be an ISO-8601 Central Time datetime
+ * (e.g. `2026-07-17T17:04:15-05:00`). Older entries may still be date-only
+ * (`YYYY-MM-DD`); the changelog modal shows clock time in CT when present.
  */
 
 export interface ChangelogSection {
@@ -13,6 +17,7 @@ export interface ChangelogSection {
 
 export interface ChangelogRelease {
   version: string;
+  /** ISO-8601 datetime in Central Time, or legacy `YYYY-MM-DD`. */
   date: string;
   summary: string;
   sections: ChangelogSection[];
@@ -20,8 +25,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.76",
+    date: "2026-07-17T17:10:23-05:00",
+    summary: "Changelog entries now show the time of each change in Central Time.",
+    sections: [
+      {
+        heading: "Version & changelog",
+        items: [
+          "Clicking the version badge still opens the full changelog; each release now shows its change time in Central Time (CT).",
+          "New Admin Mode publishes record an America/Chicago ISO timestamp instead of a date-only string.",
+          "Existing releases were backfilled from git commit times so same-day versions stay distinguishable.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.75",
-    date: "2026-07-17",
+    date: "2026-07-17T17:04:15-05:00",
     summary:
       "Ch. 1–10 outdoor route trainers bake into Hoenn crop maps (Routes 102, 103, and 118).",
     sections: [
@@ -37,7 +57,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.74",
-    date: "2026-07-17",
+    date: "2026-07-17T17:02:01-05:00",
     summary:
       "Ch. 11–25 outdoor route trainers bake into Hoenn crop maps (Routes 104, 110–112, 116–117).",
     sections: [
@@ -53,7 +73,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.73",
-    date: "2026-07-17",
+    date: "2026-07-17T16:29:56-05:00",
     summary:
       "Ch. 11–25 area maps bake remaining NPC and trainer overlays into the art (gyms, woods, tunnel, Trick House, S.S. Tidal).",
     sections: [
@@ -71,7 +91,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.72",
-    date: "2026-07-17",
+    date: "2026-07-17T16:18:25-05:00",
     summary:
       "Ch. 1–10 area maps bake remaining NPC overlays into the art (Birch’s lab, May’s room, Granite Cave).",
     sections: [
@@ -88,7 +108,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.71",
-    date: "2026-07-17",
+    date: "2026-07-17T16:06:14-05:00",
     summary:
       "Oldale Event 1 restores every NPC in the baked art — west-road researcher, mart tutorial employee, and full Center/Mart casts.",
     sections: [
@@ -104,7 +124,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.70",
-    date: "2026-07-17",
+    date: "2026-07-17T15:59:28-05:00",
     summary:
       "Oldale Event 1 maps bake every NPC into the art so characters stay sized correctly when zooming.",
     sections: [
@@ -119,7 +139,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.69",
-    date: "2026-07-17",
+    date: "2026-07-17T15:50:17-05:00",
     summary:
       "Steven’s house map bakes Steven into the art so he scales with the room (not tiny overlay pins).",
     sections: [
@@ -134,7 +154,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.68",
-    date: "2026-07-17",
+    date: "2026-07-17T15:44:12-05:00",
     summary:
       "Updated step “Surfing & diving”.",
     sections: [
@@ -149,7 +169,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.67",
-    date: "2026-07-17",
+    date: "2026-07-17T15:36:54-05:00",
     summary:
       "Updated step “Catching in tall grass”.",
     sections: [
@@ -164,7 +184,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.66",
-    date: "2026-07-17",
+    date: "2026-07-17T15:28:02-05:00",
     summary:
       "Admin step editor now labels the secrets checklist as “Secrets, Extras & Hidden Items.”",
     sections: [
@@ -178,7 +198,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.65",
-    date: "2026-07-17",
+    date: "2026-07-17T14:21:48-05:00",
     summary:
       "Admin pending changes clear when you manually undo an edit (including removing newly added media) without using Undo.",
     sections: [
@@ -193,7 +213,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.64",
-    date: "2026-07-17",
+    date: "2026-07-17T12:19:16-05:00",
     summary:
       "Admin step editor now labels the details checklist as “What to do,” matching the live guide.",
     sections: [
@@ -207,7 +227,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.63",
-    date: "2026-07-17",
+    date: "2026-07-17T12:16:20-05:00",
     summary:
       "Updated step “Battle types & commands”.",
     sections: [
@@ -222,7 +242,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.62",
-    date: "2026-07-17",
+    date: "2026-07-17T12:11:19-05:00",
     summary:
       "Battle commands sit in Emerald’s real 2×2 menu order: Fight, Bag, Pokémon, Run.",
     sections: [
@@ -236,7 +256,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.61",
-    date: "2026-07-17",
+    date: "2026-07-17T12:03:27-05:00",
     summary:
       "Double-battle examples in Ch. 1 show paired trainer sprites standing side by side.",
     sections: [
@@ -250,7 +270,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.60",
-    date: "2026-07-17",
+    date: "2026-07-17T12:00:29-05:00",
     summary: "Fishing rod bag sprites display at 48×48 so they read clearly on the cards.",
     sections: [
       {
@@ -263,7 +283,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.59",
-    date: "2026-07-17",
+    date: "2026-07-17T11:40:23-05:00",
     summary:
       "Fishing rods panel shows Old / Good / Super Rod bag sprites next to each rod name.",
     sections: [
@@ -278,7 +298,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.58",
-    date: "2026-07-17",
+    date: "2026-07-17T11:19:10-05:00",
     summary:
       "Fishing encounters are a standalone location finder panel instead of a nested dual-pane browser.",
     sections: [
@@ -294,7 +314,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.57",
-    date: "2026-07-17",
+    date: "2026-07-17T11:14:10-05:00",
     summary:
       "Fishing encounter tables use a compact location picker so the long Pokémon list no longer stretches the whole page.",
     sections: [
@@ -309,7 +329,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.56",
-    date: "2026-07-17",
+    date: "2026-07-17T11:13:47-05:00",
     summary:
       "Feebas calculator scroll and pinch zoom work again with crisp pixel scaling.",
     sections: [
@@ -323,7 +343,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.55",
-    date: "2026-07-17",
+    date: "2026-07-17T11:13:38-05:00",
     summary:
       "Feebas Enlarge map lightbox shows the map again (crisp zoom no longer collapses the viewport).",
     sections: [
@@ -337,7 +357,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.54",
-    date: "2026-07-17",
+    date: "2026-07-17T11:12:38-05:00",
     summary:
       "Pregame Fishing points to the Ch. 33 Feebas hunt instead of embedding the tile calculator.",
     sections: [
@@ -353,7 +373,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.53",
-    date: "2026-07-17",
+    date: "2026-07-17T10:55:02-05:00",
     summary:
       "Walkthrough search snippets strip HTML so rich story prose no longer shows raw tags.",
     sections: [
@@ -367,7 +387,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.52",
-    date: "2026-07-17",
+    date: "2026-07-17T10:54:16-05:00",
     summary:
       "New optional Route 119 step after Rival Battle #4 for the full Feebas river hunt with the tile calculator.",
     sections: [
@@ -384,7 +404,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.51",
-    date: "2026-07-17",
+    date: "2026-07-17T10:36:21-05:00",
     summary:
       "Feebas calculator accepts Trainer ID + Dewford trendy phrase, and uses the correct Feebas RNG constant.",
     sections: [
@@ -401,7 +421,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.50",
-    date: "2026-07-17",
+    date: "2026-07-17T10:30:37-05:00",
     summary:
       "Active Feebas tiles use high-contrast magenta highlights so they stay obvious on yellow water.",
     sections: [
@@ -415,7 +435,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.49",
-    date: "2026-07-17",
+    date: "2026-07-17T10:20:35-05:00",
     summary:
       "Feebas maps zoom with nearest-neighbor pixel scaling so spot numbers stay sharp instead of blurry.",
     sections: [
@@ -431,7 +451,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.48",
-    date: "2026-07-17",
+    date: "2026-07-17T10:09:41-05:00",
     summary:
       "Feebas fishing-spot numbers are redrawn as crisp bitmap digits so tile IDs stay readable when zooming.",
     sections: [
@@ -446,7 +466,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.47",
-    date: "2026-07-17",
+    date: "2026-07-17T10:01:57-05:00",
     summary:
       "Feebas fishing maps are zoomable and clearer, with tile-accurate green overlays on the exact active metatiles.",
     sections: [
@@ -461,7 +481,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.45",
-    date: "2026-07-17",
+    date: "2026-07-17T09:49:09-05:00",
     summary:
       "Feebas tiles is its own top panel on Fishing, with a Dewford trend seed calculator and detailed how-to instructions.",
     sections: [
@@ -477,7 +497,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.44",
-    date: "2026-07-17",
+    date: "2026-07-17T09:39:05-05:00",
     summary:
       "Old / Good / Super Rod cards are reorganized with clearer fields, reel-prompt detail, and less cramped layout.",
     sections: [
@@ -492,7 +512,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.43",
-    date: "2026-07-17",
+    date: "2026-07-17T09:37:44-05:00",
     summary:
       "Route 119 Feebas fishing-spot maps number every fishable tile (pokeemerald IDs) and show an example set of six active spots.",
     sections: [
@@ -507,7 +527,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.42",
-    date: "2026-07-17",
+    date: "2026-07-17T09:25:33-05:00",
     summary:
       "Fishing tables are rebuilt from pokeemerald for all 53 maps, with Old/Good/Super tabs and clickable species details.",
     sections: [
@@ -523,7 +543,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.41",
-    date: "2026-07-17",
+    date: "2026-07-17T09:17:55-05:00",
     summary:
       "Super Rod encounters table is clearer on mobile and Pokémon open the same species popup as the rest of the guide.",
     sections: [
@@ -538,7 +558,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.40",
-    date: "2026-07-17",
+    date: "2026-07-17T09:09:41-05:00",
     summary:
       "Ch. 2 Fishing is cleaned up and gets a pokeemerald-backed rods + Super Rod encounter table.",
     sections: [
@@ -554,7 +574,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.39",
-    date: "2026-07-17",
+    date: "2026-07-17T09:01:51-05:00",
     summary:
       "Admin guide editor rich text now supports lists, headings, alignment, colors, links, and more Word-like formatting.",
     sections: [
@@ -569,7 +589,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.38",
-    date: "2026-07-17",
+    date: "2026-07-17T08:56:24-05:00",
     summary:
       "Updated step “Fishing”. Revamped the fishing section to include more information.",
     sections: [
@@ -583,7 +603,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.37",
-    date: "2026-07-17",
+    date: "2026-07-17T08:46:18-05:00",
     summary:
       "Trainer and NPC overworld portraits in tables, charts, and legends always face forward; map pins keep their in-world facing.",
     sections: [
@@ -598,7 +618,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.36",
-    date: "2026-07-17",
+    date: "2026-07-17T08:33:33-05:00",
     summary:
       "Ch. 1 Battles Section 1 is easier to scan, and the battle-types table now shows trainers (not Pokémon) for singles and doubles.",
     sections: [
@@ -614,7 +634,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.35",
-    date: "2026-07-17",
+    date: "2026-07-17T08:26:05-05:00",
     summary:
       "Ch. 1 Battles Section 1 corrects speed ties and Emerald doubles multi-target damage; catch, escape, and blackout facts stay as verified.",
     sections: [
@@ -630,7 +650,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.34",
-    date: "2026-07-17",
+    date: "2026-07-16T21:38:40-05:00",
     summary:
       "Wild Pokémon panels no longer list the same encounter many times for multi-room dungeons like Seafloor Cavern.",
     sections: [
@@ -644,7 +664,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.33",
-    date: "2026-07-17",
+    date: "2026-07-16T21:33:27-05:00",
     summary:
       "Walkthrough setup screen (“How do you want to play?”) uses theme colors so light mode is readable.",
     sections: [
@@ -658,7 +678,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.32",
-    date: "2026-07-17",
+    date: "2026-07-16T21:08:38-05:00",
     summary:
       "All remaining Scott sightings plus Archie, Steven, Lanette, and Briney ferry gaps get prose and cutscenes.",
     sections: [
@@ -685,7 +705,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.31",
-    date: "2026-07-17",
+    date: "2026-07-16T19:35:03-05:00",
     summary:
       "Petalburg Event 3 covers Scott stopping you on the way to Route 104, with a matching cutscene.",
     sections: [
@@ -701,7 +721,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.30",
-    date: "2026-07-16",
+    date: "2026-07-16T16:49:06-05:00",
     summary:
       "Ch. 1 Section 8 shows every vitamin with bag sprites, EV gains, soft caps, and shop info.",
     sections: [
@@ -716,7 +736,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.29",
-    date: "2026-07-16",
+    date: "2026-07-16T16:42:08-05:00",
     summary:
       "Pregame chapters (Ch. 1–4) label steps as Section instead of Event in the step header crumb.",
     sections: [
@@ -730,7 +750,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.28",
-    date: "2026-07-16",
+    date: "2026-07-16T16:00:31-05:00",
     summary:
       "Updated step “Moving into Littleroot Town”.",
     sections: [
@@ -745,7 +765,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.27",
-    date: "2026-07-16",
+    date: "2026-07-16T15:57:05-05:00",
     summary:
       "Updated step “Meet your rival next door”.",
     sections: [
@@ -760,7 +780,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.26",
-    date: "2026-07-16",
+    date: "2026-07-16T13:57:23-05:00",
     summary:
       "Reordered steps in “Ch. 1 — Pregame: Battles & Training”.",
     sections: [
@@ -775,7 +795,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.25",
-    date: "2026-07-15",
+    date: "2026-07-15T17:11:45-05:00",
     summary:
       "Battles Event 1 rebuilt against Bulbapedia, Serebii, Prima Emerald, and PokéBase Gen III rules — blackout, escape, doubles, and menu commands corrected.",
     sections: [
@@ -790,7 +810,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.24",
-    date: "2026-07-15",
+    date: "2026-07-15T16:59:45-05:00",
     summary:
       "Trainer map pins enlarge cleanly on hover instead of looking split or cut off.",
     sections: [
@@ -805,7 +825,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.26.23",
-    date: "2026-07-15",
+    date: "2026-07-15T16:53:21-05:00",
     summary:
       "Battles & Training Event 1 is a full battle primer with in-game cutscenes and Emerald sprites for wild, trainer, and doubles fights.",
     sections: [
@@ -821,7 +841,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.22",
-    date: "2026-07-15",
+    date: "2026-07-15T16:39:04-05:00",
     summary:
       "Battles & Training is now the first pregame chapter so new players learn combat basics before catching, evolution, and breeding.",
     sections: [
@@ -836,7 +856,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.21",
-    date: "2026-07-15",
+    date: "2026-07-15T16:34:14-05:00",
     summary:
       "New pregame Battles & Training chapter covers battle basics, types, status, all 25 natures, vitamins, and every TM and HM.",
     sections: [
@@ -852,7 +872,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.20",
-    date: "2026-07-15",
+    date: "2026-07-15T15:35:57-05:00",
     summary:
       "Breeding pregame chapter spells out exactly how Eggs hatch once you pick them up — party steps, egg cycles, and Flame Body / Magma Armor.",
     sections: [
@@ -867,7 +887,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.19",
-    date: "2026-07-15",
+    date: "2026-07-15T14:33:18-05:00",
     summary:
       "Pregame fishing event now leads with a Dewford cutscene of the player casting a rod into the harbor.",
     sections: [
@@ -881,7 +901,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.18",
-    date: "2026-07-15",
+    date: "2026-07-15T13:18:34-05:00",
     summary:
       "New first pregame chapter covering catching, Surf/Dive, fishing, caves, every Poké Ball, and FireRed/LeafGreen trading gates.",
     sections: [
@@ -899,7 +919,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.17",
-    date: "2026-07-15",
+    date: "2026-07-15T13:03:11-05:00",
     summary:
       "Walkthrough Wild Pokémon panels show a short note when an area has no wild encounters instead of sitting empty.",
     sections: [
@@ -913,7 +933,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.16",
-    date: "2026-07-15",
+    date: "2026-07-15T12:49:40-05:00",
     summary:
       "Mobile Menu keeps Display options collapsed by default so navigation stays clear — expand to change layout or theme.",
     sections: [
@@ -928,7 +948,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.15",
-    date: "2026-07-15",
+    date: "2026-07-15T12:44:50-05:00",
     summary:
       "Brand mark is now a Gen III–style faceted emerald with a light shimmer in the top-left header.",
     sections: [
@@ -943,7 +963,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.14",
-    date: "2026-07-15",
+    date: "2026-07-15T12:25:42-05:00",
     summary:
       "Light mode text contrast — walkthrough story, badges, and panels stay readable on light backgrounds.",
     sections: [
@@ -958,7 +978,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.13",
-    date: "2026-07-15",
+    date: "2026-07-15T12:15:31-05:00",
     summary:
       "Desktop lightbox keeps Petalburg Gym room crops at the real map aspect — baked sprites no longer look stretched, and trainer hit targets stay centered.",
     sections: [
@@ -973,7 +993,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.12",
-    date: "2026-07-15",
+    date: "2026-07-15T12:00:04-05:00",
     summary:
       "Petalburg Gym challenge-room maps bake Norman and the Cooltrainers into the art so sprites sit on the correct tiles.",
     sections: [
@@ -988,7 +1008,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.11",
-    date: "2026-07-15",
+    date: "2026-07-15T11:54:01-05:00",
     summary:
       "Gym interiors with warps now show entrance pins and matching letter codes like caves and dungeons.",
     sections: [
@@ -1004,7 +1024,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.10",
-    date: "2026-07-15",
+    date: "2026-07-15T11:46:21-05:00",
     summary:
       "Walkthrough dungeons now include previously missing interior floors (Mt. Pyre 1F, Aqua/Magma rooms, Meteor Falls, Abandoned Ship corridors, Seafloor Cavern, and more).",
     sections: [
@@ -1025,7 +1045,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.9",
-    date: "2026-07-15",
+    date: "2026-07-15T11:41:59-05:00",
     summary:
       "Granite Cave walkthrough now shows every floor plus Steven's Room, with corrected Letter-delivery guidance.",
     sections: [
@@ -1041,7 +1061,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.8",
-    date: "2026-07-15",
+    date: "2026-07-15T11:30:00-05:00",
     summary:
       "Dungeon connector letters now pair only with the true matching ladder/stairs on the other side.",
     sections: [
@@ -1057,7 +1077,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.7",
-    date: "2026-07-15",
+    date: "2026-07-15T11:17:00-05:00",
     summary:
       "Dungeon ladders, stairs, doors, and warps share matching letter codes across floors so you can tell which connector is which.",
     sections: [
@@ -1072,7 +1092,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.6",
-    date: "2026-07-15",
+    date: "2026-07-15T11:00:57-05:00",
     summary:
       "Cave and dungeon area maps mark entrances, exits, and ladders with where each warp goes.",
     sections: [
@@ -1087,7 +1107,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.5",
-    date: "2026-07-15",
+    date: "2026-07-15T10:46:24-05:00",
     summary:
       "Petalburg Woods Team Aqua step gets a battle face-off cutscene and an on-page Grunt party guide.",
     sections: [
@@ -1103,7 +1123,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.4",
-    date: "2026-07-15",
+    date: "2026-07-15T10:43:24-05:00",
     summary:
       "Meet-Norman, Wally catch, and Mr. Briney cottage get baked cutscene maps on Ch. 8–9 events.",
     sections: [
@@ -1119,7 +1139,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.3",
-    date: "2026-07-15",
+    date: "2026-07-15T10:43:02-05:00",
     summary:
       "Pretty Petal Flower Shop stock panel matches the dark walkthrough theme used by gym and rival guides.",
     sections: [
@@ -1133,7 +1153,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.2",
-    date: "2026-07-15",
+    date: "2026-07-15T10:33:34-05:00",
     summary:
       "Map legend starter faces (and other large sprites) render at the correct proportions instead of as squashed slivers.",
     sections: [
@@ -1148,7 +1168,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.1",
-    date: "2026-07-15",
+    date: "2026-07-15T09:54:50-05:00",
     summary:
       "Map lightbox legend thumbnails scale to fit any sprite size so large faces (and other OW art) are no longer clipped.",
     sections: [
@@ -1163,7 +1183,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.26.0",
-    date: "2026-07-15",
+    date: "2026-07-15T09:50:39-05:00",
     summary:
       "Light and dark themes — switch appearance from the sidebar on desktop or inside the mobile Menu.",
     sections: [
@@ -1178,7 +1198,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.25.4",
-    date: "2026-07-15",
+    date: "2026-07-15T09:49:23-05:00",
     summary:
       "Chapter 4 Event 2 shows Birch’s bag Choose Starter cutscene with clickable Treecko, Torchic, and Mudkip balls.",
     sections: [
@@ -1193,7 +1213,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.25.1",
-    date: "2026-07-15",
+    date: "2026-07-15T09:35:28-05:00",
     summary:
       "Rival battle guides show May or Brendan’s overworld sprite under the character picker and in the party panel.",
     sections: [
@@ -1208,7 +1228,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.25.0",
-    date: "2026-07-15",
+    date: "2026-07-15T09:31:05-05:00",
     summary:
       "Pretty Petal Flower Shop (Ch. 9 Event 2) gets interior + berry-plot maps, Wailmer Pail details, and shop stock on the page.",
     sections: [
@@ -1224,7 +1244,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.24.2",
-    date: "2026-07-15",
+    date: "2026-07-15T08:33:47-05:00",
     summary:
       "Visual Ralts catch spotlight on Route 102 — sprites, stats, and Emerald hunt advice.",
     sections: [
@@ -1240,7 +1260,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.24.1",
-    date: "2026-07-15",
+    date: "2026-07-14T21:12:25-05:00",
     summary:
       "Guide settings no longer leave a blank gap above Walkthrough mode that forced a second tap on Start walkthrough on mobile.",
     sections: [
@@ -1254,7 +1274,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.24.0",
-    date: "2026-07-15",
+    date: "2026-07-14T20:59:39-05:00",
     summary:
       "Walkthrough events no longer auto-mark Complete from your place in the guide — mark each event yourself.",
     sections: [
@@ -1271,7 +1291,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.23.4",
-    date: "2026-07-15",
+    date: "2026-07-14T20:37:09-05:00",
     summary: "The mobile Steps menu closes when you tap outside it.",
     sections: [
       {
@@ -1284,7 +1304,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.23.3",
-    date: "2026-07-15",
+    date: "2026-07-14T20:33:16-05:00",
     summary:
       "Mobile guide search shows matching steps again while keeping the search field pinned.",
     sections: [
@@ -1299,7 +1319,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.23.2",
-    date: "2026-07-15",
+    date: "2026-07-14T20:28:02-05:00",
     summary:
       "Opening the Hoenn map no longer jumps to the current guide town; it restores your last view for the session.",
     sections: [
@@ -1314,7 +1334,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.23.1",
-    date: "2026-07-15",
+    date: "2026-07-14T20:18:26-05:00",
     summary:
       "Guide step search stays pinned on mobile while typing or scrolling results, with a clear (×) button.",
     sections: [
@@ -1329,7 +1349,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.23.0",
-    date: "2026-07-14",
+    date: "2026-07-14T20:12:22-05:00",
     summary:
       "Elite Four and Champion pages get face-off cutscenes plus each room map in order.",
     sections: [
@@ -1344,7 +1364,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.9",
-    date: "2026-07-14",
+    date: "2026-07-14T20:03:27-05:00",
     summary:
       "Petalburg Gym is shown as nine room maps (Norman → entrance) instead of one tiny tower.",
     sections: [
@@ -1359,7 +1379,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.8",
-    date: "2026-07-14",
+    date: "2026-07-14T19:51:27-05:00",
     summary:
       "Petalburg Gym’s tall interior map keeps a usable full-width size on mobile.",
     sections: [
@@ -1373,7 +1393,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.7",
-    date: "2026-07-14",
+    date: "2026-07-14T19:46:17-05:00",
     summary:
       "Every Gym battle opens with a baked leader face-off cutscene above the full gym map.",
     sections: [
@@ -1389,7 +1409,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.6",
-    date: "2026-07-14",
+    date: "2026-07-14T19:37:47-05:00",
     summary:
       "Gym 1 (Roxanne) opens with a baked face-off cutscene on the podium.",
     sections: [
@@ -1404,7 +1424,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.5",
-    date: "2026-07-14",
+    date: "2026-07-14T19:31:50-05:00",
     summary:
       "Rival face-off cutscenes replace the Hoenn crop on those steps (no stacked map).",
     sections: [
@@ -1418,7 +1438,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.4",
-    date: "2026-07-14",
+    date: "2026-07-14T19:26:50-05:00",
     summary:
       "Every rival battle opens with a baked Brendan–May face-off cutscene.",
     sections: [
@@ -1433,7 +1453,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.3",
-    date: "2026-07-14",
+    date: "2026-07-14T19:00:44-05:00",
     summary:
       "Rival Battles #1 and #2 open with baked face-off cutscenes (Route 103 and Rustboro).",
     sections: [
@@ -1448,7 +1468,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.2",
-    date: "2026-07-14",
+    date: "2026-07-14T18:53:47-05:00",
     summary:
       "Restored full-size baked cutscene art for the truck and Route 101; legend keeps labeled sprites.",
     sections: [
@@ -1464,7 +1484,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.1",
-    date: "2026-07-14",
+    date: "2026-07-14T18:09:47-05:00",
     summary:
       "Oldale Town map marks Route 103 (north), Route 102 (west), and Route 101 (south).",
     sections: [
@@ -1478,7 +1498,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.22.0",
-    date: "2026-07-14",
+    date: "2026-07-14T17:53:32-05:00",
     summary:
       "Cutscene maps use authentic overworld sprites as markers (Brendan, Birch, bag, Poochyena).",
     sections: [
@@ -1494,7 +1514,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.21.1",
-    date: "2026-07-14",
+    date: "2026-07-14T17:33:00-05:00",
     summary:
       "Route 101 Birch rescue map no longer stacks markers on top of the cutscene sprites.",
     sections: [
@@ -1508,7 +1528,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.21.0",
-    date: "2026-07-14",
+    date: "2026-07-14T17:25:37-05:00",
     summary:
       "Route 101 and Oldale events now use pokeemerald-accurate area maps (Birch rescue, Center, Mart).",
     sections: [
@@ -1524,7 +1544,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.20.2",
-    date: "2026-07-14",
+    date: "2026-07-14T17:21:06-05:00",
     summary:
       "Littleroot Event 1 truck map now uses the open rear door (playable start).",
     sections: [
@@ -1538,7 +1558,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.20.1",
-    date: "2026-07-14",
+    date: "2026-07-14T17:10:21-05:00",
     summary:
       "Littleroot Event 1 now shows the inside-of-truck intro cutscene (door closed) from pokeemerald.",
     sections: [
@@ -1552,7 +1572,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.20.0",
-    date: "2026-07-14",
+    date: "2026-07-14T16:56:35-05:00",
     summary: "Walkthrough Wild Pokémon tables now show Emerald sprites beside each species.",
     sections: [
       {
@@ -1566,7 +1586,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.19.0",
-    date: "2026-07-14",
+    date: "2026-07-14T15:37:12-05:00",
     summary:
       "Story progress bar stays visible on iPhone Safari, with a clearer version bump so outdated tabs are easy to spot.",
     sections: [
@@ -1588,7 +1608,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.18.2",
-    date: "2026-07-14",
+    date: "2026-07-14T13:23:30-05:00",
     summary:
       "Pregame chapters no longer show Complete markers or rewind story walkthrough progress.",
     sections: [
@@ -1605,7 +1625,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.18.1",
-    date: "2026-07-14",
+    date: "2026-07-14T13:17:25-05:00",
     summary: "Rewrite the post-rescue Birch lab event in standard story prose.",
     sections: [
       {
@@ -1619,7 +1639,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.18.0",
-    date: "2026-07-14",
+    date: "2026-07-14T13:13:06-05:00",
     summary:
       "Visual starter comparison on the Route 101 choice event — large sprites, full stats, and Emerald pick advice.",
     sections: [
@@ -1636,7 +1656,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.17.0",
-    date: "2026-07-14",
+    date: "2026-07-14T13:10:15-05:00",
     summary:
       "Emerald-only storyline accuracy pass — early lab / Running Shoes timing, team hideout order, and Champion Wallace.",
     sections: [
@@ -1656,7 +1676,7 @@ export const CHANGELOG: ChangelogRelease[] = [
 
   {
     version: "1.16.0",
-    date: "2026-07-13",
+    date: "2026-07-13T18:07:57-05:00",
     summary:
       "Save codes are now random 4-letter keys stored in this browser’s localStorage.",
     sections: [
@@ -1672,7 +1692,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.15.2",
-    date: "2026-07-13",
+    date: "2026-07-13T16:55:52-05:00",
     summary: "Fix walkthrough map images staying blank after a page refresh.",
     sections: [
       {
@@ -1685,7 +1705,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.15.1",
-    date: "2026-07-13",
+    date: "2026-07-13T16:49:25-05:00",
     summary: "Keep the chapter list scrolled to your current walkthrough step after refresh.",
     sections: [
       {
@@ -1698,7 +1718,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.15.0",
-    date: "2026-07-13",
+    date: "2026-07-13T16:41:44-05:00",
     summary:
       "Walkthrough save codes — save your place with a portable 6-character code and continue later.",
     sections: [
@@ -1721,7 +1741,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.14.0",
-    date: "2026-07-13",
+    date: "2026-07-13T15:52:14-05:00",
     summary:
       "Postgame audit complete — Mystery Gift events, Pregame-style titles, and remaining cartridge follow-ups.",
     sections: [
@@ -1766,7 +1786,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.13.4",
-    date: "2026-07-13",
+    date: "2026-07-13T12:30:23-05:00",
     summary: "Encounter coverage polish — dungeon AREA_DATA, interior step fixes, unified exempt list.",
     sections: [
       {
@@ -1783,7 +1803,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.13.3",
-    date: "2026-07-13",
+    date: "2026-07-13T12:18:54-05:00",
     summary: "Encounter panel coverage — dungeon wild tables, gym step fixes, and interior map links.",
     sections: [
       {
@@ -1810,7 +1830,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.13.2",
-    date: "2026-07-13",
+    date: "2026-07-13T11:49:50-05:00",
     summary: "P2 audit fixes — gym party details, stale encounter tips, and contest/HM07 wording.",
     sections: [
       {
@@ -1838,7 +1858,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.13.1",
-    date: "2026-07-13",
+    date: "2026-07-13T11:45:37-05:00",
     summary:
       "Re-audit fix pass — Emerald-accurate orb plot, Fly source, Sootopolis flow, and key-item timing.",
     sections: [
@@ -1873,7 +1893,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.13.0",
-    date: "2026-07-13",
+    date: "2026-07-13T11:01:58-05:00",
     summary:
       "Merge audit + backlog: Match Call rematch browser, rival map pins, wild encounters on all walkthrough steps, and unified v1.12 fixes.",
     sections: [
@@ -1904,7 +1924,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.12.1",
-    date: "2026-07-13",
+    date: "2026-07-13T10:55:52-05:00",
     summary:
       "Audit backlog: rival battle panels, HM/key-item references, Scott checklist, and prose fixes.",
     sections: [
@@ -1935,7 +1955,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.12.0",
-    date: "2026-07-13",
+    date: "2026-07-13T10:47:28-05:00",
     summary:
       "Comprehensive walkthrough accuracy pass from the full 52-chapter audit — story, gyms, breeding, and wild encounters.",
     sections: [
@@ -1975,7 +1995,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.15",
-    date: "2026-07-13",
+    date: "2026-07-13T10:10:44-05:00",
     summary: "Breeding lookup Parent A/B dropdowns use readable dark-theme colors on desktop.",
     sections: [
       {
@@ -1988,7 +2008,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.14",
-    date: "2026-07-13",
+    date: "2026-07-13T10:04:07-05:00",
     summary: "Breeding lookup tool redesign — aligned parent columns and richer compatibility details.",
     sections: [
       {
@@ -2003,7 +2023,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.13",
-    date: "2026-07-13",
+    date: "2026-07-13T09:51:08-05:00",
     summary: "Breeding chart gender symbols are larger and sit above each Pokémon sprite.",
     sections: [
       {
@@ -2017,7 +2037,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.12",
-    date: "2026-07-13",
+    date: "2026-07-13T09:46:57-05:00",
     summary: "Ch. 2 breeding charts — larger egg sprites and a full alignment/layout pass.",
     sections: [
       {
@@ -2036,7 +2056,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.10",
-    date: "2026-07-13",
+    date: "2026-07-13T09:26:31-05:00",
     summary: "Ch. 2 breeding accuracy pass — egg sprites, mobile gender badges, and verified Gen III mechanics.",
     sections: [
       {
@@ -2063,7 +2083,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.9",
-    date: "2026-07-13",
+    date: "2026-07-13T09:14:17-05:00",
     summary: "Ch. 2 Breeding expanded to six visual events — detailed prose, sprite charts, no What to do lists.",
     sections: [
       {
@@ -2086,7 +2106,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.8",
-    date: "2026-07-13",
+    date: "2026-07-13T08:56:57-05:00",
     summary: "Ch. 1 evolution events match the stone chart style — full sprite rows, item icons, no What to do lists.",
     sections: [
       {
@@ -2110,7 +2130,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.7",
-    date: "2026-07-12",
+    date: "2026-07-13T00:15:13-05:00",
     summary: "Emerald evolution accuracy pass: friendship list, Porygon2 trade, and Tyrogue’s unique branch.",
     sections: [
       {
@@ -2131,7 +2151,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.6",
-    date: "2026-07-12",
+    date: "2026-07-13T00:15:13-05:00",
     summary: "Visual evolution charts for all Ch. 1 steps; What to do lists removed; trade-item bag icons synced.",
     sections: [
       {
@@ -2154,7 +2174,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.5",
-    date: "2026-07-12",
+    date: "2026-07-13T00:15:13-05:00",
     summary: "Evolution stones step drops the redundant What to do checklist.",
     sections: [
       {
@@ -2167,7 +2187,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.4",
-    date: "2026-07-12",
+    date: "2026-07-12T23:16:55-05:00",
     summary: "Stone evolution chart layout fills the step width on desktop.",
     sections: [
       {
@@ -2180,7 +2200,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.3",
-    date: "2026-07-12",
+    date: "2026-07-12T23:16:55-05:00",
     summary: "Evolution stones prose no longer duplicates the sprite chart.",
     sections: [
       {
@@ -2193,7 +2213,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.2",
-    date: "2026-07-12",
+    date: "2026-07-12T23:16:55-05:00",
     summary: "Pregame Evolution and Breeding steps no longer show unrelated route maps.",
     sections: [
       {
@@ -2206,7 +2226,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.1",
-    date: "2026-07-12",
+    date: "2026-07-12T23:16:55-05:00",
     summary: "Evolution Stones step shows in-game stone and Pokémon sprites for every Emerald stone evolution.",
     sections: [
       {
@@ -2220,7 +2240,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.11.0",
-    date: "2026-07-12",
+    date: "2026-07-12T23:16:55-05:00",
     summary:
       "Pregame Evolution & Breeding chapters, Pokédex evolution methods and egg groups, and Feebas → Milotic coverage.",
     sections: [
@@ -2256,7 +2276,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.77",
-    date: "2026-07-12",
+    date: "2026-07-12T22:18:07-05:00",
     summary: "Pokédex card names no longer collide with dex numbers on iOS.",
     sections: [
       {
@@ -2269,7 +2289,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.76",
-    date: "2026-07-12",
+    date: "2026-07-12T22:15:36-05:00",
     summary: "Wild Pokémon map pins no longer imply different encounters per grass patch.",
     sections: [
       {
@@ -2284,7 +2304,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.75",
-    date: "2026-07-12",
+    date: "2026-07-12T15:17:42-05:00",
     summary: "Walkthrough search finds items, story beats, and secrets — not just step titles.",
     sections: [
       {
@@ -2298,7 +2318,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.74",
-    date: "2026-07-12",
+    date: "2026-07-12T14:59:33-05:00",
     summary: "Walkthrough search no longer leaves the page stuck zoomed in on phones.",
     sections: [
       {
@@ -2312,7 +2332,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.73",
-    date: "2026-07-12",
+    date: "2026-07-12T14:55:55-05:00",
     summary: "Berry and item descriptions on the Hoenn map no longer show raw game placeholders.",
     sections: [
       {
@@ -2327,7 +2347,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.72",
-    date: "2026-07-12",
+    date: "2026-07-12T14:37:25-05:00",
     summary: "Walkthrough interior map titles are clean — no broken characters or double “Gym” labels.",
     sections: [
       {
@@ -2341,7 +2361,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.71",
-    date: "2026-07-12",
+    date: "2026-07-12T14:22:19-05:00",
     summary: "GitHub Pages deploys again — pin verification no longer blocks CI builds.",
     sections: [
       {
@@ -2355,7 +2375,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.70",
-    date: "2026-07-12",
+    date: "2026-07-12T14:13:49-05:00",
     summary: "Mobile walkthrough gym maps no longer overflow the screen or hide the legend.",
     sections: [
       {
@@ -2369,7 +2389,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.69",
-    date: "2026-07-12",
+    date: "2026-07-12T14:01:25-05:00",
     summary: "Walkthrough map markers stay larger in opened guide maps.",
     sections: [
       {
@@ -2383,7 +2403,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.68",
-    date: "2026-07-12",
+    date: "2026-07-12T13:57:42-05:00",
     summary: "Lilycove Department Store shop guide lists stock by floor and register — including the rooftop vending machine.",
     sections: [
       {
@@ -2398,7 +2418,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.67",
-    date: "2026-07-12",
+    date: "2026-07-12T13:57:42-05:00",
     summary: "Every main Hoenn map marker is verified against pokeemerald — towns, gyms, landmarks, items, and shops stay accurate.",
     sections: [
       {
@@ -2414,7 +2434,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.66",
-    date: "2026-07-12",
+    date: "2026-07-12T13:57:42-05:00",
     summary: "Slateport Market pin is now on the real market plaza — shop markers stay source-accurate.",
     sections: [
       {
@@ -2429,7 +2449,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.65",
-    date: "2026-07-12",
+    date: "2026-07-12T13:27:03-05:00",
     summary: "Map hover labels stay readable near the top and edges of the viewport.",
     sections: [
       {
@@ -2442,7 +2462,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.64",
-    date: "2026-07-12",
+    date: "2026-07-12T13:27:03-05:00",
     summary: "Confirmed the guide runs fully offline — sprites and data stay local.",
     sections: [
       {
@@ -2457,7 +2477,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.63",
-    date: "2026-07-12",
+    date: "2026-07-12T13:27:03-05:00",
     summary: "Shop guides show item sprites and cover every overworld storefront.",
     sections: [
       {
@@ -2473,7 +2493,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.62",
-    date: "2026-07-11",
+    date: "2026-07-08T12:00:49-05:00",
     summary: "Click Poké Marts on the Hoenn map to see shop stock and prices.",
     sections: [
       {
@@ -2490,7 +2510,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.61",
-    date: "2026-07-08",
+    date: "2026-07-08T10:48:29-05:00",
     summary: "Desktop main map panning now keeps tracking through long drags.",
     sections: [
       {
@@ -2504,7 +2524,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.60",
-    date: "2026-07-08",
+    date: "2026-07-08T10:29:15-05:00",
     summary: "Desktop main map dragging stays reliable when panning across markers.",
     sections: [
       {
@@ -2518,7 +2538,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.59",
-    date: "2026-07-08",
+    date: "2026-07-08T10:18:42-05:00",
     summary: "Walkthrough map markers stay larger while zooming, with gym badges emphasized.",
     sections: [
       {
@@ -2532,7 +2552,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.58",
-    date: "2026-07-08",
+    date: "2026-07-08T10:07:34-05:00",
     summary: "Walkthrough area map image taps now open the lightbox directly from the map frame.",
     sections: [
       {
@@ -2545,7 +2565,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.57",
-    date: "2026-07-08",
+    date: "2026-07-08T10:05:02-05:00",
     summary: "Walkthrough area map images open the detailed lightbox again.",
     sections: [
       {
@@ -2559,7 +2579,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.56",
-    date: "2026-07-08",
+    date: "2026-07-08T09:57:35-05:00",
     summary: "Tall desktop walkthrough maps keep marker alignment in the lightbox.",
     sections: [
       {
@@ -2573,7 +2593,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.55",
-    date: "2026-07-08",
+    date: "2026-07-08T09:48:57-05:00",
     summary: "Walkthrough map pins stay readable when you zoom in.",
     sections: [
       {
@@ -2586,7 +2606,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.54",
-    date: "2026-07-08",
+    date: "2026-07-08T09:31:55-05:00",
     summary: "Desktop town map lightboxes no longer stretch square Hoenn crops.",
     sections: [
       {
@@ -2600,7 +2620,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.53",
-    date: "2026-07-08",
+    date: "2026-07-08T09:23:17-05:00",
     summary: "The changelog modal now stays within the visible viewport.",
     sections: [
       {
@@ -2613,7 +2633,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.52",
-    date: "2026-07-08",
+    date: "2026-07-08T09:15:38-05:00",
     summary: "The app is now branded as Emerald Guide without a dash.",
     sections: [
       {
@@ -2626,7 +2646,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.51",
-    date: "2026-07-08",
+    date: "2026-07-08T09:10:37-05:00",
     summary: "The app is now branded as Emerald Guide in browser and UI labels.",
     sections: [
       {
@@ -2639,7 +2659,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.50",
-    date: "2026-07-08",
+    date: "2026-07-07T22:30:15-05:00",
     summary: "Walkthrough position is preserved when you switch to the map and back.",
     sections: [
       {
@@ -2652,7 +2672,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.49",
-    date: "2026-07-08",
+    date: "2026-07-07T22:23:08-05:00",
     summary: "Item bag icons in map callouts actually render now (were blank PNGs).",
     sections: [
       {
@@ -2666,7 +2686,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.48",
-    date: "2026-07-08",
+    date: "2026-07-07T22:16:08-05:00",
     summary: "Item bag icons in map callouts now load reliably in the browser.",
     sections: [
       {
@@ -2680,7 +2700,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.47",
-    date: "2026-07-08",
+    date: "2026-07-07T22:07:26-05:00",
     summary: "Item and hidden-item map callouts now show the in-game bag icon beside the description.",
     sections: [
       {
@@ -2695,7 +2715,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.46",
-    date: "2026-07-08",
+    date: "2026-07-07T21:45:52-05:00",
     summary: "Item and entrance details now appear on the map when you tap a pin.",
     sections: [
       {
@@ -2709,7 +2729,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.45",
-    date: "2026-07-08",
+    date: "2026-07-07T21:42:01-05:00",
     summary: "Hidden item map pins no longer show a dashed outline around the sprite.",
     sections: [
       {
@@ -2722,7 +2742,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.44",
-    date: "2026-07-08",
+    date: "2026-07-07T21:34:10-05:00",
     summary: "Caves and dungeons are no longer a separate map layer — they show as gray entrance pins only.",
     sections: [
       {
@@ -2736,7 +2756,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.43",
-    date: "2026-07-08",
+    date: "2026-07-07T21:22:12-05:00",
     summary: "Berry tree map pins now use the correct in-game sprite size and ground anchoring.",
     sections: [
       {
@@ -2751,7 +2771,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.42",
-    date: "2026-07-08",
+    date: "2026-07-07T21:15:06-05:00",
     summary: "Walkthrough map pins now match the main Hoenn map with distinct colors and no stacked duplicates.",
     sections: [
       {
@@ -2766,7 +2786,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.41",
-    date: "2026-07-08",
+    date: "2026-07-07T21:06:16-05:00",
     summary: "Cave and building entrances on walkthrough maps no longer show duplicate green and gray pins.",
     sections: [
       {
@@ -2780,7 +2800,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.40",
-    date: "2026-07-08",
+    date: "2026-07-07T21:02:15-05:00",
     summary: "Walkthrough landmark pins align correctly on crop maps and in the zoom lightbox.",
     sections: [
       {
@@ -2794,7 +2814,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.39",
-    date: "2026-07-08",
+    date: "2026-07-07T20:54:01-05:00",
     summary: "Walkthrough map pins now use the same entrance labels and categories as the main Hoenn map.",
     sections: [
       {
@@ -2808,7 +2828,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.38",
-    date: "2026-07-08",
+    date: "2026-07-07T20:37:28-05:00",
     summary: "Town map pin redrawn as crisp 12×19 pixel art matching the requested marker.",
     sections: [
       {
@@ -2821,7 +2841,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.37",
-    date: "2026-07-08",
+    date: "2026-07-07T20:31:59-05:00",
     summary: "Town map pin art updated to match the requested 14×18 teardrop marker.",
     sections: [
       {
@@ -2834,7 +2854,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.36",
-    date: "2026-07-08",
+    date: "2026-07-07T20:24:26-05:00",
     summary: "Towns and cities on the Hoenn map now use a red map-pin sprite instead of a yellow dot.",
     sections: [
       {
@@ -2848,7 +2868,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.35",
-    date: "2026-07-08",
+    date: "2026-07-07T19:09:30-05:00",
     summary: "Gym markers on the Hoenn map now show each gym's badge sprite instead of a generic diamond pin.",
     sections: [
       {
@@ -2862,7 +2882,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.34",
-    date: "2026-07-07",
+    date: "2026-07-07T18:54:17-05:00",
     summary: "Hidden item map pins now use a grey-and-white Poké Ball matching the visible item ball size.",
     sections: [
       {
@@ -2876,7 +2896,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.33",
-    date: "2026-07-07",
+    date: "2026-07-07T18:40:14-05:00",
     summary: "Item, berry, and hidden-item map pins now use authentic game sprites instead of colored dots.",
     sections: [
       {
@@ -2891,7 +2911,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.32",
-    date: "2026-07-07",
+    date: "2026-07-07T18:32:01-05:00",
     summary: "Interior map sprites no longer treat bedroom dolls and decoration placeholders as trainers.",
     sections: [
       {
@@ -2906,7 +2926,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.31",
-    date: "2026-07-07",
+    date: "2026-07-07T18:27:02-05:00",
     summary: "Interior walkthrough maps now show NPC and trainer overworld sprites across caves, labs, tunnels, and dungeons.",
     sections: [
       {
@@ -2922,7 +2942,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.30",
-    date: "2026-07-07",
+    date: "2026-07-07T18:14:14-05:00",
     summary: "Gym walkthrough steps now show accurate interior maps with trainer sprites and full gym guide details.",
     sections: [
       {
@@ -2938,7 +2958,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.29",
-    date: "2026-07-07",
+    date: "2026-07-07T17:58:41-05:00",
     summary: "Gym guide modals now show authentic overworld sprites for gym leaders and in-gym trainers.",
     sections: [
       {
@@ -2953,7 +2973,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.28",
-    date: "2026-07-07",
+    date: "2026-07-07T17:53:04-05:00",
     summary: "Clicking a gym on the Hoenn map opens a full gym guide — leader, trainers, and walkthrough tips.",
     sections: [
       {
@@ -2968,7 +2988,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.27",
-    date: "2026-07-07",
+    date: "2026-07-07T17:18:28-05:00",
     summary: "Wild encounter data is fully bundled — zero runtime data fetches.",
     sections: [
       {
@@ -2982,7 +3002,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.26",
-    date: "2026-07-07",
+    date: "2026-07-07T17:16:04-05:00",
     summary: "The Pokémon Finder is now simply called the Pokédex everywhere in the app.",
     sections: [
       {
@@ -2995,7 +3015,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.25",
-    date: "2026-07-07",
+    date: "2026-07-07T17:08:20-05:00",
     summary: "Pokédex, species stats, wild encounters, and fonts are fully offline — no runtime API calls.",
     sections: [
       {
@@ -3012,7 +3032,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.24",
-    date: "2026-07-07",
+    date: "2026-07-07T17:03:32-05:00",
     summary: "Pokémon Emerald sprites are bundled with the app — no more flaky CDN loads.",
     sections: [
       {
@@ -3027,7 +3047,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.23",
-    date: "2026-07-07",
+    date: "2026-07-07T16:46:44-05:00",
     summary: "The main Hoenn map loads much faster with lossless compression and background preloading.",
     sections: [
       {
@@ -3042,7 +3062,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.22",
-    date: "2026-07-07",
+    date: "2026-07-07T16:35:33-05:00",
     summary: "Walkthrough outdoor maps load much faster on iPhone without losing map quality.",
     sections: [
       {
@@ -3057,7 +3077,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.21",
-    date: "2026-07-07",
+    date: "2026-07-07T15:57:18-05:00",
     summary: "Walkthrough map lightboxes are larger on iPhone, trainer sprites align correctly, and map markers are more accurate.",
     sections: [
       {
@@ -3090,7 +3110,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.20",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Route labels show on the main Hoenn map by default.",
     sections: [
       {
@@ -3103,7 +3123,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.19",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Removed the experimental Walkpath map overlay.",
     sections: [
       {
@@ -3116,7 +3136,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.16",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Trainer details from the route guide open inside the same modal.",
     sections: [
       {
@@ -3129,7 +3149,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.15",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Trainer battle details open on top of the route guide modal.",
     sections: [
       {
@@ -3142,7 +3162,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.14",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Berry descriptions no longer show raw {POKEBLOCK} game placeholders.",
     sections: [
       {
@@ -3155,7 +3175,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.13",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Route guide Items & Berries section uses the same callout bubble as walkthrough sections.",
     sections: [
       {
@@ -3168,7 +3188,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.12",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Route guide secrets section matches the walkthrough bubble styling.",
     sections: [
       {
@@ -3181,7 +3201,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.11",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Route guide wild Pokémon table now shows Emerald sprites beside each species.",
     sections: [
       {
@@ -3194,7 +3214,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.10",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Clicking a route on the Hoenn map opens a full route guide with encounters, items, and trainers.",
     sections: [
       {
@@ -3209,7 +3229,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.9",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "All Hoenn routes are labeled on the main map with a new Routes layer filter.",
     sections: [
       {
@@ -3224,7 +3244,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.8",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Walkthrough Hoenn crops show all hand-placed markers again, with main-map pin styling.",
     sections: [
       {
@@ -3238,7 +3258,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.7",
-    date: "2026-07-06",
+    date: "2026-07-06T20:44:38-05:00",
     summary: "Walkthrough maps now use the true-scale Hoenn composite and matching marker colors everywhere.",
     sections: [
       {
@@ -3254,7 +3274,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.6",
-    date: "2026-07-06",
+    date: "2026-07-06T00:58:29-05:00",
     summary: "Hoenn overworld map can filter trainers to PokeNav Match Call rematches only.",
     sections: [
       {
@@ -3269,7 +3289,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.5",
-    date: "2026-07-06",
+    date: "2026-07-06T00:58:29-05:00",
     summary: "Trainer detail window adds prize money, full movesets, abilities, base stats, and rematch data.",
     sections: [
       {
@@ -3292,7 +3312,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.4",
-    date: "2026-07-06",
+    date: "2026-07-06T00:58:29-05:00",
     summary: "Trainer click modal shows larger sprites and a full battle breakdown.",
     sections: [
       {
@@ -3308,7 +3328,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.3",
-    date: "2026-07-06",
+    date: "2026-07-06T00:58:29-05:00",
     summary: "Fix trainer map pins not opening the battle-details window on click.",
     sections: [
       {
@@ -3323,7 +3343,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.2",
-    date: "2026-07-06",
+    date: "2026-07-06T00:58:29-05:00",
     summary: "Trainer map pins show a quick summary on hover; click opens a full battle-details window.",
     sections: [
       {
@@ -3338,7 +3358,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.1",
-    date: "2026-07-06",
+    date: "2026-07-06T00:58:29-05:00",
     summary: "Trainer map pins show full party and battle tips on hover, not just the trainer name.",
     sections: [
       {
@@ -3352,7 +3372,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.10.0",
-    date: "2026-07-06",
+    date: "2026-07-06T00:12:58-05:00",
     summary: "Post-game walkthrough split into three chapters with Bulbapedia-accurate steps from Hall of Fame through Battle Frontier and optional Hoenn.",
     sections: [
       {
@@ -3377,7 +3397,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.9.5",
-    date: "2026-07-06",
+    date: "2026-07-06T00:12:58-05:00",
     summary: "Map popups scroll their legend again and show slightly larger maps.",
     sections: [
       {
@@ -3391,7 +3411,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.9.4",
-    date: "2026-07-06",
+    date: "2026-07-06T00:12:58-05:00",
     summary: "Desktop map popups use more screen space with a wider legend band below the map.",
     sections: [
       {
@@ -3405,7 +3425,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.9.3",
-    date: "2026-07-06",
+    date: "2026-07-06T00:12:58-05:00",
     summary: "Wild Pokémon encounter tables use the same highlighted section style as other walkthrough blocks.",
     sections: [
       {
@@ -3418,7 +3438,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.9.2",
-    date: "2026-07-06",
+    date: "2026-07-06T00:12:58-05:00",
     summary: "Wild Pokémon panel title simplified; area tips folded into Secrets, Extras, & Hidden Items.",
     sections: [
       {
@@ -3432,7 +3452,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.9.1",
-    date: "2026-07-06",
+    date: "2026-07-05T22:56:31-05:00",
     summary: "One unified Secrets, Extras, & Hidden Items section per walkthrough step.",
     sections: [
       {
@@ -3446,7 +3466,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.9.0",
-    date: "2026-07-06",
+    date: "2026-07-05T22:56:31-05:00",
     summary: "Trainer map pins show full parties, moves, and battle prep tips.",
     sections: [
       {
@@ -3460,7 +3480,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.8.0",
-    date: "2026-07-06",
+    date: "2026-07-05T22:39:01-05:00",
     summary: "Full Pokémon Contest walkthrough — prep, Lilycove ranks, and post-game ribbons.",
     sections: [
       {
@@ -3482,7 +3502,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.8",
-    date: "2026-07-06",
+    date: "2026-07-05T22:39:01-05:00",
     summary: "Swipe navigation works across the full step on mobile.",
     sections: [
       {
@@ -3495,7 +3515,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.7",
-    date: "2026-07-06",
+    date: "2026-07-05T22:14:54-05:00",
     summary: "Clearer swipe navigation hints on phones.",
     sections: [
       {
@@ -3509,7 +3529,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.6",
-    date: "2026-07-06",
+    date: "2026-07-05T22:03:41-05:00",
     summary: "Swipe between walkthrough steps on mobile.",
     sections: [
       {
@@ -3522,7 +3542,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.5",
-    date: "2026-07-06",
+    date: "2026-07-05T22:03:41-05:00",
     summary: "Walkthrough audit — clearer objectives, new events, and missing locations.",
     sections: [
       {
@@ -3537,7 +3557,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.4",
-    date: "2026-07-06",
+    date: "2026-07-05T22:03:41-05:00",
     summary: "Taller chapter list on desktop walkthrough.",
     sections: [
       {
@@ -3551,7 +3571,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.3",
-    date: "2026-07-06",
+    date: "2026-07-05T22:03:41-05:00",
     summary: "Map pin button renamed to “Return to guide”.",
     sections: [
       {
@@ -3564,7 +3584,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.2",
-    date: "2026-07-06",
+    date: "2026-07-05T22:03:41-05:00",
     summary: "“View guide steps” on the map modal works again.",
     sections: [
       {
@@ -3578,7 +3598,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.1",
-    date: "2026-07-06",
+    date: "2026-07-05T22:03:41-05:00",
     summary: "“Show on Hoenn map” works again on desktop and mobile.",
     sections: [
       {
@@ -3592,7 +3612,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.7.0",
-    date: "2026-07-05",
+    date: "2026-07-05T21:15:33-05:00",
     summary: "Legendary catch guides are now part of the story walkthrough — no separate tab.",
     sections: [
       {
@@ -3607,7 +3627,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.8",
-    date: "2026-07-05",
+    date: "2026-07-05T21:01:30-05:00",
     summary: "Interior area maps now appear in walkthrough steps with item and trainer pins.",
     sections: [
       {
@@ -3623,7 +3643,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.7",
-    date: "2026-07-05",
+    date: "2026-07-05T20:47:11-05:00",
     summary: "Full Battle Pyramid coverage — all 19 room layouts in the map switcher.",
     sections: [
       {
@@ -3638,7 +3658,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.6",
-    date: "2026-07-05",
+    date: "2026-07-05T20:47:11-05:00",
     summary: "All 422 field pickups are now on the map — including Battle Pyramid and story interiors.",
     sections: [
       {
@@ -3653,7 +3673,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.5",
-    date: "2026-07-05",
+    date: "2026-07-05T20:47:11-05:00",
     summary: "Map switcher dropdown text is readable on desktop.",
     sections: [
       {
@@ -3666,7 +3686,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.4",
-    date: "2026-07-04",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "Verdanturf Town building roofs no longer clipped on the Hoenn map.",
     sections: [
       {
@@ -3680,7 +3700,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.3",
-    date: "2026-07-04",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "Cycling triathlete sprites on the map now render at full 32×32 size.",
     sections: [
       {
@@ -3693,7 +3713,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.2",
-    date: "2026-07-04",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "Trainer sprites on the map no longer show a green box — they blend in like in-game.",
     sections: [
       {
@@ -3707,7 +3727,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.1",
-    date: "2026-07-04",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "Trainer markers on the Hoenn Map use authentic in-game overworld sprites.",
     sections: [
       {
@@ -3723,7 +3743,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.6.0",
-    date: "2026-07-04",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "New area-map switcher on the Hoenn Map — explore 62 caves, dungeons, and underwater routes with their items.",
     sections: [
       {
@@ -3739,7 +3759,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.5.2",
-    date: "2026-07-03",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "More map-crop markers and tighter pin alignment on the Hoenn composite.",
     sections: [
       {
@@ -3758,7 +3778,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.5.1",
-    date: "2026-07-03",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "POI markers on walkthrough map crops — items, grass, trainers, and story points.",
     sections: [
       {
@@ -3774,7 +3794,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.5.0",
-    date: "2026-07-03",
+    date: "2026-07-04T00:02:32-05:00",
     summary: "Walkthrough town/route events now show a live window into the full Hoenn map.",
     sections: [
       {
@@ -3802,7 +3822,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.4.0",
-    date: "2026-07-03",
+    date: "2026-07-03T03:53:39-05:00",
     summary: "Filled in the missing regions — four new walkthrough chapters covering optional areas.",
     sections: [
       {
@@ -3825,7 +3845,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.3.2",
-    date: "2026-07-03",
+    date: "2026-07-03T03:39:16-05:00",
     summary: "“Show on Hoenn map” now actually focuses the step's location.",
     sections: [
       {
@@ -3840,7 +3860,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.3.1",
-    date: "2026-07-03",
+    date: "2026-07-03T03:22:24-05:00",
     summary: "Restore point-of-interest markers on town and route event maps.",
     sections: [
       {
@@ -3855,7 +3875,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.3.0",
-    date: "2026-07-03",
+    date: "2026-07-03T03:12:31-05:00",
     summary: "Every walkthrough event now has its own pixel-perfect location image from game data.",
     sections: [
       {
@@ -3886,7 +3906,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.2.0",
-    date: "2026-07-03",
+    date: "2026-07-03T02:39:04-05:00",
     summary: "Clickable version badge opens a full changelog of every release.",
     sections: [
       {
@@ -3901,7 +3921,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.1.0",
-    date: "2026-07-03",
+    date: "2026-07-03T02:39:04-05:00",
     summary: "Story walkthrough revamp — every event reads like a Prima strategy guide.",
     sections: [
       {
@@ -3925,7 +3945,7 @@ export const CHANGELOG: ChangelogRelease[] = [
   },
   {
     version: "1.0.0",
-    date: "2026-07-03",
+    date: "2026-07-03T02:39:04-05:00",
     summary: "Initial public release — interactive Hoenn guide from Littleroot to the Hall of Fame.",
     sections: [
       {
