@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.33",
+    date: "2026-07-17",
+    summary:
+      "Walkthrough setup screen (“How do you want to play?”) uses theme colors so light mode is readable.",
+    sections: [
+      {
+        heading: "Theme",
+        items: [
+          "Setup card background, border, and selected mode styles follow light/dark tokens instead of a hardcoded dark panel.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.32",
     date: "2026-07-17",
     summary:

@@ -10453,9 +10453,10 @@ button.story-progress__hit:hover .story-progress__num {
   width: min(100%, 42rem);
   padding: 1.75rem;
   border-radius: 12px;
-  border: 1px solid var(--hover-fill-strong);
-  background: rgba(12, 18, 28, 0.92);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 0 12px 40px var(--overlay-scrim);
 }
 
 .walkthrough-setup__title {
@@ -10501,8 +10502,8 @@ button.story-progress__hit:hover .story-progress__num {
 }
 
 .walkthrough-setup__mode--active {
-  border-color: rgba(96, 165, 250, 0.55);
-  background: rgba(59, 130, 246, 0.12);
+  border-color: var(--accent);
+  background: var(--accent-dim);
 }
 
 .walkthrough-setup__modes {
