@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.26.31",
+  "version": "1.26.32",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,6 +23,7 @@
     "preview:fishing-cutscene": "node scripts/preview-fishing-cutscene.mjs",
     "preview:petalburg-woods-aqua": "node scripts/preview-petalburg-woods-aqua-cutscenes.mjs",
     "preview:petalburg-scott": "node scripts/preview-petalburg-scott-cutscene.mjs",
+    "preview:character-appearances": "node scripts/preview-character-appearance-cutscenes.mjs",
     "bake:petalburg-gym-rooms": "node scripts/bake-petalburg-gym-room-sprites.mjs",
     "split:petalburg-gym-rooms": "node scripts/split-petalburg-gym-rooms.mjs",
     "gen:map-crops": "node scripts/gen-map-crops.mjs",

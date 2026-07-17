@@ -55,7 +55,7 @@ export const EVENT_MAP_CROP: Record<string, EventMapCrop> = {
   "lavaridge-1": { crop: { x: 17.25, y: 15.1436, w: 3, h: 6.2663 }, caption: "Lavaridge Town — hot springs", areaId: "lavaridge" },
   "lavaridge-3": { crop: { x: 24.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 111 desert — back to Petalburg", areaId: "route-111" },
   "petalburg-gym-3": { crop: { x: 29.75, y: 36.0313, w: 10.5, h: 6.2663 }, caption: "Route 118 — Surf east", areaId: "route-118" },
-  "route-118-1": { crop: { x: 29.75, y: 36.0313, w: 10.5, h: 6.2663 }, caption: "Route 118 — coastal crossing", areaId: "route-118" },
+  "route-118-1": { crop: { x: 29.75, y: 36.0313, w: 10.5, h: 6.2663 }, caption: "Route 118 — Steven’s dialogue", areaId: "route-118" },
   "route-118-2": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — into the jungle", areaId: "route-119" },
   "route-119-1": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — rainy jungle", areaId: "route-119" },
   "route-119-3": { crop: { x: 34.75, y: 0, w: 5.5, h: 37.0757 }, caption: "Route 119 — Rival Battle #4", areaId: "route-119" },

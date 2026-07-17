@@ -80,6 +80,31 @@ const REQUIRED = [
     re: /Scott — hurries over and stops you/i,
     why: "Petalburg exit: mandatory Scott encounter before Route 104",
   },
+  {
+    file: "src/data/walkthrough.ts",
+    re: /registers you for Match Call/i,
+    why: "Slateport museum: Scott Match Call registration",
+  },
+  {
+    file: "src/data/walkthrough.ts",
+    re: /Archie of Team Aqua arrives moments later/i,
+    why: "Meteor Falls: Archie after Magma steals Meteorite",
+  },
+  {
+    file: "src/data/walkthrough.ts",
+    re: /This is no wordless glimpse/i,
+    why: "Route 118: Steven has real dialogue",
+  },
+  {
+    file: "src/data/walkthrough.ts",
+    re: /registers you in the PokéNav for Match Call/i,
+    why: "Granite Cave: Steven PokéNav registration",
+  },
+  {
+    file: "src/data/scottSightings.ts",
+    re: /walkthroughStepId: "slateport-5"/i,
+    why: "Scott Battle Tent sighting links to slateport-5",
+  },
   { file: "src/data/walkthrough.ts", re: /Claydol.*Xatu/i, why: "Tate & Liza full party" },
   { file: "src/data/areaData.ts", re: /both Plusle and Minun appear in Emerald/i, why: "Route 110 encounter note" },
   {

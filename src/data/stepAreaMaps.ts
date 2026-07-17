@@ -138,6 +138,19 @@ export const STEP_AREA_MAP: Record<string, string> = {
 
 /** Multiple area maps for steps that span floors or zones. */
 export const STEP_AREA_MAPS: Record<string, string[]> = {
+  "dewford-1": ["route104-briney-ferry"],
+  "route-118-1": ["route118-steven"],
+  "mt-chimney-2": ["mtchimney-archie", "jaggedpass"],
+  "mossdeep-2": ["mossdeepcity-scott"],
+  "lilycove-1": ["lilycovecity-rival-battle", "lilycove-motel-scott"],
+  "route-119-3": ["route119-rival-battle", "route119-scott"],
+  "fallarbor-1": ["fallarbor-battletent-scott", "fallarbor-pokemoncenter-lanette"],
+  "route-117-2": ["verdanturf-battletent-scott"],
+  "mauville-1": ["mauvillecity-scott"],
+  "slateport-5": ["slateportcity-scott-battletent"],
+  "slateport-2": ["slateportcity-scott-museum"],
+  "rustboro-3": ["rustborocity-rival-battle", "rustborocity-pokemonschool-scott"],
+  "rustboro-1": ["rustborocity-pokemonschool-scott"],
   // Pregame battles — in-game cutscenes matching wild / trainer / doubles lessons
   "pregame-battles-1": [
     "route101",
@@ -205,22 +218,14 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "magmahideout-4f",
   ],
   "aqua-hideout-2": ["aquahideout-1f", "aquahideout-b1f", "aquahideout-b2f"],
-  "granite-cave-1": [
-    "granitecave-1f",
-    "granitecave-stevensroom",
-  ],
+  "granite-cave-1": ["granitecave-steven-letter", "granitecave-1f", "granitecave-b1f", "granitecave-b2f", "granitecave-stevensroom"],
   "granite-cave-2": [
     "granitecave-1f",
     "granitecave-b1f",
     "granitecave-b2f",
     "granitecave-stevensroom",
   ],
-  "route-114-2": [
-    "meteorfalls-1f-1r",
-    "meteorfalls-1f-2r",
-    "meteorfalls-b1f-1r",
-    "meteorfalls-b1f-2r",
-  ],
+  "route-114-2": ["meteorfalls-archie", "meteorfalls-1f-1r", "meteorfalls-1f-2r"],
   "postgame-hoenn-7": [
     "meteorfalls-1f-1r",
     "meteorfalls-1f-2r",
@@ -262,18 +267,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "shoalcave-lowtidelowerroom",
   ],
   "shoal-cave-2": ["shoalcave-lowtideiceroom", "shoalcave-lowtidelowerroom"],
-  "seafloor-cavern-2": [
-    "seafloorcavern-entrance",
-    "seafloorcavern-room1",
-    "seafloorcavern-room2",
-    "seafloorcavern-room3",
-    "seafloorcavern-room4",
-    "seafloorcavern-room5",
-    "seafloorcavern-room6",
-    "seafloorcavern-room7",
-    "seafloorcavern-room8",
-    "seafloorcavern-room9",
-  ],
+  "seafloor-cavern-2": ["route128-aftermath", "seafloorcavern-room9"],
   "trick-8": ["route110-trickhousepuzzle8", "route110-trickhouseend"],
   "battle-frontier-1": ["sstidallowerdeck"],
   // Battle Pyramid — Brandon's facility (battle-frontier-3 overview step)
@@ -319,7 +313,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "petalburgcity-gym-mary",
     "petalburgcity-gym-entrance",
   ],
-  "fortree-2": ["fortreecity-gym-winona-battle", "fortreecity-gym"],
+  "fortree-2": ["fortreecity-gym-winona-battle", "fortreecity-gym", "fortreecity-scott-call"],
   "mossdeep-1": ["mossdeepcity-gym-tate-liza-battle", "mossdeepcity-gym"],
   "sootopolis-gym-2": [
     "sootopoliscity-gym-juan-battle",
@@ -327,12 +321,7 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "sootopoliscity-gym-b1f",
   ],
   // Pokémon League — face-off then room for each member (top → bottom)
-  "league-1": [
-    "evergrandecity-sidneysroom-battle",
-    "evergrandecity-sidneysroom",
-    "evergrandecity-phoebesroom-battle",
-    "evergrandecity-phoebesroom",
-  ],
+  "league-1": ["evergrandecity-pokemoncenter-scott", "evergrandecity-sidneysroom-battle", "evergrandecity-sidneysroom", "evergrandecity-phoebesroom-battle", "evergrandecity-phoebesroom"],
   "league-2": [
     "evergrandecity-glaciasroom-battle",
     "evergrandecity-glaciasroom",
