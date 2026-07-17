@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.69",
+    date: "2026-07-17",
+    summary:
+      "Steven’s house map bakes Steven into the art so he scales with the room (not tiny overlay pins).",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Ch. 2 Surfing & diving: Mossdeep Steven’s house paints Steven at his in-game tile (facing the stone cases) instead of screen-sized OW overlay pins.",
+          "Removes the false “Ninja Boy Letter” pin (invisible letter trigger) from that interior.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.68",
     date: "2026-07-17",
     summary:
