@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.61",
+    date: "2026-07-17",
+    summary:
+      "Double-battle examples in Ch. 1 show paired trainer sprites standing side by side.",
+    sections: [
+      {
+        heading: "Pregame — Battles & Training",
+        items: [
+          "Battle types at a glance: Tate & Liza and Twins Amy & Liv render as adjacent trainer pairs instead of separate face cards — matching how doubles encounters look in-game.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.60",
     date: "2026-07-17",
     summary: "Fishing rod bag sprites display at 48×48 so they read clearly on the cards.",

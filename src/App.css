@@ -4910,6 +4910,24 @@
   text-align: center;
 }
 
+/* Doubles: two trainers stand on adjacent tiles, like the in-game encounter. */
+.battle-basics__face--pair {
+  min-width: 6.5rem;
+  max-width: 9rem;
+}
+
+.battle-basics__sprite-pair {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+}
+
+.battle-basics__sprite-pair .battle-basics__sprite--trainer {
+  margin: 0;
+}
+
 .battle-basics__sprite {
   display: inline-flex;
   align-items: center;

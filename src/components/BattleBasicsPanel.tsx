@@ -18,6 +18,15 @@ interface BattleFace {
   spriteWidth?: number;
   spriteHeight?: number;
   spriteFrame?: number;
+  /**
+   * Doubles pairs: faces that share a pairGroup render as one slot with
+   * sprites standing side-by-side (like the in-game encounter).
+   */
+  pairGroup?: string;
+  /** Label under a paired slot (defaults to “A & B”). */
+  pairLabel?: string;
+  /** Subtitle under a paired slot (taken from the first member if omitted). */
+  pairSubtitle?: string;
 }
 
 interface BattleExample {
@@ -111,7 +120,9 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         id: "tate",
         kind: "trainer",
         name: "Tate",
-        subtitle: "Gym Leader · Mossdeep",
+        pairGroup: "tate-liza",
+        pairLabel: "Tate & Liza",
+        pairSubtitle: "Gym Leaders · Mossdeep",
         spriteSheet: "sprites/trainers/tate.png",
         spriteWidth: 16,
         spriteHeight: 32,
@@ -121,17 +132,33 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         id: "liza",
         kind: "trainer",
         name: "Liza",
-        subtitle: "Gym Leader · Mossdeep",
+        pairGroup: "tate-liza",
+        pairLabel: "Tate & Liza",
+        pairSubtitle: "Gym Leaders · Mossdeep",
         spriteSheet: "sprites/trainers/liza.png",
         spriteWidth: 16,
         spriteHeight: 32,
         spriteFrame: OW_PORTRAIT_FRAME,
       },
       {
-        id: "twins",
+        id: "amy",
         kind: "trainer",
-        name: "Amy & Liv",
-        subtitle: "Twins · Route 103",
+        name: "Amy",
+        pairGroup: "amy-liv",
+        pairLabel: "Amy & Liv",
+        pairSubtitle: "Twins · Route 103",
+        spriteSheet: "sprites/trainers/twin.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: OW_PORTRAIT_FRAME,
+      },
+      {
+        id: "liv",
+        kind: "trainer",
+        name: "Liv",
+        pairGroup: "amy-liv",
+        pairLabel: "Amy & Liv",
+        pairSubtitle: "Twins · Route 103",
         spriteSheet: "sprites/trainers/twin.png",
         spriteWidth: 16,
         spriteHeight: 32,
@@ -140,6 +167,42 @@ const BATTLE_EXAMPLES: BattleExample[] = [
     ],
   },
 ];
+
+interface FaceSlot {
+  key: string;
+  label: string;
+  subtitle?: string;
+  types?: string[];
+  members: BattleFace[];
+}
+
+/** Collapse doubles pairGroup members into one visual slot. */
+function faceSlots(faces: BattleFace[]): FaceSlot[] {
+  const slots: FaceSlot[] = [];
+  const seenPairs = new Set<string>();
+  for (const face of faces) {
+    if (face.pairGroup) {
+      if (seenPairs.has(face.pairGroup)) continue;
+      seenPairs.add(face.pairGroup);
+      const members = faces.filter((f) => f.pairGroup === face.pairGroup);
+      slots.push({
+        key: face.pairGroup,
+        label: face.pairLabel ?? members.map((m) => m.name).join(" & "),
+        subtitle: face.pairSubtitle ?? face.subtitle,
+        members,
+      });
+      continue;
+    }
+    slots.push({
+      key: face.id,
+      label: face.name,
+      subtitle: face.subtitle,
+      types: face.types,
+      members: [face],
+    });
+  }
+  return slots;
+}
 
 const COMMANDS: CommandTile[] = [
   {
@@ -265,16 +328,39 @@ export function BattleBasicsPanel({
             </header>
 
             <ul className="battle-basics__faces" aria-label={`${ex.title} examples`}>
-              {ex.faces.map((face) => (
-                <li key={face.id} className={`battle-basics__face battle-basics__face--${face.kind}`}>
-                  {face.kind === "trainer" ? <TrainerFace face={face} /> : <PokemonFace face={face} />}
-                  <span className="battle-basics__face-name">{face.name}</span>
-                  {face.subtitle ? (
-                    <span className="battle-basics__face-sub">{face.subtitle}</span>
-                  ) : null}
-                  {face.types?.length ? <TypeChips types={face.types} /> : null}
-                </li>
-              ))}
+              {faceSlots(ex.faces).map((slot) => {
+                const paired = slot.members.length > 1;
+                const kind = slot.members[0]?.kind ?? "trainer";
+                return (
+                  <li
+                    key={slot.key}
+                    className={`battle-basics__face battle-basics__face--${kind}${
+                      paired ? " battle-basics__face--pair" : ""
+                    }`}
+                  >
+                    {paired ? (
+                      <span className="battle-basics__sprite-pair" aria-hidden>
+                        {slot.members.map((face) =>
+                          face.kind === "trainer" ? (
+                            <TrainerFace key={face.id} face={face} />
+                          ) : (
+                            <PokemonFace key={face.id} face={face} />
+                          ),
+                        )}
+                      </span>
+                    ) : kind === "trainer" ? (
+                      <TrainerFace face={slot.members[0]} />
+                    ) : (
+                      <PokemonFace face={slot.members[0]} />
+                    )}
+                    <span className="battle-basics__face-name">{slot.label}</span>
+                    {slot.subtitle ? (
+                      <span className="battle-basics__face-sub">{slot.subtitle}</span>
+                    ) : null}
+                    {slot.types?.length ? <TypeChips types={slot.types} /> : null}
+                  </li>
+                );
+              })}
             </ul>
 
             <ul className="battle-basics__rules">
