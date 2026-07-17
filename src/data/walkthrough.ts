@@ -1542,13 +1542,13 @@ const storyChapters: GuideSection[] = [
         story: [
           "Route 119 is a rain-soaked jungle gauntlet — tall grass, log bridges that need the Acro Bike to hop, and trainers lurking at every turn. Hidden Rare Candies and TMs reward thorough exploration, and the grass itself is worth farming.",
           "Tropius drifts through at a rare 5%, Zigzagoon and Oddish are common, and invisible Kecleon pepper the route — you'll need the Devon Scope from Steven to spot them. For now, push through toward the Weather Institute rising above the canopy.",
-          "The rivers hide Emerald's rarest fish: Feebas. Only six water tiles on the route can produce it, and which six are active depends on Dewford Town's trendy phrase — when the trend changes, the tiles reshuffle. Fish every reachable water square with any rod, or visit Dewford's trendy phrase guy to force a new set. Feebas itself is weak; raise its Beauty to 170 with Dry Pokéblocks (Contest Preparation) and level it up for Milotic.",
+          "The rivers hide Emerald's rarest fish: Feebas. Every fishable water tile has a spot number (see the Feebas fishing-spot maps on this step); exactly six of those IDs are active, chosen from Dewford Town's trendy phrase. When the trend changes, the six IDs reshuffle. Sweep with any rod (Old Rod is fastest), or force a new set in Dewford. Feebas itself is weak; raise its Beauty to 170 with Dry Pokéblocks (Contest Preparation) and level it up for Milotic.",
         ],
         details: [
           "The Acro Bike is needed to hop the log bridges.",
           "Catch Tropius (5%), Zigzagoon, Oddish, and the invisible Kecleon (later with Devon Scope).",
           "Hidden Rare Candy and TMs dot the route.",
-          "Feebas: fish all water tiles — only six trend tiles work; tiles move when Dewford's trendy phrase changes.",
+          "Feebas: six numbered fishing spots are active (Dewford trend seed); maps on this step show every spot ID. Surf never finds Feebas.",
           "Milotic: Beauty 170+, then level-up (see Pregame: Evolution — Unique evolutions).",
         ],
         secrets: [

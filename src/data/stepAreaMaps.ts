@@ -166,7 +166,17 @@ export const STEP_AREA_MAPS: Record<string, string[]> = {
     "underwater-route128",
     "mossdeepcity-stevenshouse",
   ],
-  "pregame-field-3": ["dewfordtown-fishing"],
+  "pregame-field-3": [
+    "dewfordtown-fishing",
+    "route119-feebas-fishing-s0",
+    "route119-feebas-fishing-s1",
+    "route119-feebas-fishing-s2",
+  ],
+  "route-119-1": [
+    "route119-feebas-fishing-s0",
+    "route119-feebas-fishing-s1",
+    "route119-feebas-fishing-s2",
+  ],
   "pregame-field-4": ["granitecave-1f", "granitecave-b1f", "granitecave-stevensroom"],
   "pregame-field-6": ["oldaletown-pokemoncenter-1f", "littleroottown-professorbirchslab"],
 

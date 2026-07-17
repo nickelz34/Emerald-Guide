@@ -101,7 +101,7 @@ export const FISHING_SPECIAL_NOTES = [
   {
     id: "feebas",
     title: "Feebas (Route 119)",
-    body: "Exactly six water tiles can yield Feebas; which six follow Dewford’s trendy phrase. Fish any rod on every tile (Old Rod is fastest). On a correct tile, Feebas is about 50%. Surf never catches Feebas. Feebas is not part of the standard Route 119 fishing table below.",
+    body: "Exactly six numbered fishing spots are active at a time (Dewford trendy-phrase seed) — see the Feebas map below. Fish any rod on those tiles (Old Rod is fastest). On a correct tile, Feebas is about 50%. Surf never catches Feebas. Not part of the standard Route 119 rod table.",
   },
   {
     id: "relicanth",
