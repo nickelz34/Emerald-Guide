@@ -10,11 +10,20 @@ import type { EncounterMethod } from "../types";
 export interface FishingRodRow {
   id: "old-rod" | "good-rod" | "super-rod";
   name: string;
-  obtain: string;
+  /** Short progression label, e.g. "1st rod". */
+  tier: string;
+  /** Town / route where the rod is given. */
+  location: string;
+  /** Who gives it and where to stand. */
+  npc: string;
   prerequisite?: string;
   typicalLevels: string;
-  commonCatches: string;
-  note: string;
+  /** How many successful “Oh! A bite!” prompts this rod needs. */
+  reelPrompts: string;
+  /** Representative species / themes this rod unlocks. */
+  catches: string[];
+  /** One practical tip for when to use this rod. */
+  tip: string;
 }
 
 export interface FishingEncounterMon {
@@ -73,27 +82,36 @@ export const FISHING_ROD_TABLE: FishingRodRow[] = [
   {
     id: "old-rod",
     name: "Old Rod",
-    obtain: "Dewford Town — fisherman on the south shore by the Gym (free)",
+    tier: "1st rod",
+    location: "Dewford Town",
+    npc: "Fisherman on the south shore by the Gym — free gift, never sold.",
     typicalLevels: "Lv. 5–10",
-    commonCatches: "Magikarp, Tentacool / Goldeen",
-    note: "Fastest reel prompts — good for Feebas tile hunting later.",
+    reelPrompts: "1 successful “Oh! A bite!” prompt",
+    catches: ["Magikarp (most maps)", "Tentacool or Goldeen (map table)", "Fastest rod for Feebas tile sweeps"],
+    tip: "Register it in Key Items. One prompt per cast makes Route 119 Feebas hunting much quicker.",
   },
   {
     id: "good-rod",
     name: "Good Rod",
-    obtain: "Route 118 — fisherman on the east shore (free)",
-    prerequisite: "Balance Badge (Surf) to reach the east bank",
+    tier: "2nd rod",
+    location: "Route 118",
+    npc: "Fisherman on the east shore — free gift after you can cross the river.",
+    prerequisite: "Balance Badge + Surf to reach the east bank",
     typicalLevels: "Lv. 10–30",
-    commonCatches: "Magikarp plus Tentacool, Goldeen, Carvanha, Barboach, Wailmer…",
-    note: "First rod that adds mid-game water species to most maps.",
+    reelPrompts: "1–3 successful prompts in a row",
+    catches: ["Magikarp still common", "Tentacool, Goldeen, Carvanha", "Barboach, Wailmer on many maps"],
+    tip: "First rod that adds mid-game water species beyond Magikarp on most routes.",
   },
   {
     id: "super-rod",
     name: "Super Rod",
-    obtain: "Mossdeep City — fisherman’s house east of the Gym (free; never sold)",
+    tier: "3rd rod",
+    location: "Mossdeep City",
+    npc: "Fisherman’s house east of the Gym — free gift (nobody sells Super Rods).",
     typicalLevels: "Lv. 20–45",
-    commonCatches: "Map-specific rares: Corphish, Sharpedo, Whiscash, Gyarados…",
-    note: "Best tables for story and Pokédex fish — pick a rod tab below.",
+    reelPrompts: "1–6 successful prompts in a row",
+    catches: ["Map-specific rares (Corphish, Sharpedo…)", "Whiscash, Gyarados, Staryu, Luvdisc", "Best tables for story & Pokédex fish"],
+    tip: "Use the Super Rod tab in the encounter tables below for exact rates by location.",
   },
 ];
 
