@@ -2053,7 +2053,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "Route 110 Trick House End",
     group: "Route 110 Trick House End",
     floor: "",
-    image: "maps/areas/route110-trickhouseend.png",
+    image: "maps/areas/route110-trickhouseend-npcs.png",
     width: 192,
     height: 128,
     markers: [
@@ -2357,7 +2357,7 @@ export const AREA_MAPS: AreaMap[] = [
     name: "SS Tidal Lower Deck",
     group: "SS Tidal Lower Deck",
     floor: "",
-    image: "maps/areas/sstidallowerdeck.png",
+    image: "maps/areas/sstidallowerdeck-npcs.png",
     width: 272,
     height: 208,
     markers: [

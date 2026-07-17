@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.73",
+    date: "2026-07-17",
+    summary:
+      "Ch. 11–25 area maps bake remaining small-interior NPC overlays into the art (S.S. Tidal lower deck, Trick House end).",
+    sections: [
+      {
+        heading: "Mid chapters (11–25)",
+        items: [
+          "S.S. Tidal Lower Deck paints Sailors Phillip and Leonard into the image (Ch. 18).",
+          "Trick House End bakes the Trick Master for the puzzle-clear prize room (Ch. 20).",
+          "Other Ch. 11–25 event maps already used baked cutscenes (Pretty Petal, Briney, gym/rival/Scott face-offs, Granite Cave letter, etc.).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.72",
     date: "2026-07-17",
     summary:
