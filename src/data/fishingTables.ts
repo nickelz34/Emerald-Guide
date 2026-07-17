@@ -10,6 +10,8 @@ import type { EncounterMethod } from "../types";
 export interface FishingRodRow {
   id: "old-rod" | "good-rod" | "super-rod";
   name: string;
+  /** Key in itemIconsGenerated / bag icon name. */
+  iconName: string;
   /** Short progression label, e.g. "1st rod". */
   tier: string;
   /** Town / route where the rod is given. */
@@ -96,6 +98,7 @@ export const FISHING_ROD_TABLE: FishingRodRow[] = [
   {
     id: "old-rod",
     name: "Old Rod",
+    iconName: "Old Rod",
     tier: "1st rod",
     location: "Dewford Town",
     npc: "Fisherman on the south shore by the Gym — free gift, never sold.",
@@ -107,6 +110,7 @@ export const FISHING_ROD_TABLE: FishingRodRow[] = [
   {
     id: "good-rod",
     name: "Good Rod",
+    iconName: "Good Rod",
     tier: "2nd rod",
     location: "Route 118",
     npc: "Fisherman on the east shore — free gift after you can cross the river.",
@@ -119,13 +123,14 @@ export const FISHING_ROD_TABLE: FishingRodRow[] = [
   {
     id: "super-rod",
     name: "Super Rod",
+    iconName: "Super Rod",
     tier: "3rd rod",
     location: "Mossdeep City",
     npc: "Fisherman’s house east of the Gym — free gift (nobody sells Super Rods).",
     typicalLevels: "Lv. 20–45",
     reelPrompts: "1–6 successful prompts in a row",
     catches: ["Map-specific rares (Corphish, Sharpedo…)", "Whiscash, Gyarados, Staryu, Luvdisc", "Best tables for story & Pokédex fish"],
-    tip: "Use the Super Rod tab in the encounter tables below for exact rates by location.",
+    tip: "Use Fishing encounters by location below for exact rates by map.",
   },
 ];
 
