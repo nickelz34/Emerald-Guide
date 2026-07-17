@@ -30,6 +30,7 @@ export const CHANGELOG: ChangelogRelease[] = [
         items: [
           "Feebas map zoom no longer uses CSS transform scale (which soft-filtered the tiles). It resizes native map pixels with crisp nearest-neighbor scaling.",
           "Spot-ID art regenerates at 4× with larger chunky digits so IDs stay clear when you zoom in.",
+          "Tightens the Feebas panel under the map — removes the empty gap below the zoom/pan hint.",
         ],
       },
     ],
