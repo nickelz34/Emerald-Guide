@@ -2395,44 +2395,6 @@ export const AREA_MAP_ENTITIES: Record<string, TrainerPoint[]> = {
       trainerType: "TRAINER_TYPE_NORMAL",
     },
   ],
-  "mossdeepcity-stevenshouse": [
-    {
-      id: "area-e117",
-      name: "Champion Steven",
-      category: "trainer",
-      trainerClass: "Champion",
-      trainerName: "Steven",
-      
-      x: 86.36,
-      y: 87.5,
-      graphicsId: "OBJ_EVENT_GFX_STEVEN",
-      spriteSheet: "sprites/trainers/steven.png",
-      spriteWidth: 16,
-      spriteHeight: 32,
-      spriteFrame: 3,
-      
-      script: "MossdeepCity_StevensHouse_EventScript_Steven",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-    {
-      id: "area-e118",
-      name: "Ninja Boy Letter",
-      category: "trainer",
-      trainerClass: "Ninja Boy",
-      trainerName: "Letter",
-      
-      x: 59.09,
-      y: 62.5,
-      graphicsId: "OBJ_EVENT_GFX_NINJA_BOY",
-      spriteSheet: "sprites/trainers/ninja_boy.png",
-      spriteWidth: 16,
-      spriteHeight: 16,
-      spriteFrame: 0,
-      
-      script: "MossdeepCity_StevensHouse_EventScript_Letter",
-      trainerType: "TRAINER_TYPE_NONE",
-    },
-  ],
   "mtpyre-1f": [
     {
       id: "area-e119",

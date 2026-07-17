@@ -68,6 +68,8 @@ function shouldSkipObjectEvent(oe) {
   if (SKIP_GFX.has(gfx)) return true;
   if (gfx.includes("_DOLL")) return true;
   if (/^OBJ_EVENT_GFX_VAR_/.test(gfx) && !/Rival/i.test(script)) return true;
+  // Invisible triggers (e.g. Steven's house letter) must not draw as OW pins.
+  if (oe.movement_type === "MOVEMENT_TYPE_INVISIBLE") return true;
   const flag = oe.flag || "";
   if (flag.includes("FLAG_DECORATION")) return true;
   if (flag.includes("FLAG_HIDE") && (!oe.script || oe.script === "0x0")) return true;
@@ -429,6 +431,10 @@ let entityId = 0;
 for (const { id: areaId, mapId } of areas) {
   // Petalburg Gym room crops bake NPCs into the PNG; full-map Y% coords land wrong.
   if (/^petalburgcity-gym(?:-|$)/.test(areaId) && !/-battle$|-intro$/.test(areaId)) {
+    continue;
+  }
+  // Steven's house bakes Steven into the PNG (tiny interior; overlay pins stayed screen-sized).
+  if (areaId === "mossdeepcity-stevenshouse") {
     continue;
   }
   const mapDir = mapIdToFolder.get(mapId) ?? mapIdToDir(mapId);

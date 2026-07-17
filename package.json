@@ -1,7 +1,7 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.26.68",
+  "version": "1.26.69",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,6 +25,7 @@
     "preview:petalburg-scott": "node scripts/preview-petalburg-scott-cutscene.mjs",
     "preview:character-appearances": "node scripts/preview-character-appearance-cutscenes.mjs",
     "bake:petalburg-gym-rooms": "node scripts/bake-petalburg-gym-room-sprites.mjs",
+    "bake:stevens-house": "node scripts/bake-stevens-house-sprites.mjs",
     "split:petalburg-gym-rooms": "node scripts/split-petalburg-gym-rooms.mjs",
     "gen:map-crops": "node scripts/gen-map-crops.mjs",
     "gen:marts": "node scripts/gen-marts.mjs",

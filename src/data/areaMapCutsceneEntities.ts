@@ -1782,5 +1782,27 @@ export const AREA_MAP_CUTSCENE_ENTITIES: Record<string, SpriteMapPoint[]> = {
       bakedInImage: true,
     },
   ],
+  // Interior is small — bake Steven into the PNG (sync overlays stayed screen-sized).
+  "mossdeepcity-stevenshouse": [
+    {
+      id: "stevens-house-steven",
+      name: "Steven",
+      category: "trainer",
+      x: 86.36,
+      y: 87.5,
+      desc: "Steven Stone — gifts HM08 Dive after the Space Center raid (gone after Champion; Beldum ball appears on the desk).",
+      spriteSheet: "sprites/trainers/steven.png",
+      spriteWidth: 16,
+      spriteHeight: 32,
+      spriteFrame: 2,
+      spriteFlipX: true,
+      note: "Steven's House",
+      bakedInImage: true,
+      trainerClass: "Champion",
+      trainerName: "Steven",
+      graphicsId: "OBJ_EVENT_GFX_STEVEN",
+      script: "MossdeepCity_StevensHouse_EventScript_Steven",
+    },
+  ],
 
 };
