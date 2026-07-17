@@ -437,6 +437,14 @@ for (const { id: areaId, mapId } of areas) {
   if (areaId === "mossdeepcity-stevenshouse") {
     continue;
   }
+  // Ch. 7 Oldale Event 1 maps bake every NPC into the PNG.
+  if (
+    areaId === "oldaletown" ||
+    areaId === "oldaletown-mart" ||
+    areaId === "oldaletown-pokemoncenter-1f"
+  ) {
+    continue;
+  }
   const mapDir = mapIdToFolder.get(mapId) ?? mapIdToDir(mapId);
   let map;
   try {

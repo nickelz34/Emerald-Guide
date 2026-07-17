@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.70",
+    date: "2026-07-17",
+    summary:
+      "Oldale Event 1 maps bake every NPC into the art so characters stay sized correctly when zooming.",
+    sections: [
+      {
+        heading: "Oldale Town (Ch. 7 Event 1)",
+        items: [
+          "Town exterior, Pokémon Center, and Poké Mart paint all in-game NPCs (including the rival on the south exit) into the map images instead of tiny CSS overlay pins.",
+          "Legend hit-targets remain for every character; nothing was removed from the cast — only the zoom-scaling draw path changed.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.69",
     date: "2026-07-17",
     summary:

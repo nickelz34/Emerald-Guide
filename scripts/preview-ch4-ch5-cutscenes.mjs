@@ -10,6 +10,7 @@
  *
  * Usage: node scripts/preview-ch4-ch5-cutscenes.mjs
  */
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { PNG } from "pngjs";
@@ -452,44 +453,31 @@ console.log("Chapter 4 — Route 101");
 
 console.log("Chapter 5 — Oldale Town");
 {
-  const { map, layout } = loadMap("OldaleTown");
+  // Full NPC bake (correct facing, all characters including rival) lives in
+  // scripts/bake-oldale-event1-sprites.mjs — do not overwrite those area PNGs here.
+  const { layout } = loadMap("OldaleTown");
   const base = renderLayout(layout);
-  const town = clonePng(base);
-  for (const oe of map.object_events || []) {
-    // Skip rival VAR_0 (gender-swapped graphics)
-    if (oe.graphics_id === "OBJ_EVENT_GFX_GIRL_3") {
-      placePerson(town, SPRITES.girl3(), oe.x, oe.y, "south");
-    } else if (oe.graphics_id === "OBJ_EVENT_GFX_MART_EMPLOYEE") {
-      placePerson(town, SPRITES.mart(), oe.x, oe.y, "south");
-    } else if (oe.graphics_id === "OBJ_EVENT_GFX_MANIAC") {
-      placePerson(town, SPRITES.maniac(), oe.x, oe.y, "south");
-    }
-  }
-  writePreview("event-1-2-oldale-town", town, ch5Dirs);
   writePreview("event-1-2-oldale-town-tiles", base, ch5Dirs);
-  writeArea("oldaletown.png", town);
-
-  const center = loadMap("OldaleTown_PokemonCenter_1F");
-  const centerPng = renderLayout(center.layout);
-  const centerObjs = clonePng(centerPng);
-  for (const oe of center.map.object_events || []) {
-    if (oe.graphics_id === "OBJ_EVENT_GFX_NURSE") {
-      placePerson(centerObjs, SPRITES.nurse(), oe.x, oe.y, "south");
-    }
-  }
-  writePreview("event-1-pokemon-center", centerObjs, ch5Dirs);
-  writeArea("oldaletown-pokemoncenter-1f.png", centerObjs);
-
-  const mart = loadMap("OldaleTown_Mart");
-  const martPng = renderLayout(mart.layout);
-  const martObjs = clonePng(martPng);
-  for (const oe of mart.map.object_events || []) {
-    if (oe.graphics_id === "OBJ_EVENT_GFX_MART_EMPLOYEE") {
-      placePerson(martObjs, SPRITES.mart(), oe.x, oe.y, "east");
-    }
-  }
-  writePreview("event-1-pokemart", martObjs, ch5Dirs);
-  writeArea("oldaletown-mart.png", martObjs);
+  const bake = spawnSync(process.execPath, ["scripts/bake-oldale-event1-sprites.mjs"], {
+    cwd: ROOT,
+    stdio: "inherit",
+  });
+  if (bake.status !== 0) process.exit(bake.status ?? 1);
+  writePreview(
+    "event-1-2-oldale-town",
+    PNG.sync.read(fs.readFileSync(path.join(AREA_DIR, "oldaletown.png"))),
+    ch5Dirs,
+  );
+  writePreview(
+    "event-1-pokemon-center",
+    PNG.sync.read(fs.readFileSync(path.join(AREA_DIR, "oldaletown-pokemoncenter-1f.png"))),
+    ch5Dirs,
+  );
+  writePreview(
+    "event-1-pokemart",
+    PNG.sync.read(fs.readFileSync(path.join(AREA_DIR, "oldaletown-mart.png"))),
+    ch5Dirs,
+  );
 }
 
 fs.writeFileSync(
