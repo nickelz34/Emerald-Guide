@@ -24,9 +24,9 @@ export const FEEBAS_FISHING_AREA_MAP_IDS = [
 ] as const;
 
 export const FEEBAS_FISHING_SECTIONS = [
-  { id: 0, label: "North (spots 1–131)", ymin: 0, ymax: 45, spotStart: 1, spotEnd: 131, image: "maps/areas/route119-feebas-fishing-s0.png", width: 1280, height: 1472 },
-  { id: 1, label: "Middle (spots 132–298)", ymin: 46, ymax: 91, spotStart: 132, spotEnd: 298, image: "maps/areas/route119-feebas-fishing-s1.png", width: 1280, height: 1472 },
-  { id: 2, label: "South (spots 299–447)", ymin: 92, ymax: 139, spotStart: 299, spotEnd: 447, image: "maps/areas/route119-feebas-fishing-s2.png", width: 1280, height: 1536 },
+  { id: 0, label: "North (spots 1–131)", ymin: 0, ymax: 45, spotStart: 1, spotEnd: 131, image: "maps/areas/route119-feebas-fishing-s0.png", width: 1920, height: 2208 },
+  { id: 1, label: "Middle (spots 132–298)", ymin: 46, ymax: 91, spotStart: 132, spotEnd: 298, image: "maps/areas/route119-feebas-fishing-s1.png", width: 1920, height: 2208 },
+  { id: 2, label: "South (spots 299–447)", ymin: 92, ymax: 139, spotStart: 299, spotEnd: 447, image: "maps/areas/route119-feebas-fishing-s2.png", width: 1920, height: 2304 },
 ] as const;
 
 export const FEEBAS_FISHING_SPOTS: FeebasFishingSpot[] = [
