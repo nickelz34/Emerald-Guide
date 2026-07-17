@@ -20,6 +20,7 @@ const TABLE_PANEL_IDS = new Set([
   "panel:key-items",
   "panel:feebas-tiles",
   "panel:fishing-table",
+  "panel:fishing-encounters",
   "panel:poke-balls",
   "panel:type-chart",
   "panel:status-table",

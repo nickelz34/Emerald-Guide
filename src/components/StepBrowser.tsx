@@ -28,6 +28,7 @@ import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { PokeBallTable } from "./PokeBallTable";
 import { FishingTable } from "./FishingTable";
+import { FishingEncountersPanel } from "./FishingEncountersPanel";
 import { FeebasFishingMap } from "./FeebasFishingMap";
 import { NatureTable } from "./NatureTable";
 import { VitaminsTable } from "./VitaminsTable";
@@ -218,6 +219,8 @@ export function StepBrowser({
     current?.step.id === "route-119-4" && panelVisible("feebas-tiles");
   const showFishingTable =
     current?.step.id === "pregame-field-3" && panelVisible("fishing-table");
+  const showFishingEncounters =
+    current?.step.id === "pregame-field-3" && panelVisible("fishing-encounters");
   const showPokeBallTable =
     current?.step.id === "pregame-field-5" && panelVisible("poke-balls");
   const showBattleBasicsPanel =
@@ -747,8 +750,16 @@ export function StepBrowser({
 
     if (blockId === "panel:fishing-table" && showFishingTable) {
       return (
-        <section className="reference-embed" aria-label="Fishing rods and encounters">
+        <section className="reference-embed" aria-label="Fishing rods">
           <FishingTable />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:fishing-encounters" && showFishingEncounters) {
+      return (
+        <section className="reference-embed" aria-label="Fishing encounters by location">
+          <FishingEncountersPanel />
         </section>
       );
     }

@@ -320,7 +320,7 @@
           "summary": "Three free rods unlock better fishing tables: Old Rod (Dewford), Good Rod (Route 118), Super Rod (Mossdeep). Rod tables are not the same as Surf.",
           "story": [
             "Emerald fishing is short and mechanical: face water → use a rod from the Bag → press A when you see “Oh! A bite!” Better rods need more successful prompts in a row. Miss or walk away and you can try the same tile again.",
-            "<strong class=\"story-heading\">The three rods</strong>\nAll three are free gifts — none are sold in marts.\n<ul>\n<li><strong>Old Rod</strong> — Dewford south shore by the Gym. Fast prompts; Magikarp and Tentacool / Goldeen.</li>\n<li><strong>Good Rod</strong> — Route 118 east shore (needs Surf / Balance Badge). Mid-level tables.</li>\n<li><strong>Super Rod</strong> — Mossdeep house east of the Gym. The Super Rod is a free gift (never sold). Strongest map tables (see the chart below).</li>\n</ul>",
+            "<strong class=\"story-heading\">The three rods</strong>\nAll three are free gifts — none are sold in marts.\n<ul>\n<li><strong>Old Rod</strong> — Dewford south shore by the Gym. Fast prompts; Magikarp and Tentacool / Goldeen.</li>\n<li><strong>Good Rod</strong> — Route 118 east shore (needs Surf / Balance Badge). Mid-level tables.</li>\n<li><strong>Super Rod</strong> — Mossdeep house east of the Gym. The Super Rod is a free gift (never sold). Strongest map tables (see Fishing encounters by location below).</li>\n</ul>",
             "<strong class=\"story-heading\">Feebas &amp; Relicanth</strong>\n<ul>\n<li><strong>Feebas (Route 119)</strong> — rare fish on six Dewford-trend fishing tiles (any rod; Surf never finds it). The full hunt guide, north/middle/south spot maps, and active-tile calculator live in the walkthrough at <strong>Ch. 33 — Route 119 &amp; Weather Institute, event 4 of 4</strong> (Hunt Feebas on the river), right after Rival Battle #4.</li>\n<li><strong>Relicanth</strong> — Dive encounter on Underwater Routes 124 / 126, not Super Rod. Needed with Wailord for the Regi puzzle.</li>\n</ul>"
           ],
           "details": [],
@@ -346,6 +346,7 @@
             "story",
             "media",
             "panel:fishing-table",
+            "panel:fishing-encounters",
             "tips",
             "secrets",
             "tags"

@@ -43,6 +43,20 @@ export interface FishingLocationCluster {
   note?: string;
 }
 
+/** One fishable map entry for the location finder (points at a shared rod table). */
+export interface FishingMapEntry {
+  /** Stable id: method + map name. */
+  id: string;
+  /** Pretty map name (e.g. "Lilycove City"). */
+  mapName: string;
+  /** Shared-table cluster this map belongs to. */
+  clusterId: string;
+  encounters: FishingEncounterMon[];
+  /** Other maps that share this exact rod table (excludes mapName). */
+  sameTableAs: string[];
+  note?: string;
+}
+
 interface RawMon {
   min_level: number;
   max_level: number;
@@ -119,7 +133,7 @@ export const FISHING_SPECIAL_NOTES = [
   {
     id: "feebas",
     title: "Feebas (Route 119)",
-    body: "Exactly six numbered fishing spots are active at a time (Dewford trendy-phrase seed) — use the Feebas tiles panel at the top of this step to enter your seed. Fish any rod on those tiles (Old Rod is fastest). On a correct tile, Feebas is about 50%. Surf never catches Feebas. Not part of the standard Route 119 rod table.",
+    body: "Exactly six numbered fishing spots are active at a time (Dewford trendy-phrase seed). The hunt guide and tile calculator are in the walkthrough at Ch. 33 event 4 of 4 (Hunt Feebas on the river). Fish any rod on those tiles (Old Rod is fastest); ~50% on a correct tile. Surf never catches Feebas. Not part of the standard Route 119 rod table.",
   },
   {
     id: "relicanth",
@@ -357,6 +371,41 @@ export function getFishingClusters(method: EncounterMethod): FishingLocationClus
     CLUSTER_CACHE[method] = buildClustersForRod(method);
   }
   return CLUSTER_CACHE[method]!;
+}
+
+const MAP_ENTRY_CACHE: Partial<Record<EncounterMethod, FishingMapEntry[]>> = {};
+
+/**
+ * Flat per-map fishing location list for the finder UI.
+ * Prefer this over cluster labels — shared-table groups compress into huge names.
+ */
+export function getFishingMapEntries(method: EncounterMethod): FishingMapEntry[] {
+  if (method !== "old-rod" && method !== "good-rod" && method !== "super-rod") return [];
+  if (!MAP_ENTRY_CACHE[method]) {
+    const entries: FishingMapEntry[] = [];
+    for (const cluster of getFishingClusters(method)) {
+      for (const mapName of cluster.maps) {
+        entries.push({
+          id: `${method}:${mapName}`,
+          mapName,
+          clusterId: cluster.id,
+          encounters: cluster.encounters,
+          sameTableAs: cluster.maps.filter((m) => m !== mapName),
+          note: cluster.note,
+        });
+      }
+    }
+    entries.sort((a, b) => {
+      const ar = a.mapName.match(/^Route (\d+)/);
+      const br = b.mapName.match(/^Route (\d+)/);
+      if (ar && br) return Number(ar[1]) - Number(br[1]) || a.mapName.localeCompare(b.mapName);
+      if (ar) return -1;
+      if (br) return 1;
+      return a.mapName.localeCompare(b.mapName);
+    });
+    MAP_ENTRY_CACHE[method] = entries;
+  }
+  return MAP_ENTRY_CACHE[method]!;
 }
 
 /** @deprecated Prefer getFishingClusters("super-rod") — kept for any external callers. */
