@@ -4,6 +4,7 @@ import { HOENN_MAP_W, HOENN_MAP_H, type MapCrop } from "../data/mapCrops";
 import { hoennCropImagePath } from "../data/hoennCropImages";
 import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
+import { hasOwSprite, isBakedCutscenePoint } from "../data/areaMapCutsceneEntities";
 import { MapZoomViewport } from "./MapZoomViewport";
 import { MapPinVisual, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
@@ -127,16 +128,24 @@ export function HoennCrop({
         const cat = POI_CATEGORIES.find((c) => c.id === point.category);
         const active = activeId === point.id;
         const trainer = isTrainerPoint(point);
+        const owSprite = hasOwSprite(point);
+        const baked = isBakedCutscenePoint(point);
         return (
           <button
             key={point.id}
             type="button"
-            className={`hoenn-map__pin hoenn-map__pin--${point.category} ${active ? "is-active" : ""}`}
+            className={`hoenn-map__pin ${
+              baked
+                ? "hoenn-map__pin--baked-cutscene"
+                : `hoenn-map__pin--${point.category}${
+                    trainer || owSprite ? " hoenn-map__pin--ow-sprite" : ""
+                  }`
+            } ${active ? "is-active" : ""}`}
             style={{
               left: `${point.x}%`,
               top: `${point.y}%`,
               ["--pin-color" as string]: cat?.color,
-              ...pinSpriteStyle(point),
+              ...(baked ? {} : pinSpriteStyle(point)),
             }}
             onPointerDown={(e) => e.stopPropagation()}
             onMouseEnter={(e) => {
@@ -157,7 +166,7 @@ export function HoennCrop({
             }}
             aria-label={point.name}
           >
-            <MapPinVisual point={point} />
+            {!baked && <MapPinVisual point={point} />}
             <span className="hoenn-map__pin-hint" aria-hidden="true">
               {trainer ? (
                 <TrainerPinHint trainer={point} />
