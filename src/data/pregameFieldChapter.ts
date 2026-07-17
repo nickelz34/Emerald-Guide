@@ -66,7 +66,7 @@ All three are free gifts — none are sold in marts.
 </ul>`,
         `<strong class="story-heading">Feebas &amp; Relicanth</strong>
 <ul>
-<li><strong>Feebas (Route 119)</strong> — only on six Dewford-trend water tiles; any rod; ~50% on a correct tile. Surf never finds it. Change Dewford’s trendy phrase to reshuffle tiles.</li>
+<li><strong>Feebas (Route 119)</strong> — six active fishing-spot IDs from Dewford’s trendy phrase (see the numbered map below); any rod; ~50% on a correct tile. Surf never finds it. Change the trendy phrase to reshuffle.</li>
 <li><strong>Relicanth</strong> — Dive encounter on Underwater Routes 124 / 126, not Super Rod. Needed with Wailord for the Regi puzzle.</li>
 </ul>`,
       ],

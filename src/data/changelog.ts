@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.43",
+    date: "2026-07-17",
+    summary:
+      "Route 119 Feebas fishing-spot maps number every fishable tile (pokeemerald IDs) and show an example set of six active spots.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "New Feebas maps on Fishing and Route 119: all 447 fishing spots numbered from pokeemerald (north / middle / south sections), with Weather Institute landmark and an example six-tile set for a demo seed.",
+          "Copy clarifies Feebas tiles are not fixed — six spot IDs follow Dewford’s trendy-phrase seed; Surf never finds Feebas.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.42",
     date: "2026-07-17",
     summary:
