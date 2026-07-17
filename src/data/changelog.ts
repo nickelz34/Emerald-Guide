@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.51",
+    date: "2026-07-17",
+    summary:
+      "Feebas calculator accepts Trainer ID + Dewford trendy phrase, and uses the correct Feebas RNG constant.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "New TID + phrase tab reverse-engineers candidate Dewford trend seeds from Trainer ID and the two Easy Chat words (when the phrase was never manually changed).",
+          "Feebas tile RNG now uses pokeemerald’s ISO_RANDOMIZE2 (+12345), matching in-game FeebasRandom.",
+          "Active Feebas markers are clear in the center (readable spot numbers) with a brighter, faster-pulsing magenta outer ring.",
+          "Feebas how-to copy updated for the Seed / TID + phrase tabs, candidate seeds, and magenta ring markers.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.50",
     date: "2026-07-17",
     summary:
