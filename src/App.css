@@ -5198,6 +5198,21 @@
   min-width: 0;
 }
 
+.fishing-table__rod-name-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.fishing-table__rod-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
 .fishing-table__rod-name {
   font-weight: 700;
   font-size: 1.05rem;

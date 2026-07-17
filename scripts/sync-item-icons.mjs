@@ -315,6 +315,10 @@ const itemAssets = parseItemIconTable(tableH);
 const nameToAssets = buildNameToAssets(itemNames, itemAssets, iconPaths, palettePaths);
 
 const neededNames = collectMapItemNames();
+// Guide panels (not map pins) that still need bag icons kept across syncs.
+for (const name of ["Old Rod", "Good Rod", "Super Rod"]) {
+  neededNames.add(name);
+}
 for (const [alias, assets] of Object.entries(FALLBACK_ASSETS)) {
   if (neededNames.has(alias)) nameToAssets.set(alias, assets);
 }

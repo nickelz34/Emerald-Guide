@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.59",
+    date: "2026-07-17",
+    summary:
+      "Fishing rods panel shows Old / Good / Super Rod bag sprites next to each rod name.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Synced pokeemerald bag icons for Old Rod, Good Rod, and Super Rod into public/sprites/items/icons/.",
+          "Fishing rods cards display each rod’s 24×24 bag sprite beside the name.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.58",
     date: "2026-07-17",
     summary:
