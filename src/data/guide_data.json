@@ -17,17 +17,7 @@
             "<strong class=\"story-heading\">Double battles</strong>\nTwo of yours vs two foes. Emerald has three common sources (Serebii / Bulbapedia):\n<ul>\n<li><strong>Pair classes</strong> — Twins, Young Couple, and similar share one party</li>\n<li><strong>Dual spotters</strong> — two independent trainers see you at once (Emerald feature); each uses their own party. Only one conscious Pokémon → two singles instead</li>\n<li><strong>Set pieces</strong> — Tate &amp; Liza at Mossdeep Gym</li>\n</ul>\nBoth-foes moves (Surf, Rock Slide…) deal half damage each when two foes are present; Earthquake-style moves hit every other battler at full power, including your ally (Gen III 50% cut — not Gen IV’s 25%).",
             "<strong class=\"story-heading\">Commands, escape &amp; blackout</strong>\nFight / Bag / Pokémon / Run are covered in the command cards below (Prima Emerald primer). A voluntary switch is your action and happens before moves, so the new lead takes the hit.\n<ul>\n<li><strong>Run (wild):</strong> always works if your Speed ≥ the foe’s; if slower, each fail makes the next try easier (Gen III–IV escape formula). Smoke Ball, Poké Doll, or Run Away force escape</li>\n<li><strong>Black out:</strong> return to the last Pokémon Center (or home early on) and lose exactly half the money you are carrying — RSE rule, not FR/LG’s badge-scaled loss (Bulbapedia). Story progress is kept</li>\n</ul>"
           ],
-          "details": [
-            "Wild = always 1-on-1 (grass, caves, Surf, fishing). Balls and Run allowed.",
-            "Trainer = line of sight or talk. No catching; Run fails. Win prize money.",
-            "Singles = 1 vs 1 (most trainers, rivals, Gyms before Mossdeep).",
-            "Doubles = 2 vs 2 from pair classes, two spotters at once (Emerald), or Tate & Liza.",
-            "Both-foes moves (Surf, Rock Slide…) deal half damage per target in Emerald when two foes are present; all-field moves (Earthquake…) stay full power.",
-            "Menu: Fight (moves) · Bag (items / Balls) · Pokémon (switch / summary) · Run (wild escape check).",
-            "Voluntary switch happens before moves — the new lead eats the incoming attack.",
-            "Speed ties → battle RNG decides turn order (not a coin flip).",
-            "Black out → last Center (or home) and lose half your money (RSE rule)."
-          ],
+          "details": [],
           "tips": [
             "Save before Gym Leaders and legendaries — a wipe costs half your money and sends you to the last Center.",
             "Keep two healthy leads ready on busy routes; Emerald’s dual-spotter doubles punish a one-Pokémon party with back-to-back singles instead.",

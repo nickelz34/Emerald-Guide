@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.63",
+    date: "2026-07-17",
+    summary:
+      "Updated step “Battle types & commands”.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Updated step “Battle types & commands” (Ch. 1 — Pregame: Battles & Training · Details).",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.62",
     date: "2026-07-17",
     summary:
