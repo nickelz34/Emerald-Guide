@@ -30,6 +30,10 @@ import {
   prependChangelogEntry,
   toChangelogRelease,
 } from "../src/admin/releaseFromChanges.ts";
+import {
+  formatCentralIsoDateTime,
+  formatChangelogReleaseDate,
+} from "../src/lib/changelogTime.ts";
 
 const walkthrough = guideData.walkthrough;
 
@@ -194,6 +198,7 @@ check("admin publish plans patch vs minor like Cursor ships", () => {
   assert.equal(patchPlan.version, "1.26.26");
   assert.equal(patchPlan.bump, "patch");
   assert.equal(patchPlan.updateReadmeProse, false);
+  assert.equal(patchPlan.date, "2026-07-16T07:00:00-05:00");
 
   const minorDraft = clone(walkthrough);
   minorDraft.unshift({
@@ -228,9 +233,11 @@ check("release helpers update changelog package.json lockfile and README", () =>
     new Date("2026-07-16T12:00:00Z"),
   );
   const release = toChangelogRelease(plan);
+  assert.equal(release.date, "2026-07-16T07:00:00-05:00");
   const changelogSrc = `export const CHANGELOG: ChangelogRelease[] = [\n  { version: "1.26.25" },\n];\n`;
   const nextChangelog = prependChangelogEntry(changelogSrc, release);
   assert.match(nextChangelog, /version: "1\.26\.26"/);
+  assert.match(nextChangelog, /date: "2026-07-16T07:00:00-05:00"/);
   assert.ok(nextChangelog.indexOf("1.26.26") < nextChangelog.indexOf("1.26.25"));
 
   const pkg = bumpPackageJsonVersion(`{\n  "name": "x",\n  "version": "1.26.25"\n}\n`, "1.26.26");
@@ -296,6 +303,20 @@ check("editable changelog draft overrides auto plan before publish", () => {
   assert.equal(edited.sections[0].heading, "Custom heading");
   assert.deepEqual(edited.sections[0].items, ["First custom bullet.", "Second custom bullet."]);
   assert.match(edited.commitBody, /Custom summary for the release/);
+});
+
+check("changelog timestamps use Central Time for storage and display", () => {
+  assert.equal(formatCentralIsoDateTime(new Date("2026-07-16T12:00:00Z")), "2026-07-16T07:00:00-05:00");
+  assert.equal(formatCentralIsoDateTime(new Date("2026-01-16T12:00:00Z")), "2026-01-16T06:00:00-06:00");
+  assert.equal(formatChangelogReleaseDate("2026-07-17"), "July 17, 2026");
+  assert.equal(
+    formatChangelogReleaseDate("2026-07-17T17:04:15-05:00"),
+    "July 17, 2026, 5:04 PM CT",
+  );
+  assert.equal(
+    formatChangelogReleaseDate("2026-07-17T22:04:15+00:00"),
+    "July 17, 2026, 5:04 PM CT",
+  );
 });
 
 check("detects GitHub ruleset 409 that requires a pull request", () => {

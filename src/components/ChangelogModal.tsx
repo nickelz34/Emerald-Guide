@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { CHANGELOG } from "../data/changelog";
+import { formatChangelogReleaseDate } from "../lib/changelogTime";
 
 interface ChangelogModalProps {
   open: boolean;
@@ -48,7 +49,7 @@ export function ChangelogModal({ open, onClose }: ChangelogModalProps) {
                   {index === 0 && <span className="changelog-release__badge">Current</span>}
                 </div>
                 <time className="changelog-release__date" dateTime={release.date}>
-                  {formatReleaseDate(release.date)}
+                  {formatChangelogReleaseDate(release.date)}
                 </time>
               </header>
               <p className="changelog-release__summary">{release.summary}</p>
@@ -68,13 +69,4 @@ export function ChangelogModal({ open, onClose }: ChangelogModalProps) {
       </div>
     </div>
   );
-}
-
-function formatReleaseDate(iso: string): string {
-  const [year, month, day] = iso.split("-").map(Number);
-  return new Date(year, month - 1, day).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 }
