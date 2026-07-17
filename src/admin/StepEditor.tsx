@@ -85,14 +85,14 @@ export function StepEditor({ step, onChange }: StepEditorProps) {
       />
 
       <SortableStringList
-        label="Secrets"
+        label="Secrets, Extras & Hidden Items"
         droppableId={`secrets-${step.id}`}
         items={step.secrets ?? []}
         richText
         multiline
         placeholder="Secret, hidden item, or extras note…"
         addLabel="+ Add secret"
-        emptyText="No step secrets yet."
+        emptyText="No secrets, extras, or hidden items yet."
         onChange={(secrets) => onChange({ secrets: secrets.length ? secrets : undefined })}
       />
 
