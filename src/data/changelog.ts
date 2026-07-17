@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.40",
+    date: "2026-07-17",
+    summary:
+      "Ch. 2 Fishing is cleaned up and gets a pokeemerald-backed rods + Super Rod encounter table.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Removed the pasted HTML wall on Fishing (Section 3); story is short headed sections for rods, Feebas, and Relicanth.",
+          "New Fishing table panel: Old / Good / Super Rod obtain cards plus Super Rod highlight maps with rates, levels, and sprites from pokeemerald wild_encounters.json.",
+          "Corrected Relicanth: Dive on Underwater Routes 124/126 — not a Super Rod catch (also fixed Mossdeep “Super Rod & Regi prep”). Route 114 Super Rod is 100% Barboach (Whiscash is on Meteor Falls B1F / Victory Road B2F).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.39",
     date: "2026-07-17",
     summary:
