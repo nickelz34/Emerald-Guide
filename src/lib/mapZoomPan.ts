@@ -106,6 +106,12 @@ export function useMapZoomPan({
     moved: boolean;
   } | null>(null);
 
+  // Prefer primitive deps so parent re-renders that pass a fresh `{width,height}`
+  // object don't churn fit/reset callbacks (and snap zoom back to fit).
+  const crispW = crispContentSize?.width ?? 0;
+  const crispH = crispContentSize?.height ?? 0;
+  const crisp = crispW > 0 && crispH > 0;
+
   zoomRef.current = zoom;
   panRef.current = pan;
 
@@ -131,13 +137,13 @@ export function useMapZoomPan({
   }, [contentRef]);
 
   const baseContentSize = useCallback(() => {
-    if (crispContentSize && crispContentSize.width > 0 && crispContentSize.height > 0) {
-      return crispContentSize;
+    if (crisp) {
+      return { width: crispW, height: crispH };
     }
     const content = contentRef.current;
     if (!content) return { width: 0, height: 0 };
     return { width: content.offsetWidth, height: content.offsetHeight };
-  }, [contentRef, crispContentSize]);
+  }, [contentRef, crisp, crispH, crispW]);
 
   const fitToContent = useCallback(() => {
     const viewport = viewportRef.current;
@@ -393,9 +399,11 @@ export function useMapZoomPan({
       resetView();
     });
     ro.observe(viewport);
-    if (contentRef.current) ro.observe(contentRef.current);
+    // Crisp zoom resizes the content box as the zoom level changes. Observing it
+    // would fire on every wheel/pinch tick and snap the view back to fit.
+    if (!crisp && contentRef.current) ro.observe(contentRef.current);
     return () => ro.disconnect();
-  }, [contentKey, contentRef, enabled, resetView]);
+  }, [contentKey, contentRef, crisp, enabled, resetView]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -438,13 +446,12 @@ export function useMapZoomPan({
     [zoomAtPoint],
   );
 
-  const crisp = Boolean(crispContentSize);
   const canvasStyle: CSSProperties = crisp
     ? {
         transform: `translate(${pan.x}px, ${pan.y}px)`,
         transformOrigin: "0 0",
-        width: crispContentSize!.width * zoom,
-        height: crispContentSize!.height * zoom,
+        width: crispW * zoom,
+        height: crispH * zoom,
       }
     : {
         transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,

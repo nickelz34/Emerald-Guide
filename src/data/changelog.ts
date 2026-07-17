@@ -20,6 +20,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.56",
+    date: "2026-07-17",
+    summary:
+      "Feebas calculator scroll and pinch zoom work again with crisp pixel scaling.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Crisp Feebas zoom resizes the map content box; a ResizeObserver was watching that box and resetting the view on every wheel/pinch tick. It now only watches the viewport frame in crisp mode.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.55",
     date: "2026-07-17",
     summary:

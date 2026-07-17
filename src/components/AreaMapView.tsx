@@ -143,6 +143,13 @@ export function AreaMapView({
   const isWide = aspect > 1.25;
   /** Petalburg Gym etc. — height≫width; aspect×maxH collapses to a useless strip. */
   const isTall = aspect > 0 && aspect < 0.4;
+  const crispContentSize = useMemo(
+    () =>
+      crispPixelZoom && area
+        ? { width: area.width, height: area.height }
+        : null,
+    [area, crispPixelZoom],
+  );
 
   if (!area) return null;
 
@@ -309,7 +316,7 @@ export function AreaMapView({
       focusPercent={focusPercent}
       focusKey={focusKey}
       showControls={showZoomControls || interactive}
-      crispContentSize={crispPixelZoom ? { width: area.width, height: area.height } : null}
+      crispContentSize={crispContentSize}
     >
       {mapFrame}
     </MapZoomViewport>
