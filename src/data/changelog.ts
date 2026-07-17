@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.38",
+    date: "2026-07-17",
+    summary:
+      "Updated step “Fishing”. Revamped the fishing section to include more information.",
+    sections: [
+      {
+        heading: "Walkthrough",
+        items: [
+          "Updated step “Fishing” (Ch. 2 — Pregame: Catching, Travel & Trading · Story).",
+        ],
+      },
+    ],
+  },
+
+  {
     version: "1.26.37",
     date: "2026-07-17",
     summary:
