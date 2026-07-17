@@ -20,6 +20,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.72",
+    date: "2026-07-17",
+    summary:
+      "Ch. 1–10 area maps bake remaining NPC overlays into the art (Birch’s lab, May’s room, Granite Cave).",
+    sections: [
+      {
+        heading: "Early chapters (1–10)",
+        items: [
+          "Professor Birch’s Lab paints Aide, Birch, and your rival into the image (used on Ch. 2 trading, Ch. 5 lab visit, Ch. 6 post-rescue).",
+          "May’s House 2F bakes Rival May for Ch. 5 Event 2.",
+          "Granite Cave 1F Hiker (Flash) and Steven’s Room bake into the cave maps for Ch. 2 Exploring caves (and later Granite Cave chapters).",
+          "Other Ch. 1–10 event maps already used baked cutscenes (truck, Route 101 rescue, Oldale, rival/Wally/Norman/Scott face-offs).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.71",
     date: "2026-07-17",
     summary:
