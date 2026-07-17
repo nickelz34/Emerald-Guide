@@ -23,13 +23,14 @@ export const CHANGELOG: ChangelogRelease[] = [
     version: "1.26.45",
     date: "2026-07-17",
     summary:
-      "Feebas tiles is its own top panel on Fishing, with a Dewford trend seed field that pins your six active spots.",
+      "Feebas tiles is its own top panel on Fishing, with a Dewford trend seed calculator and detailed how-to instructions.",
     sections: [
       {
         heading: "Pregame — Catching, Travel & Trading",
         items: [
           "Feebas tiles moves out of the fishing table into a dedicated panel at the top of the Fishing step.",
           "Enter your Dewford trend seed (hex or decimal u16) to list and pin the six active Route 119 fishing spots; Demo seed still available for a quick example.",
+          "Step-by-step guide covers how Feebas works, how to get the seed (PKHeX Feebas Locator, TID+phrase tools, advanced save dump), how to read the maps/pins, fishing tips, and reshuffling in Dewford.",
         ],
       },
     ],
