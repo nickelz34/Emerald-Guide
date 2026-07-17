@@ -1397,6 +1397,18 @@ export const AREA_MAPS: AreaMap[] = [
     markers: [],
   },
   {
+    // Hand-added: Scott stops the player on Petalburg’s west exit (toward Route 104).
+    id: "petalburgcity-scott",
+    mapId: "MAP_PETALBURG_CITY",
+    name: "Petalburg City",
+    group: "Petalburg City",
+    floor: "Scott’s first stop",
+    image: "maps/areas/petalburgcity-scott.png",
+    width: 240,
+    height: 160,
+    markers: [],
+  },
+  {
     // Hand-added: Rival Battle #2 face-off near Pokémon School (Brendan + May baked in).
     id: "rustborocity-rival-battle",
     mapId: "MAP_RUSTBORO_CITY",

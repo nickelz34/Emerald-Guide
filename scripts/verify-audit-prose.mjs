@@ -75,6 +75,11 @@ const REQUIRED = [
   { file: "src/data/hmUnlock.ts", re: /route-119-3/i, why: "Fly HM tied to rival step" },
   { file: "src/data/postgameWalkthrough.ts", re: /become Champion/i, why: "Trick House 8 Champion gate" },
   { file: "src/data/walkthrough.ts", re: /Meditite/i, why: "Brawly party includes Meditite" },
+  {
+    file: "src/data/walkthrough.ts",
+    re: /Scott — hurries over and stops you/i,
+    why: "Petalburg exit: mandatory Scott encounter before Route 104",
+  },
   { file: "src/data/walkthrough.ts", re: /Claydol.*Xatu/i, why: "Tate & Liza full party" },
   { file: "src/data/areaData.ts", re: /both Plusle and Minun appear in Emerald/i, why: "Route 110 encounter note" },
   {

@@ -36,7 +36,7 @@ export const EVENT_MAP_CROP: Record<string, EventMapCrop> = {
   "route-102-2": { crop: { x: 8.5, y: 62.6632, w: 6.75, h: 6.2663 }, caption: "Route 102 — rare Ralts grass", areaId: "route-102" },
   "route-102-3": { crop: { x: 4.75, y: 60.0522, w: 4.25, h: 8.8773 }, caption: "Petalburg City", areaId: "petalburg" },
   "petalburg-2": { crop: { x: 8.5, y: 62.6632, w: 6.75, h: 6.2663 }, caption: "Route 102 — Wally's catching tutorial", areaId: "route-102" },
-  "petalburg-3": { crop: { x: 4.75, y: 60.0522, w: 4.25, h: 8.8773 }, caption: "Petalburg City — stock up", areaId: "petalburg" },
+  "petalburg-3": { crop: { x: 4.75, y: 60.0522, w: 4.25, h: 8.8773 }, caption: "Petalburg City — Scott on the west exit", areaId: "petalburg" },
   "route-104-3": { crop: { x: 0, y: 46.9974, w: 5.25, h: 21.9321 }, caption: "Route 104 — beach and flowers", areaId: "route-104" },
   "rustboro-3": { crop: { x: 0, y: 31.3316, w: 5.25, h: 16.7102 }, caption: "Rustboro City — Rival Battle #2", areaId: "rustboro" },
   "route-116-1": { crop: { x: 4.75, y: 31.3316, w: 13, h: 6.2663 }, caption: "Route 116 — chasing the thief", areaId: "route-116" },

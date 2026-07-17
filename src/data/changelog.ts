@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.31",
+    date: "2026-07-17",
+    summary:
+      "Petalburg Event 3 covers Scott stopping you on the way to Route 104, with a matching cutscene.",
+    sections: [
+      {
+        heading: "Walkthrough — Petalburg City (Ch. 10 Event 3)",
+        items: [
+          "Story, checklist, and secrets now include the mandatory Scott encounter on the west exit (after Wally’s catch).",
+          "New baked cutscene shows Scott talking to Brendan on Petalburg’s west path toward Route 104.",
+          "Scott sightings checklist links this first meeting to petalburg-3.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.30",
     date: "2026-07-16",
     summary:
