@@ -51,6 +51,11 @@ interface AreaMapViewProps {
   focusKey?: string | number;
   /** Show +/- zoom controls on the viewport. */
   showZoomControls?: boolean;
+  /**
+   * Zoom by resizing native map pixels (nearest-neighbor) instead of CSS scale.
+   * Keeps baked Feebas spot numbers sharp.
+   */
+  crispPixelZoom?: boolean;
 }
 
 /** Compact interactive area map for walkthrough step galleries. */
@@ -68,6 +73,7 @@ export function AreaMapView({
   focusPercent = null,
   focusKey,
   showZoomControls = false,
+  crispPixelZoom = false,
 }: AreaMapViewProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
@@ -240,27 +246,33 @@ export function AreaMapView({
 
   const mapFrame = (
     <div
-      className="area-map-view__frame"
+      className={`area-map-view__frame${crispPixelZoom && zoomEnabled ? " area-map-view__frame--crisp" : ""}`}
       style={
-        zoomEnabled
-          ? isTall
-            ? { width: "100%" }
-            : {
-                width: "100%",
-                height: "auto",
-                aspectRatio: `${area.width} / ${area.height}`,
-              }
-          : isTall
-            ? {
-                width: "100%",
-                maxWidth: "100%",
-                height: maxH,
-                aspectRatio: "unset",
-              }
-            : {
-                aspectRatio: `${area.width} / ${area.height}`,
-                width: `min(100%, ${Math.round(aspect * maxH)}px)`,
-              }
+        crispPixelZoom && zoomEnabled
+          ? {
+              width: "100%",
+              height: "100%",
+              aspectRatio: "unset",
+            }
+          : zoomEnabled
+            ? isTall
+              ? { width: "100%" }
+              : {
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: `${area.width} / ${area.height}`,
+                }
+            : isTall
+              ? {
+                  width: "100%",
+                  maxWidth: "100%",
+                  height: maxH,
+                  aspectRatio: "unset",
+                }
+              : {
+                  aspectRatio: `${area.width} / ${area.height}`,
+                  width: `min(100%, ${Math.round(aspect * maxH)}px)`,
+                }
       }
       onClick={
         inLightbox
@@ -276,7 +288,11 @@ export function AreaMapView({
       <img
         src={assetUrl(area.image)}
         alt={label}
-        className={`area-map-view__image${isTall && !zoomEnabled ? " area-map-view__image--tall-preview" : ""}`}
+        width={crispPixelZoom ? area.width : undefined}
+        height={crispPixelZoom ? area.height : undefined}
+        className={`area-map-view__image${isTall && !zoomEnabled ? " area-map-view__image--tall-preview" : ""}${
+          crispPixelZoom && zoomEnabled ? " area-map-view__image--crisp" : ""
+        }`}
         decoding="async"
         draggable={false}
       />
@@ -293,6 +309,7 @@ export function AreaMapView({
       focusPercent={focusPercent}
       focusKey={focusKey}
       showControls={showZoomControls || interactive}
+      crispContentSize={crispPixelZoom ? { width: area.width, height: area.height } : null}
     >
       {mapFrame}
     </MapZoomViewport>

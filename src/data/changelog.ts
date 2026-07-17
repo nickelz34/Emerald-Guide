@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.49",
+    date: "2026-07-17",
+    summary:
+      "Feebas maps zoom with nearest-neighbor pixel scaling so spot numbers stay sharp instead of blurry.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Feebas map zoom no longer uses CSS transform scale (which soft-filtered the tiles). It resizes native map pixels with crisp nearest-neighbor scaling.",
+          "Spot-ID art regenerates at 4× with larger chunky digits so IDs stay clear when you zoom in.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.48",
     date: "2026-07-17",
     summary:

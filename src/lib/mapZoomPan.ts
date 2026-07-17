@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 
-export const ZOOM_MIN = 0.5;
-export const ZOOM_MAX = 4;
+export const ZOOM_MIN = 0.15;
+export const ZOOM_MAX = 8;
 const WHEEL_ZOOM_FACTOR = 1.08;
 const TAP_DRAG_THRESHOLD = 6;
 
@@ -67,6 +67,11 @@ interface UseMapZoomPanOptions {
   focusKey?: string | number;
   /** Multiplier over fit-zoom when focusing a point (clamped to ZOOM_MAX). */
   focusZoomMult?: number;
+  /**
+   * When set, zoom by resizing the content box (nearest-neighbor friendly) instead
+   * of CSS `transform: scale()`, which bilinear-filters pixel art and baked text.
+   */
+  crispContentSize?: { width: number; height: number } | null;
 }
 
 export function useMapZoomPan({
@@ -78,6 +83,7 @@ export function useMapZoomPan({
   focusPercent = null,
   focusKey,
   focusZoomMult = 2.4,
+  crispContentSize = null,
 }: UseMapZoomPanOptions) {
   const [zoom, setZoom] = useState(1);
   const [fitZoom, setFitZoom] = useState(1);
@@ -124,32 +130,40 @@ export function useMapZoomPan({
     setRecenterPos({ left, top });
   }, [contentRef]);
 
+  const baseContentSize = useCallback(() => {
+    if (crispContentSize && crispContentSize.width > 0 && crispContentSize.height > 0) {
+      return crispContentSize;
+    }
+    const content = contentRef.current;
+    if (!content) return { width: 0, height: 0 };
+    return { width: content.offsetWidth, height: content.offsetHeight };
+  }, [contentRef, crispContentSize]);
+
   const fitToContent = useCallback(() => {
     const viewport = viewportRef.current;
-    const content = contentRef.current;
-    if (!viewport || !content || !enabled) return;
+    if (!viewport || !enabled) return;
+    const { width: contentW, height: contentH } = baseContentSize();
+    if (contentW <= 0 || contentH <= 0) return;
 
     const { pan: nextPan, zoom: nextZoom } = computeFitView(
       viewport.clientWidth,
       viewport.clientHeight,
-      content.offsetWidth,
-      content.offsetHeight,
+      contentW,
+      contentH,
       maxFitZoom,
     );
     setFitZoom(nextZoom);
     setZoom(nextZoom);
     setPan(nextPan);
     requestAnimationFrame(syncRecenterPosition);
-  }, [contentRef, enabled, maxFitZoom, syncRecenterPosition]);
+  }, [baseContentSize, enabled, maxFitZoom, syncRecenterPosition]);
 
   const focusOnPercent = useCallback(
     (pct: { x: number; y: number }, zoomMult = focusZoomMult) => {
       const viewport = viewportRef.current;
-      const content = contentRef.current;
-      if (!viewport || !content || !enabled) return;
+      if (!viewport || !enabled) return;
 
-      const contentW = content.offsetWidth;
-      const contentH = content.offsetHeight;
+      const { width: contentW, height: contentH } = baseContentSize();
       const frameW = viewport.clientWidth;
       const frameH = viewport.clientHeight;
       if (contentW <= 0 || contentH <= 0 || frameW <= 0 || frameH <= 0) return;
@@ -167,7 +181,7 @@ export function useMapZoomPan({
       });
       requestAnimationFrame(syncRecenterPosition);
     },
-    [contentRef, enabled, focusZoomMult, maxFitZoom, syncRecenterPosition],
+    [baseContentSize, enabled, focusZoomMult, maxFitZoom, syncRecenterPosition],
   );
 
   const zoomAtPoint = useCallback((newZoom: number, clientX: number, clientY: number) => {
@@ -424,14 +438,31 @@ export function useMapZoomPan({
     [zoomAtPoint],
   );
 
-  const canvasStyle: CSSProperties = {
-    transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-    transformOrigin: "0 0",
-  };
+  const crisp = Boolean(crispContentSize);
+  const canvasStyle: CSSProperties = crisp
+    ? {
+        transform: `translate(${pan.x}px, ${pan.y}px)`,
+        transformOrigin: "0 0",
+        width: crispContentSize!.width * zoom,
+        height: crispContentSize!.height * zoom,
+      }
+    : {
+        transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+        transformOrigin: "0 0",
+      };
+
+  const contentStyle: CSSProperties | undefined = crisp
+    ? {
+        width: "100%",
+        height: "100%",
+      }
+    : undefined;
 
   return {
     attachViewportRef,
     canvasStyle,
+    contentStyle,
+    crisp,
     fitToContent,
     resetView,
     fitZoom,

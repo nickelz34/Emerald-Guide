@@ -33,13 +33,13 @@ const SECTIONS = [
 ];
 
 /**
- * Pixel scale — 3× (48px/tile). Spot IDs are baked as chunky bitmap digits;
- * they need enough source pixels to stay crisp under zoom/pan.
+ * Pixel scale — 4× (64px/tile). Spot IDs are chunky bitmap digits; the UI zooms
+ * via nearest-neighbor resize so these source pixels stay sharp on screen.
  */
-const SCALE = 3;
+const SCALE = 4;
 const TILE = 16 * SCALE;
 /** Each glyph bit is drawn as a PIXEL×PIXEL block (independent of map SCALE). */
-const PIXEL = 3;
+const PIXEL = 4;
 
 /** Compact 3×5 digits drawn on a dark badge. */
 const DIGITS = {
@@ -298,20 +298,28 @@ function drawNumber(png, tx, ty, n, fill = [255, 255, 255], badge = [16, 22, 34]
 
   let cx = x0 + Math.floor((badgeW - totalW) / 2);
   const cy = y0 + Math.floor((badgeH - glyphH) / 2);
-  for (const ch of text) {
-    const g = DIGITS[ch];
-    if (!g) continue;
-    for (let gy = 0; gy < glyphRows; gy++) {
-      for (let gx = 0; gx < glyphCols; gx++) {
-        if (g[gy][gx] !== "1") continue;
-        for (let dy = 0; dy < PIXEL; dy++) {
-          for (let dx = 0; dx < PIXEL; dx++) {
-            plot(cx + gx * PIXEL + dx, cy + gy * PIXEL + dy, fill);
+  // Soft shadow under glyphs first, then solid fill — keeps digits crisp on yellow water.
+  for (const pass of /** @type {const} */ (["shadow", "fill"])) {
+    let penX = cx;
+    for (const ch of text) {
+      const g = DIGITS[ch];
+      if (!g) continue;
+      for (let gy = 0; gy < glyphRows; gy++) {
+        for (let gx = 0; gx < glyphCols; gx++) {
+          if (g[gy][gx] !== "1") continue;
+          for (let dy = 0; dy < PIXEL; dy++) {
+            for (let dx = 0; dx < PIXEL; dx++) {
+              if (pass === "shadow") {
+                plot(penX + gx * PIXEL + dx + 1, cy + gy * PIXEL + dy + 1, [0, 0, 0]);
+              } else {
+                plot(penX + gx * PIXEL + dx, cy + gy * PIXEL + dy, fill);
+              }
+            }
           }
         }
       }
+      penX += glyphW + gap;
     }
-    cx += glyphW + gap;
   }
 }
 

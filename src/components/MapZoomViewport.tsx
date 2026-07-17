@@ -12,6 +12,11 @@ interface MapZoomViewportProps {
   focusKey?: string | number;
   /** Show +/- zoom buttons (in addition to pinch / scroll / drag). */
   showControls?: boolean;
+  /**
+   * Native content pixel size. When set, zoom resizes the content box with
+   * nearest-neighbor scaling instead of CSS transform scale (keeps pixel art sharp).
+   */
+  crispContentSize?: { width: number; height: number } | null;
   children: ReactNode;
 }
 
@@ -39,6 +44,7 @@ export function MapZoomViewport({
   focusPercent = null,
   focusKey,
   showControls = false,
+  crispContentSize = null,
   children,
 }: MapZoomViewportProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -56,6 +62,8 @@ export function MapZoomViewport({
   const {
     attachViewportRef,
     canvasStyle,
+    contentStyle,
+    crisp,
     fitToContent,
     recenterPos,
     resetView,
@@ -69,6 +77,7 @@ export function MapZoomViewport({
     maxFitZoom,
     focusPercent,
     focusKey,
+    crispContentSize,
   });
 
   useEffect(() => {
@@ -94,17 +103,19 @@ export function MapZoomViewport({
       ref={attachViewportRef}
       className={`map-zoom-viewport${cropFit ? " map-zoom-viewport--crop-fit" : ""}${
         isTall ? " map-zoom-viewport--tall" : ""
-      } ${className}`.trim()}
+      }${crisp ? " map-zoom-viewport--crisp" : ""} ${className}`.trim()}
       style={{
         ...zoomStyle,
         // Tall maps use a fixed viewport box; locking aspectRatio collapses width to ~30px.
-        ...(cropAspect && !isTall ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect } : {}),
+        ...(cropAspect && !isTall && !crisp
+          ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect }
+          : {}),
         ...(cropAspectRatio ? { ["--map-aspect-ratio" as string]: cropAspectRatio } : {}),
-        ...(cropAspect && isTall ? { ["--map-aspect" as string]: cropAspect } : {}),
+        ...(cropAspect ? { ["--map-aspect" as string]: cropAspect } : {}),
       }}
     >
       <div className="map-zoom-viewport__canvas" style={canvasStyle}>
-        <div ref={contentRef} className="map-zoom-viewport__content">
+        <div ref={contentRef} className="map-zoom-viewport__content" style={contentStyle}>
           {children}
         </div>
       </div>
