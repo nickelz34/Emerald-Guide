@@ -13,9 +13,9 @@ const NUM_FISHING_SPOTS = 447;
 const NUM_FEEBAS_SPOTS = 6;
 const MAP_WIDTH_TILES = 40;
 
-/** ISO_RANDOMIZE2 from pokeemerald's agb_flash / random helpers. */
+/** ISO_RANDOMIZE2 from pokeemerald include/random.h — used by FeebasRandom. */
 function isoRandomize2(val: number): number {
-  return (Math.imul(1103515245, val >>> 0) + 24691) >>> 0;
+  return (Math.imul(1103515245, val >>> 0) + 12345) >>> 0;
 }
 
 /**

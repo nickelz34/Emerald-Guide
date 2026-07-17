@@ -5642,6 +5642,109 @@
   background: rgba(255, 214, 64, 0.08);
 }
 
+.feebas-map__mode-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0 0 0.75rem;
+  padding: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated, rgba(0, 0, 0, 0.03));
+}
+
+.feebas-map__mode-tab {
+  padding: 0.35rem 0.7rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feebas-map__mode-tab:hover {
+  color: var(--text);
+}
+
+.feebas-map__mode-tab--active {
+  background: var(--bg-card, #fff);
+  color: var(--text);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.feebas-map__seed-form {
+  margin: 0;
+}
+
+.feebas-map__phrase-grid {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
+  gap: 0.45rem 0.75rem;
+  align-items: center;
+  margin: 0 0 0.65rem;
+}
+
+.feebas-map__seed-select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card, #fff);
+  color: var(--text);
+  font-size: 0.86rem;
+}
+
+.feebas-map__seed-controls--phrase {
+  margin: 0 0 0.45rem;
+}
+
+.feebas-map__phrase-meta {
+  margin: 0.35rem 0 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.feebas-map__candidates {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.feebas-map__candidate {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-elevated, rgba(0, 0, 0, 0.03));
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 650;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  cursor: pointer;
+}
+
+.feebas-map__candidate:hover {
+  border-color: var(--emerald, #38b2ac);
+}
+
+.feebas-map__candidate--active {
+  border-color: #e879f9;
+  background: rgba(232, 121, 249, 0.14);
+  box-shadow: 0 0 0 1px rgba(232, 121, 249, 0.35);
+}
+
+@media (max-width: 640px) {
+  .feebas-map__phrase-grid {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
 .feebas-map__seed-row {
   display: grid;
   gap: 0.4rem;

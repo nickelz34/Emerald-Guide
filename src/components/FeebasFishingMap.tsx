@@ -13,6 +13,12 @@ import {
   formatFeebasSeed,
   parseFeebasSeed,
 } from "../data/feebasSeed";
+import { EC_CONDITIONS_EN, EC_SECOND_WORD_EN } from "../data/easyChatDewford";
+import {
+  feebasSeedCandidatesFromTidAndPhrase,
+  formatPhraseWords,
+  parseTrainerId,
+} from "../data/feebasTidPhrase";
 import { AreaMapView } from "./AreaMapView";
 import { useViewMode } from "../hooks/useViewMode";
 
@@ -21,19 +27,33 @@ const SECTION_TABS = FEEBAS_FISHING_SECTIONS.map((s, i) => ({
   areaMapId: FEEBAS_FISHING_AREA_MAP_IDS[i],
 }));
 
+type CalcMode = "seed" | "phrase";
+
 /** Numbered Route 119 fishing-spot maps + Dewford-trend seed calculator. */
 export function FeebasFishingMap({ className = "" }: { className?: string }) {
   const [viewMode] = useViewMode();
   const [section, setSection] = useState(0);
+  const [calcMode, setCalcMode] = useState<CalcMode>("seed");
   const [seedInput, setSeedInput] = useState(formatFeebasSeed(FEEBAS_DEMO_SEED));
   const [appliedSeed, setAppliedSeed] = useState(FEEBAS_DEMO_SEED);
   const [focusSpotKey, setFocusSpotKey] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [tidInput, setTidInput] = useState("");
+  const [word1, setWord1] = useState<string>(EC_CONDITIONS_EN[0]);
+  const [word2, setWord2] = useState<string>(EC_SECOND_WORD_EN[0]);
+  const [phraseCandidates, setPhraseCandidates] = useState<number[]>([]);
+  const [phraseError, setPhraseError] = useState<string | null>(null);
+  const [phraseMeta, setPhraseMeta] = useState<string | null>(null);
 
   const parsedSeed = useMemo(() => parseFeebasSeed(seedInput), [seedInput]);
+  const parsedTid = useMemo(() => parseTrainerId(tidInput), [tidInput]);
   const seedError =
     seedInput.trim().length > 0 && parsedSeed == null
       ? "Enter a hex seed (e.g. 4A7C or 0x4A7C) or a decimal 0–65535."
+      : null;
+  const tidError =
+    tidInput.trim().length > 0 && parsedTid == null
+      ? "Trainer ID must be a number from 0–65535."
       : null;
 
   const activeSpots = useMemo(() => feebasSpotsForSeed(appliedSeed), [appliedSeed]);
@@ -98,10 +118,38 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
     setFocusSpotKey(`${spot.id}-${spot.x}-${spot.y}`);
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmitSeed = (e: FormEvent) => {
     e.preventDefault();
     if (parsedSeed == null) return;
+    setPhraseCandidates([]);
+    setPhraseMeta(null);
     applySeed(parsedSeed);
+  };
+
+  const onSubmitPhrase = (e: FormEvent) => {
+    e.preventDefault();
+    if (parsedTid == null) {
+      setPhraseError("Enter a valid Trainer ID (0–65535).");
+      setPhraseCandidates([]);
+      return;
+    }
+    const candidates = feebasSeedCandidatesFromTidAndPhrase(parsedTid, word1, word2);
+    if (candidates.length === 0) {
+      setPhraseError(
+        "No matching seeds — check the words, or the Dewford phrase was changed (use PKHeX / raw seed).",
+      );
+      setPhraseCandidates([]);
+      setPhraseMeta(null);
+      return;
+    }
+    setPhraseError(null);
+    setPhraseMeta(
+      `TID ${parsedTid} · ${formatPhraseWords(word1, word2)} · ${candidates.length} candidate${
+        candidates.length === 1 ? "" : "s"
+      }`,
+    );
+    setPhraseCandidates(candidates);
+    applySeed(candidates[0]);
   };
 
   useEffect(() => {
@@ -156,13 +204,12 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
             counted left→right and top→bottom. Exactly {FEEBAS_ACTIVE_SPOT_COUNT} of those spot IDs
             are active for Feebas. The active set comes from a 16-bit random value stored on your
             save: <code>dewfordTrends[0].rand</code> (the current Dewford trendy phrase’s RNG
-            seed). The two Easy Chat words you hear in town are <em>not</em> enough by themselves —
-            the hidden <code>rand</code> is what this box needs.
+            seed).
           </li>
           <li>
-            <strong>Get your seed</strong> (pick one method below), then type it into{" "}
-            <em>Dewford trend seed</em> as hex (<code>0x4A7C</code> / <code>4A7C</code>) or
-            decimal (<code>19068</code>) and press <em>Show tiles</em>.
+            <strong>Find your tiles</strong> with either tab below: paste a known{" "}
+            <em>Dewford trend seed</em>, or enter your <em>Trainer ID + trendy phrase</em> (only
+            if you never changed Dewford’s phrase) to reverse-engineer candidate seeds.
           </li>
           <li>
             <strong>Read the results.</strong> The green list shows your six active spot IDs with
@@ -211,36 +258,33 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
               </li>
             </ol>
 
-            <h6 className="feebas-map__subhead">Method B — TID + trendy phrase (limited cases)</h6>
+            <h6 className="feebas-map__subhead">Method B — TID + trendy phrase (built-in)</h6>
             <p>
-              If you have <strong>never changed</strong> Dewford’s trendy phrase, and your save is
-              still on the initial trend set at new game (common on dead-battery / early-game
-              saves), community tools can reverse-engineer candidate seeds from your{" "}
-              <strong>Trainer ID</strong> plus the two trendy words:
+              If you have <strong>never changed</strong> Dewford’s trendy phrase (still the
+              new-game trend — common on dead-battery / early-game saves), switch to the{" "}
+              <em>TID + phrase</em> tab below:
             </p>
             <ol>
+              <li>
+                Note your Trainer ID (Trainer Card).
+              </li>
               <li>
                 In Dewford Town, talk to the boy outside Dewford Hall (north of the Pokémon Center)
                 and write down the two Easy Chat words of the current trendy phrase.
               </li>
               <li>
-                Note your Trainer ID (Trainer Card).
+                Enter TID + both words and press <em>Find seeds</em>. The calculator lists
+                candidate Feebas random values (timing variants) and applies the first one.
               </li>
               <li>
-                Use a Feebas tile calculator that accepts TID + phrase for Emerald (community tools
-                such as mucksw’s Feebas Tile Calculator). Select Emerald, enter TID and both words,
-                then calculate.
-              </li>
-              <li>
-                Those tools list one or more candidate <strong>Feebas random values</strong>. Try
-                each candidate here with <em>Show tiles</em>, then verify in-game by fishing the
-                pinned tiles (~50% Feebas on a hit). When one seed works, keep that seed until you
-                change the Dewford trend.
+                If the first candidate’s tiles feel wrong in-game, tap the next candidate and
+                verify by fishing (~50% Feebas on a hit). Keep the working seed until you change
+                the Dewford trend.
               </li>
             </ol>
             <p className="feebas-map__callout">
               If you already submitted a new trendy phrase in Dewford Hall, Method B usually cannot
-              recover the seed from the words alone — use Method A (PKHeX) instead.
+              recover the seed from the words alone — use Method A (PKHeX) or Method C instead.
             </p>
 
             <h6 className="feebas-map__subhead">Method C — Emulator / raw save (advanced)</h6>
@@ -326,46 +370,161 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
         </details>
       </div>
 
-      <form className="feebas-map__seed" onSubmit={onSubmit}>
-        <div className="feebas-map__seed-row">
-          <label className="feebas-map__seed-label" htmlFor="feebas-seed-input">
-            Dewford trend seed
-          </label>
-          <div className="feebas-map__seed-controls">
-            <input
-              id="feebas-seed-input"
-              type="text"
-              className="feebas-map__seed-input"
-              value={seedInput}
-              onChange={(e) => setSeedInput(e.target.value)}
-              placeholder="0x4A7C or 19068"
-              spellCheck={false}
-              autoComplete="off"
-              aria-invalid={Boolean(seedError)}
-              aria-describedby="feebas-seed-help"
-            />
-            <button
-              type="submit"
-              className="feebas-map__seed-apply"
-              disabled={parsedSeed == null}
-            >
-              Show tiles
-            </button>
-            <button
-              type="button"
-              className="feebas-map__seed-demo"
-              onClick={() => applySeed(FEEBAS_DEMO_SEED)}
-            >
-              Demo seed
-            </button>
-          </div>
+      <div className="feebas-map__seed">
+        <div className="feebas-map__mode-tabs" role="tablist" aria-label="Feebas calculator mode">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={calcMode === "seed"}
+            className={`feebas-map__mode-tab${calcMode === "seed" ? " feebas-map__mode-tab--active" : ""}`}
+            onClick={() => setCalcMode("seed")}
+          >
+            Seed
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={calcMode === "phrase"}
+            className={`feebas-map__mode-tab${calcMode === "phrase" ? " feebas-map__mode-tab--active" : ""}`}
+            onClick={() => setCalcMode("phrase")}
+          >
+            TID + phrase
+          </button>
         </div>
-        <p id="feebas-seed-help" className="feebas-map__seed-help">
-          Accepts hex (<code>4A7C</code>, <code>0x4A7C</code>) or decimal (<code>19068</code>).
-          Values are treated as a u16 (0–65535), matching <code>dewfordTrends[0].rand</code>.
-        </p>
-        {seedError ? <p className="feebas-map__seed-error">{seedError}</p> : null}
-      </form>
+
+        {calcMode === "seed" ? (
+          <form className="feebas-map__seed-form" onSubmit={onSubmitSeed}>
+            <div className="feebas-map__seed-row">
+              <label className="feebas-map__seed-label" htmlFor="feebas-seed-input">
+                Dewford trend seed
+              </label>
+              <div className="feebas-map__seed-controls">
+                <input
+                  id="feebas-seed-input"
+                  type="text"
+                  className="feebas-map__seed-input"
+                  value={seedInput}
+                  onChange={(e) => setSeedInput(e.target.value)}
+                  placeholder="0x4A7C or 19068"
+                  spellCheck={false}
+                  autoComplete="off"
+                  aria-invalid={Boolean(seedError)}
+                  aria-describedby="feebas-seed-help"
+                />
+                <button
+                  type="submit"
+                  className="feebas-map__seed-apply"
+                  disabled={parsedSeed == null}
+                >
+                  Show tiles
+                </button>
+                <button
+                  type="button"
+                  className="feebas-map__seed-demo"
+                  onClick={() => {
+                    setPhraseCandidates([]);
+                    setPhraseMeta(null);
+                    applySeed(FEEBAS_DEMO_SEED);
+                  }}
+                >
+                  Demo seed
+                </button>
+              </div>
+            </div>
+            <p id="feebas-seed-help" className="feebas-map__seed-help">
+              Accepts hex (<code>4A7C</code>, <code>0x4A7C</code>) or decimal (<code>19068</code>).
+              Values are treated as a u16 (0–65535), matching <code>dewfordTrends[0].rand</code>.
+            </p>
+            {seedError ? <p className="feebas-map__seed-error">{seedError}</p> : null}
+          </form>
+        ) : (
+          <form className="feebas-map__seed-form" onSubmit={onSubmitPhrase}>
+            <div className="feebas-map__phrase-grid">
+              <label className="feebas-map__seed-label" htmlFor="feebas-tid-input">
+                Trainer ID
+              </label>
+              <input
+                id="feebas-tid-input"
+                type="text"
+                inputMode="numeric"
+                className="feebas-map__seed-input"
+                value={tidInput}
+                onChange={(e) => setTidInput(e.target.value)}
+                placeholder="0–65535"
+                spellCheck={false}
+                autoComplete="off"
+                aria-invalid={Boolean(tidError)}
+              />
+              <label className="feebas-map__seed-label" htmlFor="feebas-word1">
+                First word (Conditions)
+              </label>
+              <select
+                id="feebas-word1"
+                className="feebas-map__seed-select"
+                value={word1}
+                onChange={(e) => setWord1(e.target.value)}
+              >
+                {EC_CONDITIONS_EN.map((w) => (
+                  <option key={w} value={w}>
+                    {w}
+                  </option>
+                ))}
+              </select>
+              <label className="feebas-map__seed-label" htmlFor="feebas-word2">
+                Second word (Lifestyle / Hobbies)
+              </label>
+              <select
+                id="feebas-word2"
+                className="feebas-map__seed-select"
+                value={word2}
+                onChange={(e) => setWord2(e.target.value)}
+              >
+                {EC_SECOND_WORD_EN.map((w) => (
+                  <option key={w} value={w}>
+                    {w}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="feebas-map__seed-controls feebas-map__seed-controls--phrase">
+              <button
+                type="submit"
+                className="feebas-map__seed-apply"
+                disabled={parsedTid == null}
+              >
+                Find seeds
+              </button>
+            </div>
+            <p className="feebas-map__seed-help">
+              Emerald only. Works when the Dewford trendy phrase was never manually changed.
+              May return several candidate seeds (timing variants) — try each until fishing
+              confirms.
+            </p>
+            {tidError ? <p className="feebas-map__seed-error">{tidError}</p> : null}
+            {phraseError ? <p className="feebas-map__seed-error">{phraseError}</p> : null}
+            {phraseMeta ? <p className="feebas-map__phrase-meta">{phraseMeta}</p> : null}
+            {phraseCandidates.length > 0 ? (
+              <ul className="feebas-map__candidates" aria-label="Candidate Feebas seeds">
+                {phraseCandidates.map((seed) => {
+                  const active = seed === appliedSeed;
+                  return (
+                    <li key={seed}>
+                      <button
+                        type="button"
+                        className={`feebas-map__candidate${active ? " feebas-map__candidate--active" : ""}`}
+                        onClick={() => applySeed(seed)}
+                      >
+                        {formatFeebasSeed(seed)}
+                        {active ? " · showing" : ""}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : null}
+          </form>
+        )}
+      </div>
 
       <div className="feebas-map__results">
         <p className="feebas-map__results-lead">
