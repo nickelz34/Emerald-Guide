@@ -11,6 +11,7 @@ import { getTrainerBattle } from "../data/trainerParties";
 import type { GymTrainerSprite } from "../data/gymSpritesGenerated";
 import { TYPE_COLORS } from "../data/species";
 import { assetUrl } from "../lib/assetUrl";
+import { owPortraitCssVars } from "../lib/owPortrait";
 import { TrainerModalBody, TrainerDetailModal } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 
@@ -30,16 +31,11 @@ export function GymTrainerSprite({
   scale?: number;
 }) {
   if (!sprite.spriteSheet) return null;
-  const fw = sprite.spriteWidth * scale;
-  const fh = sprite.spriteHeight * scale;
+  // Guide portraits always face forward; gym map pins keep world facing separately.
   return (
     <div
       className={className}
-      style={{
-        ["--trainer-frame" as string]: sprite.spriteFrame,
-        ["--trainer-fw" as string]: fw,
-        ["--trainer-fh" as string]: fh,
-      }}
+      style={owPortraitCssVars(sprite, scale)}
       aria-hidden
     >
       <img src={assetUrl(sprite.spriteSheet)} alt="" draggable={false} />

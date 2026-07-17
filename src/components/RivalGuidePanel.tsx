@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { assetUrl } from "../lib/assetUrl";
+import { owPortraitCssVars } from "../lib/owPortrait";
 import { getTrainerBattle } from "../data/trainerParties";
 import {
   getRivalForWalkthroughStep,
@@ -40,11 +41,7 @@ function RivalOwSprite({
   return (
     <div
       className="rival-guide__ow-sprite"
-      style={{
-        ["--trainer-frame" as string]: sprite.spriteFrame,
-        ["--trainer-fw" as string]: sprite.spriteWidth,
-        ["--trainer-fh" as string]: sprite.spriteHeight,
-      }}
+      style={owPortraitCssVars(sprite)}
       aria-hidden="true"
       title={label}
     >

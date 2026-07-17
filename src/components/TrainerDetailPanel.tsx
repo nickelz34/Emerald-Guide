@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { assetUrl } from "../lib/assetUrl";
+import { owPortraitCssVars } from "../lib/owPortrait";
 import { getTrainerBattle, type TrainerBattleData, type TrainerPartyMon } from "../data/trainerParties";
 import { TRAINER_BATTLES } from "../data/trainerPartiesGenerated";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
@@ -176,14 +177,7 @@ export function TrainerDetailPanel({ trainer, compact = false, className = "" }:
   return (
     <div className={`trainer-detail ${compact ? "trainer-detail--compact" : ""} ${className}`.trim()}>
       <div className="trainer-detail__header">
-        <span
-          className="trainer-detail__sprite"
-          style={{
-            ["--trainer-frame" as string]: trainer.spriteFrame,
-            ["--trainer-fw" as string]: trainer.spriteWidth,
-            ["--trainer-fh" as string]: trainer.spriteHeight,
-          }}
-        >
+        <span className="trainer-detail__sprite" style={owPortraitCssVars(trainer)}>
           <img src={assetUrl(trainer.spriteSheet)} alt="" draggable={false} />
         </span>
         <div className="trainer-detail__identity">
@@ -394,11 +388,7 @@ export function TrainerModalBody({ trainer }: { trainer: TrainerPoint }) {
         {trainer.spriteSheet ? (
           <div
             className="trainer-modal__trainer-sprite"
-            style={{
-              ["--trainer-frame" as string]: trainer.spriteFrame,
-              ["--trainer-fw" as string]: trainer.spriteWidth,
-              ["--trainer-fh" as string]: trainer.spriteHeight,
-            }}
+            style={owPortraitCssVars(trainer)}
           >
             <img src={assetUrl(trainer.spriteSheet)} alt="" draggable={false} />
           </div>
@@ -410,7 +400,7 @@ export function TrainerModalBody({ trainer }: { trainer: TrainerPoint }) {
           <div className="trainer-modal__hero-badges">
             <span className="trainer-detail__badge">{formatEncounterType(trainer)}</span>
             {trainer.spriteSheet ? (
-              <span className="trainer-detail__badge">Facing {facing}</span>
+              <span className="trainer-detail__badge">On map faces {facing}</span>
             ) : null}
             {battle?.doubleBattle && <span className="trainer-detail__badge">Double battle</span>}
             {payout != null && (

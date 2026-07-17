@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.37",
+    date: "2026-07-17",
+    summary:
+      "Trainer and NPC overworld portraits in tables, charts, and legends always face forward; map pins keep their in-world facing.",
+    sections: [
+      {
+        heading: "Sprites",
+        items: [
+          "Shared portrait helper forces south-facing frame 0 (no flip) for gym guide rows, trainer detail modals, rival/story panels, battle-basics cards, and area-map lightbox legend thumbs.",
+          "Hoenn map, area-map, and crop pins are unchanged — they still use each entity’s map facing.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.36",
     date: "2026-07-17",
     summary:

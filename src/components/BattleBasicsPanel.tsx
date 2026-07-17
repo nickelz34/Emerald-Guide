@@ -1,5 +1,6 @@
 import { emeraldSpriteUrl, TYPE_COLORS } from "../data/species";
 import { assetUrl } from "../lib/assetUrl";
+import { OW_PORTRAIT_FRAME, owPortraitCssVars } from "../lib/owPortrait";
 
 type FaceKind = "pokemon" | "trainer";
 
@@ -71,7 +72,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/youngster.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 0,
+        spriteFrame: OW_PORTRAIT_FRAME,
       },
       {
         id: "haley",
@@ -81,7 +82,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/lass.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 0, // forward (south) for portrait cards — not map facing
+        spriteFrame: OW_PORTRAIT_FRAME,
       },
       {
         id: "roxanne",
@@ -91,7 +92,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/roxanne.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 0,
+        spriteFrame: OW_PORTRAIT_FRAME,
       },
     ],
   },
@@ -114,7 +115,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/tate.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 0,
+        spriteFrame: OW_PORTRAIT_FRAME,
       },
       {
         id: "liza",
@@ -124,7 +125,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/liza.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 0,
+        spriteFrame: OW_PORTRAIT_FRAME,
       },
       {
         id: "twins",
@@ -134,7 +135,7 @@ const BATTLE_EXAMPLES: BattleExample[] = [
         spriteSheet: "sprites/trainers/twin.png",
         spriteWidth: 16,
         spriteHeight: 32,
-        spriteFrame: 0,
+        spriteFrame: OW_PORTRAIT_FRAME,
       },
     ],
   },
@@ -194,11 +195,8 @@ function PokemonFace({ face }: { face: BattleFace }) {
   );
 }
 
-/** 3× overworld frame (same crop math as gym / map trainer pins). */
+/** 3× overworld frame — always forward-facing for portrait cards. */
 function TrainerFace({ face }: { face: BattleFace }) {
-  const fw = face.spriteWidth ?? 16;
-  const fh = face.spriteHeight ?? 32;
-  const frame = face.spriteFrame ?? 0;
   const scale = 3;
   if (!face.spriteSheet) {
     return (
@@ -212,11 +210,7 @@ function TrainerFace({ face }: { face: BattleFace }) {
   return (
     <span
       className="battle-basics__sprite battle-basics__sprite--trainer"
-      style={{
-        ["--trainer-fw" as string]: fw * scale,
-        ["--trainer-fh" as string]: fh * scale,
-        ["--trainer-frame" as string]: frame,
-      }}
+      style={owPortraitCssVars(face, scale)}
       aria-hidden
     >
       <span className="battle-basics__trainer-frame">
