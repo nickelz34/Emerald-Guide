@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.48",
+    date: "2026-07-17",
+    summary:
+      "Feebas fishing-spot numbers are redrawn as crisp bitmap digits so tile IDs stay readable when zooming.",
+    sections: [
+      {
+        heading: "Pregame — Catching, Travel & Trading",
+        items: [
+          "Route 119 Feebas maps regenerate at 3× with properly scaled spot-ID badges (fixes the old 1-pixel glyphs that looked blurry).",
+          "Active-tile markers are green outlines with a clear center so the baked yellow numbers stay visible underneath.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.47",
     date: "2026-07-17",
     summary:

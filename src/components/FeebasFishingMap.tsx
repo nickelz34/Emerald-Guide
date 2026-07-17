@@ -166,8 +166,8 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
           <li>
             <strong>Read the results.</strong> The green list shows your six active spot IDs with
             map coordinates. Tap a spot ID to jump to that North / Middle / South map section and
-            zoom the map onto that exact tile. Green tile overlays mark the active metatiles on the
-            numbered yellow grid — zoom in to confirm the spot number underneath.
+            zoom the map onto that exact tile. Green outlines mark the active metatiles on the
+            numbered yellow grid — zoom in to read the crisp spot number on that tile.
           </li>
           <li>
             <strong>Fish those tiles in-game.</strong> Face the water tile, use any rod (Old Rod is
@@ -260,9 +260,9 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
                 match pokeemerald’s fishing-spot IDs (1–{FEEBAS_FISHING_SPOT_COUNT}).
               </li>
               <li>
-                <strong>Green tile overlays</strong> — the active Feebas metatiles for the seed you
-                applied. Each overlay is sized to one map tile and centered on that spot, so zooming
-                in lines it up with the yellow number underneath.
+                <strong>Green outlines</strong> — the active Feebas metatiles for the seed you
+                applied. Each outline is sized to one map tile and centered on that spot so the
+                baked yellow spot number stays visible underneath.
               </li>
               <li>
                 <strong>Zoom &amp; pan</strong> — scroll / pinch to zoom, drag to pan, or use the + /
@@ -449,9 +449,9 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
       ) : null}
 
       <p className="encounter-legend">
-        Yellow tiles = all fishable spots. Green overlays = exact active Feebas tiles for the seed
-        above. Zoom / pan to read spot numbers. Spots 1–3 are inaccessible. Old Rod + several casts
-        per tile (~50% Feebas on a hit).
+        Yellow tiles = all fishable spots (crisp baked IDs). Green outlines = exact active Feebas
+        tiles for the seed above. Zoom / pan to read spot numbers. Spots 1–3 are inaccessible. Old
+        Rod + several casts per tile (~50% Feebas on a hit).
       </p>
 
       {expanded ? (

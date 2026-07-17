@@ -2449,8 +2449,8 @@ export const AREA_MAPS: AreaMap[] = [
     group: "Route 119",
     floor: "Feebas fishing spots — North",
     image: "maps/areas/route119-feebas-fishing-s0.png",
-    width: 1280,
-    height: 1472,
+    width: 1920,
+    height: 2208,
     markers: [
       {
         id: "r119-weather-institute",
@@ -2471,8 +2471,8 @@ export const AREA_MAPS: AreaMap[] = [
     group: "Route 119",
     floor: "Feebas fishing spots — Middle",
     image: "maps/areas/route119-feebas-fishing-s1.png",
-    width: 1280,
-    height: 1472,
+    width: 1920,
+    height: 2208,
     markers: [],
   },
   {
@@ -2483,8 +2483,8 @@ export const AREA_MAPS: AreaMap[] = [
     group: "Route 119",
     floor: "Feebas fishing spots — South",
     image: "maps/areas/route119-feebas-fishing-s2.png",
-    width: 1280,
-    height: 1536,
+    width: 1920,
+    height: 2304,
     markers: [],
   },
 ];

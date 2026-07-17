@@ -2048,10 +2048,11 @@
   padding: 0;
   border: 2px solid #22c55e;
   border-radius: 2px;
-  background: rgba(34, 197, 94, 0.42);
+  /* Keep the center clear so the baked spot number stays readable. */
+  background: rgba(34, 197, 94, 0.12);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    inset 0 0 0 2px rgba(34, 197, 94, 0.55);
   transform: translate(-50%, -50%);
   transform-origin: center;
   z-index: 6;
@@ -2059,22 +2060,16 @@
 
 .hoenn-map__pin--tile.is-active {
   border-color: #86efac;
-  background: rgba(74, 222, 128, 0.55);
+  background: rgba(74, 222, 128, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 2px rgba(134, 239, 172, 0.75);
   z-index: 8;
 }
 
 .hoenn-map__pin--tile .hoenn-map__tile-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: clamp(0.45rem, 1.6cqw, 0.7rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #ecfdf5;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85);
-  pointer-events: none;
+  /* Spot IDs are baked into the map PNG; avoid blurry CSS text on top. */
+  display: none;
 }
 
 .hoenn-map__pin--tile .hoenn-map__pin-hint,
@@ -5349,6 +5344,12 @@
 .feebas-map__area {
   width: 100%;
   align-items: stretch;
+}
+
+.feebas-map__area .area-map-view__image,
+.feebas-map__area .area-map-view__frame {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .feebas-map__area.area-map-view--interactive {

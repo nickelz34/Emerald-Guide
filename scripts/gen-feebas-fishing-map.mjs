@@ -32,9 +32,14 @@ const SECTIONS = [
   },
 ];
 
-/** Pixel scale — 2× (32px/tile) so 3-digit spot IDs stay readable. */
-const SCALE = 2;
+/**
+ * Pixel scale — 3× (48px/tile). Spot IDs are baked as chunky bitmap digits;
+ * they need enough source pixels to stay crisp under zoom/pan.
+ */
+const SCALE = 3;
 const TILE = 16 * SCALE;
+/** Each glyph bit is drawn as a PIXEL×PIXEL block (independent of map SCALE). */
+const PIXEL = 3;
 
 /** Compact 3×5 digits drawn on a dark badge. */
 const DIGITS = {
@@ -258,15 +263,18 @@ function blendTile(png, tx, ty, rgba, amount) {
   }
 }
 
-function drawNumber(png, tx, ty, n, fill = [255, 255, 255], badge = [24, 32, 48]) {
+function drawNumber(png, tx, ty, n, fill = [255, 255, 255], badge = [16, 22, 34]) {
   const text = String(n);
-  const glyphW = 3;
-  const gap = 1;
+  const glyphCols = 3;
+  const glyphRows = 5;
+  const glyphW = glyphCols * PIXEL;
+  const glyphH = glyphRows * PIXEL;
+  const gap = PIXEL;
   const totalW = text.length * glyphW + (text.length - 1) * gap;
-  const padX = 2;
-  const padY = 2;
-  const badgeW = totalW + padX * 2;
-  const badgeH = 5 + padY * 2;
+  const padX = Math.max(2, PIXEL);
+  const padY = Math.max(2, PIXEL);
+  const badgeW = Math.min(TILE - 2, totalW + padX * 2);
+  const badgeH = Math.min(TILE - 2, glyphH + padY * 2);
   const x0 = tx * TILE + Math.max(1, Math.floor((TILE - badgeW) / 2));
   const y0 = ty * TILE + Math.max(1, Math.floor((TILE - badgeH) / 2));
   const { width: OW, data } = png;
@@ -280,25 +288,25 @@ function drawNumber(png, tx, ty, n, fill = [255, 255, 255], badge = [24, 32, 48]
     data[o + 3] = 255;
   };
 
-  for (let py = 0; py < badgeH; py++) {
-    for (let px = 0; px < badgeW; px++) {
-      plot(x0 + px, y0 + py, badge);
+  // Opaque badge + 1px near-black outline so digits stay sharp on yellow water.
+  for (let py = -1; py <= badgeH; py++) {
+    for (let px = -1; px <= badgeW; px++) {
+      const edge = px < 0 || py < 0 || px >= badgeW || py >= badgeH;
+      plot(x0 + px, y0 + py, edge ? [0, 0, 0] : badge);
     }
   }
 
-  let cx = x0 + padX;
-  const cy = y0 + padY;
+  let cx = x0 + Math.floor((badgeW - totalW) / 2);
+  const cy = y0 + Math.floor((badgeH - glyphH) / 2);
   for (const ch of text) {
     const g = DIGITS[ch];
     if (!g) continue;
-    for (let gy = 0; gy < 5; gy++) {
-      for (let gx = 0; gx < 3; gx++) {
+    for (let gy = 0; gy < glyphRows; gy++) {
+      for (let gx = 0; gx < glyphCols; gx++) {
         if (g[gy][gx] !== "1") continue;
-        // 2× pixel blocks for readability at SCALE=2
-        for (let dy = 0; dy < SCALE; dy++) {
-          for (let dx = 0; dx < SCALE; dx++) {
-            // Keep glyph at 1px when SCALE=2 would overflow the badge — draw 1px.
-            plot(cx + gx, cy + gy, fill);
+        for (let dy = 0; dy < PIXEL; dy++) {
+          for (let dx = 0; dx < PIXEL; dx++) {
+            plot(cx + gx * PIXEL + dx, cy + gy * PIXEL + dy, fill);
           }
         }
       }
@@ -372,7 +380,8 @@ const sharp = (await import("sharp")).default;
 async function writeOptimized(fileBase, pngImg) {
   const raw = PNG.sync.write(pngImg);
   const outPath = path.join(OUT_DIR, `${fileBase}.png`);
-  const buf = await sharp(raw).png({ palette: true, colors: 256, effort: 9, compressionLevel: 9 }).toBuffer();
+  // Lossless (no palette) — palette quantization softens the baked spot numbers.
+  const buf = await sharp(raw).png({ compressionLevel: 9, effort: 9 }).toBuffer();
   fs.writeFileSync(outPath, buf);
   fs.writeFileSync(path.join(ARTIFACT_DIR, `${fileBase}.png`), buf);
   console.log(`Wrote ${outPath} (${pngImg.width}×${pngImg.height}, ${(buf.length / 1024).toFixed(1)} KB)`);
