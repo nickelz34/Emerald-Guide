@@ -1,10 +1,31 @@
 import { emeraldSpriteUrl, TYPE_COLORS } from "../data/species";
+import { assetUrl } from "../lib/assetUrl";
+
+type FaceKind = "pokemon" | "trainer";
+
+interface BattleFace {
+  id: string;
+  kind: FaceKind;
+  name: string;
+  /** Shown under the name (class, location, etc.). */
+  subtitle?: string;
+  /** National Dex for Pokémon faces. */
+  dex?: number;
+  types?: string[];
+  /** Overworld trainer sheet under public/. */
+  spriteSheet?: string;
+  spriteWidth?: number;
+  spriteHeight?: number;
+  spriteFrame?: number;
+}
 
 interface BattleExample {
   id: string;
   title: string;
   blurb: string;
-  species: { name: string; dex: number; types: string[] }[];
+  /** Short verified rules shown as a checklist under the faces. */
+  rules: string[];
+  faces: BattleFace[];
 }
 
 interface CommandTile {
@@ -17,34 +38,104 @@ interface CommandTile {
 const BATTLE_EXAMPLES: BattleExample[] = [
   {
     id: "wild",
-    title: "Wild battle (always 1-on-1)",
+    title: "Wild battle",
     blurb:
-      "Tall grass, caves, Surf, or fishing. Poké Balls work. Run succeeds if you are faster (or equal Speed); slower = chance that improves each try.",
-    species: [
-      { name: "Poochyena", dex: 261, types: ["Dark"] },
-      { name: "Zigzagoon", dex: 263, types: ["Normal"] },
-      { name: "Ralts", dex: 280, types: ["Psychic"] },
+      "Always one wild Pokémon. Grass, caves, Surf, and fishing all use this 1-on-1 screen.",
+    rules: [
+      "Poké Balls work; Run is allowed",
+      "Run always works if your Speed ≥ the foe’s; slower = chance that rises each try",
+      "Sleep / freeze give ×2 catch odds; paralysis / poison / burn give ×1.5",
+    ],
+    faces: [
+      { id: "poochyena", kind: "pokemon", name: "Poochyena", dex: 261, types: ["Dark"], subtitle: "Route 101" },
+      { id: "zigzagoon", kind: "pokemon", name: "Zigzagoon", dex: 263, types: ["Normal"], subtitle: "Early routes" },
+      { id: "ralts", kind: "pokemon", name: "Ralts", dex: 280, types: ["Psychic"], subtitle: "Route 102 (rare)" },
     ],
   },
   {
     id: "trainer",
     title: "Trainer battle (singles)",
     blurb:
-      "Line of sight or talk. No catching. Run is refused. Win prize money when their party is out.",
-    species: [
-      { name: "Treecko", dex: 252, types: ["Grass"] },
-      { name: "Torchic", dex: 255, types: ["Fire"] },
-      { name: "Mudkip", dex: 258, types: ["Water"] },
+      "Triggered by line of sight or talking. One of yours vs one of theirs until a side is out.",
+    rules: [
+      "No catching their Pokémon",
+      "Run is refused (“Can’t escape!”)",
+      "Win prize money when their party faints",
+    ],
+    faces: [
+      {
+        id: "calvin",
+        kind: "trainer",
+        name: "Calvin",
+        subtitle: "Youngster · Route 102",
+        spriteSheet: "sprites/trainers/youngster.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: 0,
+      },
+      {
+        id: "haley",
+        kind: "trainer",
+        name: "Haley",
+        subtitle: "Lass · Route 104",
+        spriteSheet: "sprites/trainers/lass.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: 2,
+      },
+      {
+        id: "roxanne",
+        kind: "trainer",
+        name: "Roxanne",
+        subtitle: "Gym Leader · Rustboro",
+        spriteSheet: "sprites/trainers/roxanne.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: 0,
+      },
     ],
   },
   {
     id: "doubles",
     title: "Double battle (2-on-2)",
     blurb:
-      "Pair classes, two trainers spotting you at once (Emerald), or Tate & Liza. Surf hits both foes at half damage each; Earthquake hits your ally too at full power.",
-    species: [
-      { name: "Solrock", dex: 338, types: ["Rock", "Psychic"] },
-      { name: "Lunatone", dex: 337, types: ["Rock", "Psychic"] },
+      "Two of your Pokémon vs two foes. Emerald’s set-piece example is Mossdeep’s Tate & Liza.",
+    rules: [
+      "Also: Twins / Young Couple pairs, or two trainers spotting you at once (Emerald)",
+      "Both-foes moves (Surf, Rock Slide…) deal half damage each when two foes are present",
+      "Earthquake hits every other battler at full power — including your ally",
+    ],
+    faces: [
+      {
+        id: "tate",
+        kind: "trainer",
+        name: "Tate",
+        subtitle: "Gym Leader · Mossdeep",
+        spriteSheet: "sprites/trainers/tate.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: 0,
+      },
+      {
+        id: "liza",
+        kind: "trainer",
+        name: "Liza",
+        subtitle: "Gym Leader · Mossdeep",
+        spriteSheet: "sprites/trainers/liza.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: 0,
+      },
+      {
+        id: "twins",
+        kind: "trainer",
+        name: "Amy & Liv",
+        subtitle: "Twins · Route 103",
+        spriteSheet: "sprites/trainers/twin.png",
+        spriteWidth: 16,
+        spriteHeight: 32,
+        spriteFrame: 0,
+      },
     ],
   },
 ];
@@ -88,17 +179,49 @@ function TypeChips({ types }: { types: string[] }) {
   );
 }
 
-function Sprite({ dex, name }: { dex: number; name: string }) {
-  const src = emeraldSpriteUrl(dex);
+function PokemonFace({ face }: { face: BattleFace }) {
+  const src = face.dex != null ? emeraldSpriteUrl(face.dex) : undefined;
   return (
-    <span className="battle-basics__sprite">
+    <span className="battle-basics__sprite battle-basics__sprite--pokemon">
       {src ? (
-        <img src={src} alt={name} width={64} height={64} loading="lazy" decoding="async" />
+        <img src={src} alt={face.name} width={64} height={64} loading="lazy" decoding="async" />
       ) : (
         <span className="battle-basics__sprite-fallback" aria-hidden>
           ?
         </span>
       )}
+    </span>
+  );
+}
+
+/** 3× overworld frame (same crop math as gym / map trainer pins). */
+function TrainerFace({ face }: { face: BattleFace }) {
+  const fw = face.spriteWidth ?? 16;
+  const fh = face.spriteHeight ?? 32;
+  const frame = face.spriteFrame ?? 0;
+  const scale = 3;
+  if (!face.spriteSheet) {
+    return (
+      <span className="battle-basics__sprite battle-basics__sprite--trainer">
+        <span className="battle-basics__sprite-fallback" aria-hidden>
+          ?
+        </span>
+      </span>
+    );
+  }
+  return (
+    <span
+      className="battle-basics__sprite battle-basics__sprite--trainer"
+      style={{
+        ["--trainer-fw" as string]: fw * scale,
+        ["--trainer-fh" as string]: fh * scale,
+        ["--trainer-frame" as string]: frame,
+      }}
+      aria-hidden
+    >
+      <span className="battle-basics__trainer-frame">
+        <img src={assetUrl(face.spriteSheet)} alt="" draggable={false} />
+      </span>
     </span>
   );
 }
@@ -109,7 +232,7 @@ export interface BattleBasicsContent {
   commands?: Array<{ id: string; label: string; hint: string; detail: string }>;
 }
 
-/** In-game sprites + command cards for Pregame Battles Event 1. */
+/** In-game sprites + command cards for Pregame Battles Section 1. */
 export function BattleBasicsPanel({
   className = "",
   content,
@@ -119,7 +242,7 @@ export function BattleBasicsPanel({
 }) {
   const lead =
     content?.lead ??
-    "Emerald battle sprites for wild 1-on-1s, trainer singles, and doubles — plus Fight / Bag / Pokémon / Run as documented in Gen III (Bulbapedia, Prima Emerald, Serebii doubles notes).";
+    "Quick visual guide to Emerald’s three battle setups. Wild fights show Pokémon; trainer fights show the NPCs you actually face. Rules checked against Bulbapedia, Serebii, and Gen III battle docs.";
   const examples = BATTLE_EXAMPLES.map((ex) => {
     const override = content?.examples?.find((item) => item.id === ex.id);
     return override ? { ...ex, title: override.title, blurb: override.blurb } : ex;
@@ -141,16 +264,28 @@ export function BattleBasicsPanel({
 
       <div className="battle-basics__examples">
         {examples.map((ex) => (
-          <article key={ex.id} className="battle-basics__card">
-            <h6 className="battle-basics__card-title">{ex.title}</h6>
-            <p className="battle-basics__card-blurb">{ex.blurb}</p>
-            <ul className="battle-basics__sprites">
-              {ex.species.map((s) => (
-                <li key={s.dex} className="battle-basics__mon">
-                  <Sprite dex={s.dex} name={s.name} />
-                  <span className="battle-basics__mon-name">{s.name}</span>
-                  <TypeChips types={s.types} />
+          <article key={ex.id} className={`battle-basics__card battle-basics__card--${ex.id}`}>
+            <header className="battle-basics__card-header">
+              <h6 className="battle-basics__card-title">{ex.title}</h6>
+              <p className="battle-basics__card-blurb">{ex.blurb}</p>
+            </header>
+
+            <ul className="battle-basics__faces" aria-label={`${ex.title} examples`}>
+              {ex.faces.map((face) => (
+                <li key={face.id} className={`battle-basics__face battle-basics__face--${face.kind}`}>
+                  {face.kind === "trainer" ? <TrainerFace face={face} /> : <PokemonFace face={face} />}
+                  <span className="battle-basics__face-name">{face.name}</span>
+                  {face.subtitle ? (
+                    <span className="battle-basics__face-sub">{face.subtitle}</span>
+                  ) : null}
+                  {face.types?.length ? <TypeChips types={face.types} /> : null}
                 </li>
+              ))}
+            </ul>
+
+            <ul className="battle-basics__rules">
+              {ex.rules.map((rule) => (
+                <li key={rule}>{rule}</li>
               ))}
             </ul>
           </article>

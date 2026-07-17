@@ -6,7 +6,7 @@ import { useAdmin } from "../admin/AdminContext";
 import { ChapterTree } from "../admin/ChapterTree";
 import { StepEditor } from "../admin/StepEditor";
 import { resolveStepBlockOrder, type StepBlockId } from "../admin/stepBlocks";
-import { GuideHtml } from "../lib/guideHtml";
+import { GuideHtml, looksLikeHtml } from "../lib/guideHtml";
 import type { GuideStoryTrainerOverride } from "../types";
 import type { GymData } from "../data/gymData";
 import type { StoryTrainerBattle } from "../data/storyTrainerBattles";
@@ -510,9 +510,17 @@ export function StepBrowser({
       if (!step.story?.length) return null;
       return (
         <div className="step-card__story">
-          {step.story.map((para, i) => (
-            <GuideHtml key={i} value={para} as="p" />
-          ))}
+          {step.story.map((para, i) => {
+            const rich = looksLikeHtml(para);
+            return (
+              <GuideHtml
+                key={i}
+                value={para}
+                as={rich ? "div" : "p"}
+                className={rich ? "step-card__story-block" : undefined}
+              />
+            );
+          })}
         </div>
       );
     }
