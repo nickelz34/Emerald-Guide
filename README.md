@@ -4,7 +4,7 @@
 
 **Live site (beta):** [https://nickelz34.github.io/Emerald-Guide/](https://nickelz34.github.io/Emerald-Guide/)
 
-Current app version: **1.26.67**
+Current app version: **1.26.68**
 
 ---
 
@@ -51,7 +51,7 @@ The top navigation has **three sections**:
 
 Older versions of this project had separate “Secrets,” “Legendaries,” and “Tips” tabs. Those topics are now **woven into the walkthrough** (and into map/route panels) so you follow one path instead of hopping between sections.
 
-You can also open an in-app **changelog** by clicking the version badge (`v1.26.67`) next to the Emerald Guide title.
+You can also open an in-app **changelog** by clicking the version badge (`v1.26.68`) next to the Emerald Guide title.
 
 ### Layout: Mobile vs Desktop
 
@@ -383,7 +383,7 @@ Many distros ship an **old** Node packaged as `nodejs`. Emerald Guide needs **18
 
 nvm installs Node in your home directory — no fighting system packages.
 
-1. Install nvm (check [nvm releases](https://github.com/nvm-sh/nvm/releases) if you want a newer install script tag; `v1.26.67` is commonly used):
+1. Install nvm (check [nvm releases](https://github.com/nvm-sh/nvm/releases) if you want a newer install script tag; `v1.26.68` is commonly used):
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
@@ -646,7 +646,7 @@ node --version
 npm --version
 ```
 
-Expected examples: `v1.26.67` / `v1.26.67` and an npm like `10.x`. Both must work. If PowerShell says the command is not recognized, see [Troubleshooting — Windows](#windows-troubleshooting).
+Expected examples: `v1.26.68` / `v1.26.68` and an npm like `10.x`. Both must work. If PowerShell says the command is not recognized, see [Troubleshooting — Windows](#windows-troubleshooting).
 
 #### Option B — winget (Windows Package Manager)
 
@@ -899,7 +899,7 @@ You want `v18…` / `v20…` / `v22…` (or newer LTS) and an npm like `10.x`.
 
 nvm keeps Node in your home folder and is easy to upgrade later.
 
-1. Install nvm ([nvm releases](https://github.com/nvm-sh/nvm/releases) if you want a newer tag; `v1.26.67` is commonly used):
+1. Install nvm ([nvm releases](https://github.com/nvm-sh/nvm/releases) if you want a newer tag; `v1.26.68` is commonly used):
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
