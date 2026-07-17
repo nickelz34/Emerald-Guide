@@ -5038,125 +5038,114 @@
   line-height: 1.4;
 }
 
-.fishing-table__locations {
-  display: grid;
-  gap: 0.7rem;
-  margin: 0 0 0.95rem;
-}
-
-.fishing-table__location {
-  padding: 0.65rem 0.75rem 0.55rem;
-  border: 1px solid var(--hover-fill-strong);
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.fishing-table__location-head {
-  margin: 0 0 0.45rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--hover-fill-strong);
-}
-
-.fishing-table__loc-name {
-  margin: 0;
-  font-size: 0.92rem;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.fishing-table__loc-note {
-  margin: 0.3rem 0 0;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  line-height: 1.4;
-}
-
-.fishing-table__encounters {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.2rem;
-}
-
-.fishing-table__encounter {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 3.25rem 4.5rem;
+.fishing-table__toolbar {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.45rem 0.65rem;
-  min-height: 2.4rem;
-  padding: 0.15rem 0;
+  gap: 0.55rem 0.75rem;
+  margin: 0 0 0.65rem;
 }
 
-.fishing-table__mon {
+.fishing-table__tabs {
   display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-width: 0;
-  font-weight: 600;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated, rgba(0, 0, 0, 0.03));
+}
+
+.fishing-table__tab {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
   font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.fishing-table__tab:hover {
+  color: var(--text);
+  background: var(--hover-fill);
+}
+
+.fishing-table__tab--active {
+  color: var(--text);
+  background: rgba(60, 160, 140, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(60, 160, 140, 0.35);
+}
+
+.fishing-table__search {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  max-width: 22rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg, #fff);
   color: inherit;
+  font: inherit;
+  font-size: 0.84rem;
+}
+
+.fishing-table__wrap {
+  margin: 0 0 0.45rem;
+}
+
+.fishing-table__grid td {
+  vertical-align: middle;
+}
+
+.fishing-table__section th {
+  background: rgba(60, 160, 140, 0.1);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
   text-align: left;
 }
 
-.fishing-table__mon--link {
-  border: none;
-  background: none;
-  padding: 0.1rem 0;
-  cursor: pointer;
-  color: var(--link, #5ec4e8);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.fishing-table__mon--link:hover {
-  color: var(--emerald, #38b2ac);
-}
-
-.fishing-table__mon-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.fishing-table__sprite {
-  flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
-  image-rendering: pixelated;
-  object-fit: contain;
-}
-
-.fishing-table__sprite--fallback {
-  display: inline-grid;
-  place-items: center;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  background: rgba(0, 0, 0, 0.06);
-  border-radius: 4px;
-}
-
-.fishing-table__rate,
-.fishing-table__level {
-  font-size: 0.82rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-
-.fishing-table__rate {
+.fishing-table__loc-name {
+  display: inline;
   font-weight: 700;
-  color: var(--text);
-  text-align: right;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
-.fishing-table__level {
-  text-align: right;
+.fishing-table__loc-count {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--hover-fill-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  vertical-align: middle;
+}
+
+.fishing-table__loc-note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--orange, #ed8936);
+  line-height: 1.35;
+  white-space: normal;
 }
 
 .fishing-table__specials {
-  margin: 0;
+  margin: 0.85rem 0 0;
   padding: 0;
   list-style: none;
   display: grid;
@@ -5178,16 +5167,46 @@
   color: var(--emerald);
 }
 
-@media (max-width: 480px) {
-  .fishing-table__encounter {
-    grid-template-columns: minmax(0, 1fr) 2.75rem 3.75rem;
-    gap: 0.3rem 0.4rem;
+@media (max-width: 640px) {
+  .fishing-table__grid tr.fishing-table__section {
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
   }
 
-  .fishing-table__rate,
-  .fishing-table__level {
-    font-size: 0.76rem;
+  .fishing-table__grid tr.fishing-table__section th {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(60, 160, 140, 0.12);
   }
+
+  .fishing-table__grid td[data-label="Rate"] {
+    font-weight: 700;
+  }
+}
+
+.app-shell[data-view="mobile"] .fishing-table__grid tr.fishing-table__section {
+  margin-bottom: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.app-shell[data-view="mobile"] .fishing-table__grid tr.fishing-table__section th {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(60, 160, 140, 0.12);
 }
 
 .type-chart-table__picker {
