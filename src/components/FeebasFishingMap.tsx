@@ -190,9 +190,10 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
     >
       <h5 className="reference-table__title">Feebas tiles (Route 119)</h5>
       <p className="reference-table__lead">
-        Use this calculator to find the six active fishing tiles on your save. Emerald does{" "}
-        <strong>not</strong> use fixed Feebas locations — tiles move with Dewford’s trendy phrase
-        seed.
+        Find the six active fishing tiles on your Emerald save. Feebas locations are{" "}
+        <strong>not</strong> fixed — they follow a hidden Dewford trend seed (
+        <code>dewfordTrends[0].rand</code>). Use the calculator below (<em>Seed</em> or{" "}
+        <em>TID + phrase</em>), then fish the magenta-ringed tiles on the map.
       </p>
 
       <div className="feebas-map__guide">
@@ -202,138 +203,152 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
             <strong>Understand the mechanic.</strong> Route 119 has{" "}
             {FEEBAS_FISHING_SPOT_COUNT} numbered fishable water tiles (surfable, not waterfall),
             counted left→right and top→bottom. Exactly {FEEBAS_ACTIVE_SPOT_COUNT} of those spot IDs
-            are active for Feebas. The active set comes from a 16-bit random value stored on your
-            save: <code>dewfordTrends[0].rand</code> (the current Dewford trendy phrase’s RNG
-            seed).
+            are active for Feebas at a time. The set comes from a u16 on your save:{" "}
+            <code>dewfordTrends[0].rand</code>.
           </li>
           <li>
-            <strong>Find your tiles</strong> with either tab below: paste a known{" "}
-            <em>Dewford trend seed</em>, or enter your <em>Trainer ID + trendy phrase</em> (only
-            if you never changed Dewford’s phrase) to reverse-engineer candidate seeds.
+            <strong>Pick a calculator tab</strong> under this guide:
+            <ul>
+              <li>
+                <em>Seed</em> — paste a known Dewford trend / Feebas random value (hex or decimal)
+                and press <em>Show tiles</em>. Use <em>Demo seed</em> to practice the UI.
+              </li>
+              <li>
+                <em>TID + phrase</em> — enter your Trainer ID and the two Dewford Easy Chat words,
+                then press <em>Find seeds</em> (only if you never manually changed the trendy
+                phrase).
+              </li>
+            </ul>
           </li>
           <li>
-            <strong>Read the results.</strong> The green list shows your six active spot IDs with
-            map coordinates. Tap a spot ID to jump to that North / Middle / South map section and
-            zoom the map onto that exact tile. Bright magenta highlights mark the active
-            metatiles on the numbered yellow grid — zoom in to read the crisp spot number on
-            that tile.
+            <strong>Read the results.</strong> The spot list shows the six active IDs for the
+            applied seed. Magenta pulsing rings mark those tiles on the yellow numbered grid (center
+            stays clear so you can read the spot number). Tap a spot ID — or a candidate seed from
+            TID + phrase — to jump the map to that tile.
           </li>
           <li>
-            <strong>Fish those tiles in-game.</strong> Face the water tile, use any rod (Old Rod is
-            fastest — only one “Oh! A bite!” prompt). On a correct tile, Feebas is about{" "}
-            <strong>50%</strong> per bite, so cast several times before moving on.{" "}
+            <strong>Fish those tiles in-game.</strong> Face the water tile; any rod works (Old Rod
+            is fastest — one “Oh! A bite!” prompt). On a correct tile, Feebas is about{" "}
+            <strong>50%</strong> per bite, so cast several times.{" "}
             <strong>Surf never finds Feebas</strong> — fishing only.
           </li>
           <li>
-            <strong>If tiles feel wrong,</strong> you entered the wrong seed, the trend changed
-            since you dumped the seed, or you are not on the numbered tile (spots 1–3 at the top of
-            the river are inaccessible and can never be Feebas). Reshuffle in Dewford and get a
-            fresh seed if needed.
+            <strong>If tiles feel wrong,</strong> try the next candidate seed (TID + phrase),
+            re-check the seed/TID/words, confirm you are on the numbered tile (spots 1–3 are
+            inaccessible), or get a fresh seed after the Dewford trend changes.
           </li>
         </ol>
 
         <details className="feebas-map__details" open>
-          <summary>How to get your Dewford trend seed</summary>
+          <summary>How to get your seed (three methods)</summary>
           <div className="feebas-map__details-body">
             <h6 className="feebas-map__subhead">Method A — PKHeX Feebas Locator (recommended)</h6>
-            <ol>
-              <li>
-                Export your Emerald save (<code>.sav</code>) from your cartridge / emulator /
-                flashcart the usual way.
-              </li>
-              <li>
-                Open the save in <strong>PKHeX</strong> with the{" "}
-                <strong>Feebas Locator</strong> plugin installed (from Project Pokémon: drop the
-                plugin into PKHeX’s <code>plugins</code> folder, then restart PKHeX).
-              </li>
-              <li>
-                In PKHeX go to <strong>Tools → Feebas Locator</strong> (wording may vary slightly by
-                plugin version). It reads the current Feebas RNG value from the save and can show
-                the matching tiles.
-              </li>
-              <li>
-                Copy the Feebas / Dewford trend random value it reports (a number from 0–65535, often
-                shown in hex). Paste that value into the seed box below and press{" "}
-                <em>Show tiles</em>.
-              </li>
-            </ol>
-
-            <h6 className="feebas-map__subhead">Method B — TID + trendy phrase (built-in)</h6>
             <p>
-              If you have <strong>never changed</strong> Dewford’s trendy phrase (still the
-              new-game trend — common on dead-battery / early-game saves), switch to the{" "}
-              <em>TID + phrase</em> tab below:
+              Best when you can dump a save. Gives the exact current seed — works even after you
+              changed Dewford’s phrase.
             </p>
             <ol>
               <li>
-                Note your Trainer ID (Trainer Card).
+                Export your Emerald save (<code>.sav</code>) from your cartridge / emulator /
+                flashcart.
+              </li>
+              <li>
+                Open it in <strong>PKHeX</strong> with the <strong>Feebas Locator</strong> plugin
+                (Project Pokémon: drop the plugin into PKHeX’s <code>plugins</code> folder, restart
+                PKHeX).
+              </li>
+              <li>
+                Go to <strong>Tools → Feebas Locator</strong> (wording may vary). It reads the Feebas
+                / Dewford trend random value from the save.
+              </li>
+              <li>
+                Copy that value (0–65535, often hex). In this panel open the <em>Seed</em> tab,
+                paste it into <em>Dewford trend seed</em>, and press <em>Show tiles</em>.
+              </li>
+            </ol>
+
+            <h6 className="feebas-map__subhead">Method B — TID + phrase (built into this panel)</h6>
+            <p>
+              No save dump needed. Works only while Dewford is still on the{" "}
+              <strong>original new-game trendy phrase</strong> (you have never successfully
+              submitted a new phrase in Dewford Hall). Common on dead-battery / early-game saves.
+            </p>
+            <ol>
+              <li>
+                Note your <strong>Trainer ID</strong> from the Trainer Card (0–65535).
               </li>
               <li>
                 In Dewford Town, talk to the boy outside Dewford Hall (north of the Pokémon Center)
-                and write down the two Easy Chat words of the current trendy phrase.
+                and write down both Easy Chat words of the current trendy phrase.
               </li>
               <li>
-                Enter TID + both words and press <em>Find seeds</em>. The calculator lists
-                candidate Feebas random values (timing variants) and applies the first one.
+                Open the <em>TID + phrase</em> tab below. Enter TID, pick the first word
+                (Conditions) and second word (Lifestyle / Hobbies), then press{" "}
+                <em>Find seeds</em>.
               </li>
               <li>
-                If the first candidate’s tiles feel wrong in-game, tap the next candidate and
-                verify by fishing (~50% Feebas on a hit). Keep the working seed until you change
-                the Dewford trend.
+                The panel lists candidate seeds (timing variants) and applies the first one. If
+                those tiles fail in-game, tap the next candidate and fish again (~50% Feebas on a
+                hit). Keep the working seed until the Dewford trend changes.
               </li>
             </ol>
             <p className="feebas-map__callout">
-              If you already submitted a new trendy phrase in Dewford Hall, Method B usually cannot
-              recover the seed from the words alone — use Method A (PKHeX) or Method C instead.
+              If you already set a new trendy phrase in Dewford Hall, Method B cannot recover the
+              seed from the words alone — use Method A (PKHeX) or Method C.
             </p>
 
             <h6 className="feebas-map__subhead">Method C — Emulator / raw save (advanced)</h6>
             <p>
-              The value lives in SaveBlock1 as <code>dewfordTrends[0].rand</code> (a{" "}
-              <code>u16</code>). On pokeemerald layouts this is part of each 8-byte{" "}
-              <code>DewfordTrend</code> struct. Memory viewers or save parsers that expose Dewford
-              trends can dump that field; paste the low 16 bits into the seed box (hex or decimal).
+              The value is SaveBlock1 <code>dewfordTrends[0].rand</code> (a <code>u16</code> inside
+              each 8-byte <code>DewfordTrend</code>). Dump that field from a memory viewer or save
+              parser, then paste the low 16 bits into the <em>Seed</em> tab (hex or decimal) and
+              press <em>Show tiles</em>.
             </p>
           </div>
         </details>
 
         <details className="feebas-map__details">
-          <summary>Using the maps, zoom, and Demo seed</summary>
+          <summary>Calculator tabs, maps, zoom, and Demo seed</summary>
           <div className="feebas-map__details-body">
             <ul>
               <li>
-                <strong>Yellow numbered tiles</strong> — every fishable spot on Route 119. Numbers
-                match pokeemerald’s fishing-spot IDs (1–{FEEBAS_FISHING_SPOT_COUNT}).
+                <strong>Seed tab</strong> — direct entry for <code>dewfordTrends[0].rand</code>.
+                Accepts hex (<code>4A7C</code>, <code>0x4A7C</code>) or decimal (
+                <code>19068</code>). <em>Demo seed</em> loads{" "}
+                <code>{formatFeebasSeed(FEEBAS_DEMO_SEED)}</code> so you can practice; it is{" "}
+                <em>not</em> your game’s tiles.
               </li>
               <li>
-                <strong>Magenta highlights</strong> — the active Feebas metatiles for the seed
-                you applied. Each highlight is a bright pulsing magenta ring around the tile so
-                the baked spot number stays readable in the clear center.
+                <strong>TID + phrase tab</strong> — Trainer ID + two Easy Chat dropdowns →{" "}
+                <em>Find seeds</em>. Candidate seed buttons appear under the form; the active one
+                is labeled “showing.”
               </li>
               <li>
-                <strong>Zoom &amp; pan</strong> — scroll / pinch to zoom, drag to pan, or use the + /
-                − buttons. Zoom uses crisp pixel scaling so spot numbers stay sharp.{" "}
-                <em>Enlarge map</em> opens a full lightbox with the same controls.
+                <strong>Yellow numbered tiles</strong> — every fishable spot on Route 119
+                (pokeemerald IDs 1–{FEEBAS_FISHING_SPOT_COUNT}).
               </li>
               <li>
-                <strong>North / Middle / South tabs</strong> — the route is split into three map
-                sections so the grid stays readable. A tab shows how many of your six spots fall in
-                that section (e.g. “Middle · 2”).
+                <strong>Magenta rings</strong> — active Feebas tiles for the applied seed. Clear
+                center so the spot number stays readable; the bright ring pulses to stand out on
+                yellow water.
               </li>
               <li>
-                <strong>Spot list links</strong> — click “Spot 262” (etc.) to jump straight to that
-                section and center the map on that tile. Coordinates <code>(x, y)</code> are tile
-                positions on the full Route 119 layout.
+                <strong>Zoom &amp; pan</strong> — scroll / pinch, drag, or use + / −. Zoom uses
+                crisp pixel scaling. <em>Enlarge map</em> opens a full lightbox with the same
+                controls.
               </li>
               <li>
-                <strong>Demo seed</strong> — loads a built-in example (
-                <code>{formatFeebasSeed(FEEBAS_DEMO_SEED)}</code>) so you can practice reading the
-                UI without a save. It is <em>not</em> your game’s tiles.
+                <strong>North / Middle / South</strong> — route sections; a tab shows how many of
+                your six spots fall there (e.g. “Middle · 2”).
               </li>
               <li>
-                <strong>Duplicate IDs</strong> — the game can roll the same spot more than once. If
-                the list shows fewer than six unique IDs, that is normal; you still only need to
-                fish the unique tiles.
+                <strong>Spot list</strong> — click “Spot 262” (etc.) to jump to that section and
+                center the map. Coordinates <code>(x, y)</code> are tiles on the full Route 119
+                layout.
+              </li>
+              <li>
+                <strong>Duplicate IDs</strong> — the game can roll the same spot more than once. Fewer
+                than six unique IDs is normal; fish each unique tile.
               </li>
             </ul>
           </div>
@@ -346,23 +361,24 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
               <li>
                 To reshuffle Feebas tiles, go to Dewford Hall and successfully set a{" "}
                 <strong>new</strong> trendy phrase (it must become the #1 trend). That regenerates{" "}
-                <code>dewfordTrends[0].rand</code>. Dump / look up the new seed and run{" "}
-                <em>Show tiles</em> again.
+                <code>dewfordTrends[0].rand</code>. Afterward Method B no longer works from the old
+                words — dump the new seed (Method A or C), paste it in the <em>Seed</em> tab, and
+                press <em>Show tiles</em>.
               </li>
               <li>
                 Register the Old Rod in Key Items and use Select to cast quickly while sweeping.
               </li>
               <li>
                 You can fish from shore, bridges, or while surfing — as long as you face the target
-                water tile. The encounter still comes from fishing, not from Surf’s encounter table.
+                water tile. The encounter still comes from fishing, not Surf’s encounter table.
               </li>
               <li>
                 Feebas is weak; after catching one, raise Beauty to 170+ with Dry Pokéblocks and
                 level it up for Milotic (see Contest / Evolution prep elsewhere in the guide).
               </li>
               <li>
-                Relicanth is unrelated — it is a Dive encounter on Underwater Routes 124 / 126, not
-                a Super Rod or Feebas-tile fish.
+                Relicanth is unrelated — Dive on Underwater Routes 124 / 126, not a Super Rod or
+                Feebas-tile fish.
               </li>
             </ul>
           </div>
@@ -611,9 +627,9 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
       ) : null}
 
       <p className="encounter-legend">
-        Yellow tiles = all fishable spots (crisp baked IDs). Magenta highlights = exact active
-        Feebas tiles for the seed above. Zoom / pan to read spot numbers. Spots 1–3 are
-        inaccessible. Old Rod + several casts per tile (~50% Feebas on a hit).
+        Yellow tiles = all fishable spots. Magenta rings = active Feebas tiles for the applied
+        seed (number stays readable in the center). Use the Seed or TID + phrase tabs above. Spots
+        1–3 are inaccessible. Old Rod + several casts per tile (~50% Feebas on a hit).
       </p>
 
       {expanded ? (
