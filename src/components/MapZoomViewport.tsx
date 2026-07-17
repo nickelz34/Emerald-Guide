@@ -107,7 +107,9 @@ export function MapZoomViewport({
       style={{
         ...zoomStyle,
         // Tall maps use a fixed viewport box; locking aspectRatio collapses width to ~30px.
-        ...(cropAspect && !isTall && !crisp
+        // Crisp mode still needs aspect-ratio (or an explicit height) so the viewport
+        // keeps a non-zero box — the canvas is absolutely positioned and won't size it.
+        ...(cropAspect && !isTall
           ? { aspectRatio: cropAspect, ["--map-aspect" as string]: cropAspect }
           : {}),
         ...(cropAspectRatio ? { ["--map-aspect-ratio" as string]: cropAspectRatio } : {}),
