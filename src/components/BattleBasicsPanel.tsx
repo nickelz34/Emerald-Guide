@@ -373,7 +373,11 @@ export function BattleBasicsPanel({
       </div>
 
       <h5 className="battle-basics__title battle-basics__title--commands">Battle commands</h5>
-      <ul className="battle-basics__commands">
+      <p className="battle-basics__commands-lead">
+        Same 2×2 layout as Emerald’s battle menu — Fight top-left, Bag top-right, Pokémon bottom-left, Run
+        bottom-right.
+      </p>
+      <ul className="battle-basics__commands" aria-label="Battle menu commands in game order">
         {commands.map((cmd) => (
           <li key={cmd.id} className={`battle-basics__command battle-basics__command--${cmd.id}`}>
             <span className="battle-basics__command-label">{cmd.label}</span>
