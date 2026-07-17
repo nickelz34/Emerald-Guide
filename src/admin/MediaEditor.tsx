@@ -10,6 +10,7 @@ import { reorderList } from "../lib/reorderList";
 import type { GuideMediaItem } from "../types";
 import { AreaMapView } from "../components/AreaMapView";
 import { HoennCrop } from "../components/HoennCrop";
+import { useAdmin } from "./AdminContext";
 import { AdminDragHandle } from "./AdminDragHandle";
 import { createAdminId } from "./adminIds";
 
@@ -62,7 +63,13 @@ export function MediaEditor({
   useCustomMedia = false,
   onChange,
 }: MediaEditorProps) {
+  const { baselineWalkthrough } = useAdmin();
   const derivedCount = getStepImages(stepId).length;
+  const baselineUseCustomMedia = Boolean(
+    baselineWalkthrough
+      .flatMap((chapter) => chapter.steps)
+      .find((step) => step.id === stepId)?.useCustomMedia,
+  );
 
   const commit = (nextMedia: GuideMediaItem[], nextCustom = true) => {
     onChange(nextMedia, nextCustom);
@@ -82,10 +89,15 @@ export function MediaEditor({
   };
 
   const removeAt = (index: number) => {
-    commit(
-      media.filter((_, i) => i !== index),
-      true,
-    );
+    const next = media.filter((_, i) => i !== index);
+    // Deleting the last custom item should exit custom mode when the published
+    // step was not custom — otherwise sticky useCustomMedia + [] stays pending.
+    // Intentional empty galleries still use "Clear all" (keeps custom mode).
+    if (next.length === 0 && !baselineUseCustomMedia) {
+      onChange([], false);
+      return;
+    }
+    commit(next, true);
   };
 
   const addItem = () => {
