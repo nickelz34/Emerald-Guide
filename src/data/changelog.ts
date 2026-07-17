@@ -20,6 +20,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.71",
+    date: "2026-07-17",
+    summary:
+      "Oldale Event 1 restores every NPC in the baked art — west-road researcher, mart tutorial employee, and full Center/Mart casts.",
+    sections: [
+      {
+        heading: "Oldale Town (Ch. 7 Event 1)",
+        items: [
+          "Town map uses the first-visit layout: researcher blocking Route 102 west, Mart Employee on the Potion-tutorial path, and the tipster girl — all painted into the image.",
+          "Pokémon Center and Poké Mart keep Nurse + Gentleman + Boy + Girl and Clerk + Woman + Boy baked in (cache-busted asset filenames so no NPC is dropped).",
+          "Event 2 still uses the later town layout with the Mart Employee by the door and the footprints man in the square.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.70",
     date: "2026-07-17",
     summary:
