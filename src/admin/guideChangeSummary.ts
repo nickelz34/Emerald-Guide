@@ -204,6 +204,11 @@ function describeStepDiff(before: GuideStep, after: GuideStep): GuideFieldDiff[]
   return diffs;
 }
 
+/** True when two steps have no pending field-level differences. */
+export function stepContentEquals(before: GuideStep, after: GuideStep): boolean {
+  return describeStepDiff(before, after).length === 0;
+}
+
 function describeChapterDiff(
   before: GuideSection,
   after: GuideSection,

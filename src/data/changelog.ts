@@ -20,6 +20,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.65",
+    date: "2026-07-17",
+    summary:
+      "Admin pending changes clear when you manually undo an edit (including removing newly added media) without using Undo.",
+    sections: [
+      {
+        heading: "Admin Mode",
+        items: [
+          "Deleting the last newly added media item exits custom gallery mode so the step matches the published baseline again and drops off the pending list.",
+          "Step updates that fully match the baseline are restored to the baseline snapshot, so manual reverts no longer leave sticky pending changes.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.64",
     date: "2026-07-17",
     summary:

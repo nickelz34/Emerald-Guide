@@ -20,6 +20,7 @@ import { renumberChapterTitles, reorderList } from "../lib/reorderList";
 import type { GuideMediaItem, GuideSection, GuideStep } from "../types";
 import { createAdminId } from "./adminIds";
 import {
+  stepContentEquals,
   summarizeGuideChanges,
   type GuideChangeSummary,
 } from "./guideChangeSummary";
@@ -118,6 +119,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [redoStack, setRedoStack] = useState<GuideSection[][]>([]);
   const draftRef = useRef(draftWalkthrough);
   draftRef.current = draftWalkthrough;
+  const baselineRef = useRef(baselineWalkthrough);
+  baselineRef.current = baselineWalkthrough;
 
   const changeSummary = useMemo(
     () => summarizeGuideChanges(baselineWalkthrough, draftWalkthrough),
@@ -460,7 +463,19 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           if (ch.id !== chapterId) return ch;
           return {
             ...ch,
-            steps: ch.steps.map((s) => (s.id === stepId ? { ...s, ...patch } : s)),
+            steps: ch.steps.map((s) => {
+              if (s.id !== stepId) return s;
+              const next = { ...s, ...patch };
+              const baselineStep = baselineRef.current
+                .find((chapter) => chapter.id === chapterId)
+                ?.steps.find((step) => step.id === stepId);
+              // Manual edits that fully undo a pending change should clear it
+              // (same as Undo), not leave sticky empty/undefined mismatches.
+              if (baselineStep && stepContentEquals(baselineStep, next)) {
+                return structuredClone(baselineStep);
+              }
+              return next;
+            }),
           };
         }),
       );
