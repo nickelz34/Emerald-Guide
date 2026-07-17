@@ -54,21 +54,42 @@ export const pregameFieldChapter: GuideSection = {
       title: "Fishing",
       location: "Dewford · Route 118 · Mossdeep",
       summary:
-        "Three rods unlock better water tables: Old Rod in Dewford, Good Rod on Route 118, Super Rod free in Mossdeep.",
+        "Three free rods unlock better fishing tables: Old Rod (Dewford), Good Rod (Route 118), Super Rod (Mossdeep). Rod tables are not the same as Surf.",
       story: [
-        "Stand facing a water tile, open the Bag, and use a fishing rod. A bite leads to a wild battle from that rod’s encounter table for the map — not the same list as Surfing. Missed reels or walking away cancel the attempt; you can try again on the same tile.",
-        "The Old Rod is a free gift from the fisherman on Dewford Town’s south shore near the Gym. The Good Rod comes from the fisherman on Route 118’s east shore — you need Surf (Balance Badge) to reach him. The Super Rod is a free gift from the fisherman in the house east of Mossdeep Gym (the game never sells it). Better rods unlock stronger and rarer species, including Relicanth on Super Rod tables used for the Regi puzzle. Feebas on Route 119 appears only on six special fishing tiles tied to Dewford’s trend — Surfing those waters will not catch Feebas.",
+        "Emerald fishing is short and mechanical: face water → use a rod from the Bag → press A when you see “Oh! A bite!” Better rods need more successful prompts in a row. Miss or walk away and you can try the same tile again.",
+        `<strong class="story-heading">The three rods</strong>
+All three are free gifts — none are sold in marts.
+<ul>
+<li><strong>Old Rod</strong> — Dewford south shore by the Gym. Fast prompts; Magikarp and Tentacool / Goldeen.</li>
+<li><strong>Good Rod</strong> — Route 118 east shore (needs Surf / Balance Badge). Mid-level tables.</li>
+<li><strong>Super Rod</strong> — Mossdeep house east of the Gym. The Super Rod is a free gift (never sold). Strongest map tables (see the chart below).</li>
+</ul>`,
+        `<strong class="story-heading">Feebas &amp; Relicanth</strong>
+<ul>
+<li><strong>Feebas (Route 119)</strong> — only on six Dewford-trend water tiles; any rod; ~50% on a correct tile. Surf never finds it. Change Dewford’s trendy phrase to reshuffle tiles.</li>
+<li><strong>Relicanth</strong> — Dive encounter on Underwater Routes 124 / 126, not Super Rod. Needed with Wailord for the Regi puzzle.</li>
+</ul>`,
       ],
       details: [],
       tips: [
-        "Bring the Good or Super Rod to Route 119 when hunting Feebas; note Dewford TV/trending phrases if you use online tile helpers.",
-        "Old Rod trash like Magikarp and Tentacool still fill the Pokédex and yield cheap Exp early on.",
+        "Register a rod in Key Items so Select casts it without opening the Bag.",
+        "Old Rod is the fastest tool when sweeping Route 119 tiles for Feebas.",
         "You can fish from bridges, beaches, and while surfing — any adjacent water tile the rod can reach.",
+        "Suction Cups / Sticky Hold on the lead raises the chance of getting a bite.",
       ],
       secrets: [
         "The Super Rod in Mossdeep is free — nobody sells it; talk to the fisherman in the house east of the Gym.",
       ],
       tags: ["pregame", "fishing", "old-rod", "good-rod", "super-rod", "feebas"],
+      blockOrder: [
+        "summary",
+        "story",
+        "media",
+        "panel:fishing-table",
+        "tips",
+        "secrets",
+        "tags",
+      ],
     },
     {
       id: "pregame-field-4",

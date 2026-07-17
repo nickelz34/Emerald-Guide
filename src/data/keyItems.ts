@@ -50,7 +50,7 @@ export const KEY_ITEM_UNLOCKS: KeyItemUnlock[] = [
     name: "Super Rod",
     obtainLocation: "Mossdeep City — house east of the Gym",
     walkthroughStepId: "mossdeep-3",
-    note: "Free gift from the fisherman; fish Relicanth and Wailmer for the Regi puzzle.",
+    note: "Free gift from the fisherman; fish Wailmer here. Relicanth is a Dive encounter underwater.",
   },
   {
     id: "itemfinder",

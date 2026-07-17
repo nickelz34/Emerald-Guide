@@ -27,6 +27,7 @@ import { BattleBasicsPanel } from "./BattleBasicsPanel";
 import { HmUnlockTable } from "./HmUnlockTable";
 import { KeyItemsTable } from "./KeyItemsTable";
 import { PokeBallTable } from "./PokeBallTable";
+import { FishingTable } from "./FishingTable";
 import { NatureTable } from "./NatureTable";
 import { VitaminsTable } from "./VitaminsTable";
 import { StatusTable } from "./StatusTable";
@@ -212,6 +213,8 @@ export function StepBrowser({
   const showHmTable = current?.step.id === "rustboro-1" && panelVisible("hm-table");
   const showKeyItemsTable =
     current?.step.id === "rusturf-tunnel-2" && panelVisible("key-items");
+  const showFishingTable =
+    current?.step.id === "pregame-field-3" && panelVisible("fishing-table");
   const showPokeBallTable =
     current?.step.id === "pregame-field-5" && panelVisible("poke-balls");
   const showBattleBasicsPanel =
@@ -727,6 +730,14 @@ export function StepBrowser({
       return (
         <section className="reference-embed" aria-label="Key items reference">
           <KeyItemsTable highlightStepId={step.id} rows={specialty?.keyItems} />
+        </section>
+      );
+    }
+
+    if (blockId === "panel:fishing-table" && showFishingTable) {
+      return (
+        <section className="reference-embed" aria-label="Fishing rods and encounters">
+          <FishingTable />
         </section>
       );
     }
