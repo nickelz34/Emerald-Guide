@@ -58,14 +58,26 @@ interface UseMapZoomPanOptions {
   dragIgnoreSelector?: string;
   /** Max initial fit zoom (e.g. 1.35 on mobile to fill portrait viewports). */
   maxFitZoom?: number;
+  /**
+   * After fit (and whenever `focusKey` changes), pan/zoom so this content
+   * percent is centered. Used by Feebas maps to jump to an active tile.
+   */
+  focusPercent?: { x: number; y: number } | null;
+  /** Bumps to re-run focus even when the percent is unchanged. */
+  focusKey?: string | number;
+  /** Multiplier over fit-zoom when focusing a point (clamped to ZOOM_MAX). */
+  focusZoomMult?: number;
 }
 
 export function useMapZoomPan({
   enabled,
   contentKey,
   contentRef,
-  dragIgnoreSelector = ".hoenn-map__pin, .map-marker, .map-zoom-viewport__recenter",
+  dragIgnoreSelector = ".hoenn-map__pin, .map-marker, .map-zoom-viewport__recenter, .map-zoom-viewport__controls",
   maxFitZoom = 1,
+  focusPercent = null,
+  focusKey,
+  focusZoomMult = 2.4,
 }: UseMapZoomPanOptions) {
   const [zoom, setZoom] = useState(1);
   const [fitZoom, setFitZoom] = useState(1);
@@ -129,6 +141,34 @@ export function useMapZoomPan({
     setPan(nextPan);
     requestAnimationFrame(syncRecenterPosition);
   }, [contentRef, enabled, maxFitZoom, syncRecenterPosition]);
+
+  const focusOnPercent = useCallback(
+    (pct: { x: number; y: number }, zoomMult = focusZoomMult) => {
+      const viewport = viewportRef.current;
+      const content = contentRef.current;
+      if (!viewport || !content || !enabled) return;
+
+      const contentW = content.offsetWidth;
+      const contentH = content.offsetHeight;
+      const frameW = viewport.clientWidth;
+      const frameH = viewport.clientHeight;
+      if (contentW <= 0 || contentH <= 0 || frameW <= 0 || frameH <= 0) return;
+
+      const { zoom: nextFit } = computeFitView(frameW, frameH, contentW, contentH, maxFitZoom);
+      const targetZoom = clampZoom(Math.max(nextFit * zoomMult, nextFit));
+      const cx = (pct.x / 100) * contentW;
+      const cy = (pct.y / 100) * contentH;
+
+      setFitZoom(nextFit);
+      setZoom(targetZoom);
+      setPan({
+        x: frameW / 2 - cx * targetZoom,
+        y: frameH / 2 - cy * targetZoom,
+      });
+      requestAnimationFrame(syncRecenterPosition);
+    },
+    [contentRef, enabled, focusZoomMult, maxFitZoom, syncRecenterPosition],
+  );
 
   const zoomAtPoint = useCallback((newZoom: number, clientX: number, clientY: number) => {
     const viewport = viewportRef.current;
@@ -326,22 +366,63 @@ export function useMapZoomPan({
     viewportRef.current?.classList.remove("map-zoom-viewport--dragging");
   }, [contentKey, enabled]);
 
+  const resetView = useCallback(() => {
+    if (focusPercent) focusOnPercent(focusPercent);
+    else fitToContent();
+  }, [fitToContent, focusOnPercent, focusPercent]);
+
   useEffect(() => {
     if (!enabled) return;
     const viewport = viewportRef.current;
     if (!viewport) return;
     const ro = new ResizeObserver(() => {
-      fitToContent();
+      resetView();
     });
     ro.observe(viewport);
     if (contentRef.current) ro.observe(contentRef.current);
     return () => ro.disconnect();
-  }, [contentKey, contentRef, enabled, fitToContent]);
+  }, [contentKey, contentRef, enabled, resetView]);
 
   useEffect(() => {
     if (!enabled) return;
     syncRecenterPosition();
   }, [enabled, pan, zoom, syncRecenterPosition]);
+
+  useEffect(() => {
+    if (!enabled || !focusPercent) return;
+    const content = contentRef.current;
+    if (!content) return;
+
+    const run = () => focusOnPercent(focusPercent);
+    const imgs = content.querySelectorAll("img");
+    let pending = 0;
+    const onLoad = () => {
+      pending -= 1;
+      if (pending <= 0) requestAnimationFrame(run);
+    };
+    imgs.forEach((img) => {
+      if (!img.complete) {
+        pending += 1;
+        img.addEventListener("load", onLoad, { once: true });
+      }
+    });
+    if (pending === 0) requestAnimationFrame(run);
+    return () => imgs.forEach((img) => img.removeEventListener("load", onLoad));
+  }, [contentKey, contentRef, enabled, focusKey, focusOnPercent, focusPercent]);
+
+  const zoomByFactor = useCallback(
+    (factor: number) => {
+      const viewport = viewportRef.current;
+      if (!viewport) return;
+      const rect = viewport.getBoundingClientRect();
+      zoomAtPoint(
+        clampZoom(zoomRef.current * factor),
+        rect.left + rect.width / 2,
+        rect.top + rect.height / 2,
+      );
+    },
+    [zoomAtPoint],
+  );
 
   const canvasStyle: CSSProperties = {
     transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
@@ -352,10 +433,12 @@ export function useMapZoomPan({
     attachViewportRef,
     canvasStyle,
     fitToContent,
+    resetView,
     fitZoom,
     recenterPos,
     syncRecenterPosition,
     zoom,
+    zoomByFactor,
     zoomStyle: {
       "--map-zoom": zoom,
       "--map-zoom-fit": fitZoom,

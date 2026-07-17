@@ -14,6 +14,19 @@ import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
 
+export type AreaMapExtraMarker = {
+  id: string;
+  name: string;
+  category: MapPoint["category"];
+  x: number;
+  y: number;
+  desc?: string;
+  pinCode?: string;
+  markerStyle?: MapPoint["markerStyle"];
+  tileW?: number;
+  tileH?: number;
+};
+
 interface AreaMapViewProps {
   areaMapId: string;
   caption?: string;
@@ -22,16 +35,22 @@ interface AreaMapViewProps {
   onClick?: () => void;
   className?: string;
   /** Extra pins merged on top of the area’s built-in markers (e.g. Feebas seed results). */
-  extraMarkers?: Array<{
-    id: string;
-    name: string;
-    category: MapPoint["category"];
-    x: number;
-    y: number;
-    desc?: string;
-  }>;
+  extraMarkers?: AreaMapExtraMarker[];
   /** When true, omit the area’s baked markers (landmarks / demo pins). */
   hideBuiltInMarkers?: boolean;
+  /**
+   * Enable pinch / scroll / drag zoom in the inline (non-lightbox) preview.
+   * Used by the Feebas fishing maps.
+   */
+  interactive?: boolean;
+  /** Override preview max height (px). Ignored in lightbox. */
+  previewMaxH?: number;
+  /** Pan/zoom the viewport to this content percent (interactive / lightbox). */
+  focusPercent?: { x: number; y: number } | null;
+  /** Re-run focus when this key changes (e.g. selected Feebas spot id). */
+  focusKey?: string | number;
+  /** Show +/- zoom controls on the viewport. */
+  showZoomControls?: boolean;
 }
 
 /** Compact interactive area map for walkthrough step galleries. */
@@ -44,6 +63,11 @@ export function AreaMapView({
   className = "",
   extraMarkers,
   hideBuiltInMarkers = false,
+  interactive = false,
+  previewMaxH,
+  focusPercent = null,
+  focusKey,
+  showZoomControls = false,
 }: AreaMapViewProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
@@ -61,6 +85,9 @@ export function AreaMapView({
       desc?: string;
       code?: string;
       pinCode?: string;
+      markerStyle?: MapPoint["markerStyle"];
+      tileW?: number;
+      tileH?: number;
     }): MapPoint => ({
       id: m.id,
       name: m.name,
@@ -70,6 +97,9 @@ export function AreaMapView({
       desc: m.desc ? formatItemDescription(m.desc) : m.desc,
       note: area.name,
       pinCode: m.pinCode ?? m.code,
+      markerStyle: m.markerStyle,
+      tileW: m.tileW,
+      tileH: m.tileH,
     });
     const items: MapPoint[] = [
       ...(hideBuiltInMarkers ? [] : area.markers.map(toPoint)),
@@ -100,9 +130,10 @@ export function AreaMapView({
   }, [area, extraMarkers, hideBuiltInMarkers]);
 
   const activePoint = points.find((p) => p.id === activeId) ?? null;
-  const maxH = variant === "lightbox" ? 720 : 360;
+  const maxH = previewMaxH ?? (variant === "lightbox" ? 720 : 360);
   const aspect = area ? area.width / area.height : 1;
   const inLightbox = variant === "lightbox";
+  const zoomEnabled = inLightbox || interactive;
   const isWide = aspect > 1.25;
   /** Petalburg Gym etc. — height≫width; aspect×maxH collapses to a useless strip. */
   const isTall = aspect > 0 && aspect < 0.4;
@@ -128,22 +159,32 @@ export function AreaMapView({
     const trainer = isTrainerPoint(point);
     const owSprite = hasOwSprite(point);
     const baked = isBakedCutscenePoint(point);
+    const isTile = point.markerStyle === "tile";
     return (
       <button
         key={point.id}
         type="button"
         className={`hoenn-map__pin ${
-          baked
-            ? "hoenn-map__pin--baked-cutscene"
-            : `hoenn-map__pin--${point.category}${
-                trainer || owSprite ? " hoenn-map__pin--ow-sprite" : ""
-              }`
-        } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
+          isTile
+            ? "hoenn-map__pin--tile"
+            : baked
+              ? "hoenn-map__pin--baked-cutscene"
+              : `hoenn-map__pin--${point.category}${
+                  trainer || owSprite ? " hoenn-map__pin--ow-sprite" : ""
+                }`
+        } ${point.pinCode && !isTile ? "has-code" : ""} ${active ? "is-active" : ""}`}
         style={{
           left: `${point.x}%`,
           top: `${point.y}%`,
           ["--pin-color" as string]: cat?.color,
-          ...(baked ? {} : pinSpriteStyle(point)),
+          ...(isTile
+            ? {
+                ["--tile-w" as string]: `${point.tileW ?? 2.5}%`,
+                ["--tile-h" as string]: `${point.tileH ?? 2.5}%`,
+              }
+            : baked
+              ? {}
+              : pinSpriteStyle(point)),
         }}
         onPointerDown={(e) => e.stopPropagation()}
         onMouseEnter={(e) => {
@@ -165,7 +206,13 @@ export function AreaMapView({
         }}
         aria-label={point.name}
       >
-        {!baked && <MapPinVisual point={point} />}
+        {isTile ? (
+          <span className="hoenn-map__tile-label" aria-hidden="true">
+            {point.pinCode ?? ""}
+          </span>
+        ) : (
+          !baked && <MapPinVisual point={point} />
+        )}
         <span className="hoenn-map__pin-hint" aria-hidden="true">
           {trainer ? (
             <TrainerPinHint trainer={point} />
@@ -195,7 +242,7 @@ export function AreaMapView({
     <div
       className="area-map-view__frame"
       style={
-        inLightbox
+        zoomEnabled
           ? isTall
             ? { width: "100%" }
             : {
@@ -218,7 +265,7 @@ export function AreaMapView({
       onClick={
         inLightbox
           ? (e) => e.stopPropagation()
-          : onClick
+          : onClick && !interactive
             ? (e) => {
                 e.stopPropagation();
                 onClick();
@@ -229,12 +276,28 @@ export function AreaMapView({
       <img
         src={assetUrl(area.image)}
         alt={label}
-        className={`area-map-view__image${isTall && !inLightbox ? " area-map-view__image--tall-preview" : ""}`}
+        className={`area-map-view__image${isTall && !zoomEnabled ? " area-map-view__image--tall-preview" : ""}`}
         decoding="async"
         draggable={false}
       />
       {pinLayer}
     </div>
+  );
+
+  const zoomViewport = zoomEnabled ? (
+    <MapZoomViewport
+      enabled
+      contentKey={areaMapId}
+      className={`area-map-view__zoom${interactive && !inLightbox ? " area-map-view__zoom--inline" : ""}`}
+      cropAspect={`${area.width} / ${area.height}`}
+      focusPercent={focusPercent}
+      focusKey={focusKey}
+      showControls={showZoomControls || interactive}
+    >
+      {mapFrame}
+    </MapZoomViewport>
+  ) : (
+    mapFrame
   );
 
   const sidebar =
@@ -251,13 +314,14 @@ export function AreaMapView({
             </li>
           ))}
         </ul>
-        {inLightbox && <p className="map-zoom-viewport__hint">Pinch to zoom; drag to pan.</p>}
+        {zoomEnabled && <p className="map-zoom-viewport__hint">Scroll or pinch to zoom; drag to pan.</p>}
         {inLightbox && points.length > 0 && (
           <ul className="area-map-view__point-index" aria-label="All points of interest">
             {points.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = activeId === point.id;
               const thumb = hasOwSprite(point) || isTrainerPoint(point);
+              const isTile = point.markerStyle === "tile";
               return (
                 <li key={point.id}>
                   <button
@@ -268,7 +332,11 @@ export function AreaMapView({
                       handlePinClick(point, active);
                     }}
                   >
-                    {thumb ? (
+                    {isTile ? (
+                      <span className="marker-index__swatch marker-index__swatch--tile" aria-hidden="true">
+                        {point.pinCode ?? cat?.label.charAt(0)}
+                      </span>
+                    ) : thumb ? (
                       <span
                         className="marker-index__sprite"
                         style={portraitSpriteStyle(point) as CSSProperties}
@@ -303,14 +371,7 @@ export function AreaMapView({
       >
         <p className="area-map-view__lightbox-title">{label}</p>
         <div className="area-map-view__lightbox-body">
-          <MapZoomViewport
-            enabled
-            contentKey={areaMapId}
-            className="area-map-view__zoom"
-            cropAspect={`${area.width} / ${area.height}`}
-          >
-            {mapFrame}
-          </MapZoomViewport>
+          {zoomViewport}
           {sidebar}
         </div>
         <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
@@ -320,10 +381,13 @@ export function AreaMapView({
 
   return (
     <figure
-      className={`area-map-view area-map-view--${variant}${onClick ? " area-map-view--clickable" : ""} ${className}`}
-      onClick={onClick}
+      className={`area-map-view area-map-view--${variant}${interactive ? " area-map-view--interactive" : ""}${
+        onClick && !interactive ? " area-map-view--clickable" : ""
+      } ${className}`}
+      style={interactive ? { ["--area-map-inline-max-h" as string]: `${maxH}px` } : undefined}
+      onClick={onClick && !interactive ? onClick : undefined}
       onKeyDown={
-        onClick
+        onClick && !interactive
           ? (e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -332,11 +396,20 @@ export function AreaMapView({
             }
           : undefined
       }
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
+      role={onClick && !interactive ? "button" : undefined}
+      tabIndex={onClick && !interactive ? 0 : undefined}
     >
-      {mapFrame}
-      {sidebar}
+      {interactive ? (
+        <div className="area-map-view__interactive-body">
+          {zoomViewport}
+          {sidebar}
+        </div>
+      ) : (
+        <>
+          {zoomViewport}
+          {sidebar}
+        </>
+      )}
 
       {activePoint && !isTrainerPoint(activePoint) && !showLegend && (
         <figcaption className="area-map-view__active">
