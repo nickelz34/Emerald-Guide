@@ -127,6 +127,7 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
       interactive={variant === "default"}
       previewMaxH={variant === "default" ? 640 : undefined}
       showZoomControls
+      crispPixelZoom
       extraMarkers={extraMarkers}
       focusPercent={focusPercent}
       focusKey={focusKey}
@@ -266,7 +267,8 @@ export function FeebasFishingMap({ className = "" }: { className?: string }) {
               </li>
               <li>
                 <strong>Zoom &amp; pan</strong> — scroll / pinch to zoom, drag to pan, or use the + /
-                − buttons. <em>Enlarge map</em> opens a full lightbox with the same controls.
+                − buttons. Zoom uses crisp pixel scaling so spot numbers stay sharp.{" "}
+                <em>Enlarge map</em> opens a full lightbox with the same controls.
               </li>
               <li>
                 <strong>North / Middle / South tabs</strong> — the route is split into three map
