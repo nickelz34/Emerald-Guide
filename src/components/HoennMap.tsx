@@ -118,6 +118,7 @@ function isMapCalloutPoint(point: MapPoint): boolean {
     !isTrainerPoint(point) &&
     !isMartMapPoint(point) &&
     point.category !== "route" &&
+    point.category !== "town" &&
     point.category !== "gym"
   );
 }
@@ -961,7 +962,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const isDragging = dragState.current !== null;
 
   return (
-    <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
+    <div
+      className={`hoenn-map${compact ? " hoenn-map--compact" : ""}${
+        isTouchDevice ? " hoenn-map--touch" : ""
+      }`}
+    >
       <div className="hoenn-map__body">
         <div
           className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym || modalMart ? " hoenn-map__viewport--modal-open" : ""}`}
@@ -1169,7 +1174,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
             </button>
           </div>
 
-          {selectedPoint && isMapCalloutPoint(selectedPoint) && (
+          {/* Desktop/mouse only — on touch, tap opens the detail modal / legend (no hover bubble). */}
+          {selectedPoint && isMapCalloutPoint(selectedPoint) && !isTouchDevice && (
             <div
               className="hoenn-map__selection"
               role="status"

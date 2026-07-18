@@ -7891,10 +7891,13 @@
   color: #fff;
 }
 
-/* Touch devices: hide floating map popups (use legend panel / modals). */
+/* Touch devices: hide floating map popups (use legend panel / modals).
+   Also keyed off .hoenn-map--touch — some phones still report hover-capable
+   after a tap (sticky :hover), which would otherwise flash pin bubbles. */
 @media (hover: none) and (pointer: coarse) {
   .hoenn-map__pin-hint,
-  .hoenn-map__pin-tip {
+  .hoenn-map__pin-tip,
+  .hoenn-map__selection {
     display: none !important;
   }
 
@@ -7911,6 +7914,17 @@
     min-width: 44px;
     min-height: 44px;
   }
+}
+
+.hoenn-map--touch .hoenn-map__pin-hint,
+.hoenn-map--touch .hoenn-map__pin-tip,
+.hoenn-map--touch .hoenn-map__selection {
+  display: none !important;
+}
+
+.hoenn-map--touch .hoenn-map__pin:hover,
+.hoenn-map--touch .hoenn-map__pin:focus-visible {
+  z-index: 3;
 }
 
 .hoenn-map__pin-tip {

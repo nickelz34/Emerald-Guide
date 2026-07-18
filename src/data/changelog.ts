@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.80",
+    date: "2026-07-18T10:43:09-05:00",
+    summary:
+      "On phones, tapping a town or city opens the detail panel only — no hover bubble.",
+    sections: [
+      {
+        heading: "Hoenn Map (mobile)",
+        items: [
+          "Towns and cities no longer show the floating on-map callout when tapped; the town/route detail panel opens directly (same as routes and gyms).",
+          "Touch mode hides pin hover hints and sticky :hover bubbles — those only make sense with a mouse.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.79",
     date: "2026-07-18T10:32:41-05:00",
     summary:
