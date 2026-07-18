@@ -126,7 +126,9 @@ async function optimizePair(pngPath) {
   const tmp = `${pngPath}.opt.png`;
   await sharp(pngPath).png({ compressionLevel: 9, effort: 10, palette: false }).toFile(tmp);
   fs.renameSync(tmp, pngPath);
-  await sharp(pngPath).webp({ lossless: true, effort: 4 }).toFile(webpPath);
+  await sharp(pngPath)
+    .webp({ lossless: true, nearLossless: false, quality: 100, effort: 6 })
+    .toFile(webpPath);
   return {
     png: fs.statSync(pngPath).size,
     webp: fs.statSync(webpPath).size,

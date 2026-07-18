@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.90",
+    date: "2026-07-18T11:56:19-05:00",
+    summary: "Faster map filter overlays via lossless tile atlases (no quality loss).",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "NPC / Story only / trainer / item bake overlays are packed into small lossless tile atlases instead of full-map transparent images — same pixels, far less decode work when filters turn on.",
+          "Story only in particular drops from a full 12800×6128 overlay to a tiny atlas (~1 MB of pixels to decode instead of ~300 MB).",
+          "Compression stays lossless WebP/PNG only; no palette quantization or quality reduction.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.89",
     date: "2026-07-18T11:45:02-05:00",
     summary: "Cleaner Map layers panel with grouped, aligned toggles.",

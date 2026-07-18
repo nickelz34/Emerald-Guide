@@ -21,6 +21,7 @@ import {
   AREA_MAP_BAKE_MANIFEST,
   AREA_MAP_BAKE_SPRITE_SCALE,
 } from "../data/areaMapBakeManifest";
+import { HOENN_MAP_BAKE_LAYER_ATLASES } from "../data/hoennMapBakeLayers";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
@@ -190,28 +191,10 @@ function isBakedSpriteCategory(cat: PoiCategory): cat is BakedSpriteCategory {
   return (BAKED_SPRITE_CATEGORIES as readonly string[]).includes(cat);
 }
 
-function hoennBakeLayerUrls(): Record<BakedSpriteCategory, { png: string; webp: string }> {
+function hoennBakeAtlasUrls(layerKey: string): { png: string; webp: string } {
   return {
-    trainer: {
-      png: assetUrl("maps/hoenn-map-baked-trainer.png"),
-      webp: assetUrl("maps/hoenn-map-baked-trainer.webp"),
-    },
-    npc: {
-      png: assetUrl("maps/hoenn-map-baked-npc.png"),
-      webp: assetUrl("maps/hoenn-map-baked-npc.webp"),
-    },
-    item: {
-      png: assetUrl("maps/hoenn-map-baked-item.png"),
-      webp: assetUrl("maps/hoenn-map-baked-item.webp"),
-    },
-    hidden: {
-      png: assetUrl("maps/hoenn-map-baked-hidden.png"),
-      webp: assetUrl("maps/hoenn-map-baked-hidden.webp"),
-    },
-    berry: {
-      png: assetUrl("maps/hoenn-map-baked-berry.png"),
-      webp: assetUrl("maps/hoenn-map-baked-berry.webp"),
-    },
+    png: assetUrl(`maps/hoenn-map-baked-${layerKey}-atlas.png`),
+    webp: assetUrl(`maps/hoenn-map-baked-${layerKey}-atlas.webp`),
   };
 }
 
@@ -223,10 +206,7 @@ function storyNpcBakeLayerUrls(areaId?: string): { png: string; webp: string } {
       webp: assetUrl(`maps/areas/${areaId}-baked-npc-story.webp`),
     };
   }
-  return {
-    png: assetUrl("maps/hoenn-map-baked-npc-story.png"),
-    webp: assetUrl("maps/hoenn-map-baked-npc-story.webp"),
-  };
+  return hoennBakeAtlasUrls("npc-story");
 }
 
 function areaBakeLayerUrls(
@@ -241,6 +221,58 @@ function areaBakeLayerUrls(
     };
   }
   return out;
+}
+
+/**
+ * Pixel-perfect overlay from a packed tile atlas: one decode of a small image,
+ * many positioned windows (no full-map transparent bitmap).
+ */
+function BakeLayerAtlasOverlay({
+  layerKey,
+  mapW,
+  mapH,
+}: {
+  layerKey: string;
+  mapW: number;
+  mapH: number;
+}) {
+  const atlas = HOENN_MAP_BAKE_LAYER_ATLASES[layerKey];
+  if (!atlas?.tiles.length || mapW <= 0 || mapH <= 0) return null;
+  const urls = hoennBakeAtlasUrls(layerKey);
+  return (
+    <>
+      {atlas.tiles.map((tile, i) => (
+        <div
+          key={`${layerKey}-${i}`}
+          className="hoenn-map__bake-tile"
+          style={{
+            left: `${(tile.mapX / mapW) * 100}%`,
+            top: `${(tile.mapY / mapH) * 100}%`,
+            width: `${(tile.mapW / mapW) * 100}%`,
+            height: `${(tile.mapH / mapH) * 100}%`,
+          }}
+          aria-hidden="true"
+        >
+          <picture>
+            <source srcSet={urls.webp} type="image/webp" />
+            <img
+              src={urls.png}
+              alt=""
+              className="hoenn-map__bake-tile-img"
+              decoding="async"
+              draggable={false}
+              style={{
+                width: `${(atlas.atlasWidth / tile.mapW) * 100}%`,
+                height: `${(atlas.atlasHeight / tile.mapH) * 100}%`,
+                left: `${(-tile.atlasX / tile.mapW) * 100}%`,
+                top: `${(-tile.atlasY / tile.mapH) * 100}%`,
+              }}
+            />
+          </picture>
+        </div>
+      ))}
+    </>
+  );
 }
 
 /** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
@@ -472,17 +504,17 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     storyNpcsOnly,
     useStoryNpcBakeLayer,
   ]);
-  const bakeLayerUrls = useMemo(
+  /** Area maps still use full (small) per-category layer images. */
+  const areaBakeLayerUrlMap = useMemo(
     () =>
-      currentArea
-        ? areaBakeLayerUrls(currentArea.id, availableBakeLayers)
-        : hoennBakeLayerUrls(),
+      currentArea ? areaBakeLayerUrls(currentArea.id, availableBakeLayers) : null,
     [currentArea, availableBakeLayers],
   );
-  const storyNpcBakeUrls = useMemo(
-    () => (useStoryNpcBakeLayer ? storyNpcBakeLayerUrls(currentArea?.id) : null),
-    [useStoryNpcBakeLayer, currentArea],
-  );
+  /** Overworld story filter uses the packed atlas; areas keep a full story layer image. */
+  const storyNpcBakeUrls = useMemo(() => {
+    if (!useStoryNpcBakeLayer || !currentArea) return null;
+    return storyNpcBakeLayerUrls(currentArea.id);
+  }, [useStoryNpcBakeLayer, currentArea]);
   const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
   const imgSrc = currentArea
     ? useBakeComposite
@@ -1247,23 +1279,40 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 onLoad={() => setMapReady(true)}
               />
             )}
-            {bakeLayersToShow.map((cat) => {
-              const layer = bakeLayerUrls[cat];
-              if (!layer) return null;
-              return (
-                <picture key={`bake-${cat}`}>
-                  <source srcSet={layer.webp} type="image/webp" />
-                  <img
-                    src={layer.png}
-                    alt=""
-                    className="hoenn-map__image hoenn-map__bake-layer"
-                    decoding="async"
-                    draggable={false}
-                    aria-hidden="true"
+            {bakeOverworld
+              ? bakeLayersToShow.map((cat) => (
+                  <BakeLayerAtlasOverlay
+                    key={`bake-atlas-${cat}`}
+                    layerKey={cat}
+                    mapW={mapW}
+                    mapH={mapH}
                   />
-                </picture>
-              );
-            })}
+                ))
+              : bakeLayersToShow.map((cat) => {
+                  const layer = areaBakeLayerUrlMap?.[cat];
+                  if (!layer) return null;
+                  return (
+                    <picture key={`bake-${cat}`}>
+                      <source srcSet={layer.webp} type="image/webp" />
+                      <img
+                        src={layer.png}
+                        alt=""
+                        className="hoenn-map__image hoenn-map__bake-layer"
+                        decoding="async"
+                        draggable={false}
+                        aria-hidden="true"
+                      />
+                    </picture>
+                  );
+                })}
+            {bakeOverworld && useStoryNpcBakeLayer ? (
+              <BakeLayerAtlasOverlay
+                key="bake-atlas-npc-story"
+                layerKey="npc-story"
+                mapW={mapW}
+                mapH={mapH}
+              />
+            ) : null}
             {storyNpcBakeUrls ? (
               <picture key="bake-npc-story">
                 <source srcSet={storyNpcBakeUrls.webp} type="image/webp" />
