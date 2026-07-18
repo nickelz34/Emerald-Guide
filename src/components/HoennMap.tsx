@@ -587,6 +587,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     (areaId: string | null) => {
       setCurrentAreaId(areaId);
       setSelectedId(null);
+      setModalTrainer(null);
+      setModalNpc(null);
+      setModalRoute(null);
+      setModalGym(null);
+      setModalMart(null);
       setRematchableOnly(false);
       const area = areaId ? (AREA_MAPS.find((a) => a.id === areaId) ?? null) : null;
       if (area) {
