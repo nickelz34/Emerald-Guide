@@ -2184,9 +2184,10 @@
   --pin-gym-zoom: calc(var(--pin-zoom) * var(--pin-gym-zoom-boost));
 }
 
-.map-zoom-viewport .hoenn-map__pin:not(.hoenn-map__pin--gym):not(.hoenn-map__pin--trainer):not(
-    .hoenn-map__pin--item
-  ):not(.hoenn-map__pin--berry):not(.hoenn-map__pin--hidden):not(.hoenn-map__pin--tile) {
+.map-zoom-viewport
+  .hoenn-map__pin:not(.hoenn-map__pin--gym):not(.hoenn-map__pin--trainer):not(.hoenn-map__pin--item):not(
+    .hoenn-map__pin--berry
+  ):not(.hoenn-map__pin--hidden):not(.hoenn-map__pin--tile):not(.hoenn-map__pin--baked-cutscene) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
   transform-origin: center;
 }
@@ -2221,9 +2222,10 @@
   transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
 }
 
+/* Baked hit boxes are % of the map and must scale with the image — no pin-zoom. */
 .map-zoom-viewport .hoenn-map__pin--baked-cutscene {
-  transform: translate(-50%, -50%) scale(var(--pin-zoom));
-  transform-origin: center;
+  transform: translate(-50%, -100%);
+  transform-origin: center bottom;
 }
 
 .map-zoom-viewport .hoenn-map__pin--item,
@@ -2838,12 +2840,9 @@
 }
 
 /* Invisible hit targets over baked cutscene art — legend still lists the sprite.
+   Size/anchor come from bakedSpriteHitStylePercent (sprite footprint, feet-anchored).
    Must win over trainer/ow-sprite rules (same points often have category "trainer"). */
 .hoenn-map__pin--baked-cutscene {
-  width: 22px;
-  height: 22px;
-  transform: translate(-50%, -50%);
-  transform-origin: center;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -2857,9 +2856,9 @@
 
 .hoenn-map__pin--baked-cutscene.is-active {
   outline: 2px solid rgba(255, 255, 255, 0.85);
-  outline-offset: 2px;
-  border-radius: 50%;
-  background: var(--hover-border);
+  outline-offset: 1px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
