@@ -14,15 +14,11 @@ function preloadUrl(path: string) {
   img.src = url;
 }
 
-/** Warm cache for the Hoenn overworld atlas + filterable bake layers. */
+/** Warm cache for the Hoenn overworld atlases (one full-size image at a time). */
 export function preloadHoennOverworldMap() {
+  // Prefer the all-on baked composite — default legend shows every bake layer.
+  preloadUrl("maps/hoenn-map-baked.webp");
   preloadUrl("maps/hoenn-map.webp");
-  preloadUrl("maps/hoenn-map.png");
-  // Per-category layers (used whenever legend filters change — keep them warm).
-  for (const cat of ["trainer", "item", "hidden", "berry"] as const) {
-    preloadUrl(`maps/hoenn-map-baked-${cat}.webp`);
-    preloadUrl(`maps/hoenn-map-baked-${cat}.png`);
-  }
 }
 
 /** Warm the browser cache for walkthrough map images on the current step. */

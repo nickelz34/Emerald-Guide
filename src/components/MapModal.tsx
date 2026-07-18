@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HoennMap } from "./HoennMap";
 import type { MapRegion } from "../data/mapRegions";
 
@@ -10,6 +10,13 @@ interface MapModalProps {
 }
 
 export function MapModal({ open, categoryStepIds, onSelectRegion, onClose }: MapModalProps) {
+  /** Keep the map mounted after the first open so Story ↔ Map restores instantly. */
+  const [openedOnce, setOpenedOnce] = useState(open);
+
+  useEffect(() => {
+    if (open) setOpenedOnce(true);
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
@@ -24,10 +31,17 @@ export function MapModal({ open, categoryStepIds, onSelectRegion, onClose }: Map
     };
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!openedOnce) return null;
 
   return (
-    <div className="map-modal" role="dialog" aria-modal="true" onClick={onClose}>
+    <div
+      className={`map-modal${open ? "" : " map-modal--closed"}`}
+      role="dialog"
+      aria-modal={open}
+      aria-hidden={!open}
+      hidden={!open}
+      onClick={open ? onClose : undefined}
+    >
       <div className="map-modal__panel" onClick={(e) => e.stopPropagation()}>
         <div className="map-modal__head">
           <h3>Hoenn map</h3>

@@ -33,6 +33,197 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.91",
+    date: "2026-07-18T12:00:22-05:00",
+    summary: "Returning to the map from the story restores your exact place.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Closing the map to check the walkthrough and opening it again restores the same area, pan/zoom, layer toggles, and Story only / Rematchable filters for the browser session.",
+          "The walkthrough map modal stays mounted while closed so switching back is instant instead of rebuilding from scratch.",
+          "Leaving an interior for the overworld also restores your previous overworld camera and filters.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.90",
+    date: "2026-07-18T11:56:19-05:00",
+    summary: "Faster map filter overlays via lossless tile atlases (no quality loss).",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "NPC / Story only / trainer / item bake overlays are packed into small lossless tile atlases instead of full-map transparent images — same pixels, far less decode work when filters turn on.",
+          "Story only in particular drops from a full 12800×6128 overlay to a tiny atlas (~1 MB of pixels to decode instead of ~300 MB).",
+          "Compression stays lossless WebP/PNG only; no palette quantization or quality reduction.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.89",
+    date: "2026-07-18T11:45:02-05:00",
+    summary: "Cleaner Map layers panel with grouped, aligned toggles.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Map layers are grouped into Places, Collectibles, and Characters instead of a wrapping pill cluster.",
+          "Each layer is an equal-width toggle row with the count right-aligned; Rematchable only and Story only nest under Trainers and NPCs.",
+          "Active layers use a clear on-state so it is easier to see what is filtered on mobile.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.88",
+    date: "2026-07-18T11:40:37-05:00",
+    summary: "Story only NPCs use a baked layer instead of live zooming pins.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Story only overlays the dedicated story-NPC bake layer on the clean map — walkthrough-linked NPCs stay map-scaled when zooming, same as the full NPCs filter.",
+          "Overworld and area maps that have story NPCs ship a `*-baked-npc-story` atlas; Rematchable only still uses live filtered trainer pins.",
+          "The story overlay shares the two-layer bake budget with other filters so the map does not stack too many full-size images.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.87",
+    date: "2026-07-18T11:36:01-05:00",
+    summary: "NPC filter uses its own baked layer instead of live zooming pins.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Turning on NPCs (without every other bake layer) overlays the baked NPC layer on the clean map — sprites stay map-scaled when zooming, not enlarged live pins.",
+          "Trainers work the same way with their layer; Rematchable only / Story only still switch those categories to live filtered pins.",
+          "Show-all still uses the single full composite so the map does not stack every layer image at once.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.86",
+    date: "2026-07-18T11:23:00-05:00",
+    summary: "Bake story and non-story NPCs into the Hoenn Map art like trainers.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "All outdoor NPCs (story and townsfolk) paint into the baked overworld composite with the other sprite layers — toggling NPCs off drops the composite and shows live pins for remaining layers.",
+          "Story only still works like Rematchable only: it leaves the all-NPC composite and shows live pins for walkthrough-linked characters only.",
+          "Interior area maps bake TYPE_NONE NPCs into their composites the same way.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.85",
+    date: "2026-07-18T11:15:36-05:00",
+    summary: "NPCs legend gains a Story only filter for walkthrough-linked characters.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Under NPCs, Story only works like Rematchable only for trainers — it leaves townsfolk and shows the characters tied to guide story steps (about forty across outdoor + interiors).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.84",
+    date: "2026-07-18T11:12:39-05:00",
+    summary: "Tapping an NPC opens a detail panel with dialogue, game data, and story links.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "NPC pins open a detail modal (same idea as trainers): overworld sprite, facing, script/map ids, and in-game dialogue pulled from pokeemerald EventScripts.",
+          "Story-related NPCs list matching walkthrough steps with an Open step button when the guide covers them (Mom, Birch, Scott, Briney, mart tutorial, and others).",
+          "Interior area-map NPCs use the same detail panel.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.83",
+    date: "2026-07-18T11:02:46-05:00",
+    summary: "Hoenn Map gains an NPCs legend layer you can turn on or off.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "New NPCs layer lists non-battle overworld characters (townsfolk, Mom, Birch, clerks’ neighbors, and similar TRAINER_TYPE_NONE sprites) separately from fightable Trainers.",
+          "NPCs stay off by default with the other optional layers; toggle them in the legend to show or hide their overworld sprites.",
+          "Interior area maps remapped the same way — talkable NPCs use the NPCs layer instead of appearing under Trainers.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.82",
+    date: "2026-07-18T10:52:12-05:00",
+    summary: "Rematchable-only actually hides non-rematch trainers on the Hoenn Map.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Turning on Rematchable only leaves the all-trainer baked composite and shows live pins for rematchable trainers only — the map art no longer keeps every trainer painted on.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.81",
+    date: "2026-07-18T10:47:34-05:00",
+    summary: "Hoenn Map defaults to Towns & Cities and Routes only.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "On open, only Towns & Cities and Routes are enabled — gyms, landmarks, items, trainers, and other layers stay off until you turn them on.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.80",
+    date: "2026-07-18T10:43:09-05:00",
+    summary:
+      "On phones, tapping a town or city opens the detail panel only — no hover bubble.",
+    sections: [
+      {
+        heading: "Hoenn Map (mobile)",
+        items: [
+          "Towns and cities no longer show the floating on-map callout when tapped; the town/route detail panel opens directly (same as routes and gyms).",
+          "Touch mode hides pin hover hints and sticky :hover bubbles — those only make sense with a mouse.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.26.79",
+    date: "2026-07-18T10:32:41-05:00",
+    summary:
+      "Fix Hoenn Map force-closing on open (and when toggling bake filters) from stacking full-size map images.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Opening the map no longer stacks the clean atlas plus four 12800×6128 bake-layer images — that decoded to well over a gigabyte and force-closed the tab on phones.",
+          "Default view (all bake layers on) uses a single baked composite again.",
+          "Turning off Trainers / Items / Hidden / Berries switches to the clean atlas with live overworld sprites for what’s still enabled — never multiple full-map layer images.",
+          "Preload only warms the composite and clean WebP atlases.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.78",
     date: "2026-07-18T10:06:01-05:00",
     summary:

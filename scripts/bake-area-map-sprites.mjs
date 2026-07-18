@@ -1,9 +1,9 @@
 /**
- * TEST bake: paint area-map trainers + item / hidden / berry sprites onto
+ * Bake area-map trainers + NPCs + item / hidden / berry sprites onto
  * transparent per-category layers (and a composite) for HoennMap's map selector.
  *
  * Leaves the original `public/maps/areas/{areaId}.png` untouched.
- * Skips trainers that are already painted into the base PNG via cutscene bake
+ * Skips trainers/NPCs that are already painted into the base PNG via cutscene bake
  * (`bakedInImage`) so composites don't double-up.
  *
  * Usage: npm run bake:area-maps
@@ -14,8 +14,11 @@ import { PNG } from "pngjs";
 import sharp from "sharp";
 import { AREA_MAPS } from "../src/data/areaMaps.ts";
 import { AREA_TRAINERS } from "../src/data/mapTrainersGenerated.ts";
+import { AREA_MAP_ENTITIES } from "../src/data/areaMapEntitiesGenerated.ts";
+import { GYM_MAP_ENTITIES } from "../src/data/gymMapEntitiesGenerated.ts";
 import { AREA_MAP_CUTSCENE_ENTITIES } from "../src/data/areaMapCutsceneEntities.ts";
 import { COLLECTIBLE_SPRITES } from "../src/data/itemSpritesGenerated.ts";
+import { NPC_DETAILS_BY_SCRIPT } from "../src/data/npcDetailsGenerated.ts";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const AREA_DIR = path.join(ROOT, "public/maps/areas");
@@ -25,8 +28,32 @@ const MANIFEST_TS = path.join(ROOT, "src/data/areaMapBakeManifest.ts");
 /** Native area maps are already 16px/tile — keep sprites 1:1 with the art. */
 const SPRITE_SCALE = 1;
 
-const LAYER_CATEGORIES = ["trainer", "item", "hidden", "berry"];
+const LAYER_CATEGORIES = ["trainer", "npc", "item", "hidden", "berry"];
 const COLLECTIBLE_CATEGORIES = new Set(["item", "hidden", "berry"]);
+
+function npcHasStory(npc) {
+  if (!npc?.script) return false;
+  const details = NPC_DETAILS_BY_SCRIPT[npc.script];
+  return Boolean(details?.story?.length);
+}
+
+/** Interior talkable characters (TRAINER_TYPE_NONE) for the NPCs bake layer. */
+function areaNpcs(areaId) {
+  const out = [];
+  const seen = new Set();
+  for (const src of [AREA_MAP_ENTITIES[areaId], GYM_MAP_ENTITIES[areaId]]) {
+    if (!src) continue;
+    for (const p of src) {
+      if (p.trainerType !== "TRAINER_TYPE_NONE") continue;
+      if (!p.spriteSheet) continue;
+      const key = `${p.script || p.name}-${p.x}-${p.y}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(p);
+    }
+  }
+  return out;
+}
 
 function loadRgbaPng(file) {
   const png = PNG.sync.read(fs.readFileSync(file));
@@ -99,7 +126,9 @@ async function optimizePair(pngPath) {
   const tmp = `${pngPath}.opt.png`;
   await sharp(pngPath).png({ compressionLevel: 9, effort: 10, palette: false }).toFile(tmp);
   fs.renameSync(tmp, pngPath);
-  await sharp(pngPath).webp({ lossless: true, effort: 4 }).toFile(webpPath);
+  await sharp(pngPath)
+    .webp({ lossless: true, nearLossless: false, quality: 100, effort: 6 })
+    .toFile(webpPath);
   return {
     png: fs.statSync(pngPath).size,
     webp: fs.statSync(webpPath).size,
@@ -116,16 +145,16 @@ function loadSprite(rel) {
   return png;
 }
 
-function trainerAlreadyInBase(areaId, trainer) {
+function spriteAlreadyInBase(areaId, entity) {
   const cut = AREA_MAP_CUTSCENE_ENTITIES[areaId] ?? [];
   return cut.some((e) => {
     if (!e.bakedInImage) return false;
-    if (trainer.trainerId && e.trainerId && trainer.trainerId === e.trainerId) return true;
-    if (trainer.script && e.script && trainer.script === e.script) return true;
+    if (entity.trainerId && e.trainerId && entity.trainerId === e.trainerId) return true;
+    if (entity.script && e.script && entity.script === e.script) return true;
     return (
-      Math.abs(trainer.x - e.x) < 0.5 &&
-      Math.abs(trainer.y - e.y) < 0.5 &&
-      trainer.spriteSheet === e.spriteSheet
+      Math.abs(entity.x - e.x) < 0.5 &&
+      Math.abs(entity.y - e.y) < 0.5 &&
+      entity.spriteSheet === e.spriteSheet
     );
   });
 }
@@ -168,12 +197,13 @@ function loadRgbaPng_fromPng(png) {
 
 const targets = AREA_MAPS.filter((area) => {
   const trainers = AREA_TRAINERS[area.id] ?? [];
+  const npcs = areaNpcs(area.id);
   const collectibles = area.markers.filter((m) => COLLECTIBLE_CATEGORIES.has(m.category));
-  return trainers.length > 0 || collectibles.length > 0;
+  return trainers.length > 0 || npcs.length > 0 || collectibles.length > 0;
 });
 
 console.log(
-  `Baking ${targets.length} area maps @ ${SPRITE_SCALE}× (trainers + item/hidden/berry)`,
+  `Baking ${targets.length} area maps @ ${SPRITE_SCALE}× (trainers + NPCs + item/hidden/berry)`,
 );
 
 fs.mkdirSync(ARTIFACT, { recursive: true });
@@ -200,12 +230,14 @@ for (const area of targets) {
   const layers = Object.fromEntries(
     LAYER_CATEGORIES.map((c) => [c, emptyLayer(base.width, base.height)]),
   );
+  const npcStoryLayer = emptyLayer(base.width, base.height);
   const counts = Object.fromEntries(LAYER_CATEGORIES.map((c) => [c, 0]));
+  counts["npc-story"] = 0;
   let painted = 0;
   let skippedInBase = 0;
 
   for (const tr of AREA_TRAINERS[area.id] ?? []) {
-    if (trainerAlreadyInBase(area.id, tr)) {
+    if (spriteAlreadyInBase(area.id, tr)) {
       skippedInBase++;
       continue;
     }
@@ -226,6 +258,36 @@ for (const area of targets) {
       counts.trainer++;
     } catch (err) {
       skipped.push(`trainer ${tr.id}: ${err.message}`);
+    }
+  }
+
+  for (const npc of areaNpcs(area.id)) {
+    if (spriteAlreadyInBase(area.id, npc)) {
+      skippedInBase++;
+      continue;
+    }
+    const fw = npc.spriteWidth ?? 16;
+    const fh = npc.spriteHeight ?? 32;
+    try {
+      const sheet = loadSprite(npc.spriteSheet);
+      paint(layers.npc, sheet, npc.x, npc.y, fw, fh, npc.spriteFrame ?? 0, Boolean(npc.spriteFlipX));
+      painted++;
+      counts.npc++;
+      if (npcHasStory(npc)) {
+        paint(
+          npcStoryLayer,
+          sheet,
+          npc.x,
+          npc.y,
+          fw,
+          fh,
+          npc.spriteFrame ?? 0,
+          Boolean(npc.spriteFlipX),
+        );
+        counts["npc-story"]++;
+      }
+    } catch (err) {
+      skipped.push(`npc ${npc.id}: ${err.message}`);
     }
   }
 
@@ -270,6 +332,11 @@ for (const area of targets) {
     writePng(pngPath, layers[cat]);
     layerSizes[cat] = await optimizePair(pngPath);
   }
+  if (counts["npc-story"] > 0) {
+    const pngPath = path.join(AREA_DIR, `${area.id}-baked-npc-story.png`);
+    writePng(pngPath, npcStoryLayer);
+    layerSizes["npc-story"] = await optimizePair(pngPath);
+  }
   const compositeSizes = await optimizePair(compositePath);
 
   manifest[area.id] = {
@@ -280,6 +347,8 @@ for (const area of targets) {
     layers: LAYER_CATEGORIES.filter((c) => counts[c] > 0),
     /** Trainers already in the base PNG — pins are hit-only; no trainer layer paint. */
     prebakedTrainers: hasPrebakedTrainers,
+    /** Dedicated Story only NPC layer was written for this area. */
+    storyNpcLayer: counts["npc-story"] > 0,
   };
 
   totalPainted += painted;
@@ -292,14 +361,16 @@ for (const area of targets) {
 }
 
 const manifestBody = `// AUTO-GENERATED by scripts/bake-area-map-sprites.mjs — do not edit by hand.
-/** Area maps with baked trainer/item/hidden/berry layers for HoennMap. */
+/** Area maps with baked trainer/npc/item/hidden/berry layers for HoennMap. */
 export interface AreaMapBakeEntry {
   width: number;
   height: number;
-  counts: Record<"trainer" | "item" | "hidden" | "berry", number>;
+  counts: Partial<Record<"trainer" | "npc" | "npc-story" | "item" | "hidden" | "berry", number>>;
   skippedInBase: number;
-  layers: Array<"trainer" | "item" | "hidden" | "berry">;
+  layers: Array<"trainer" | "npc" | "item" | "hidden" | "berry">;
   prebakedTrainers: boolean;
+  /** True when \`{areaId}-baked-npc-story.webp\` exists for the Story only filter. */
+  storyNpcLayer?: boolean;
 }
 
 export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = ${JSON.stringify(

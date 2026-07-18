@@ -8,6 +8,7 @@ import {
   DEFAULT_VISIBLE_CATEGORIES,
   type MapPoint,
   type PoiCategory,
+  type PoiCategoryMeta,
 } from "../data/mapPoints";
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 import { LANDMARK_PINS_GENERATED } from "../data/mapLandmarksGenerated";
@@ -20,11 +21,15 @@ import {
   AREA_MAP_BAKE_MANIFEST,
   AREA_MAP_BAKE_SPRITE_SCALE,
 } from "../data/areaMapBakeManifest";
+import { HOENN_MAP_BAKE_LAYER_ATLASES } from "../data/hoennMapBakeLayers";
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
+import { MAP_NPCS } from "../data/mapNpcsGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import { NpcDetailModal } from "./NpcDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
+import { hasOwSprite } from "../data/areaMapCutsceneEntities";
 import { getCollectibleSprite } from "../data/itemSpritesGenerated";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
@@ -32,6 +37,34 @@ import { MartDetailModal } from "./MartDetailModal";
 import { isMartMapPoint } from "../data/martData";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
+import { withLegendCategory } from "../lib/mapLegendCategory";
+import { isNpcMapPoint, npcHasStory, type NpcMapPoint } from "../lib/npcDetails";
+
+/** Legend sections — keeps the layer panel scannable instead of one wrap of pills. */
+const LEGEND_LAYER_GROUPS: {
+  id: string;
+  label: string;
+  ids: readonly PoiCategory[];
+  /** Full-width rows (for layers that nest Rematchable / Story filters). */
+  stack?: boolean;
+}[] = [
+  {
+    id: "places",
+    label: "Places",
+    ids: ["town", "route", "gym", "landmark", "entrance", "shop"],
+  },
+  {
+    id: "collectibles",
+    label: "Collectibles",
+    ids: ["item", "hidden", "berry", "wild"],
+  },
+  {
+    id: "characters",
+    label: "Characters",
+    ids: ["trainer", "npc"],
+    stack: true,
+  },
+];
 
 const SHOP_NAMES = new Set([
   "Mart",
@@ -85,10 +118,11 @@ function areaPoints(area: AreaMap): MapPoint[] {
 /**
  * Trainers / NPCs for an area map: battle trainers + interior entities + gym
  * rosters, deduped (same sources AreaMapView uses, minus cutscene-only crops).
+ * TRAINER_TYPE_NONE characters are remapped to the NPCs legend layer.
  */
-function areaSpritePoints(areaId: string): TrainerPoint[] {
+function areaSpritePoints(areaId: string): MapPoint[] {
   const seen = new Set<string>();
-  const out: TrainerPoint[] = [];
+  const out: MapPoint[] = [];
   for (const src of [
     AREA_TRAINERS[areaId],
     AREA_MAP_ENTITIES[areaId],
@@ -101,7 +135,7 @@ function areaSpritePoints(areaId: string): TrainerPoint[] {
         `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
       if (seen.has(String(key))) continue;
       seen.add(String(key));
-      out.push(p);
+      out.push(withLegendCategory(p));
     }
   }
   return out;
@@ -116,8 +150,10 @@ function stepIdForPoint(point: MapPoint): string | undefined {
 function isMapCalloutPoint(point: MapPoint): boolean {
   return (
     !isTrainerPoint(point) &&
+    !isNpcMapPoint(point) &&
     !isMartMapPoint(point) &&
     point.category !== "route" &&
+    point.category !== "town" &&
     point.category !== "gym"
   );
 }
@@ -130,18 +166,114 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
+const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
+const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true, show baked trainers / items / hidden / berries with invisible hit
- * targets on the overworld and on area maps that have bake assets.
- * Filterable maps use the clean atlas + per-category layers (never swap the
- * all-on composite when a legend checkbox changes).
+ * When true, bake trainers / NPCs / items / hidden / berries into map art with
+ * invisible hit targets:
+ *   - all bake layers on → single baked composite (one full-size atlas)
+ *   - a subset on → clean atlas + only those category layer images
+ *   - Rematchable-only / Story-only → clean atlas + live pins for the filter
+ *     (layer images paint every trainer/NPC, so they can't be used)
+ * Cap overlays at 2 layers so we don't reintroduce the mobile OOM from stacking
+ * every full-size bake layer.
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
 /** Keep in sync with `SPRITE_SCALE` in scripts/bake-hoenn-overworld-sprites.mjs */
 const BAKE_OVERWORLD_SPRITE_SCALE = 2;
-const BAKED_SPRITE_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
+const BAKED_SPRITE_CATEGORIES = ["trainer", "npc", "item", "hidden", "berry"] as const;
 type BakedSpriteCategory = (typeof BAKED_SPRITE_CATEGORIES)[number];
+/** Soft cap: clean + 2 layer atlases stays within mobile decode budget. */
+const MAX_BAKE_LAYER_OVERLAYS = 2;
+
+function isBakedSpriteCategory(cat: PoiCategory): cat is BakedSpriteCategory {
+  return (BAKED_SPRITE_CATEGORIES as readonly string[]).includes(cat);
+}
+
+function hoennBakeAtlasUrls(layerKey: string): { png: string; webp: string } {
+  return {
+    png: assetUrl(`maps/hoenn-map-baked-${layerKey}-atlas.png`),
+    webp: assetUrl(`maps/hoenn-map-baked-${layerKey}-atlas.webp`),
+  };
+}
+
+/** Story-only NPC atlas (subset of the full NPC bake) for the Story only filter. */
+function storyNpcBakeLayerUrls(areaId?: string): { png: string; webp: string } {
+  if (areaId) {
+    return {
+      png: assetUrl(`maps/areas/${areaId}-baked-npc-story.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-npc-story.webp`),
+    };
+  }
+  return hoennBakeAtlasUrls("npc-story");
+}
+
+function areaBakeLayerUrls(
+  areaId: string,
+  layers: readonly BakedSpriteCategory[],
+): Partial<Record<BakedSpriteCategory, { png: string; webp: string }>> {
+  const out: Partial<Record<BakedSpriteCategory, { png: string; webp: string }>> = {};
+  for (const cat of layers) {
+    out[cat] = {
+      png: assetUrl(`maps/areas/${areaId}-baked-${cat}.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-${cat}.webp`),
+    };
+  }
+  return out;
+}
+
+/**
+ * Pixel-perfect overlay from a packed tile atlas: one decode of a small image,
+ * many positioned windows (no full-map transparent bitmap).
+ */
+function BakeLayerAtlasOverlay({
+  layerKey,
+  mapW,
+  mapH,
+}: {
+  layerKey: string;
+  mapW: number;
+  mapH: number;
+}) {
+  const atlas = HOENN_MAP_BAKE_LAYER_ATLASES[layerKey];
+  if (!atlas?.tiles.length || mapW <= 0 || mapH <= 0) return null;
+  const urls = hoennBakeAtlasUrls(layerKey);
+  return (
+    <>
+      {atlas.tiles.map((tile, i) => (
+        <div
+          key={`${layerKey}-${i}`}
+          className="hoenn-map__bake-tile"
+          style={{
+            left: `${(tile.mapX / mapW) * 100}%`,
+            top: `${(tile.mapY / mapH) * 100}%`,
+            width: `${(tile.mapW / mapW) * 100}%`,
+            height: `${(tile.mapH / mapH) * 100}%`,
+          }}
+          aria-hidden="true"
+        >
+          <picture>
+            <source srcSet={urls.webp} type="image/webp" />
+            <img
+              src={urls.png}
+              alt=""
+              className="hoenn-map__bake-tile-img"
+              decoding="async"
+              draggable={false}
+              style={{
+                width: `${(atlas.atlasWidth / tile.mapW) * 100}%`,
+                height: `${(atlas.atlasHeight / tile.mapH) * 100}%`,
+                left: `${(-tile.atlasX / tile.mapW) * 100}%`,
+                top: `${(-tile.atlasY / tile.mapH) * 100}%`,
+              }}
+            />
+          </picture>
+        </div>
+      ))}
+    </>
+  );
+}
 
 /** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
 function bakedSpriteHitStyle(
@@ -154,7 +286,7 @@ function bakedSpriteHitStyle(
 ): Record<string, string | number> {
   let fw = 16;
   let fh = 32;
-  if (isTrainerPoint(point)) {
+  if (isTrainerPoint(point) || hasOwSprite(point)) {
     fw = point.spriteWidth ?? 16;
     fh = point.spriteHeight ?? 32;
   } else {
@@ -171,48 +303,6 @@ function bakedSpriteHitStyle(
     height: Math.max(12, h),
     transform: "translate(-50%, -100%)",
     transformOrigin: "center bottom",
-  };
-}
-
-function hoennBakeLayers(): Record<BakedSpriteCategory, { png: string; webp: string }> {
-  return {
-    trainer: {
-      png: assetUrl("maps/hoenn-map-baked-trainer.png"),
-      webp: assetUrl("maps/hoenn-map-baked-trainer.webp"),
-    },
-    item: {
-      png: assetUrl("maps/hoenn-map-baked-item.png"),
-      webp: assetUrl("maps/hoenn-map-baked-item.webp"),
-    },
-    hidden: {
-      png: assetUrl("maps/hoenn-map-baked-hidden.png"),
-      webp: assetUrl("maps/hoenn-map-baked-hidden.webp"),
-    },
-    berry: {
-      png: assetUrl("maps/hoenn-map-baked-berry.png"),
-      webp: assetUrl("maps/hoenn-map-baked-berry.webp"),
-    },
-  };
-}
-
-function areaBakeLayers(areaId: string): Record<BakedSpriteCategory, { png: string; webp: string }> {
-  return {
-    trainer: {
-      png: assetUrl(`maps/areas/${areaId}-baked-trainer.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-trainer.webp`),
-    },
-    item: {
-      png: assetUrl(`maps/areas/${areaId}-baked-item.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-item.webp`),
-    },
-    hidden: {
-      png: assetUrl(`maps/areas/${areaId}-baked-hidden.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-hidden.webp`),
-    },
-    berry: {
-      png: assetUrl(`maps/areas/${areaId}-baked-berry.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-berry.webp`),
-    },
   };
 }
 
@@ -234,7 +324,12 @@ const NARROW_VIEWPORT_MAX = 900;
 const MOBILE_DEFAULT_SCALE = 2.75;
 /** Route text labels only appear once zoomed in past this (overworld map). */
 const ROUTE_LABEL_MIN_SCALE = 3.25;
-/** Session-scoped overworld pan/zoom so reopenings keep your last look. */
+/**
+ * Session-scoped map state so Story ↔ Map round-trips restore the same place:
+ * area, pan/zoom, layer toggles, and Story/Rematchable filters.
+ */
+const HOENN_MAP_SESSION_KEY = "emerald-guide:hoenn-map-session";
+/** Legacy pan/zoom-only key (migrated on read). */
 const HOENN_MAP_VIEW_KEY = "emerald-guide:hoenn-map-view";
 
 interface View {
@@ -245,40 +340,110 @@ interface View {
   y: number;
 }
 
-function readSavedHoennMapView(): View | null {
+interface HoennMapSession {
+  areaId: string | null;
+  /** Pan/zoom keyed by map id (`""` = overworld). */
+  views: Record<string, View>;
+  /** Layer toggles for the map currently shown. */
+  visible: Record<PoiCategory, boolean>;
+  /** Last overworld layer toggles (restored when leaving an interior). */
+  overworldVisible: Record<PoiCategory, boolean>;
+  rematchableOnly: boolean;
+  storyNpcsOnly: boolean;
+}
+
+function isValidView(v: unknown): v is View {
+  if (!v || typeof v !== "object") return false;
+  const o = v as Partial<View>;
+  return (
+    typeof o.scale === "number" &&
+    typeof o.x === "number" &&
+    typeof o.y === "number" &&
+    Number.isFinite(o.scale) &&
+    Number.isFinite(o.x) &&
+    Number.isFinite(o.y)
+  );
+}
+
+function clampSavedView(view: View, maxScale: number): View {
+  return {
+    scale: Math.min(maxScale, Math.max(MIN_SCALE, view.scale)),
+    x: view.x,
+    y: view.y,
+  };
+}
+
+function sanitizeVisible(
+  raw: Partial<Record<PoiCategory, boolean>> | null | undefined,
+  fallback: Record<PoiCategory, boolean>,
+): Record<PoiCategory, boolean> {
+  const out = { ...fallback };
+  if (!raw) return out;
+  for (const c of POI_CATEGORIES) {
+    if (typeof raw[c.id] === "boolean") out[c.id] = raw[c.id]!;
+  }
+  return out;
+}
+
+function readSavedHoennMapSession(): HoennMapSession | null {
   try {
-    const raw = sessionStorage.getItem(HOENN_MAP_VIEW_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Partial<View>;
-    if (
-      typeof parsed.scale !== "number" ||
-      typeof parsed.x !== "number" ||
-      typeof parsed.y !== "number" ||
-      !Number.isFinite(parsed.scale) ||
-      !Number.isFinite(parsed.x) ||
-      !Number.isFinite(parsed.y)
-    ) {
-      return null;
+    const raw = sessionStorage.getItem(HOENN_MAP_SESSION_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<HoennMapSession>;
+      const areaId =
+        typeof parsed.areaId === "string" && AREA_MAPS.some((a) => a.id === parsed.areaId)
+          ? parsed.areaId
+          : parsed.areaId === null
+            ? null
+            : null;
+      const views: Record<string, View> = {};
+      if (parsed.views && typeof parsed.views === "object") {
+        for (const [key, value] of Object.entries(parsed.views)) {
+          if (!isValidView(value)) continue;
+          const maxScale = key ? MAX_SCALE_AREA : MAX_SCALE_OVERWORLD;
+          views[key] = clampSavedView(value, maxScale);
+        }
+      }
+      const baseVisible = initialVisible();
+      return {
+        areaId,
+        views,
+        visible: sanitizeVisible(parsed.visible, baseVisible),
+        overworldVisible: sanitizeVisible(parsed.overworldVisible, baseVisible),
+        rematchableOnly: Boolean(parsed.rematchableOnly),
+        storyNpcsOnly: Boolean(parsed.storyNpcsOnly),
+      };
     }
+    // Migrate legacy overworld-only pan/zoom.
+    const legacy = sessionStorage.getItem(HOENN_MAP_VIEW_KEY);
+    if (!legacy) return null;
+    const parsed = JSON.parse(legacy) as Partial<View>;
+    if (!isValidView(parsed)) return null;
+    const view = clampSavedView(parsed, MAX_SCALE_OVERWORLD);
+    const visible = initialVisible();
     return {
-      scale: Math.min(MAX_SCALE_OVERWORLD, Math.max(MIN_SCALE, parsed.scale)),
-      x: parsed.x,
-      y: parsed.y,
+      areaId: null,
+      views: { "": view },
+      visible,
+      overworldVisible: visible,
+      rematchableOnly: false,
+      storyNpcsOnly: false,
     };
   } catch {
     return null;
   }
 }
 
-function writeSavedHoennMapView(view: View) {
+function writeSavedHoennMapSession(session: HoennMapSession) {
   try {
-    sessionStorage.setItem(
-      HOENN_MAP_VIEW_KEY,
-      JSON.stringify({ scale: view.scale, x: view.x, y: view.y }),
-    );
+    sessionStorage.setItem(HOENN_MAP_SESSION_KEY, JSON.stringify(session));
   } catch {
     // Ignore private mode / quota failures.
   }
+}
+
+function mapViewKey(areaId: string | null): string {
+  return areaId ?? "";
 }
 
 interface HoennMapProps {
@@ -303,20 +468,48 @@ interface GestureEvent extends UIEvent {
 export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
-  /** Non-null when this mount restored a prior overworld camera from the session. */
-  const restoredViewRef = useRef<View | null>(readSavedHoennMapView());
-  const [view, setView] = useState<View>(
-    () => restoredViewRef.current ?? { scale: 1, x: 0, y: 0 },
+  /** Session snapshot from first paint (Story ↔ Map restore). */
+  const savedSessionRef = useRef<HoennMapSession | null>(readSavedHoennMapSession());
+  const [currentAreaId, setCurrentAreaId] = useState<string | null>(
+    () => savedSessionRef.current?.areaId ?? null,
+  );
+  const [view, setView] = useState<View>(() => {
+    const session = savedSessionRef.current;
+    const key = mapViewKey(session?.areaId ?? null);
+    return session?.views[key] ?? { scale: 1, x: 0, y: 0 };
+  });
+  /** True when this mount restored a prior camera — skip mobile default-zoom bump. */
+  const restoredViewRef = useRef<View | null>(
+    savedSessionRef.current?.views[mapViewKey(savedSessionRef.current.areaId)] ?? null,
   );
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
+  const [modalNpc, setModalNpc] = useState<NpcMapPoint | null>(null);
   const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
   const [modalGym, setModalGym] = useState<MapPoint | null>(null);
   const [modalMart, setModalMart] = useState<MapPoint | null>(null);
-  const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
-  const [rematchableOnly, setRematchableOnly] = useState(false);
-  const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
+  const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(
+    () => savedSessionRef.current?.visible ?? initialVisible(),
+  );
+  const [rematchableOnly, setRematchableOnly] = useState(
+    () => savedSessionRef.current?.rematchableOnly ?? false,
+  );
+  const [storyNpcsOnly, setStoryNpcsOnly] = useState(
+    () => savedSessionRef.current?.storyNpcsOnly ?? false,
+  );
+  /** Latest views map kept in a ref so switchMap can persist without stale closures. */
+  const viewsRef = useRef<Record<string, View>>(
+    savedSessionRef.current?.views ? { ...savedSessionRef.current.views } : {},
+  );
+  const overworldVisibleRef = useRef<Record<PoiCategory, boolean>>(
+    savedSessionRef.current?.overworldVisible ?? initialVisible(),
+  );
+  /** Overworld-only filters — area visits must not clobber these. */
+  const overworldFiltersRef = useRef({
+    rematchableOnly: savedSessionRef.current?.rematchableOnly ?? false,
+    storyNpcsOnly: savedSessionRef.current?.storyNpcsOnly ?? false,
+  });
 
   const currentArea = useMemo(
     () => (currentAreaId ? AREA_MAPS.find((a) => a.id === currentAreaId) ?? null : null),
@@ -326,12 +519,22 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   /** Points + image + native size for the map currently shown. */
   const trainerPoints = useMemo(
     (): MapPoint[] =>
-      currentArea ? areaSpritePoints(currentArea.id) : MAP_TRAINERS,
+      currentArea
+        ? areaSpritePoints(currentArea.id)
+        : MAP_TRAINERS.map((p) => withLegendCategory(p)),
+    [currentArea],
+  );
+  const npcPoints = useMemo(
+    (): MapPoint[] => (currentArea ? [] : MAP_NPCS),
     [currentArea],
   );
   const basePoints = useMemo(
-    () => [...(currentArea ? areaPoints(currentArea) : ALL_POINTS), ...trainerPoints],
-    [currentArea, trainerPoints],
+    () => [
+      ...(currentArea ? areaPoints(currentArea) : ALL_POINTS),
+      ...trainerPoints,
+      ...npcPoints,
+    ],
+    [currentArea, trainerPoints, npcPoints],
   );
   const areaBakeEntry =
     currentArea && BAKE_MAP_SPRITES ? AREA_MAP_BAKE_MANIFEST[currentArea.id] : undefined;
@@ -348,34 +551,87 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const bakeSprites = bakeOverworld || bakeArea;
   const availableBakeLayers: BakedSpriteCategory[] = bakeOverworld
     ? [...BAKED_SPRITE_CATEGORIES]
-    : (areaBakeEntry?.layers ?? []);
+    : ((areaBakeEntry?.layers ?? []) as BakedSpriteCategory[]);
   const visibleBakeLayers = bakeSprites
     ? availableBakeLayers.filter((cat) => visible[cat])
     : [];
   /**
-   * Only use a baked composite as the base when there are no filterable layers
-   * (prebaked-only area maps). For the overworld — and area maps with category
-   * layers — always use the clean atlas + visible layers.
-   *
-   * Swapping the all-on composite for clean+layers when a legend filter turns
-   * off reloads multi‑MB images mid-interaction and can kill the tab.
+   * Full composite when every bake layer is on (and no subset filters).
+   * Otherwise overlay only the visible category layers on the clean atlas —
+   * that keeps NPC/trainer filters baked without stacking every layer at once.
+   * Story only uses the dedicated story-NPC layer instead of the full NPC layer.
    */
   const useBakeComposite =
-    bakeSprites && bakeArea && availableBakeLayers.length === 0;
+    bakeSprites &&
+    !rematchableOnly &&
+    !storyNpcsOnly &&
+    (availableBakeLayers.length === 0
+      ? bakeArea
+      : visibleBakeLayers.length === availableBakeLayers.length);
+  /** Story only → overlay `*-baked-npc-story` (map-scaled), not live OW pins. */
+  const useStoryNpcBakeLayer =
+    bakeSprites &&
+    !useBakeComposite &&
+    storyNpcsOnly &&
+    visible.npc &&
+    (bakeOverworld || Boolean(areaBakeEntry?.storyNpcLayer));
+  /** Category layers to stack on the clean map when the full composite is off. */
+  const bakeLayersToShow = useMemo((): BakedSpriteCategory[] => {
+    if (!bakeSprites || useBakeComposite) return [];
+    const layers = visibleBakeLayers.filter((cat) => {
+      if (cat === "trainer" && rematchableOnly) return false;
+      // Full NPC layer is replaced by the story subset overlay when Story only is on.
+      if (cat === "npc" && storyNpcsOnly) return false;
+      return true;
+    });
+    if (layers.length === 0) return [];
+    // Story overlay occupies one of the two overlay slots (same OOM budget).
+    const budget = useStoryNpcBakeLayer
+      ? MAX_BAKE_LAYER_OVERLAYS - 1
+      : MAX_BAKE_LAYER_OVERLAYS;
+    if (budget <= 0) return [];
+    if (layers.length <= budget) return layers;
+    // Prefer character layers so NPCs/trainers stay baked when many filters are on.
+    const preferred = layers.filter((cat) => cat === "trainer" || cat === "npc");
+    if (preferred.length > 0 && preferred.length <= budget) {
+      return preferred;
+    }
+    return [];
+  }, [
+    bakeSprites,
+    useBakeComposite,
+    visibleBakeLayers,
+    rematchableOnly,
+    storyNpcsOnly,
+    useStoryNpcBakeLayer,
+  ]);
+  /** Area maps still use full (small) per-category layer images. */
+  const areaBakeLayerUrlMap = useMemo(
+    () =>
+      currentArea ? areaBakeLayerUrls(currentArea.id, availableBakeLayers) : null,
+    [currentArea, availableBakeLayers],
+  );
+  /** Overworld story filter uses the packed atlas; areas keep a full story layer image. */
+  const storyNpcBakeUrls = useMemo(() => {
+    if (!useStoryNpcBakeLayer || !currentArea) return null;
+    return storyNpcBakeLayerUrls(currentArea.id);
+  }, [useStoryNpcBakeLayer, currentArea]);
   const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
-  const bakeLayerUrls = currentArea ? areaBakeLayers(currentArea.id) : hoennBakeLayers();
   const imgSrc = currentArea
     ? useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.png`)
       : assetUrl(currentArea.image)
-    : HOENN_MAP_PNG;
+    : useBakeComposite
+      ? HOENN_MAP_BAKED_PNG
+      : HOENN_MAP_PNG;
   const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
   const mapWebpSrc = !currentArea
-    ? HOENN_MAP_WEBP
+    ? useBakeComposite
+      ? HOENN_MAP_BAKED_WEBP
+      : HOENN_MAP_WEBP
     : bakeArea && useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.webp`)
       : undefined;
-  const bakeLayersToShow = useBakeComposite ? [] : visibleBakeLayers;
   const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
@@ -387,6 +643,30 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     () => POI_CATEGORIES.filter((c) => basePoints.some((p) => p.category === c.id)),
     [basePoints],
   );
+  /** Active layers bucketed into Places / Collectibles / Characters (+ Other). */
+  const legendGroups = useMemo(() => {
+    const byId = new Map(activeCategories.map((c) => [c.id, c]));
+    const used = new Set<PoiCategory>();
+    const groups: {
+      id: string;
+      label: string;
+      stack?: boolean;
+      cats: PoiCategoryMeta[];
+    }[] = [];
+    for (const group of LEGEND_LAYER_GROUPS) {
+      const cats = group.ids
+        .map((id) => byId.get(id))
+        .filter((c): c is PoiCategoryMeta => Boolean(c));
+      if (cats.length === 0) continue;
+      for (const c of cats) used.add(c.id);
+      groups.push({ id: group.id, label: group.label, stack: group.stack, cats });
+    }
+    const leftover = activeCategories.filter((c) => !used.has(c.id));
+    if (leftover.length > 0) {
+      groups.push({ id: "other", label: "Other", cats: leftover });
+    }
+    return groups;
+  }, [activeCategories]);
 
   const dragState = useRef<{
     pointerId: number;
@@ -408,6 +688,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const clearSelection = useCallback(() => {
     setSelectedId(null);
     setModalTrainer(null);
+    setModalNpc(null);
     setModalRoute(null);
     setModalGym(null);
     setModalMart(null);
@@ -421,6 +702,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const closeTrainerModal = useCallback(() => {
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalTrainer(null);
+  }, []);
+
+  const closeNpcModal = useCallback(() => {
+    blockMapMarkerUntilRef.current = Date.now() + 600;
+    setModalNpc(null);
   }, []);
 
   const closeGymModal = useCallback(() => {
@@ -460,9 +746,23 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     [rematchableOnly, currentArea],
   );
 
+  const passesNpcFilter = useCallback(
+    (p: MapPoint) => {
+      if (!storyNpcsOnly) return true;
+      if (!isNpcMapPoint(p)) return true;
+      return npcHasStory(p);
+    },
+    [storyNpcsOnly],
+  );
+
+  const passesLayerFilters = useCallback(
+    (p: MapPoint) => passesTrainerFilter(p) && passesNpcFilter(p),
+    [passesTrainerFilter, passesNpcFilter],
+  );
+
   const visiblePoints = useMemo(
-    () => basePoints.filter((p) => visible[p.category] && passesTrainerFilter(p)),
-    [visible, basePoints, passesTrainerFilter],
+    () => basePoints.filter((p) => visible[p.category] && passesLayerFilters(p)),
+    [visible, basePoints, passesLayerFilters],
   );
 
   const selectedPoint = useMemo(
@@ -476,7 +776,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       .map((cat) => ({
         cat,
         points: basePoints
-          .filter((p) => p.category === cat.id && passesTrainerFilter(p))
+          .filter((p) => p.category === cat.id && passesLayerFilters(p))
           .sort(
             (a, b) =>
               (a.note ?? "").localeCompare(b.note ?? "") ||
@@ -484,11 +784,16 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
           ),
       }))
       .filter((g) => g.points.length > 0);
-  }, [visible, basePoints, passesTrainerFilter]);
+  }, [visible, basePoints, passesLayerFilters]);
 
   const overworldRematchTrainerCount = useMemo(
     () => MAP_TRAINERS.filter((t) => t.rematchable).length,
     [],
+  );
+
+  const storyNpcCount = useMemo(
+    () => basePoints.filter((p) => isNpcMapPoint(p) && npcHasStory(p)).length,
+    [basePoints],
   );
 
   /** Width the map occupies at scale 1 (whole map contained in the viewport). */
@@ -500,7 +805,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
   const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
   modalOpenRef.current =
-    modalRoute !== null || modalTrainer !== null || modalGym !== null || modalMart !== null;
+    modalRoute !== null ||
+    modalTrainer !== null ||
+    modalNpc !== null ||
+    modalGym !== null ||
+    modalMart !== null;
 
   const canvasW = fitW * view.scale;
   const canvasH = canvasW / mapAr;
@@ -536,8 +845,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       setSelectedId(p.id);
       if (isTrainerPoint(p)) {
         setModalTrainer(p);
+        setModalNpc(null);
+      } else if (isNpcMapPoint(p)) {
+        setModalNpc(p);
+        setModalTrainer(null);
       } else {
         setModalTrainer(null);
+        setModalNpc(null);
       }
       setView((prev) => {
         const ceiling = onOverworld ? MAX_SCALE_OVERWORLD : MAX_SCALE_AREA;
@@ -581,40 +895,59 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   /** Switch the displayed map (null = overworld composite). */
   const switchMap = useCallback(
     (areaId: string | null) => {
+      // Stash the camera for the map we're leaving so Story ↔ Map can restore it.
+      viewsRef.current[mapViewKey(currentAreaId)] = view;
+      if (!currentAreaId) {
+        overworldVisibleRef.current = visible;
+      }
+
       setCurrentAreaId(areaId);
       setSelectedId(null);
-      setRematchableOnly(false);
+      setModalTrainer(null);
+      setModalNpc(null);
+      setModalRoute(null);
+      setModalGym(null);
+      setModalMart(null);
       const area = areaId ? (AREA_MAPS.find((a) => a.id === areaId) ?? null) : null;
       if (area) {
+        setRematchableOnly(false);
+        setStoryNpcsOnly(false);
         // Area maps exist to show their items — turn those layers on by default.
         const next = {} as Record<PoiCategory, boolean>;
         for (const c of POI_CATEGORIES) next[c.id] = false;
         for (const m of area.markers) next[m.category] = true;
         for (const m of AREA_MAP_ENTRANCES[areaId!] ?? []) next[m.category] = true;
-        if (areaSpritePoints(areaId!).length) next.trainer = true;
+        const sprites = areaSpritePoints(areaId!);
+        if (sprites.some((p) => p.category === "trainer")) next.trainer = true;
+        if (sprites.some((p) => p.category === "npc")) next.npc = true;
         setVisible(next);
       } else {
-        setVisible(initialVisible());
+        // Back to overworld: restore the last overworld layers / filters.
+        setVisible(overworldVisibleRef.current);
+        setRematchableOnly(overworldFiltersRef.current.rematchableOnly);
+        setStoryNpcsOnly(overworldFiltersRef.current.storyNpcsOnly);
       }
-      // Fit the *incoming* map. Do not reuse overworld mobile zoom on area maps —
-      // that leaves small interiors extremely zoomed in.
+      // Fit the *incoming* map. Prefer a saved camera for that map when present.
       const ar = area ? area.width / area.height : MAP_W / MAP_H;
       const ceiling = area ? MAX_SCALE_AREA : MAX_SCALE_OVERWORLD;
-      if (area) {
+      const savedForMap = viewsRef.current[mapViewKey(areaId)];
+      if (savedForMap) {
+        setView(clampForAr(savedForMap, ar, ceiling));
+        restoredViewRef.current = savedForMap;
+      } else if (area) {
         setView(clampForAr({ scale: 1, x: 0, y: 0 }, ar, ceiling));
       } else {
         const narrow = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
-        const saved = readSavedHoennMapView();
         setView(
           clampForAr(
-            saved ?? { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
+            { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
             ar,
             ceiling,
           ),
         );
       }
     },
-    [clampForAr, vp.w],
+    [clampForAr, vp.w, currentAreaId, view, visible],
   );
 
   const zoomAt = useCallback(
@@ -682,12 +1015,34 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     });
   }, [vp.w, vp.h, clamp, isNarrowViewport, isOverworld, defaultScale]);
 
-  // Remember overworld pan/zoom for the rest of this browser session.
+  // Remember area + camera + layers for Story ↔ Map round-trips this session.
   useEffect(() => {
-    if (!isOverworld || !vp.w || !vp.h) return;
-    writeSavedHoennMapView(view);
+    if (!vp.w || !vp.h) return;
+    const key = mapViewKey(currentAreaId);
+    viewsRef.current[key] = view;
+    if (isOverworld) {
+      overworldVisibleRef.current = visible;
+      overworldFiltersRef.current = { rematchableOnly, storyNpcsOnly };
+    }
+    writeSavedHoennMapSession({
+      areaId: currentAreaId,
+      views: { ...viewsRef.current },
+      visible,
+      overworldVisible: overworldVisibleRef.current,
+      rematchableOnly: overworldFiltersRef.current.rematchableOnly,
+      storyNpcsOnly: overworldFiltersRef.current.storyNpcsOnly,
+    });
     restoredViewRef.current = view;
-  }, [view, isOverworld, vp.w, vp.h]);
+  }, [
+    view,
+    currentAreaId,
+    visible,
+    rematchableOnly,
+    storyNpcsOnly,
+    isOverworld,
+    vp.w,
+    vp.h,
+  ]);
 
   // Native wheel listener so we can preventDefault (React onWheel is passive).
   useEffect(() => {
@@ -840,13 +1195,24 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setModalRoute(null);
         setModalGym(null);
         setModalMart(null);
+        setModalNpc(null);
         setModalTrainer(point);
+        return;
+      }
+      if (isNpcMapPoint(point)) {
+        setSelectedId(point.id);
+        setModalRoute(null);
+        setModalGym(null);
+        setModalMart(null);
+        setModalTrainer(null);
+        setModalNpc(point);
         return;
       }
       if (point.category === "route" || point.category === "town") {
         setSelectedId(point.id);
         setModalRoute(point);
         setModalTrainer(null);
+        setModalNpc(null);
         setModalGym(null);
         setModalMart(null);
         return;
@@ -855,6 +1221,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setSelectedId(point.id);
         setModalGym(point);
         setModalTrainer(null);
+        setModalNpc(null);
         setModalRoute(null);
         setModalMart(null);
         return;
@@ -863,11 +1230,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setSelectedId(point.id);
         setModalMart(point);
         setModalTrainer(null);
+        setModalNpc(null);
         setModalRoute(null);
         setModalGym(null);
         return;
       }
       setModalTrainer(null);
+      setModalNpc(null);
       setModalRoute(null);
       setModalGym(null);
       setModalMart(null);
@@ -969,6 +1338,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       return pt?.category === id ? null : cur;
     });
     if (id === "trainer") setModalTrainer(null);
+    if (id === "npc") setModalNpc(null);
     if (id === "route" || id === "town") setModalRoute(null);
     if (id === "gym") setModalGym(null);
     if (id === "shop" || id === "entrance") setModalMart(null);
@@ -983,6 +1353,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     setSelectedId(null);
     if (!on) {
       setModalTrainer(null);
+      setModalNpc(null);
       setModalRoute(null);
       setModalGym(null);
       setModalMart(null);
@@ -993,10 +1364,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const isDragging = dragState.current !== null;
 
   return (
-    <div className={`hoenn-map${compact ? " hoenn-map--compact" : ""}`}>
+    <div
+      className={`hoenn-map${compact ? " hoenn-map--compact" : ""}${
+        isTouchDevice ? " hoenn-map--touch" : ""
+      }`}
+    >
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym || modalMart ? " hoenn-map__viewport--modal-open" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalNpc || modalGym || modalMart ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onClick={onViewportClick}
@@ -1038,37 +1413,81 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 onLoad={() => setMapReady(true)}
               />
             )}
-            {bakeLayersToShow.map((cat) => {
-              const layer = bakeLayerUrls[cat];
-              return (
-                <picture key={`bake-${cat}`}>
-                  <source srcSet={layer.webp} type="image/webp" />
-                  <img
-                    src={layer.png}
-                    alt=""
-                    className="hoenn-map__image hoenn-map__bake-layer"
-                    decoding="async"
-                    draggable={false}
-                    aria-hidden="true"
+            {bakeOverworld
+              ? bakeLayersToShow.map((cat) => (
+                  <BakeLayerAtlasOverlay
+                    key={`bake-atlas-${cat}`}
+                    layerKey={cat}
+                    mapW={mapW}
+                    mapH={mapH}
                   />
-                </picture>
-              );
-            })}
+                ))
+              : bakeLayersToShow.map((cat) => {
+                  const layer = areaBakeLayerUrlMap?.[cat];
+                  if (!layer) return null;
+                  return (
+                    <picture key={`bake-${cat}`}>
+                      <source srcSet={layer.webp} type="image/webp" />
+                      <img
+                        src={layer.png}
+                        alt=""
+                        className="hoenn-map__image hoenn-map__bake-layer"
+                        decoding="async"
+                        draggable={false}
+                        aria-hidden="true"
+                      />
+                    </picture>
+                  );
+                })}
+            {bakeOverworld && useStoryNpcBakeLayer ? (
+              <BakeLayerAtlasOverlay
+                key="bake-atlas-npc-story"
+                layerKey="npc-story"
+                mapW={mapW}
+                mapH={mapH}
+              />
+            ) : null}
+            {storyNpcBakeUrls ? (
+              <picture key="bake-npc-story">
+                <source srcSet={storyNpcBakeUrls.webp} type="image/webp" />
+                <img
+                  src={storyNpcBakeUrls.png}
+                  alt=""
+                  className="hoenn-map__image hoenn-map__bake-layer"
+                  decoding="async"
+                  draggable={false}
+                  aria-hidden="true"
+                />
+              </picture>
+            ) : null}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
+              const owSprite = hasOwSprite(point);
+              /** Invisible hit when this category is painted in the composite or an overlay layer. */
+              const categoryBakedOnMap =
+                useBakeComposite ||
+                (isBakedSpriteCategory(point.category) &&
+                  bakeLayersToShow.includes(point.category));
               const bakedCollectible =
-                bakeSprites &&
-                (point.category === "item" ||
-                  point.category === "hidden" ||
-                  point.category === "berry") &&
+                categoryBakedOnMap &&
+                isBakedSpriteCategory(point.category) &&
+                point.category !== "trainer" &&
+                point.category !== "npc" &&
                 (bakeOverworld || availableBakeLayers.includes(point.category));
               const bakedTrainer =
+                categoryBakedOnMap &&
                 point.category === "trainer" &&
-                (bakeOverworld ||
-                  Boolean(bakedAreaTrainerIds?.has(point.id)));
-              const baked = bakedCollectible || bakedTrainer;
+                !rematchableOnly &&
+                (bakeOverworld || Boolean(bakedAreaTrainerIds?.has(point.id)));
+              const bakedNpc =
+                point.category === "npc" &&
+                (storyNpcsOnly
+                  ? useStoryNpcBakeLayer
+                  : categoryBakedOnMap &&
+                    (bakeOverworld || availableBakeLayers.includes("npc")));
+              const baked = bakedCollectible || bakedTrainer || bakedNpc;
               return (
                 <div
                   key={point.id}
@@ -1077,7 +1496,9 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   className={`hoenn-map__pin ${
                     baked
                       ? "hoenn-map__pin--baked-overworld"
-                      : `hoenn-map__pin--${point.category}`
+                      : `hoenn-map__pin--${point.category}${
+                          !baked && (trainer || owSprite) ? " hoenn-map__pin--ow-sprite" : ""
+                        }`
                   } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
@@ -1217,7 +1638,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
             </button>
           </div>
 
-          {selectedPoint && isMapCalloutPoint(selectedPoint) && (
+          {/* Desktop/mouse only — on touch, tap opens the detail modal / legend (no hover bubble). */}
+          {selectedPoint && isMapCalloutPoint(selectedPoint) && !isTouchDevice && (
             <div
               className="hoenn-map__selection"
               role="status"
@@ -1321,50 +1743,104 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               </button>
             </div>
           </div>
-          <ul>
-            {activeCategories.map((cat) => {
-              const points = basePoints.filter((p) => p.category === cat.id);
-              const count =
-                rematchableOnly && !currentArea && cat.id === "trainer"
-                  ? points.filter((p) => isTrainerPoint(p) && p.rematchable).length
-                  : points.length;
-              const showRematchFilter =
-                !currentArea && cat.id === "trainer" && points.length > 0;
-              return (
-                <li key={cat.id}>
-                  <label className="hoenn-map__legend-item">
-                    <input
-                      type="checkbox"
-                      checked={visible[cat.id]}
-                      onChange={() => toggleCategory(cat.id)}
-                    />
-                    <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
-                    <span className="hoenn-map__legend-label">{cat.label}</span>
-                    <span className="hoenn-map__legend-count">
-                      {rematchableOnly && !currentArea && cat.id === "trainer"
-                        ? `${count}/${points.length}`
-                        : count}
-                    </span>
-                  </label>
-                  {showRematchFilter && (
-                    <label className="hoenn-map__legend-subfilter">
-                      <input
-                        type="checkbox"
-                        checked={rematchableOnly}
-                        onChange={(e) => {
-                          const on = e.target.checked;
-                          setRematchableOnly(on);
-                          if (on) setVisible((v) => (v.trainer ? v : { ...v, trainer: true }));
-                        }}
-                      />
-                      <span>Rematchable only</span>
-                      <span className="hoenn-map__legend-count">{overworldRematchTrainerCount}</span>
-                    </label>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+          {legendGroups.map((group) => (
+            <section key={group.id} className="hoenn-map__legend-group" aria-label={group.label}>
+              <h5 className="hoenn-map__legend-group-title">{group.label}</h5>
+              <ul
+                className={`hoenn-map__legend-list${
+                  group.stack ? " hoenn-map__legend-list--stack" : ""
+                }`}
+              >
+                {group.cats.map((cat) => {
+                  const points = basePoints.filter((p) => p.category === cat.id);
+                  const filtered =
+                    rematchableOnly && !currentArea && cat.id === "trainer"
+                      ? points.filter((p) => isTrainerPoint(p) && p.rematchable).length
+                      : storyNpcsOnly && cat.id === "npc"
+                        ? points.filter((p) => npcHasStory(p)).length
+                        : points.length;
+                  const showFraction =
+                    (rematchableOnly && !currentArea && cat.id === "trainer") ||
+                    (storyNpcsOnly && cat.id === "npc");
+                  const showRematchFilter =
+                    !currentArea && cat.id === "trainer" && points.length > 0;
+                  const showStoryNpcFilter = cat.id === "npc" && storyNpcCount > 0;
+                  const hasSubfilter = showRematchFilter || showStoryNpcFilter;
+                  return (
+                    <li
+                      key={cat.id}
+                      className={`hoenn-map__legend-row${
+                        hasSubfilter ? " hoenn-map__legend-row--nested" : ""
+                      }`}
+                    >
+                      <label
+                        className={`hoenn-map__legend-item${
+                          visible[cat.id] ? " is-on" : ""
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={visible[cat.id]}
+                          onChange={() => toggleCategory(cat.id)}
+                        />
+                        <span
+                          className="hoenn-map__legend-swatch"
+                          style={{ background: cat.color }}
+                          aria-hidden="true"
+                        />
+                        <span className="hoenn-map__legend-label">{cat.label}</span>
+                        <span className="hoenn-map__legend-count">
+                          {showFraction ? `${filtered}/${points.length}` : filtered}
+                        </span>
+                      </label>
+                      {showRematchFilter && (
+                        <label
+                          className={`hoenn-map__legend-subfilter${
+                            rematchableOnly ? " is-on" : ""
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={rematchableOnly}
+                            onChange={(e) => {
+                              const on = e.target.checked;
+                              setRematchableOnly(on);
+                              if (on) {
+                                setVisible((v) => (v.trainer ? v : { ...v, trainer: true }));
+                              }
+                            }}
+                          />
+                          <span className="hoenn-map__legend-label">Rematchable only</span>
+                          <span className="hoenn-map__legend-count">
+                            {overworldRematchTrainerCount}
+                          </span>
+                        </label>
+                      )}
+                      {showStoryNpcFilter && (
+                        <label
+                          className={`hoenn-map__legend-subfilter${
+                            storyNpcsOnly ? " is-on" : ""
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={storyNpcsOnly}
+                            onChange={(e) => {
+                              const on = e.target.checked;
+                              setStoryNpcsOnly(on);
+                              if (on) setVisible((v) => (v.npc ? v : { ...v, npc: true }));
+                            }}
+                          />
+                          <span className="hoenn-map__legend-label">Story only</span>
+                          <span className="hoenn-map__legend-count">{storyNpcCount}</span>
+                        </label>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
         </div>
         {selectedPoint && !isMapCalloutPoint(selectedPoint) ? (
           <div className="hoenn-map__legend-detail">
@@ -1377,6 +1853,26 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   onClick={() => setModalTrainer(selectedPoint)}
                 >
                   View battle details
+                </button>
+              </div>
+            ) : isNpcMapPoint(selectedPoint) ? (
+              <div className="hoenn-map__trainer-summary">
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === "npc")?.color }}
+                >
+                  NPC
+                </span>
+                <span className="hoenn-map__pin-hint-name">{selectedPoint.name}</span>
+                {selectedPoint.note ? (
+                  <span className="hoenn-map__pin-hint-sub">{selectedPoint.note}</span>
+                ) : null}
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalNpc(selectedPoint)}
+                >
+                  View NPC details
                 </button>
               </div>
             ) : selectedPoint.category === "route" ? (
@@ -1532,20 +2028,30 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                           if (p.category === "route" || p.category === "town") {
                             setModalRoute(p);
                             setModalTrainer(null);
+                            setModalNpc(null);
                             setModalGym(null);
                             setModalMart(null);
                           } else if (p.category === "gym") {
                             setModalGym(p);
                             setModalTrainer(null);
+                            setModalNpc(null);
                             setModalRoute(null);
                             setModalMart(null);
                           } else if (isMartMapPoint(p)) {
                             setModalMart(p);
                             setModalTrainer(null);
+                            setModalNpc(null);
                             setModalRoute(null);
                             setModalGym(null);
                           } else if (isTrainerPoint(p)) {
                             setModalTrainer(p);
+                            setModalNpc(null);
+                            setModalRoute(null);
+                            setModalGym(null);
+                            setModalMart(null);
+                          } else if (isNpcMapPoint(p)) {
+                            setModalNpc(p);
+                            setModalTrainer(null);
                             setModalRoute(null);
                             setModalGym(null);
                             setModalMart(null);
@@ -1573,6 +2079,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         onJumpToGuide={jumpToGuide}
       />
       <TrainerDetailModal trainer={modalTrainer} onClose={closeTrainerModal} />
+      <NpcDetailModal
+        npc={modalNpc}
+        onClose={closeNpcModal}
+        onJumpToGuide={(point) => {
+          closeNpcModal();
+          jumpToGuide(point);
+        }}
+      />
     </div>
   );
 }
