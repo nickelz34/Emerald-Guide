@@ -2189,7 +2189,7 @@
     .hoenn-map__pin--ow-sprite
   ):not(.hoenn-map__pin--item):not(.hoenn-map__pin--berry):not(.hoenn-map__pin--hidden):not(
     .hoenn-map__pin--tile
-  ):not(.hoenn-map__pin--baked-cutscene) {
+  ):not(.hoenn-map__pin--baked-cutscene):not(.hoenn-map__pin--baked-overworld) {
   transform: translate(-50%, -50%) scale(var(--pin-zoom));
   transform-origin: center;
 }
@@ -2227,7 +2227,8 @@
 }
 
 /* Baked hit boxes are % of the map and must scale with the image — no pin-zoom. */
-.map-zoom-viewport .hoenn-map__pin--baked-cutscene {
+.map-zoom-viewport .hoenn-map__pin--baked-cutscene,
+.map-zoom-viewport .hoenn-map__pin--baked-overworld {
   transform: translate(-50%, -100%);
   transform-origin: center bottom;
 }

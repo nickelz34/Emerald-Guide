@@ -141,13 +141,14 @@ const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
 const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
 const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true, bake trainers / items / hidden / berries into map art with
- * invisible hit targets. Only one full-size atlas is shown at a time:
- *   - all bake layers on → single baked composite
- *   - any bake layer off → clean atlas + live OW sprites for remaining pins
- * Stacking multiple 12800×6128 layer images OOMs mobile tabs.
- * Rematchable-only / Story-only must use live pins — the composite paints every
- * trainer / NPC.
+ * When true, bake trainers / NPCs / items / hidden / berries into map art with
+ * invisible hit targets:
+ *   - all bake layers on → single baked composite (one full-size atlas)
+ *   - a subset on → clean atlas + only those category layer images
+ *   - Rematchable-only / Story-only → clean atlas + live pins for the filter
+ *     (layer images paint every trainer/NPC, so they can't be used)
+ * Cap overlays at 2 layers so we don't reintroduce the mobile OOM from stacking
+ * every full-size bake layer.
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
@@ -155,9 +156,50 @@ const BAKE_MAP_SPRITES = true;
 const BAKE_OVERWORLD_SPRITE_SCALE = 2;
 const BAKED_SPRITE_CATEGORIES = ["trainer", "npc", "item", "hidden", "berry"] as const;
 type BakedSpriteCategory = (typeof BAKED_SPRITE_CATEGORIES)[number];
+/** Soft cap: clean + 2 layer atlases stays within mobile decode budget. */
+const MAX_BAKE_LAYER_OVERLAYS = 2;
 
 function isBakedSpriteCategory(cat: PoiCategory): cat is BakedSpriteCategory {
   return (BAKED_SPRITE_CATEGORIES as readonly string[]).includes(cat);
+}
+
+function hoennBakeLayerUrls(): Record<BakedSpriteCategory, { png: string; webp: string }> {
+  return {
+    trainer: {
+      png: assetUrl("maps/hoenn-map-baked-trainer.png"),
+      webp: assetUrl("maps/hoenn-map-baked-trainer.webp"),
+    },
+    npc: {
+      png: assetUrl("maps/hoenn-map-baked-npc.png"),
+      webp: assetUrl("maps/hoenn-map-baked-npc.webp"),
+    },
+    item: {
+      png: assetUrl("maps/hoenn-map-baked-item.png"),
+      webp: assetUrl("maps/hoenn-map-baked-item.webp"),
+    },
+    hidden: {
+      png: assetUrl("maps/hoenn-map-baked-hidden.png"),
+      webp: assetUrl("maps/hoenn-map-baked-hidden.webp"),
+    },
+    berry: {
+      png: assetUrl("maps/hoenn-map-baked-berry.png"),
+      webp: assetUrl("maps/hoenn-map-baked-berry.webp"),
+    },
+  };
+}
+
+function areaBakeLayerUrls(
+  areaId: string,
+  layers: readonly BakedSpriteCategory[],
+): Partial<Record<BakedSpriteCategory, { png: string; webp: string }>> {
+  const out: Partial<Record<BakedSpriteCategory, { png: string; webp: string }>> = {};
+  for (const cat of layers) {
+    out[cat] = {
+      png: assetUrl(`maps/areas/${areaId}-baked-${cat}.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-${cat}.webp`),
+    };
+  }
+  return out;
 }
 
 /** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
@@ -335,17 +377,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const bakeSprites = bakeOverworld || bakeArea;
   const availableBakeLayers: BakedSpriteCategory[] = bakeOverworld
     ? [...BAKED_SPRITE_CATEGORIES]
-    : (areaBakeEntry?.layers ?? []);
+    : ((areaBakeEntry?.layers ?? []) as BakedSpriteCategory[]);
   const visibleBakeLayers = bakeSprites
     ? availableBakeLayers.filter((cat) => visible[cat])
     : [];
   /**
-   * One full-size atlas only:
-   * - all bake layers enabled (or prebaked-only area) → baked composite
-   * - otherwise → clean map; bake-category pins render as live OW sprites
-   * Never stack per-category full-map layer images (each is ~12800×6128 decoded).
-   * Rematchable-only / Story-only must use live pins — the composite paints every
-   * trainer / NPC.
+   * Full composite when every bake layer is on (and no subset filters).
+   * Otherwise overlay only the visible category layers on the clean atlas —
+   * that keeps NPC/trainer filters baked without stacking every layer at once.
    */
   const useBakeComposite =
     bakeSprites &&
@@ -354,6 +393,36 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     (availableBakeLayers.length === 0
       ? bakeArea
       : visibleBakeLayers.length === availableBakeLayers.length);
+  /** Category layers to stack on the clean map when the full composite is off. */
+  const bakeLayersToShow = useMemo((): BakedSpriteCategory[] => {
+    if (!bakeSprites || useBakeComposite) return [];
+    const layers = visibleBakeLayers.filter((cat) => {
+      if (cat === "trainer" && rematchableOnly) return false;
+      if (cat === "npc" && storyNpcsOnly) return false;
+      return true;
+    });
+    if (layers.length === 0) return [];
+    if (layers.length <= MAX_BAKE_LAYER_OVERLAYS) return layers;
+    // Prefer character layers so NPCs/trainers stay baked when many filters are on.
+    const preferred = layers.filter((cat) => cat === "trainer" || cat === "npc");
+    if (preferred.length > 0 && preferred.length <= MAX_BAKE_LAYER_OVERLAYS) {
+      return preferred;
+    }
+    return [];
+  }, [
+    bakeSprites,
+    useBakeComposite,
+    visibleBakeLayers,
+    rematchableOnly,
+    storyNpcsOnly,
+  ]);
+  const bakeLayerUrls = useMemo(
+    () =>
+      currentArea
+        ? areaBakeLayerUrls(currentArea.id, availableBakeLayers)
+        : hoennBakeLayerUrls(),
+    [currentArea, availableBakeLayers],
+  );
   const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
   const imgSrc = currentArea
     ? useBakeComposite
@@ -1094,25 +1163,48 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 onLoad={() => setMapReady(true)}
               />
             )}
+            {bakeLayersToShow.map((cat) => {
+              const layer = bakeLayerUrls[cat];
+              if (!layer) return null;
+              return (
+                <picture key={`bake-${cat}`}>
+                  <source srcSet={layer.webp} type="image/webp" />
+                  <img
+                    src={layer.png}
+                    alt=""
+                    className="hoenn-map__image hoenn-map__bake-layer"
+                    decoding="async"
+                    draggable={false}
+                    aria-hidden="true"
+                  />
+                </picture>
+              );
+            })}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
               const owSprite = hasOwSprite(point);
-              /** Invisible hit only when the sprite is painted into the single atlas on screen. */
+              /** Invisible hit when this category is painted in the composite or an overlay layer. */
+              const categoryBakedOnMap =
+                useBakeComposite ||
+                (isBakedSpriteCategory(point.category) &&
+                  bakeLayersToShow.includes(point.category));
               const bakedCollectible =
-                useBakeComposite &&
+                categoryBakedOnMap &&
                 isBakedSpriteCategory(point.category) &&
                 point.category !== "trainer" &&
                 point.category !== "npc" &&
                 (bakeOverworld || availableBakeLayers.includes(point.category));
               const bakedTrainer =
-                useBakeComposite &&
+                categoryBakedOnMap &&
                 point.category === "trainer" &&
+                !rematchableOnly &&
                 (bakeOverworld || Boolean(bakedAreaTrainerIds?.has(point.id)));
               const bakedNpc =
-                useBakeComposite &&
+                categoryBakedOnMap &&
                 point.category === "npc" &&
+                !storyNpcsOnly &&
                 (bakeOverworld || availableBakeLayers.includes("npc"));
               const baked = bakedCollectible || bakedTrainer || bakedNpc;
               return (

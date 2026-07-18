@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.87",
+    date: "2026-07-18T11:36:01-05:00",
+    summary: "NPC filter uses its own baked layer instead of live zooming pins.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Turning on NPCs (without every other bake layer) overlays the baked NPC layer on the clean map — sprites stay map-scaled when zooming, not enlarged live pins.",
+          "Trainers work the same way with their layer; Rematchable only / Story only still switch those categories to live filtered pins.",
+          "Show-all still uses the single full composite so the map does not stack every layer image at once.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.86",
     date: "2026-07-18T11:23:00-05:00",
     summary: "Bake story and non-story NPCs into the Hoenn Map art like trainers.",
