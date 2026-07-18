@@ -125,7 +125,8 @@ const MAP_W = 12800;
 const MAP_H = 6128;
 
 const MIN_SCALE = 1;
-const MAX_SCALE = 14;
+/** Slightly higher ceiling so baked overworld sprites stay readable on phones. */
+const MAX_SCALE = 18;
 const ZOOM_STEP = 1.35;
 /** Narrow viewports start zoomed in so the overworld map is readable on phones. */
 const NARROW_VIEWPORT_MAX = 900;
