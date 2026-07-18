@@ -15,9 +15,17 @@ import { SHOP_PINS_GENERATED } from "../data/shopPinsGenerated";
 import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_MAP_ENTRANCES } from "../data/areaMapEntrancesGenerated";
+import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
+import {
+  AREA_MAP_BAKE_MANIFEST,
+  AREA_MAP_BAKE_SPRITE_SCALE,
+} from "../data/areaMapBakeManifest";
+import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
+import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
+import { getCollectibleSprite } from "../data/itemSpritesGenerated";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
 import { MartDetailModal } from "./MartDetailModal";
@@ -57,18 +65,6 @@ const ALL_POINTS: MapPoint[] = [
   ...ROUTE_POINTS,
 ].map(asShopPoint).map(withCleanItemDesc);
 
-/** Area maps grouped for the switcher's <optgroup> list. */
-const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
-  const byGroup = new Map<string, AreaMap[]>();
-  for (const a of AREA_MAPS) {
-    if (!byGroup.has(a.group)) byGroup.set(a.group, []);
-    byGroup.get(a.group)!.push(a);
-  }
-  return [...byGroup.entries()]
-    .map(([group, maps]) => ({ group, maps }))
-    .sort((a, b) => a.group.localeCompare(b.group));
-})();
-
 /** Convert an area map's markers into the MapPoint shape used by the pins/list. */
 function areaPoints(area: AreaMap): MapPoint[] {
   const markers = [...area.markers, ...(AREA_MAP_ENTRANCES[area.id] ?? [])];
@@ -84,6 +80,31 @@ function areaPoints(area: AreaMap): MapPoint[] {
       pinCode: "code" in m ? (m as { code?: string }).code : undefined,
     }),
   );
+}
+
+/**
+ * Trainers / NPCs for an area map: battle trainers + interior entities + gym
+ * rosters, deduped (same sources AreaMapView uses, minus cutscene-only crops).
+ */
+function areaSpritePoints(areaId: string): TrainerPoint[] {
+  const seen = new Set<string>();
+  const out: TrainerPoint[] = [];
+  for (const src of [
+    AREA_TRAINERS[areaId],
+    AREA_MAP_ENTITIES[areaId],
+    GYM_MAP_ENTITIES[areaId],
+  ]) {
+    if (!src) continue;
+    for (const p of src) {
+      const key =
+        ("trainerId" in p && p.trainerId) ||
+        `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
+      if (seen.has(String(key))) continue;
+      seen.add(String(key));
+      out.push(p);
+    }
+  }
+  return out;
 }
 
 /** Walkthrough step id for a map pin (hand points or linked entrances). */
@@ -109,13 +130,106 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
+const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
+const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
+/**
+ * When true, show baked trainers / items / hidden / berries with invisible hit
+ * targets on the overworld and on area maps that have bake assets.
+ * Uses one composite when every available bake layer is on; otherwise clean map
+ * + only the visible category layers.
+ * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
+ */
+const BAKE_MAP_SPRITES = true;
+/** Keep in sync with `SPRITE_SCALE` in scripts/bake-hoenn-overworld-sprites.mjs */
+const BAKE_OVERWORLD_SPRITE_SCALE = 2;
+const BAKED_SPRITE_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
+type BakedSpriteCategory = (typeof BAKED_SPRITE_CATEGORIES)[number];
+
+/** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
+function bakedSpriteHitStyle(
+  point: MapPoint,
+  canvasW: number,
+  canvasH: number,
+  mapW: number,
+  mapH: number,
+  spriteScale: number,
+): Record<string, string | number> {
+  let fw = 16;
+  let fh = 32;
+  if (isTrainerPoint(point)) {
+    fw = point.spriteWidth ?? 16;
+    fh = point.spriteHeight ?? 32;
+  } else {
+    const collectible = getCollectibleSprite(point.category);
+    if (collectible) {
+      fw = collectible.spriteWidth;
+      fh = collectible.spriteHeight;
+    }
+  }
+  const w = ((fw * spriteScale) / mapW) * canvasW;
+  const h = ((fh * spriteScale) / mapH) * canvasH;
+  return {
+    width: Math.max(12, w),
+    height: Math.max(12, h),
+    transform: "translate(-50%, -100%)",
+    transformOrigin: "center bottom",
+  };
+}
+
+function hoennBakeLayers(): Record<BakedSpriteCategory, { png: string; webp: string }> {
+  return {
+    trainer: {
+      png: assetUrl("maps/hoenn-map-baked-trainer.png"),
+      webp: assetUrl("maps/hoenn-map-baked-trainer.webp"),
+    },
+    item: {
+      png: assetUrl("maps/hoenn-map-baked-item.png"),
+      webp: assetUrl("maps/hoenn-map-baked-item.webp"),
+    },
+    hidden: {
+      png: assetUrl("maps/hoenn-map-baked-hidden.png"),
+      webp: assetUrl("maps/hoenn-map-baked-hidden.webp"),
+    },
+    berry: {
+      png: assetUrl("maps/hoenn-map-baked-berry.png"),
+      webp: assetUrl("maps/hoenn-map-baked-berry.webp"),
+    },
+  };
+}
+
+function areaBakeLayers(areaId: string): Record<BakedSpriteCategory, { png: string; webp: string }> {
+  return {
+    trainer: {
+      png: assetUrl(`maps/areas/${areaId}-baked-trainer.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-trainer.webp`),
+    },
+    item: {
+      png: assetUrl(`maps/areas/${areaId}-baked-item.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-item.webp`),
+    },
+    hidden: {
+      png: assetUrl(`maps/areas/${areaId}-baked-hidden.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-hidden.webp`),
+    },
+    berry: {
+      png: assetUrl(`maps/areas/${areaId}-baked-berry.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-berry.webp`),
+    },
+  };
+}
 
 /** Native pixel size of the source map (true-scale render, 16px per game tile). */
 const MAP_W = 12800;
 const MAP_H = 6128;
 
 const MIN_SCALE = 1;
-const MAX_SCALE = 14;
+/** Area maps are small — this is already a deep zoom into native pixels. */
+const MAX_SCALE_AREA = 24;
+/**
+ * Overworld atlas is ~12800px wide; needs a much higher ceiling so zooming in
+ * can reach the same sprite readability as area maps.
+ */
+const MAX_SCALE_OVERWORLD = 56;
 const ZOOM_STEP = 1.35;
 /** Narrow viewports start zoomed in so the overworld map is readable on phones. */
 const NARROW_VIEWPORT_MAX = 900;
@@ -149,7 +263,7 @@ function readSavedHoennMapView(): View | null {
       return null;
     }
     return {
-      scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, parsed.scale)),
+      scale: Math.min(MAX_SCALE_OVERWORLD, Math.max(MIN_SCALE, parsed.scale)),
       x: parsed.x,
       y: parsed.y,
     };
@@ -214,15 +328,56 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   /** Points + image + native size for the map currently shown. */
   const trainerPoints = useMemo(
     (): MapPoint[] =>
-      currentArea ? (AREA_TRAINERS[currentArea.id] ?? []) : MAP_TRAINERS,
+      currentArea ? areaSpritePoints(currentArea.id) : MAP_TRAINERS,
     [currentArea],
   );
   const basePoints = useMemo(
     () => [...(currentArea ? areaPoints(currentArea) : ALL_POINTS), ...trainerPoints],
     [currentArea, trainerPoints],
   );
-  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_PNG;
-  const useHoennWebp = !currentArea;
+  const areaBakeEntry =
+    currentArea && BAKE_MAP_SPRITES ? AREA_MAP_BAKE_MANIFEST[currentArea.id] : undefined;
+  /** AREA_TRAINERS ids covered by the area bake (layer paint and/or prebaked PNG). */
+  const bakedAreaTrainerIds = useMemo(() => {
+    if (!currentArea || !areaBakeEntry) return null;
+    if (!areaBakeEntry.prebakedTrainers && !areaBakeEntry.layers.includes("trainer")) {
+      return null;
+    }
+    return new Set((AREA_TRAINERS[currentArea.id] ?? []).map((t) => t.id));
+  }, [currentArea, areaBakeEntry]);
+  const bakeOverworld = BAKE_MAP_SPRITES && !currentArea;
+  const bakeArea = Boolean(areaBakeEntry);
+  const bakeSprites = bakeOverworld || bakeArea;
+  const availableBakeLayers: BakedSpriteCategory[] = bakeOverworld
+    ? [...BAKED_SPRITE_CATEGORIES]
+    : (areaBakeEntry?.layers ?? []);
+  const visibleBakeLayers = bakeSprites
+    ? availableBakeLayers.filter((cat) => visible[cat])
+    : [];
+  /** One composite decode when every available bake layer is on; layers only when filtered. */
+  const useBakeComposite =
+    bakeSprites &&
+    (availableBakeLayers.length === 0
+      ? bakeArea // prebaked-only area: composite == base (+ nothing painted)
+      : visibleBakeLayers.length === availableBakeLayers.length);
+  const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
+  const bakeLayerUrls = currentArea ? areaBakeLayers(currentArea.id) : hoennBakeLayers();
+  const imgSrc = currentArea
+    ? useBakeComposite
+      ? assetUrl(`maps/areas/${currentArea.id}-baked.png`)
+      : assetUrl(currentArea.image)
+    : useBakeComposite
+      ? HOENN_MAP_BAKED_PNG
+      : HOENN_MAP_PNG;
+  const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
+  const mapWebpSrc = !currentArea
+    ? useBakeComposite
+      ? HOENN_MAP_BAKED_WEBP
+      : HOENN_MAP_WEBP
+    : bakeArea && useBakeComposite
+      ? assetUrl(`maps/areas/${currentArea.id}-baked.webp`)
+      : undefined;
+  const bakeLayersToShow = useBakeComposite ? [] : visibleBakeLayers;
   const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
@@ -342,6 +497,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
 
   const isNarrowViewport = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
   const isOverworld = !currentArea;
+  const maxScale = isOverworld ? MAX_SCALE_OVERWORLD : MAX_SCALE_AREA;
   const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
   const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
   modalOpenRef.current =
@@ -356,7 +512,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       const w = vp.w;
       const h = vp.h;
       const fw = (w && h ? Math.min(w, h * mapAr) : w) || 0;
-      const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.scale));
+      const scale = Math.min(maxScale, Math.max(MIN_SCALE, v.scale));
       const cw = fw * scale;
       const ch = cw / mapAr;
       let { x, y } = v;
@@ -364,7 +520,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       y = ch <= h ? (h - ch) / 2 : Math.min(0, Math.max(h - ch, y));
       return { scale, x, y };
     },
-    [vp.w, vp.h, mapAr],
+    [vp.w, vp.h, mapAr, maxScale],
   );
 
   const fit = useCallback(
@@ -385,6 +541,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setModalTrainer(null);
       }
       setView((prev) => {
+        const ceiling = onOverworld ? MAX_SCALE_OVERWORLD : MAX_SCALE_AREA;
         const targetScale = Math.max(prev.scale, onOverworld ? 6 : 3);
         const cw = fw * targetScale;
         const ch = cw / ar;
@@ -392,7 +549,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         const py = (p.y / 100) * ch;
         const w = vp.w;
         const h = vp.h;
-        const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        const scale = Math.min(ceiling, Math.max(MIN_SCALE, targetScale));
         const cw2 = fw * scale;
         const ch2 = cw2 / ar;
         let x = w / 2 - px;
@@ -405,33 +562,66 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     [vp.w, vp.h, mapAr, currentArea],
   );
 
+  /** Clamp a camera against an explicit map aspect ratio (for map switches). */
+  const clampForAr = useCallback(
+    (v: View, ar: number, ceiling: number): View => {
+      const w = vp.w;
+      const h = vp.h;
+      const fw = (w && h ? Math.min(w, h * ar) : w) || 0;
+      const scale = Math.min(ceiling, Math.max(MIN_SCALE, v.scale));
+      const cw = fw * scale;
+      const ch = cw / ar;
+      let { x, y } = v;
+      x = cw <= w ? (w - cw) / 2 : Math.min(0, Math.max(w - cw, x));
+      y = ch <= h ? (h - ch) / 2 : Math.min(0, Math.max(h - ch, y));
+      return { scale, x, y };
+    },
+    [vp.w, vp.h],
+  );
+
   /** Switch the displayed map (null = overworld composite). */
   const switchMap = useCallback(
     (areaId: string | null) => {
       setCurrentAreaId(areaId);
       setSelectedId(null);
       setRematchableOnly(false);
-      if (areaId) {
+      const area = areaId ? (AREA_MAPS.find((a) => a.id === areaId) ?? null) : null;
+      if (area) {
         // Area maps exist to show their items — turn those layers on by default.
-        const area = AREA_MAPS.find((a) => a.id === areaId);
         const next = {} as Record<PoiCategory, boolean>;
         for (const c of POI_CATEGORIES) next[c.id] = false;
-        for (const m of area?.markers ?? []) next[m.category] = true;
-        for (const m of AREA_MAP_ENTRANCES[areaId] ?? []) next[m.category] = true;
-        if ((AREA_TRAINERS[areaId] ?? []).length) next.trainer = true;
+        for (const m of area.markers) next[m.category] = true;
+        for (const m of AREA_MAP_ENTRANCES[areaId!] ?? []) next[m.category] = true;
+        if (areaSpritePoints(areaId!).length) next.trainer = true;
         setVisible(next);
       } else {
         setVisible(initialVisible());
       }
-      setView(clamp({ scale: defaultScale, x: 0, y: 0 }));
+      // Fit the *incoming* map. Do not reuse overworld mobile zoom on area maps —
+      // that leaves small interiors extremely zoomed in.
+      const ar = area ? area.width / area.height : MAP_W / MAP_H;
+      const ceiling = area ? MAX_SCALE_AREA : MAX_SCALE_OVERWORLD;
+      if (area) {
+        setView(clampForAr({ scale: 1, x: 0, y: 0 }, ar, ceiling));
+      } else {
+        const narrow = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
+        const saved = readSavedHoennMapView();
+        setView(
+          clampForAr(
+            saved ?? { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
+            ar,
+            ceiling,
+          ),
+        );
+      }
     },
-    [clamp, defaultScale],
+    [clampForAr, vp.w],
   );
 
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {
       setView((prev) => {
-        const nextScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, prev.scale * factor));
+        const nextScale = Math.min(maxScale, Math.max(MIN_SCALE, prev.scale * factor));
         if (nextScale === prev.scale) return prev;
         const ratio = nextScale / prev.scale;
         // Keep the point under the cursor fixed while zooming.
@@ -440,13 +630,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         return clamp({ scale: nextScale, x, y });
       });
     },
-    [clamp],
+    [clamp, maxScale],
   );
 
   const zoomToScale = useCallback(
     (targetScale: number, cx: number, cy: number) => {
       setView((prev) => {
-        const nextScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        const nextScale = Math.min(maxScale, Math.max(MIN_SCALE, targetScale));
         if (nextScale === prev.scale) return prev;
         const ratio = nextScale / prev.scale;
         const x = cx - (cx - prev.x) * ratio;
@@ -454,7 +644,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         return clamp({ scale: nextScale, x, y });
       });
     },
-    [clamp],
+    [clamp, maxScale],
   );
 
   const zoomButton = useCallback(
@@ -799,16 +989,21 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               width: `${canvasW}px`,
               height: `${canvasH}px`,
               transform: `translate(${view.x}px, ${view.y}px)`,
+              // Area maps: live sprites sized in native map pixels (scale with zoom).
+              // Overworld: keep 1 — trainers/items are baked into the atlas; town/gym
+              // UI pins stay screen-readable at a fixed size.
+              ["--hoenn-map-px" as string]:
+                currentArea && mapW > 0 ? canvasW / mapW : 1,
             }}
           >
-            {useHoennWebp ? (
+            {useMapWebp && mapWebpSrc ? (
               <picture>
-                <source srcSet={HOENN_MAP_WEBP} type="image/webp" />
+                <source srcSet={mapWebpSrc} type="image/webp" />
                 <img
                   ref={mapImgRef}
                   src={imgSrc}
-                  alt="Map of the Hoenn region"
-                  className={`hoenn-map__image${mapReady ? "" : " hoenn-map__image--loading"}`}
+                  alt={currentArea ? currentArea.name : "Map of the Hoenn region"}
+                  className={`hoenn-map__image${currentArea ? " hoenn-map__image--pixel" : ""}${mapReady ? "" : " hoenn-map__image--loading"}`}
                   decoding="async"
                   draggable={false}
                   onLoad={() => setMapReady(true)}
@@ -818,30 +1013,68 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               <img
                 ref={mapImgRef}
                 src={imgSrc}
-                alt={currentArea!.name}
-                className={`hoenn-map__image hoenn-map__image--pixel${mapReady ? "" : " hoenn-map__image--loading"}`}
+                alt={currentArea ? currentArea.name : "Map of the Hoenn region"}
+                className={`hoenn-map__image${currentArea ? " hoenn-map__image--pixel" : ""}${mapReady ? "" : " hoenn-map__image--loading"}`}
                 decoding="async"
                 draggable={false}
                 onLoad={() => setMapReady(true)}
               />
             )}
+            {bakeLayersToShow.map((cat) => {
+              const layer = bakeLayerUrls[cat];
+              return (
+                <picture key={`bake-${cat}`}>
+                  <source srcSet={layer.webp} type="image/webp" />
+                  <img
+                    src={layer.png}
+                    alt=""
+                    className="hoenn-map__image hoenn-map__bake-layer"
+                    decoding="async"
+                    draggable={false}
+                    aria-hidden="true"
+                  />
+                </picture>
+              );
+            })}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
+              const bakedCollectible =
+                bakeSprites &&
+                (point.category === "item" ||
+                  point.category === "hidden" ||
+                  point.category === "berry") &&
+                (bakeOverworld || availableBakeLayers.includes(point.category));
+              const bakedTrainer =
+                point.category === "trainer" &&
+                (bakeOverworld ||
+                  Boolean(bakedAreaTrainerIds?.has(point.id)));
+              const baked = bakedCollectible || bakedTrainer;
               return (
                 <div
                   key={point.id}
                   role="button"
                   tabIndex={0}
-                  className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
-                    point.pinCode ? "has-code" : ""
-                  } ${active ? "is-active" : ""}`}
+                  className={`hoenn-map__pin ${
+                    baked
+                      ? "hoenn-map__pin--baked-overworld"
+                      : `hoenn-map__pin--${point.category}`
+                  } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
                     top: `${point.y}%`,
                     ["--pin-color" as string]: cat?.color,
-                    ...pinSpriteStyle(point),
+                    ...(baked
+                      ? bakedSpriteHitStyle(
+                          point,
+                          canvasW,
+                          canvasH,
+                          mapW,
+                          mapH,
+                          bakeSpriteScale,
+                        )
+                      : pinSpriteStyle(point)),
                   }}
                   onPointerDown={(e) => {
                     // Keep pin taps/clicks from starting a map pan (desktop + touch).
@@ -906,7 +1139,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   }}
                   aria-label={point.name}
                 >
-                  {point.category === "route" ? (
+                  {baked ? null : point.category === "route" ? (
                     <>
                       <span className="hoenn-map__pin-dot hoenn-map__pin-dot--route" aria-hidden="true" />
                       <span className="hoenn-map__pin-label">{point.name}</span>
@@ -1023,8 +1256,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
             onChange={(e) => switchMap(e.target.value || null)}
           >
             <option value="">Hoenn Region (overworld)</option>
-            {AREA_GROUPS.map(({ group, maps }) =>
-              maps.length === 1 && !maps[0].floor ? (
+            {MAP_SELECTOR_GROUPS.map(({ group, maps }) =>
+              maps.length === 1 && mapSelectorLabel(maps[0]) === maps[0].name ? (
                 <option key={maps[0].id} value={maps[0].id}>
                   {group}
                 </option>
@@ -1032,7 +1265,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 <optgroup key={group} label={group}>
                   {maps.map((a) => (
                     <option key={a.id} value={a.id}>
-                      {a.floor || a.name}
+                      {mapSelectorLabel(a)}
                     </option>
                   ))}
                 </optgroup>

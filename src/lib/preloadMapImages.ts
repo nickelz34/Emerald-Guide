@@ -18,6 +18,8 @@ function preloadUrl(path: string) {
 export function preloadHoennOverworldMap() {
   preloadUrl("maps/hoenn-map.webp");
   preloadUrl("maps/hoenn-map.png");
+  // TEST bake: only the all-on composite — per-category layers load on demand.
+  preloadUrl("maps/hoenn-map-baked.webp");
 }
 
 /** Warm the browser cache for walkthrough map images on the current step. */
