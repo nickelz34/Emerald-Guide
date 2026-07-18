@@ -33,6 +33,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.85",
+    date: "2026-07-18T11:15:36-05:00",
+    summary: "NPCs legend gains a Story only filter for walkthrough-linked characters.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Under NPCs, Story only works like Rematchable only for trainers — it leaves townsfolk and shows the characters tied to guide story steps (about forty across outdoor + interiors).",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.84",
     date: "2026-07-18T11:12:39-05:00",
     summary: "Tapping an NPC opens a detail panel with dialogue, game data, and story links.",

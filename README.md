@@ -4,7 +4,7 @@
 
 **Live site (beta):** [https://nickelz34.github.io/Emerald-Guide/](https://nickelz34.github.io/Emerald-Guide/)
 
-Current app version: **1.26.84**
+Current app version: **1.26.85**
 
 ---
 

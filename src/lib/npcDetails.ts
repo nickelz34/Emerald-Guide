@@ -37,3 +37,9 @@ export function getNpcStoryLinks(point: NpcMapPoint): NpcStoryLink[] {
 export function getNpcDialogue(point: NpcMapPoint): string[] {
   return getNpcScriptDetails(point)?.dialogue ?? [];
 }
+
+/** True when this NPC has indexed walkthrough / story links. */
+export function npcHasStory(point: MapPoint): boolean {
+  if (!isNpcMapPoint(point)) return false;
+  return getNpcStoryLinks(point).length > 0;
+}

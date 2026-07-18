@@ -36,7 +36,7 @@ import { isMartMapPoint } from "../data/martData";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
 import { withLegendCategory } from "../lib/mapLegendCategory";
-import { isNpcMapPoint, type NpcMapPoint } from "../lib/npcDetails";
+import { isNpcMapPoint, npcHasStory, type NpcMapPoint } from "../lib/npcDetails";
 
 const SHOP_NAMES = new Set([
   "Mart",
@@ -290,6 +290,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const [modalMart, setModalMart] = useState<MapPoint | null>(null);
   const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
   const [rematchableOnly, setRematchableOnly] = useState(false);
+  const [storyNpcsOnly, setStoryNpcsOnly] = useState(false);
   const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
 
   const currentArea = useMemo(
@@ -455,9 +456,23 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     [rematchableOnly, currentArea],
   );
 
+  const passesNpcFilter = useCallback(
+    (p: MapPoint) => {
+      if (!storyNpcsOnly) return true;
+      if (!isNpcMapPoint(p)) return true;
+      return npcHasStory(p);
+    },
+    [storyNpcsOnly],
+  );
+
+  const passesLayerFilters = useCallback(
+    (p: MapPoint) => passesTrainerFilter(p) && passesNpcFilter(p),
+    [passesTrainerFilter, passesNpcFilter],
+  );
+
   const visiblePoints = useMemo(
-    () => basePoints.filter((p) => visible[p.category] && passesTrainerFilter(p)),
-    [visible, basePoints, passesTrainerFilter],
+    () => basePoints.filter((p) => visible[p.category] && passesLayerFilters(p)),
+    [visible, basePoints, passesLayerFilters],
   );
 
   const selectedPoint = useMemo(
@@ -471,7 +486,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       .map((cat) => ({
         cat,
         points: basePoints
-          .filter((p) => p.category === cat.id && passesTrainerFilter(p))
+          .filter((p) => p.category === cat.id && passesLayerFilters(p))
           .sort(
             (a, b) =>
               (a.note ?? "").localeCompare(b.note ?? "") ||
@@ -479,11 +494,16 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
           ),
       }))
       .filter((g) => g.points.length > 0);
-  }, [visible, basePoints, passesTrainerFilter]);
+  }, [visible, basePoints, passesLayerFilters]);
 
   const overworldRematchTrainerCount = useMemo(
     () => MAP_TRAINERS.filter((t) => t.rematchable).length,
     [],
+  );
+
+  const storyNpcCount = useMemo(
+    () => basePoints.filter((p) => isNpcMapPoint(p) && npcHasStory(p)).length,
+    [basePoints],
   );
 
   /** Width the map occupies at scale 1 (whole map contained in the viewport). */
@@ -593,6 +613,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       setModalGym(null);
       setModalMart(null);
       setRematchableOnly(false);
+      setStoryNpcsOnly(false);
       const area = areaId ? (AREA_MAPS.find((a) => a.id === areaId) ?? null) : null;
       if (area) {
         // Area maps exist to show their items — turn those layers on by default.
@@ -1346,9 +1367,12 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               const count =
                 rematchableOnly && !currentArea && cat.id === "trainer"
                   ? points.filter((p) => isTrainerPoint(p) && p.rematchable).length
-                  : points.length;
+                  : storyNpcsOnly && cat.id === "npc"
+                    ? points.filter((p) => npcHasStory(p)).length
+                    : points.length;
               const showRematchFilter =
                 !currentArea && cat.id === "trainer" && points.length > 0;
+              const showStoryNpcFilter = cat.id === "npc" && storyNpcCount > 0;
               return (
                 <li key={cat.id}>
                   <label className="hoenn-map__legend-item">
@@ -1360,7 +1384,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                     <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
                     <span className="hoenn-map__legend-label">{cat.label}</span>
                     <span className="hoenn-map__legend-count">
-                      {rematchableOnly && !currentArea && cat.id === "trainer"
+                      {(rematchableOnly && !currentArea && cat.id === "trainer") ||
+                      (storyNpcsOnly && cat.id === "npc")
                         ? `${count}/${points.length}`
                         : count}
                     </span>
@@ -1378,6 +1403,21 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                       />
                       <span>Rematchable only</span>
                       <span className="hoenn-map__legend-count">{overworldRematchTrainerCount}</span>
+                    </label>
+                  )}
+                  {showStoryNpcFilter && (
+                    <label className="hoenn-map__legend-subfilter">
+                      <input
+                        type="checkbox"
+                        checked={storyNpcsOnly}
+                        onChange={(e) => {
+                          const on = e.target.checked;
+                          setStoryNpcsOnly(on);
+                          if (on) setVisible((v) => (v.npc ? v : { ...v, npc: true }));
+                        }}
+                      />
+                      <span>Story only</span>
+                      <span className="hoenn-map__legend-count">{storyNpcCount}</span>
                     </label>
                   )}
                 </li>
