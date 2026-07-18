@@ -17,9 +17,11 @@ import {
   portraitSpriteStyle,
 } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import { NpcDetailModal } from "./NpcDetailPanel";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
 import { withLegendCategory } from "../lib/mapLegendCategory";
+import { isNpcMapPoint, type NpcMapPoint } from "../lib/npcDetails";
 
 export type AreaMapExtraMarker = {
   id: string;
@@ -84,6 +86,7 @@ export function AreaMapView({
 }: AreaMapViewProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
+  const [modalNpc, setModalNpc] = useState<NpcMapPoint | null>(null);
 
   const area = useMemo(() => AREA_MAPS.find((a) => a.id === areaMapId) ?? null, [areaMapId]);
 
@@ -166,10 +169,18 @@ export function AreaMapView({
   const handlePinClick = (point: MapPoint, active: boolean) => {
     if (isTrainerPoint(point)) {
       setActiveId(point.id);
+      setModalNpc(null);
       setModalTrainer(point);
       return;
     }
+    if (isNpcMapPoint(point)) {
+      setActiveId(point.id);
+      setModalTrainer(null);
+      setModalNpc(point);
+      return;
+    }
     setModalTrainer(null);
+    setModalNpc(null);
     setActiveId(active ? null : point.id);
   };
 
@@ -406,6 +417,7 @@ export function AreaMapView({
           {sidebar}
         </div>
         <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
+        <NpcDetailModal npc={modalNpc} onClose={() => setModalNpc(null)} />
       </figure>
     );
   }
@@ -442,7 +454,7 @@ export function AreaMapView({
         </>
       )}
 
-      {activePoint && !isTrainerPoint(activePoint) && !showLegend && (
+      {activePoint && !isTrainerPoint(activePoint) && !isNpcMapPoint(activePoint) && !showLegend && (
         <figcaption className="area-map-view__active">
           <span style={{ color: POI_CATEGORIES.find((c) => c.id === activePoint.category)?.color }}>
             {POI_CATEGORIES.find((c) => c.id === activePoint.category)?.label}
@@ -454,6 +466,7 @@ export function AreaMapView({
 
       <figcaption className="area-map-view__caption">{label}</figcaption>
       <TrainerDetailModal trainer={modalTrainer} onClose={() => setModalTrainer(null)} />
+      <NpcDetailModal npc={modalNpc} onClose={() => setModalNpc(null)} />
     </figure>
   );
 }

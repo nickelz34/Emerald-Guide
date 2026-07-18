@@ -3431,6 +3431,75 @@
   line-height: 1.45;
 }
 
+.trainer-modal__empty {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.npc-modal__quotes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.npc-modal__quote {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border-left: 3px solid var(--pin-color, #63b3ed);
+  border-radius: 0 6px 6px 0;
+  background: var(--hover-fill);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.npc-modal__story-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.npc-modal__story-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.55rem 0.65rem;
+  border-radius: 6px;
+  background: var(--hover-fill);
+  border: 1px solid var(--border);
+}
+
+.npc-modal__story-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: min(100%, 12rem);
+  flex: 1;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.npc-modal__story-text p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.npc-modal__story-loc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
 .trainer-modal__rematch-list {
   list-style: none;
   margin: 0;

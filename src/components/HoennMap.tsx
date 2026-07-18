@@ -25,6 +25,7 @@ import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas"
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { MAP_NPCS } from "../data/mapNpcsGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
+import { NpcDetailModal } from "./NpcDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
 import { hasOwSprite } from "../data/areaMapCutsceneEntities";
 import { getCollectibleSprite } from "../data/itemSpritesGenerated";
@@ -35,6 +36,7 @@ import { isMartMapPoint } from "../data/martData";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
 import { withLegendCategory } from "../lib/mapLegendCategory";
+import { isNpcMapPoint, type NpcMapPoint } from "../lib/npcDetails";
 
 const SHOP_NAMES = new Set([
   "Mart",
@@ -120,6 +122,7 @@ function stepIdForPoint(point: MapPoint): string | undefined {
 function isMapCalloutPoint(point: MapPoint): boolean {
   return (
     !isTrainerPoint(point) &&
+    !isNpcMapPoint(point) &&
     !isMartMapPoint(point) &&
     point.category !== "route" &&
     point.category !== "town" &&
@@ -281,6 +284,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalTrainer, setModalTrainer] = useState<TrainerPoint | null>(null);
+  const [modalNpc, setModalNpc] = useState<NpcMapPoint | null>(null);
   const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
   const [modalGym, setModalGym] = useState<MapPoint | null>(null);
   const [modalMart, setModalMart] = useState<MapPoint | null>(null);
@@ -393,6 +397,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const clearSelection = useCallback(() => {
     setSelectedId(null);
     setModalTrainer(null);
+    setModalNpc(null);
     setModalRoute(null);
     setModalGym(null);
     setModalMart(null);
@@ -406,6 +411,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const closeTrainerModal = useCallback(() => {
     blockMapMarkerUntilRef.current = Date.now() + 600;
     setModalTrainer(null);
+  }, []);
+
+  const closeNpcModal = useCallback(() => {
+    blockMapMarkerUntilRef.current = Date.now() + 600;
+    setModalNpc(null);
   }, []);
 
   const closeGymModal = useCallback(() => {
@@ -485,7 +495,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
   const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
   modalOpenRef.current =
-    modalRoute !== null || modalTrainer !== null || modalGym !== null || modalMart !== null;
+    modalRoute !== null ||
+    modalTrainer !== null ||
+    modalNpc !== null ||
+    modalGym !== null ||
+    modalMart !== null;
 
   const canvasW = fitW * view.scale;
   const canvasH = canvasW / mapAr;
@@ -521,8 +535,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       setSelectedId(p.id);
       if (isTrainerPoint(p)) {
         setModalTrainer(p);
+        setModalNpc(null);
+      } else if (isNpcMapPoint(p)) {
+        setModalNpc(p);
+        setModalTrainer(null);
       } else {
         setModalTrainer(null);
+        setModalNpc(null);
       }
       setView((prev) => {
         const ceiling = onOverworld ? MAX_SCALE_OVERWORLD : MAX_SCALE_AREA;
@@ -827,13 +846,24 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setModalRoute(null);
         setModalGym(null);
         setModalMart(null);
+        setModalNpc(null);
         setModalTrainer(point);
+        return;
+      }
+      if (isNpcMapPoint(point)) {
+        setSelectedId(point.id);
+        setModalRoute(null);
+        setModalGym(null);
+        setModalMart(null);
+        setModalTrainer(null);
+        setModalNpc(point);
         return;
       }
       if (point.category === "route" || point.category === "town") {
         setSelectedId(point.id);
         setModalRoute(point);
         setModalTrainer(null);
+        setModalNpc(null);
         setModalGym(null);
         setModalMart(null);
         return;
@@ -842,6 +872,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setSelectedId(point.id);
         setModalGym(point);
         setModalTrainer(null);
+        setModalNpc(null);
         setModalRoute(null);
         setModalMart(null);
         return;
@@ -850,11 +881,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setSelectedId(point.id);
         setModalMart(point);
         setModalTrainer(null);
+        setModalNpc(null);
         setModalRoute(null);
         setModalGym(null);
         return;
       }
       setModalTrainer(null);
+      setModalNpc(null);
       setModalRoute(null);
       setModalGym(null);
       setModalMart(null);
@@ -956,6 +989,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       return pt?.category === id ? null : cur;
     });
     if (id === "trainer") setModalTrainer(null);
+    if (id === "npc") setModalNpc(null);
     if (id === "route" || id === "town") setModalRoute(null);
     if (id === "gym") setModalGym(null);
     if (id === "shop" || id === "entrance") setModalMart(null);
@@ -970,6 +1004,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     setSelectedId(null);
     if (!on) {
       setModalTrainer(null);
+      setModalNpc(null);
       setModalRoute(null);
       setModalGym(null);
       setModalMart(null);
@@ -987,7 +1022,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     >
       <div className="hoenn-map__body">
         <div
-          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalGym || modalMart ? " hoenn-map__viewport--modal-open" : ""}`}
+          className={`hoenn-map__viewport ${isDragging ? "is-dragging" : ""}${!mapReady ? " hoenn-map__viewport--loading" : ""}${compactRouteLabels ? " hoenn-map__viewport--compact-routes" : ""}${modalRoute || modalTrainer || modalNpc || modalGym || modalMart ? " hoenn-map__viewport--modal-open" : ""}`}
           ref={viewportRef}
           onPointerDown={onPointerDown}
           onClick={onViewportClick}
@@ -1345,8 +1380,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
             })}
           </ul>
         </div>
-        {selectedPoint &&
-        (!isMapCalloutPoint(selectedPoint) || selectedPoint.category === "npc") ? (
+        {selectedPoint && !isMapCalloutPoint(selectedPoint) ? (
           <div className="hoenn-map__legend-detail">
             {isTrainerPoint(selectedPoint) ? (
               <div className="hoenn-map__trainer-summary">
@@ -1359,18 +1393,26 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   View battle details
                 </button>
               </div>
-            ) : selectedPoint.category === "npc" ? (
-              <>
+            ) : isNpcMapPoint(selectedPoint) ? (
+              <div className="hoenn-map__trainer-summary">
                 <span
                   className="hoenn-map__pin-cat"
                   style={{ color: POI_CATEGORIES.find((c) => c.id === "npc")?.color }}
                 >
                   NPC
                 </span>
-                <h5>{selectedPoint.name}</h5>
-                {selectedPoint.note && <p className="hoenn-map__hint">{selectedPoint.note}</p>}
-                {selectedPoint.desc && <p className="hoenn-map__hint">{selectedPoint.desc}</p>}
-              </>
+                <span className="hoenn-map__pin-hint-name">{selectedPoint.name}</span>
+                {selectedPoint.note ? (
+                  <span className="hoenn-map__pin-hint-sub">{selectedPoint.note}</span>
+                ) : null}
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => setModalNpc(selectedPoint)}
+                >
+                  View NPC details
+                </button>
+              </div>
             ) : selectedPoint.category === "route" ? (
               <>
                 <span
@@ -1524,20 +1566,30 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                           if (p.category === "route" || p.category === "town") {
                             setModalRoute(p);
                             setModalTrainer(null);
+                            setModalNpc(null);
                             setModalGym(null);
                             setModalMart(null);
                           } else if (p.category === "gym") {
                             setModalGym(p);
                             setModalTrainer(null);
+                            setModalNpc(null);
                             setModalRoute(null);
                             setModalMart(null);
                           } else if (isMartMapPoint(p)) {
                             setModalMart(p);
                             setModalTrainer(null);
+                            setModalNpc(null);
                             setModalRoute(null);
                             setModalGym(null);
                           } else if (isTrainerPoint(p)) {
                             setModalTrainer(p);
+                            setModalNpc(null);
+                            setModalRoute(null);
+                            setModalGym(null);
+                            setModalMart(null);
+                          } else if (isNpcMapPoint(p)) {
+                            setModalNpc(p);
+                            setModalTrainer(null);
                             setModalRoute(null);
                             setModalGym(null);
                             setModalMart(null);
@@ -1565,6 +1617,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         onJumpToGuide={jumpToGuide}
       />
       <TrainerDetailModal trainer={modalTrainer} onClose={closeTrainerModal} />
+      <NpcDetailModal
+        npc={modalNpc}
+        onClose={closeNpcModal}
+        onJumpToGuide={(point) => {
+          closeNpcModal();
+          jumpToGuide(point);
+        }}
+      />
     </div>
   );
 }

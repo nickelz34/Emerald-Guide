@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.84",
+    date: "2026-07-18T11:12:39-05:00",
+    summary: "Tapping an NPC opens a detail panel with dialogue, game data, and story links.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "NPC pins open a detail modal (same idea as trainers): overworld sprite, facing, script/map ids, and in-game dialogue pulled from pokeemerald EventScripts.",
+          "Story-related NPCs list matching walkthrough steps with an Open step button when the guide covers them (Mom, Birch, Scott, Briney, mart tutorial, and others).",
+          "Interior area-map NPCs use the same detail panel.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.83",
     date: "2026-07-18T11:02:46-05:00",
     summary: "Hoenn Map gains an NPCs legend layer you can turn on or off.",
