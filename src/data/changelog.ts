@@ -33,6 +33,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.82",
+    date: "2026-07-18T10:52:12-05:00",
+    summary: "Rematchable-only actually hides non-rematch trainers on the Hoenn Map.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Turning on Rematchable only leaves the all-trainer baked composite and shows live pins for rematchable trainers only — the map art no longer keeps every trainer painted on.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.81",
     date: "2026-07-18T10:47:34-05:00",
     summary: "Hoenn Map defaults to Towns & Cities and Routes only.",

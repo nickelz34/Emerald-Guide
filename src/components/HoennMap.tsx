@@ -323,9 +323,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
    * - all bake layers enabled (or prebaked-only area) → baked composite
    * - otherwise → clean map; bake-category pins render as live OW sprites
    * Never stack per-category full-map layer images (each is ~12800×6128 decoded).
+   * Rematchable-only must use live pins — the composite paints every trainer.
    */
   const useBakeComposite =
     bakeSprites &&
+    !rematchableOnly &&
     (availableBakeLayers.length === 0
       ? bakeArea
       : visibleBakeLayers.length === availableBakeLayers.length);
