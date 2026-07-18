@@ -44,7 +44,7 @@ export const POI_CATEGORIES: PoiCategoryMeta[] = [
 ];
 
 /** Categories shown by default on the main Hoenn map. */
-export const DEFAULT_VISIBLE_CATEGORIES: PoiCategory[] = ["town", "route", "shop"];
+export const DEFAULT_VISIBLE_CATEGORIES: PoiCategory[] = POI_CATEGORIES.map((c) => c.id);
 
 export interface MapPoint {
   id: string;
