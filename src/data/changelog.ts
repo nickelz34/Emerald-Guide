@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.89",
+    date: "2026-07-18T11:45:02-05:00",
+    summary: "Cleaner Map layers panel with grouped, aligned toggles.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Map layers are grouped into Places, Collectibles, and Characters instead of a wrapping pill cluster.",
+          "Each layer is an equal-width toggle row with the count right-aligned; Rematchable only and Story only nest under Trainers and NPCs.",
+          "Active layers use a clear on-state so it is easier to see what is filtered on mobile.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.88",
     date: "2026-07-18T11:40:37-05:00",
     summary: "Story only NPCs use a baked layer instead of live zooming pins.",

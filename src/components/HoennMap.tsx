@@ -8,6 +8,7 @@ import {
   DEFAULT_VISIBLE_CATEGORIES,
   type MapPoint,
   type PoiCategory,
+  type PoiCategoryMeta,
 } from "../data/mapPoints";
 import { GENERATED_POINTS } from "../data/mapPointsGenerated";
 import { LANDMARK_PINS_GENERATED } from "../data/mapLandmarksGenerated";
@@ -37,6 +38,32 @@ import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
 import { withLegendCategory } from "../lib/mapLegendCategory";
 import { isNpcMapPoint, npcHasStory, type NpcMapPoint } from "../lib/npcDetails";
+
+/** Legend sections — keeps the layer panel scannable instead of one wrap of pills. */
+const LEGEND_LAYER_GROUPS: {
+  id: string;
+  label: string;
+  ids: readonly PoiCategory[];
+  /** Full-width rows (for layers that nest Rematchable / Story filters). */
+  stack?: boolean;
+}[] = [
+  {
+    id: "places",
+    label: "Places",
+    ids: ["town", "route", "gym", "landmark", "entrance", "shop"],
+  },
+  {
+    id: "collectibles",
+    label: "Collectibles",
+    ids: ["item", "hidden", "berry", "wild"],
+  },
+  {
+    id: "characters",
+    label: "Characters",
+    ids: ["trainer", "npc"],
+    stack: true,
+  },
+];
 
 const SHOP_NAMES = new Set([
   "Mart",
@@ -483,6 +510,30 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     () => POI_CATEGORIES.filter((c) => basePoints.some((p) => p.category === c.id)),
     [basePoints],
   );
+  /** Active layers bucketed into Places / Collectibles / Characters (+ Other). */
+  const legendGroups = useMemo(() => {
+    const byId = new Map(activeCategories.map((c) => [c.id, c]));
+    const used = new Set<PoiCategory>();
+    const groups: {
+      id: string;
+      label: string;
+      stack?: boolean;
+      cats: PoiCategoryMeta[];
+    }[] = [];
+    for (const group of LEGEND_LAYER_GROUPS) {
+      const cats = group.ids
+        .map((id) => byId.get(id))
+        .filter((c): c is PoiCategoryMeta => Boolean(c));
+      if (cats.length === 0) continue;
+      for (const c of cats) used.add(c.id);
+      groups.push({ id: group.id, label: group.label, stack: group.stack, cats });
+    }
+    const leftover = activeCategories.filter((c) => !used.has(c.id));
+    if (leftover.length > 0) {
+      groups.push({ id: "other", label: "Other", cats: leftover });
+    }
+    return groups;
+  }, [activeCategories]);
 
   const dragState = useRef<{
     pointerId: number;
@@ -1509,69 +1560,104 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               </button>
             </div>
           </div>
-          <ul>
-            {activeCategories.map((cat) => {
-              const points = basePoints.filter((p) => p.category === cat.id);
-              const count =
-                rematchableOnly && !currentArea && cat.id === "trainer"
-                  ? points.filter((p) => isTrainerPoint(p) && p.rematchable).length
-                  : storyNpcsOnly && cat.id === "npc"
-                    ? points.filter((p) => npcHasStory(p)).length
-                    : points.length;
-              const showRematchFilter =
-                !currentArea && cat.id === "trainer" && points.length > 0;
-              const showStoryNpcFilter = cat.id === "npc" && storyNpcCount > 0;
-              return (
-                <li key={cat.id}>
-                  <label className="hoenn-map__legend-item">
-                    <input
-                      type="checkbox"
-                      checked={visible[cat.id]}
-                      onChange={() => toggleCategory(cat.id)}
-                    />
-                    <span className="hoenn-map__legend-swatch" style={{ background: cat.color }} />
-                    <span className="hoenn-map__legend-label">{cat.label}</span>
-                    <span className="hoenn-map__legend-count">
-                      {(rematchableOnly && !currentArea && cat.id === "trainer") ||
-                      (storyNpcsOnly && cat.id === "npc")
-                        ? `${count}/${points.length}`
-                        : count}
-                    </span>
-                  </label>
-                  {showRematchFilter && (
-                    <label className="hoenn-map__legend-subfilter">
-                      <input
-                        type="checkbox"
-                        checked={rematchableOnly}
-                        onChange={(e) => {
-                          const on = e.target.checked;
-                          setRematchableOnly(on);
-                          if (on) setVisible((v) => (v.trainer ? v : { ...v, trainer: true }));
-                        }}
-                      />
-                      <span>Rematchable only</span>
-                      <span className="hoenn-map__legend-count">{overworldRematchTrainerCount}</span>
-                    </label>
-                  )}
-                  {showStoryNpcFilter && (
-                    <label className="hoenn-map__legend-subfilter">
-                      <input
-                        type="checkbox"
-                        checked={storyNpcsOnly}
-                        onChange={(e) => {
-                          const on = e.target.checked;
-                          setStoryNpcsOnly(on);
-                          if (on) setVisible((v) => (v.npc ? v : { ...v, npc: true }));
-                        }}
-                      />
-                      <span>Story only</span>
-                      <span className="hoenn-map__legend-count">{storyNpcCount}</span>
-                    </label>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+          {legendGroups.map((group) => (
+            <section key={group.id} className="hoenn-map__legend-group" aria-label={group.label}>
+              <h5 className="hoenn-map__legend-group-title">{group.label}</h5>
+              <ul
+                className={`hoenn-map__legend-list${
+                  group.stack ? " hoenn-map__legend-list--stack" : ""
+                }`}
+              >
+                {group.cats.map((cat) => {
+                  const points = basePoints.filter((p) => p.category === cat.id);
+                  const filtered =
+                    rematchableOnly && !currentArea && cat.id === "trainer"
+                      ? points.filter((p) => isTrainerPoint(p) && p.rematchable).length
+                      : storyNpcsOnly && cat.id === "npc"
+                        ? points.filter((p) => npcHasStory(p)).length
+                        : points.length;
+                  const showFraction =
+                    (rematchableOnly && !currentArea && cat.id === "trainer") ||
+                    (storyNpcsOnly && cat.id === "npc");
+                  const showRematchFilter =
+                    !currentArea && cat.id === "trainer" && points.length > 0;
+                  const showStoryNpcFilter = cat.id === "npc" && storyNpcCount > 0;
+                  const hasSubfilter = showRematchFilter || showStoryNpcFilter;
+                  return (
+                    <li
+                      key={cat.id}
+                      className={`hoenn-map__legend-row${
+                        hasSubfilter ? " hoenn-map__legend-row--nested" : ""
+                      }`}
+                    >
+                      <label
+                        className={`hoenn-map__legend-item${
+                          visible[cat.id] ? " is-on" : ""
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={visible[cat.id]}
+                          onChange={() => toggleCategory(cat.id)}
+                        />
+                        <span
+                          className="hoenn-map__legend-swatch"
+                          style={{ background: cat.color }}
+                          aria-hidden="true"
+                        />
+                        <span className="hoenn-map__legend-label">{cat.label}</span>
+                        <span className="hoenn-map__legend-count">
+                          {showFraction ? `${filtered}/${points.length}` : filtered}
+                        </span>
+                      </label>
+                      {showRematchFilter && (
+                        <label
+                          className={`hoenn-map__legend-subfilter${
+                            rematchableOnly ? " is-on" : ""
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={rematchableOnly}
+                            onChange={(e) => {
+                              const on = e.target.checked;
+                              setRematchableOnly(on);
+                              if (on) {
+                                setVisible((v) => (v.trainer ? v : { ...v, trainer: true }));
+                              }
+                            }}
+                          />
+                          <span className="hoenn-map__legend-label">Rematchable only</span>
+                          <span className="hoenn-map__legend-count">
+                            {overworldRematchTrainerCount}
+                          </span>
+                        </label>
+                      )}
+                      {showStoryNpcFilter && (
+                        <label
+                          className={`hoenn-map__legend-subfilter${
+                            storyNpcsOnly ? " is-on" : ""
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={storyNpcsOnly}
+                            onChange={(e) => {
+                              const on = e.target.checked;
+                              setStoryNpcsOnly(on);
+                              if (on) setVisible((v) => (v.npc ? v : { ...v, npc: true }));
+                            }}
+                          />
+                          <span className="hoenn-map__legend-label">Story only</span>
+                          <span className="hoenn-map__legend-count">{storyNpcCount}</span>
+                        </label>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
         </div>
         {selectedPoint && !isMapCalloutPoint(selectedPoint) ? (
           <div className="hoenn-map__legend-detail">
