@@ -33,6 +33,22 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.78",
+    date: "2026-07-18T10:06:01-05:00",
+    summary:
+      "Fix Hoenn Map crash when turning off the Trainers legend filter (and other bake layers).",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Legend filters no longer swap the giant all-on baked composite for a fresh clean map + layer stack mid-interaction — that reload could kill the tab when Trainers (or another bake layer) was unchecked.",
+          "The overworld always uses the clean atlas with per-category bake layers on top; toggling Trainers / Items / Hidden / Berries only adds or removes that layer.",
+          "Preload warms the clean map and all four bake layers so filter changes stay responsive.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.77",
     date: "2026-07-17T20:56:15-05:00",
     summary:

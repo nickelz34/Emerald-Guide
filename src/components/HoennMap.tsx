@@ -130,13 +130,11 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
-const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
-const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
  * When true, show baked trainers / items / hidden / berries with invisible hit
  * targets on the overworld and on area maps that have bake assets.
- * Uses one composite when every available bake layer is on; otherwise clean map
- * + only the visible category layers.
+ * Filterable maps use the clean atlas + per-category layers (never swap the
+ * all-on composite when a legend checkbox changes).
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
@@ -354,26 +352,26 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const visibleBakeLayers = bakeSprites
     ? availableBakeLayers.filter((cat) => visible[cat])
     : [];
-  /** One composite decode when every available bake layer is on; layers only when filtered. */
+  /**
+   * Only use a baked composite as the base when there are no filterable layers
+   * (prebaked-only area maps). For the overworld — and area maps with category
+   * layers — always use the clean atlas + visible layers.
+   *
+   * Swapping the all-on composite for clean+layers when a legend filter turns
+   * off reloads multi‑MB images mid-interaction and can kill the tab.
+   */
   const useBakeComposite =
-    bakeSprites &&
-    (availableBakeLayers.length === 0
-      ? bakeArea // prebaked-only area: composite == base (+ nothing painted)
-      : visibleBakeLayers.length === availableBakeLayers.length);
+    bakeSprites && bakeArea && availableBakeLayers.length === 0;
   const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
   const bakeLayerUrls = currentArea ? areaBakeLayers(currentArea.id) : hoennBakeLayers();
   const imgSrc = currentArea
     ? useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.png`)
       : assetUrl(currentArea.image)
-    : useBakeComposite
-      ? HOENN_MAP_BAKED_PNG
-      : HOENN_MAP_PNG;
+    : HOENN_MAP_PNG;
   const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
   const mapWebpSrc = !currentArea
-    ? useBakeComposite
-      ? HOENN_MAP_BAKED_WEBP
-      : HOENN_MAP_WEBP
+    ? HOENN_MAP_WEBP
     : bakeArea && useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.webp`)
       : undefined;
@@ -481,7 +479,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
           .filter((p) => p.category === cat.id && passesTrainerFilter(p))
           .sort(
             (a, b) =>
-              (a.note ?? "").localeCompare(b.note ?? "") || a.name.localeCompare(b.name),
+              (a.note ?? "").localeCompare(b.note ?? "") ||
+              (a.name ?? "").localeCompare(b.name ?? ""),
           ),
       }))
       .filter((g) => g.points.length > 0);
@@ -959,8 +958,21 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     });
   };
 
-  const toggleCategory = (id: PoiCategory) =>
+  const toggleCategory = (id: PoiCategory) => {
+    const turningOff = visible[id];
     setVisible((v) => ({ ...v, [id]: !v[id] }));
+    if (!turningOff) return;
+    // Drop selection / open modals that belong to the layer being hidden.
+    setSelectedId((cur) => {
+      if (!cur) return cur;
+      const pt = basePoints.find((p) => p.id === cur);
+      return pt?.category === id ? null : cur;
+    });
+    if (id === "trainer") setModalTrainer(null);
+    if (id === "route" || id === "town") setModalRoute(null);
+    if (id === "gym") setModalGym(null);
+    if (id === "shop" || id === "entrance") setModalMart(null);
+  };
 
   const setAllCategories = (on: boolean) => {
     setVisible((prev) => {
@@ -969,6 +981,12 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       return next;
     });
     setSelectedId(null);
+    if (!on) {
+      setModalTrainer(null);
+      setModalRoute(null);
+      setModalGym(null);
+      setModalMart(null);
+    }
   };
 
   const anyVisible = activeCategories.some((c) => visible[c.id]);
