@@ -2877,6 +2877,26 @@
   background: var(--hover-border);
 }
 
+/* TEST: overworld bake — feet-anchored box sized to the on-canvas sprite. */
+.hoenn-map__pin--baked-overworld {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  z-index: 3;
+}
+
+.hoenn-map__pin--baked-overworld::before {
+  content: none !important;
+  display: none;
+}
+
+.hoenn-map__pin--baked-overworld.is-active {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 1px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 /* Trainers: authentic overworld sprites, feet anchored on tile. */
 .hoenn-map__pin--trainer:not(.hoenn-map__pin--baked-cutscene),
 .hoenn-map__pin--ow-sprite:not(.hoenn-map__pin--baked-cutscene) {

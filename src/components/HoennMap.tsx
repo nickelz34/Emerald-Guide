@@ -18,6 +18,7 @@ import { AREA_MAP_ENTRANCES } from "../data/areaMapEntrancesGenerated";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
+import { getCollectibleSprite } from "../data/itemSpritesGenerated";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
 import { MartDetailModal } from "./MartDetailModal";
@@ -115,9 +116,39 @@ const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
  * legend filters. See `npm run bake:hoenn-overworld`.
  */
 const BAKE_HOENN_OVERWORLD_SPRITES = true;
+/** Keep in sync with `SPRITE_SCALE` in scripts/bake-hoenn-overworld-sprites.mjs */
+const BAKE_SPRITE_SCALE = 2;
 const BAKED_OVERWORLD_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
 type BakedOverworldCategory = (typeof BAKED_OVERWORLD_CATEGORIES)[number];
 const BAKED_OVERWORLD_CATEGORY_SET = new Set<PoiCategory>(BAKED_OVERWORLD_CATEGORIES);
+
+/** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
+function bakedOverworldHitStyle(
+  point: MapPoint,
+  canvasW: number,
+  canvasH: number,
+): Record<string, string | number> {
+  let fw = 16;
+  let fh = 32;
+  if (isTrainerPoint(point)) {
+    fw = point.spriteWidth ?? 16;
+    fh = point.spriteHeight ?? 32;
+  } else {
+    const collectible = getCollectibleSprite(point.category);
+    if (collectible) {
+      fw = collectible.spriteWidth;
+      fh = collectible.spriteHeight;
+    }
+  }
+  const w = ((fw * BAKE_SPRITE_SCALE) / MAP_W) * canvasW;
+  const h = ((fh * BAKE_SPRITE_SCALE) / MAP_H) * canvasH;
+  return {
+    width: Math.max(12, w),
+    height: Math.max(12, h),
+    transform: "translate(-50%, -100%)",
+    transformOrigin: "center bottom",
+  };
+}
 const HOENN_BAKE_LAYERS: Record<BakedOverworldCategory, { png: string; webp: string }> = {
   trainer: {
     png: assetUrl("maps/hoenn-map-baked-trainer.png"),
@@ -887,14 +918,16 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   tabIndex={0}
                   className={`hoenn-map__pin ${
                     baked
-                      ? "hoenn-map__pin--baked-cutscene"
+                      ? "hoenn-map__pin--baked-overworld"
                       : `hoenn-map__pin--${point.category}`
                   } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
                     top: `${point.y}%`,
                     ["--pin-color" as string]: cat?.color,
-                    ...(baked ? {} : pinSpriteStyle(point)),
+                    ...(baked
+                      ? bakedOverworldHitStyle(point, canvasW, canvasH)
+                      : pinSpriteStyle(point)),
                   }}
                   onPointerDown={(e) => {
                     // Keep pin taps/clicks from starting a map pan (desktop + touch).
