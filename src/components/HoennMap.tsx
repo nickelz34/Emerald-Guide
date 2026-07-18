@@ -130,13 +130,10 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
-const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
-const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true, show baked trainers / items / hidden / berries with invisible hit
- * targets on the overworld and on area maps that have bake assets.
- * Uses one composite when every available bake layer is on; otherwise clean map
- * + only the visible category layers.
+ * When true, area maps with bake assets use baked trainers / items / hidden /
+ * berries (composite or per-category layers + invisible hits).
+ * Overworld uses live zoom-scaled sprites instead (see bakeOverworld).
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
@@ -366,9 +363,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     ? useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.png`)
       : assetUrl(currentArea.image)
-    : useBakeComposite
-      ? HOENN_MAP_BAKED_PNG
-      : HOENN_MAP_PNG;
+    : HOENN_MAP_PNG;
   const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
   const mapWebpSrc = !currentArea
     ? HOENN_MAP_WEBP
