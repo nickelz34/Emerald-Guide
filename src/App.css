@@ -2822,17 +2822,19 @@
   z-index: 2;
 }
 
-/* Collectible pins: item ball, berry tree, and Itemfinder for hidden items. */
+/* Collectible pins: item ball, berry tree, and Itemfinder for hidden items.
+   --hoenn-map-px scales area-map sprites with zoom (1 on overworld UI pins). */
 .hoenn-map__pin--item,
 .hoenn-map__pin--berry,
 .hoenn-map__pin--hidden {
-  width: calc(var(--item-fw, 16) * 1px);
-  height: calc(var(--item-fh, 16) * 1px);
+  width: calc(var(--item-fw, 16) * var(--hoenn-map-px, 1) * 1px);
+  height: calc(var(--item-fh, 16) * var(--hoenn-map-px, 1) * 1px);
   transform: translate(
-    calc(var(--item-fw, 16) * -0.5px),
-    calc(var(--item-fh, 16) * -1px)
+    calc(var(--item-fw, 16) * var(--hoenn-map-px, 1) * -0.5px),
+    calc(var(--item-fh, 16) * var(--hoenn-map-px, 1) * -1px)
   );
-  transform-origin: calc(var(--item-fw, 16) * 0.5px) calc(var(--item-fh, 16) * 1px);
+  transform-origin: calc(var(--item-fw, 16) * var(--hoenn-map-px, 1) * 0.5px)
+    calc(var(--item-fh, 16) * var(--hoenn-map-px, 1) * 1px);
   z-index: 2;
 }
 
@@ -2847,8 +2849,8 @@
 
 .hoenn-map__item-sprite {
   display: block;
-  width: calc(var(--item-fw, 16) * 1px);
-  height: calc(var(--item-fh, 16) * 1px);
+  width: calc(var(--item-fw, 16) * var(--hoenn-map-px, 1) * 1px);
+  height: calc(var(--item-fh, 16) * var(--hoenn-map-px, 1) * 1px);
   image-rendering: pixelated;
 }
 
@@ -2897,16 +2899,18 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Trainers: authentic overworld sprites, feet anchored on tile. */
+/* Trainers: authentic overworld sprites, feet anchored on tile.
+   --hoenn-map-px keeps area-map entities locked to map pixels while zooming. */
 .hoenn-map__pin--trainer:not(.hoenn-map__pin--baked-cutscene),
 .hoenn-map__pin--ow-sprite:not(.hoenn-map__pin--baked-cutscene) {
-  width: calc(var(--trainer-fw, 16) * 1px);
-  height: calc(var(--trainer-fh, 32) * 1px);
+  width: calc(var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * 1px);
+  height: calc(var(--trainer-fh, 32) * var(--hoenn-map-px, 1) * 1px);
   transform: translate(
-    calc(var(--trainer-fw, 16) * -0.5px),
-    calc(var(--trainer-fh, 32) * -1px)
+    calc(var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * -0.5px),
+    calc(var(--trainer-fh, 32) * var(--hoenn-map-px, 1) * -1px)
   );
-  transform-origin: calc(var(--trainer-fw, 16) * 0.5px) calc(var(--trainer-fh, 32) * 1px);
+  transform-origin: calc(var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * 0.5px)
+    calc(var(--trainer-fh, 32) * var(--hoenn-map-px, 1) * 1px);
   z-index: 3;
 }
 
@@ -2915,10 +2919,10 @@
 .hoenn-map__pin--ow-sprite:not(.hoenn-map__pin--baked-cutscene)::before {
   content: "";
   position: absolute;
-  left: calc(var(--trainer-fw, 16) * 0.5px);
+  left: calc(var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * 0.5px);
   bottom: 0;
-  width: calc(var(--trainer-fw, 16) * 0.55px);
-  height: 3px;
+  width: calc(var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * 0.55px);
+  height: calc(3 * var(--hoenn-map-px, 1) * 1px);
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
@@ -2927,8 +2931,8 @@
 
 .hoenn-map__trainer-frame {
   display: block;
-  width: calc(var(--trainer-fw, 16) * 1px);
-  height: calc(var(--trainer-fh, 32) * 1px);
+  width: calc(var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * 1px);
+  height: calc(var(--trainer-fh, 32) * var(--hoenn-map-px, 1) * 1px);
   overflow: hidden;
   position: relative;
   /* Scale the clipped frame on hover — not the sheet img — so adjacent
@@ -2939,10 +2943,12 @@
 
 .hoenn-map__trainer-sprite {
   display: block;
-  height: calc(var(--trainer-fh, 32) * 1px);
+  height: calc(var(--trainer-fh, 32) * var(--hoenn-map-px, 1) * 1px);
   width: auto;
   max-width: none;
-  margin-left: calc(var(--trainer-frame, 0) * var(--trainer-fw, 16) * -1px);
+  margin-left: calc(
+    var(--trainer-frame, 0) * var(--trainer-fw, 16) * var(--hoenn-map-px, 1) * -1px
+  );
   image-rendering: pixelated;
   pointer-events: none;
   transform: scaleX(var(--trainer-flip, 1));

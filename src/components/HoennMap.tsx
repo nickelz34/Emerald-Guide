@@ -980,6 +980,10 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               width: `${canvasW}px`,
               height: `${canvasH}px`,
               transform: `translate(${view.x}px, ${view.y}px)`,
+              // Area maps: size live sprites in native map pixels so they scale with zoom.
+              // Overworld: keep 1 so town/gym UI pins stay screen-readable.
+              ["--hoenn-map-px" as string]:
+                currentArea && mapW > 0 ? canvasW / mapW : 1,
             }}
           >
             {useMapWebp && mapWebpSrc ? (
