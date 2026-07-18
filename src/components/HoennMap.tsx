@@ -19,6 +19,7 @@ import {
   AREA_MAP_BAKE_MANIFEST,
   AREA_MAP_BAKE_SPRITE_SCALE,
 } from "../data/areaMapBakeManifest";
+import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
@@ -61,18 +62,6 @@ const ALL_POINTS: MapPoint[] = [
   ...SHOP_PINS_GENERATED,
   ...ROUTE_POINTS,
 ].map(asShopPoint).map(withCleanItemDesc);
-
-/** Area maps grouped for the switcher's <optgroup> list. */
-const AREA_GROUPS: { group: string; maps: AreaMap[] }[] = (() => {
-  const byGroup = new Map<string, AreaMap[]>();
-  for (const a of AREA_MAPS) {
-    if (!byGroup.has(a.group)) byGroup.set(a.group, []);
-    byGroup.get(a.group)!.push(a);
-  }
-  return [...byGroup.entries()]
-    .map(([group, maps]) => ({ group, maps }))
-    .sort((a, b) => a.group.localeCompare(b.group));
-})();
 
 /** Convert an area map's markers into the MapPoint shape used by the pins/list. */
 function areaPoints(area: AreaMap): MapPoint[] {
@@ -1179,8 +1168,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
             onChange={(e) => switchMap(e.target.value || null)}
           >
             <option value="">Hoenn Region (overworld)</option>
-            {AREA_GROUPS.map(({ group, maps }) =>
-              maps.length === 1 && !maps[0].floor ? (
+            {MAP_SELECTOR_GROUPS.map(({ group, maps }) =>
+              maps.length === 1 && mapSelectorLabel(maps[0]) === maps[0].name ? (
                 <option key={maps[0].id} value={maps[0].id}>
                   {group}
                 </option>
@@ -1188,7 +1177,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 <optgroup key={group} label={group}>
                   {maps.map((a) => (
                     <option key={a.id} value={a.id}>
-                      {a.floor || a.name}
+                      {mapSelectorLabel(a)}
                     </option>
                   ))}
                 </optgroup>
