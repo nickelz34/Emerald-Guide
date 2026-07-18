@@ -521,27 +521,58 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     [vp.w, vp.h, mapAr, currentArea],
   );
 
+  /** Clamp a camera against an explicit map aspect ratio (for map switches). */
+  const clampForAr = useCallback(
+    (v: View, ar: number): View => {
+      const w = vp.w;
+      const h = vp.h;
+      const fw = (w && h ? Math.min(w, h * ar) : w) || 0;
+      const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.scale));
+      const cw = fw * scale;
+      const ch = cw / ar;
+      let { x, y } = v;
+      x = cw <= w ? (w - cw) / 2 : Math.min(0, Math.max(w - cw, x));
+      y = ch <= h ? (h - ch) / 2 : Math.min(0, Math.max(h - ch, y));
+      return { scale, x, y };
+    },
+    [vp.w, vp.h],
+  );
+
   /** Switch the displayed map (null = overworld composite). */
   const switchMap = useCallback(
     (areaId: string | null) => {
       setCurrentAreaId(areaId);
       setSelectedId(null);
       setRematchableOnly(false);
-      if (areaId) {
+      const area = areaId ? (AREA_MAPS.find((a) => a.id === areaId) ?? null) : null;
+      if (area) {
         // Area maps exist to show their items — turn those layers on by default.
-        const area = AREA_MAPS.find((a) => a.id === areaId);
         const next = {} as Record<PoiCategory, boolean>;
         for (const c of POI_CATEGORIES) next[c.id] = false;
-        for (const m of area?.markers ?? []) next[m.category] = true;
-        for (const m of AREA_MAP_ENTRANCES[areaId] ?? []) next[m.category] = true;
-        if ((AREA_TRAINERS[areaId] ?? []).length) next.trainer = true;
+        for (const m of area.markers) next[m.category] = true;
+        for (const m of AREA_MAP_ENTRANCES[areaId!] ?? []) next[m.category] = true;
+        if ((AREA_TRAINERS[areaId!] ?? []).length) next.trainer = true;
         setVisible(next);
       } else {
         setVisible(initialVisible());
       }
-      setView(clamp({ scale: defaultScale, x: 0, y: 0 }));
+      // Fit the *incoming* map. Do not reuse overworld mobile zoom on area maps —
+      // that leaves small interiors extremely zoomed in.
+      const ar = area ? area.width / area.height : MAP_W / MAP_H;
+      if (area) {
+        setView(clampForAr({ scale: 1, x: 0, y: 0 }, ar));
+      } else {
+        const narrow = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
+        const saved = readSavedHoennMapView();
+        setView(
+          clampForAr(
+            saved ?? { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
+            ar,
+          ),
+        );
+      }
     },
-    [clamp, defaultScale],
+    [clampForAr, vp.w],
   );
 
   const zoomAt = useCallback(
