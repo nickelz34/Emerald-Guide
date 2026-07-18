@@ -109,6 +109,16 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
+/** TEST: trainers + item/hidden/berry sprites baked into the atlas (see bake:hoenn-overworld). */
+const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
+const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
+/**
+ * When true on the overworld, use the baked atlas and draw invisible hit targets
+ * for trainers / items / hidden / berries (sprites live in the PNG).
+ * Flip off (or remove) after the bake test.
+ */
+const BAKE_HOENN_OVERWORLD_SPRITES = true;
+const BAKED_OVERWORLD_CATEGORIES = new Set<PoiCategory>(["trainer", "item", "hidden", "berry"]);
 
 /** Native pixel size of the source map (true-scale render, 16px per game tile). */
 const MAP_W = 12800;
@@ -221,8 +231,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     () => [...(currentArea ? areaPoints(currentArea) : ALL_POINTS), ...trainerPoints],
     [currentArea, trainerPoints],
   );
-  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_PNG;
+  const bakeOverworld = BAKE_HOENN_OVERWORLD_SPRITES && !currentArea;
+  const imgSrc = currentArea
+    ? assetUrl(currentArea.image)
+    : bakeOverworld
+      ? HOENN_MAP_BAKED_PNG
+      : HOENN_MAP_PNG;
   const useHoennWebp = !currentArea;
+  const hoennWebpSrc = bakeOverworld ? HOENN_MAP_BAKED_WEBP : HOENN_MAP_WEBP;
   const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
@@ -803,7 +819,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
           >
             {useHoennWebp ? (
               <picture>
-                <source srcSet={HOENN_MAP_WEBP} type="image/webp" />
+                <source srcSet={hoennWebpSrc} type="image/webp" />
                 <img
                   ref={mapImgRef}
                   src={imgSrc}
@@ -829,19 +845,23 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
+              const baked =
+                bakeOverworld && BAKED_OVERWORLD_CATEGORIES.has(point.category);
               return (
                 <div
                   key={point.id}
                   role="button"
                   tabIndex={0}
-                  className={`hoenn-map__pin hoenn-map__pin--${point.category} ${
-                    point.pinCode ? "has-code" : ""
-                  } ${active ? "is-active" : ""}`}
+                  className={`hoenn-map__pin ${
+                    baked
+                      ? "hoenn-map__pin--baked-cutscene"
+                      : `hoenn-map__pin--${point.category}`
+                  } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
                     top: `${point.y}%`,
                     ["--pin-color" as string]: cat?.color,
-                    ...pinSpriteStyle(point),
+                    ...(baked ? {} : pinSpriteStyle(point)),
                   }}
                   onPointerDown={(e) => {
                     // Keep pin taps/clicks from starting a map pan (desktop + touch).
@@ -906,7 +926,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   }}
                   aria-label={point.name}
                 >
-                  {point.category === "route" ? (
+                  {baked ? null : point.category === "route" ? (
                     <>
                       <span className="hoenn-map__pin-dot hoenn-map__pin-dot--route" aria-hidden="true" />
                       <span className="hoenn-map__pin-label">{point.name}</span>

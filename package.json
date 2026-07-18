@@ -63,7 +63,8 @@
     "optimize:hoenn": "node scripts/optimize-hoenn-map.mjs",
     "bake:ch1-10-area-npcs": "node scripts/bake-ch1-10-area-npcs.mjs",
     "bake:ch11-25-area-npcs": "node scripts/bake-ch11-25-area-npcs.mjs",
-    "bake:outdoor-route-trainers": "npx tsx scripts/bake-outdoor-route-trainers.mjs"
+    "bake:outdoor-route-trainers": "npx tsx scripts/bake-outdoor-route-trainers.mjs",
+    "bake:hoenn-overworld": "npx tsx scripts/bake-hoenn-overworld-sprites.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",

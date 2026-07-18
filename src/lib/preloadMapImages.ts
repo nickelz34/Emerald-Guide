@@ -18,6 +18,9 @@ function preloadUrl(path: string) {
 export function preloadHoennOverworldMap() {
   preloadUrl("maps/hoenn-map.webp");
   preloadUrl("maps/hoenn-map.png");
+  // TEST bake atlas (trainers + collectibles painted in)
+  preloadUrl("maps/hoenn-map-baked.webp");
+  preloadUrl("maps/hoenn-map-baked.png");
 }
 
 /** Warm the browser cache for walkthrough map images on the current step. */
