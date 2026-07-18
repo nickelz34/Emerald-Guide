@@ -223,8 +223,13 @@ const MAP_W = 12800;
 const MAP_H = 6128;
 
 const MIN_SCALE = 1;
-/** Slightly higher ceiling so baked overworld sprites stay readable on phones. */
-const MAX_SCALE = 22;
+/** Area maps are small — this is already a deep zoom into native pixels. */
+const MAX_SCALE_AREA = 24;
+/**
+ * Overworld atlas is ~12800px wide; needs a much higher ceiling so zooming in
+ * can reach the same sprite readability as area maps.
+ */
+const MAX_SCALE_OVERWORLD = 56;
 const ZOOM_STEP = 1.35;
 /** Narrow viewports start zoomed in so the overworld map is readable on phones. */
 const NARROW_VIEWPORT_MAX = 900;
@@ -258,7 +263,7 @@ function readSavedHoennMapView(): View | null {
       return null;
     }
     return {
-      scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, parsed.scale)),
+      scale: Math.min(MAX_SCALE_OVERWORLD, Math.max(MIN_SCALE, parsed.scale)),
       x: parsed.x,
       y: parsed.y,
     };
@@ -492,6 +497,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
 
   const isNarrowViewport = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
   const isOverworld = !currentArea;
+  const maxScale = isOverworld ? MAX_SCALE_OVERWORLD : MAX_SCALE_AREA;
   const defaultScale = isNarrowViewport && isOverworld ? MOBILE_DEFAULT_SCALE : 1;
   const compactRouteLabels = isOverworld && view.scale < ROUTE_LABEL_MIN_SCALE;
   modalOpenRef.current =
@@ -506,7 +512,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       const w = vp.w;
       const h = vp.h;
       const fw = (w && h ? Math.min(w, h * mapAr) : w) || 0;
-      const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.scale));
+      const scale = Math.min(maxScale, Math.max(MIN_SCALE, v.scale));
       const cw = fw * scale;
       const ch = cw / mapAr;
       let { x, y } = v;
@@ -514,7 +520,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       y = ch <= h ? (h - ch) / 2 : Math.min(0, Math.max(h - ch, y));
       return { scale, x, y };
     },
-    [vp.w, vp.h, mapAr],
+    [vp.w, vp.h, mapAr, maxScale],
   );
 
   const fit = useCallback(
@@ -535,6 +541,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         setModalTrainer(null);
       }
       setView((prev) => {
+        const ceiling = onOverworld ? MAX_SCALE_OVERWORLD : MAX_SCALE_AREA;
         const targetScale = Math.max(prev.scale, onOverworld ? 6 : 3);
         const cw = fw * targetScale;
         const ch = cw / ar;
@@ -542,7 +549,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         const py = (p.y / 100) * ch;
         const w = vp.w;
         const h = vp.h;
-        const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        const scale = Math.min(ceiling, Math.max(MIN_SCALE, targetScale));
         const cw2 = fw * scale;
         const ch2 = cw2 / ar;
         let x = w / 2 - px;
@@ -557,11 +564,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
 
   /** Clamp a camera against an explicit map aspect ratio (for map switches). */
   const clampForAr = useCallback(
-    (v: View, ar: number): View => {
+    (v: View, ar: number, ceiling: number): View => {
       const w = vp.w;
       const h = vp.h;
       const fw = (w && h ? Math.min(w, h * ar) : w) || 0;
-      const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.scale));
+      const scale = Math.min(ceiling, Math.max(MIN_SCALE, v.scale));
       const cw = fw * scale;
       const ch = cw / ar;
       let { x, y } = v;
@@ -593,8 +600,9 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       // Fit the *incoming* map. Do not reuse overworld mobile zoom on area maps —
       // that leaves small interiors extremely zoomed in.
       const ar = area ? area.width / area.height : MAP_W / MAP_H;
+      const ceiling = area ? MAX_SCALE_AREA : MAX_SCALE_OVERWORLD;
       if (area) {
-        setView(clampForAr({ scale: 1, x: 0, y: 0 }, ar));
+        setView(clampForAr({ scale: 1, x: 0, y: 0 }, ar, ceiling));
       } else {
         const narrow = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
         const saved = readSavedHoennMapView();
@@ -602,6 +610,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
           clampForAr(
             saved ?? { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
             ar,
+            ceiling,
           ),
         );
       }
@@ -612,7 +621,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const zoomAt = useCallback(
     (factor: number, cx: number, cy: number) => {
       setView((prev) => {
-        const nextScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, prev.scale * factor));
+        const nextScale = Math.min(maxScale, Math.max(MIN_SCALE, prev.scale * factor));
         if (nextScale === prev.scale) return prev;
         const ratio = nextScale / prev.scale;
         // Keep the point under the cursor fixed while zooming.
@@ -621,13 +630,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         return clamp({ scale: nextScale, x, y });
       });
     },
-    [clamp],
+    [clamp, maxScale],
   );
 
   const zoomToScale = useCallback(
     (targetScale: number, cx: number, cy: number) => {
       setView((prev) => {
-        const nextScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale));
+        const nextScale = Math.min(maxScale, Math.max(MIN_SCALE, targetScale));
         if (nextScale === prev.scale) return prev;
         const ratio = nextScale / prev.scale;
         const x = cx - (cx - prev.x) * ratio;
@@ -635,7 +644,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         return clamp({ scale: nextScale, x, y });
       });
     },
-    [clamp],
+    [clamp, maxScale],
   );
 
   const zoomButton = useCallback(
