@@ -11450,6 +11450,12 @@ button.story-progress__hit:hover .story-progress__num {
   backdrop-filter: blur(3px);
 }
 
+/* Keep the map mounted while closed so Story ↔ Map restores camera/layers instantly. */
+.map-modal.map-modal--closed,
+.map-modal[hidden] {
+  display: none !important;
+}
+
 .map-modal__panel {
   width: min(96vw, 900px);
   max-height: calc(100vh - 2rem);

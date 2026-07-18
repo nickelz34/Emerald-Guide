@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.91",
+    date: "2026-07-18T12:00:22-05:00",
+    summary: "Returning to the map from the story restores your exact place.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Closing the map to check the walkthrough and opening it again restores the same area, pan/zoom, layer toggles, and Story only / Rematchable filters for the browser session.",
+          "The walkthrough map modal stays mounted while closed so switching back is instant instead of rebuilding from scratch.",
+          "Leaving an interior for the overworld also restores your previous overworld camera and filters.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.90",
     date: "2026-07-18T11:56:19-05:00",
     summary: "Faster map filter overlays via lossless tile atlases (no quality loss).",

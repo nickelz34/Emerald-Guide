@@ -324,7 +324,12 @@ const NARROW_VIEWPORT_MAX = 900;
 const MOBILE_DEFAULT_SCALE = 2.75;
 /** Route text labels only appear once zoomed in past this (overworld map). */
 const ROUTE_LABEL_MIN_SCALE = 3.25;
-/** Session-scoped overworld pan/zoom so reopenings keep your last look. */
+/**
+ * Session-scoped map state so Story ↔ Map round-trips restore the same place:
+ * area, pan/zoom, layer toggles, and Story/Rematchable filters.
+ */
+const HOENN_MAP_SESSION_KEY = "emerald-guide:hoenn-map-session";
+/** Legacy pan/zoom-only key (migrated on read). */
 const HOENN_MAP_VIEW_KEY = "emerald-guide:hoenn-map-view";
 
 interface View {
@@ -335,40 +340,110 @@ interface View {
   y: number;
 }
 
-function readSavedHoennMapView(): View | null {
+interface HoennMapSession {
+  areaId: string | null;
+  /** Pan/zoom keyed by map id (`""` = overworld). */
+  views: Record<string, View>;
+  /** Layer toggles for the map currently shown. */
+  visible: Record<PoiCategory, boolean>;
+  /** Last overworld layer toggles (restored when leaving an interior). */
+  overworldVisible: Record<PoiCategory, boolean>;
+  rematchableOnly: boolean;
+  storyNpcsOnly: boolean;
+}
+
+function isValidView(v: unknown): v is View {
+  if (!v || typeof v !== "object") return false;
+  const o = v as Partial<View>;
+  return (
+    typeof o.scale === "number" &&
+    typeof o.x === "number" &&
+    typeof o.y === "number" &&
+    Number.isFinite(o.scale) &&
+    Number.isFinite(o.x) &&
+    Number.isFinite(o.y)
+  );
+}
+
+function clampSavedView(view: View, maxScale: number): View {
+  return {
+    scale: Math.min(maxScale, Math.max(MIN_SCALE, view.scale)),
+    x: view.x,
+    y: view.y,
+  };
+}
+
+function sanitizeVisible(
+  raw: Partial<Record<PoiCategory, boolean>> | null | undefined,
+  fallback: Record<PoiCategory, boolean>,
+): Record<PoiCategory, boolean> {
+  const out = { ...fallback };
+  if (!raw) return out;
+  for (const c of POI_CATEGORIES) {
+    if (typeof raw[c.id] === "boolean") out[c.id] = raw[c.id]!;
+  }
+  return out;
+}
+
+function readSavedHoennMapSession(): HoennMapSession | null {
   try {
-    const raw = sessionStorage.getItem(HOENN_MAP_VIEW_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Partial<View>;
-    if (
-      typeof parsed.scale !== "number" ||
-      typeof parsed.x !== "number" ||
-      typeof parsed.y !== "number" ||
-      !Number.isFinite(parsed.scale) ||
-      !Number.isFinite(parsed.x) ||
-      !Number.isFinite(parsed.y)
-    ) {
-      return null;
+    const raw = sessionStorage.getItem(HOENN_MAP_SESSION_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<HoennMapSession>;
+      const areaId =
+        typeof parsed.areaId === "string" && AREA_MAPS.some((a) => a.id === parsed.areaId)
+          ? parsed.areaId
+          : parsed.areaId === null
+            ? null
+            : null;
+      const views: Record<string, View> = {};
+      if (parsed.views && typeof parsed.views === "object") {
+        for (const [key, value] of Object.entries(parsed.views)) {
+          if (!isValidView(value)) continue;
+          const maxScale = key ? MAX_SCALE_AREA : MAX_SCALE_OVERWORLD;
+          views[key] = clampSavedView(value, maxScale);
+        }
+      }
+      const baseVisible = initialVisible();
+      return {
+        areaId,
+        views,
+        visible: sanitizeVisible(parsed.visible, baseVisible),
+        overworldVisible: sanitizeVisible(parsed.overworldVisible, baseVisible),
+        rematchableOnly: Boolean(parsed.rematchableOnly),
+        storyNpcsOnly: Boolean(parsed.storyNpcsOnly),
+      };
     }
+    // Migrate legacy overworld-only pan/zoom.
+    const legacy = sessionStorage.getItem(HOENN_MAP_VIEW_KEY);
+    if (!legacy) return null;
+    const parsed = JSON.parse(legacy) as Partial<View>;
+    if (!isValidView(parsed)) return null;
+    const view = clampSavedView(parsed, MAX_SCALE_OVERWORLD);
+    const visible = initialVisible();
     return {
-      scale: Math.min(MAX_SCALE_OVERWORLD, Math.max(MIN_SCALE, parsed.scale)),
-      x: parsed.x,
-      y: parsed.y,
+      areaId: null,
+      views: { "": view },
+      visible,
+      overworldVisible: visible,
+      rematchableOnly: false,
+      storyNpcsOnly: false,
     };
   } catch {
     return null;
   }
 }
 
-function writeSavedHoennMapView(view: View) {
+function writeSavedHoennMapSession(session: HoennMapSession) {
   try {
-    sessionStorage.setItem(
-      HOENN_MAP_VIEW_KEY,
-      JSON.stringify({ scale: view.scale, x: view.x, y: view.y }),
-    );
+    sessionStorage.setItem(HOENN_MAP_SESSION_KEY, JSON.stringify(session));
   } catch {
     // Ignore private mode / quota failures.
   }
+}
+
+function mapViewKey(areaId: string | null): string {
+  return areaId ?? "";
 }
 
 interface HoennMapProps {
@@ -393,10 +468,19 @@ interface GestureEvent extends UIEvent {
 export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
-  /** Non-null when this mount restored a prior overworld camera from the session. */
-  const restoredViewRef = useRef<View | null>(readSavedHoennMapView());
-  const [view, setView] = useState<View>(
-    () => restoredViewRef.current ?? { scale: 1, x: 0, y: 0 },
+  /** Session snapshot from first paint (Story ↔ Map restore). */
+  const savedSessionRef = useRef<HoennMapSession | null>(readSavedHoennMapSession());
+  const [currentAreaId, setCurrentAreaId] = useState<string | null>(
+    () => savedSessionRef.current?.areaId ?? null,
+  );
+  const [view, setView] = useState<View>(() => {
+    const session = savedSessionRef.current;
+    const key = mapViewKey(session?.areaId ?? null);
+    return session?.views[key] ?? { scale: 1, x: 0, y: 0 };
+  });
+  /** True when this mount restored a prior camera — skip mobile default-zoom bump. */
+  const restoredViewRef = useRef<View | null>(
+    savedSessionRef.current?.views[mapViewKey(savedSessionRef.current.areaId)] ?? null,
   );
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -405,10 +489,27 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   const [modalRoute, setModalRoute] = useState<MapPoint | null>(null);
   const [modalGym, setModalGym] = useState<MapPoint | null>(null);
   const [modalMart, setModalMart] = useState<MapPoint | null>(null);
-  const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(initialVisible);
-  const [rematchableOnly, setRematchableOnly] = useState(false);
-  const [storyNpcsOnly, setStoryNpcsOnly] = useState(false);
-  const [currentAreaId, setCurrentAreaId] = useState<string | null>(null);
+  const [visible, setVisible] = useState<Record<PoiCategory, boolean>>(
+    () => savedSessionRef.current?.visible ?? initialVisible(),
+  );
+  const [rematchableOnly, setRematchableOnly] = useState(
+    () => savedSessionRef.current?.rematchableOnly ?? false,
+  );
+  const [storyNpcsOnly, setStoryNpcsOnly] = useState(
+    () => savedSessionRef.current?.storyNpcsOnly ?? false,
+  );
+  /** Latest views map kept in a ref so switchMap can persist without stale closures. */
+  const viewsRef = useRef<Record<string, View>>(
+    savedSessionRef.current?.views ? { ...savedSessionRef.current.views } : {},
+  );
+  const overworldVisibleRef = useRef<Record<PoiCategory, boolean>>(
+    savedSessionRef.current?.overworldVisible ?? initialVisible(),
+  );
+  /** Overworld-only filters — area visits must not clobber these. */
+  const overworldFiltersRef = useRef({
+    rematchableOnly: savedSessionRef.current?.rematchableOnly ?? false,
+    storyNpcsOnly: savedSessionRef.current?.storyNpcsOnly ?? false,
+  });
 
   const currentArea = useMemo(
     () => (currentAreaId ? AREA_MAPS.find((a) => a.id === currentAreaId) ?? null : null),
@@ -794,6 +895,12 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   /** Switch the displayed map (null = overworld composite). */
   const switchMap = useCallback(
     (areaId: string | null) => {
+      // Stash the camera for the map we're leaving so Story ↔ Map can restore it.
+      viewsRef.current[mapViewKey(currentAreaId)] = view;
+      if (!currentAreaId) {
+        overworldVisibleRef.current = visible;
+      }
+
       setCurrentAreaId(areaId);
       setSelectedId(null);
       setModalTrainer(null);
@@ -801,10 +908,10 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
       setModalRoute(null);
       setModalGym(null);
       setModalMart(null);
-      setRematchableOnly(false);
-      setStoryNpcsOnly(false);
       const area = areaId ? (AREA_MAPS.find((a) => a.id === areaId) ?? null) : null;
       if (area) {
+        setRematchableOnly(false);
+        setStoryNpcsOnly(false);
         // Area maps exist to show their items — turn those layers on by default.
         const next = {} as Record<PoiCategory, boolean>;
         for (const c of POI_CATEGORIES) next[c.id] = false;
@@ -815,27 +922,32 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         if (sprites.some((p) => p.category === "npc")) next.npc = true;
         setVisible(next);
       } else {
-        setVisible(initialVisible());
+        // Back to overworld: restore the last overworld layers / filters.
+        setVisible(overworldVisibleRef.current);
+        setRematchableOnly(overworldFiltersRef.current.rematchableOnly);
+        setStoryNpcsOnly(overworldFiltersRef.current.storyNpcsOnly);
       }
-      // Fit the *incoming* map. Do not reuse overworld mobile zoom on area maps —
-      // that leaves small interiors extremely zoomed in.
+      // Fit the *incoming* map. Prefer a saved camera for that map when present.
       const ar = area ? area.width / area.height : MAP_W / MAP_H;
       const ceiling = area ? MAX_SCALE_AREA : MAX_SCALE_OVERWORLD;
-      if (area) {
+      const savedForMap = viewsRef.current[mapViewKey(areaId)];
+      if (savedForMap) {
+        setView(clampForAr(savedForMap, ar, ceiling));
+        restoredViewRef.current = savedForMap;
+      } else if (area) {
         setView(clampForAr({ scale: 1, x: 0, y: 0 }, ar, ceiling));
       } else {
         const narrow = vp.w > 0 && vp.w <= NARROW_VIEWPORT_MAX;
-        const saved = readSavedHoennMapView();
         setView(
           clampForAr(
-            saved ?? { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
+            { scale: narrow ? MOBILE_DEFAULT_SCALE : 1, x: 0, y: 0 },
             ar,
             ceiling,
           ),
         );
       }
     },
-    [clampForAr, vp.w],
+    [clampForAr, vp.w, currentAreaId, view, visible],
   );
 
   const zoomAt = useCallback(
@@ -903,12 +1015,34 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     });
   }, [vp.w, vp.h, clamp, isNarrowViewport, isOverworld, defaultScale]);
 
-  // Remember overworld pan/zoom for the rest of this browser session.
+  // Remember area + camera + layers for Story ↔ Map round-trips this session.
   useEffect(() => {
-    if (!isOverworld || !vp.w || !vp.h) return;
-    writeSavedHoennMapView(view);
+    if (!vp.w || !vp.h) return;
+    const key = mapViewKey(currentAreaId);
+    viewsRef.current[key] = view;
+    if (isOverworld) {
+      overworldVisibleRef.current = visible;
+      overworldFiltersRef.current = { rematchableOnly, storyNpcsOnly };
+    }
+    writeSavedHoennMapSession({
+      areaId: currentAreaId,
+      views: { ...viewsRef.current },
+      visible,
+      overworldVisible: overworldVisibleRef.current,
+      rematchableOnly: overworldFiltersRef.current.rematchableOnly,
+      storyNpcsOnly: overworldFiltersRef.current.storyNpcsOnly,
+    });
     restoredViewRef.current = view;
-  }, [view, isOverworld, vp.w, vp.h]);
+  }, [
+    view,
+    currentAreaId,
+    visible,
+    rematchableOnly,
+    storyNpcsOnly,
+    isOverworld,
+    vp.w,
+    vp.h,
+  ]);
 
   // Native wheel listener so we can preventDefault (React onWheel is passive).
   useEffect(() => {
