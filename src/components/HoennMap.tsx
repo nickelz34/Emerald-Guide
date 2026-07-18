@@ -144,7 +144,6 @@ const BAKE_MAP_SPRITES = true;
 const BAKE_OVERWORLD_SPRITE_SCALE = 2;
 const BAKED_SPRITE_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
 type BakedSpriteCategory = (typeof BAKED_SPRITE_CATEGORIES)[number];
-const BAKED_SPRITE_CATEGORY_SET = new Set<PoiCategory>(BAKED_SPRITE_CATEGORIES);
 
 /** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
 function bakedSpriteHitStyle(
