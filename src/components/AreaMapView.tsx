@@ -19,6 +19,7 @@ import {
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
+import { withLegendCategory } from "../lib/mapLegendCategory";
 
 export type AreaMapExtraMarker = {
   id: string;
@@ -134,7 +135,7 @@ export function AreaMapView({
             `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
           if (seen.has(String(key))) continue;
           seen.add(String(key));
-          sprites.push(p);
+          sprites.push(withLegendCategory(p));
         }
       }
     }

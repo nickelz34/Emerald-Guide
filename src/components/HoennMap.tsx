@@ -23,8 +23,10 @@ import {
 import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
+import { MAP_NPCS } from "../data/mapNpcsGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import { MapPinVisual, MapSelectionVisual, isTrainerPoint, pinSpriteStyle } from "./MapPinVisual";
+import { hasOwSprite } from "../data/areaMapCutsceneEntities";
 import { getCollectibleSprite } from "../data/itemSpritesGenerated";
 import { RouteDetailModal } from "./EncounterTable";
 import { GymDetailModal } from "./GymDetailModal";
@@ -32,6 +34,7 @@ import { MartDetailModal } from "./MartDetailModal";
 import { isMartMapPoint } from "../data/martData";
 import { fitPinPopups } from "../lib/fitMapPopup";
 import { formatItemDescription } from "../lib/itemText";
+import { withLegendCategory } from "../lib/mapLegendCategory";
 
 const SHOP_NAMES = new Set([
   "Mart",
@@ -85,10 +88,11 @@ function areaPoints(area: AreaMap): MapPoint[] {
 /**
  * Trainers / NPCs for an area map: battle trainers + interior entities + gym
  * rosters, deduped (same sources AreaMapView uses, minus cutscene-only crops).
+ * TRAINER_TYPE_NONE characters are remapped to the NPCs legend layer.
  */
-function areaSpritePoints(areaId: string): TrainerPoint[] {
+function areaSpritePoints(areaId: string): MapPoint[] {
   const seen = new Set<string>();
-  const out: TrainerPoint[] = [];
+  const out: MapPoint[] = [];
   for (const src of [
     AREA_TRAINERS[areaId],
     AREA_MAP_ENTITIES[areaId],
@@ -101,7 +105,7 @@ function areaSpritePoints(areaId: string): TrainerPoint[] {
         `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
       if (seen.has(String(key))) continue;
       seen.add(String(key));
-      out.push(p);
+      out.push(withLegendCategory(p));
     }
   }
   return out;
@@ -292,12 +296,22 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   /** Points + image + native size for the map currently shown. */
   const trainerPoints = useMemo(
     (): MapPoint[] =>
-      currentArea ? areaSpritePoints(currentArea.id) : MAP_TRAINERS,
+      currentArea
+        ? areaSpritePoints(currentArea.id)
+        : MAP_TRAINERS.map((p) => withLegendCategory(p)),
+    [currentArea],
+  );
+  const npcPoints = useMemo(
+    (): MapPoint[] => (currentArea ? [] : MAP_NPCS),
     [currentArea],
   );
   const basePoints = useMemo(
-    () => [...(currentArea ? areaPoints(currentArea) : ALL_POINTS), ...trainerPoints],
-    [currentArea, trainerPoints],
+    () => [
+      ...(currentArea ? areaPoints(currentArea) : ALL_POINTS),
+      ...trainerPoints,
+      ...npcPoints,
+    ],
+    [currentArea, trainerPoints, npcPoints],
   );
   const areaBakeEntry =
     currentArea && BAKE_MAP_SPRITES ? AREA_MAP_BAKE_MANIFEST[currentArea.id] : undefined;
@@ -562,7 +576,9 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         for (const c of POI_CATEGORIES) next[c.id] = false;
         for (const m of area.markers) next[m.category] = true;
         for (const m of AREA_MAP_ENTRANCES[areaId!] ?? []) next[m.category] = true;
-        if (areaSpritePoints(areaId!).length) next.trainer = true;
+        const sprites = areaSpritePoints(areaId!);
+        if (sprites.some((p) => p.category === "trainer")) next.trainer = true;
+        if (sprites.some((p) => p.category === "npc")) next.npc = true;
         setVisible(next);
       } else {
         setVisible(initialVisible());
@@ -1017,6 +1033,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
+              const owSprite = hasOwSprite(point);
               /** Invisible hit only when the sprite is painted into the single atlas on screen. */
               const bakedCollectible =
                 useBakeComposite &&
@@ -1036,7 +1053,9 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   className={`hoenn-map__pin ${
                     baked
                       ? "hoenn-map__pin--baked-overworld"
-                      : `hoenn-map__pin--${point.category}`
+                      : `hoenn-map__pin--${point.category}${
+                          !baked && (trainer || owSprite) ? " hoenn-map__pin--ow-sprite" : ""
+                        }`
                   } ${point.pinCode ? "has-code" : ""} ${active ? "is-active" : ""}`}
                   style={{
                     left: `${point.x}%`,
@@ -1326,7 +1345,8 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
             })}
           </ul>
         </div>
-        {selectedPoint && !isMapCalloutPoint(selectedPoint) ? (
+        {selectedPoint &&
+        (!isMapCalloutPoint(selectedPoint) || selectedPoint.category === "npc") ? (
           <div className="hoenn-map__legend-detail">
             {isTrainerPoint(selectedPoint) ? (
               <div className="hoenn-map__trainer-summary">
@@ -1339,6 +1359,18 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                   View battle details
                 </button>
               </div>
+            ) : selectedPoint.category === "npc" ? (
+              <>
+                <span
+                  className="hoenn-map__pin-cat"
+                  style={{ color: POI_CATEGORIES.find((c) => c.id === "npc")?.color }}
+                >
+                  NPC
+                </span>
+                <h5>{selectedPoint.name}</h5>
+                {selectedPoint.note && <p className="hoenn-map__hint">{selectedPoint.note}</p>}
+                {selectedPoint.desc && <p className="hoenn-map__hint">{selectedPoint.desc}</p>}
+              </>
             ) : selectedPoint.category === "route" ? (
               <>
                 <span

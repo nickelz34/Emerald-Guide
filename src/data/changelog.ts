@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.83",
+    date: "2026-07-18T11:02:46-05:00",
+    summary: "Hoenn Map gains an NPCs legend layer you can turn on or off.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "New NPCs layer lists non-battle overworld characters (townsfolk, Mom, Birch, clerks’ neighbors, and similar TRAINER_TYPE_NONE sprites) separately from fightable Trainers.",
+          "NPCs stay off by default with the other optional layers; toggle them in the legend to show or hide their overworld sprites.",
+          "Interior area maps remapped the same way — talkable NPCs use the NPCs layer instead of appearing under Trainers.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.82",
     date: "2026-07-18T10:52:12-05:00",
     summary: "Rematchable-only actually hides non-rematch trainers on the Hoenn Map.",
