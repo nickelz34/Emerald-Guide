@@ -130,10 +130,13 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
+const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
+const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true, area maps with bake assets use baked trainers / items / hidden /
- * berries (composite or per-category layers + invisible hits).
- * Overworld uses live zoom-scaled sprites instead (see bakeOverworld).
+ * When true, show baked trainers / items / hidden / berries with invisible hit
+ * targets on the overworld and on area maps that have bake assets.
+ * Uses one composite when every available bake layer is on; otherwise clean map
+ * + only the visible category layers.
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
@@ -337,12 +340,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     }
     return new Set((AREA_TRAINERS[currentArea.id] ?? []).map((t) => t.id));
   }, [currentArea, areaBakeEntry]);
-  /**
-   * Overworld uses live zoom-scaled sprites (same behavior as area maps) rather
-   * than the baked composite — baked atlas sprites stay tiny until extreme zoom
-   * and fixed CSS pins shrink relative to the map while zooming.
-   */
-  const bakeOverworld = false;
+  const bakeOverworld = BAKE_MAP_SPRITES && !currentArea;
   const bakeArea = Boolean(areaBakeEntry);
   const bakeSprites = bakeOverworld || bakeArea;
   const availableBakeLayers: BakedSpriteCategory[] = bakeOverworld
@@ -363,10 +361,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     ? useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.png`)
       : assetUrl(currentArea.image)
-    : HOENN_MAP_PNG;
+    : useBakeComposite
+      ? HOENN_MAP_BAKED_PNG
+      : HOENN_MAP_PNG;
   const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
   const mapWebpSrc = !currentArea
-    ? HOENN_MAP_WEBP
+    ? useBakeComposite
+      ? HOENN_MAP_BAKED_WEBP
+      : HOENN_MAP_WEBP
     : bakeArea && useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.webp`)
       : undefined;
@@ -978,14 +980,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               width: `${canvasW}px`,
               height: `${canvasH}px`,
               transform: `translate(${view.x}px, ${view.y}px)`,
-              // Size live sprites so they grow with zoom (constant size vs the map).
-              // Area maps: 1 CSS px per native map px. Overworld: zoom-relative size
-              // anchored at ~16px at the default mobile zoom (true atlas px stay tiny).
-              ["--hoenn-map-px" as string]: currentArea
-                ? mapW > 0
-                  ? canvasW / mapW
-                  : 1
-                : view.scale / (isNarrowViewport ? MOBILE_DEFAULT_SCALE : 1),
+              // Area maps: live sprites sized in native map pixels (scale with zoom).
+              // Overworld: keep 1 — trainers/items are baked into the atlas; town/gym
+              // UI pins stay screen-readable at a fixed size.
+              ["--hoenn-map-px" as string]:
+                currentArea && mapW > 0 ? canvasW / mapW : 1,
             }}
           >
             {useMapWebp && mapWebpSrc ? (
