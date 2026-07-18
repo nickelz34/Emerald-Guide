@@ -1,6 +1,14 @@
 /**
- * Application changelog — update this file whenever you ship a user-facing change,
- * then bump `version` in package.json to match the new top entry.
+ * Application changelog — REQUIRED for every user-facing change that ships.
+ *
+ * Before merging a PR that players can see or feel (maps, walkthrough, UI, UX,
+ * assets, hit targets, zoom, selector lists, etc.):
+ *   1. Prepend a new top entry here
+ *   2. Bump `version` in package.json + package-lock.json to match
+ *   3. Sync the version strings in README.md
+ *
+ * `npm run build` runs `scripts/verify-changelog.mjs`, which fails if the top
+ * changelog version does not match package.json / lockfile / README.
  *
  * Newest release first. Group changes under clear headings and be specific enough
  * that someone reading months later knows exactly what changed.
@@ -24,6 +32,38 @@ export interface ChangelogRelease {
 }
 
 export const CHANGELOG: ChangelogRelease[] = [
+  {
+    version: "1.26.77",
+    date: "2026-07-17T20:56:15-05:00",
+    summary:
+      "Hoenn Map bakes trainers and collectibles into the art; walkthrough baked NPC hit targets match the painted sprites.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Trainers, items, hidden items, and berries paint into the overworld map as filterable baked layers (2× sprites) instead of floating overlay pins.",
+          "Area maps in the map selector get the same bake treatment for trainers and collectibles.",
+          "Baked overworld hit targets are feet-anchored and sized to the on-canvas sprite; overworld max zoom is higher so you can get close to the art.",
+          "All legend categories start enabled; the mobile map viewport is a bit shorter.",
+          "Area maps open fit-to-view (they no longer inherit the overworld’s mobile zoom).",
+          "Cutscene, Scott, rival/gym/Elite Four face-off, and Petalburg gym room crops stay in the walkthrough but drop out of the map selector dropdown.",
+        ],
+      },
+      {
+        heading: "Walkthrough maps",
+        items: [
+          "Baked cutscene / gym NPC hit targets (Rustboro Gym and every other bakedInImage pin) use sprite-sized, feet-anchored boxes instead of the old tiny centered markers.",
+          "Hits scale with the map under pinch/scroll zoom — same pattern on area maps and Hoenn crop maps with baked outdoor trainers.",
+        ],
+      },
+      {
+        heading: "Version & changelog",
+        items: [
+          "Build now verifies that package.json, package-lock.json, README, and the top changelog entry all share the same version so user-facing ships cannot skip the changelog.",
+        ],
+      },
+    ],
+  },
   {
     version: "1.26.76",
     date: "2026-07-17T17:10:23-05:00",

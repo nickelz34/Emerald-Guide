@@ -1,11 +1,11 @@
 {
   "name": "pokemon-emerald-guide",
   "private": true,
-  "version": "1.26.76",
+  "version": "1.26.77",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/verify-local-assets.mjs && node scripts/verify-map-pins.mjs && node scripts/verify-audit-prose.mjs && node scripts/verify-encounter-coverage.mjs && node scripts/verify-optional-coverage.mjs && node scripts/verify-area-map-entrances.mjs && tsc -b && vite build",
+    "build": "node scripts/verify-changelog.mjs && node scripts/verify-local-assets.mjs && node scripts/verify-map-pins.mjs && node scripts/verify-audit-prose.mjs && node scripts/verify-encounter-coverage.mjs && node scripts/verify-optional-coverage.mjs && node scripts/verify-area-map-entrances.mjs && tsc -b && vite build",
     "export:guide-data": "npx tsx scripts/export-guide-data.mjs",
     "preview": "vite preview",
     "render:events": "node .calib/render-locations.mjs all && node .calib/optimize-events.mjs",
@@ -43,6 +43,7 @@
     "sync:item-sprites": "node scripts/sync-item-sprites.mjs",
     "sync:item-icons": "node scripts/sync-item-icons.mjs",
     "sync:fishing-rod-icons": "node scripts/sync-fishing-rod-icons.mjs",
+    "verify:changelog": "node scripts/verify-changelog.mjs",
     "verify:local-assets": "node scripts/verify-local-assets.mjs",
     "verify:shop-pins": "node scripts/verify-shop-pins.mjs",
     "verify:map-pins": "node scripts/verify-map-pins.mjs",
