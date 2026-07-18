@@ -24,7 +24,7 @@ const MAP_W = 12800;
 const MAP_H = 6128;
 
 /** Nearest-neighbor upscale so sprites read a bit better on the full map / phone. */
-const SPRITE_SCALE = 1.5;
+const SPRITE_SCALE = 2;
 
 const LAYER_CATEGORIES = ["trainer", "item", "hidden", "berry"];
 
