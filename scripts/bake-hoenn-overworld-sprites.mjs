@@ -1,5 +1,5 @@
 /**
- * TEST bake: paint trainers + item / hidden / berry sprites onto transparent
+ * Bake trainers + NPCs + item / hidden / berry sprites onto transparent
  * per-category layers (and a composite preview) for the Hoenn overworld.
  *
  * Layers let HoennMap toggle visibility with the legend filters.
@@ -12,6 +12,7 @@ import path from "node:path";
 import { PNG } from "pngjs";
 import sharp from "sharp";
 import { MAP_TRAINERS } from "../src/data/mapTrainersGenerated.ts";
+import { MAP_NPCS } from "../src/data/mapNpcsGenerated.ts";
 import { GENERATED_POINTS } from "../src/data/mapPointsGenerated.ts";
 import { MAP_POINTS } from "../src/data/mapPoints.ts";
 import { COLLECTIBLE_SPRITES } from "../src/data/itemSpritesGenerated.ts";
@@ -26,7 +27,8 @@ const MAP_H = 6128;
 /** Nearest-neighbor upscale so sprites read a bit better on the full map / phone. */
 const SPRITE_SCALE = 2;
 
-const LAYER_CATEGORIES = ["trainer", "item", "hidden", "berry"];
+const LAYER_CATEGORIES = ["trainer", "npc", "item", "hidden", "berry"];
+const COLLECTIBLE_CATEGORIES = new Set(["item", "hidden", "berry"]);
 
 function loadRgbaPng(file) {
   const png = PNG.sync.read(fs.readFileSync(file));
@@ -128,12 +130,13 @@ if (base.width !== MAP_W || base.height !== MAP_H) {
 
 const layers = Object.fromEntries(LAYER_CATEGORIES.map((c) => [c, emptyLayer(base.width, base.height)]));
 const collectibles = [...MAP_POINTS, ...GENERATED_POINTS].filter((p) =>
-  LAYER_CATEGORIES.includes(p.category),
+  COLLECTIBLE_CATEGORIES.has(p.category),
 );
 const trainers = MAP_TRAINERS;
+const npcs = MAP_NPCS;
 
 console.log(
-  `Baking ${trainers.length} trainers + ${collectibles.length} collectibles ` +
+  `Baking ${trainers.length} trainers + ${npcs.length} NPCs + ${collectibles.length} collectibles ` +
     `@ ${SPRITE_SCALE}× into per-category layers`,
 );
 
@@ -164,6 +167,27 @@ for (const tr of trainers) {
     counts.trainer++;
   } catch (err) {
     skipped.push(`trainer ${tr.id}: ${err.message}`);
+  }
+}
+
+for (const npc of npcs) {
+  const fw = npc.spriteWidth ?? 16;
+  const fh = npc.spriteHeight ?? 32;
+  try {
+    paint(
+      layers.npc,
+      loadSprite(npc.spriteSheet),
+      npc.x,
+      npc.y,
+      fw,
+      fh,
+      npc.spriteFrame ?? 0,
+      Boolean(npc.spriteFlipX),
+    );
+    painted++;
+    counts.npc++;
+  } catch (err) {
+    skipped.push(`npc ${npc.id}: ${err.message}`);
   }
 }
 

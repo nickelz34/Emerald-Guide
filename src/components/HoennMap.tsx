@@ -146,12 +146,14 @@ const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
  *   - all bake layers on → single baked composite
  *   - any bake layer off → clean atlas + live OW sprites for remaining pins
  * Stacking multiple 12800×6128 layer images OOMs mobile tabs.
+ * Rematchable-only / Story-only must use live pins — the composite paints every
+ * trainer / NPC.
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
 /** Keep in sync with `SPRITE_SCALE` in scripts/bake-hoenn-overworld-sprites.mjs */
 const BAKE_OVERWORLD_SPRITE_SCALE = 2;
-const BAKED_SPRITE_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
+const BAKED_SPRITE_CATEGORIES = ["trainer", "npc", "item", "hidden", "berry"] as const;
 type BakedSpriteCategory = (typeof BAKED_SPRITE_CATEGORIES)[number];
 
 function isBakedSpriteCategory(cat: PoiCategory): cat is BakedSpriteCategory {
@@ -169,7 +171,7 @@ function bakedSpriteHitStyle(
 ): Record<string, string | number> {
   let fw = 16;
   let fh = 32;
-  if (isTrainerPoint(point)) {
+  if (isTrainerPoint(point) || hasOwSprite(point)) {
     fw = point.spriteWidth ?? 16;
     fh = point.spriteHeight ?? 32;
   } else {
@@ -342,11 +344,13 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
    * - all bake layers enabled (or prebaked-only area) → baked composite
    * - otherwise → clean map; bake-category pins render as live OW sprites
    * Never stack per-category full-map layer images (each is ~12800×6128 decoded).
-   * Rematchable-only must use live pins — the composite paints every trainer.
+   * Rematchable-only / Story-only must use live pins — the composite paints every
+   * trainer / NPC.
    */
   const useBakeComposite =
     bakeSprites &&
     !rematchableOnly &&
+    !storyNpcsOnly &&
     (availableBakeLayers.length === 0
       ? bakeArea
       : visibleBakeLayers.length === availableBakeLayers.length);
@@ -1100,12 +1104,17 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 useBakeComposite &&
                 isBakedSpriteCategory(point.category) &&
                 point.category !== "trainer" &&
+                point.category !== "npc" &&
                 (bakeOverworld || availableBakeLayers.includes(point.category));
               const bakedTrainer =
                 useBakeComposite &&
                 point.category === "trainer" &&
                 (bakeOverworld || Boolean(bakedAreaTrainerIds?.has(point.id)));
-              const baked = bakedCollectible || bakedTrainer;
+              const bakedNpc =
+                useBakeComposite &&
+                point.category === "npc" &&
+                (bakeOverworld || availableBakeLayers.includes("npc"));
+              const baked = bakedCollectible || bakedTrainer || bakedNpc;
               return (
                 <div
                   key={point.id}

@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.86",
+    date: "2026-07-18T11:23:00-05:00",
+    summary: "Bake story and non-story NPCs into the Hoenn Map art like trainers.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "All outdoor NPCs (story and townsfolk) paint into the baked overworld composite with the other sprite layers — toggling NPCs off drops the composite and shows live pins for remaining layers.",
+          "Story only still works like Rematchable only: it leaves the all-NPC composite and shows live pins for walkthrough-linked characters only.",
+          "Interior area maps bake TYPE_NONE NPCs into their composites the same way.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.85",
     date: "2026-07-18T11:15:36-05:00",
     summary: "NPCs legend gains a Story only filter for walkthrough-linked characters.",
