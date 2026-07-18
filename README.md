@@ -4,7 +4,7 @@
 
 **Live site (beta):** [https://nickelz34.github.io/Emerald-Guide/](https://nickelz34.github.io/Emerald-Guide/)
 
-Current app version: **1.26.78**
+Current app version: **1.26.79**
 
 ---
 
@@ -51,7 +51,7 @@ The top navigation has **three sections**:
 
 Older versions of this project had separate “Secrets,” “Legendaries,” and “Tips” tabs. Those topics are now **woven into the walkthrough** (and into map/route panels) so you follow one path instead of hopping between sections.
 
-You can also open an in-app **changelog** by clicking the version badge (`v1.26.78`) next to the Emerald Guide title.
+You can also open an in-app **changelog** by clicking the version badge (`v1.26.79`) next to the Emerald Guide title.
 
 ### Layout: Mobile vs Desktop
 

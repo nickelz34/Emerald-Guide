@@ -130,11 +130,14 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
+const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
+const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true, show baked trainers / items / hidden / berries with invisible hit
- * targets on the overworld and on area maps that have bake assets.
- * Filterable maps use the clean atlas + per-category layers (never swap the
- * all-on composite when a legend checkbox changes).
+ * When true, bake trainers / items / hidden / berries into map art with
+ * invisible hit targets. Only one full-size atlas is shown at a time:
+ *   - all bake layers on → single baked composite
+ *   - any bake layer off → clean atlas + live OW sprites for remaining pins
+ * Stacking multiple 12800×6128 layer images OOMs mobile tabs.
  * See `npm run bake:hoenn-overworld` / `npm run bake:area-maps`.
  */
 const BAKE_MAP_SPRITES = true;
@@ -142,6 +145,10 @@ const BAKE_MAP_SPRITES = true;
 const BAKE_OVERWORLD_SPRITE_SCALE = 2;
 const BAKED_SPRITE_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
 type BakedSpriteCategory = (typeof BAKED_SPRITE_CATEGORIES)[number];
+
+function isBakedSpriteCategory(cat: PoiCategory): cat is BakedSpriteCategory {
+  return (BAKED_SPRITE_CATEGORIES as readonly string[]).includes(cat);
+}
 
 /** Invisible hit box matching the on-canvas baked sprite (feet-anchored at x%/y%). */
 function bakedSpriteHitStyle(
@@ -171,48 +178,6 @@ function bakedSpriteHitStyle(
     height: Math.max(12, h),
     transform: "translate(-50%, -100%)",
     transformOrigin: "center bottom",
-  };
-}
-
-function hoennBakeLayers(): Record<BakedSpriteCategory, { png: string; webp: string }> {
-  return {
-    trainer: {
-      png: assetUrl("maps/hoenn-map-baked-trainer.png"),
-      webp: assetUrl("maps/hoenn-map-baked-trainer.webp"),
-    },
-    item: {
-      png: assetUrl("maps/hoenn-map-baked-item.png"),
-      webp: assetUrl("maps/hoenn-map-baked-item.webp"),
-    },
-    hidden: {
-      png: assetUrl("maps/hoenn-map-baked-hidden.png"),
-      webp: assetUrl("maps/hoenn-map-baked-hidden.webp"),
-    },
-    berry: {
-      png: assetUrl("maps/hoenn-map-baked-berry.png"),
-      webp: assetUrl("maps/hoenn-map-baked-berry.webp"),
-    },
-  };
-}
-
-function areaBakeLayers(areaId: string): Record<BakedSpriteCategory, { png: string; webp: string }> {
-  return {
-    trainer: {
-      png: assetUrl(`maps/areas/${areaId}-baked-trainer.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-trainer.webp`),
-    },
-    item: {
-      png: assetUrl(`maps/areas/${areaId}-baked-item.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-item.webp`),
-    },
-    hidden: {
-      png: assetUrl(`maps/areas/${areaId}-baked-hidden.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-hidden.webp`),
-    },
-    berry: {
-      png: assetUrl(`maps/areas/${areaId}-baked-berry.png`),
-      webp: assetUrl(`maps/areas/${areaId}-baked-berry.webp`),
-    },
   };
 }
 
@@ -353,29 +318,32 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     ? availableBakeLayers.filter((cat) => visible[cat])
     : [];
   /**
-   * Only use a baked composite as the base when there are no filterable layers
-   * (prebaked-only area maps). For the overworld — and area maps with category
-   * layers — always use the clean atlas + visible layers.
-   *
-   * Swapping the all-on composite for clean+layers when a legend filter turns
-   * off reloads multi‑MB images mid-interaction and can kill the tab.
+   * One full-size atlas only:
+   * - all bake layers enabled (or prebaked-only area) → baked composite
+   * - otherwise → clean map; bake-category pins render as live OW sprites
+   * Never stack per-category full-map layer images (each is ~12800×6128 decoded).
    */
   const useBakeComposite =
-    bakeSprites && bakeArea && availableBakeLayers.length === 0;
+    bakeSprites &&
+    (availableBakeLayers.length === 0
+      ? bakeArea
+      : visibleBakeLayers.length === availableBakeLayers.length);
   const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
-  const bakeLayerUrls = currentArea ? areaBakeLayers(currentArea.id) : hoennBakeLayers();
   const imgSrc = currentArea
     ? useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.png`)
       : assetUrl(currentArea.image)
-    : HOENN_MAP_PNG;
+    : useBakeComposite
+      ? HOENN_MAP_BAKED_PNG
+      : HOENN_MAP_PNG;
   const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
   const mapWebpSrc = !currentArea
-    ? HOENN_MAP_WEBP
+    ? useBakeComposite
+      ? HOENN_MAP_BAKED_WEBP
+      : HOENN_MAP_WEBP
     : bakeArea && useBakeComposite
       ? assetUrl(`maps/areas/${currentArea.id}-baked.webp`)
       : undefined;
-  const bakeLayersToShow = useBakeComposite ? [] : visibleBakeLayers;
   const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
@@ -1038,36 +1006,20 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 onLoad={() => setMapReady(true)}
               />
             )}
-            {bakeLayersToShow.map((cat) => {
-              const layer = bakeLayerUrls[cat];
-              return (
-                <picture key={`bake-${cat}`}>
-                  <source srcSet={layer.webp} type="image/webp" />
-                  <img
-                    src={layer.png}
-                    alt=""
-                    className="hoenn-map__image hoenn-map__bake-layer"
-                    decoding="async"
-                    draggable={false}
-                    aria-hidden="true"
-                  />
-                </picture>
-              );
-            })}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
+              /** Invisible hit only when the sprite is painted into the single atlas on screen. */
               const bakedCollectible =
-                bakeSprites &&
-                (point.category === "item" ||
-                  point.category === "hidden" ||
-                  point.category === "berry") &&
+                useBakeComposite &&
+                isBakedSpriteCategory(point.category) &&
+                point.category !== "trainer" &&
                 (bakeOverworld || availableBakeLayers.includes(point.category));
               const bakedTrainer =
+                useBakeComposite &&
                 point.category === "trainer" &&
-                (bakeOverworld ||
-                  Boolean(bakedAreaTrainerIds?.has(point.id)));
+                (bakeOverworld || Boolean(bakedAreaTrainerIds?.has(point.id)));
               const baked = bakedCollectible || bakedTrainer;
               return (
                 <div

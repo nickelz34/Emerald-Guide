@@ -33,6 +33,23 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.79",
+    date: "2026-07-18T10:32:41-05:00",
+    summary:
+      "Fix Hoenn Map force-closing on open (and when toggling bake filters) from stacking full-size map images.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Opening the map no longer stacks the clean atlas plus four 12800×6128 bake-layer images — that decoded to well over a gigabyte and force-closed the tab on phones.",
+          "Default view (all bake layers on) uses a single baked composite again.",
+          "Turning off Trainers / Items / Hidden / Berries switches to the clean atlas with live overworld sprites for what’s still enabled — never multiple full-map layer images.",
+          "Preload only warms the composite and clean WebP atlases.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.78",
     date: "2026-07-18T10:06:01-05:00",
     summary:
