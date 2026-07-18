@@ -15,10 +15,12 @@ import { SHOP_PINS_GENERATED } from "../data/shopPinsGenerated";
 import { ROUTE_POINTS } from "../data/mapRoutesGenerated";
 import { AREA_MAPS, type AreaMap } from "../data/areaMaps";
 import { AREA_MAP_ENTRANCES } from "../data/areaMapEntrancesGenerated";
+import { AREA_MAP_ENTITIES } from "../data/areaMapEntitiesGenerated";
 import {
   AREA_MAP_BAKE_MANIFEST,
   AREA_MAP_BAKE_SPRITE_SCALE,
 } from "../data/areaMapBakeManifest";
+import { GYM_MAP_ENTITIES } from "../data/gymMapEntitiesGenerated";
 import { MAP_SELECTOR_GROUPS, mapSelectorLabel } from "../data/mapSelectorAreas";
 import { AREA_TRAINERS, MAP_TRAINERS, type TrainerPoint } from "../data/mapTrainersGenerated";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
@@ -78,6 +80,31 @@ function areaPoints(area: AreaMap): MapPoint[] {
       pinCode: "code" in m ? (m as { code?: string }).code : undefined,
     }),
   );
+}
+
+/**
+ * Trainers / NPCs for an area map: battle trainers + interior entities + gym
+ * rosters, deduped (same sources AreaMapView uses, minus cutscene-only crops).
+ */
+function areaSpritePoints(areaId: string): TrainerPoint[] {
+  const seen = new Set<string>();
+  const out: TrainerPoint[] = [];
+  for (const src of [
+    AREA_TRAINERS[areaId],
+    AREA_MAP_ENTITIES[areaId],
+    GYM_MAP_ENTITIES[areaId],
+  ]) {
+    if (!src) continue;
+    for (const p of src) {
+      const key =
+        ("trainerId" in p && p.trainerId) ||
+        `${("script" in p && p.script) || p.name}-${p.x}-${p.y}`;
+      if (seen.has(String(key))) continue;
+      seen.add(String(key));
+      out.push(p);
+    }
+  }
+  return out;
 }
 
 /** Walkthrough step id for a map pin (hand points or linked entrances). */
@@ -297,7 +324,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   /** Points + image + native size for the map currently shown. */
   const trainerPoints = useMemo(
     (): MapPoint[] =>
-      currentArea ? (AREA_TRAINERS[currentArea.id] ?? []) : MAP_TRAINERS,
+      currentArea ? areaSpritePoints(currentArea.id) : MAP_TRAINERS,
     [currentArea],
   );
   const basePoints = useMemo(
@@ -306,6 +333,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
   );
   const areaBakeEntry =
     currentArea && BAKE_MAP_SPRITES ? AREA_MAP_BAKE_MANIFEST[currentArea.id] : undefined;
+  /** AREA_TRAINERS ids covered by the area bake (layer paint and/or prebaked PNG). */
+  const bakedAreaTrainerIds = useMemo(() => {
+    if (!currentArea || !areaBakeEntry) return null;
+    if (!areaBakeEntry.prebakedTrainers && !areaBakeEntry.layers.includes("trainer")) {
+      return null;
+    }
+    return new Set((AREA_TRAINERS[currentArea.id] ?? []).map((t) => t.id));
+  }, [currentArea, areaBakeEntry]);
   const bakeOverworld = BAKE_MAP_SPRITES && !currentArea;
   const bakeArea = Boolean(areaBakeEntry);
   const bakeSprites = bakeOverworld || bakeArea;
@@ -551,7 +586,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         for (const c of POI_CATEGORIES) next[c.id] = false;
         for (const m of area.markers) next[m.category] = true;
         for (const m of AREA_MAP_ENTRANCES[areaId!] ?? []) next[m.category] = true;
-        if ((AREA_TRAINERS[areaId!] ?? []).length) next.trainer = true;
+        if (areaSpritePoints(areaId!).length) next.trainer = true;
         setVisible(next);
       } else {
         setVisible(initialVisible());
@@ -992,8 +1027,17 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
-              const baked =
-                bakeSprites && BAKED_SPRITE_CATEGORY_SET.has(point.category);
+              const bakedCollectible =
+                bakeSprites &&
+                (point.category === "item" ||
+                  point.category === "hidden" ||
+                  point.category === "berry") &&
+                (bakeOverworld || availableBakeLayers.includes(point.category));
+              const bakedTrainer =
+                point.category === "trainer" &&
+                (bakeOverworld ||
+                  Boolean(bakedAreaTrainerIds?.has(point.id)));
+              const baked = bakedCollectible || bakedTrainer;
               return (
                 <div
                   key={point.id}
