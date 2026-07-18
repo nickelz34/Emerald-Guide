@@ -110,10 +110,13 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
+const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
+const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true on the overworld, stack transparent baked sprite layers (trainers /
- * items / hidden / berries) and use invisible hit targets. Layers respect
- * legend filters. See `npm run bake:hoenn-overworld`.
+ * When true on the overworld, show baked trainers / items / hidden / berries
+ * with invisible hit targets. Uses one composite when all four filters are on;
+ * otherwise clean map + only the visible category layers.
+ * See `npm run bake:hoenn-overworld`.
  */
 const BAKE_HOENN_OVERWORLD_SPRITES = true;
 /** Keep in sync with `SPRITE_SCALE` in scripts/bake-hoenn-overworld-sprites.mjs */
@@ -281,12 +284,20 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     [currentArea, trainerPoints],
   );
   const bakeOverworld = BAKE_HOENN_OVERWORLD_SPRITES && !currentArea;
-  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_PNG;
-  const useHoennWebp = !currentArea;
-  const hoennWebpSrc = HOENN_MAP_WEBP;
   const visibleBakeLayers = bakeOverworld
     ? BAKED_OVERWORLD_CATEGORIES.filter((cat) => visible[cat])
     : [];
+  /** One composite decode when every bake category is on; layers only when filtered. */
+  const useBakeComposite =
+    bakeOverworld && visibleBakeLayers.length === BAKED_OVERWORLD_CATEGORIES.length;
+  const imgSrc = currentArea
+    ? assetUrl(currentArea.image)
+    : useBakeComposite
+      ? HOENN_MAP_BAKED_PNG
+      : HOENN_MAP_PNG;
+  const useHoennWebp = !currentArea;
+  const hoennWebpSrc = useBakeComposite ? HOENN_MAP_BAKED_WEBP : HOENN_MAP_WEBP;
+  const bakeLayersToShow = useBakeComposite ? [] : visibleBakeLayers;
   const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
@@ -889,7 +900,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 onLoad={() => setMapReady(true)}
               />
             )}
-            {visibleBakeLayers.map((cat) => {
+            {bakeLayersToShow.map((cat) => {
               const layer = HOENN_BAKE_LAYERS[cat];
               return (
                 <picture key={`bake-${cat}`}>
