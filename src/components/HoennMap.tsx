@@ -340,7 +340,12 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     }
     return new Set((AREA_TRAINERS[currentArea.id] ?? []).map((t) => t.id));
   }, [currentArea, areaBakeEntry]);
-  const bakeOverworld = BAKE_MAP_SPRITES && !currentArea;
+  /**
+   * Overworld uses live zoom-scaled sprites (same behavior as area maps) rather
+   * than the baked composite — baked atlas sprites stay tiny until extreme zoom
+   * and fixed CSS pins shrink relative to the map while zooming.
+   */
+  const bakeOverworld = false;
   const bakeArea = Boolean(areaBakeEntry);
   const bakeSprites = bakeOverworld || bakeArea;
   const availableBakeLayers: BakedSpriteCategory[] = bakeOverworld
@@ -364,13 +369,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     : useBakeComposite
       ? HOENN_MAP_BAKED_PNG
       : HOENN_MAP_PNG;
-  const useMapWebp = bakeOverworld || (bakeArea && useBakeComposite);
-  const mapWebpSrc = bakeOverworld
-    ? useBakeComposite
-      ? HOENN_MAP_BAKED_WEBP
-      : HOENN_MAP_WEBP
+  const useMapWebp = !currentArea || (bakeArea && useBakeComposite);
+  const mapWebpSrc = !currentArea
+    ? HOENN_MAP_WEBP
     : bakeArea && useBakeComposite
-      ? assetUrl(`maps/areas/${currentArea!.id}-baked.webp`)
+      ? assetUrl(`maps/areas/${currentArea.id}-baked.webp`)
       : undefined;
   const bakeLayersToShow = useBakeComposite ? [] : visibleBakeLayers;
   const mapImgRef = useRef<HTMLImageElement>(null);
@@ -980,10 +983,14 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
               width: `${canvasW}px`,
               height: `${canvasH}px`,
               transform: `translate(${view.x}px, ${view.y}px)`,
-              // Area maps: size live sprites in native map pixels so they scale with zoom.
-              // Overworld: keep 1 so town/gym UI pins stay screen-readable.
-              ["--hoenn-map-px" as string]:
-                currentArea && mapW > 0 ? canvasW / mapW : 1,
+              // Size live sprites so they grow with zoom (constant size vs the map).
+              // Area maps: 1 CSS px per native map px. Overworld: zoom-relative size
+              // anchored at ~16px at the default mobile zoom (true atlas px stay tiny).
+              ["--hoenn-map-px" as string]: currentArea
+                ? mapW > 0
+                  ? canvasW / mapW
+                  : 1
+                : view.scale / (isNarrowViewport ? MOBILE_DEFAULT_SCALE : 1),
             }}
           >
             {useMapWebp && mapWebpSrc ? (
