@@ -13,9 +13,16 @@ import { PNG } from "pngjs";
 import sharp from "sharp";
 import { MAP_TRAINERS } from "../src/data/mapTrainersGenerated.ts";
 import { MAP_NPCS } from "../src/data/mapNpcsGenerated.ts";
+import { NPC_DETAILS_BY_SCRIPT } from "../src/data/npcDetailsGenerated.ts";
 import { GENERATED_POINTS } from "../src/data/mapPointsGenerated.ts";
 import { MAP_POINTS } from "../src/data/mapPoints.ts";
 import { COLLECTIBLE_SPRITES } from "../src/data/itemSpritesGenerated.ts";
+
+function npcHasStory(npc) {
+  if (!npc?.script) return false;
+  const details = NPC_DETAILS_BY_SCRIPT[npc.script];
+  return Boolean(details?.story?.length);
+}
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const SRC = path.join(ROOT, "public/maps/hoenn-map.png");
@@ -129,20 +136,24 @@ if (base.width !== MAP_W || base.height !== MAP_H) {
 }
 
 const layers = Object.fromEntries(LAYER_CATEGORIES.map((c) => [c, emptyLayer(base.width, base.height)]));
+/** Story-only subset of the NPC layer for the Story only legend filter. */
+const npcStoryLayer = emptyLayer(base.width, base.height);
 const collectibles = [...MAP_POINTS, ...GENERATED_POINTS].filter((p) =>
   COLLECTIBLE_CATEGORIES.has(p.category),
 );
 const trainers = MAP_TRAINERS;
 const npcs = MAP_NPCS;
+const storyNpcs = npcs.filter(npcHasStory);
 
 console.log(
-  `Baking ${trainers.length} trainers + ${npcs.length} NPCs + ${collectibles.length} collectibles ` +
+  `Baking ${trainers.length} trainers + ${npcs.length} NPCs (${storyNpcs.length} story) + ${collectibles.length} collectibles ` +
     `@ ${SPRITE_SCALE}× into per-category layers`,
 );
 
 let painted = 0;
 const skipped = [];
 const counts = Object.fromEntries(LAYER_CATEGORIES.map((c) => [c, 0]));
+counts["npc-story"] = 0;
 
 function paint(dest, sheet, xPct, yPct, fw, fh, frame, flipX) {
   const outW = Math.round(fw * SPRITE_SCALE);
@@ -174,18 +185,14 @@ for (const npc of npcs) {
   const fw = npc.spriteWidth ?? 16;
   const fh = npc.spriteHeight ?? 32;
   try {
-    paint(
-      layers.npc,
-      loadSprite(npc.spriteSheet),
-      npc.x,
-      npc.y,
-      fw,
-      fh,
-      npc.spriteFrame ?? 0,
-      Boolean(npc.spriteFlipX),
-    );
+    const sheet = loadSprite(npc.spriteSheet);
+    paint(layers.npc, sheet, npc.x, npc.y, fw, fh, npc.spriteFrame ?? 0, Boolean(npc.spriteFlipX));
     painted++;
     counts.npc++;
+    if (npcHasStory(npc)) {
+      paint(npcStoryLayer, sheet, npc.x, npc.y, fw, fh, npc.spriteFrame ?? 0, Boolean(npc.spriteFlipX));
+      counts["npc-story"]++;
+    }
   } catch (err) {
     skipped.push(`npc ${npc.id}: ${err.message}`);
   }
@@ -248,6 +255,16 @@ for (const cat of LAYER_CATEGORIES) {
   sizes[cat] = await optimizePair(pngPath);
   console.log(
     `  ${cat}: png ${(sizes[cat].png / 1024 / 1024).toFixed(2)} MB, webp ${(sizes[cat].webp / 1024 / 1024).toFixed(2)} MB`,
+  );
+}
+
+{
+  const pngPath = path.join(OUT_DIR, "hoenn-map-baked-npc-story.png");
+  writePng(pngPath, npcStoryLayer);
+  console.log(`Optimizing ${path.basename(pngPath)}…`);
+  sizes["npc-story"] = await optimizePair(pngPath);
+  console.log(
+    `  npc-story: png ${(sizes["npc-story"].png / 1024 / 1024).toFixed(2)} MB, webp ${(sizes["npc-story"].webp / 1024 / 1024).toFixed(2)} MB (${counts["npc-story"]} sprites)`,
   );
 }
 

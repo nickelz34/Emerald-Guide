@@ -3,10 +3,12 @@
 export interface AreaMapBakeEntry {
   width: number;
   height: number;
-  counts: Partial<Record<"trainer" | "npc" | "item" | "hidden" | "berry", number>>;
+  counts: Partial<Record<"trainer" | "npc" | "npc-story" | "item" | "hidden" | "berry", number>>;
   skippedInBase: number;
   layers: Array<"trainer" | "npc" | "item" | "hidden" | "berry">;
   prebakedTrainers: boolean;
+  /** True when `{areaId}-baked-npc-story.webp` exists for the Story only filter. */
+  storyNpcLayer?: boolean;
 }
 
 export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
@@ -18,14 +20,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 1
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "abandonedship-corridors-1f": {
     "width": 288,
@@ -35,13 +39,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-corridors-b1f": {
     "width": 208,
@@ -51,13 +57,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-hiddenfloorrooms": {
     "width": 704,
@@ -67,14 +75,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 4,
       "hidden": 4,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-room-b1f": {
     "width": 144,
@@ -84,13 +94,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-rooms-1f": {
     "width": 288,
@@ -100,7 +112,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
@@ -108,7 +121,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-rooms-b1f": {
     "width": 432,
@@ -118,14 +132,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-rooms2-1f": {
     "width": 144,
@@ -135,14 +151,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "abandonedship-rooms2-b1f": {
     "width": 288,
@@ -152,14 +170,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "aquahideout-1f": {
     "width": 448,
@@ -169,13 +189,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "aquahideout-b1f": {
     "width": 816,
@@ -185,14 +207,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 5,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "aquahideout-b2f": {
     "width": 544,
@@ -202,7 +226,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 1
     },
     "skippedInBase": 0,
     "layers": [
@@ -210,7 +235,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "artisancave-1f": {
     "width": 336,
@@ -220,13 +246,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "artisancave-b1f": {
     "width": 736,
@@ -236,14 +264,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 4,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlefrontier-battlepyramidfloor": {
     "width": 128,
@@ -253,13 +283,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlefrontier-battlepyramidlobby": {
     "width": 240,
@@ -269,13 +301,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 4,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlefrontier-battlepyramidtop": {
     "width": 544,
@@ -285,13 +319,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare01": {
     "width": 128,
@@ -301,14 +337,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare02": {
     "width": 128,
@@ -318,14 +356,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare03": {
     "width": 128,
@@ -335,14 +375,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare04": {
     "width": 128,
@@ -352,14 +394,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare05": {
     "width": 128,
@@ -369,14 +413,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare06": {
     "width": 128,
@@ -386,14 +432,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare07": {
     "width": 128,
@@ -403,14 +451,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare08": {
     "width": 128,
@@ -420,14 +470,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare09": {
     "width": 128,
@@ -437,14 +489,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare10": {
     "width": 128,
@@ -454,14 +508,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare11": {
     "width": 128,
@@ -471,14 +527,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare12": {
     "width": 128,
@@ -488,14 +546,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare13": {
     "width": 128,
@@ -505,14 +565,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare14": {
     "width": 128,
@@ -522,14 +584,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare15": {
     "width": 128,
@@ -539,14 +603,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "battlepyramidsquare16": {
     "width": 128,
@@ -556,14 +622,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "contesthall": {
     "width": 240,
@@ -573,14 +641,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 3,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "dewfordtown-gym": {
     "width": 288,
@@ -590,11 +660,13 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 2,
     "layers": [],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "fierypath": {
     "width": 560,
@@ -604,13 +676,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "fortreecity-gym": {
     "width": 320,
@@ -620,13 +694,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "granitecave-1f": {
     "width": 672,
@@ -636,13 +712,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "granitecave-b1f": {
     "width": 512,
@@ -652,13 +730,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "granitecave-b2f": {
     "width": 512,
@@ -668,14 +748,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "jaggedpass": {
     "width": 480,
@@ -685,7 +767,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 1
     },
     "skippedInBase": 0,
     "layers": [
@@ -694,7 +777,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "lavaridgetown-gym-1f": {
     "width": 272,
@@ -704,13 +788,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "littleroottown-brendanshouse-2f": {
     "width": 144,
@@ -720,13 +806,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "littleroottown-mayshouse-2f": {
     "width": 144,
@@ -736,13 +824,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "littleroottown-professorbirchslab": {
     "width": 208,
@@ -752,13 +842,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 3,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "magmahideout-1f": {
     "width": 592,
@@ -768,14 +860,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "magmahideout-2f-2r": {
     "width": 784,
@@ -785,14 +879,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "magmahideout-3f-1r": {
     "width": 448,
@@ -802,14 +898,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "magmahideout-3f-2r": {
     "width": 384,
@@ -819,14 +917,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "magmahideout-3f-3r": {
     "width": 528,
@@ -836,13 +936,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "magmahideout-4f": {
     "width": 944,
@@ -852,7 +954,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 1
     },
     "skippedInBase": 0,
     "layers": [
@@ -860,7 +963,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "mauvillecity-gym": {
     "width": 160,
@@ -870,11 +974,13 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 2,
     "layers": [],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "meteorfalls-1f-1r": {
     "width": 480,
@@ -884,14 +990,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 4,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 1
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "meteorfalls-b1f-2r": {
     "width": 176,
@@ -901,13 +1009,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "meteorfalls-stevenscave": {
     "width": 480,
@@ -917,13 +1027,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 1
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "mossdeepcity-gym": {
     "width": 416,
@@ -933,13 +1045,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 3,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mossdeepcity-stevenshouse": {
     "width": 176,
@@ -949,13 +1063,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-1f": {
     "width": 352,
@@ -965,13 +1081,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 3,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-2f": {
     "width": 208,
@@ -981,7 +1099,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
@@ -989,7 +1108,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-3f": {
     "width": 208,
@@ -999,14 +1119,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-4f": {
     "width": 208,
@@ -1016,14 +1138,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-5f": {
     "width": 208,
@@ -1033,14 +1157,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-6f": {
     "width": 208,
@@ -1050,14 +1176,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-exterior": {
     "width": 608,
@@ -1067,14 +1195,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "mtpyre-summit": {
     "width": 800,
@@ -1084,7 +1214,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 0,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
@@ -1092,7 +1223,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "navelrock-top": {
     "width": 400,
@@ -1102,13 +1234,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 1,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "route104-berry-plots": {
     "width": 240,
@@ -1118,13 +1252,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 0,
-      "berry": 1
+      "berry": 1,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "berry"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "newmauville-inside": {
     "width": 656,
@@ -1134,13 +1270,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 8,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "petalburgwoods": {
     "width": 768,
@@ -1150,14 +1288,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 4,
       "hidden": 4,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 2,
     "layers": [
       "item",
       "hidden"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "safarizone-resthouse": {
     "width": 160,
@@ -1167,13 +1307,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 3,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "seafloorcavern-entrance": {
     "width": 320,
@@ -1183,13 +1325,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "shoalcave-lowtidelowerroom": {
     "width": 496,
@@ -1199,13 +1343,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-sidneysroom-battle": {
     "width": 240,
@@ -1215,13 +1361,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-sidneysroom": {
     "width": 208,
@@ -1231,13 +1379,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-phoebesroom-battle": {
     "width": 240,
@@ -1247,13 +1397,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-phoebesroom": {
     "width": 208,
@@ -1263,13 +1415,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-glaciasroom-battle": {
     "width": 240,
@@ -1279,13 +1433,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-glaciasroom": {
     "width": 208,
@@ -1295,13 +1451,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-drakesroom-battle": {
     "width": 240,
@@ -1311,13 +1469,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-drakesroom": {
     "width": 208,
@@ -1327,13 +1487,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-championsroom-battle": {
     "width": 240,
@@ -1343,13 +1505,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-championsroom": {
     "width": 208,
@@ -1359,13 +1523,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "evergrandecity-halloffame": {
     "width": 240,
@@ -1375,13 +1541,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "route110-trickhouseend": {
     "width": 192,
@@ -1391,13 +1559,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 1,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle1": {
     "width": 240,
@@ -1407,13 +1577,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 3,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle2": {
     "width": 240,
@@ -1423,13 +1595,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 3,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle3": {
     "width": 240,
@@ -1439,13 +1613,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 3,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle4": {
     "width": 240,
@@ -1455,13 +1631,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 3,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle6": {
     "width": 240,
@@ -1471,13 +1649,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 3,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle7": {
     "width": 240,
@@ -1487,13 +1667,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 6,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "route110-trickhousepuzzle8": {
     "width": 240,
@@ -1503,13 +1685,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 3,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "rustborocity-gym": {
     "width": 176,
@@ -1519,11 +1703,13 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 2,
     "layers": [],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "rusturftunnel": {
     "width": 576,
@@ -1533,13 +1719,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 1,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "safarizone-north": {
     "width": 640,
@@ -1549,14 +1737,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "safarizone-northeast": {
     "width": 640,
@@ -1566,7 +1756,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 3,
       "item": 1,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
@@ -1574,7 +1765,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "safarizone-northwest": {
     "width": 640,
@@ -1584,14 +1776,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "safarizone-southeast": {
     "width": 640,
@@ -1601,7 +1795,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 4,
       "item": 1,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
@@ -1609,7 +1804,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "safarizone-southwest": {
     "width": 640,
@@ -1619,14 +1815,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "scorchedslab": {
     "width": 240,
@@ -1636,13 +1834,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "seafloorcavern-room9": {
     "width": 432,
@@ -1652,13 +1852,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "shoalcave-lowtideentranceroom": {
     "width": 560,
@@ -1668,14 +1870,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 1,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "shoalcave-lowtideiceroom": {
     "width": 320,
@@ -1685,13 +1889,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "shoalcave-lowtideinnerroom": {
     "width": 736,
@@ -1701,13 +1907,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "shoalcave-lowtidestairsroom": {
     "width": 336,
@@ -1717,13 +1925,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "sootopoliscity-gym-1f": {
     "width": 272,
@@ -1733,13 +1943,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 0,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "npc"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "sstidallowerdeck": {
     "width": 272,
@@ -1749,13 +1961,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 1,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 2,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": true
+    "prebakedTrainers": true,
+    "storyNpcLayer": false
   },
   "underwater-route124": {
     "width": 1280,
@@ -1765,13 +1979,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 7,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "underwater-route126": {
     "width": 1280,
@@ -1781,13 +1997,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 8,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "underwater-route127": {
     "width": 1280,
@@ -1797,13 +2015,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 4,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "underwater-route128": {
     "width": 1920,
@@ -1813,13 +2033,15 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 0,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "victoryroad-1f": {
     "width": 736,
@@ -1829,7 +2051,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 2,
       "item": 2,
       "hidden": 1,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 2
     },
     "skippedInBase": 0,
     "layers": [
@@ -1838,7 +2061,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": true
   },
   "victoryroad-b1f": {
     "width": 736,
@@ -1848,14 +2072,16 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 2,
       "hidden": 0,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
       "trainer",
       "item"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   },
   "victoryroad-b2f": {
     "width": 736,
@@ -1865,7 +2091,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "npc": 0,
       "item": 1,
       "hidden": 2,
-      "berry": 0
+      "berry": 0,
+      "npc-story": 0
     },
     "skippedInBase": 0,
     "layers": [
@@ -1873,7 +2100,8 @@ export const AREA_MAP_BAKE_MANIFEST: Record<string, AreaMapBakeEntry> = {
       "item",
       "hidden"
     ],
-    "prebakedTrainers": false
+    "prebakedTrainers": false,
+    "storyNpcLayer": false
   }
 };
 

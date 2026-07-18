@@ -188,6 +188,20 @@ function hoennBakeLayerUrls(): Record<BakedSpriteCategory, { png: string; webp: 
   };
 }
 
+/** Story-only NPC atlas (subset of the full NPC bake) for the Story only filter. */
+function storyNpcBakeLayerUrls(areaId?: string): { png: string; webp: string } {
+  if (areaId) {
+    return {
+      png: assetUrl(`maps/areas/${areaId}-baked-npc-story.png`),
+      webp: assetUrl(`maps/areas/${areaId}-baked-npc-story.webp`),
+    };
+  }
+  return {
+    png: assetUrl("maps/hoenn-map-baked-npc-story.png"),
+    webp: assetUrl("maps/hoenn-map-baked-npc-story.webp"),
+  };
+}
+
 function areaBakeLayerUrls(
   areaId: string,
   layers: readonly BakedSpriteCategory[],
@@ -385,6 +399,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
    * Full composite when every bake layer is on (and no subset filters).
    * Otherwise overlay only the visible category layers on the clean atlas —
    * that keeps NPC/trainer filters baked without stacking every layer at once.
+   * Story only uses the dedicated story-NPC layer instead of the full NPC layer.
    */
   const useBakeComposite =
     bakeSprites &&
@@ -393,19 +408,32 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     (availableBakeLayers.length === 0
       ? bakeArea
       : visibleBakeLayers.length === availableBakeLayers.length);
+  /** Story only → overlay `*-baked-npc-story` (map-scaled), not live OW pins. */
+  const useStoryNpcBakeLayer =
+    bakeSprites &&
+    !useBakeComposite &&
+    storyNpcsOnly &&
+    visible.npc &&
+    (bakeOverworld || Boolean(areaBakeEntry?.storyNpcLayer));
   /** Category layers to stack on the clean map when the full composite is off. */
   const bakeLayersToShow = useMemo((): BakedSpriteCategory[] => {
     if (!bakeSprites || useBakeComposite) return [];
     const layers = visibleBakeLayers.filter((cat) => {
       if (cat === "trainer" && rematchableOnly) return false;
+      // Full NPC layer is replaced by the story subset overlay when Story only is on.
       if (cat === "npc" && storyNpcsOnly) return false;
       return true;
     });
     if (layers.length === 0) return [];
-    if (layers.length <= MAX_BAKE_LAYER_OVERLAYS) return layers;
+    // Story overlay occupies one of the two overlay slots (same OOM budget).
+    const budget = useStoryNpcBakeLayer
+      ? MAX_BAKE_LAYER_OVERLAYS - 1
+      : MAX_BAKE_LAYER_OVERLAYS;
+    if (budget <= 0) return [];
+    if (layers.length <= budget) return layers;
     // Prefer character layers so NPCs/trainers stay baked when many filters are on.
     const preferred = layers.filter((cat) => cat === "trainer" || cat === "npc");
-    if (preferred.length > 0 && preferred.length <= MAX_BAKE_LAYER_OVERLAYS) {
+    if (preferred.length > 0 && preferred.length <= budget) {
       return preferred;
     }
     return [];
@@ -415,6 +443,7 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     visibleBakeLayers,
     rematchableOnly,
     storyNpcsOnly,
+    useStoryNpcBakeLayer,
   ]);
   const bakeLayerUrls = useMemo(
     () =>
@@ -422,6 +451,10 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
         ? areaBakeLayerUrls(currentArea.id, availableBakeLayers)
         : hoennBakeLayerUrls(),
     [currentArea, availableBakeLayers],
+  );
+  const storyNpcBakeUrls = useMemo(
+    () => (useStoryNpcBakeLayer ? storyNpcBakeLayerUrls(currentArea?.id) : null),
+    [useStoryNpcBakeLayer, currentArea],
   );
   const bakeSpriteScale = bakeArea ? AREA_MAP_BAKE_SPRITE_SCALE : BAKE_OVERWORLD_SPRITE_SCALE;
   const imgSrc = currentArea
@@ -1180,6 +1213,19 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 </picture>
               );
             })}
+            {storyNpcBakeUrls ? (
+              <picture key="bake-npc-story">
+                <source srcSet={storyNpcBakeUrls.webp} type="image/webp" />
+                <img
+                  src={storyNpcBakeUrls.png}
+                  alt=""
+                  className="hoenn-map__image hoenn-map__bake-layer"
+                  decoding="async"
+                  draggable={false}
+                  aria-hidden="true"
+                />
+              </picture>
+            ) : null}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
@@ -1202,10 +1248,11 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 !rematchableOnly &&
                 (bakeOverworld || Boolean(bakedAreaTrainerIds?.has(point.id)));
               const bakedNpc =
-                categoryBakedOnMap &&
                 point.category === "npc" &&
-                !storyNpcsOnly &&
-                (bakeOverworld || availableBakeLayers.includes("npc"));
+                (storyNpcsOnly
+                  ? useStoryNpcBakeLayer
+                  : categoryBakedOnMap &&
+                    (bakeOverworld || availableBakeLayers.includes("npc")));
               const baked = bakedCollectible || bakedTrainer || bakedNpc;
               return (
                 <div

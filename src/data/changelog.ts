@@ -33,6 +33,21 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.88",
+    date: "2026-07-18T11:40:37-05:00",
+    summary: "Story only NPCs use a baked layer instead of live zooming pins.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "Story only overlays the dedicated story-NPC bake layer on the clean map — walkthrough-linked NPCs stay map-scaled when zooming, same as the full NPCs filter.",
+          "Overworld and area maps that have story NPCs ship a `*-baked-npc-story` atlas; Rematchable only still uses live filtered trainer pins.",
+          "The story overlay shares the two-layer bake budget with other filters so the map does not stack too many full-size images.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.87",
     date: "2026-07-18T11:36:01-05:00",
     summary: "NPC filter uses its own baked layer instead of live zooming pins.",
