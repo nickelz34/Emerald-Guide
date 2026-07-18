@@ -1,15 +1,16 @@
 /**
- * TEST bake: paint trainers + item / hidden / berry sprites into a copy of the
- * full Hoenn overworld map (public/maps/hoenn-map-baked.png).
+ * TEST bake: paint trainers + item / hidden / berry sprites onto transparent
+ * per-category layers (and a composite preview) for the Hoenn overworld.
  *
- * Leaves hoenn-map.png / .webp untouched. HoennMap.tsx can opt into the baked
- * atlas and switch those categories to invisible hit targets.
+ * Layers let HoennMap toggle visibility with the legend filters.
+ * Leaves hoenn-map.png / .webp untouched.
  *
  * Usage: npm run bake:hoenn-overworld
  */
 import fs from "node:fs";
 import path from "node:path";
 import { PNG } from "pngjs";
+import sharp from "sharp";
 import { MAP_TRAINERS } from "../src/data/mapTrainersGenerated.ts";
 import { GENERATED_POINTS } from "../src/data/mapPointsGenerated.ts";
 import { MAP_POINTS } from "../src/data/mapPoints.ts";
@@ -17,7 +18,7 @@ import { COLLECTIBLE_SPRITES } from "../src/data/itemSpritesGenerated.ts";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const SRC = path.join(ROOT, "public/maps/hoenn-map.png");
-const OUT = path.join(ROOT, "public/maps/hoenn-map-baked.png");
+const OUT_DIR = path.join(ROOT, "public/maps");
 const ARTIFACT = "/opt/cursor/artifacts/hoenn-overworld-baked";
 const MAP_W = 12800;
 const MAP_H = 6128;
@@ -25,7 +26,7 @@ const MAP_H = 6128;
 /** Nearest-neighbor upscale so sprites read a bit better on the full map / phone. */
 const SPRITE_SCALE = 1.5;
 
-const BAKE_CATEGORIES = new Set(["item", "hidden", "berry"]);
+const LAYER_CATEGORIES = ["trainer", "item", "hidden", "berry"];
 
 function loadRgbaPng(file) {
   const png = PNG.sync.read(fs.readFileSync(file));
@@ -41,6 +42,12 @@ function loadRgbaPng(file) {
     }
   }
   return out;
+}
+
+function emptyLayer(width, height) {
+  const png = new PNG({ width, height, colorType: 6 });
+  png.data.fill(0);
+  return png;
 }
 
 function blitSprite(
@@ -70,11 +77,14 @@ function blitSprite(
       const ty = dy + row;
       if (tx < 0 || ty < 0 || tx >= dest.width || ty >= dest.height) continue;
       const di = (ty * dest.width + tx) * 4;
-      const alpha = a / 255;
-      dest.data[di] = Math.round(r * alpha + dest.data[di] * (1 - alpha));
-      dest.data[di + 1] = Math.round(g * alpha + dest.data[di + 1] * (1 - alpha));
-      dest.data[di + 2] = Math.round(b * alpha + dest.data[di + 2] * (1 - alpha));
-      dest.data[di + 3] = 255;
+      const srcA = a / 255;
+      const dstA = dest.data[di + 3] / 255;
+      const outA = srcA + dstA * (1 - srcA);
+      if (outA <= 0) continue;
+      dest.data[di] = Math.round((r * srcA + dest.data[di] * dstA * (1 - srcA)) / outA);
+      dest.data[di + 1] = Math.round((g * srcA + dest.data[di + 1] * dstA * (1 - srcA)) / outA);
+      dest.data[di + 2] = Math.round((b * srcA + dest.data[di + 2] * dstA * (1 - srcA)) / outA);
+      dest.data[di + 3] = Math.round(outA * 255);
     }
   }
 }
@@ -82,6 +92,18 @@ function blitSprite(
 function writePng(file, png) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, PNG.sync.write({ ...png, colorType: 6, inputHasAlpha: true }));
+}
+
+async function optimizePair(pngPath) {
+  const webpPath = pngPath.replace(/\.png$/i, ".webp");
+  const tmp = `${pngPath}.opt.png`;
+  await sharp(pngPath).png({ compressionLevel: 9, effort: 10, palette: false }).toFile(tmp);
+  fs.renameSync(tmp, pngPath);
+  await sharp(pngPath).webp({ lossless: true, effort: 4 }).toFile(webpPath);
+  return {
+    png: fs.statSync(pngPath).size,
+    webp: fs.statSync(webpPath).size,
+  };
 }
 
 const spriteCache = new Map();
@@ -99,43 +121,47 @@ if (!fs.existsSync(SRC)) {
   process.exit(1);
 }
 
-console.log("Loading", SRC, "…");
-const scene = loadRgbaPng(SRC);
-if (scene.width !== MAP_W || scene.height !== MAP_H) {
-  console.warn(`Unexpected map size ${scene.width}×${scene.height} (expected ${MAP_W}×${MAP_H})`);
+const base = loadRgbaPng(SRC);
+if (base.width !== MAP_W || base.height !== MAP_H) {
+  console.warn(`Unexpected map size ${base.width}×${base.height} (expected ${MAP_W}×${MAP_H})`);
 }
 
-const collectibles = [...MAP_POINTS, ...GENERATED_POINTS].filter((p) => BAKE_CATEGORIES.has(p.category));
+const layers = Object.fromEntries(LAYER_CATEGORIES.map((c) => [c, emptyLayer(base.width, base.height)]));
+const collectibles = [...MAP_POINTS, ...GENERATED_POINTS].filter((p) =>
+  LAYER_CATEGORIES.includes(p.category),
+);
 const trainers = MAP_TRAINERS;
 
 console.log(
   `Baking ${trainers.length} trainers + ${collectibles.length} collectibles ` +
-    `(item/hidden/berry) @ ${SPRITE_SCALE}× into ${path.relative(ROOT, OUT)}`,
+    `@ ${SPRITE_SCALE}× into per-category layers`,
 );
 
 let painted = 0;
 const skipped = [];
+const counts = Object.fromEntries(LAYER_CATEGORIES.map((c) => [c, 0]));
+
+function paint(dest, sheet, xPct, yPct, fw, fh, frame, flipX) {
+  const outW = Math.round(fw * SPRITE_SCALE);
+  const outH = Math.round(fh * SPRITE_SCALE);
+  const px = Math.round((xPct / 100) * dest.width - outW / 2);
+  const py = Math.round((yPct / 100) * dest.height - outH);
+  blitSprite(dest, sheet, px, py, {
+    frameX: frame * fw,
+    frameW: fw,
+    frameH: fh,
+    flipX,
+    scale: SPRITE_SCALE,
+  });
+}
 
 for (const tr of trainers) {
   const fw = tr.spriteWidth ?? 16;
   const fh = tr.spriteHeight ?? 32;
-  const outW = Math.round(fw * SPRITE_SCALE);
-  const outH = Math.round(fh * SPRITE_SCALE);
-  const frame = tr.spriteFrame ?? 0;
-  const flipX = Boolean(tr.spriteFlipX);
   try {
-    const sheet = loadSprite(tr.spriteSheet);
-    // Feet stay on the pin %; larger sprite grows upward / outward.
-    const px = Math.round((tr.x / 100) * scene.width - outW / 2);
-    const py = Math.round((tr.y / 100) * scene.height - outH);
-    blitSprite(scene, sheet, px, py, {
-      frameX: frame * fw,
-      frameW: fw,
-      frameH: fh,
-      flipX,
-      scale: SPRITE_SCALE,
-    });
+    paint(layers.trainer, loadSprite(tr.spriteSheet), tr.x, tr.y, fw, fh, tr.spriteFrame ?? 0, Boolean(tr.spriteFlipX));
     painted++;
+    counts.trainer++;
   } catch (err) {
     skipped.push(`trainer ${tr.id}: ${err.message}`);
   }
@@ -148,62 +174,72 @@ for (const p of collectibles) {
     continue;
   }
   try {
-    const sheet = loadSprite(sprite.spriteSheet);
-    const fw = sprite.spriteWidth;
-    const fh = sprite.spriteHeight;
-    const outW = Math.round(fw * SPRITE_SCALE);
-    const outH = Math.round(fh * SPRITE_SCALE);
-    const px = Math.round((p.x / 100) * scene.width - outW / 2);
-    const py = Math.round((p.y / 100) * scene.height - outH);
-    blitSprite(scene, sheet, px, py, {
-      frameX: (sprite.spriteFrame ?? 0) * fw,
-      frameW: fw,
-      frameH: fh,
-      scale: SPRITE_SCALE,
-    });
+    paint(
+      layers[p.category],
+      loadSprite(sprite.spriteSheet),
+      p.x,
+      p.y,
+      sprite.spriteWidth,
+      sprite.spriteHeight,
+      sprite.spriteFrame ?? 0,
+      false,
+    );
     painted++;
+    counts[p.category]++;
   } catch (err) {
     skipped.push(`collectible ${p.id}: ${err.message}`);
   }
 }
 
-console.log(`Painted ${painted} sprites`);
+console.log(`Painted ${painted} sprites`, counts);
 if (skipped.length) {
   console.warn(`Skipped ${skipped.length}:`);
   for (const s of skipped.slice(0, 20)) console.warn(" ", s);
-  if (skipped.length > 20) console.warn(`  …and ${skipped.length - 20} more`);
 }
 
-writePng(OUT, scene);
 fs.mkdirSync(ARTIFACT, { recursive: true });
-// Proof crop around Route 102 (~11%, 66%)
-const cropX = Math.max(0, Math.round(0.11 * scene.width) - 240);
-const cropY = Math.max(0, Math.round(0.66 * scene.height) - 160);
-const cw = 480;
-const ch = 320;
-const proof = new PNG({ width: cw, height: ch, colorType: 6 });
-for (let y = 0; y < ch; y++) {
-  for (let x = 0; x < cw; x++) {
-    const sx = Math.min(scene.width - 1, cropX + x);
-    const sy = Math.min(scene.height - 1, cropY + y);
-    const si = (sy * scene.width + sx) * 4;
-    const di = (y * cw + x) * 4;
-    proof.data[di] = scene.data[si];
-    proof.data[di + 1] = scene.data[si + 1];
-    proof.data[di + 2] = scene.data[si + 2];
-    proof.data[di + 3] = scene.data[si + 3];
+fs.mkdirSync(OUT_DIR, { recursive: true });
+
+// Composite preview (base + all layers) for offline QA
+const composite = loadRgbaPng(SRC);
+for (const cat of LAYER_CATEGORIES) {
+  const layer = layers[cat];
+  for (let i = 0; i < composite.data.length; i += 4) {
+    const a = layer.data[i + 3] / 255;
+    if (a < 0.01) continue;
+    composite.data[i] = Math.round(layer.data[i] * a + composite.data[i] * (1 - a));
+    composite.data[i + 1] = Math.round(layer.data[i + 1] * a + composite.data[i + 1] * (1 - a));
+    composite.data[i + 2] = Math.round(layer.data[i + 2] * a + composite.data[i + 2] * (1 - a));
+    composite.data[i + 3] = 255;
   }
 }
-writePng(path.join(ARTIFACT, "hoenn-bake-proof-route102.png"), proof);
+const compositePath = path.join(OUT_DIR, "hoenn-map-baked.png");
+writePng(compositePath, composite);
 
-const meta = {
-  painted,
-  trainers: trainers.length,
-  collectibles: collectibles.length,
-  skipped: skipped.length,
-  out: path.relative(ROOT, OUT),
-  bytes: fs.statSync(OUT).size,
-};
-fs.writeFileSync(path.join(ARTIFACT, "bake-meta.json"), JSON.stringify(meta, null, 2));
-console.log("Wrote", OUT, `(${(meta.bytes / 1024 / 1024).toFixed(1)} MB)`);
-console.log("Artifact proof:", path.join(ARTIFACT, "hoenn-bake-proof-route102.png"));
+const sizes = {};
+for (const cat of LAYER_CATEGORIES) {
+  const pngPath = path.join(OUT_DIR, `hoenn-map-baked-${cat}.png`);
+  writePng(pngPath, layers[cat]);
+  console.log(`Optimizing ${path.basename(pngPath)}…`);
+  sizes[cat] = await optimizePair(pngPath);
+  console.log(
+    `  ${cat}: png ${(sizes[cat].png / 1024 / 1024).toFixed(2)} MB, webp ${(sizes[cat].webp / 1024 / 1024).toFixed(2)} MB`,
+  );
+}
+
+console.log("Optimizing composite…");
+sizes.composite = await optimizePair(compositePath);
+
+// Proof crop Route 102
+const cropX = Math.max(0, Math.round(0.11 * MAP_W) - 240);
+const cropY = Math.max(0, Math.round(0.66 * MAP_H) - 160);
+await sharp(compositePath)
+  .extract({ left: cropX, top: cropY, width: 480, height: 320 })
+  .png()
+  .toFile(path.join(ARTIFACT, "hoenn-bake-proof-route102.png"));
+
+fs.writeFileSync(
+  path.join(ARTIFACT, "bake-meta.json"),
+  JSON.stringify({ painted, counts, skipped: skipped.length, sizes, spriteScale: SPRITE_SCALE }, null, 2),
+);
+console.log("Done. Layers + composite written under public/maps/");

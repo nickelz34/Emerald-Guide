@@ -109,16 +109,33 @@ function initialVisible(): Record<PoiCategory, boolean> {
 
 const HOENN_MAP_PNG = assetUrl("maps/hoenn-map.png");
 const HOENN_MAP_WEBP = assetUrl("maps/hoenn-map.webp");
-/** TEST: trainers + item/hidden/berry sprites baked into the atlas (see bake:hoenn-overworld). */
-const HOENN_MAP_BAKED_PNG = assetUrl("maps/hoenn-map-baked.png");
-const HOENN_MAP_BAKED_WEBP = assetUrl("maps/hoenn-map-baked.webp");
 /**
- * When true on the overworld, use the baked atlas and draw invisible hit targets
- * for trainers / items / hidden / berries (sprites live in the PNG).
- * Flip off (or remove) after the bake test.
+ * When true on the overworld, stack transparent baked sprite layers (trainers /
+ * items / hidden / berries) and use invisible hit targets. Layers respect
+ * legend filters. See `npm run bake:hoenn-overworld`.
  */
 const BAKE_HOENN_OVERWORLD_SPRITES = true;
-const BAKED_OVERWORLD_CATEGORIES = new Set<PoiCategory>(["trainer", "item", "hidden", "berry"]);
+const BAKED_OVERWORLD_CATEGORIES = ["trainer", "item", "hidden", "berry"] as const;
+type BakedOverworldCategory = (typeof BAKED_OVERWORLD_CATEGORIES)[number];
+const BAKED_OVERWORLD_CATEGORY_SET = new Set<PoiCategory>(BAKED_OVERWORLD_CATEGORIES);
+const HOENN_BAKE_LAYERS: Record<BakedOverworldCategory, { png: string; webp: string }> = {
+  trainer: {
+    png: assetUrl("maps/hoenn-map-baked-trainer.png"),
+    webp: assetUrl("maps/hoenn-map-baked-trainer.webp"),
+  },
+  item: {
+    png: assetUrl("maps/hoenn-map-baked-item.png"),
+    webp: assetUrl("maps/hoenn-map-baked-item.webp"),
+  },
+  hidden: {
+    png: assetUrl("maps/hoenn-map-baked-hidden.png"),
+    webp: assetUrl("maps/hoenn-map-baked-hidden.webp"),
+  },
+  berry: {
+    png: assetUrl("maps/hoenn-map-baked-berry.png"),
+    webp: assetUrl("maps/hoenn-map-baked-berry.webp"),
+  },
+};
 
 /** Native pixel size of the source map (true-scale render, 16px per game tile). */
 const MAP_W = 12800;
@@ -233,13 +250,12 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
     [currentArea, trainerPoints],
   );
   const bakeOverworld = BAKE_HOENN_OVERWORLD_SPRITES && !currentArea;
-  const imgSrc = currentArea
-    ? assetUrl(currentArea.image)
-    : bakeOverworld
-      ? HOENN_MAP_BAKED_PNG
-      : HOENN_MAP_PNG;
+  const imgSrc = currentArea ? assetUrl(currentArea.image) : HOENN_MAP_PNG;
   const useHoennWebp = !currentArea;
-  const hoennWebpSrc = bakeOverworld ? HOENN_MAP_BAKED_WEBP : HOENN_MAP_WEBP;
+  const hoennWebpSrc = HOENN_MAP_WEBP;
+  const visibleBakeLayers = bakeOverworld
+    ? BAKED_OVERWORLD_CATEGORIES.filter((cat) => visible[cat])
+    : [];
   const mapImgRef = useRef<HTMLImageElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapW = currentArea ? currentArea.width : MAP_W;
@@ -842,12 +858,28 @@ export function HoennMap({ onSelectRegion, compact = false }: HoennMapProps) {
                 onLoad={() => setMapReady(true)}
               />
             )}
+            {visibleBakeLayers.map((cat) => {
+              const layer = HOENN_BAKE_LAYERS[cat];
+              return (
+                <picture key={`bake-${cat}`}>
+                  <source srcSet={layer.webp} type="image/webp" />
+                  <img
+                    src={layer.png}
+                    alt=""
+                    className="hoenn-map__image hoenn-map__bake-layer"
+                    decoding="async"
+                    draggable={false}
+                    aria-hidden="true"
+                  />
+                </picture>
+              );
+            })}
             {visiblePoints.map((point) => {
               const cat = POI_CATEGORIES.find((c) => c.id === point.category);
               const active = selectedId === point.id;
               const trainer = isTrainerPoint(point);
               const baked =
-                bakeOverworld && BAKED_OVERWORLD_CATEGORIES.has(point.category);
+                bakeOverworld && BAKED_OVERWORLD_CATEGORY_SET.has(point.category);
               return (
                 <div
                   key={point.id}
