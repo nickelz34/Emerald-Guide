@@ -88,6 +88,44 @@ export function MapPinVisual({ point }: MapPinVisualProps) {
   return <span className="hoenn-map__pin-dot" />;
 }
 
+/**
+ * Invisible hit box for characters already painted into a map image.
+ * Sized as a percent of the map box and feet-anchored at left%/top% — same
+ * footprint as live OW sprites, so taps land on the painted NPC.
+ */
+export function bakedSpriteHitStylePercent(
+  point: MapPoint,
+  mapW: number,
+  mapH: number,
+  spriteScale = 1,
+): Record<string, string | number> {
+  let fw = 16;
+  let fh = 32;
+  if (isTrainerPoint(point) || hasOwSprite(point)) {
+    fw = point.spriteWidth ?? 16;
+    fh = point.spriteHeight ?? 32;
+  } else {
+    const collectible = getCollectibleSprite(point.category);
+    if (collectible) {
+      fw = collectible.spriteWidth;
+      fh = collectible.spriteHeight;
+    }
+  }
+  const safeW = Math.max(1, mapW);
+  const safeH = Math.max(1, mapH);
+  const wPct = ((fw * spriteScale) / safeW) * 100;
+  const hPct = ((fh * spriteScale) / safeH) * 100;
+  // Keep a small floor so tiny sprites stay tappable on large maps.
+  const minWPct = (12 / safeW) * 100;
+  const minHPct = (12 / safeH) * 100;
+  return {
+    width: `${Math.max(wPct, minWPct)}%`,
+    height: `${Math.max(hPct, minHPct)}%`,
+    transform: "translate(-50%, -100%)",
+    transformOrigin: "center bottom",
+  };
+}
+
 /** Map-pin crop: keeps in-world facing / flip from entity data. */
 export function pinSpriteStyle(point: MapPoint): Record<string, string | number> {
   if (isTrainerPoint(point) || hasOwSprite(point)) {

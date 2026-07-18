@@ -6,7 +6,7 @@ import { getCropMapPoints, isTrainerPoint } from "../data/cropMarkers";
 import { POI_CATEGORIES, type MapPoint } from "../data/mapPoints";
 import { hasOwSprite, isBakedCutscenePoint } from "../data/areaMapCutsceneEntities";
 import { MapZoomViewport } from "./MapZoomViewport";
-import { MapPinVisual, pinSpriteStyle } from "./MapPinVisual";
+import { MapPinVisual, bakedSpriteHitStylePercent, pinSpriteStyle } from "./MapPinVisual";
 import { TrainerDetailModal, TrainerPinHint } from "./TrainerDetailPanel";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 import { fitPinPopups } from "../lib/fitMapPopup";
@@ -145,7 +145,9 @@ export function HoennCrop({
               left: `${point.x}%`,
               top: `${point.y}%`,
               ["--pin-color" as string]: cat?.color,
-              ...(baked ? {} : pinSpriteStyle(point)),
+              ...(baked
+                ? bakedSpriteHitStylePercent(point, cropWpx, cropHpx)
+                : pinSpriteStyle(point)),
             }}
             onPointerDown={(e) => e.stopPropagation()}
             onMouseEnter={(e) => {
