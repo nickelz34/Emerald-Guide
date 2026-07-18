@@ -33,6 +33,19 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.81",
+    date: "2026-07-18T10:47:34-05:00",
+    summary: "Hoenn Map defaults to Towns & Cities and Routes only.",
+    sections: [
+      {
+        heading: "Hoenn Map",
+        items: [
+          "On open, only Towns & Cities and Routes are enabled — gyms, landmarks, items, trainers, and other layers stay off until you turn them on.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.80",
     date: "2026-07-18T10:43:09-05:00",
     summary:
