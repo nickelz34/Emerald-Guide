@@ -1,4 +1,4 @@
-import { emeraldSpriteUrl, TYPE_COLORS } from "../data/species";
+import { emeraldSpriteUrlForSpecies, TYPE_COLORS } from "../data/species";
 import { assetUrl } from "../lib/assetUrl";
 import { OW_PORTRAIT_FRAME, owPortraitCssVars } from "../lib/owPortrait";
 
@@ -244,7 +244,7 @@ function TypeChips({ types }: { types: string[] }) {
 }
 
 function PokemonFace({ face }: { face: BattleFace }) {
-  const src = face.dex != null ? emeraldSpriteUrl(face.dex) : undefined;
+  const src = emeraldSpriteUrlForSpecies(face.name, face.dex);
   return (
     <span className="battle-basics__sprite battle-basics__sprite--pokemon">
       {src ? (

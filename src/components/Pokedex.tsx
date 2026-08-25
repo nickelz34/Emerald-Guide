@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { METHOD_LABELS } from "../types";
 import { loadWildPokedex, type Rarity, type WildPokemon } from "../data/wildSource";
 import { loadDex, DEX_META, type DexEntry, type DexScope } from "../data/dex";
-import { emeraldSpriteUrl, loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
+import { emeraldSpriteUrlForSpecies, loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
 import { getAreaDisplayMap } from "../data/stepImages";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
@@ -55,7 +55,7 @@ function MethodTags({ methods }: { methods: WildPokemon["methods"] }) {
 function DexCard({ card, scope, onSelect }: { card: PokedexCard; scope: DexScope; onSelect: () => void }) {
   const { entry, wild } = card;
   const num = dexNumber(entry, scope);
-  const sprite = emeraldSpriteUrl(entry.nationalNumber);
+  const sprite = emeraldSpriteUrlForSpecies(entry.name, entry.nationalNumber);
   return (
     <button type="button" className="poke-card" onClick={onSelect}>
       <div className="poke-card__top">
@@ -121,7 +121,7 @@ export function StatBars({ stats, total }: { stats: SpeciesInfo["stats"]; total:
 export function SpeciesPanel({ slug, name, nationalNumber }: { slug: string; name: string; nationalNumber: number }) {
   const [info, setInfo] = useState<SpeciesInfo | null>(null);
   const [error, setError] = useState(false);
-  const sprite = emeraldSpriteUrl(nationalNumber);
+  const sprite = emeraldSpriteUrlForSpecies(name, nationalNumber);
 
   useEffect(() => {
     let alive = true;

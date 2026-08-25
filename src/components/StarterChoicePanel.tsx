@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SPECIES_BY_SLUG } from "../data/speciesDataGenerated";
-import { emeraldSpriteUrl, TYPE_COLORS, type SpeciesInfo } from "../data/species";
+import { emeraldSpriteUrlForSpecies, TYPE_COLORS, type SpeciesInfo } from "../data/species";
 import { STARTER_CHOICE_INTRO, STARTER_GUIDE, type StarterGuideEntry } from "../data/starterChoice";
 import { defenseProfile } from "../lib/typeChart";
 import { StatBars } from "./Pokedex";
@@ -28,7 +28,7 @@ function Sprite({
   name: string;
   size?: "lg" | "md" | "sm";
 }) {
-  const src = emeraldSpriteUrl(nationalNumber);
+  const src = emeraldSpriteUrlForSpecies(name, nationalNumber);
   return (
     <span className={`starter-choice__sprite starter-choice__sprite--${size}`}>
       {src ? (

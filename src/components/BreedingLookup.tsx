@@ -5,7 +5,7 @@ import {
   type BreedingParentDetails,
   type BreedingResult,
 } from "../data/breeding";
-import { eggSpriteUrl, emeraldSpriteUrl, TYPE_COLORS } from "../data/species";
+import { eggSpriteUrl, emeraldSpriteUrlForSpecies, TYPE_COLORS } from "../data/species";
 
 function ParentCard({
   label,
@@ -22,7 +22,7 @@ function ParentCard({
   details: BreedingParentDetails;
   sharedEggGroups: string[];
 }) {
-  const spriteSrc = details.nationalNumber ? emeraldSpriteUrl(details.nationalNumber) : undefined;
+  const spriteSrc = emeraldSpriteUrlForSpecies(details.name, details.nationalNumber);
 
   return (
     <div className="breeding-lookup__parent">
@@ -115,7 +115,7 @@ function CompatibilityFlow({ result }: { result: BreedingResult }) {
                   {o.nationalNumber ? (
                     <img
                       className="breeding-lookup__sprite"
-                      src={emeraldSpriteUrl(o.nationalNumber)}
+                      src={emeraldSpriteUrlForSpecies(o.name, o.nationalNumber)}
                       alt=""
                       width={64}
                       height={64}
@@ -210,7 +210,7 @@ export function BreedingLookup() {
                     {!o.isNote && o.nationalNumber && (
                       <img
                         className="breeding-lookup__offspring-sprite"
-                        src={emeraldSpriteUrl(o.nationalNumber)}
+                        src={emeraldSpriteUrlForSpecies(o.name, o.nationalNumber)}
                         alt=""
                         width={32}
                         height={32}

@@ -1,6 +1,6 @@
 import type { EvolutionChartEdge, EvolutionChartSpec } from "../data/evolutionCharts";
 import { itemIconUrl } from "../data/evolutionCharts";
-import { emeraldSpriteUrl } from "../data/species";
+import { emeraldSpriteUrlForSpecies } from "../data/species";
 import { getItemBagIcon } from "../data/itemIconsGenerated";
 import { assetUrl } from "../lib/assetUrl";
 
@@ -37,7 +37,7 @@ function ItemIcon({
 }
 
 function MonSprite({ name, dex }: { name: string; dex: number }) {
-  const src = emeraldSpriteUrl(dex);
+  const src = emeraldSpriteUrlForSpecies(name, dex);
   return (
     <span className="evo-chart__mon">
       {src ? (

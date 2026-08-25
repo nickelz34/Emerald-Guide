@@ -4,7 +4,7 @@ import type {
   BreedingPairEdge,
 } from "../data/breedingChartTypes";
 import { itemIconUrl } from "../data/evolutionCharts";
-import { eggSpriteUrl, emeraldSpriteUrl } from "../data/species";
+import { eggSpriteUrl, emeraldSpriteUrlForSpecies } from "../data/species";
 import { getItemBagIcon } from "../data/itemIconsGenerated";
 import { assetUrl } from "../lib/assetUrl";
 
@@ -64,7 +64,9 @@ function MonSprite({
   compact?: boolean;
 }) {
   const isEgg = mon.kind === "egg";
-  const src = isEgg ? eggSpriteUrl() : mon.dex != null && mon.dex > 0 ? emeraldSpriteUrl(mon.dex) : undefined;
+  const src = isEgg
+    ? eggSpriteUrl()
+    : emeraldSpriteUrlForSpecies(mon.name, mon.dex);
   return (
     <span
       className={[

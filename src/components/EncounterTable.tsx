@@ -17,7 +17,7 @@ import { getAreaIdForEncounterStep } from "../data/encounters";
 import { getAreaDisplayMap } from "../data/stepImages";
 import type { MapPoint } from "../data/mapPoints";
 import { findDexEntryByName, loadAllDex, type DexEntry } from "../data/dex";
-import { emeraldSpriteUrl } from "../data/species";
+import { emeraldSpriteUrlForSpecies } from "../data/species";
 import type { TrainerPoint } from "../data/mapTrainersGenerated";
 import { HoennCrop } from "./HoennCrop";
 import { AreaMapView } from "./AreaMapView";
@@ -51,7 +51,9 @@ function EncounterMon({
   dexEntry?: DexEntry;
   onOpen?: () => void;
 }) {
-  const sprite = dexEntry && !dexEntry.isGlitch ? emeraldSpriteUrl(dexEntry.nationalNumber) : undefined;
+  const sprite = dexEntry && !dexEntry.isGlitch
+    ? emeraldSpriteUrlForSpecies(enc.name, dexEntry.nationalNumber)
+    : undefined;
   const clickable = Boolean(onOpen && dexEntry && !dexEntry.isGlitch);
 
   return (

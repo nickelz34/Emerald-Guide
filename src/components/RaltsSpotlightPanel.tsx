@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SPECIES_BY_SLUG } from "../data/speciesDataGenerated";
-import { emeraldSpriteUrl, TYPE_COLORS, type SpeciesInfo } from "../data/species";
+import { emeraldSpriteUrlForSpecies, TYPE_COLORS, type SpeciesInfo } from "../data/species";
 import {
   RALTS_ABILITIES_NOTE,
   RALTS_EMERALD_TYPES,
@@ -38,7 +38,7 @@ function Sprite({
   name: string;
   size?: "lg" | "md" | "sm";
 }) {
-  const src = emeraldSpriteUrl(nationalNumber);
+  const src = emeraldSpriteUrlForSpecies(name, nationalNumber);
   return (
     <span className={`starter-choice__sprite starter-choice__sprite--${size}`}>
       {src ? (

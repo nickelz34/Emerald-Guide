@@ -35,13 +35,21 @@ export const CHANGELOG: ChangelogRelease[] = [
   {
     version: "1.26.92",
     date: "2026-08-25T16:45:49-05:00",
-    summary: "Trainer party sprites now match the Pokémon listed on the panel.",
+    summary: "Trainer and species sprites now match the Pokémon named on every panel.",
     sections: [
       {
         heading: "Trainers",
         items: [
           "Map trainer panels (including Bug Catcher Lyle in Petalburg Woods) were loading party sprites from pokeemerald’s internal SPECIES numbers instead of National Dex numbers, so Hoenn Pokémon all showed the wrong — often identical — sprite.",
           "Party portraits and Pokédex numbers now use National Dex ids, so Wurmple, Zigzagoon, Taillow, and the rest of the Hoenn roster show their real Emerald front sprites.",
+          "Gym guides, rival battles, route trainer lists, Match Call rematches, and story trainer panels share that same lookup — a wrong numeric id cannot show the wrong Pokémon.",
+        ],
+      },
+      {
+        heading: "Pokédex, evolution & breeding",
+        items: [
+          "Wild encounters, fishing tables, the Pokédex, starter/Ralts spotlights, evolution charts, and breeding charts also resolve sprites from the species name first.",
+          "Build verification now checks named National Dex ids in those tables as well as trainer parties.",
         ],
       },
     ],

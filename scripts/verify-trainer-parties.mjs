@@ -126,3 +126,65 @@ if (missingSprites.length) {
 }
 
 console.log("OK — trainer party speciesId values are National Dex numbers with local sprites.");
+
+/** Scan hand-authored name + dex pairs (evolution, breeding, battle basics, etc.). */
+function walkSource(dir, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, ent.name);
+    if (ent.isDirectory()) {
+      if (ent.name === "node_modules") continue;
+      walkSource(p, out);
+    } else if (/\.(ts|tsx)$/.test(ent.name)) {
+      out.push(p);
+    }
+  }
+  return out;
+}
+
+const SKIP_FILES = new Set([
+  "changelog.ts",
+  "dexGenerated.ts",
+  "speciesDataGenerated.ts",
+  "trainerPartiesGenerated.ts",
+]);
+
+const NAME_DEX_PATTERNS = [
+  /fromName:\s*"([^"]+)",\s*fromDex:\s*(\d+)/g,
+  /toName:\s*"([^"]+)",\s*toDex:\s*(\d+)/g,
+  /name:\s*"([^"]+)",\s*dex:\s*(\d+)/g,
+  /\{\s*name:\s*"([^"]+)",\s*dex:\s*(\d+)/g,
+];
+
+const authoredMismatches = [];
+for (const file of walkSource(path.join(ROOT, "src"))) {
+  if (SKIP_FILES.has(path.basename(file))) continue;
+  const text = fs.readFileSync(file, "utf8");
+  const rel = path.relative(ROOT, file);
+  for (const re of NAME_DEX_PATTERNS) {
+    re.lastIndex = 0;
+    for (const m of text.matchAll(re)) {
+      const species = m[1];
+      const current = Number(m[2]);
+      const national = nationalForName(species, lookups);
+      if (!national) continue;
+      if (current !== national) {
+        authoredMismatches.push(`${rel}: ${species} #${current} (expected #${national})`);
+      }
+    }
+  }
+}
+
+if (authoredMismatches.length) {
+  console.error(
+    `verify-trainer-parties: ${authoredMismatches.length} hand-authored name/dex pair(s) do not match National Dex.`,
+  );
+  for (const row of authoredMismatches.slice(0, 30)) console.error(`  ${row}`);
+  if (authoredMismatches.length > 30) {
+    console.error(`  … +${authoredMismatches.length - 30} more`);
+  }
+  process.exit(1);
+}
+
+console.log("OK — evolution, breeding, and other named dex ids match National Dex.");
+

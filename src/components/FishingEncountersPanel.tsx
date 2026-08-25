@@ -7,7 +7,7 @@ import {
   type FishingMapEntry,
 } from "../data/fishingTables";
 import { findDexEntryByName, loadAllDex, type DexEntry } from "../data/dex";
-import { emeraldSpriteUrl } from "../data/species";
+import { emeraldSpriteUrlForSpecies } from "../data/species";
 import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
 import { METHOD_LABELS, type EncounterMethod } from "../types";
 import { SpeciesPanel } from "./Pokedex";
@@ -26,7 +26,9 @@ function FishingMonCell({
   onOpen?: () => void;
 }) {
   const sprite =
-    dexEntry && !dexEntry.isGlitch ? emeraldSpriteUrl(dexEntry.nationalNumber) : undefined;
+    dexEntry && !dexEntry.isGlitch
+      ? emeraldSpriteUrlForSpecies(mon.name, dexEntry.nationalNumber)
+      : undefined;
   const clickable = Boolean(onOpen && dexEntry && !dexEntry.isGlitch);
 
   return (
