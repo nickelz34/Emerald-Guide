@@ -8,7 +8,7 @@ import type { TrainerPoint } from "../data/mapTrainersGenerated";
 import { getTrainerBattleTips } from "../lib/trainerBattleTips";
 import { resistTypes, teamWeaknesses } from "../lib/typeChart";
 import { ModalBackdrop, ModalCloseButton } from "../lib/touchSafeClose";
-import { emeraldSpriteUrl, loadSpeciesInfo, TYPE_COLORS, type SpeciesInfo } from "../data/species";
+import { emeraldSpriteUrlForSpecies, loadSpeciesInfo, nationalDexNumberForSpecies, speciesSlug, TYPE_COLORS, type SpeciesInfo } from "../data/species";
 const FACING_LABELS = ["south", "north", "west", "east"] as const;
 
 function formatMapId(mapId?: string): string | null {
@@ -147,10 +147,6 @@ function partyFlagsLabel(flags?: string): string | null {
   }
 }
 
-function speciesSlug(name: string): string {
-  return name.toLowerCase().replace(/['.]/g, "").replace(/\s+/g, "-");
-}
-
 function findRematchVariants(trainerId?: string): { id: string; data: TrainerBattleData }[] {
   if (!trainerId) return [];
   const base = trainerId.replace(/_\d+$/, "");
@@ -163,6 +159,7 @@ function findRematchVariants(trainerId?: string): { id: string; data: TrainerBat
 function filterMoves(moves?: string[]): string[] {
   return (moves ?? []).filter((m) => m && m !== "-");
 }
+
 interface TrainerDetailPanelProps {
   trainer: TrainerPoint;
   /** Tighter layout for map pin popups. */
@@ -203,7 +200,7 @@ export function TrainerDetailPanel({ trainer, compact = false, className = "" }:
             <h6>Party</h6>
             <ul className="trainer-detail__party-list">
               {battle.party.map((mon, i) => {
-                const sprite = emeraldSpriteUrl(mon.speciesId);
+                const sprite = emeraldSpriteUrlForSpecies(mon.species, mon.speciesId);
                 return (
                   <li key={`${mon.species}-${i}`} className="trainer-detail__mon">
                     {sprite ? (
@@ -265,7 +262,8 @@ export function TrainerDetailPanel({ trainer, compact = false, className = "" }:
 /** Pokémon card with async species lookup (abilities, base stats, EXP). */
 function TrainerMonCard({ mon, index }: { mon: TrainerPartyMon; index: number }) {
   const [species, setSpecies] = useState<SpeciesInfo | null>(null);
-  const sprite = emeraldSpriteUrl(mon.speciesId);
+  const sprite = emeraldSpriteUrlForSpecies(mon.species, mon.speciesId);
+  const dexNumber = nationalDexNumberForSpecies(mon.species) ?? mon.speciesId;
   const ivNote = ivLabel(mon.iv);
   const moves = filterMoves(mon.moves);
 
@@ -294,7 +292,7 @@ function TrainerMonCard({ mon, index }: { mon: TrainerPartyMon; index: number })
         <div className="trainer-modal__mon-head">
           <div>
             <strong>{mon.species}</strong>
-            {mon.speciesId > 0 && <span className="trainer-modal__dex">#{mon.speciesId}</span>}
+            {dexNumber > 0 && <span className="trainer-modal__dex">#{dexNumber}</span>}
           </div>
           <span className="trainer-detail__level">Lv. {mon.level}</span>
         </div>

@@ -71,6 +71,38 @@ const POKEMON_SLUG_ALIASES: Record<string, string> = {
   deoxys: "deoxys-normal",
 };
 
+/** Slug used to look up bundled species / dex data from a display name. */
+export function speciesSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\./g, "")
+    .replace(/['’]/g, "")
+    .replace(/♀/g, "-f")
+    .replace(/♂/g, "-m")
+    .replace(/\s+/g, "-");
+}
+
+/**
+ * National Pokédex number (#1–386) for a species display name.
+ * Trainer party data historically stored pokeemerald SPECIES_* enum values,
+ * which do not match National Dex numbers for Hoenn Pokémon.
+ */
+export function nationalDexNumberForSpecies(name: string): number | undefined {
+  if (!name || name === "?") return undefined;
+  const slug = speciesSlug(name);
+  const info = SPECIES_BY_SLUG[slug] ?? SPECIES_BY_SLUG[POKEMON_SLUG_ALIASES[slug] ?? ""];
+  const n = info?.dexNumber;
+  return n && n >= 1 && n <= 386 ? n : undefined;
+}
+
+/** Emerald front sprite for a species name, falling back to a numeric id. */
+export function emeraldSpriteUrlForSpecies(
+  name: string,
+  fallbackNational?: number,
+): string | undefined {
+  return emeraldSpriteUrl(nationalDexNumberForSpecies(name) ?? fallbackNational);
+}
+
 /** In-game Egg sprite (party / Day Care). */
 export function eggSpriteUrl(): string {
   return assetUrl("sprites/pokemon/egg.png");
