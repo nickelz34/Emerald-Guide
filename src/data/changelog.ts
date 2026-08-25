@@ -33,6 +33,20 @@ export interface ChangelogRelease {
 
 export const CHANGELOG: ChangelogRelease[] = [
   {
+    version: "1.26.92",
+    date: "2026-08-25T16:45:49-05:00",
+    summary: "Trainer party sprites now match the Pokémon listed on the panel.",
+    sections: [
+      {
+        heading: "Trainers",
+        items: [
+          "Map trainer panels (including Bug Catcher Lyle in Petalburg Woods) were loading party sprites from pokeemerald’s internal SPECIES numbers instead of National Dex numbers, so Hoenn Pokémon all showed the wrong — often identical — sprite.",
+          "Party portraits and Pokédex numbers now use National Dex ids, so Wurmple, Zigzagoon, Taillow, and the rest of the Hoenn roster show their real Emerald front sprites.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.26.91",
     date: "2026-07-18T12:00:22-05:00",
     summary: "Returning to the map from the story restores your exact place.",

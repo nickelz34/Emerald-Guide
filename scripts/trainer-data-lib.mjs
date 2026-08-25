@@ -10,6 +10,33 @@ export function parseEnumNames(text, prefix) {
   return map;
 }
 
+/**
+ * Map SPECIES_WURMPLE → National Dex number (265) from pokedex.h.
+ * pokeemerald's SPECIES_* enum is Hoenn-dex order with OLD_UNOWN gaps, so it
+ * must not be used as the sprite / National Dex id.
+ */
+export function parseNationalDexBySpeciesKey(pokedexText) {
+  const map = new Map();
+  for (const m of pokedexText.matchAll(/#define\s+NATIONAL_DEX_(\w+)\s+(\d+)/g)) {
+    if (m[1] === "COUNT") continue;
+    map.set(`SPECIES_${m[1]}`, Number(m[2]));
+  }
+  return map;
+}
+
+/** Prefer National Dex; fall back to SPECIES_* enum (forms / unused slots). */
+export function resolveSpeciesNationalNumber(speciesKey, nationalByKey, enumByKey) {
+  if (nationalByKey.has(speciesKey)) return nationalByKey.get(speciesKey);
+  const formBase = speciesKey.replace(
+    /_(?:SUNNY|RAINY|SNOWY|ATTACK|DEFENSE|SPEED)$/,
+    "",
+  );
+  if (formBase !== speciesKey && nationalByKey.has(formBase)) {
+    return nationalByKey.get(formBase);
+  }
+  return enumByKey.get(speciesKey);
+}
+
 export function parseSpeciesNames(text) {
   const names = new Map();
   for (const m of text.matchAll(/\[SPECIES_(\w+)\]\s*=\s*_\("([^"]*)"\)/g)) {
@@ -83,7 +110,7 @@ function parseMonBlock(block, speciesNames, moveNames, itemNames, speciesTypes, 
   const heldRaw = block.match(/\.heldItem\s*=\s*(ITEM_\w+)/)?.[1];
   const moves = parseMovesFromBlock(block, moveNames);
   const species = speciesNames.get(speciesRaw) ?? speciesRaw.replace(/^SPECIES_/, "");
-  const num = speciesNums.get(speciesRaw);
+  const num = speciesNums.get(speciesRaw) ?? 0;
   const types = speciesTypes.get(speciesRaw) ?? ["Normal"];
   const mon = {
     species,
